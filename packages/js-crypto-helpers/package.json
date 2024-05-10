@@ -3,11 +3,11 @@
   "version": "0.0.11",
   "description": "just simple wrappers around core js crypto functions",
   "main": "src/index.js",
-  "scripts": {
-    "build": "esbuild src/index.js --bundle --outfile=dist/js-crypto-helpers.js --minify",
-    "watch": "esbuild src/index.js --bundle --outfile=dist/js-crypto-helpers.js --minify --watch",
-    "test": "jest",
-    "pub": "npm version patch --force && npm publish --access=public"
+  "bin": {
+    "decrypt": "./src/decrypt-bin.js",
+    "encrypt": "./src/encrypt-bin.js",
+    "hash": "./src/hash-bin.js",
+    "random-string": "./src/random-string-bin.js"
   },
   "keywords": [
     "crypto",
@@ -26,11 +26,5 @@
   "dependencies": {
     "@jrc03c/js-math-tools": "^0.0.63",
     "@jrc03c/js-text-tools": "^0.0.27"
-  },
-  "bin": {
-    "decrypt": "./src/decrypt-bin.js",
-    "encrypt": "./src/encrypt-bin.js",
-    "hash": "./src/hash-bin.js",
-    "random-string": "./src/random-string-bin.js"
   }
 }
