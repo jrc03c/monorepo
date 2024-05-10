@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@jrc03c/bash-colors": "^0.0.3",
+    "@jrc03c/js-math-tools": "^0.0.59",
+    "@jrc03c/js-text-tools": "^0.0.24",
+    "@jrc03c/js-type-experiments": "^0.0.7",
+    "@jrc03c/prompt": "^0.0.5",
+    "eslint": "^8.53.0",
+    "prettier": "^3.0.3"
+  }
+}

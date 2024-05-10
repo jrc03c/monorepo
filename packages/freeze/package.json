@@ -1,0 +1,16 @@
+{
+  "name": "@jrc03c/freeze",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "jrc03c",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.22.0",
+    "jest": "^27.4.7"
+  }
+}

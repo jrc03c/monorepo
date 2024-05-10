@@ -1,0 +1,20 @@
+{
+  "name": "@jrc03c/queue",
+  "version": "0.0.5",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --outfile=dist/queue.js --minify",
+    "watch": "esbuild src/index.js --bundle --outfile=dist/queue.js --minify --watch",
+    "test": "jest",
+    "pub": "npm version patch --force && npm publish --access=public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@jrc03c/make-key": "^0.0.6",
+    "esbuild": "^0.14.43",
+    "jest": "^29.3.1"
+  }
+}
