@@ -1,1 +1,10 @@
+dependsOn:
+- id: js-math-tools
+  scope: development
+- id: js-text-tools
+  scope: development
+- id: js-type-experiments
+  scope: development
+- id: prompt
+  scope: development
 language: javascript
