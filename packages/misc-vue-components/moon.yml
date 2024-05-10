@@ -1,1 +1,35 @@
+dependsOn:
+- pause
 language: javascript
+tasks:
+  build:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/misc-vue-components.js
+    platform: node
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  watch:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/misc-vue-components.js
+    - --watch
+    local: true
+    platform: node
