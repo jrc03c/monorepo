@@ -3,14 +3,11 @@
   "version": "0.0.1",
   "description": "a simple async pause function",
   "main": "index.js",
-  "scripts": {
-    "pub": "npm version patch --force && npm publish --access=public"
-  },
+  "license": "ISC",
   "keywords": [
     "pause",
     "js",
     "settimeout"
   ],
-  "author": "jrc03c",
-  "license": "ISC"
+  "author": "jrc03c"
 }
