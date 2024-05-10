@@ -1,0 +1,11 @@
+$schema: "https://moonrepo.dev/schemas/toolchain.json"
+
+node:
+  addEnginesConstraint: true
+  dedupeOnLockfileChange: true
+  inferTasksFromScripts: true
+  npm:
+    version: "10.5.2"
+  packageManager: "npm"
+  syncProjectWorkspaceDependencies: true
+  version: "20.13.1"
