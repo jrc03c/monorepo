@@ -8,8 +8,5 @@
     "prompt"
   ],
   "author": "jrc03c",
-  "license": "ISC",
-  "scripts": {
-    "pub": "npm version patch --force && npm publish --access=public"
-  }
+  "license": "ISC"
 }
