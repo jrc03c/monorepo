@@ -1,1 +1,45 @@
+dependsOn:
+- fs-extras
+- js-math-tools
+- id: make-key
+  scope: development
 language: javascript
+tasks:
+  build:
+    command:
+    - esbuild
+    - src/index.js
+    - --external:@jrc03c/fs-extras
+    - --bundle
+    - --outfile=dist/js-csv-helpers.js
+    - --minify
+    platform: node
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  test:
+    command: jest
+    platform: node
+  watch:
+    command:
+    - esbuild
+    - src/index.js
+    - --external:@jrc03c/fs-extras
+    - --bundle
+    - --outfile=dist/js-csv-helpers.js
+    - --minify
+    - --watch
+    local: true
+    platform: node
