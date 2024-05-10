@@ -1,40 +1,50 @@
 dependsOn:
-- js-math-tools
+  - js-math-tools
 language: javascript
 tasks:
   build:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/make-key.js
-    - --minify
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/make-key.js
+      - --minify
+    inputs:
+      - "package.json"
+      - "src/**/*"
+    outputs:
+      - "dist/make-key.js"
     platform: node
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
     platform: node
   test:
     command: jest
     platform: node
   watch:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/make-key.js
-    - --minify
-    - --watch
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/make-key.js
+      - --minify
+      - --watch
+    inputs:
+      - "package.json"
+      - "src/**/*"
     local: true
+    outputs:
+      - "dist/make-key.js"
     platform: node
