@@ -1,0 +1,18 @@
+{
+  "name": "@jrc03c/radio",
+  "version": "0.0.4",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "pub": "npm version patch --force && npm publish --access=public"
+  },
+  "keywords": [],
+  "author": "jrc03c",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "jest": "^29.4.2",
+    "prettier": "^2.8.3"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@jrc03c/bee",
+  "version": "0.0.37",
+  "description": "makes web workers easier to use",
+  "main": "src/index.js",
+  "keywords": [
+    "web-worker"
+  ],
+  "author": "jrc03c",
+  "license": "ISC",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch",
+    "pub": "npm version patch --force && npm publish --access=public"
+  },
+  "devDependencies": {
+    "@jrc03c/watch": "^0.0.12",
+    "esbuild": "^0.14.51",
+    "eslint": "^8.21.0",
+    "eslint-plugin-html": "^8.1.0",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "@jrc03c/js-math-tools": "^0.0.63",
+    "@jrc03c/js-text-tools": "^0.0.34",
+    "@jrc03c/make-key": "^0.0.15"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@jrc03c/progress",
+  "version": "0.0.2",
+  "description": "makes a progress bar",
+  "main": "index.js",
+  "author": "jrc03c"
+}
