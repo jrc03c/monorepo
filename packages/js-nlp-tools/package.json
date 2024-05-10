@@ -18,10 +18,5 @@
     "@jrc03c/js-text-tools": "^0.0.24",
     "@jrc03c/js-type-experiments": "^0.0.12",
     "@jrc03c/make-key": "^0.0.14"
-  },
-  "scripts": {
-    "build": "esbuild src/index.js --bundle --outfile=dist/js-nlp-tools.js",
-    "watch": "esbuild src/index.js --bundle --outfile=dist/js-nlp-tools.js --watch",
-    "pub": "npm version patch --force && npm publish --access=public"
   }
 }

@@ -1,1 +1,42 @@
+dependsOn:
+- base-class
+- filedb
+- fs-extras
+- js-crypto-helpers
+- js-math-tools
+- js-text-tools
+- js-type-experiments
+- make-key
 language: javascript
+tasks:
+  build:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/js-nlp-tools.js
+    platform: node
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  watch:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/js-nlp-tools.js
+    - --watch
+    local: true
+    platform: node
