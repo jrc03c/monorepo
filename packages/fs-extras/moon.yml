@@ -1,1 +1,30 @@
+dependsOn:
+- js-math-tools
+- id: filedb
+  scope: development
+- id: make-key
+  scope: development
+- id: progress
+  scope: development
 language: javascript
+tasks:
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  test:
+    command:
+    - jest
+    - --coverage=true
+    platform: node
