@@ -1,1 +1,31 @@
+dependsOn:
+- js-text-tools
+- js-type-experiments
+- pause
+- id: filedb
+  scope: development
+- id: js-crypto-helpers
+  scope: development
+- id: js-math-tools
+  scope: development
+- id: logger
+  scope: development
+- id: make-key
+  scope: development
 language: javascript
+tasks:
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
