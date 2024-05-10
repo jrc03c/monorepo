@@ -1,1 +1,26 @@
+dependsOn:
+- fs-extras
+- id: make-key
+  scope: development
+- id: pause
+  scope: development
 language: javascript
+tasks:
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  test:
+    command: jest
+    platform: node
