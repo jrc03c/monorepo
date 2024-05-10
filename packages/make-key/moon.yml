@@ -1,1 +1,40 @@
+dependsOn:
+- js-math-tools
 language: javascript
+tasks:
+  build:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/make-key.js
+    - --minify
+    platform: node
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  test:
+    command: jest
+    platform: node
+  watch:
+    command:
+    - esbuild
+    - src/index.js
+    - --bundle
+    - --outfile=dist/make-key.js
+    - --minify
+    - --watch
+    local: true
+    platform: node
