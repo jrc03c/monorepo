@@ -18,12 +18,6 @@
   "author": "jrc03c",
   "license": "ISC",
   "homepage": "https://github.com/jrc03c/js-convex-hull#readme",
-  "scripts": {
-    "build": "esbuild src/index.js --bundle --outfile=dist/js-convex-hull.js --minify",
-    "watch": "esbuild src/index.js --bundle --outfile=dist/js-convex-hull.js --minify --watch",
-    "test": "jest",
-    "pub": "npm version patch --force && npm publish --access=public"
-  },
   "devDependencies": {
     "@jrc03c/js-math-tools": "^0.0.63",
     "esbuild": "^0.17.4",
