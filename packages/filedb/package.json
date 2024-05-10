@@ -4,17 +4,13 @@
   "description": "a database solution that reads and writes plain text files from disk",
   "main": "index.js",
   "author": "jrc03c",
-  "scripts": {
-    "test": "jest",
-    "pub": "npm version patch --force && npm publish --access=public"
+  "dependencies": {
+    "@jrc03c/js-math-tools": "^0.0.63",
+    "@jrc03c/make-key": "^0.0.15"
   },
   "devDependencies": {
     "eslint": "^8.19.0",
     "jest": "^29.0.3",
     "prettier": "^2.8.8"
-  },
-  "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.63",
-    "@jrc03c/make-key": "^0.0.15"
   }
 }
