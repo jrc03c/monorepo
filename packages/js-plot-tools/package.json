@@ -7,17 +7,12 @@
     "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools",
     "@jrc03c/make-key": "github:jrc03c/make-key"
   },
-  "scripts": {
-    "watch": "esbuild src/browser-plotter.js --bundle --outfile=dist/js-plot-tools.js --minify --watch",
-    "build": "esbuild src/browser-plotter.js --bundle --outfile=dist/js-plot-tools.js --minify",
-    "pub": "npm version patch --force && npm publish --access=public"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.14.23",
     "eslint": "^8.26.0",
     "jest": "^29.2.1"
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

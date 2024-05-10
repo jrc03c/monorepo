@@ -1,1 +1,38 @@
+dependsOn:
+- js-math-tools
+- make-key
 language: javascript
+tasks:
+  build:
+    command:
+    - esbuild
+    - src/browser-plotter.js
+    - --bundle
+    - --outfile=dist/js-plot-tools.js
+    - --minify
+    platform: node
+  pub:
+    command:
+    - npm
+    - publish
+    - --access=public
+    deps:
+    - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+    - npm
+    - version
+    - patch
+    - --force
+    platform: node
+  watch:
+    command:
+    - esbuild
+    - src/browser-plotter.js
+    - --bundle
+    - --outfile=dist/js-plot-tools.js
+    - --minify
+    - --watch
+    local: true
+    platform: node
