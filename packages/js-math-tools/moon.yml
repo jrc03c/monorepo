@@ -10,9 +10,6 @@ tasks:
       - --bundle
       - --outfile=dist/js-math-tools.js
       - --minify
-    inputs:
-      - "src/**/*"
-      - "package.json"
     outputs:
       - "dist/js-math-tools.js"
     platform: node
@@ -44,9 +41,6 @@ tasks:
       - --outfile=dist/js-math-tools.js
       - --minify
       - --watch
-    inputs:
-      - "src/**/*"
-      - "package.json"
     local: true
     outputs:
       - "dist/js-math-tools.js"
