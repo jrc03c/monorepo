@@ -1,0 +1,16 @@
+{
+  "name": "@jrc03c/bash-colors",
+  "version": "0.0.3",
+  "description": "a less-well-made clone of `chalk`",
+  "main": "index.js",
+  "keywords": [
+    "color",
+    "bash",
+    "log",
+    "print",
+    "node",
+    "js"
+  ],
+  "author": "jrc03c",
+  "license": "ISC"
+}

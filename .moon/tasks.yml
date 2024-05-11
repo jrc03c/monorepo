@@ -1,0 +1,10 @@
+$schema: "https://moonrepo.dev/schemas/tasks.json"
+
+implicitDeps:
+  - "^:build"
+
+implicitInputs:
+  - "package.json"
+  - "public/res/js/src/**/*"
+  - "res/js/src/**/*"
+  - "src/**/*"
