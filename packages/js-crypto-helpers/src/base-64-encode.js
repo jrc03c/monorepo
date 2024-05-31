@@ -1,11 +1,9 @@
-const { Base64EncodingError } = require("./errors")
 const { isString } = require("@jrc03c/js-math-tools")
+const { stringify } = require("@jrc03c/js-text-tools")
 
 function base64Encode(x) {
   if (!isString(x)) {
-    throw new Base64EncodingError(
-      "The value passed into the `base64Encode` must be a string!"
-    )
+    x = stringify(x)
   }
 
   return btoa(encodeURIComponent(x))
