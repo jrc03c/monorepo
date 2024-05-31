@@ -1,8 +1,10 @@
 $schema: "https://moonrepo.dev/schemas/tasks.json"
 
+# always build dependencies when building / testing a project
 implicitDeps:
   - "^:build"
 
+# automatically look for these files as entry points to build tasks
 implicitInputs:
   - "package.json"
   - "public/res/js/src/**/*"
