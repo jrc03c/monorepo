@@ -23,17 +23,10 @@ moon app-name:script-name
 
 > ℹ️ **NOTE:** When a project is initialized for the first time, Moon copies its scripts from the project's `package.json` file to a new `moon.yml` file. When running a project script as shown above, make sure to reference the script name as defined in `moon.yml`, _not_ `package.json` (though ideally the two will be identical).
 
-### Run all build and test tasks for a project (or multiple projects) [[docs](https://moonrepo.dev/docs/commands/check)]
+### Run all build and test tasks for all projects [[docs](https://moonrepo.dev/docs/commands/ci)]
 
 ```bash
-# all projects
-moon check --all
-
-# a particular project
-moon check app-name
-
-# or a group of projects
-moon check app-name-1 app-name-2 ...
+moon ci
 ```
 
 ### Clean the cache [[docs](https://moonrepo.dev/docs/commands/clean)]
