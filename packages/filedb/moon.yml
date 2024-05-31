@@ -1,22 +1,24 @@
 dependsOn:
-- js-math-tools
-- make-key
+  - js-math-tools
+  - make-key
 language: javascript
 tasks:
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
+    local: true
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
     platform: node
   test:
     command: jest
