@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/js-nlp-tools",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "src/index.js",
   "devDependencies": {
     "esbuild": "^0.19.2",

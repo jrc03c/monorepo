@@ -7965,6 +7965,9 @@
           }
           return super.set(key, value);
         }
+        stringify() {
+          return JSON.stringify(this.toObject(), ...arguments);
+        }
         toObject() {
           const out = {};
           Array.from(this.keys()).forEach((key) => {
@@ -8053,6 +8056,9 @@
             progress(1);
           this.hasBeenIndexed = true;
           return this;
+        }
+        stringify() {
+          return JSON.stringify(this.toObject(), ...arguments);
         }
         toObject() {
           return {
@@ -8237,12 +8243,10 @@
           this.hasBeenIndexed = true;
           return this;
         }
+        stringify() {
+          return JSON.stringify(this.toObject(), ...arguments);
+        }
         toObject() {
-          if (!this.hasBeenIndexed) {
-            throw new Error(
-              `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-            );
-          }
           return {
             docs: this.docs.map((doc) => doc.toObject(...arguments)),
             hasBeenIndexed: this.hasBeenIndexed,
