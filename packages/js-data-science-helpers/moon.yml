@@ -1,44 +1,46 @@
 dependsOn:
-- js-math-tools
-- js-text-tools
-- make-key
+  - js-math-tools
+  - js-text-tools
+  - make-key
 language: javascript
 tasks:
   build:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/js-data-science-helpers.js
-    - --minify
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/js-data-science-helpers.js
+      - --minify
     platform: node
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
+    local: true
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
     platform: node
   test:
     command:
-    - bash
-    - ./test.sh
+      - bash
+      - ./test.sh
     platform: system
   watch:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/js-data-science-helpers.js
-    - --minify
-    - --watch
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/js-data-science-helpers.js
+      - --minify
+      - --watch
     local: true
     platform: node

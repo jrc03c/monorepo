@@ -21,6 +21,7 @@ tasks:
     - --access=public
     deps:
     - ~:pub-dep1
+    local: true
     platform: node
   pub-dep1:
     command:
@@ -28,4 +29,5 @@ tasks:
     - version
     - patch
     - --force
+    local: true
     platform: node

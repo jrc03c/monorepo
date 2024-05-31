@@ -1,43 +1,45 @@
 dependsOn:
-- js-math-tools
-- js-text-tools
+  - js-math-tools
+  - js-text-tools
 language: javascript
 tasks:
   build:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/js-type-experiments.js
-    - --minify
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/js-type-experiments.js
+      - --minify
     platform: node
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
+    local: true
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
     platform: node
   test:
     command:
-    - npx
-    - jest
+      - npx
+      - jest
     platform: node
   watch:
     command:
-    - esbuild
-    - src/index.js
-    - --bundle
-    - --outfile=dist/js-type-experiments.js
-    - --minify
-    - --watch
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --outfile=dist/js-type-experiments.js
+      - --minify
+      - --watch
     local: true
     platform: node

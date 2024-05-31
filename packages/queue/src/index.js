@@ -11,9 +11,10 @@ class Queue {
   constructor(timeBetweenJobs) {
     const self = this
 
-    if (typeof timeBetweenJobs !== "undefined") {
-      self.timeBetweenJobs = timeBetweenJobs
-    }
+    self.timeBetweenJobs =
+      typeof timeBetweenJobs === "undefined"
+        ? self.timeBetweenJobs
+        : timeBetweenJobs
   }
 
   append(fn) {
