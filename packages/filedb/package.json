@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/filedb",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "a database solution that reads and writes plain text files from disk",
   "main": "index.js",
   "author": "jrc03c",
