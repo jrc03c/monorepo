@@ -6,7 +6,7 @@
     "prettier": "^3.2.5"
   },
   "name": "@jrc03c/base-class",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "src/index.js",
   "license": "ISC",
   "author": "jrc03c"

@@ -17,5 +17,5 @@
   "license": "ISC",
   "main": "index.js",
   "name": "@jrc03c/logger",
-  "version": "0.0.12"
+  "version": "0.0.13"
 }
