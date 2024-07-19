@@ -1,0 +1,8 @@
+# share the npm token with all publish tasks
+env:
+  NPM_TOKEN: ${NPM_TOKEN}
+
+tasks:
+  pub:
+    env:
+      NPM_TOKEN: ${NPM_TOKEN}
