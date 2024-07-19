@@ -20,14 +20,18 @@ test("tests that objects and arrays with circular references can be stringified"
   const arr = [2, 3, 4]
   arr.push([[arr]])
   arr.push([5, 6, [arr]])
+
   const arrTrue = `[2,3,4,[["Symbol(@String):<reference to \\"/\\">"]],[5,6,["Symbol(@String):<reference to \\"/\\">"]]]`
+
   expect(stringify(arr)).toBe(arrTrue)
 
   const obj = { hello: { to: { the: "world" } } }
   obj.hello.to.copy = obj.hello.to
   obj["self"] = { x: { y: { z: obj.hello.to } } }
   obj["arr"] = { values: [2, obj.hello.to, 3, 4] }
+
   const objTrue = `{"hello":{"to":{"the":"Symbol(@String):world","copy":"Symbol(@String):<reference to \\"/hello/to\\">"}},"self":{"x":{"y":{"z":{"the":"Symbol(@String):world","copy":"Symbol(@String):<reference to \\"/hello/to\\">"}}}},"arr":{"values":[2,{"the":"Symbol(@String):world","copy":"Symbol(@String):<reference to \\"/hello/to\\">"},3,4]}}`
+
   expect(stringify(obj)).toBe(objTrue)
 })
 
@@ -67,8 +71,8 @@ test("tests that indentation can be applied when stringifying", () => {
       random() < 1 / 4
         ? []
         : random() < 1 / 4
-        ? {}
-        : variables[parseInt(random() * variables.length)]
+          ? {}
+          : variables[parseInt(random() * variables.length)]
 
     if (endpoint instanceof Array) {
       endpoint.push(value)
@@ -281,6 +285,10 @@ test("tests that values can be stringified and parsed back to their original val
     // note: this is currently causing this test to fail! for some reason,
     // strings inside of objects aren't getting treated like standalone strings!
     { myNumberLikeString: "12345" },
+
+    // strings that contain newlines
+    ["foo", "bar", "baz"].join("\n"),
+    { whatevs: ["foo", "bar", "baz"].join("\n") },
   ]
 
   variables.forEach(value => {
@@ -332,8 +340,8 @@ test("tests that stringification and parsing work when writing to and reading fr
       random() < 1 / 4
         ? []
         : random() < 1 / 4
-        ? {}
-        : variables[parseInt(random() * variables.length)]
+          ? {}
+          : variables[parseInt(random() * variables.length)]
 
     if (endpoint instanceof Array) {
       endpoint.push(value)
@@ -419,7 +427,7 @@ test("tests that core value types can be stringified correctly", () => {
     [
       buffer,
       `{"values":${JSON.stringify(
-        Array.from(ui8Array)
+        Array.from(ui8Array),
       )},"Symbol(@TypedArrayConstructor)":"Symbol(@String):ArrayBuffer"}`,
     ],
   ]

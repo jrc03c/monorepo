@@ -61,13 +61,21 @@ function parseAsString(x) {
     return
   }
 
+  const replacement = "@jrc03c/js-text-tools/newline-replacer"
+  x = x.replaceAll("\n", replacement)
+
   if (x.trim().match(/^("|')?Symbol\(@String\):.*?("|')?$/g)) {
     let out = x.replace("Symbol(@String):", "")
 
     if (out.match(/^".*?"$/g)) {
-      out = out.substring(1, out.length - 1)
+      try {
+        return JSON.parse(out)
+      } catch (e) {
+        out = out.substring(1, out.length - 1)
+      }
     }
 
+    out = out.replaceAll(replacement, "\n")
     return out
   }
 }

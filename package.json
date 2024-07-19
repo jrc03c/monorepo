@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@moonrepo/cli": "^1.27.2",
+    "eslint": "^9.7.0",
+    "eslint-plugin-html": "^8.1.1",
+    "eslint-plugin-vue": "^9.27.0",
+    "globals": "^15.8.0",
+    "prettier": "^3.3.3"
+  },
+  "packageManager": "npm@10.5.2",
+  "engines": {
+    "node": "20.13.1"
+  }
+}
