@@ -1,0 +1,36 @@
+# Intro
+
+This monorepo contains the following packages:
+
+- [base-class](./packages/base-class)
+- [bash-colors](./packages/bash-colors)
+- [bee](./packages/bee)
+- [cli-utils](./packages/cli-utils)
+- [color](./packages/color)
+- [create-high-dpi-canvas](./packages/create-high-dpi-canvas)
+- [custom-scroller](./packages/custom-scroller)
+- [filedb](./packages/filedb)
+- [freeze](./packages/freeze)
+- [fs-extras](./packages/fs-extras)
+- [js-convex-hull](./packages/js-convex-hull)
+- [js-crypto-helpers](./packages/js-crypto-helpers)
+- [js-csv-helpers](./packages/js-csv-helpers)
+- [js-data-science-helpers](./packages/js-data-science-helpers)
+- [js-math-tools](./packages/js-math-tools)
+- [js-nlp-tools](./packages/js-nlp-tools)
+- [js-plot-tools](./packages/js-plot-tools)
+- [js-text-tools](./packages/js-text-tools)
+- [js-type-experiments](./packages/js-type-experiments)
+- [logger](./packages/logger)
+- [make-key](./packages/make-key)
+- [misc-vue-components](./packages/misc-vue-components)
+- [pause](./packages/pause)
+- [progress](./packages/progress)
+- [prompt](./packages/prompt)
+- [queue](./packages/queue)
+- [radio](./packages/radio)
+- [vector2](./packages/vector2)
+- [watch](./packages/watch)
+- [web-crawler](./packages/web-crawler)
+
+All of these packages are in the process of being migrated from their standalone repos into this repo. Henceforth, this repo will contain the most up-to-date version of the packages. I'll soon be archiving the original solo repos.
