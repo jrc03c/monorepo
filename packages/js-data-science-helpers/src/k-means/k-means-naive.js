@@ -22,42 +22,38 @@ class KMeansNaive {
   constructor(config) {
     assert(
       typeof config === "object",
-      "`config` must be an object! See the documentation for more information about the properties that the `config` object can contain."
+      "`config` must be an object! See the documentation for more information about the properties that the `config` object can contain.",
     )
 
     assert(isWholeNumber(config.k), "`k` must be a whole number!")
 
     assert(
       isWholeNumber(config.maxIterations) || isUndefined(config.maxIterations),
-      "`maxIterations` must be a whole number or undefined!"
+      "`maxIterations` must be a whole number or undefined!",
     )
 
     assert(
       isWholeNumber(config.maxRestarts) || isUndefined(config.maxRestarts),
-      "`maxRestarts` must be a whole number or undefined!"
+      "`maxRestarts` must be a whole number or undefined!",
     )
 
     assert(
       typeof config.tolerance === "number" || isUndefined(config.tolerance),
-      "`tolerance` must be a number or undefined!"
+      "`tolerance` must be a number or undefined!",
     )
 
-    const self = this
-    self.k = config.k
-    self.maxRestarts = config.maxRestarts || 25
-    self.maxIterations = config.maxIterations || 100
-    self.tolerance = config.tolerance || 1e-4
-    self.centroids = null
+    this.k = config.k
+    this.maxRestarts = config.maxRestarts || 25
+    this.maxIterations = config.maxIterations || 100
+    this.tolerance = config.tolerance || 1e-4
+    this.centroids = null
   }
 
   initializeCentroids(x) {
-    const self = this
-    return shuffle(x).slice(0, self.k)
+    return shuffle(x).slice(0, this.k)
   }
 
   getFitStepFunction(x, progress) {
-    const self = this
-
     assert(isMatrix(x), "`x` must be a matrix!")
 
     if (isDataFrame(x)) {
@@ -68,7 +64,7 @@ class KMeansNaive {
       assert(isFunction(progress), "If defined, `progress` must be a function!")
     }
 
-    const centroids = self.initializeCentroids(x)
+    const centroids = this.initializeCentroids(x)
 
     const state = {
       currentRestart: 0,
@@ -79,13 +75,13 @@ class KMeansNaive {
       isFinished: false,
     }
 
-    return function fitStep() {
+    return () => {
       // get the labels for the points
-      const labels = self.predict(x, state.currentCentroids)
+      const labels = this.predict(x, state.currentCentroids)
 
       // average the points in each cluster
       const sums = []
-      const counts = zeros(self.k)
+      const counts = zeros(this.k)
 
       x.forEach((p, i) => {
         const k = labels[i]
@@ -98,7 +94,7 @@ class KMeansNaive {
         counts[k]++
       })
 
-      const newCentroids = range(0, self.k).map(k => {
+      const newCentroids = range(0, this.k).map(k => {
         // if for some reason the count for this centroid is 0, then no
         // points were assigned to this centroid, which means it's no longer
         // useful; so, instead, we'll just almost-duplicate another centroid
@@ -108,7 +104,7 @@ class KMeansNaive {
             state.currentCentroids[
               parseInt(random() * state.currentCentroids.length)
             ],
-            scale(0.001, normal(state.currentCentroids[0].length))
+            scale(0.001, normal(state.currentCentroids[0].length)),
           )
         } else {
           return divide(sums[k], counts[k])
@@ -118,24 +114,24 @@ class KMeansNaive {
       // if the change from the previous centroids to these new centroids
       // is very small (i.e., less then `tolerance`), then we should stop
       // iterating
-      if (distance(state.currentCentroids, newCentroids) < self.tolerance) {
-        state.currentIteration = self.maxIterations - 1
+      if (distance(state.currentCentroids, newCentroids) < this.tolerance) {
+        state.currentIteration = this.maxIterations - 1
       } else {
         state.currentCentroids = newCentroids
       }
 
       if (progress) {
         progress(
-          (state.currentRestart + state.currentIteration / self.maxIterations) /
-            self.maxRestarts,
-          self
+          (state.currentRestart + state.currentIteration / this.maxIterations) /
+            this.maxRestarts,
+          this,
         )
       }
 
       state.currentIteration++
 
-      if (state.currentIteration >= self.maxIterations) {
-        const score = self.score(x, state.currentCentroids)
+      if (state.currentIteration >= this.maxIterations) {
+        const score = this.score(x, state.currentCentroids)
 
         if (score > state.bestScore) {
           state.bestScore = score
@@ -145,15 +141,15 @@ class KMeansNaive {
         state.currentIteration = 0
         state.currentRestart++
 
-        if (state.currentRestart >= self.maxRestarts) {
+        if (state.currentRestart >= this.maxRestarts) {
           state.isFinished = true
-          self.centroids = state.bestCentroids
+          this.centroids = state.bestCentroids
 
           if (progress) {
-            progress(1, self)
+            progress(1, this)
           }
         } else {
-          const newCentroids = self.initializeCentroids(x)
+          const newCentroids = this.initializeCentroids(x)
           state.currentCentroids = newCentroids
         }
       }
@@ -163,24 +159,22 @@ class KMeansNaive {
   }
 
   fit(x, progress) {
-    const self = this
-    const fitStep = self.getFitStepFunction(x, progress)
+    const fitStep = this.getFitStepFunction(x, progress)
     let state
 
     while (!state || !state.isFinished) {
       state = fitStep()
     }
 
-    return self
+    return this
   }
 
   predict(x, centroids) {
-    const self = this
-    centroids = centroids || self.centroids
+    centroids = centroids || this.centroids
 
     if (!centroids) {
       throw new Error(
-        "No centroids were provided to the `predict` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `predict` method or run the `fit` method first!"
+        "No centroids were provided to the `predict` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `predict` method or run the `fit` method first!",
       )
     }
 
@@ -188,16 +182,15 @@ class KMeansNaive {
   }
 
   score(x, centroids) {
-    const self = this
-    centroids = centroids || self.centroids
+    centroids = centroids || this.centroids
 
     if (!centroids) {
       throw new Error(
-        "No centroids were provided to the `score` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `score` method or run the `fit` method first!"
+        "No centroids were provided to the `score` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `score` method or run the `fit` method first!",
       )
     }
 
-    const labels = self.predict(x, centroids)
+    const labels = this.predict(x, centroids)
     const assigments = labels.map(k => centroids[k])
     return -sse(x, assigments)
   }
