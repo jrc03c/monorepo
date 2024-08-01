@@ -41,6 +41,31 @@ drone.on("call-me-back", async (request, response) => {
   return response.send()
 })
 
+let secretMessageFromQueen
+
+drone.on("dont-tell-the-others", async (request, response) => {
+  secretMessageFromQueen = request.data
+  await drone.emit("didnt-tell-the-others", secretMessageFromQueen)
+  return response.send()
+})
+
+drone.on("get-secret-message", (request, response) => {
+  return response.send(secretMessageFromQueen)
+})
+
+drone.on("some-call-back", async (request, response) => {
+  drone.emit("message-from-some-drones")
+  return response.send()
+})
+
+drone.on("send-favorite-number", (request, response) => {
+  return response.send(Math.random())
+})
+
+drone.on("send-filename", (request, response) => {
+  return response.send("worker.js")
+})
+
 setTimeout(() => {
   drone.propose("message-initiated-by-worker", "The worker says hi!")
 }, 500)

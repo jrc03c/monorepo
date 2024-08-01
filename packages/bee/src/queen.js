@@ -28,16 +28,19 @@ class Queen extends SubscriptionService {
       throw new Error("The queen is dead!")
     }
 
-    this.hive.push(new Drone(path))
-    return this
+    const drone = new Drone(path)
+    this.hive.push(drone)
+    return drone
   }
 
   addDrones(path, n) {
+    const out = []
+
     for (let i = 0; i < n; i++) {
-      this.addDrone(path)
+      out.push(this.addDrone(path))
     }
 
-    return this
+    return out
   }
 
   removeDrone(drone) {
@@ -55,8 +58,15 @@ class Queen extends SubscriptionService {
     return this
   }
 
-  on(signal, callback) {
-    const unsubs = this.hive.map(drone => {
+  on(signal, callback, specificDrones) {
+    if (
+      typeof specificDrones !== "undefined" &&
+      specificDrones instanceof Drone
+    ) {
+      specificDrones = [specificDrones]
+    }
+
+    const unsubs = (specificDrones || this.hive).map(drone => {
       return drone.on(signal, callback)
     })
 
@@ -65,12 +75,21 @@ class Queen extends SubscriptionService {
     return unsub
   }
 
-  emit(signal, payload) {
+  emit(signal, payload, specificDrones) {
     if (this.isDead) {
       throw new Error("The queen is dead!")
     }
 
-    if (this.hive.length === 0) {
+    if (
+      typeof specificDrones !== "undefined" &&
+      specificDrones instanceof Drone
+    ) {
+      specificDrones = [specificDrones]
+    }
+
+    const drones = specificDrones || this.hive
+
+    if (drones.length === 0) {
       throw new Error(
         `The queen issued a "${signal}" command, but there are no drones in the hive!`
       )
@@ -78,9 +97,9 @@ class Queen extends SubscriptionService {
 
     return new Promise((resolve, reject) => {
       try {
-        const results = new Array(this.hive.length)
+        const results = new Array(drones.length)
 
-        const promises = this.hive.map((drone, i) => {
+        const promises = drones.map((drone, i) => {
           return new Promise((resolve, reject) => {
             try {
               this.resolves.push(resolve)
@@ -125,8 +144,8 @@ class Queen extends SubscriptionService {
     })
   }
 
-  command(signal, payload) {
-    return this.emit(signal, payload)
+  command() {
+    return this.emit(...arguments)
   }
 
   destroy(error) {

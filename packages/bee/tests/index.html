@@ -393,6 +393,76 @@
           queen.destroy()
         })
 
+        await test("that the queen can send commands to specific drones (i.e., not all drones)", async () => {
+          // ...
+          const queen = new Bee.Queen("worker.js", 5)
+          const subset = queen.hive.slice(0, 3)
+          const r = Math.random()
+          const vals = []
+
+          const unsub = queen.on(
+            "didnt-tell-the-others",
+            (request, response) => {
+              vals.push(request.data)
+              return response.send()
+            }
+          )
+
+          await queen.command("dont-tell-the-others", r, subset)
+
+          expect(vals.length).toBe(subset.length)
+          vals.forEach(v => expect(v).toBe(r))
+          unsub()
+
+          const all = await queen.command("get-secret-message")
+          expect(all.length).toBe(queen.hive.length)
+          expect(all.filter(v => !!v).length).toBe(vals.length)
+
+          queen.destroy()
+        })
+
+        await test("that the queen can listen to specific drones (i.e., not all drones)", async () => {
+          const queen = new Bee.Queen("worker.js", 5)
+          const subset = queen.hive.slice(3)
+          let count = 0
+
+          const unsub = queen.on(
+            "message-from-some-drones",
+            (request, response) => {
+              count++
+              return response.send()
+            },
+            subset
+          )
+
+          await queen.command("some-call-back")
+          await pause(1000)
+
+          expect(count).toBe(subset.length)
+
+          unsub()
+          queen.destroy()
+        })
+
+        await test("that queens can send commands to drones that aren't in their hives", async () => {
+          const queen = new Bee.Queen()
+          const drone = new Bee.Drone("worker.js")
+          const n = await queen.command("send-favorite-number", null, drone)
+          expect(typeof n === "number" && n >= 0 && n <= 1).toBe(true)
+          queen.destroy()
+          drone.destroy()
+        })
+
+        await test("that queens can have drones from different worker scripts in their hives", async () => {
+          const queen = new Bee.Queen()
+          queen.addDrone("worker.js")
+          queen.addDrone("worker2.js")
+          const results = await queen.command("send-filename")
+          expect(results.includes("worker.js")).toBe(true)
+          expect(results.includes("worker2.js")).toBe(true)
+          queen.destroy()
+        })
+
         const done = document.createElement("div")
         done.classList.add("result")
         done.classList.add("info")
