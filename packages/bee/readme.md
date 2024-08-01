@@ -83,21 +83,21 @@ Creates a new drone given a `path` to a web worker file and adds it to the `hive
 
 Creates `n` new drones given a `path` to a webworker file and adds them to the `hive`.
 
-#### `queen.command(signal, payload)`
+#### `queen.command(signal, payload, drones=undefined)`
 
-Same as `queen.emit(signal, payload)` but defined so that the queen metaphor can be carried a little further.
+Same as `queen.emit(signal, payload, drones=undefined)` but defined so that the queen metaphor can be carried a little further.
 
 #### `queen.destroy()`
 
 Destroys the queen and all drones in the hive. After this is called, the queen and drones will no longer be usable.
 
-#### `queen.emit(signal, payload)`
+#### `queen.emit(signal, payload, drones=undefined)`
 
-Emits `signal` to the drone(s) and sends along the payload. Returns a `Promise` that resolves to the value(s) returned from the drone(s). If there's only one drone in the hive, then only a single value will be returned; but if there are multiple drones in the hive, then an array of results will be returned (i.e., one result per drone).
+Emits `signal` to the drone(s) and sends along the payload. If `drones` is defined (either as a single `Drone` instance or as an array of `Drone` instances), the event is only sent to those drones. Otherwise, the event is sent to the whole hive. Returns a `Promise` that resolves to the value(s) returned from the drone(s). If there's only one drone in the hive, then only a single value will be returned; but if there are multiple drones in the hive, then an array of results will be returned (i.e., one result per drone).
 
-#### `queen.on(signal, callback)`
+#### `queen.on(signal, callback, drones=undefined)`
 
-Causes the queen to listen for `signal` and invoke the `callback` function when she hears it. The function must accept `request` and `response` parameters and must call the `response.send` method when finished. The `on` method returns an unsubscribe function that removes the `callback` from the list of functions invoked by the queen when she hears `signal`. For example:
+Causes the queen to listen for `signal` and invoke the `callback` function when she hears it. If `drones` is defined (either as a single `Drone` instance or as an array of `Drone` instances), then the queen listens for `signal` only from those specific drones. Otherwise, she listens for `signal` from the whole hive. The function must accept `request` and `response` parameters and must call the `response.send` method when finished. The `on` method returns an unsubscribe function that removes the `callback` from the list of functions invoked by the queen when she hears `signal`. For example:
 
 ```js
 const queen = new Bee.Queen("worker.js")
