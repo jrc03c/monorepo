@@ -19,6 +19,8 @@ test("tests that absolute values can be computed correctly", () => {
     [-2.3, 2.3],
     [Infinity, Infinity],
     [-Infinity, Infinity],
+    [234n, 234n],
+    [-234n, 234n],
     [
       [2, -3, 4],
       [2, 3, 4],
@@ -32,6 +34,10 @@ test("tests that absolute values can be computed correctly", () => {
         [2, 3, 4],
         [5, 6, 7],
       ],
+    ],
+    [
+      [2n, -3n, 4n, -5n],
+      [2n, 3n, 4n, 5n],
     ],
     [new Series({ stuff: x }), new Series({ stuff: xPos })],
     [new DataFrame({ x, y, z }), new DataFrame({ x: xPos, y: yPos, z: zPos })],
