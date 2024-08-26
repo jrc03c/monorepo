@@ -25,6 +25,9 @@ test("tests that square roots can be correctly computed", () => {
   const hPred = sqrt(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(sqrt(9n)).toBe(3n)
+  expect(sqrt(8n)).toBeCloseTo(2.8284271247461903)
+
   const wrongs = [
     -234,
     -Infinity,
