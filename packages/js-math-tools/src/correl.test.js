@@ -22,6 +22,8 @@ test("tests that correlations can be computed correctly", () => {
   expect(correl(e, f)).toBeGreaterThan(0.99)
 
   expect(correl([2, 3, 4], ["five", "six", "seven"])).toBeNaN()
+  expect(correl([2n, 3n, 4n], [5n, 6n, 7n])).toBeCloseTo(1)
+  expect(correl([2n, 3n, 4n], [7n, 6n, 5n])).toBeCloseTo(-1)
 
   const wrongs = [
     [0, 1],
