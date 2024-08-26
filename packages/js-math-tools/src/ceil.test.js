@@ -13,6 +13,12 @@ test("tests that the ceiling of various values can be computed correctly", () =>
     [1, 1],
     [2.3, 3],
     [-2.3, -2],
+    [234n, 234n],
+    [-234n, -234n],
+    [
+      [2n, -3n, 4n, -5n],
+      [2n, -3n, 4n, -5n],
+    ],
     [Infinity, Infinity],
     [-Infinity, -Infinity],
     [r, r.map(row => row.map(v => Math.ceil(v)))],
