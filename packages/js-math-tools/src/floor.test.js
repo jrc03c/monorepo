@@ -24,6 +24,10 @@ test("tests that values can be correctly floored", () => {
   const gPred = floor(f)
   expect(isEqual(gPred, gTrue)).toBe(true)
 
+  expect(floor(234n)).toBe(234n)
+  expect(floor(-234n)).toBe(-234n)
+  expect(floor([2n, -3n, 4n, -5n])).toStrictEqual([2n, -3n, 4n, -5n])
+
   const wrongs = [
     NaN,
     "foo",
