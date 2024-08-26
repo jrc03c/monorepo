@@ -29,6 +29,10 @@ test("tests that values can be correctly cast to floats", () => {
   const hPred = float(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(float(234n)).toBe(234)
+  expect(float(-234n)).toBe(-234)
+  expect(float([2n, 3n, 4n])).toStrictEqual([2, 3, 4])
+
   const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity]
 
   rights.forEach(item => {
