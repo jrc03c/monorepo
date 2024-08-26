@@ -33,6 +33,10 @@ test("tests that factorial values can be computed correctly", () => {
   const hPred = factorial(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(factorial(7n)).toBe(5040n)
+  expect(factorial(0n)).toBe(1n)
+  expect(factorial([2n, 3n, 4n])).toStrictEqual([2n, 6n, 24n])
+
   const wrongs = [
     2.3,
     -2.3,
