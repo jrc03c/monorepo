@@ -29,6 +29,9 @@ test("tests that values can be correctly cast to integers", () => {
   const hPred = int(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(int(234n)).toBe(234)
+  expect(int(-234n)).toBe(-234)
+
   const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity]
 
   rights.forEach(item => {
