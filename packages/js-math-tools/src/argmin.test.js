@@ -48,6 +48,9 @@ test("gets the argmin of various kinds of containers", () => {
 
   expect(argmin(d)).toStrictEqual([d.index[minRow], d.columns[minCol]])
 
+  expect(argmin([432n, 324n, 342n, 234n, 243n, 423n])).toBe(3)
+  expect(argmin([-2n, -3n, -4n, -234n, -23n])).toBe(3)
+
   const wrongs = [
     0,
     1,
