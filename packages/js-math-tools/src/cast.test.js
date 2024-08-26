@@ -9,15 +9,20 @@ const range = require("./range")
 
 test("tests that both individual values and arrays can be cast", () => {
   // types = ["boolean", "date", "null", "number", "object", "string"]
-
   const date = new Date()
-
   expect(cast("true", "boolean")).toBe(true)
   expect(isEqual(cast(date.toJSON(), "date"), date)).toBe(true)
   expect(cast("undefined", "null")).toBe(null)
   expect(cast("234.567", "number")).toBe(234.567)
   expect(isEqual(cast(`{"foo": "bar"}`, "object"), { foo: "bar" })).toBe(true)
   expect(cast(234, "string")).toBe("234")
+  expect(cast(234, "int")).toBe(234)
+  expect(cast(234, "float")).toBe(234)
+  expect(cast(234.567, "int")).toBe(234)
+  expect(cast(234.567, "float")).toBe(234.567)
+  expect(cast(234, "bigint")).toBe(234n)
+  expect(cast("234.567", "bigint")).toBe(234n)
+  expect(cast(1e10, "bigint")).toBe(10000000000n)
 })
 
 test("tests that the `cast` function correctly casts values into their specified data types", () => {
@@ -122,6 +127,18 @@ test("tests that the `cast` function correctly casts values into their specified
   const hPred = cast(g, "number")
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  // ints
+  expect(cast(234, "int")).toBe(234)
+  expect(cast(-234, "int")).toBe(-234)
+
+  // floats
+  expect(cast(234.567, "float")).toBe(234.567)
+  expect(cast(-234.567, "float")).toBe(-234.567)
+
+  // bigints
+  expect(cast(234n, "bigint")).toBe(234n)
+  expect(cast(-234n, "bigint")).toBe(-234n)
+
   // object
   const jTrue = []
 
@@ -209,7 +226,7 @@ test("tests that values that are already in their target type are not changed", 
   expect(cast(234, "number")).toBe(234)
 
   expect(isEqual(cast({ hello: "world" }, "object"), { hello: "world" })).toBe(
-    true
+    true,
   )
 
   expect(cast("foobar", "string")).toBe("foobar")

@@ -47,6 +47,23 @@ function cast(value, type) {
     return out
   }
 
+  if (type === "int") {
+    const out = cast(value, "number")
+    return out >= 0 ? Math.floor(out) : Math.ceil(out)
+  }
+
+  if (type === "float") {
+    return cast(value, "number")
+  }
+
+  if (type === "bigint") {
+    if (typeof value === "bigint") {
+      return value
+    }
+
+    return BigInt(cast(value, "int"))
+  }
+
   if (type === "boolean") {
     if (isBoolean(value)) {
       return value
