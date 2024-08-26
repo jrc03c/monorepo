@@ -9,9 +9,9 @@ const shuffle = require("./shuffle")
 test("tests that values can be chopped correctly", () => {
   const r = reshape(
     shuffle(
-      range(-40, 40).map(i => Math.pow(10, i) * (Math.random() < 0.5 ? -1 : 1))
+      range(-40, 40).map(i => Math.pow(10, i) * (Math.random() < 0.5 ? -1 : 1)),
     ),
-    [2, 4, 10]
+    [2, 4, 10],
   )
 
   const s = new Series({ hello: shuffle(flatten(r)) })
@@ -42,11 +42,17 @@ test("tests that values can be chopped correctly", () => {
         [5, 6, 7],
       ],
     ],
+    [234n, 234n],
+    [-234n, -234n],
+    [
+      [2n, -3n, 4n, -5n],
+      [2n, -3n, 4n, -5n],
+    ],
     [
       r,
       reshape(
         flatten(r).map(v => (Math.abs(v) < 1e-10 ? 0 : v)),
-        [2, 4, 10]
+        [2, 4, 10],
       ),
     ],
     [s, s.copy().apply(v => (Math.abs(v) < 1e-10 ? 0 : v))],
@@ -79,14 +85,14 @@ test("tests that values can be chopped correctly", () => {
   expect(
     isEqual(
       chop(new Series(["foo", "bar", "baz"])),
-      new Series([NaN, NaN, NaN])
-    )
+      new Series([NaN, NaN, NaN]),
+    ),
   ).toBe(true)
 
   expect(
     isEqual(
       chop(new DataFrame({ foo: ["a", "b", "c"], bar: ["d", "e", "f"] })),
-      new DataFrame({ foo: [NaN, NaN, NaN], bar: [NaN, NaN, NaN] })
-    )
+      new DataFrame({ foo: [NaN, NaN, NaN], bar: [NaN, NaN, NaN] }),
+    ),
   ).toBe(true)
 })

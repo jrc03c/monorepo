@@ -6,6 +6,7 @@ const vectorize = require("./vectorize")
 function chop(x, threshold) {
   try {
     if (!isNumber(x)) return NaN
+    if (typeof x === "bigint") return x
 
     if (isUndefined(threshold)) {
       threshold = 1e-10
