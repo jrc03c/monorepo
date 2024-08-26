@@ -19,13 +19,13 @@ test("tests that values in an array can be counted correctly", () => {
 
   set(b).forEach(v => {
     expect(count(b, v)).toBe(
-      flatten(b.values).filter(x => isEqual(x, v)).length
+      flatten(b.values).filter(x => isEqual(x, v)).length,
     )
   })
 
   set(c).forEach(v => {
     expect(count(c, v)).toBe(
-      flatten(c.values).filter(x => isEqual(x, v)).length
+      flatten(c.values).filter(x => isEqual(x, v)).length,
     )
   })
 
@@ -33,6 +33,21 @@ test("tests that values in an array can be counted correctly", () => {
   expect(isEqual(count(b, 2), count(b.values, 2)))
   expect(isEqual(count(c), count(c.values))).toBe(true)
   expect(isEqual(count(c, 2), count(c.values, 2))).toBe(true)
+
+  const d = [2n, 3n, 2n, 3n, 3n, 4n, 3n, 2n, 3n]
+  const dCounts = count(d)
+
+  expect(dCounts.find(v => v.value === 2n).count).toBe(
+    d.filter(v => v === 2n).length,
+  )
+
+  expect(dCounts.find(v => v.value === 3n).count).toBe(
+    d.filter(v => v === 3n).length,
+  )
+
+  expect(dCounts.find(v => v.value === 4n).count).toBe(
+    d.filter(v => v === 4n).length,
+  )
 
   const types = [
     0,
@@ -55,7 +70,7 @@ test("tests that values in an array can be counted correctly", () => {
   ]
 
   const temp = range(0, 1000).map(
-    () => types[parseInt(Math.random() * types.length)]
+    () => types[parseInt(Math.random() * types.length)],
   )
 
   const tempCounts = count(temp)

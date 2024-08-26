@@ -26,13 +26,14 @@ function set(arr) {
 
   assert(
     isArray(arr),
-    "The `set` function only works on arrays, Series, and DataFrames!"
+    "The `set` function only works on arrays, Series, and DataFrames!",
   )
 
   const out = []
   const temp = {}
 
   flatten(arr).forEach(item => {
+    // prettier-ignore
     const key =
       typeof item === "object" && item === null
         ? NULL_KEY
@@ -46,6 +47,8 @@ function set(arr) {
         ? INFINITY_KEY
         : item === -Infinity
         ? MINUS_INFINITY_KEY
+        : typeof item === "bigint"
+        ? item.toString()
         : isDataFrame(item)
         ? item.toJSONString()
         : isSeries(item)
