@@ -1,4 +1,5 @@
 const identity = require("./identity")
+const isEqual = require("./is-equal")
 const set = require("./set")
 const sort = require("./sort")
 
@@ -22,6 +23,7 @@ test("creates an identity matrix", () => {
   const x = identity(100)
   expect(isIdentity(x)).toBe(true)
   expect(sort(set(x))).toStrictEqual([0, 1])
+  expect(isEqual(identity(5n), identity(5))).toBe(true)
 })
 
 test("throws an error when attempting to create an identity matrix with a non-whole-number size", () => {
