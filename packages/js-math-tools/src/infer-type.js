@@ -18,7 +18,7 @@ function checkIfInteger(results) {
       results.isInteger = parseInt(results.value) === results.value
     } else {
       results.isInteger = flatten(results.values).every(v =>
-        isNumber(v) ? parseInt(v) === v : true
+        isNumber(v) ? parseInt(v) === v : true,
       )
     }
   }
@@ -50,10 +50,11 @@ function inferType(arr) {
 
   assert(
     isArray(arr),
-    "The `inferType` function only works on arrays, Series, and DataFrames!"
+    "The `inferType` function only works on arrays, Series, and DataFrames!",
   )
 
   // possible types:
+  // - bigint
   // - boolean
   // - date
   // - null
@@ -75,7 +76,11 @@ function inferType(arr) {
     } catch (e) {}
 
     if (!isString(v)) {
-      v = JSON.stringify(v)
+      if (typeof v === "bigint") {
+        v = v.toString() + "n"
+      } else {
+        v = JSON.stringify(v)
+      }
     }
 
     const vLower = v.toLowerCase()
@@ -92,6 +97,10 @@ function inferType(arr) {
     }
 
     try {
+      if (v.match(/^\d+n$/g)) {
+        return "bigint"
+      }
+
       const vParsed = JSON.parse(v)
 
       // number

@@ -131,6 +131,16 @@ test("correctly infers a variety of data types from strings", () => {
   const sPred = inferType(r)
   expect(isEqual(sPred, sTrue)).toBe(true)
 
+  const t = 234n
+  const uTrue = { type: "bigint", value: 234n }
+  const uPred = inferType(t)
+  expect(isEqual(uTrue, uPred)).toBe(true)
+
+  const v = [2n, 3n, 4n]
+  const wTrue = { type: "bigint", values: [2n, 3n, 4n] }
+  const wPred = inferType(v)
+  expect(isEqual(wTrue, wPred)).toBe(true)
+
   const wrongs = [
     Symbol.for("Hello, world!"),
     x => x,
@@ -149,7 +159,7 @@ test("tests that values that are already in their target type are not changed", 
   expect(isEqual(inferType(true), { type: "boolean", value: true })).toBe(true)
 
   expect(isEqual(inferType(false), { type: "boolean", value: false })).toBe(
-    true
+    true,
   )
 
   const d = new Date()
@@ -158,22 +168,22 @@ test("tests that values that are already in their target type are not changed", 
   expect(isEqual(inferType(null), { type: "null", value: null })).toBe(true)
 
   expect(isEqual(inferType(undefined), { type: "null", value: null })).toBe(
-    true
+    true,
   )
 
   expect(
-    isEqual(inferType(234), { type: "number", value: 234, isInteger: true })
+    isEqual(inferType(234), { type: "number", value: 234, isInteger: true }),
   ).toBe(true)
 
   expect(
     isEqual(inferType({ hello: "world" }), {
       type: "object",
       value: { hello: "world" },
-    })
+    }),
   ).toBe(true)
 
   expect(
-    isEqual(inferType("foobar"), { type: "string", value: "foobar" })
+    isEqual(inferType("foobar"), { type: "string", value: "foobar" }),
   ).toBe(true)
 })
 
