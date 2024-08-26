@@ -33,6 +33,11 @@ test("tests that values raised to powers can be computed correctly", () => {
   const g = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(isEqual(pow(f, g), new DataFrame(pow(f.values, g.values)))).toBe(true)
 
+  expect(pow(2n, 3)).toBe(8n)
+  expect(pow(2n, 3n)).toBe(8n)
+  expect(pow(2, 3n)).toBe(8n)
+  expect(pow(2n, 3.5)).toBe(pow(2, 3.5))
+
   const wrongs = [
     NaN,
     "foo",
