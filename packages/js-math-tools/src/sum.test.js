@@ -13,8 +13,8 @@ test("tests that the sums of values can be computed correctly", () => {
   expect(
     isEqual(
       sum(a),
-      a.reduce((a, b) => a + b, 0)
-    )
+      a.reduce((a, b) => a + b, 0),
+    ),
   ).toBe(true)
 
   const b = normal([2, 3, 4, 5])
@@ -22,8 +22,8 @@ test("tests that the sums of values can be computed correctly", () => {
   expect(
     isEqual(
       sum(b),
-      flatten(b).reduce((a, b) => a + b, 0)
-    )
+      flatten(b).reduce((a, b) => a + b, 0),
+    ),
   ).toBe(true)
 
   const c = new Series({ hello: normal(100) })
@@ -31,6 +31,9 @@ test("tests that the sums of values can be computed correctly", () => {
 
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(isEqual(sum(d), sum(d.values))).toBe(true)
+
+  expect(sum([2n, 3n, 4n])).toBe(9n)
+  expect(sum([2n, 3n, 4n, 5.5])).toBe(14.5)
 
   const wrongs = [
     0,
