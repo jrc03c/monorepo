@@ -15,6 +15,8 @@ test("tests that the inverse sine can be computed correctly", () => {
     [0, Math.asin(0)],
     [0.5, Math.asin(0.5)],
     [1, Math.asin(1)],
+    [0n, Math.asin(0)],
+    [1n, Math.asin(1)],
     [r, r.map(row => row.map(v => Math.asin(v)))],
     [s, s.copy().apply(v => Math.asin(v))],
     [d, d.copy().apply(col => col.apply(v => Math.asin(v)))],
