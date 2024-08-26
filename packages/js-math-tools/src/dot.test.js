@@ -1,5 +1,8 @@
 const { DataFrame, Series } = require("./dataframe")
+const apply = require("./apply")
 const dot = require("./dot")
+const float = require("./float")
+const int = require("./int")
 const isEqual = require("./is-equal")
 const normal = require("./normal")
 
@@ -17,7 +20,7 @@ test("tests that the dot products of vectors and matrices can be computed correc
   ]
 
   expect(
-    isEqual(dot(c, d), [2 * 5 + 3 * 7 + 4 * 9, 2 * 6 + 3 * 8 + 4 * 10])
+    isEqual(dot(c, d), [2 * 5 + 3 * 7 + 4 * 9, 2 * 6 + 3 * 8 + 4 * 10]),
   ).toBe(true)
 
   const e = [
@@ -28,7 +31,7 @@ test("tests that the dot products of vectors and matrices can be computed correc
   const f = [8, 9, 10]
 
   expect(
-    isEqual(dot(e, f), [2 * 8 + 3 * 9 + 4 * 10, 5 * 8 + 6 * 9 + 7 * 10])
+    isEqual(dot(e, f), [2 * 8 + 3 * 9 + 4 * 10, 5 * 8 + 6 * 9 + 7 * 10]),
   ).toBe(true)
 
   const g = [
@@ -73,6 +76,18 @@ test("tests that the dot products of vectors and matrices can be computed correc
   rTrue.index = p.index.slice()
   const rPred = dot(p, q)
   expect(isEqual(rTrue, rPred)).toBe(true)
+
+  const s = apply(normal([5, 10]), v => BigInt(int(v * 10)))
+  const t = apply(normal([10, 15]), v => BigInt(int(v * 10)))
+  const u1 = dot(s, t)
+  const u2 = dot(float(s), float(t))
+
+  expect(
+    isEqual(
+      apply(u1, v => int(v)),
+      u2,
+    ),
+  )
 
   const wrongs = [
     [0, 1],
