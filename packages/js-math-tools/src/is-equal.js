@@ -2,22 +2,28 @@ const { decycle } = require("./copy")
 const isArray = require("./is-array")
 const isDate = require("./is-date")
 
+const numberTypes = ["number", "int", "float", "bigint"]
+
 function isEqual(a, b) {
   function helper(a, b) {
     const aType = typeof a
     const bType = typeof b
-    if (aType !== bType) return false
+
+    if (
+      aType !== bType &&
+      !numberTypes.includes(aType) &&
+      !numberTypes.includes(bType)
+    )
+      return false
 
     if (aType === "undefined") return true
     if (aType === "boolean") return a === b
     if (aType === "symbol") return a === b
 
     if (aType === "number" || aType === "bigint") {
-      if (a.toString() === "NaN" && b.toString() === "NaN") {
-        return true
-      }
-
-      return a === b
+      const aString = a.toString()
+      const bString = b.toString()
+      return aString === bString
     }
 
     if (aType === "string") return a === b

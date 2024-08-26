@@ -73,4 +73,9 @@ test("tests equality of primitives", () => {
   expect(isEqual(c2, c2)).toBe(true)
   expect(isEqual(c1, copy(c1))).toBe(true)
   expect(isEqual(c2, copy(c2))).toBe(true)
+
+  expect(isEqual(234n, 234)).toBe(true)
+  expect(isEqual(234n, 234n)).toBe(true)
+  expect(isEqual(234, 234n)).toBe(true)
+  expect(isEqual(1e3, 1000)).toBe(true)
 })
