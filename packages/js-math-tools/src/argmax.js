@@ -18,7 +18,7 @@ function argmax(x) {
 
   assert(
     isArray(x),
-    "The `argmax` function only works on arrays, Series, and DataFrames!"
+    "The `argmax` function only works on arrays, Series, and DataFrames!",
   )
 
   try {
@@ -36,6 +36,7 @@ function argmax(x) {
       return undefined
     }
   } catch (e) {
+    console.log(e)
     return undefined
   }
 }
