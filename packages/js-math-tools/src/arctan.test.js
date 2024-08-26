@@ -16,6 +16,8 @@ test("tests that the inverse sine can be computed correctly", () => {
     [1, Math.atan(1)],
     [2.3, Math.atan(2.3)],
     [-2.3, Math.atan(-2.3)],
+    [234n, Math.atan(234)],
+    [-234n, Math.atan(-234)],
     [Infinity, Math.atan(Infinity)],
     [-Infinity, Math.atan(-Infinity)],
     [
