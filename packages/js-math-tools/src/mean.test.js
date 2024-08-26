@@ -21,6 +21,8 @@ test("tests that the mean of arrays, series, and dataframes can be computed corr
   const e = [2, 3, 3, 3, 4, 17]
   expect(mean(d)).toBe(mean(e))
 
+  expect(mean([2n, 3n, 4n])).toBe(3n)
+
   const wrongs = [
     0,
     1,

@@ -17,18 +17,21 @@ function mean(arr) {
 
   try {
     const temp = flatten(arr)
+    let out = 0
 
     for (const v of temp) {
       if (typeof v === "bigint") {
-        return mean(float(temp))
+        const out = mean(float(temp))
+
+        try {
+          return BigInt(out)
+        } catch (e) {
+          return out
+        }
       }
-    }
 
-    let out = 0
-
-    temp.forEach(v => {
       out += v
-    })
+    }
 
     return out / temp.length
   } catch (e) {
