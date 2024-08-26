@@ -25,6 +25,12 @@ test("tests that the log of various values can be computed correctly", () => {
   const hPred = log(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(log(234n)).toBe(log(234))
+  expect(log(-234n)).toBeNaN()
+  expect(log(100n, 10)).toBe(2n)
+  expect(log(100, 10n)).toBe(2n)
+  expect(log(100n, 10n)).toBe(2n)
+
   const wrongs = [
     NaN,
     "foo",
