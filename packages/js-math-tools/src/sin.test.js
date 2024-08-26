@@ -14,6 +14,8 @@ test("tests that sines can be computed correctly", () => {
     [0, Math.sin(0)],
     [0.5, Math.sin(0.5)],
     [1, Math.sin(1)],
+    [234n, Math.sin(234)],
+    [-234n, Math.sin(-234)],
     [r, r.map(row => row.map(v => Math.sin(v)))],
     [s, s.copy().apply(v => Math.sin(v))],
     [d, d.copy().apply(col => col.apply(v => Math.sin(v)))],
