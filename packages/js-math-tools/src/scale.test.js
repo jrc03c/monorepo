@@ -15,8 +15,8 @@ test("tests that values can be multiplied correctly", () => {
   expect(
     isEqual(
       scale(a, 5),
-      apply(a, v => v * 5)
-    )
+      apply(a, v => v * 5),
+    ),
   ).toBe(true)
 
   const b = normal([2, 3, 4, 5])
@@ -24,8 +24,8 @@ test("tests that values can be multiplied correctly", () => {
   expect(
     isEqual(
       scale(b, -234),
-      apply(b, v => v * -234)
-    )
+      apply(b, v => v * -234),
+    ),
   ).toBe(true)
 
   const c = normal([2, 3, 4, 5])
@@ -38,9 +38,9 @@ test("tests that values can be multiplied correctly", () => {
       scale(c, d, e, f),
       reshape(
         scale(flatten(c), flatten(d), flatten(e), flatten(f)),
-        [2, 3, 4, 5]
-      )
-    )
+        [2, 3, 4, 5],
+      ),
+    ),
   ).toBe(true)
 
   const g = new Series({ hello: normal(100) })
@@ -55,9 +55,13 @@ test("tests that values can be multiplied correctly", () => {
       new DataFrame({
         foo: scale(h.get("foo").values, 5),
         bar: scale(h.get("bar").values, 5),
-      })
-    )
+      }),
+    ),
   ).toBe(true)
+
+  expect(scale(2n, 3n)).toBe(6n)
+  expect(scale(2n, 5.4)).toBe(10.8)
+  expect(scale([2n, 3n, 4n], [5n, 6n, 7n])).toStrictEqual([10n, 18n, 28n])
 
   const wrongs = [
     NaN,
