@@ -21,6 +21,9 @@ test("tests that values to the power of E can be computed correctly", () => {
     [e, apply(e, Math.exp)],
     [Infinity, Infinity],
     [-Infinity, 0],
+    [2n, Math.exp(2)],
+    [0n, 1n],
+    [-2n, Math.exp(-2)],
   ]
 
   rights.forEach(pair => {
