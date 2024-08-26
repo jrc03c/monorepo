@@ -15,6 +15,8 @@ test("tests that the inverse cosine can be computed correctly", () => {
     [0, Math.acos(0)],
     [0.5, Math.acos(0.5)],
     [1, Math.acos(1)],
+    [0n, Math.acos(0)],
+    [-1n, Math.acos(-1)],
     [r, r.map(row => row.map(v => Math.acos(v)))],
     [s, s.copy().apply(v => Math.acos(v))],
     [d, d.copy().apply(col => col.apply(v => Math.acos(v)))],
