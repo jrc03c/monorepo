@@ -25,6 +25,11 @@ test("tests that the differences of sets can be computed correctly", () => {
 
   expect(diff([undefined], [undefined])).toStrictEqual([])
 
+  const i = [2n, 3n, 4n]
+  const j = [3n, 4n, 5n]
+  expect(diff(i, j)).toStrictEqual([2n])
+  expect(diff(j, i)).toStrictEqual([5n])
+
   const wrongs = [
     [0, 1],
     [2.3, -2.3],
