@@ -5,22 +5,24 @@ const vectorize = require("./vectorize")
 function add() {
   try {
     let out = 0
+    let resultShouldBeABigInt = false
     const x = Object.values(arguments)
 
-    for (let i = 0; i < x.length; i++) {
-      if (!isNumber(x[i])) return NaN
+    for (let v of x) {
+      if (!isNumber(v)) return NaN
 
-      if (typeof x[i] === "bigint") {
-        const out = add(...float(x))
-
-        try {
-          return BigInt(out)
-        } catch (e) {
-          return out
-        }
+      if (typeof v === "bigint") {
+        resultShouldBeABigInt = true
+        v = float(v)
       }
 
-      out += x[i]
+      out += v
+    }
+
+    if (resultShouldBeABigInt) {
+      try {
+        return BigInt(out)
+      } catch (e) {}
     }
 
     return out

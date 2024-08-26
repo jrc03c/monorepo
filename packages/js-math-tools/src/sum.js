@@ -19,20 +19,22 @@ function sum(arr) {
     if (arr.length === 0) return NaN
 
     const temp = flatten(arr)
+    let resultShouldBeABigInt = false
     let out = 0
 
-    for (const v of temp) {
+    for (let v of temp) {
       if (typeof v === "bigint") {
-        const out = sum(float(temp))
-
-        try {
-          return BigInt(out)
-        } catch (e) {
-          return out
-        }
+        resultShouldBeABigInt = true
+        v = float(v)
       }
 
       out += v
+    }
+
+    if (resultShouldBeABigInt) {
+      try {
+        return BigInt(out)
+      } catch (e) {}
     }
 
     return out

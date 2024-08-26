@@ -1,5 +1,6 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
+const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
@@ -13,17 +14,20 @@ function variance(arr) {
 
   assert(
     isArray(arr),
-    "The `variance` function only works on arrays, Series, and DataFrames!"
+    "The `variance` function only works on arrays, Series, and DataFrames!",
   )
 
   try {
     const temp = flatten(arr)
-    const m = mean(temp)
+    const m = float(mean(temp))
+    if (!isNumber(m)) return NaN
+
     let out = 0
 
-    for (let i = 0; i < temp.length; i++) {
-      if (!isNumber(temp[i])) return NaN
-      out += (temp[i] - m) * (temp[i] - m)
+    for (let v of temp) {
+      if (!isNumber(v)) return NaN
+      if (typeof v === "bigint") v = float(v)
+      out += (v - m) * (v - m)
     }
 
     return out / temp.length

@@ -15,6 +15,8 @@ test("tests that variance can be correctly computed", () => {
   const b = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(variance(b)).toBe(variance(b.values))
 
+  expect(variance([2n, 3n, 4n, 5n, 6n])).toBe(variance([2, 3, 4, 5, 6]))
+
   const wrongs = [
     0,
     1,

@@ -25,15 +25,9 @@ function covariance(x, y) {
     "The two arrays or Series passed into the `covariance` function must have the same length!",
   )
 
-  for (let i = 0; i < x.length; i++) {
-    if (typeof x[i] === "bigint" || typeof y[i] === "bigint") {
-      return covariance(float(x), float(y))
-    }
-  }
-
   try {
-    const mx = mean(x)
-    const my = mean(y)
+    const mx = float(mean(x))
+    const my = float(mean(y))
 
     if (!isNumber(mx) || !isNumber(my)) {
       return NaN
@@ -43,9 +37,21 @@ function covariance(x, y) {
     let out = 0
 
     for (let i = 0; i < n; i++) {
-      if (!isNumber(x[i])) return NaN
-      if (!isNumber(y[i])) return NaN
-      out += (x[i] - mx) * (y[i] - my)
+      let vx = x[i]
+      let vy = y[i]
+
+      if (!isNumber(vx)) return NaN
+      if (!isNumber(vy)) return NaN
+
+      if (typeof vx === "bigint") {
+        vx = float(vx)
+      }
+
+      if (typeof vy === "bigint") {
+        vy = float(vy)
+      }
+
+      out += (vx - mx) * (vy - my)
     }
 
     return out / x.length

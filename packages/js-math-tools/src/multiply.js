@@ -4,25 +4,27 @@ const vectorize = require("./vectorize")
 
 function multiply() {
   try {
-    const values = Object.values(arguments)
-    if (values.length === 0) return NaN
+    const x = Object.values(arguments)
+    if (x.length === 0) return NaN
 
+    let resultShouldBeABigInt = false
     let out = 1
 
-    for (let i = 0; i < values.length; i++) {
-      if (!isNumber(values[i])) return NaN
+    for (let v of x) {
+      if (!isNumber(v)) return NaN
 
-      if (typeof values[i] === "bigint") {
-        const out = multiply(...float(values))
-
-        try {
-          return BigInt(out)
-        } catch {
-          return out
-        }
+      if (typeof v === "bigint") {
+        resultShouldBeABigInt = true
+        v = float(v)
       }
 
-      out *= values[i]
+      out *= v
+    }
+
+    if (resultShouldBeABigInt) {
+      try {
+        return BigInt(out)
+      } catch (e) {}
     }
 
     return out
