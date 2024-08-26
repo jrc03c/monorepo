@@ -1,4 +1,5 @@
 const assert = require("./assert")
+const float = require("./float")
 const isArray = require("./is-array")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
@@ -16,13 +17,19 @@ function covariance(x, y) {
 
   assert(
     isArray(x) && isArray(y) && shape(x).length === 1 && shape(y).length === 1,
-    "The `covariance` function only works on 1-dimensional arrays and Series!"
+    "The `covariance` function only works on 1-dimensional arrays and Series!",
   )
 
   assert(
     x.length === y.length,
-    "The two arrays or Series passed into the `covariance` function must have the same length!"
+    "The two arrays or Series passed into the `covariance` function must have the same length!",
   )
+
+  for (let i = 0; i < x.length; i++) {
+    if (typeof x[i] === "bigint" || typeof y[i] === "bigint") {
+      return covariance(float(x), float(y))
+    }
+  }
 
   try {
     const mx = mean(x)

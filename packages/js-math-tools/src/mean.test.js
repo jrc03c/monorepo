@@ -17,6 +17,10 @@ test("tests that the mean of arrays, series, and dataframes can be computed corr
   const c = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(mean(c)).toBe(mean(flatten(c)))
 
+  const d = [2n, 3n, 3n, 3n, 4n, 17n]
+  const e = [2, 3, 3, 3, 4, 17]
+  expect(mean(d)).toBe(mean(e))
+
   const wrongs = [
     0,
     1,

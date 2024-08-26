@@ -1,5 +1,6 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
+const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
@@ -11,11 +12,18 @@ function mean(arr) {
 
   assert(
     isArray(arr),
-    "The `mean` function only works on arrays, Series, and DataFrames!"
+    "The `mean` function only works on arrays, Series, and DataFrames!",
   )
 
   try {
     const temp = flatten(arr)
+
+    for (const v of temp) {
+      if (typeof v === "bigint") {
+        return mean(float(temp))
+      }
+    }
+
     let out = 0
 
     temp.forEach(v => {
