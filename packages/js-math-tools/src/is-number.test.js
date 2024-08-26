@@ -2,7 +2,7 @@ const { DataFrame, Series } = require("./dataframe")
 const isNumber = require("./is-number")
 
 test("checks to see if various things are numbers", () => {
-  const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity, Math.PI]
+  const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity, Math.PI, 234n, -234n]
 
   rights.forEach(item => {
     expect(isNumber(item)).toBe(true)
