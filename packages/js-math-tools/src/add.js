@@ -6,6 +6,10 @@ function add() {
     let out = 0
     const x = Object.values(arguments)
 
+    if (x.map(v => typeof v).includes("bigint")) {
+      out = 0n
+    }
+
     for (let i = 0; i < x.length; i++) {
       if (!isNumber(x[i])) return NaN
       out += x[i]
@@ -13,6 +17,7 @@ function add() {
 
     return out
   } catch (e) {
+    console.log(e)
     return NaN
   }
 }

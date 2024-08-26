@@ -51,6 +51,12 @@ test("tests that values can be added together correctly", () => {
         [55, 66, 77],
       ],
     ],
+    [2n, 3n, 5n],
+    [
+      [2n, 3n, 4n],
+      [5n, 6n, 7n],
+      [7n, 9n, 11n],
+    ],
     [
       [2, "three", 4],
       [5, 6, Symbol.for("seven")],
