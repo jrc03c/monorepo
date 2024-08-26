@@ -19,22 +19,22 @@ test("tests that linear interpolations can be computed correctly", () => {
   expect(
     isEqual(
       lerp(a, b, c),
-      a.map(v => lerp(v, b, c))
-    )
+      a.map(v => lerp(v, b, c)),
+    ),
   ).toBe(true)
 
   expect(
     isEqual(
       lerp(b, a, c),
-      a.map(v => lerp(b, v, c))
-    )
+      a.map(v => lerp(b, v, c)),
+    ),
   ).toBe(true)
 
   expect(
     isEqual(
       lerp(a, d, e),
-      a.map((v, i) => lerp(v, d[i], e[i]))
-    )
+      a.map((v, i) => lerp(v, d[i], e[i])),
+    ),
   ).toBe(true)
 
   const f = new Series(normal(100))
@@ -42,7 +42,7 @@ test("tests that linear interpolations can be computed correctly", () => {
   const h = new Series(normal(100))
 
   expect(
-    isEqual(lerp(f, g, h), new Series(lerp(f.values, g.values, h.values)))
+    isEqual(lerp(f, g, h), new Series(lerp(f.values, g.values, h.values))),
   ).toBe(true)
 
   const i = new DataFrame(normal([10, 10]))
@@ -50,7 +50,7 @@ test("tests that linear interpolations can be computed correctly", () => {
   const k = new DataFrame(normal([10, 10]))
 
   expect(
-    isEqual(lerp(i, j, k), new DataFrame(lerp(i.values, j.values, k.values)))
+    isEqual(lerp(i, j, k), new DataFrame(lerp(i.values, j.values, k.values))),
   ).toBe(true)
 
   const l = normal([2, 3, 4, 5])
@@ -60,9 +60,12 @@ test("tests that linear interpolations can be computed correctly", () => {
   expect(
     isEqual(
       lerp(l, m, n),
-      reshape(lerp(flatten(l), flatten(m), flatten(n)), [2, 3, 4, 5])
-    )
+      reshape(lerp(flatten(l), flatten(m), flatten(n)), [2, 3, 4, 5]),
+    ),
   ).toBe(true)
+
+  expect(lerp(0n, 10n, 0.3)).toBe(3n)
+  expect(lerp(100n, 200n, 0.5)).toBe(150n)
 
   const wrongs = [
     NaN,
