@@ -2,6 +2,7 @@ const add = require("./add")
 const assert = require("./assert")
 const dot = require("./dot")
 const flatten = require("./flatten")
+const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
@@ -17,31 +18,31 @@ function inverse(x) {
 
   assert(
     isArray(x),
-    "The `inverse` function only works on square 2-dimensional arrays or DataFrames!"
+    "The `inverse` function only works on square 2-dimensional arrays or DataFrames!",
   )
 
   flatten(x).forEach(v =>
     assert(
       isNumber(v),
-      "The array passed into the `inverse` function must contain only numbers!"
-    )
+      "The array passed into the `inverse` function must contain only numbers!",
+    ),
   )
 
   const xShape = shape(x)
 
   assert(
     xShape.length === 2,
-    "The array passed into the `inverse` function must be exactly two-dimensional and square!"
+    "The array passed into the `inverse` function must be exactly two-dimensional and square!",
   )
 
   assert(
     xShape[0] === xShape[1],
-    "The array passed into the `inverse` function must be exactly two-dimensional and square!"
+    "The array passed into the `inverse` function must be exactly two-dimensional and square!",
   )
 
   assert(
     xShape[0] >= 0,
-    "The array passed into the `inverse` function must be exactly two-dimensional and square!"
+    "The array passed into the `inverse` function must be exactly two-dimensional and square!",
   )
 
   // https://en.wikipedia.org/wiki/Invertible_matrix#Blockwise_inversion
@@ -49,12 +50,19 @@ function inverse(x) {
     return x
   } else if (xShape[0] === 1) {
     assert(x[0][0] !== 0, "This matrix cannot be inverted!")
-    return 1 / x[0][0]
+    let v = x[0][0]
+    if (typeof v === "bigint") v = float(v)
+    return 1 / v
   } else if (xShape[0] === 2) {
-    const a = x[0][0]
-    const b = x[0][1]
-    const c = x[1][0]
-    const d = x[1][1]
+    let a = x[0][0]
+    let b = x[0][1]
+    let c = x[1][0]
+    let d = x[1][1]
+
+    if (typeof a === "bigint") a = float(a)
+    if (typeof b === "bigint") b = float(b)
+    if (typeof c === "bigint") c = float(c)
+    if (typeof d === "bigint") d = float(d)
 
     const det = a * d - b * c
     assert(det !== 0, "This matrix cannot be inverted!")
@@ -84,7 +92,7 @@ function inverse(x) {
 
         const topLeft = add(
           AInv,
-          times(times(times(times(AInv, B), CompInv), C), AInv)
+          times(times(times(times(AInv, B), CompInv), C), AInv),
         )
 
         const topRight = times(-1, times(times(AInv, B), CompInv))

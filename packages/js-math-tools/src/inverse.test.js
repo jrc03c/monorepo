@@ -144,6 +144,19 @@ test("tests that matrix inverses can be computed correctly", () => {
   expect(isEqual(dPred.index, dTrue.index)).toBe(true)
   expect(distance(dPred.values, dTrue.values)).toBeLessThan(1e-5)
 
+  expect(
+    isEqual(
+      inverse([
+        [2n, 3n],
+        [4n, 5n],
+      ]),
+      inverse([
+        [2, 3],
+        [4, 5],
+      ]),
+    ),
+  ).toBe(true)
+
   const wrongs = [
     0,
     1,
