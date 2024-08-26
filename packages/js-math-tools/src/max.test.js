@@ -16,6 +16,11 @@ test("tests that the maximum value in arrays, series, and dataframes can be foun
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(max(d)).toBe(max(d.values))
 
+  expect(max([2, 3, 4n])).toBe(4n)
+  expect(max([2n, 3n, 4])).toBe(4)
+  expect(max([234n, 234])).toBe(234n)
+  expect(max([234, 234n])).toBe(234)
+
   const wrongs = [
     0,
     1,
