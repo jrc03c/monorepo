@@ -27,8 +27,8 @@ test("tests that permutations can be correctly computed", () => {
         [3, 4, 2],
         [4, 2, 3],
         [4, 3, 2],
-      ])
-    )
+      ]),
+    ),
   )
 
   const bPred = sort(set(turnIntoStrings(permutations(a))))
@@ -63,8 +63,8 @@ test("tests that permutations can be correctly computed", () => {
         ["d", "b", "c", "a"],
         ["d", "c", "a", "b"],
         ["d", "c", "b", "a"],
-      ])
-    )
+      ]),
+    ),
   )
 
   const dPred = sort(set(turnIntoStrings(permutations(c))))
@@ -122,7 +122,7 @@ test("tests that permutations can be correctly computed", () => {
       [5, 4, 2],
       [5, 4, 3],
     ],
-    trioSort
+    trioSort,
   )
 
   expect(isEqual(gPred, gTrue)).toBe(true)
@@ -132,6 +132,15 @@ test("tests that permutations can be correctly computed", () => {
 
   const i = new DataFrame({ foo: [1, 2, 3, 4, 5], bar: [6, 7, 8, 9, 10] })
   expect(isEqual(permutations(i, 2), permutations(i.values, 2))).toBe(true)
+
+  expect(permutations([2n, 3n, 4n])).toStrictEqual([
+    [2n, 3n, 4n],
+    [2n, 4n, 3n],
+    [3n, 2n, 4n],
+    [3n, 4n, 2n],
+    [4n, 2n, 3n],
+    [4n, 3n, 2n],
+  ])
 })
 
 test("tests that errors are thrown when trying to get permutations from non-arrays", () => {
