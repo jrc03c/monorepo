@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -10,7 +9,7 @@ function exp(x) {
       if (x === 0n) {
         return 1n
       } else {
-        x = float(x)
+        x = Number(x)
       }
     }
 
