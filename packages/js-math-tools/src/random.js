@@ -43,10 +43,14 @@ function rotl(x, k) {
 }
 
 function seed(val) {
+  if (typeof val === "bigint") {
+    val = Number(val)
+  }
+
   if (!isUndefined(val)) {
     assert(
       isNumber(val),
-      "If passing a value into the `seed` function, then that value must be an integer!"
+      "If passing a value into the `seed` function, then that value must be an integer!",
     )
 
     const temp = splitmix64(parseInt(val), 4)

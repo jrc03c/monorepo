@@ -19,6 +19,10 @@ test("tests that random numbers can be seeded correctly", () => {
   const f = random([2, 3, 4, 5])
   expect(isEqual(e, f)).toBe(true)
 
+  seed(7654321n)
+  const g = random([2, 3, 4, 5])
+  expect(isEqual(f, g)).toBe(true)
+
   const wrongs = [
     Infinity,
     -Infinity,
