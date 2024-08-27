@@ -3,7 +3,7 @@ const flatten = require("./flatten")
 const min = require("./min")
 const normal = require("./normal")
 
-test("tests that the maximum value in arrays, series, and dataframes can be found correctly", () => {
+test("tests that the minimum value in arrays, series, and dataframes can be found correctly", () => {
   expect(min([2, 3, 4])).toBe(2)
   expect(min([-2, -3, -4])).toBe(-4)
 
@@ -18,6 +18,11 @@ test("tests that the maximum value in arrays, series, and dataframes can be foun
 
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(min(d)).toBe(min(d.values))
+
+  expect(min([2, 3, 4n])).toBe(2)
+  expect(min([2n, 3n, 4])).toBe(2n)
+  expect(min([234n, 234])).toBe(234n)
+  expect(min([234, 234n])).toBe(234)
 
   const wrongs = [
     0,
