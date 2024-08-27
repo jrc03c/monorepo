@@ -35,6 +35,10 @@ test("tests DataFrame selectors", () => {
   expect(df.values).toStrictEqual(df.T.T.values)
   expect(df.get(null, ["b", "c"]) instanceof DataFrame).toBe(true)
   expect(df.get(null, "a") instanceof Series).toBe(true)
+
+  expect(isEqual(df.get([2n, 3n, 4n], null), df.get([2, 3, 4], null))).toBe(
+    true,
+  )
 })
 
 test("tests DataFrame assignment", () => {
@@ -164,7 +168,7 @@ test("tests DataFrame NaN value dropping", () => {
   ])
 
   expect(df.dropNaN(0, "all").index).toStrictEqual(
-    df.index.slice(0, df.index.length - 1)
+    df.index.slice(0, df.index.length - 1),
   )
   expect(df.dropNaN(0, "all").columns).toStrictEqual(df.columns)
 
@@ -189,7 +193,7 @@ test("tests DataFrame NaN value dropping", () => {
   expect(df.dropNaN(1, "any").isEmpty).toBe(true)
   expect(df.dropNaN(1, "all").values).toStrictEqual(df.values)
   expect(df.dropNaN(1, null, 3).values).toStrictEqual(
-    flatten([[0], [1], [-10], [2], [3], [4], [null], [1], [NaN]])
+    flatten([[0], [1], [-10], [2], [3], [4], [null], [1], [NaN]]),
   )
 })
 
@@ -328,28 +332,28 @@ test("tests DataFrame one-hot encoding", () => {
   expect(isEqual(yPred, yTrue.get(null, sort(yTrue.columns)))).toBe(true)
 
   expect(isEqual(yPred, x.getDummies().get(null, sort(yPred.columns)))).toBe(
-    true
+    true,
   )
 
   const favoriteIceCreamColumns = sort(
-    yTrue.columns.filter(c => c.includes("favoriteIceCream"))
+    yTrue.columns.filter(c => c.includes("favoriteIceCream")),
   )
   const randomNumberColumns = sort(
-    yTrue.columns.filter(c => c.includes("randomNumber"))
+    yTrue.columns.filter(c => c.includes("randomNumber")),
   )
 
   expect(
     isEqual(
       x.getDummies("favoriteIceCream").get(null, favoriteIceCreamColumns),
-      yTrue.get(null, favoriteIceCreamColumns)
-    )
+      yTrue.get(null, favoriteIceCreamColumns),
+    ),
   ).toBe(true)
 
   expect(
     isEqual(
       x.getDummies("randomNumber").get(null, randomNumberColumns),
-      yTrue.get(null, randomNumberColumns)
-    )
+      yTrue.get(null, randomNumberColumns),
+    ),
   ).toBe(true)
 })
 
@@ -367,7 +371,7 @@ test("tests appending a single vector to a DataFrame", () => {
       [3, 6, undefined, undefined],
       [4, 7, undefined, undefined],
       [10, 20, 30, 40],
-    ])
+    ]),
   ).toBe(true)
 
   expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
@@ -381,7 +385,7 @@ test("tests appending a single vector to a DataFrame", () => {
       [3, 6, 20],
       [4, 7, 30],
       [undefined, undefined, 40],
-    ])
+    ]),
   ).toBe(true)
 
   expect(d.columns).toStrictEqual(["foo", "bar", "col2"])
@@ -408,7 +412,7 @@ test("tests appending a matrix to a DataFrame", () => {
       [4, 7, undefined, undefined],
       [10, 20, 30, 40],
       [50, 60, 70, 80],
-    ])
+    ]),
   ).toBe(true)
 
   expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
@@ -421,7 +425,7 @@ test("tests appending a matrix to a DataFrame", () => {
       [2, 5, 10, 20, 30, 40],
       [3, 6, 50, 60, 70, 80],
       [4, 7, undefined, undefined, undefined, undefined],
-    ])
+    ]),
   ).toBe(true)
 
   expect(d.columns).toStrictEqual([
@@ -452,7 +456,7 @@ test("tests appending a Series to a DataFrame", () => {
       [3, 6, undefined, undefined],
       [4, 7, undefined, undefined],
       [10, 20, 30, 40],
-    ])
+    ]),
   ).toBe(true)
 
   expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
@@ -466,7 +470,7 @@ test("tests appending a Series to a DataFrame", () => {
       [3, 6, 20],
       [4, 7, 30],
       [undefined, undefined, 40],
-    ])
+    ]),
   ).toBe(true)
 
   expect(d.columns).toStrictEqual(["foo", "bar", "bee"])
@@ -496,7 +500,7 @@ test("tests appending a DataFrame to a DataFrame", () => {
       [4, 7, undefined, undefined, undefined],
       [undefined, 20, 10, 30, 40],
       [undefined, 60, 50, 70, 80],
-    ])
+    ]),
   ).toBe(true)
 
   expect(c.columns).toStrictEqual(["foo", "bar", "col0", "col2", "col3"])
@@ -509,7 +513,7 @@ test("tests appending a DataFrame to a DataFrame", () => {
       [3, 6, 50, 60, 70, 80],
       [4, 7, undefined, undefined, undefined, undefined],
       [undefined, undefined, 10, 20, 30, 40],
-    ])
+    ]),
   ).toBe(true)
 
   expect(d.index).toStrictEqual(["row0", "row1", "row2", "beeRow0"])

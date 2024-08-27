@@ -8,29 +8,41 @@ function dfGet(df, rows, cols) {
   if (isString(rows) || isNumber(rows)) rows = [rows]
   if (isString(cols) || isNumber(cols)) cols = [cols]
 
+  for (const i in rows) {
+    if (typeof rows[i] === "bigint") {
+      rows[i] = Number(rows[i])
+    }
+  }
+
+  for (const i in cols) {
+    if (typeof cols[i] === "bigint") {
+      cols[i] = Number(cols[i])
+    }
+  }
+
   const types = set((rows || []).concat(cols || []).map(v => typeof v))
 
   assert(
     types.length <= 2,
-    "Only whole numbers and/or strings are allowed in `get` arrays!"
+    "Only whole numbers and/or strings are allowed in `get` arrays!",
   )
 
   if (types.length === 1) {
     assert(
       types[0] === "string" || types[0] === "number",
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
   }
 
   if (types.length === 2) {
     assert(
       types.indexOf("string") > -1,
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
 
     assert(
       types.indexOf("number") > -1,
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
   }
 
