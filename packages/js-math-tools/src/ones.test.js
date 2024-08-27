@@ -11,6 +11,7 @@ test("tests that arrays of 1s can be generated correctly", () => {
   ])
 
   expect(shape(ones([2, 3, 4, 5]))).toStrictEqual([2, 3, 4, 5])
+  expect(ones([2n, 3n, 4n])).toStrictEqual(ones([2, 3, 4]))
 
   const wrongs = [
     2.3,
