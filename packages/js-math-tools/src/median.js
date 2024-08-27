@@ -1,5 +1,6 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
+const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
@@ -12,7 +13,7 @@ function median(arr) {
 
   assert(
     isArray(arr),
-    "The `median` function only works on arrays, Series, and DataFrames!"
+    "The `median` function only works on arrays, Series, and DataFrames!",
   )
 
   try {
@@ -21,7 +22,18 @@ function median(arr) {
     if (temp.length === 0) {
       return NaN
     } else if (temp.length % 2 === 0) {
-      return (temp[temp.length / 2 - 1] + temp[temp.length / 2]) / 2
+      let left = temp[temp.length / 2 - 1]
+      let right = temp[temp.length / 2]
+
+      if (typeof left === "bigint") {
+        left = float(left)
+      }
+
+      if (typeof right === "bigint") {
+        right = float(right)
+      }
+
+      return (left + right) / 2
     } else {
       return temp[parseInt(temp.length / 2)]
     }

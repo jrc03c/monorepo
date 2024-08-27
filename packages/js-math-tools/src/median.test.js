@@ -22,6 +22,11 @@ test("tests that the median of arrays, series, and dataframes can be computed co
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(median(d)).toBe(median(d.values))
 
+  expect(median([2n, 3n, 4n, 5n, 4n, 4n, 4n, 4n, 4n])).toBe(4n)
+  expect(median([2.34, 3n, 5.67])).toBe(3n)
+  expect(median([2n, 3.1, 4n])).toBe(3.1)
+  expect(median([2n, 2n, 3n, 3n])).toBe(2.5)
+
   const wrongs = [
     0,
     1,
