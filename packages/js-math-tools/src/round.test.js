@@ -26,6 +26,10 @@ test("tests that values can be rounded correctly", () => {
   const fPred = round(e)
   expect(isEqual(fPred, fTrue)).toBe(true)
 
+  expect(round(234n)).toBe(234n)
+  expect(round(-234n)).toBe(-234n)
+  expect(round([2n, -3n, 4n, -5n])).toStrictEqual([2n, -3n, 4n, -5n])
+
   const wrongs = [
     NaN,
     "foo",
