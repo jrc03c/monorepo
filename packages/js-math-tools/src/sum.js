@@ -1,6 +1,5 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
-const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
@@ -25,7 +24,7 @@ function sum(arr) {
     for (let v of temp) {
       if (typeof v === "bigint") {
         resultShouldBeABigInt = true
-        v = float(v)
+        v = Number(v)
       }
 
       out += v
