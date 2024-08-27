@@ -5,15 +5,42 @@ const max = require("./max")
 const min = require("./min")
 const vectorize = require("./vectorize")
 
-const helper = vectorize(function (x, a, b, c, d) {
+const helper = vectorize((x, a, b, c, d) => {
   try {
-    if (![x, a, b, c, d].every(v => isNumber(v))) {
-      return NaN
+    let resultShouldBeABigInt = false
+
+    for (const v of [x, a, b, c, d]) {
+      if (!isNumber(v)) {
+        return NaN
+      }
+
+      if (typeof v === "bigint") {
+        resultShouldBeABigInt = true
+      }
     }
 
-    if (b - a === 0) return NaN
+    if (resultShouldBeABigInt) {
+      x = Number(x)
+      a = Number(a)
+      b = Number(b)
+      c = Number(c)
+      d = Number(d)
+    }
 
-    return ((d - c) * (x - a)) / (b - a) + c
+    const num = (d - c) * (x - a)
+    const den = b - a
+
+    if (den === 0) return NaN
+
+    const out = num / den + c
+
+    if (resultShouldBeABigInt) {
+      try {
+        return BigInt(out)
+      } catch (e) {}
+    }
+
+    return out
   } catch (e) {
     return NaN
   }
