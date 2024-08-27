@@ -42,6 +42,24 @@ function fixUndefineds(x) {
   }
 }
 
+function parseAsBigInt(x) {
+  if (typeof x === "bigint") {
+    return x
+  } else if (typeof x === "string") {
+    if (x.match(/^\s*?-?\d+n\s*?$/g)) {
+      try {
+        return BigInt(x.split("n")[0])
+      } catch (e) {
+        return NaN
+      }
+    } else {
+      return NaN
+    }
+  } else {
+    return NaN
+  }
+}
+
 function parseAsNumber(x) {
   if (typeof x !== "string") {
     if (typeof x === "number") {
@@ -224,6 +242,9 @@ function parse(x) {
 
       out = parseAsRegex(x)
       if (out instanceof RegExp) return out
+
+      out = parseAsBigInt(x)
+      if (typeof out === "bigint") return out
 
       out = parseAsNumber(x)
       if (typeof out === "number") return out

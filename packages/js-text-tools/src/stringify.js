@@ -21,7 +21,7 @@ function prefix(s, n) {
 function stringify(x, indent) {
   assert(
     isString(indent) || isUndefined(indent),
-    "The second parameter to the `stringify` function must be undefined or a string!"
+    "The second parameter to the `stringify` function must be undefined or a string!",
   )
 
   const newline = indent ? "\n" : ""
@@ -29,7 +29,11 @@ function stringify(x, indent) {
   function helper(x, indent, depth) {
     depth = depth || 0
 
-    if (typeof x === "number" || typeof x === "bigint") {
+    if (typeof x === "bigint") {
+      return x.toString() + "n"
+    }
+
+    if (typeof x === "number") {
       if (x === Infinity) {
         return '"Symbol(@Infinity)"'
       }
@@ -130,7 +134,7 @@ function stringify(x, indent) {
                 return helper(
                   convertTypedArrayToObject(x[key]),
                   indent,
-                  depth + 1
+                  depth + 1,
                 )
               } catch (e) {
                 return helper(x[key], indent, depth + 1)

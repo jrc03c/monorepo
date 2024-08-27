@@ -248,6 +248,8 @@ test("tests that values can be stringified and parsed back to their original val
     -2.3,
     Infinity,
     -Infinity,
+    234n,
+    -234n,
     NaN,
     "foo",
     true,
