@@ -6,6 +6,8 @@ test("tests that ranges of values can be generated correctly", () => {
 
   expect(range(2, 5, 0.5)).toStrictEqual([2, 2.5, 3, 3.5, 4, 4.5])
   expect(range(5, -5, 2)).toStrictEqual([5, 3, 1, -1, -3])
+  expect(range(2n, 5n)).toStrictEqual([2n, 3n, 4n])
+  expect(range(0n, 10n, 2n)).toStrictEqual([0n, 2n, 4n, 6n, 8n])
   expect(() => range(5, -5, -2)).toThrow()
   expect(() => range(0, 10, -5)).toThrow()
 
