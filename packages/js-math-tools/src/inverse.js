@@ -2,7 +2,6 @@ const add = require("./add")
 const assert = require("./assert")
 const dot = require("./dot")
 const flatten = require("./flatten")
-const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
@@ -51,7 +50,7 @@ function inverse(x) {
   } else if (xShape[0] === 1) {
     assert(x[0][0] !== 0, "This matrix cannot be inverted!")
     let v = x[0][0]
-    if (typeof v === "bigint") v = float(v)
+    if (typeof v === "bigint") v = Number(v)
     return 1 / v
   } else if (xShape[0] === 2) {
     let a = x[0][0]
@@ -59,10 +58,10 @@ function inverse(x) {
     let c = x[1][0]
     let d = x[1][1]
 
-    if (typeof a === "bigint") a = float(a)
-    if (typeof b === "bigint") b = float(b)
-    if (typeof c === "bigint") c = float(c)
-    if (typeof d === "bigint") d = float(d)
+    if (typeof a === "bigint") a = Number(a)
+    if (typeof b === "bigint") b = Number(b)
+    if (typeof c === "bigint") c = Number(c)
+    if (typeof d === "bigint") d = Number(d)
 
     const det = a * d - b * c
     assert(det !== 0, "This matrix cannot be inverted!")
