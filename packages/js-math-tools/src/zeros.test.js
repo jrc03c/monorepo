@@ -6,6 +6,7 @@ test("gets a tensor of zeros", () => {
   const x = zeros([2, 3, 4, 5])
   expect(set(x)).toStrictEqual([0])
   expect(shape(x)).toStrictEqual([2, 3, 4, 5])
+  expect(zeros([2n, 3n, 4n])).toStrictEqual(zeros([2, 3, 4]))
 })
 
 test("throws an error when attempting to get zeros with non-whole-number arguments", () => {
