@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -7,7 +6,7 @@ function sqrt(x) {
     if (!isNumber(x)) return NaN
 
     if (typeof x === "bigint") {
-      const out = sqrt(float(x))
+      const out = sqrt(Number(x))
 
       try {
         return BigInt(out)
