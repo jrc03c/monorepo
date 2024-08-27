@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -8,7 +7,7 @@ function pow(x, p) {
     if (!isNumber(p)) return NaN
 
     if (typeof x === "bigint" || typeof p === "bigint") {
-      const out = pow(float(x), float(p))
+      const out = pow(Number(x), Number(p))
 
       try {
         return BigInt(out)
