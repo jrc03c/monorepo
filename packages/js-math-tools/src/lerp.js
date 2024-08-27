@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -9,7 +8,7 @@ function lerp(a, b, f) {
     if (!isNumber(f)) return NaN
 
     if (typeof a === "bigint" || typeof b === "bigint") {
-      const out = lerp(float(a), float(b), f)
+      const out = lerp(Number(a), Number(b), f)
 
       try {
         return BigInt(out)
