@@ -1,5 +1,4 @@
 const assert = require("./assert")
-const int = require("./int")
 const isArray = require("./is-array")
 const isNested = require("./is-nested")
 const isNumber = require("./is-number")
@@ -15,7 +14,7 @@ function ndarray(shape) {
   assert(shape.length > 0, error)
 
   let s = shape[0]
-  if (typeof s === "bigint") s = int(s)
+  if (typeof s === "bigint") s = Number(s)
   assert(isNumber(s), error)
   assert(parseInt(s) === s, error)
   assert(s >= 0, error)

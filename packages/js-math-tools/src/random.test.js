@@ -2,6 +2,7 @@ const { DataFrame, Series } = require("./dataframe")
 const { random, seed } = require("./random")
 const abs = require("./abs")
 const mean = require("./mean")
+const shape = require("./shape")
 const std = require("./std")
 
 test("tests that random numbers can be generated correctly", () => {
@@ -21,6 +22,8 @@ test("tests that random numbers can be generated correctly", () => {
   seed(1234567)
   const d = random(100)
   expect(c).toStrictEqual(d)
+
+  expect(shape(random([2n, 3n, 4n]))).toStrictEqual(shape(random([2, 3, 4])))
 
   const wrongs = [
     2.3,

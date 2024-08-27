@@ -14,6 +14,8 @@ test("tests that arrays can be reshaped correctly", () => {
     2 * 3 * 4 * 5,
   ])
 
+  expect(shape(reshape(normal([6, 4]), [8n, 3n]))).toStrictEqual([8, 3])
+
   const wrongs = [
     0,
     1,

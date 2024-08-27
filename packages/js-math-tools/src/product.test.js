@@ -13,8 +13,8 @@ test("tests that the products of values can be computed correctly", () => {
   expect(
     isEqual(
       product(a),
-      a.reduce((a, b) => a * b, 1)
-    )
+      a.reduce((a, b) => a * b, 1),
+    ),
   ).toBe(true)
 
   const b = normal([2, 3, 4, 5])
@@ -22,8 +22,8 @@ test("tests that the products of values can be computed correctly", () => {
   expect(
     isEqual(
       product(b),
-      flatten(b).reduce((a, b) => a * b, 1)
-    )
+      flatten(b).reduce((a, b) => a * b, 1),
+    ),
   ).toBe(true)
 
   const c = new Series({ hello: normal(100) })
@@ -31,6 +31,9 @@ test("tests that the products of values can be computed correctly", () => {
 
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(isEqual(product(d), product(d.values))).toBe(true)
+
+  expect(product([2n, 3n, 4n])).toBe(24n)
+  expect(product([2n, 3n, 4.1])).toBe(product([2, 3, 4.1]))
 
   const wrongs = [
     0,

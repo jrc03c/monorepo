@@ -14,26 +14,32 @@ function reshape(x, newShape) {
 
   assert(
     isArray(x),
-    "The first argument passed into the `reshape` function must be an array!"
+    "The first argument passed into the `reshape` function must be an array!",
   )
 
   if (isNumber(newShape)) newShape = [newShape]
 
   assert(
     isArray(newShape),
-    "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+    "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
   )
 
   assert(
     shape(newShape).length === 1,
-    "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+    "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
   )
 
-  newShape.forEach(v => {
+  newShape = newShape.map(v => {
+    if (typeof v === "bigint") {
+      v = Number(v)
+    }
+
     assert(
       isNumber(v) && parseInt(v) === v && v > 0,
-      "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+      "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
     )
+
+    return Number(v)
   })
 
   if (newShape.length === 0) {
@@ -48,7 +54,7 @@ function reshape(x, newShape) {
 
   assert(
     product(newShape) === temp.length,
-    "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!"
+    "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!",
   )
 
   const out = []
