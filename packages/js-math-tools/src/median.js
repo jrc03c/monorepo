@@ -1,6 +1,5 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
-const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
@@ -26,11 +25,11 @@ function median(arr) {
       let right = temp[temp.length / 2]
 
       if (typeof left === "bigint") {
-        left = float(left)
+        left = Number(left)
       }
 
       if (typeof right === "bigint") {
-        right = float(right)
+        right = Number(right)
       }
 
       return (left + right) / 2
