@@ -24,6 +24,10 @@ test("tests that the mode of an array, series, or dataframe can be found correct
   const d = new DataFrame({ foo: round(normal(100)), bar: round(normal(100)) })
   expect(mode(d)).toStrictEqual(mode(d.values))
 
+  expect(mode([2n, 2n, 2n, 3n, 4n])).toStrictEqual([2n])
+  expect(mode([2n, 2n, 2n, 3, 4])).toStrictEqual([2n])
+  expect(mode([2n, 2n, 3n, 3n, 4n, 4n])).toStrictEqual([2n, 3n, 4n])
+
   const wrongs = [
     0,
     1,
