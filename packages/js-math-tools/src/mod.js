@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -8,7 +7,7 @@ function mod(a, b) {
     if (!isNumber(b)) return NaN
 
     if (typeof a === "bigint" || typeof b === "bigint") {
-      const out = mod(float(a), float(b))
+      const out = mod(Number(a), Number(b))
 
       try {
         return BigInt(out)
