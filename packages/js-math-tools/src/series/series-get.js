@@ -7,29 +7,35 @@ const set = require("../set")
 function seriesGet(series, indices) {
   if (isString(indices) || isNumber(indices)) indices = [indices]
 
+  for (const i in indices) {
+    if (typeof indices[i] === "bigint") {
+      indices[i] = Number(indices[i])
+    }
+  }
+
   const types = set((indices || []).map(v => typeof v))
 
   assert(
     types.length <= 2,
-    "Only whole numbers and/or strings are allowed in `get` arrays!"
+    "Only whole numbers and/or strings are allowed in `get` arrays!",
   )
 
   if (types.length === 1) {
     assert(
       types[0] === "string" || types[0] === "number",
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
   }
 
   if (types.length === 2) {
     assert(
       types.indexOf("string") > -1,
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
 
     assert(
       types.indexOf("number") > -1,
-      "Only whole numbers and/or strings are allowed in `get` arrays!"
+      "Only whole numbers and/or strings are allowed in `get` arrays!",
     )
   }
 

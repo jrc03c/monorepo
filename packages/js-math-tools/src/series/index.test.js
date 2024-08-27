@@ -26,8 +26,9 @@ test("tests Series stuff", () => {
   expect(series.values).toStrictEqual(series.reverse().reverse().values)
   expect(series.get(range(10, 15)).values).toStrictEqual(x.slice(10, 15))
   expect(series.iloc(range(10, 15)).values).toStrictEqual(x.slice(10, 15))
+
   expect(series.loc(series.index.slice(10, 15)).values).toStrictEqual(
-    x.slice(10, 15)
+    x.slice(10, 15),
   )
 
   const series2 = series.copy()
@@ -58,8 +59,8 @@ test("tests Series stuff", () => {
   expect(
     isEqual(
       yPred.get(null, sort(yPred.columns)),
-      yTrue.get(null, sort(yTrue.columns))
-    )
+      yTrue.get(null, sort(yTrue.columns)),
+    ),
   ).toBe(true)
 
   expect(series5.toDataFrame().shape).toStrictEqual([5, 1])
@@ -81,6 +82,12 @@ test("tests Series stuff", () => {
   const series10 = series9.shuffle()
   expect(isEqual(series9, series10)).toBe(false)
   expect(isEqual(series9.sort(), series10.sort())).toBe(true)
+
+  const series11 = new Series(normal(100))
+
+  expect(isEqual(series11.get([2n, 3n, 4n]), series11.get([2, 3, 4]))).toBe(
+    true,
+  )
 })
 
 test("throws an error when attempting to do unsavory things with Series", () => {
