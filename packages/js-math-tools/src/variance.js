@@ -1,6 +1,5 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
-const float = require("./float")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
@@ -19,14 +18,14 @@ function variance(arr) {
 
   try {
     const temp = flatten(arr)
-    const m = float(mean(temp))
+    const m = Number(mean(temp))
     if (!isNumber(m)) return NaN
 
     let out = 0
 
     for (let v of temp) {
       if (!isNumber(v)) return NaN
-      if (typeof v === "bigint") v = float(v)
+      if (typeof v === "bigint") v = Number(v)
       out += (v - m) * (v - m)
     }
 
