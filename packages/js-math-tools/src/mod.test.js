@@ -15,15 +15,15 @@ test("tests that the modulo function works as expected", () => {
   expect(
     isEqual(
       mod(a, b),
-      a.map(v => v % b)
-    )
+      a.map(v => v % b),
+    ),
   ).toBe(true)
 
   expect(
     isEqual(
       mod(b, a),
-      a.map(v => b % v)
-    )
+      a.map(v => b % v),
+    ),
   ).toBe(true)
 
   const c = normal([2, 3, 4, 5])
@@ -42,6 +42,11 @@ test("tests that the modulo function works as expected", () => {
   const h = new DataFrame(normal([10, 10]))
   const i = new DataFrame(normal([10, 10]))
   expect(isEqual(mod(h, i), new DataFrame(mod(h.values, i.values)))).toBe(true)
+
+  expect(mod(8n, 2n)).toBe(0n)
+  expect(mod(8n, 2)).toBe(0n)
+  expect(mod(8, 2n)).toBe(0n)
+  expect(mod(8, 2)).toBe(0)
 
   const wrongs = [
     Infinity,
