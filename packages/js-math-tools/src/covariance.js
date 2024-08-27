@@ -1,5 +1,4 @@
 const assert = require("./assert")
-const float = require("./float")
 const isArray = require("./is-array")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
@@ -26,8 +25,8 @@ function covariance(x, y) {
   )
 
   try {
-    const mx = float(mean(x))
-    const my = float(mean(y))
+    const mx = Number(mean(x))
+    const my = Number(mean(y))
 
     if (!isNumber(mx) || !isNumber(my)) {
       return NaN
@@ -44,11 +43,11 @@ function covariance(x, y) {
       if (!isNumber(vy)) return NaN
 
       if (typeof vx === "bigint") {
-        vx = float(vx)
+        vx = Number(vx)
       }
 
       if (typeof vy === "bigint") {
-        vy = float(vy)
+        vy = Number(vy)
       }
 
       out += (vx - mx) * (vy - my)
