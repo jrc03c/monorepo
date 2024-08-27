@@ -3,6 +3,7 @@ const abs = require("./abs")
 const mean = require("./mean")
 const normal = require("./normal")
 const seed = require("./random").seed
+const shape = require("./shape")
 const std = require("./std")
 
 test("tests that normally-distributed random numbers can be generated correctly", () => {
@@ -22,6 +23,8 @@ test("tests that normally-distributed random numbers can be generated correctly"
   seed(1234567)
   const d = normal(100)
   expect(c).toStrictEqual(d)
+
+  expect(shape(normal([2n, 3n, 4n]))).toStrictEqual(shape(normal([2, 3, 4])))
 
   const wrongs = [
     2.3,

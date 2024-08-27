@@ -6,11 +6,18 @@ const shape = require("./shape")
 
 test("tests that arrays of any (non-jagged) shape can be created successfully", () => {
   expect(
-    isEqual(ndarray(5), [undefined, undefined, undefined, undefined, undefined])
+    isEqual(ndarray(5), [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ]),
   ).toBe(true)
 
   expect(shape(ndarray([2, 3, 4, 5]))).toStrictEqual([2, 3, 4, 5])
   expect(flatten(ndarray([2, 3, 4, 5])).length).toBe(2 * 3 * 4 * 5)
+  expect(isEqual(ndarray([2n, 3n, 4n]), ndarray([2, 3, 4]))).toBe(true)
 
   const wrongs = [
     2.3,
