@@ -8,6 +8,7 @@ test("gets the shape of some non-jagged arrays, Series, and DataFrames", () => {
   expect(shape(normal([2, 3, 4]))).toStrictEqual([2, 3, 4])
   expect(shape(new Series(normal(100)))).toStrictEqual([100])
   expect(shape(new DataFrame(normal([10, 10])))).toStrictEqual([10, 10])
+  expect(isEqual(shape([[[2n, 3n, 4n]]]), shape([[[2, 3, 4]]]))).toBe(true)
 })
 
 test("gets the shape of some jagged arrays", () => {
