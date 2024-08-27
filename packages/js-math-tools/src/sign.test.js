@@ -35,6 +35,10 @@ test("tests that the sign of a number can be correctly identified", () => {
   const hPred = sign(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
+  expect(sign(234n)).toBe(1n)
+  expect(sign(-234n)).toBe(-1n)
+  expect(sign(0n)).toBe(0n)
+
   const wrongs = [
     NaN,
     "foo",
