@@ -23,6 +23,11 @@ test("tests that sets of values can be correctly selected", () => {
   const c = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(isEqual(set(c), set(c.values))).toBe(true)
 
+  const d = [234n, -567.89, true, false, null, 234n, -567.89, true, false, null]
+  const eTrue = [234n, -567.89, true, false, null]
+  const ePred = set(d)
+  expect(isEqual(eTrue, ePred)).toBe(true)
+
   const others = [
     0,
     1,
