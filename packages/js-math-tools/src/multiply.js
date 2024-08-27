@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -15,7 +14,7 @@ function multiply() {
 
       if (typeof v === "bigint") {
         resultShouldBeABigInt = true
-        v = float(v)
+        v = Number(v)
       }
 
       out *= v
