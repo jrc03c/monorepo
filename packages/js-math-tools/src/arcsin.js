@@ -1,4 +1,3 @@
-const float = require("./float")
 const isNumber = require("./is-number")
 const vectorize = require("./vectorize")
 
@@ -7,7 +6,7 @@ function arcsin(x) {
     if (!isNumber(x)) return NaN
 
     if (typeof x === "bigint") {
-      x = float(x)
+      x = Number(x)
     }
 
     return Math.asin(x)
