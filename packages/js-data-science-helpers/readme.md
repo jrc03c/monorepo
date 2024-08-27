@@ -15,7 +15,11 @@ npm install --save https://github.com/jrc03c/js-data-science-helpers
 Pull out individual functions:
 
 ```js
-const { clipOutliers, containsOnlyNumbers, ... } = require("@jrc03c/js-data-science-helpers")
+const {
+  containsOnlyNumbers,
+  getCorrelationMatrix,
+  ...,
+} = require("@jrc03c/js-data-science-helpers")
 ```
 
 Or dump all of the functions into the global scope:
@@ -31,22 +35,91 @@ require("@jrc03c/js-data-science-helpers").dump()
 
 <script>
   // pull out individual functions:
-  const { clipOutliers, containsOnlyNumbers, ... } = JSDataScienceHelpers
+  const {
+    containsOnlyNumbers,
+    getCorrelationMatrix,
+    ...,
+  } = JSDataScienceHelpers
 
   // or dump everything into the global scope:
   JSDataScienceHelpers.dump()
 </script>
 ```
 
-# To do
-
-- At some point, the `clipOutliers` function provided the option of taking the log of the values after clipping them. I'm not sure why I dropped this, but I should probably take a closer look at whether it's useful or not.
-
 # API
 
-### `clipOutliers(x, maxScore=5)`
+### `OutlierMitigator(options={})`
 
-Clips all values in a `x` to the range [`median(x) - maxScore * MAD(x)`, `median(x) + maxScore * MAD(x)`]. (See: [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation))
+Makes it easy to remove outliers by clipping all values in a dataset (`x`) to the range `[median(x) - maxScore * MAD(x), median(x) + maxScore * MAD(x)]` and then potentially taking the log of those values. (See: [MAD](https://en.wikipedia.org/wiki/Median_absolute_deviation))
+
+The constructor accepts an options object with these options:
+
+- `isAllowedToClip` = a boolean indicating whether or not the model is allowed to clip outliers into the range described above; the default is `true`
+- `isAllowedToTakeTheLog` = a boolean indicating whether or not the model is allowed to take the log of _all_ values if any of the values fall outside the range described above; the default is `false`
+- `maxScore` = a non-negative number that helps to define the range described above by determining how far (i.e., how many MADs) values are allowed to fall from the median of the training dataset before they're marked as outliers; the default is `5`
+
+#### Properties
+
+##### `isAllowedToClip`
+
+A boolean indicating whether or not the model is allowed to clip outliers into the range described above.
+
+##### `isAllowedToTakeTheLog`
+
+A boolean indicating whether or not the model is allowed to take the log of _all_ values if any of the values fall outside the range described above.
+
+##### `mad`
+
+A number representing the median absolute deviation (MAD) from the median of the training dataset.
+
+##### `maxScore`
+
+A non-negative number that helps to define the range described above by determining how far (i.e., how many MADs) values are allowed to fall from the median of the training dataset before they're marked as outliers.
+
+##### `median`
+
+A number representing the median of the training dataset.
+
+#### Methods
+
+##### `fit(x)`
+
+Computes the median, MAD, and minimum value of `x`, which can be an array, a `DataFrame`, or a `Series`. Returns the `OutlierMitigator` instance.
+
+##### `fitTransform(x, [y, z, ...])`
+
+Runs the fit method on `x`, passes _all_ of the arguments into the `transform` method, and returns the results.
+
+##### `transform(x, [y, z, ...])`
+
+Modifies and returns the given dataset(s) according to whether or not (1) outliers can be clipped into the range described above, and/or (2) whether or not the log of _all_ values can be taken if any outliers exist in the dataset.
+
+Note that each argument is transformed on its own; so outliers in `x`, for example, won't have any bearing on how `y`, `z`, etc., are transformed.
+
+#### Example
+
+```js
+const { OutlierMitigator } = require("@jrc03c/js-data-science-helpers")
+
+const x = [-10000, 1, 2, 3, 4, 10000]
+const gator = new OutlierMitigator()
+gator.fit(x)
+
+console.log(gator.transform(x))
+// [ -5, 1, 2, 3, 4, 10 ]
+
+gator.isAllowedToTakeTheLog = true
+
+console.log(gator.transform(x))
+// [
+//   0,
+//   1.9459101490553132,
+//   2.0794415416798357,
+//   2.1972245773362196,
+//   2.302585092994046,
+//   2.772588722239781,
+// ]
+```
 
 ### `cohensd(a, b)`
 

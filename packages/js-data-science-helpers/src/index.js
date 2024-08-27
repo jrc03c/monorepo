@@ -1,11 +1,11 @@
 const { MathError } = require("@jrc03c/js-math-tools")
 
 const helpers = {
-  clipOutliers: require("./clip-outliers"),
-  cohensD: require("./cohens-d"),
   cohensd: require("./cohens-d"),
+  cohensD: require("./cohens-d"),
   common: require("./common"),
   containsOnlyNumbers: require("./contains-only-numbers"),
+  convertToNumerical: require("./convert-to-numerical"),
   diagonalize: require("./diagonalize"),
   getCorrelationMatrix: require("./get-correlation-matrix"),
   getHighlyCorrelatedColumns: require("./get-highly-correlated-columns"),
@@ -19,7 +19,7 @@ const helpers = {
   KMeans: require("./k-means"),
   normalize: require("./normalize"),
   orthonormalize: require("./orthonormalize"),
-  convertToNumerical: require("./convert-to-numerical"),
+  OutlierMitigator: require("./outlier-mitigator"),
   project: require("./project"),
   pValue: require("./p-value"),
   rScore: require("./r-score"),
@@ -35,12 +35,12 @@ const helpers = {
       typeof global !== "undefined"
         ? global
         : typeof window !== "undefined"
-        ? window
-        : null
+          ? window
+          : null
 
     if (!pub) {
       throw new MathError(
-        "Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!"
+        "Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!",
       )
     }
 
