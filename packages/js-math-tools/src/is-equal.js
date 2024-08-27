@@ -21,9 +21,13 @@ function isEqual(a, b) {
     if (aType === "symbol") return a === b
 
     if (aType === "number" || aType === "bigint") {
-      const aString = a.toString()
-      const bString = b.toString()
-      return aString === bString
+      try {
+        const aString = a.toString()
+        const bString = b.toString()
+        return aString === bString
+      } catch (e) {
+        return false
+      }
     }
 
     if (aType === "string") return a === b
