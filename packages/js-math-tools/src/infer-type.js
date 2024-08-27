@@ -97,7 +97,7 @@ function inferType(arr) {
     }
 
     try {
-      if (v.match(/^\d+n$/g)) {
+      if (v.match(/^-?\d+n$/g)) {
         return "bigint"
       }
 

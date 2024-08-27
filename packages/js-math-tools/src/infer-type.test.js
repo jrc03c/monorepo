@@ -136,8 +136,8 @@ test("correctly infers a variety of data types from strings", () => {
   const uPred = inferType(t)
   expect(isEqual(uTrue, uPred)).toBe(true)
 
-  const v = [2n, 3n, 4n]
-  const wTrue = { type: "bigint", values: [2n, 3n, 4n] }
+  const v = [2n, -3n, 4n]
+  const wTrue = { type: "bigint", values: [2n, -3n, 4n] }
   const wPred = inferType(v)
   expect(isEqual(wTrue, wPred)).toBe(true)
 
