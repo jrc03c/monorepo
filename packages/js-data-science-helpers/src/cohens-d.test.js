@@ -21,6 +21,16 @@ test("tests that Cohen's D can be correctly calculated", () => {
   common.shouldIgnoreNaNValues = true
   expect(cohensd(f, g)).not.toBeNaN()
 
+  const h = normal(100).map(v => BigInt(Math.round(v)))
+  const i = normal(100).map(v => BigInt(Math.round(v)))
+
+  expect(cohensd(h, i)).toBe(
+    cohensd(
+      h.map(v => Number(v)),
+      i.map(v => Number(v)),
+    ),
+  )
+
   const wrongs = [
     0,
     1,
