@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "dependencies": {
     "@jrc03c/bash-colors": "^0.0.3",
-    "@jrc03c/js-math-tools": "^0.0.63"
+    "@jrc03c/js-math-tools": "^0.0.66"
   },
   "author": "jrc03c",
   "license": "ISC",

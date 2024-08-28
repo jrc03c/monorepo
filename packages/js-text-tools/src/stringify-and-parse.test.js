@@ -14,6 +14,10 @@ const parse = require("./parse")
 const stringify = require("./stringify")
 const unindent = require("./unindent")
 
+function makeKeySeeded(n) {
+  return makeKey(n, Math.round(random() * 999999) + 999999)
+}
+
 const files = []
 
 test("tests that objects and arrays with circular references can be stringified", () => {
@@ -47,6 +51,8 @@ test("tests that indentation can be applied when stringifying", () => {
     1,
     2.3,
     -2.3,
+    234n,
+    -234n,
     Infinity,
     -Infinity,
     NaN,
@@ -77,7 +83,7 @@ test("tests that indentation can be applied when stringifying", () => {
     if (endpoint instanceof Array) {
       endpoint.push(value)
     } else {
-      const key = makeKey(parseInt(random() * 5) + 1)
+      const key = makeKeySeeded(parseInt(random() * 5) + 1)
       endpoint[key] = value
     }
 
@@ -93,141 +99,144 @@ test("tests that indentation can be applied when stringifying", () => {
   const xPred = stringify(obj, "  ")
 
   const xTrue = unindent(`
+{
+  "26": -2.3,
+  "66": -2.3,
+  "126": "function dubble(x) {\\n    return x * 2;\\n  }",
+  "6583": "x => x",
+  "33d0": [
     {
-      "43": 2.3,
-      "dgg4": [
-        0,
-        false,
-        0,
+      "8": [
+        -2.3,
+        -2.3,
+        [],
         {
-          "2": [
-            "Symbol(@undefined)"
+          "eg": -2.3,
+          "6gg1": {
+            "d5af0": "234n"
+          },
+          "24beb": {}
+        },
+        [
+          2.3
+        ]
+      ],
+      "6128": [],
+      "b9": {
+        "22": "2365-02-16T23:47:32.955Z",
+        "91": {
+          "78": [
+            "234n"
           ],
-          "5": "x => x",
-          "49": [
-            [],
-            {},
-            1,
+          "4c413": {
+            "c": -2.3
+          }
+        },
+        "gb5a": {
+          "7": 2.3,
+          "10": "function dubble(x) {\\n    return x * 2;\\n  }",
+          "65g9": [
             []
           ],
-          "1d": "x => x",
-          "2e03": 1,
-          "e2b": [
-            -2.3,
-            "Symbol(@Infinity)",
-            [],
-            2.3,
-            "x => x"
-          ],
-          "d0e58": "x => x",
-          "fd0cc": {
-            "3897": "Symbol(@undefined)",
-            "bf": {
-              "14": [
-                -2.3
-              ],
-              "ab1": [],
-              "8fg": "x => x"
-            },
-            "aa9d": "Symbol(@undefined)",
-            "c7": [
+          "aa3g": 0,
+          "e1": "-234n",
+          "g": "Symbol(Hello, world!)"
+        },
+        "5e": 1,
+        "af": true,
+        "f5d": [
+          [],
+          {}
+        ],
+        "50f53": {}
+      },
+      "g23": 2.3,
+      "1b1": "234n",
+      "d3aa": 1,
+      "9e": [
+        [
+          {
+            "4": [
               [
                 [
-                  2.3,
-                  [
-                    [
-                      true
-                    ],
-                    []
-                  ],
                   {}
                 ]
               ],
-              []
-            ],
-            "a9gb": {
-              "1c9": [
-                "Symbol(@NegativeInfinity)"
-              ],
-              "0568": "Symbol(Hello, world!)"
-            }
-          },
-          "1dfce": 0,
-          "7c": {
-            "0c6fc": {},
-            "d7f2d": {}
-          },
-          "f7dd": [
-            1
-          ]
-        },
-        [
-          {
-            "9": "Symbol(@NegativeInfinity)",
-            "189f": {
-              "9": [],
-              "d6": {
-                "9deg1": "Symbol(@String):foo",
-                "d3f": [
-                  {
-                    "9": "Symbol(@String):foo",
-                    "962": [],
-                    "2g2bb": {},
-                    "4b8ce": "Symbol(Hello, world!)",
-                    "e777": 0
-                  },
-                  2.3
+              1,
+              {
+                "8dc8d": {
+                  "7edbc": 1
+                },
+                "f1d1d": [
+                  0
+                ],
+                "ddf7c": [
+                  [
+                    []
+                  ],
+                  false
+                ],
+                "a78": [
+                  1
                 ]
-              },
-              "9a1": [
-                {}
-              ]
-            },
-            "f1": {
-              "7c4": {
-                "a": 0
               }
-            }
+            ]
           },
-          {
-            "5": 1,
-            "62859": {},
-            "begd": "2365-02-16T23:47:32.955Z"
-          },
-          [],
-          {},
-          true,
+          "Symbol(Hello, world!)",
           [
-            2.3
+            2.3,
+            0
+          ],
+          [
+            {}
           ]
         ],
-        "function dubble(x) {\\n    return x * 2;\\n  }",
-        {
-          "55da": [
-            [
-              "Symbol(@NaN)",
-              null,
-              true,
-              []
-            ],
-            false,
-            "Symbol(@NaN)"
-          ],
-          "87b8": [
-            {
-              "4f": "Symbol(@String):foo",
-              "ad": "x => x"
-            }
-          ]
-        },
-        []
+        {}
       ],
-      "73aa2": "Symbol(@NaN)",
-      "eff": "x => x",
-      "f95": "function dubble(x) {\\n    return x * 2;\\n  }",
-      "d8g3": "2365-02-16T23:47:32.955Z",
-      "6ea": 1
-    }
+      "5c2": {
+        "b5": [
+          null,
+          "Symbol(@NaN)"
+        ]
+      },
+      "f8858": [
+        "Symbol(@String):foo",
+        "Symbol(@undefined)"
+      ],
+      "b9a0": "-234n",
+      "47d": "Symbol(@Infinity)"
+    },
+    "function dubble(x) {\\n    return x * 2;\\n  }",
+    "x => x",
+    null,
+    [
+      [
+        "x => x"
+      ],
+      false
+    ],
+    false,
+    -2.3,
+    [
+      [],
+      "Symbol(Hello, world!)"
+    ],
+    []
+  ],
+  "c69": "Symbol(Hello, world!)",
+  "cg7e9": "Symbol(@Infinity)",
+  "b13": false,
+  "a8e": [
+    {
+      "f": 2.3
+    },
+    []
+  ],
+  "897ee": [
+    true,
+    []
+  ]
+}
   `).trim()
 
   expect(xPred).toBe(xTrue)
@@ -348,7 +357,7 @@ test("tests that stringification and parsing work when writing to and reading fr
     if (endpoint instanceof Array) {
       endpoint.push(value)
     } else {
-      const key = makeKey(parseInt(random() * 5) + 1)
+      const key = makeKeySeeded(parseInt(random() * 5) + 1)
       endpoint[key] = value
     }
 

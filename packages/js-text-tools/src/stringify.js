@@ -30,7 +30,7 @@ function stringify(x, indent) {
     depth = depth || 0
 
     if (typeof x === "bigint") {
-      return x.toString() + "n"
+      return JSON.stringify(x.toString() + "n")
     }
 
     if (typeof x === "number") {

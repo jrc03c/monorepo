@@ -38,6 +38,10 @@ function fixUndefineds(x) {
       return undefined
     }
 
+    if (x === "Symbol(@undefined)") {
+      return undefined
+    }
+
     return x
   }
 }
@@ -153,16 +157,17 @@ function parseWithJSONParse(x) {
     if (typeof x === "object") {
       return x
     } else {
-      return
+      return "Symbol(@undefined)"
     }
   }
 
   try {
     let out = JSON.parse(x, (key, value) => {
       try {
-        return parse(value)
+        const out = parse(value)
+        return typeof out === "undefined" ? "Symbol(@undefined)" : out
       } catch (e) {
-        return value
+        return typeof value === "undefined" ? "Symbol(@undefined)" : value
       }
     })
 
@@ -172,7 +177,7 @@ function parseWithJSONParse(x) {
 
     return out
   } catch (e) {
-    // ...
+    return "Symbol(@undefined)"
   }
 }
 
@@ -253,7 +258,14 @@ function parse(x) {
       if (out instanceof Date) return out
 
       out = parseWithJSONParse(x)
-      if (typeof out !== "undefined") return out
+
+      if (typeof out !== "undefined") {
+        if (out === "Symbol(@undefined)") {
+          return undefined
+        } else {
+          return out
+        }
+      }
 
       return x
     }
