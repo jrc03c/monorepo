@@ -3,7 +3,7 @@ $schema: "https://moonrepo.dev/schemas/toolchain.json"
 node:
   addEnginesConstraint: true
   dedupeOnLockfileChange: true
-  dependencyVersionFormat: "workspace"
+  dependencyVersionFormat: "link"
   inferTasksFromScripts: true
   npm:
     version: "10.5.2"
