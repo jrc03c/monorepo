@@ -34,7 +34,7 @@ test("tests that arrays containing only numbers can be correctly identified", ()
 
   expect(containsOnlyNumbers(c)).toBe(false)
 
-  throw new Error("Add BigInt unit tests!")
+  expect(containsOnlyNumbers([2n, -3n, 4n, -5n])).toBe(true)
 
   const wrongs = [
     0,
