@@ -27,6 +27,8 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
   common.shouldIgnoreNaNValues = true
   expect(getMagnitude([3, 4, "five"])).toBe(5)
 
+  expect(getMagnitude(234n)).toBe(234n)
+  expect(getMagnitude(-234n)).toBe(234n)
   expect(getMagnitude([3n, 4n])).toBe(5n)
   expect(getMagnitude([3n, 4.5])).toBeCloseTo(5.408326913)
 
