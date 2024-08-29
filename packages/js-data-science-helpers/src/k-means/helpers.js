@@ -34,7 +34,7 @@ function accuracy(yTrue, yPred) {
 
   assert(
     isEqual(shape(yTrue), shape(yPred)),
-    "`yPred` and `yTrue` must have the same shape!"
+    "`yPred` and `yTrue` must have the same shape!",
   )
 
   const yTrueFlat = flatten(yTrue)
@@ -65,7 +65,7 @@ function getDistanceMatrix(points) {
 function createGenericTest(Model) {
   test(`tests that the \`${Model.name}\` model works correctly`, () => {
     const centroidsTrue = normal([5, 10]).map(row =>
-      row.map(v => v * 100 + normal() * 100)
+      row.map(v => v * 100 + normal() * 100),
     )
 
     const labels = []
@@ -87,6 +87,8 @@ function createGenericTest(Model) {
 
     expect(accuracy(labelsTrain, labelsTrainPred)).toBeGreaterThan(0.95)
     expect(accuracy(labelsTest, labelsTestPred)).toBeGreaterThan(0.95)
+
+    throw new Error("Add BigInt unit tests!")
   })
 }
 

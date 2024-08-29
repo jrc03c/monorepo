@@ -21,6 +21,8 @@ test("tests that p-values can be correctly computed", () => {
   const i = new DataFrame({ baz: normal(100), aha: normal(100) })
   expect(() => pValue(h, i)).not.toThrow()
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     0,
     1,

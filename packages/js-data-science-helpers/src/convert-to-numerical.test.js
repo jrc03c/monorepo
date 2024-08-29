@@ -45,14 +45,14 @@ test("tests that DataFrames can be converted to all numerical values correctly",
 
   const datesFromSmallSet = (() => {
     const datesSet = range(0, 7).map(
-      () => new Date(int(random() * new Date().getTime()))
+      () => new Date(int(random() * new Date().getTime())),
     )
 
     return range(0, n).map(() => datesSet[int(random() * datesSet.length)])
   })()
 
   const datesAllUnique = range(0, n).map(
-    () => new Date(int(random() * new Date().getTime()))
+    () => new Date(int(random() * new Date().getTime())),
   )
 
   const floatsFromSmallSet = (() => {
@@ -128,7 +128,7 @@ test("tests that DataFrames can be converted to all numerical values correctly",
 
     df = df.assign(
       "floatsWithLotsMissing" + i,
-      normal(n).map(v => (random() < threshold ? v : NaN))
+      normal(n).map(v => (random() < threshold ? v : NaN)),
     )
   })
 
@@ -139,7 +139,7 @@ test("tests that DataFrames can be converted to all numerical values correctly",
 
     df = df.assign(
       makeKey(8) + " (1 unique)",
-      range(0, n).map(() => value)
+      range(0, n).map(() => value),
     )
   })
 
@@ -197,6 +197,8 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   oneHotColumns.forEach(colName => {
     expect(dfCleaned.columns.includes(colName)).toBe(false)
   })
+
+  throw new Error("Add BigInt unit tests!")
 })
 
 test("throws an error when attempting to convertToNumerical non-DataFrames", () => {

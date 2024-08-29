@@ -45,6 +45,8 @@ test("tests that data can be normalized correctly", () => {
   const jPred = normalize(i)
   expect(isEqual(jPred, jTrue)).toBe(true)
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     0,
     1,

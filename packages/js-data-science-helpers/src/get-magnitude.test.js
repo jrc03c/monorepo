@@ -13,7 +13,7 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
   const b = normal([2, 3, 4, 5])
 
   expect(getMagnitude(b)).toBe(
-    Math.sqrt(flatten(b).reduce((a, b) => a + b * b, 0))
+    Math.sqrt(flatten(b).reduce((a, b) => a + b * b, 0)),
   )
 
   const c = new Series({ hello: normal(100) })
@@ -26,6 +26,8 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
   expect(getMagnitude([3, 4, "five"])).toBeNaN()
   common.shouldIgnoreNaNValues = true
   expect(getMagnitude([3, 4, "five"])).toBe(5)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     NaN,

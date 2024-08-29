@@ -29,6 +29,8 @@ test("tests that arrays, Series, and DataFrames can be correctly identified as b
   expect(isBinary(ones([2, 3, 4, 5]))).toBe(true)
   expect(isBinary(identity(10))).toBe(true)
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     2.3,
     -2.3,

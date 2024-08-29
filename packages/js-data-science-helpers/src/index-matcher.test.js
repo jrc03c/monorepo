@@ -45,12 +45,12 @@ test("tests that indices in Series and DataFrames can be correctly matched after
     f.filter(
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
-        g.values[i].every(v => !isUndefined(v))
+        g.values[i].every(v => !isUndefined(v)),
     ),
     g.filter(
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
-        f.values[i].every(v => !isUndefined(v))
+        f.values[i].every(v => !isUndefined(v)),
     ),
   ]
 
@@ -60,20 +60,22 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   const hTrue2 = [
     f.filter(
       (row, i) =>
-        row.values.every(v => !isNaN(v)) && g.values[i].every(v => !isNaN(v))
+        row.values.every(v => !isNaN(v)) && g.values[i].every(v => !isNaN(v)),
     ),
     g.filter(
       (row, i) =>
-        row.values.every(v => !isNaN(v)) && f.values[i].every(v => !isNaN(v))
+        row.values.every(v => !isNaN(v)) && f.values[i].every(v => !isNaN(v)),
     ),
   ]
 
   const hPred2 = new IndexMatcher(IndexMatcher.DROP_NAN_MODE).fitAndTransform(
     f,
-    g
+    g,
   )
 
   expect(isEqual(hPred2, hTrue2)).toBe(true)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,
@@ -103,7 +105,7 @@ test("tests that indices in Series and DataFrames can be correctly matched after
 
   range(0, 100).forEach(() => {
     const vars = range(0, Math.random() * 10 + 5).map(
-      () => wrongs[parseInt(Math.random() * wrongs.length)]
+      () => wrongs[parseInt(Math.random() * wrongs.length)],
     )
 
     expect(() => new IndexMatcher().fitAndTransform(...vars)).toThrow()

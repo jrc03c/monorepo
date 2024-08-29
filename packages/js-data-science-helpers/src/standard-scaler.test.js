@@ -58,6 +58,8 @@ test("tests that the `StandardScaler` transforms and untransforms data correctly
   expect(mean(dPred)).toBeCloseTo(0)
   expect(stdev(dPred)).toBeCloseTo(1)
   expect(rScore(d, scaler.untransform(dPred))).toBeCloseTo(1)
+
+  throw new Error("Add BigInt unit tests!")
 })
 
 test("tests that the `StandardScaler` throws errors when asked to transform data with shapes different than the data on which it was trained", () => {

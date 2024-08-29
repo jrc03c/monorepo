@@ -101,16 +101,18 @@ test("sorts a random correlation matrix", () => {
         set(nans),
         (a, b) =>
           possibles.findIndex(v => isEqual(v, a)) -
-          possibles.findIndex(v => isEqual(v, b))
+          possibles.findIndex(v => isEqual(v, b)),
       ),
       sort(
         set(flatten(e).filter(v => !isNumber(v))),
         (a, b) =>
           possibles.findIndex(v => isEqual(v, a)) -
-          possibles.findIndex(v => isEqual(v, b))
-      )
-    )
+          possibles.findIndex(v => isEqual(v, b)),
+      ),
+    ),
   ).toBe(true)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

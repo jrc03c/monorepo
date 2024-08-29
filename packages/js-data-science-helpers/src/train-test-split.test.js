@@ -54,6 +54,8 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   expect(rScore(cTestTrue, cTestPred)).toBeGreaterThan(0.99)
   expect(isEqual(cTestTrue.index, cTestPred.index)).toBe(true)
   expect(cTestTrue.name).toBe(cTestPred.name)
+
+  throw new Error("Add BigInt unit tests!")
 })
 
 test("tests that `trainTestSplit` throws errors at the right times", () => {

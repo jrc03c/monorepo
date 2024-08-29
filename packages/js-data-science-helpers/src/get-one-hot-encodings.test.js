@@ -27,8 +27,8 @@ test("tests that values can be correctly one-hot-encoded", () => {
 
   const fTrue = new DataFrame(
     transpose(
-      fTypes.slice(0, -1).map(v => e.values.map(x => (x === v ? 1 : 0)))
-    )
+      fTypes.slice(0, -1).map(v => e.values.map(x => (x === v ? 1 : 0))),
+    ),
   )
 
   fTrue.columns = fTypes.slice(0, -1).map(v => "hello_" + v.toString())
@@ -45,6 +45,8 @@ test("tests that values can be correctly one-hot-encoded", () => {
 
   const hPred = new DataFrame(getOneHotEncodings("test", g))
   expect(isEqual(hTrue, hPred)).toBe(true)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

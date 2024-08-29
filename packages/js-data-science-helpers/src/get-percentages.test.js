@@ -29,7 +29,7 @@ test("tests that percentages of values in an array can be computed correctly", (
       v.percentage = v.count / c.length
       return v
     }),
-    (a, b) => a.value - b.value
+    (a, b) => a.value - b.value,
   )
 
   const dPred = sort(getPercentages(c), (a, b) => a.value - b.value)
@@ -40,6 +40,8 @@ test("tests that percentages of values in an array can be computed correctly", (
 
   const f = new DataFrame({ foo: round(normal(100)), bar: round(normal(100)) })
   expect(isEqual(getPercentages(f), getPercentages(f.values))).toBe(true)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

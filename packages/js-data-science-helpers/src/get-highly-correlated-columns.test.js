@@ -45,8 +45,8 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   expect(
     isEqual(
       getHighlyCorrelatedColumns(g, h),
-      getHighlyCorrelatedColumns(g.values, h.values)
-    )
+      getHighlyCorrelatedColumns(g.values, h.values),
+    ),
   ).toBe(true)
 
   const i = new DataFrame(orthonormalize(normal([100, 10])))
@@ -58,7 +58,7 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   const k = normal(100)
 
   const l = new DataFrame(
-    transpose(range(0, 5).map(() => add(k, scale(1e-20, normal(100)))))
+    transpose(range(0, 5).map(() => add(k, scale(1e-20, normal(100))))),
   )
 
   common.shouldIgnoreNaNValues = false
@@ -74,6 +74,8 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   common.shouldIgnoreNaNValues = true
   const mPred2 = getHighlyCorrelatedColumns(l)
   expect(isEqual(mPred2, mTrue)).toBe(true)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

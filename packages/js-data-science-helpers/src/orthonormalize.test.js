@@ -20,13 +20,15 @@ test("tests that matrices can be correctly orthonormalized", () => {
   const c = normal(1000)
 
   const d = new DataFrame(
-    transpose(range(0, 5).map(() => c.map(v => v + 1e-5 * normal())))
+    transpose(range(0, 5).map(() => c.map(v => v + 1e-5 * normal()))),
   )
 
   const eTrue = new DataFrame(identity(5))
   eTrue.index = eTrue.columns.slice()
   const ePred = getCorrelationMatrix(orthonormalize(d))
   expect(distance(ePred, eTrue)).toBeLessThan(0.01)
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

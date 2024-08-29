@@ -15,7 +15,7 @@ const trainTestSplit = require("../train-test-split")
 
 test(`tests that the KMeansMeta model works correctly`, () => {
   const centroidsTrue = normal([5, 10]).map(row =>
-    row.map(v => v * 100 + normal() * 100)
+    row.map(v => v * 100 + normal() * 100),
   )
 
   const labels = []
@@ -39,4 +39,6 @@ test(`tests that the KMeansMeta model works correctly`, () => {
   expect(rScore(centroidsTrue, model.centroids)).toBeGreaterThan(0.95)
   expect(accuracy(labelsTrain, labelsTrainPred)).toBeGreaterThan(0.95)
   expect(accuracy(labelsTest, labelsTestPred)).toBeGreaterThan(0.95)
+
+  throw new Error("Add BigInt unit tests!")
 })

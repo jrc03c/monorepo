@@ -17,6 +17,8 @@ test("tests that correlation matrices can be correctly identified", () => {
   expect(isCorrelationMatrix(g)).toBe(true)
   expect(isCorrelationMatrix(h)).toBe(false)
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     0,
     1,

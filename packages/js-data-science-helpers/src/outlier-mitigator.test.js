@@ -106,6 +106,8 @@ test("tests that outliers can be correctly clipped", () => {
   const qPred = new OutlierMitigator({ isAllowedToClip: false }).fitTransform(p)
   expect(isEqual(qTrue, qPred)).toBe(true)
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     0,
     1,

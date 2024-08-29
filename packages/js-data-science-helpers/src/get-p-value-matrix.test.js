@@ -33,7 +33,7 @@ test("gets a p-value matrix from a matrix containing identical columns", () => {
   const g = new DataFrame(normal([100, 7]))
 
   expect(
-    isEqual(getPValueMatrix(f, g).values, getPValueMatrix(f.values, g.values))
+    isEqual(getPValueMatrix(f, g).values, getPValueMatrix(f.values, g.values)),
   ).toBe(true)
 
   common.shouldIgnoreNaNValues = false
@@ -52,6 +52,8 @@ test("gets a p-value matrix from a matrix containing identical columns", () => {
       expect(isNumber(v)).toBe(true)
     })
   })
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,

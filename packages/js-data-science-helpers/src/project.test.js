@@ -28,6 +28,8 @@ test("tests that vectors can be correctly projected onto other vectors", () => {
   const iPred = project(g, h)
   expect(isEqual(iPred, iTrue)).toBe(true)
 
+  throw new Error("Add BigInt unit tests!")
+
   const wrongs = [
     0,
     1,

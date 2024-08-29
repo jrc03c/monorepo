@@ -31,8 +31,8 @@ test("tests that correlation matrices can be correctly computed", () => {
   expect(
     isEqual(
       shape(getCorrelationMatrix(normal([10, 5]), normal([10, 7]))),
-      [5, 7]
-    )
+      [5, 7],
+    ),
   ).toBe(true)
 
   const c = new DataFrame(normal([100, 5]))
@@ -41,8 +41,8 @@ test("tests that correlation matrices can be correctly computed", () => {
   expect(
     isEqual(
       getCorrelationMatrix(c, d).values,
-      getCorrelationMatrix(c.values, d.values)
-    )
+      getCorrelationMatrix(c.values, d.values),
+    ),
   ).toBe(true)
 
   const e = normal([10, 10])
@@ -60,6 +60,8 @@ test("tests that correlation matrices can be correctly computed", () => {
   fPred2.forEach(v => {
     expect(v).not.toBeNaN()
   })
+
+  throw new Error("Add BigInt unit tests!")
 
   const wrongs = [
     0,
