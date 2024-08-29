@@ -39,7 +39,7 @@ function convertToNumerical(df, config) {
   if (isArray(df)) {
     assert(
       shape(df).length === 2 && !isJagged(df),
-      "The `convertToNumerical` function only works on non-jagged 2-dimensional arrays and DataFrames!"
+      "The `convertToNumerical` function only works on non-jagged 2-dimensional arrays and DataFrames!",
     )
 
     return convertToNumerical(new DataFrame(df))
@@ -47,22 +47,22 @@ function convertToNumerical(df, config) {
 
   assert(
     isDataFrame(df),
-    "You must pass a DataFrame into the `convertToNumerical` function!"
+    "You must pass a DataFrame into the `convertToNumerical` function!",
   )
 
   assert(
     isWholeNumber(maxUniqueValues),
-    "`maxUniqueValues` must be a whole number!"
+    "`maxUniqueValues` must be a whole number!",
   )
 
   assert(
     isWholeNumber(minNonMissingValues),
-    "`minNonMissingValues` must be a whole number!"
+    "`minNonMissingValues` must be a whole number!",
   )
 
   assert(
     isNumber(maxCorrelationThreshold),
-    "`maxCorrelationThreshold` must be a number!"
+    "`maxCorrelationThreshold` must be a number!",
   )
 
   if (!isUndefined(progress)) {
@@ -71,6 +71,7 @@ function convertToNumerical(df, config) {
 
   // types:
   // - boolean
+  // - bigint
   // - date
   // - null
   // - number
@@ -104,7 +105,7 @@ function convertToNumerical(df, config) {
       return
     }
 
-    if (inferred.type === "number") {
+    if (inferred.type === "number" || inferred.type === "bigint") {
       // don't do anything
     }
 
@@ -173,7 +174,8 @@ function convertToNumerical(df, config) {
     if (
       inferred.type === "boolean" ||
       inferred.type === "date" ||
-      inferred.type === "number"
+      inferred.type === "number" ||
+      inferred.type === "bigint"
     ) {
       // check for high correlations with other columns
       const otherColNames = Object.keys(out)

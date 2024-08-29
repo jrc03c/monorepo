@@ -198,7 +198,18 @@ test("tests that DataFrames can be converted to all numerical values correctly",
     expect(dfCleaned.columns.includes(colName)).toBe(false)
   })
 
-  throw new Error("Add BigInt unit tests!")
+  const bigIntsOnly = new DataFrame({
+    foo: random(100).map(v => BigInt(Math.round(v * 100))),
+    bar: random(100).map(v => BigInt(Math.round(v * 100))),
+  })
+
+  expect(isEqual(bigIntsOnly, convertToNumerical(bigIntsOnly))).toBe(true)
+
+  const bigIntsOnly2 = bigIntsOnly.assign("baz", bigIntsOnly.get("bar").values)
+
+  expect(
+    isEqual(bigIntsOnly.values, convertToNumerical(bigIntsOnly2).values),
+  ).toBe(true)
 })
 
 test("throws an error when attempting to convertToNumerical non-DataFrames", () => {
