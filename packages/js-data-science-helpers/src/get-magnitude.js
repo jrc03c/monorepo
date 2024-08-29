@@ -1,4 +1,5 @@
 const {
+  abs,
   dropNaN,
   isArray,
   isDataFrame,
@@ -17,7 +18,7 @@ function getMagnitude(x) {
   }
 
   if (isNumber(x)) {
-    return Math.abs(x)
+    return abs(x)
   }
 
   if (isArray(x)) {
