@@ -10,6 +10,14 @@ const {
   sort,
 } = require("@jrc03c/js-math-tools")
 
+function simpleStringify(x) {
+  if (typeof x === "bigint") {
+    return x.toString() + "n"
+  } else {
+    return x
+  }
+}
+
 function getOneHotEncodings() {
   if (arguments.length === 1 && isSeries(arguments[0])) {
     const { name, values } = arguments[0]
@@ -23,12 +31,12 @@ function getOneHotEncodings() {
 
   assert(
     isString(name),
-    "When passing two arguments into the `getOneHotEncodings` function, the first argument must be a string representing the name of the variable being encoded!"
+    "When passing two arguments into the `getOneHotEncodings` function, the first argument must be a string representing the name of the variable being encoded!",
   )
 
   assert(
     isArray(values) && shape(values).length === 1,
-    "When passing two arguments into the `getOneHotEncodings` function, the second argument must be a 1-dimensional array!"
+    "When passing two arguments into the `getOneHotEncodings` function, the second argument must be a 1-dimensional array!",
   )
 
   const out = {}
@@ -36,12 +44,12 @@ function getOneHotEncodings() {
   const colNames = sort(set(values))
     .filter(v => typeof v !== "number" || v.toString() !== "NaN")
     .filter(v => !isUndefined(v))
-    .map(v => name + "_" + v)
+    .map(v => name + "_" + simpleStringify(v))
     .slice(0, -1)
 
   colNames.forEach(colName => {
     out[colName] = values.map(v => {
-      if (colName === name + "_" + v) {
+      if (colName === name + "_" + simpleStringify(v)) {
         return 1
       }
 

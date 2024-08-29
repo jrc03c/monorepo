@@ -46,7 +46,25 @@ test("tests that values can be correctly one-hot-encoded", () => {
   const hPred = new DataFrame(getOneHotEncodings("test", g))
   expect(isEqual(hTrue, hPred)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const i = [2n, 3n, 4n, 2n, 3n, 4n]
+
+  const jTrue = new DataFrame({
+    i_2n: [1, 0, 0, 1, 0, 0],
+    i_3n: [0, 1, 0, 0, 1, 0],
+  })
+
+  const jPred = new DataFrame(getOneHotEncodings("i", i))
+  expect(isEqual(jTrue, jPred)).toBe(true)
+
+  const k = [234n, "foo", true]
+
+  const lTrue = new DataFrame({
+    k_234n: [1, 0, 0],
+    k_foo: [0, 1, 0],
+  })
+
+  const lPred = new DataFrame(getOneHotEncodings("k", k))
+  expect(isEqual(lPred, lTrue)).toBe(true)
 
   const wrongs = [
     0,
