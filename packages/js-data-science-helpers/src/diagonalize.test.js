@@ -33,7 +33,17 @@ test("tests that an array can be correctly diagonalized", () => {
   expect(isEqual(fPred.index, fPred.columns)).toBe(true)
   expect(isEqual(fPred.values, diagonalize(e.values))).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const g = [2n, -3n, 4n, -5n]
+
+  const hTrue = [
+    [2n, 0n, 0n, 0n],
+    [0n, -3n, 0n, 0n],
+    [0n, 0n, 4n, 0n],
+    [0n, 0n, 0n, -5n],
+  ]
+
+  const hPred = diagonalize(g)
+  expect(isEqual(hPred, hTrue)).toBe(true)
 
   const wrongs = [
     0,

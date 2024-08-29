@@ -17,18 +17,32 @@ function diagonalize(x) {
 
   assert(
     isArray(x),
-    "The `diagonalize` function only works on 1-dimensional arrays and Series!"
+    "The `diagonalize` function only works on 1-dimensional arrays and Series!",
   )
 
   const xShape = shape(x)
 
   assert(
     xShape.length === 1,
-    "The `diagonalize` function only works on 1-dimensional arrays and Series!"
+    "The `diagonalize` function only works on 1-dimensional arrays and Series!",
   )
 
+  const isAllBigInts = x.every(v => typeof v === "bigint")
   const out = zeros([xShape[0], xShape[0]])
   x.forEach((v, i) => (out[i][i] = v))
+
+  if (isAllBigInts) {
+    for (let i = 0; i < out.length; i++) {
+      for (let j = 0; j < out[i].length; j++) {
+        try {
+          out[i][j] = BigInt(out[i][j])
+        } catch (e) {
+          // ...
+        }
+      }
+    }
+  }
+
   return out
 }
 
