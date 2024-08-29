@@ -1,4 +1,5 @@
 const {
+  apply,
   DataFrame,
   distance,
   identity,
@@ -61,7 +62,21 @@ test("tests that correlation matrices can be correctly computed", () => {
     expect(v).not.toBeNaN()
   })
 
-  throw new Error("Add BigInt unit tests!")
+  const gBigInts = apply(normal([10, 10]), v => BigInt(Math.round(v * 100)))
+  const gFloats = apply(gBigInts, v => Number(v))
+
+  expect(
+    isEqual(getCorrelationMatrix(gBigInts), getCorrelationMatrix(gFloats)),
+  ).toBe(true)
+
+  const hFloats = normal([10, 10])
+
+  expect(
+    isEqual(
+      getCorrelationMatrix(gBigInts, hFloats),
+      getCorrelationMatrix(gFloats, hFloats),
+    ),
+  )
 
   const wrongs = [
     0,
