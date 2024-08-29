@@ -12,7 +12,7 @@ const {
 const common = require("./common")
 const getPValueMatrix = require("./get-p-value-matrix")
 
-test("gets a p-value matrix from a matrix containing identical columns", () => {
+test("tests that a p-value matrix can be computed correctly", () => {
   const a = normal(100)
   const b = transpose(range(0, 5).map(() => a))
   const c = getPValueMatrix(b)
@@ -53,7 +53,15 @@ test("gets a p-value matrix from a matrix containing identical columns", () => {
     })
   })
 
-  throw new Error("Add BigInt unit tests!")
+  const hBigInts = normal([100, 5]).map(row =>
+    row.map(v => BigInt(Math.round(v * 100))),
+  )
+
+  const hFloats = hBigInts.map(row => row.map(v => Number(v)))
+
+  expect(isEqual(getPValueMatrix(hBigInts), getPValueMatrix(hFloats))).toBe(
+    true,
+  )
 
   const wrongs = [
     0,
