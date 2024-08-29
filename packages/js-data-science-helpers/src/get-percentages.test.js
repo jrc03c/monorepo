@@ -41,7 +41,16 @@ test("tests that percentages of values in an array can be computed correctly", (
   const f = new DataFrame({ foo: round(normal(100)), bar: round(normal(100)) })
   expect(isEqual(getPercentages(f), getPercentages(f.values))).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const g = [2n, 3n, 3n, 4n]
+
+  const hTrue = [
+    { value: 2n, count: 1, percentage: 0.25 },
+    { value: 3n, count: 2, percentage: 0.5 },
+    { value: 4n, count: 1, percentage: 0.25 },
+  ]
+
+  const hPred = getPercentages(g)
+  expect(isEqual(hPred, hTrue)).toBe(true)
 
   const wrongs = [
     0,
