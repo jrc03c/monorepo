@@ -17,7 +17,14 @@ test("gets the r-score of various arrays", () => {
   const g = new DataFrame(normal([100, 5]))
   expect(rScore(f, g)).toBe(rScore(f.values, g.values))
 
-  throw new Error("Add BigInt unit tests!")
+  const hBigInts = normal(100).map(v => BigInt(Math.round(v)))
+  const iBigInts = normal(100).map(v => BigInt(Math.round(v)))
+
+  const hFloats = hBigInts.map(v => Number(v))
+  const iFloats = iBigInts.map(v => Number(v))
+
+  expect(rScore(hBigInts, iBigInts)).toBe(rScore(hFloats, iFloats))
+  expect(rScore(hBigInts, iFloats)).toBe(rScore(hFloats, iBigInts))
 
   const wrongs = [
     0,
