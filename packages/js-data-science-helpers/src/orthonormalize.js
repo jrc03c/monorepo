@@ -25,30 +25,30 @@ function orthonormalize(x) {
 
   assert(
     isArray(x) && !isJagged(x) && shape(x).length === 2,
-    "`orthonormalize` only works on matrices!"
+    "`orthonormalize` only works on matrices!",
   )
 
   assert(
     containsOnlyNumbers(x),
-    "`orthonormalize` only works on matrices of numbers!"
+    "`orthonormalize` only works on matrices of numbers!",
   )
 
   // note: this produces a matrix where the *columns* are orthogonal to each
   // other!
   // note: it's possible to do this without transposing the data twice; but my
-  // tests seem to show that transposition is quite fast, even on quite large
-  // matrices; so i think i'll leave it this way for now
+  // tests seem to show that transposition is relatively fast, even on pretty
+  // large matrices; so i think i'll leave it this way for now
   const temp = transpose(x)
   const bases = []
 
   temp.forEach(v => {
-    let vCopy = copy(v)
+    let temp = v
 
     bases.forEach(basis => {
-      vCopy = subtract(vCopy, project(vCopy, basis))
+      temp = subtract(temp, project(temp, basis))
     })
 
-    bases.push(vCopy)
+    bases.push(temp)
   })
 
   const out = bases.map(basis => divide(basis, getMagnitude(basis)))

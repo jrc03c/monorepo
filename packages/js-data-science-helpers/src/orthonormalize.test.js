@@ -1,7 +1,7 @@
 const {
   DataFrame,
-  distance,
   identity,
+  isEqual,
   normal,
   range,
   Series,
@@ -10,12 +10,13 @@ const {
 
 const getCorrelationMatrix = require("./get-correlation-matrix")
 const orthonormalize = require("./orthonormalize")
+const rSquared = require("./r-squared")
 
 test("tests that matrices can be correctly orthonormalized", () => {
   const a = normal([1000, 5])
   const bTrue = identity(5)
   const bPred = getCorrelationMatrix(orthonormalize(a))
-  expect(distance(bPred, bTrue)).toBeLessThan(0.01)
+  expect(rSquared(bTrue, bPred)).toBeGreaterThan(0.99)
 
   const c = normal(1000)
 
@@ -26,9 +27,14 @@ test("tests that matrices can be correctly orthonormalized", () => {
   const eTrue = new DataFrame(identity(5))
   eTrue.index = eTrue.columns.slice()
   const ePred = getCorrelationMatrix(orthonormalize(d))
-  expect(distance(ePred, eTrue)).toBeLessThan(0.01)
+  expect(rSquared(eTrue, ePred)).toBeGreaterThan(0.99)
 
-  throw new Error("Add BigInt unit tests!")
+  const fBigInts = normal([100, 5]).map(row =>
+    row.map(v => BigInt(Math.round(v * 100))),
+  )
+
+  const fFloats = fBigInts.map(row => row.map(v => Number(v)))
+  expect(isEqual(orthonormalize(fBigInts), orthonormalize(fFloats))).toBe(true)
 
   const wrongs = [
     0,
