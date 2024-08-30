@@ -4,13 +4,15 @@ const {
   isArray,
   isDataFrame,
   isSeries,
-  // set,
-  // sort,
 } = require("@jrc03c/js-math-tools")
 
 function isBinary(x) {
   if (typeof x === "number") {
     return x === 0 || x === 1
+  }
+
+  if (typeof x === "bigint") {
+    return x === 0n || x === 1n
   }
 
   if (isDataFrame(x) || isSeries(x)) {
@@ -24,13 +26,6 @@ function isBinary(x) {
 
     const nonMissingValues = dropMissing(flatten(x))
     return nonMissingValues.every(v => isBinary(v))
-
-    // const values = sort(set(nonMissingValues))
-
-    // return (
-    //   (values.length === 2 && values[0] === 0 && values[1] === 1) ||
-    //   (values.length === 1 && (values[0] === 0 || values[0] === 1))
-    // )
   }
 
   return false
