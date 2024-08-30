@@ -45,7 +45,8 @@ test("gets the distance between two vectors", () => {
   expect(distance(-3, 3)).toBe(6)
   expect(distance(-Infinity, Infinity)).toBe(Infinity)
 
-  expect(distance(normal([2, 3, 4], normal([4, 3, 2])))).toBeNaN()
+  expect(() => distance(normal([2, 3, 4]), normal([4, 3, 2]))).toThrow()
+
   expect(distance(-5n, 5n)).toBe(10n)
   expect(distance([3n, 4n], [6n, 8n])).toBe(5n)
 
