@@ -42,10 +42,12 @@ class Counter {
       return value
     }
 
-    const other = this.values.find(other => isEqual(other, value))
+    if (typeof value === "object" && value !== null) {
+      const other = this.values.find(other => isEqual(other, value))
 
-    if (other) {
-      return other
+      if (other) {
+        return other
+      }
     }
 
     return value
