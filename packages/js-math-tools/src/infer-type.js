@@ -127,8 +127,13 @@ function inferType(arr) {
     }
   })
 
-  const counts = count(types).sort((a, b) => b.count - a.count)
-  const primaryType = counts[0].value
+  const counts = count(types)
+
+  const sortedValues = counts.values.toSorted(
+    (a, b) => counts.get(b) - counts.get(a),
+  )
+
+  const primaryType = sortedValues[0]
 
   return checkIfInteger({
     type: primaryType,

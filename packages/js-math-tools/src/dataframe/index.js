@@ -88,7 +88,7 @@ class DataFrame {
 
         assert(
           dataShape.length === 2,
-          "The new array of values must be 2-dimensional!"
+          "The new array of values must be 2-dimensional!",
         )
 
         if (dataShape[0] < this._index.length) {
@@ -97,7 +97,7 @@ class DataFrame {
           this._index = this._index.concat(
             range(this._index.length, dataShape[0]).map(i => {
               return "row" + leftPad(i, (dataShape[0] - 1).toString().length)
-            })
+            }),
           )
         }
 
@@ -107,7 +107,7 @@ class DataFrame {
           this._columns = this._columns.concat(
             range(this._columns.length, dataShape[1]).map(i => {
               return "col" + leftPad(i, (dataShape[1] - 1).toString().length)
-            })
+            }),
           )
         }
 
@@ -133,17 +133,17 @@ class DataFrame {
       set(x) {
         assert(
           isArray(x),
-          "The new columns list must be a 1-dimensional array of strings!"
+          "The new columns list must be a 1-dimensional array of strings!",
         )
 
         assert(
           this.isEmpty || x.length === this.shape[1],
-          "The new columns list must be the same length as the old columns list!"
+          "The new columns list must be the same length as the old columns list!",
         )
 
         assert(
           shape(x).length === 1,
-          "The new columns list must be a 1-dimensional array of strings!"
+          "The new columns list must be a 1-dimensional array of strings!",
         )
 
         x = x.map(v => {
@@ -162,8 +162,8 @@ class DataFrame {
           const temp = count(x)
           const out = {}
 
-          temp.forEach(obj => {
-            out[obj.value] = obj.count
+          temp.values.forEach(v => {
+            out[v] = temp.get(v)
           })
 
           return out
@@ -199,17 +199,17 @@ class DataFrame {
       set(x) {
         assert(
           isArray(x),
-          "The new index must be a 1-dimensional array of strings!"
+          "The new index must be a 1-dimensional array of strings!",
         )
 
         assert(
           this.isEmpty || x.length === this.shape[0],
-          "The new index must be the same length as the old index!"
+          "The new index must be the same length as the old index!",
         )
 
         assert(
           shape(x).length === 1,
-          "The new index must be a 1-dimensional array of strings!"
+          "The new index must be a 1-dimensional array of strings!",
         )
 
         x = x.map(v => {
@@ -228,8 +228,8 @@ class DataFrame {
           const temp = count(x)
           const out = {}
 
-          temp.forEach(obj => {
-            out[obj.value] = obj.count
+          temp.values.forEach(v => {
+            out[v] = temp.get(v)
           })
 
           return out
@@ -249,7 +249,7 @@ class DataFrame {
 
     assert(
       isUndefined(data) || isObject(data) || isArray(data),
-      "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values."
+      "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values.",
     )
 
     if (data) {
@@ -262,12 +262,12 @@ class DataFrame {
 
         assert(
           dataShape.length === 2,
-          "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!"
+          "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!",
         )
 
         assert(
           set(data.map(row => row.length)).length === 1,
-          "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!"
+          "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!",
         )
 
         this.values = data
@@ -288,7 +288,7 @@ class DataFrame {
 
           assert(
             data[col].length === lastColLength,
-            `The object passed into the DataFrame constructor contains arrays of different lengths! The key "${lastColName}" points to an array containing ${lastColLength} items, and the key "${col}" points to an array containing ${data[col].length} items.`
+            `The object passed into the DataFrame constructor contains arrays of different lengths! The key "${lastColName}" points to an array containing ${lastColLength} items, and the key "${col}" points to an array containing ${data[col].length} items.`,
           )
 
           lastColLength = data[col].length
