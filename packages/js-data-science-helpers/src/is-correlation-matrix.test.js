@@ -17,7 +17,22 @@ test("tests that correlation matrices can be correctly identified", () => {
   expect(isCorrelationMatrix(g)).toBe(true)
   expect(isCorrelationMatrix(h)).toBe(false)
 
-  throw new Error("Add BigInt unit tests!")
+  expect(
+    isCorrelationMatrix(
+      getCorrelationMatrix([
+        [2n, 3n],
+        [-4n, -5n],
+      ]),
+    ),
+  ).toBe(true)
+
+  expect(
+    isCorrelationMatrix(
+      getCorrelationMatrix(
+        normal([100, 5]).map(row => row.map(v => BigInt(Math.round(v * 100)))),
+      ),
+    ),
+  ).toBe(true)
 
   const wrongs = [
     0,
