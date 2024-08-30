@@ -1,8 +1,7 @@
 const isArray = require("./is-array")
 const isNumber = require("./is-number")
 const isUndefined = require("./is-undefined")
-const max = require("./max")
-const min = require("./min")
+const stats = require("./stats")
 const vectorize = require("./vectorize")
 
 const helper = vectorize((x, a, b, c, d) => {
@@ -50,8 +49,10 @@ function remap(x, a, b, c, d) {
   if (isArray(x) && isUndefined(c) && isUndefined(d)) {
     c = a
     d = b
-    a = min(x)
-    b = max(x)
+
+    const results = stats(x)
+    a = results.min
+    b = results.max
   }
 
   return helper(x, a, b, c, d)

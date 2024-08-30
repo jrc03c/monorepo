@@ -2,10 +2,12 @@ const assert = require("./assert")
 const isArray = require("./is-array")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
-const mean = require("./mean")
 const shape = require("./shape")
+const stats = require("./stats")
 
-function covariance(x, y) {
+function covariance(x, y, shouldAlsoReturnStatsObjects) {
+  shouldAlsoReturnStatsObjects = !!shouldAlsoReturnStatsObjects
+
   if (isSeries(x)) {
     return covariance(x.values, y)
   }
@@ -25,8 +27,10 @@ function covariance(x, y) {
   )
 
   try {
-    const mx = Number(mean(x))
-    const my = Number(mean(y))
+    const xstats = stats(x, { stdev: shouldAlsoReturnStatsObjects })
+    const ystats = stats(y, { stdev: shouldAlsoReturnStatsObjects })
+    const mx = Number(xstats.mean)
+    const my = Number(ystats.mean)
 
     if (!isNumber(mx) || !isNumber(my)) {
       return NaN
@@ -53,7 +57,11 @@ function covariance(x, y) {
       out += (vx - mx) * (vy - my)
     }
 
-    return out / x.length
+    if (shouldAlsoReturnStatsObjects) {
+      return [out / x.length, xstats, ystats]
+    } else {
+      return out / x.length
+    }
   } catch (e) {
     return NaN
   }
