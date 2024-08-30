@@ -1,6 +1,5 @@
 const flatten = require("./flatten")
 const isEqual = require("./is-equal")
-const isFunction = require("./is-function")
 const isNumber = require("./is-number")
 
 class Counter {
@@ -102,7 +101,7 @@ function stats(x, which) {
   let sum = 0
   const counts = new Counter()
 
-  for (let v of xflat) {
+  for (const v of xflat) {
     if (isNumber(v)) {
       if (typeof v === "bigint") {
         resultsShouldIncludeBigInts = true
