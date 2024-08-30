@@ -68,6 +68,20 @@ class Counter {
     this.dict.set(this.getOriginalValue(value), count)
     return this
   }
+
+  toArray() {
+    return this.values.map(v => ({ value: v, count: this.dict.get(v) }))
+  }
+
+  toObject() {
+    const out = {}
+
+    this.values.forEach(value => {
+      out[value] = this.dict.get(value)
+    })
+
+    return out
+  }
 }
 
 module.exports = Counter

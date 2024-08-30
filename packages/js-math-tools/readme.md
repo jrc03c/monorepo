@@ -319,7 +319,7 @@ x.append(
     ["a", "b", "c"],
     ["d", "e", "f"],
   ],
-  1
+  1,
 ).print()
 // ┌─────────┬─────┬─────┬───────────┬───────────┬───────────┐
 // │ (index) │ foo │ bar │   col2    │   col3    │   col4    │
@@ -1011,6 +1011,159 @@ Sorts `x` by function `fn`. This function is identical to [`Array.prototype.sort
 ## `sqrt(x)`
 
 Returns the square root(s) of `x`.
+
+## `stats(x, options)`
+
+Returns an object containing some basic statistics about `x`, which can be an arbitrarily nested array, `Series`, or `DataFrame`.
+
+Some of the stats are relatively cheap to compute in a single iteration through the data. Those include:
+
+- `counts` = a `Map`-like object (i.e., with `get` and `set` methods) that keeps track of how many times each value appears in the data
+- `max` = the highest value in the data
+- `mean` = the average of the data
+- `min` = the lowest value in the data
+- `sum` = the result of adding up all of the values
+
+Some stats that require at least one more iteration through the data are:
+
+- `median` = the middle number (or the average of the two middle numbers when there's an even number of values) when the values are sorted
+- `mode` = an array containing the most frequently-appearing values in the data
+- `stdev` = the standard deviation of the data
+- `variance` = the variance of the data (i.e., the square of the standard deviation)
+
+To compute only the cheap set of stats, call the `stats` function without passing an options object as a second parameter. For example:
+
+```js
+const { normal, stats } = require("@jrc03c/js-math-tools")
+const x = normal(100)
+const results = stats(x)
+console.log(results)
+//  {
+//    counts: ...,
+//    max: ...,
+//    mean: ...,
+//    min: ...,
+//    sum: ...,
+//  }
+```
+
+To compute any of the costlier stats, pass an options object with the name of that stat as a key and `true` as the corresponding value. For example, to compute _all_ possible statistics offered by this function, do this:
+
+```js
+const { normal, stats } = require("@jrc03c/js-math-tools")
+const x = normal(100)
+
+const results = stats(x, {
+  median: true,
+  mode: true,
+  stdev: true,
+  variance: true,
+})
+
+console.log(results)
+//  {
+//    counts: ...,
+//    max: ...,
+//    mean: ...,
+//    median: ...,
+//    min: ...,
+//    mode: ...,
+//    stdev: ...,
+//    sum: ...,
+//    variance: ...,
+//  }
+```
+
+As was mentioned above, the `counts` key on the returned object points to a `Map`-like object. In fact, a simple class called `Counter` has been wrapped around a `Map` instance (though it's not a subclass of it), and the `counts` property on the object returned from the `stats` function is an instance of this `Counter` class. The API for that class is as follows.
+
+### `Counter`
+
+#### Properties
+
+##### `dict`
+
+An inner `Map` instance that keeps track of the values and the counts of those values.
+
+##### `counts`
+
+A getter that returns an array of numbers representing how many times each value appears in the data.
+
+##### `values`
+
+A getter that returns the set of values for which counts are being tracked.
+
+#### Methods
+
+##### `clear()`
+
+Wipes the internal `dict` object, effectiively removing all values and counts. Returns the `Counter` instance.
+
+##### `count(x)`
+
+Iterates over a 1-dimensional array `x` and stores (into `.dict`) the number of times each value appears. Returns the `Counter` instance.
+
+Note that calls to `count` are cumulative. In other words, if you `count` the same array twice, then the counts recorded will be twice as high as if you'd called `count` once.
+
+##### `delete(value)`
+
+Removes a value and its count from `.dict`. Returns the `Counter` instance.
+
+##### `get(value)`
+
+Returns (from `.dict`) the number of times the value appears in the data.
+
+##### `getOriginalValue(value)`
+
+Returns either the given value _or_ the matching value that already exists in `.dict`.
+
+The purpose of this function — which is really only concerned with objects — is to make sure that identical objects are counted correctly even if they're not _literally_ the same object in memory. As a concrete example, consider what would happen if we used a regular ol' `Map` to count objects:
+
+```js
+const counter = new Map()
+counter.set({ hello: "world" }, 1)
+counter.set({ hello: "world" }, 2)
+
+console.log(counter.get({ hello: "world" }))
+// undefined
+
+console.log(counter)
+// Map(2) { { hello: 'world' } => 1, { hello: 'world' } => 2 }
+```
+
+Each time we work with the `Map` instance in this example, we create a brand new object with the structure `{ hello: "world" }`. Thus you can see when we log the counter instance at the end, _two separate_ objects with the same structure are stored as keys in the `Map` instance, and they point to two separate numerical values (`1` and `2`). And in the penultimate line of code that actually gets executed, we try to print out how many times `{ hello: "world" }` appears in the counter — and the result is `undefined` because the new object we just created specifically for that line of code doesn't yet exist in the counter!
+
+In some contexts, this behavior may be acceptable or even desirable; i.e., there may be cases where it's preferable to count objects separately if they're not literally the same object in memory. But for the sake of this library, I _do_ want identically-structured objects to be treated as identical even if they're not one and the same in memory. Here's what it would look like to use the `Counter` class:
+
+```js
+const Counter = require("@jrc03c/js-math-tools/src/helpers/counter")
+const counter = new Counter()
+counter.increment({ hello: "world" })
+counter.increment({ hello: "world" })
+console.log(counter.get({ hello: "world" }))
+// 2
+```
+
+Even though we technically created three separate objects in memory in the above code, they all get treated as the same object because this library's `isEqual` function confirms that they have the same structure.
+
+##### `has(value)`
+
+Returns a boolean indicating whether or not the given value exists in `.dict`.
+
+##### `increment(value)`
+
+Increases the count for value by 1. Returns the `Counter` instance.
+
+##### `set(value, count)`
+
+Directly sets the count of a particular value in `.dict`. Returns the `Counter` instance.
+
+##### `toArray()`
+
+Returns an array of objects of the form `{ value: ..., count: ... }`.
+
+##### `toObject()`
+
+Returns an object of the form `{ value1: count1, value2: count2, ... }`.
 
 ## `std(x)`
 
