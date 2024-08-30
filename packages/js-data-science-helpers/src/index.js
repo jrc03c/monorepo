@@ -23,6 +23,7 @@ const helpers = {
   project: require("./project"),
   pValue: require("./p-value"),
   rScore: require("./r-score"),
+  rSquared: require("./r-squared"),
   sortCorrelationMatrix: require("./sort-correlation-matrix"),
   standardize: require("./standardize"),
   StandardScaler: require("./standard-scaler"),
