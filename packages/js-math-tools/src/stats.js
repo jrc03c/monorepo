@@ -137,7 +137,7 @@ function stats(x, which) {
 
   if (which.mode) {
     const sortedCountPairs = Array.from(
-      counts.keys().map(key => [key, counts.get(key)]),
+      counts.values.map(v => [v, counts.get(v)]),
     ).toSorted((a, b) => b[1] - a[1])
 
     const highestCount = sortedCountPairs[0][1]
