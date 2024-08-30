@@ -609,6 +609,12 @@ Returns copies of arbitrarily nested arrays `a` and `b` without any non-numerica
 
 Identical to `dropMissing`.
 
+## `every(x, fn)`
+
+Returns a boolean indicating whether `fn` returns `true` for all values of `x` when each is passed one-at-a-time into `fn`.
+
+This function is intended to mimic the built-in `Array.every` method. However, like this library's `apply` function, this library's `every` function passes every value of `x` into `fn` (until `fn` returns `false`) regardless of nesting or jaggedness; so at no point will it pass _arrays_ into `fn`.
+
 ## `exp(x)`
 
 Returns _e_ to the power(s) of `x`.
@@ -1003,6 +1009,12 @@ Returns -1(s), 0(s), or 1(s) if `x` is less than 0, equal to 0 or greater than 0
 ## `sin(s)`
 
 Returns the sine(s) of `x`.
+
+## `some(x, fn)`
+
+Returns a boolean indicating whether `fn` returns `true` for any values of `x` when each is passed one-at-a-time into `fn`.
+
+This function is intended to mimic the built-in `Array.some` method. However, like this library's `apply` function, this library's `some` function passes every value of `x` into `fn` (until `fn` returns `true`) regardless of nesting or jaggedness; so at no point will it pass _arrays_ into `fn`.
 
 ## `sort(x, fn)`
 
