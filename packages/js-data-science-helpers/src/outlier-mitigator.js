@@ -92,7 +92,7 @@ class OutlierMitigator {
     return this
   }
 
-  fitTransform() {
+  fitAndTransform() {
     return this.fit(arguments[0]).transform(...arguments)
   }
 

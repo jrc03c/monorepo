@@ -75,7 +75,49 @@ test("tests that indices in Series and DataFrames can be correctly matched after
 
   expect(isEqual(hPred2, hTrue2)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const iBigInts = new Series(normal(100).map(v => BigInt(Math.round(v * 100))))
+  iBigInts.values[0] = null
+
+  const jBigInts = new Series(normal(100).map(v => BigInt(Math.round(v * 100))))
+  jBigInts.values[1] = null
+
+  const iFloats = new Series(iBigInts.values.map(v => Number(v)))
+  iFloats.values[0] = null
+
+  const jFloats = new Series(jBigInts.values.map(v => Number(v)))
+  jFloats.values[1] = null
+
+  const [iBigIntsTransformed, jBigIntsTransformed] =
+    new IndexMatcher().fitAndTransform(iBigInts, jBigInts)
+
+  const [iFloatsTransformed, jFloatsTransformed] =
+    new IndexMatcher().fitAndTransform(iFloats, jFloats)
+
+  expect(isEqual(iBigIntsTransformed.index, iFloatsTransformed.index)).toBe(
+    true,
+  )
+
+  expect(isEqual(jBigIntsTransformed.index, jFloatsTransformed.index)).toBe(
+    true,
+  )
+
+  expect(isEqual(iBigIntsTransformed.index, jBigIntsTransformed.index)).toBe(
+    true,
+  )
+
+  expect(
+    isEqual(
+      iBigIntsTransformed.values.map(v => Number(v)),
+      iFloatsTransformed.values,
+    ),
+  ).toBe(true)
+
+  expect(
+    isEqual(
+      jBigIntsTransformed.values.map(v => Number(v)),
+      jFloatsTransformed.values,
+    ),
+  ).toBe(true)
 
   const wrongs = [
     0,

@@ -86,7 +86,7 @@ A number representing the median of the training dataset.
 
 Computes the median, MAD, and minimum value of `x`, which can be an array, a `DataFrame`, or a `Series`. Returns the `OutlierMitigator` instance.
 
-##### `fitTransform(x, [y, z, ...])`
+##### `fitAndTransform(x, [y, z, ...])`
 
 Runs the fit method on `x`, passes _all_ of the arguments into the `transform` method, and returns the results.
 

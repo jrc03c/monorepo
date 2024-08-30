@@ -1,4 +1,24 @@
-(()=>{var em=Object.defineProperty;var tm=(t,e,r)=>e in t?em(t,e,{enumerable:!0,configurable:!0,writable:!0,value:r}):t[e]=r;var Jn=(t=>typeof require!="undefined"?require:typeof Proxy!="undefined"?new Proxy(t,{get:(e,r)=>(typeof require!="undefined"?require:e)[r]}):t)(function(t){if(typeof require!="undefined")return require.apply(this,arguments);throw new Error('Dynamic require of "'+t+'" is not supported')});var l=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports);var Vt=(t,e,r)=>(tm(t,typeof e!="symbol"?e+"":e,r),r);var ne=l((TT,$n)=>{var rm=new Function(`
+;(() => {
+  var em = Object.defineProperty
+  var tm = (t, e, r) =>
+    e in t
+      ? em(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r })
+      : (t[e] = r)
+  var Jn = (t =>
+    typeof require != "undefined"
+      ? require
+      : typeof Proxy != "undefined"
+        ? new Proxy(t, {
+            get: (e, r) => (typeof require != "undefined" ? require : e)[r],
+          })
+        : t)(function (t) {
+    if (typeof require != "undefined") return require.apply(this, arguments)
+    throw new Error('Dynamic require of "' + t + '" is not supported')
+  })
+  var l = (t, e) => () => (e || t((e = { exports: {} }).exports, e), e.exports)
+  var Vt = (t, e, r) => (tm(t, typeof e != "symbol" ? e + "" : e, r), r)
+  var ne = l((TT, $n) => {
+    var rm = new Function(`
   try {
     return this === window
   } catch(e) {}
@@ -8,13 +28,4178 @@
   } catch(e) {}
 
   return false
-`),Jt=class extends Error{constructor(e){rm()?super(e):super(`
+`),
+      Jt = class extends Error {
+        constructor(e) {
+          rm()
+            ? super(e)
+            : super(
+                `
 
-\x1B[31m`+e+`
-\x1B[0m`)}};$n.exports=Jt});var d=l((OT,Yn)=>{var nm=ne();Yn.exports=function(t,e){if(!t)throw new nm(e)}});var w=l((AT,Kn)=>{function sm(t){return t===null||typeof t>"u"}Kn.exports=sm});var Wn=l((DT,Gn)=>{Gn.exports=[Array,ArrayBuffer,BigInt64Array,BigUint64Array,Float32Array,Float64Array,Int16Array,Int32Array,Int8Array,Uint16Array,Uint32Array,Uint8Array,Uint8ClampedArray]});var m=l((FT,Hn)=>{var im=w(),Ln=Wn(),om=Ln.map(t=>t.name);function um(t){try{return t instanceof Array?!0:im(t.constructor)?!1:Ln.indexOf(t.constructor)>-1||om.indexOf(t.constructor.name)>-1}catch{return!1}}Hn.exports=um});var q=l((jT,Xn)=>{function am(t){try{return!!t._symbol&&t._symbol===Symbol.for("@jrc03c/js-math-tools/dataframe")}catch{return!1}}Xn.exports=am});var I=l((IT,Zn)=>{function cm(t){return typeof t=="function"}Zn.exports=cm});var g=l((ET,Qn)=>{function lm(t){return typeof t=="number"&&!isNaN(t)}Qn.exports=lm});var $=l((_T,es)=>{var fm=m(),hm=w();function dm(t){return typeof t=="object"&&!hm(t)&&!fm(t)}es.exports=dm});var y=l((MT,ts)=>{function mm(t){try{return!!t._symbol&&t._symbol===Symbol.for("@jrc03c/js-math-tools/series")}catch{return!1}}ts.exports=mm});var qe=l((xT,ss)=>{var pm=d(),rs=m(),gm=q(),ym=I(),$t=g(),ns=$(),qm=y();function Yt(t,e){if(gm(t)){let i=Yt(t.values,e);return i.length>0&&$t(i[0])&&i[0]>=0&&i[0]<t.index.length&&(i[0]=t.index[i[0]]),i.length>1&&$t(i[1])&&i[1]>=0&&i[1]<t.columns.length&&(i[1]=t.columns[i[1]]),i}if(qm(t)){let i=Yt(t.values,e);return i.length>0&&$t(i[0])&&i[0]>=0&&i[0]<t.index.length&&(i[0]=t.index[i[0]]),i}if(pm(ns(t)||rs(t),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!"),!ym(e)){let i=e;e=o=>o===i}function r(i,o,u){if(u=u||[],u.indexOf(i)>-1)return null;if(ns(i)){u.push(i);let a=Object.keys(i).concat(Object.getOwnPropertySymbols(i));for(let c=0;c<a.length;c++){let f=a[c],h=i[f];if(o(h))return[f];let p=r(h,o,u);if(p&&p.length>0)return[f].concat(p)}}else if(rs(i)){u.push(i);for(let a=0;a<i.length;a++){let c=i[a];if(o(c))return[a];let f=r(c,o,u);if(f&&f.length>0)return[a].concat(f)}}else if(o(i))return[];return null}function n(i){try{return e(i)}catch{return!1}}let s=r(t,n);return s&&s.length>0?s:null}ss.exports=Yt});var R=l((CT,as)=>{var bm=qe(),is=m(),os=q(),us=y();function be(t){function e(r){if(typeof r=="object"){if(r===null)return null;if(is(r))return r instanceof Array?r.map(s=>be(s)):r.slice();if(us(r)){let s=r.copy();return s.values=be(s.values),s}if(os(r)){let s=r.copy();return s.values=be(r.values),s}if(r instanceof Date)return new Date(r.getTime());r=Kt(r);let n={};return Object.keys(r).concat(Object.getOwnPropertySymbols(r)).forEach(s=>{n[s]=be(r[s])}),n}else return r}return e(Kt(t))}function Kt(t){function e(s,i,o){if(i=i||[],o=o||"",i.indexOf(s)>-1){let u=o.split("/").slice(o.startsWith("/")?1:0);if(u.some((c,f)=>{let h=u.slice(0,u.length-f-1),p=r;return h.forEach(b=>{p=p[b]}),p===s}))return`<reference to "${r===s?"/":"/"+bm(r,s).join("/")}">`}return typeof s=="object"?s===null?null:(i.push(s),is(s)?typeof s.constructor<"u"&&s.constructor.name!=="Array"?s.slice():s.map((u,a)=>e(u,i,o+"/"+a)):(Object.keys(s).concat(Object.getOwnPropertySymbols(s)).forEach(u=>{s[u]=e(s[u],i,o+"/"+u.toString())}),s)):s}let r=t,n=e(r);if(os(t)){let s=t.copy();s._values=n.values,s._columns=n.columns,s._index=n.index,n=s}if(us(t)){let s=t.copy();s.name=n.name,s._values=n.values,s._index=n.index,n=s}return n}as.exports={copy:be,decycle:Kt}});var O=l((kT,fs)=>{var wm=d(),cs=m(),Nm=q(),vm=y();function ls(t){if(Nm(t)||vm(t))return ls(t.values);wm(cs(t),"The `flatten` function only works on arrays, Series, and DataFrames!");function e(r){let n=[];return r.forEach(s=>{cs(s)?n=n.concat(e(s)):n.push(s)}),n}return e(t)}fs.exports=ls});var we=l((zT,hs)=>{function Sm(t){return t instanceof Date&&t.toString()!=="Invalid Date"}hs.exports=Sm});var z=l((UT,ps)=>{var{decycle:ds}=R(),ms=m(),Gt=we();function Tm(t,e){function r(n,s){let i=typeof n;if(i!==typeof s)return!1;if(i==="undefined")return!0;if(i==="boolean"||i==="symbol")return n===s;if(i==="number"||i==="bigint")return n.toString()==="NaN"&&s.toString()==="NaN"?!0:n===s;if(i==="string"||i==="function")return n===s;if(i==="object"){if(n===null||s===null)return n===null&&s===null;{if(Gt(n))return Gt(s)?n.getTime()===s.getTime():!1;if(Gt(s))return!1;if(n instanceof RegExp&&s instanceof RegExp)return n.toString()===s.toString();if(ms(n)!==ms(s))return!1;let u=Object.keys(n).concat(Object.getOwnPropertySymbols(n)),a=Object.keys(s).concat(Object.getOwnPropertySymbols(s));if(u.length!==a.length)return!1;for(let c=0;c<u.length;c++){let f=u[c];if(!r(n[f],s[f]))return!1}return!0}}}try{return r(t,e)}catch{return r(ds(t),ds(e))}}ps.exports=Tm});var x=l((PT,bs)=>{var Om=d(),Am=O(),Dm=m(),gs=q(),Fm=I(),ys=y(),jm=w();function Ne(t){let e="abcdefg1234567890",r="";for(;r.length<t;)r+=e[parseInt(Math.random()*e.length)];return r}var Im=Ne(256),Em=Ne(256),_m=Ne(256),Mm=Ne(256),xm=Ne(256);function qs(t){if(gs(t)||ys(t))return qs(t.values);Om(Dm(t),"The `set` function only works on arrays, Series, and DataFrames!");let e=[],r={};return Am(t).forEach(n=>{let s=typeof n=="object"&&n===null?Im:jm(n)?Em:Fm(n)?n.toString():typeof n=="symbol"?n.toString()+" - "+xm:n===1/0?_m:n===-1/0?Mm:gs(n)?n.toJSONString():ys(n)?JSON.stringify(n.toObject()):JSON.stringify(n);r[s]||e.push(n),r[s]=!0}),e}bs.exports=qs});var ve=l((RT,vs)=>{var Cm=d(),Wt=O(),ws=m(),km=q(),Ns=z(),zm=I(),Um=y(),Pm=x();function Ye(t,e){if(km(t)||Um(t))return arguments.length>1?Ye(t.values,e):Ye(t.values,t.values);if(Cm(ws(t),"The first argument to the `count` function must be an array, Series, or DataFrame!"),zm(e))return Wt(t).filter(r=>e(r)).length;if(ws(e)){let r=Wt(t);return Pm(e).map(n=>({value:n,count:r.filter(s=>Ns(s,n)).length}))}else return arguments.length>1?Wt(t).filter(r=>Ns(r,e)).length:Ye(t,t)}vs.exports=Ye});var Se=l((BT,Ts)=>{var Rm=d(),Ss=m(),Bm=q(),Vm=y();function Lt(t){if(Bm(t)||Vm(t))return Lt(t.values);Rm(Ss(t),"The `isJagged` function only works on arrays, Series, and DataFrames!");let e=0,r=null;for(let n=0;n<t.length;n++)if(Ss(t[n])){if(e++,Lt(t[n]))return!0;if(r===null)r=t[n].length;else if(t[n].length!==r)return!0}return e>0&&e<t.length}Ts.exports=Lt});var Ke=l((VT,Ds)=>{var Jm=d(),Os=m(),$m=q(),Ym=y();function As(t){if($m(t)||Ym(t))return As(t.values);Jm(Os(t),"The `isNested` function only works on arrays, Series, and DataFrames!");for(let e=0;e<t.length;e++)if(Os(t[e]))return!0;return!1}Ds.exports=As});var Y=l((JT,js)=>{var ee=d(),Km=m(),Gm=Ke(),Wm=g(),Lm=w(),se="You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!";function Fs(t){ee(!Lm(t),se),Km(t)||(t=[t]),ee(!Gm(t),se),ee(t.length>0,se);let e=t[0];if(ee(Wm(e),se),ee(parseInt(e)===e,se),ee(e>=0,se),ee(e!==1/0,"We can't create an array containing an infinite number of values!"),t.length===1){let r=[];for(let n=0;n<e;n++)r.push(void 0);return r}else{let r=[];for(let n=0;n<e;n++)r.push(Fs(t.slice(1)));return r}}js.exports=Fs});var Te=l(($T,Is)=>{var Hm=d(),Xm=m(),Zm=q(),Qm=y();function Ht(t){if(Zm(t)||Qm(t)){let r=t.copy();return r.values=Ht(r.values),r.index=Ht(r.index),r}Hm(Xm(t),"The `reverse` function only works on arrays, Series, and DataFrames!");let e=[];for(let r=t.length-1;r>=0;r--)e.push(t[r]);return e}Is.exports=Ht});var M=l((YT,Es)=>{var Xt=d(),Zt=g(),Qt=w(),e0=Te();function t0(t,e,r=1){Xt(!Qt(t)&&!Qt(e)&&!Qt(r),"You must pass two numbers and optionally a step value to the `range` function!"),Xt(Zt(t)&&Zt(e)&&Zt(r),"You must pass two numbers and optionally a step value to the `range` function!"),Xt(r>0,"The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)");let n=!1;if(t>e){n=!0;let i=t;t=e+r,e=i+r}let s=[];for(let i=t;i<e;i+=r)s.push(i);return n&&(s=e0(s)),s}Es.exports=t0});var S=l((KT,Cs)=>{var r0=d(),_s=m(),n0=q(),s0=z(),i0=y(),o0=w();function Ms(t){if(!_s(t))return;let e=[t.length],r=0,n=t.map(s=>{let i=Ms(s);return o0(i)?i:(r++,i.length===1?i[0]:i)});return r>0?r===t.length&&n.slice(0,-1).every((i,o)=>s0(i,n[o+1]))?e.concat(n[0]):(e.push(n),e):e}function xs(t){return n0(t)||i0(t)?xs(t.values):(r0(_s(t),"The `shape` function only works on arrays, Series, and DataFrames!"),Ms(t))}Cs.exports=xs});var Bs=l((GT,Rs)=>{var ks=d(),u0=m(),a0=q(),c0=Se(),l0=y(),f0=w(),zs=ne(),Ge=Y(),Us=M(),h0=x(),d0=S();function Ps(t,e,r){if(f0(r)&&(r=0),ks(r===0||r===1||r==="vertical"||r==="horizontal",'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".'),u0(e)){ks(!c0(e),"The array of data you're trying to append to this DataFrame is jagged!");let n=d0(e);if(n.length===1)if(r===0){let s=t.copy();s._values.push(e);let i=Math.max(t.shape[1],n[0]);for(s._values.forEach(o=>{for(;o.length<i;)o.push(void 0)});s._index.length<s._values.length;)s._index.push("row"+s._index.length);for(;s._columns.length<i;)s._columns.push("col"+s._columns.length);return s}else{let s=Math.max(t.shape[0],n[0]),i=t.copy();for(Us(0,s).forEach(o=>{o>=i._values.length&&i._values.push(Ge(t.shape[1])),i._values[o].push(e[o])});i._index.length<i._values.length;)i._index.push("row"+i._index.length);for(;i._columns.length<i._values[0].length;)i._columns.push("col"+i._columns.length);return i}else if(n.length===2)if(r===0){let s=Math.max(...e.map(o=>o.length).concat([t.shape[1]])),i=t.copy();for(i._values=i._values.concat(e).map(o=>{for(;o.length<s;)o.push(void 0);return o});i._index.length<i._values.length;)i._index.push("row"+i._index.length);for(;i._columns.length<s;)i._columns.push("col"+i._columns.length);return i}else{let s=Math.max(...e.map(u=>u.length))+t.shape[1],i=Math.max(t.shape[0],n[0]),o=t.copy();for(Us(0,i).forEach(u=>{for(u>=o._values.length&&o._values.push(Ge(t.shape[1])),o._values[u]=o._values[u].concat(e[u]);o._values[u].length<s;)o._values[u].push(void 0)});o._index.length<o._values.length;)o._index.push("row"+o._index.length);for(;o._columns.length<s;)o._columns.push("col"+o._columns.length);return o}else throw new zs("Only 1- and 2-dimensional arrays can be appended to a DataFrame!")}else if(l0(e)){let n=Ps(t,e.values,r);return r===0?n.index[n.index.length-1]=n.index.indexOf(e.name)>-1?e.name+" (2)":e.name:n.columns[n.columns.length-1]=n.columns.indexOf(e.name)>-1?e.name+" (2)":e.name,n}else if(a0(e))if(r===0){let n=t.copy(),s=h0(n._columns.concat(e._columns)).length;for(n._values.forEach(i=>{for(;i.length<s;)i.push(void 0)}),e.apply(i=>{let o=i.copy(),u=[];n._columns.forEach(a=>{let c=o._index.indexOf(a);c>-1?(u.push(o._values[c]),o._values.splice(c,1),o._index.splice(c,1)):u.push(void 0)}),n._values.push(u.concat(o._values))},1),n._columns=n._columns.concat(e._columns.filter(i=>n._columns.indexOf(i)<0));n._index.length<n._values.length;){let i="row"+n._index.length;n._index.push(i+(t._index.indexOf(i)>-1?" (2)":""))}return n}else{let n=t.copy();return n._index.forEach((s,i)=>{let o=e._index.indexOf(s);o>-1?n._values[i]=n._values[i].concat(e._values[o]):n._values[i]=n._values[i].concat(Ge(e.shape[1]))}),e._index.forEach((s,i)=>{n._index.indexOf(s)<0&&(n._index.push(s),n._values.push(Ge(n._columns.length).concat(e._values[i])))}),n._columns=n._columns.concat(e._columns.map(s=>s+(n._columns.indexOf(s)>-1?" (2)":""))),n}else throw new zs("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!")}Rs.exports=Ps});var Ks=l((WT,Ys)=>{var Vs=d(),Js=m(),m0=I(),$s=w();function p0(t,e,r,n,s){if(s=s||0,Vs(m0(n),"The first parameter to the `apply` method must be a function."),Vs(s===0||s===1,"The second parameter to the `apply` method (the `axis`) must be 0 or 1."),s===0){let i={},o;if(r.columns.forEach((u,a)=>{let c=new e(r.values.map(h=>h[a]));c.name=u,c.index=r.index;let f=n(c,a,r);f instanceof e?i[u]=f.values:i[u]=f,$s(o)&&(o=f instanceof e||Js(f))}),o){let u=new t(i);return u.index=r.index,u}else{let u=new e(r.columns.map(a=>i[a]));return u.index=r.columns,u}}else if(s===1){let i,o=r.values.map((u,a)=>{let c=new e(u);c.name=r.index[a],c.index=r.columns;let f=n(c,a,r);return $s(i)&&(i=f instanceof e||Js(f)),f instanceof e?f.values:f});if(i){let u=new t(o);return u.index=r.index,u.columns=r.columns,u}else{let u=new e(o);return u.index=r.index,u}}}Ys.exports=p0});var E=l((LT,Gs)=>{function g0(t){return typeof t=="string"}Gs.exports=g0});var Hs=l((HT,Ls)=>{var Ws=d(),y0=m(),q0=Se(),b0=$(),w0=E(),N0=w(),v0=ne(),S0=S();function T0(t,e,r,n,s){let i=u=>u instanceof t,o=u=>u instanceof e;if(N0(s)){if(i(n))return r.append(n,1);if(o(n))return r.append(n,1);if(b0(n)){let u=Math.max(...Object.keys(n).concat(Object.getOwnPropertySymbols(n)).map(a=>n[a].length));return Object.keys(n).concat(Object.getOwnPropertySymbols(n)).forEach(a=>{for(;n[a].length<u;)n[a].push(void 0)}),r.append(new t(n),1)}else throw new v0("You must pass a DataFrame, Series, or object into the `assign` method!")}else{Ws(w0(n),"If passing two arguments into the `assign` method, then the first argument must be a string name!"),Ws(y0(s)&&!q0(s)&&S0(s).length===1,"If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");let u=r.append(s,1);return u.columns[u.columns.length-1]=n,u}}Ls.exports=T0});var Zs=l((XT,Xs)=>{var{copy:O0}=R();function A0(t,e){if(e.isEmpty)return new t;let r=new t(O0(e.values));return r.columns=e.columns.slice(),r.index=e.index.slice(),r}Xs.exports=A0});var ii=l((ZT,si)=>{var We=d(),Qs=m(),ei=g(),ti=E(),ri=w(),ni=S();function D0(t,e,r,n,s){ri(n)&&(n=[]),ri(s)&&(s=[]),(ti(n)||ei(n))&&(n=[n]),(ti(s)||ei(s))&&(s=[s]),We(Qs(n),"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),We(Qs(s),"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),We(ni(n).length===1,"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."),We(ni(s).length===1,"The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");let i,o;r.index.forEach((a,c)=>{n.indexOf(a)<0&&n.indexOf(c)<0&&(i||(i=[]),i.push(a))}),r.columns.forEach((a,c)=>{s.indexOf(a)<0&&s.indexOf(c)<0&&(o||(o=[]),o.push(a))});let u=r.get(i,o);if(u instanceof e){let a=new t;a=a.assign(u),r.index.indexOf(u.name)>-1&&(a=a.transpose()),u=a}return u}si.exports=D0});var Oe=l((QT,oi)=>{var F0=g();function j0(t){return F0(t)&&parseInt(t)===t}function I0(t){return j0(t)&&t>=0}oi.exports=I0});var ai=l((eO,ui)=>{var er=d(),E0=E(),Le=w(),_0=Oe(),M0=S();function x0(t,e,r,n,s,i){n=n||0,er(n===0||n===1,"The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1."),i=i||0,er(_0(i),"The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values)."),s=i>0?"none":s||"any",er(s==="any"||s==="all"||s==="none","The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).");function o(c){if(i>0){let f=0;for(let h=0;h<c.length;h++){let p=c[h];if(Le(p)&&f++,f>=i)return[]}}else if(s==="any")for(let f=0;f<c.length;f++){let h=c[f];if(Le(h))return[]}else if(s==="all"){for(let f=0;f<c.length;f++){let h=c[f];if(!Le(h))return c}return[]}return c}let u=r.copy(),a=Math.random().toString();if(n===0){u=u.assign(a,u.index);let c=u.values.map(o).filter(h=>h.length>0);if(M0(c).length<2)return new t;u.values=c;let f=u.get(null,a);if(Le(f))return new t;E0(f)&&(f=[f]),f instanceof e&&(f=f.values),u.index=f,u=u.drop(null,a)}else if(n===1){let c={};if(u.columns.forEach((h,p)=>{let b=u.values.map(A=>A[p]),F=o(b);F.length>0&&(c[h]=F)}),Object.keys(c).length+Object.getOwnPropertySymbols(c).length===0)return new t;let f=new t(c);return f.index=u.index,f}return u}ui.exports=x0});var tr=l((tO,li)=>{var C0=d(),k0=m(),z0=q(),U0=g(),P0=y();function ci(t){if(z0(t)||P0(t))return t.dropNaN(...Object.values(arguments).slice(1));C0(k0(t),"The `dropNaN` function only works on arrays, Series, and DataFrames!");let e=[];return t.forEach(r=>{try{return e.push(ci(r))}catch{if(U0(r))return e.push(r)}}),e}li.exports=ci});var hi=l((rO,fi)=>{var rr=d(),R0=tr(),B0=Oe();function V0(t,e,r,n,s){r=r||0,rr(r===0||r===1,"The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1."),s=s||0,rr(B0(s),"The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values)."),n=s>0?"none":n||"any",rr(n==="any"||n==="all"||n==="none","The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).");function i(u){let a=R0(u);return s>0?u.length-a.length<s:n==="any"?a.length===u.length:n==="all"?a.length>0:!0}let o=e.copy();if(r===0){let u=o.index.filter(a=>{let c=o.get(a,null).values;return i(c)});return u.length>0?o.get(u,null):new t}else if(r===1){let u=o.columns.filter(a=>{let c=o.get(null,a).values;return i(c)});return u.length>0?o.get(null,u):new t}return o}fi.exports=V0});var gi=l((nO,pi)=>{var di=d(),Ae=O(),J0=I(),$0=w();function mi(t){let e={};return Ae(t).forEach((r,n)=>{e[r]=n}),e}function ie(t){return Object.keys(t).concat(Object.getOwnPropertySymbols(t)).sort((e,r)=>t[e]-t[r])}function Y0(t,e,r,n,s){di(J0(n),"The `filter` method takes a single parameter: a function that is used to filter the values."),$0(s)&&(s=0),di(s===0||s===1,"The `axis` parameter to the `filter` method must be 0 or 1.");let i=r.copy();if(i.isEmpty)return i;let o=mi(i.index),u=mi(i.columns);if(s===0){let a=i.values.filter((c,f)=>{let h=new e(c);h.name=r.index[f],h.index=r.columns;let p=n(h,f,r);return p||delete o[i.index[f]],p});if(Ae(a).length===0)return new t;if(a.length===1){let c=new e(Ae(a));return c.name=ie(o)[0],c.index=ie(u),c}i.values=a,i.index=ie(o)}else if(s===1){i=i.transpose();let a=i.values.filter((c,f)=>{let h=new e(c);h.name=r.columns[f],h.index=r.index;let p=n(h,f,r);return p||delete u[i.index[f]],p});if(Ae(a).length===0)return new t;if(a.length===1){let c=new e(Ae(a));return c.name=ie(u)[0],c.index=ie(o),c}i.values=a,i.index=ie(u),i=i.transpose()}return i}pi.exports=Y0});var bi=l((sO,qi)=>{var C=d(),He=g(),Xe=E(),yi=w(),K0=x();function G0(t,e,r){(Xe(e)||He(e))&&(e=[e]),(Xe(r)||He(r))&&(r=[r]);let n=K0((e||[]).concat(r||[]).map(s=>typeof s));return C(n.length<=2,"Only whole numbers and/or strings are allowed in `get` arrays!"),n.length===1&&C(n[0]==="string"||n[0]==="number","Only whole numbers and/or strings are allowed in `get` arrays!"),n.length===2&&(C(n.indexOf("string")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!"),C(n.indexOf("number")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!")),yi(e)||(e=e.map(s=>{if(Xe(s))return C(t.index.indexOf(s)>-1,`Row "${s}" does not exist!`),s;if(He(s))return C(s>=0,`Index ${s} is out of bounds!`),C(parseInt(s)===s,"Row numbers must be integers!"),C(s<t.index.length,`Index ${s} is out of bounds!`),t.index[s]})),yi(r)||(r=r.map(s=>{if(Xe(s))return C(t.columns.indexOf(s)>-1,`Column "${s}" does not exist!`),s;if(He(s))return C(s>=0,`Column ${s} is out of bounds!`),C(parseInt(s)===s,"Column numbers must be integers!"),C(s<t.columns.length,`Column ${s} is out of bounds!`),t.columns[s]})),t.getSubsetByNames(e,r)}qi.exports=G0});var K=l((iO,Ni)=>{var wi=d(),W0=m(),L0=q(),H0=I(),X0=y(),Z0=w();function Q0(t,e){try{return t<e?-1:t>e?1:0}catch{return t=typeof t=="object"&&t!==null?JSON.stringify(t):t.toString(),e=typeof e=="object"&&e!==null?JSON.stringify(e):e.toString(),t<e?-1:t>e?1:0}}function ep(t,e){if(Z0(e)&&(e=Q0),L0(t)||X0(t))return t.sort(...Object.values(arguments).slice(1));wi(W0(t),"The `sort` function only works on arrays, Series, and DataFrames!"),wi(H0(e),"The second parameter of the `sort` function must be a comparison function!");let r=t.slice();return r.sort(e),r}Ni.exports=ep});var Oi=l((oO,Ti)=>{var vi=d(),Si=E(),tp=w(),rp=x(),np=K();function sp(t){let e=t.toLowerCase(),r="";for(let s=0;s<e.length;s++){let i=e[s];i.match(/[a-z0-9]/g)?r+=i:r+=" "}let n=r.split(" ").filter(s=>s.length>0);return n[0]+n.slice(1).map(s=>s[0].toUpperCase()+s.substring(1)).join("")}function ip(t,e,r){tp(r)?r=e.columns:Si(r)&&(r=[r]);let n={};r.forEach(i=>{vi(Si(i),"You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!");let o=e.columns.indexOf(i);vi(o>-1,`The given DataFrame does not have a column called "${i}"!`);let u=e.values.map(c=>c[o]),a=np(rp(u));u.forEach(c=>{a.forEach(f=>{let h=i+"_"+sp(f.toString());n[h]||(n[h]=[]),c===f?n[h].push(1):n[h].push(0)})})});let s=new t(n);return s.index=e.index,s}Ti.exports=ip});var Mi=l((uO,_i)=>{var G=d(),Ai=m(),Di=g(),Fi=w(),ji=Oe(),Ii=M(),Ei=S();function op(t,e,r){let n=t.shape;Fi(e)&&(e=Ii(0,n[0])),Fi(r)&&(r=Ii(0,n[1])),Di(e)&&(e=[e]),Di(r)&&(r=[r]),G(Ai(e)&&Ai(r),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),G(Ei(e).length===1&&Ei(r).length===1,"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),G(e.length>0,"The `rowIndices` array must contain at least one index."),G(r.length>0,"The `colIndices` array must contain at least one index."),e.forEach(o=>{G(ji(o),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),G(o<t.index.length,`The row index ${o} is out of bounds.`)}),r.forEach(o=>{G(ji(o),"The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."),G(o<t.columns.length,`The column index ${o} is out of bounds.`)});let s=e.map(o=>t.index[o]),i=r.map(o=>t.columns[o]);return t.getSubsetByNames(s,i)}_i.exports=op});var Ui=l((aO,zi)=>{var W=d(),nr=O(),xi=m(),Ze=E(),Ci=w(),ki=S();function up(t,e,r,n,s){Ci(n)&&(n=r.index),Ci(s)&&(s=r.columns),Ze(n)&&(n=[n]),Ze(s)&&(s=[s]),W(xi(n)&&xi(s),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),W(ki(n).length===1&&ki(s).length===1,"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),W(n.length>0,"The `rows` array must contain at least one row name."),W(s.length>0,"The `cols` array must contain at least one column name."),n.forEach(u=>{W(Ze(u),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),W(r.index.indexOf(u)>-1,`The row name "${u}" does not exist in the list of rows.`)}),s.forEach(u=>{W(Ze(u),"The `rows` and `cols` parameters must be 1-dimensional arrays of strings."),W(r.columns.indexOf(u)>-1,`The column name "${u}" does not exist in the list of columns.`)});let i=n.map(u=>s.map(a=>r.values[r.index.indexOf(u)][r.columns.indexOf(a)]));if(n.length===1&&s.length===1)return nr(i)[0];if(n.length===1){let u=new e(nr(i));return u.name=n[0],u.index=s,u}if(s.length===1){let u=new e(nr(i));return u.name=s[0],u.index=n,u}let o=new t(i);return o.columns=s,o.index=n,o}zi.exports=up});var Ri=l((cO,Pi)=>{var ap=E(),De=M();function cp(t,e,r){function n(p,b){return ap(p)&&p.length>b?p.substring(0,b-3)+"...":p}if(r.isEmpty)return console.table({}),console.log("Shape:",[0,0],`
-`),r;let s=typeof window>"u"?20:10,i=parseInt(s/2),o=typeof process>"u"?10:Math.floor(process.stdout.columns/24)-1,u=parseInt(o/2),a=s>r.index.length?null:De(0,i).concat(De(r.index.length-i,r.index.length)),c=o>r.columns.length?null:De(0,u).concat(De(r.columns.length-u,r.columns.length)),f=r.get(a,c);f instanceof e&&(r.shape[0]===1?(f=new t([f.values]),f.index=r.index,f.columns=new e(r.columns).get(c).values):r.shape[1]===1&&(f=new t([f.values]).transpose(),f.index=new e(r.index).get(a).values,f.columns=r.columns)),s<=r.index.length&&(f._index.splice(i,0,"..."),f._values.splice(i,0,De(0,f.columns.length).map(()=>"..."))),o<=r.columns.length&&(f._columns.splice(u,0,"..."),f._values=f._values.map(p=>(p.splice(u,0,"..."),p)));let h=28;return f instanceof e?(f.values=f.values.map(p=>n(p,h)),f.name=n(f.name,h),f.index=f.index.map(p=>n(p,h))):(f.values=f.values.map(p=>p.map(b=>n(b,h))),f.columns=f.columns.map(p=>n(p,h)),f.index=f.index.map(p=>n(p,h))),console.table(f.toDetailedObject()),console.log("Shape:",r.shape,`
-`),r}Pi.exports=cp});var Qe=l((lO,Bi)=>{var lp=d(),fp=g();function hp(t,e){lp(fp(t),"The `leftPad` function only works on numbers!");let r=t.toString();for(;r.length<e;)r="0"+r;return r}Bi.exports=hp});var Ji=l((fO,Vi)=>{var dp=Qe(),mp=M();function pp(t,e){let r=e?t:t.copy();return r.index=mp(0,t.shape[0]).map(n=>"row"+dp(n,(r.index.length-1).toString().length)),r}Vi.exports=pp});var Fe=l((hO,Yi)=>{var gp=d(),yp=O(),qp=m(),bp=q(),wp=y();function $i(t){if(bp(t)||wp(t))return $i(t.values);gp(qp(t),"The `product` function only works on arrays, Series, and DataFrames!");try{return t.length===0?NaN:yp(t).reduce((e,r)=>e*r,1)}catch{return NaN}}Yi.exports=$i});var et=l((dO,Li)=>{var je=d(),Ki=O(),Gi=m(),Np=q(),Wi=g(),vp=y(),Sp=Fe(),Tp=S();function sr(t,e){if(Np(t)||vp(t))return sr(t.values,e);if(je(Gi(t),"The first argument passed into the `reshape` function must be an array!"),Wi(e)&&(e=[e]),je(Gi(e),"The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"),je(Tp(e).length===1,"The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"),e.forEach(i=>{je(Wi(i)&&parseInt(i)===i&&i>0,"The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!")}),e.length===0)return Ki(t);let r=Ki(t);if(e.length===1&&e[0]===r.length)return r;je(Sp(e)===r.length,"The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");let n=[],s=parseInt(r.length/e[0]);for(let i=0;i<e[0];i++){let o=r.slice(i*s,(i+1)*s);n.push(sr(o,e.slice(1)))}return n}Li.exports=sr});var oe=l((mO,ro)=>{var{copy:Zi}=R(),Op=d(),Ap=m(),Dp=g(),Qi=w(),Fp=Y(),jp=Fe(),Ip=et(),eo=Math.pow(2,64),T=[];to(parseInt(Math.random()*eo));function Ep(t,e){t=j(t);function r(){t+=j("0x9e3779b97f4a7c15");let s=Zi(t);return s=(s^s>>BigInt(30))*j("0xbf58476d1ce4e5b9"),s=(s^s>>BigInt(27))*j("0x94d049bb133111eb"),s^s>>BigInt(31)}let n=[];for(let s=0;s<e;s++)n.push(r());return n}function j(t){return BigInt.asUintN(64,BigInt(t))}function Hi(t,e){return t=j(t),e=BigInt(e),j(j(t<<e)|j(t>>j(BigInt(64)-e)))}function to(t){if(Qi(t))return Zi(T);{Op(Dp(t),"If passing a value into the `seed` function, then that value must be an integer!");let e=Ep(parseInt(t),4);T[0]=e[0],T[1]=e[1],T[2]=e[2],T[3]=e[3]}}function Xi(){let t=j(Hi(T[0]+T[3],23)+T[0]),e=j(T[1]<<BigInt(17));return T[2]=j(T[2]^T[0]),T[3]=j(T[3]^T[1]),T[1]=j(T[1]^T[2]),T[0]=j(T[0]^T[3]),T[2]=j(T[2]^e),T[3]=Hi(T[3],45),parseInt(t)/eo}function _p(t){return Qi(t)?Xi():(Ap(t)||(t=[t]),Ip(Fp(jp(t)).map(Xi),t))}ro.exports={random:_p,seed:to}});var tt=l((pO,no)=>{var{random:Mp}=oe(),xp=d(),Cp=m(),kp=q(),zp=y();function Up(t){if(kp(t)||zp(t))return t.shuffle(...Object.values(arguments).slice(1));xp(Cp(t),"The `shuffle` function only works on arrays, Series, and DataFrames!");let e=[],r=t.slice();for(let n=0;n<t.length;n++){let s=parseInt(Mp()*r.length);e.push(r.splice(s,1)[0])}return e}no.exports=Up});var oo=l((gO,io)=>{var Pp=d(),Rp=w(),so=tt();function Bp(t,e){return Rp(e)&&(e=0),Pp(e===0||e===1,"The `axis` parameter to the `shuffle` must be 0, 1, or undefined."),t.get(e===0?so(t.index):null,e===1?so(t.columns):null)}io.exports=Bp});var rt=l((yO,uo)=>{function Vp(t){return typeof t=="boolean"}uo.exports=Vp});var ho=l((qO,fo)=>{var{random:Jp}=oe(),_=d(),$p=O(),ao=m(),ir=rt(),lo=I(),nt=g(),ue=E(),or=w(),Yp=M(),co=S(),ur=K();function Kp(t,e,r){return lo(e)?Gp(t,e,r):Wp(t,e,r)}function Gp(t,e,r){if(r=or(r)?0:r,_(lo(e),"When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!"),_(nt(r),"When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other."),r===0){let n=ur(t.index,(s,i)=>e(t.get(s,null),t.get(i,null)));return t.get(n,null)}else{let n=ur(t.columns,(s,i)=>e(t.get(null,s),t.get(null,i)));return t.get(null,n)}}function Wp(t,e,r){let n=t.copy(),s=Jp().toString();return n=n.assign(s,n.index),or(e)&&(e=[s],r=[!0]),(nt(e)||ue(e))&&(e=[e],(ir(r)||ue(r))&&(r=[r])),_(ao(e),"The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."),_(co(e).length===1,"The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."),or(r)&&(r=Yp(0,e.length).map(()=>!0)),_(ao(r),"The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."),_(co(r).length===1,"The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."),_(e.length===r.length,"The arrays passed into the `sort` method must be equal in length."),e=e.map(i=>{if(_(ue(i)||nt(i),"Column references can either be column names (as strings) or column indices (as whole numbers)."),ue(i)){let o=n.columns.indexOf(i);return _(o>-1,`The column "${i}" does not exist!`),o}if(nt(i))return _(parseInt(i)===i,"Column indices must be whole numbers!"),_(i>=0,`The column index ${i} is out of bounds!`),_(i<n.columns.length,`The index ${i} is out of bounds!`),i}),r=r.map(i=>{if(_(ue(i)||ir(i),"Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."),ue(i)){let o=i.trim().toLowerCase();return _(o==="ascending"||o==="descending","Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."),o==="ascending"}if(ir(i))return i}),n.values=ur(n.values,(i,o)=>{let u=0;for(;i[e[u]]===o[e[u]]&&u<e.length;)u++;let a=r[u];if(i[e[u]]===o[e[u]])return 0;if(i[e[u]]<o[e[u]])return a?-1:1;if(i[e[u]]>o[e[u]])return a?1:-1}),n.index=$p(n.get(null,s).values),n=n.dropColumns(s),n}fo.exports=Kp});var po=l((bO,mo)=>{var Lp=d(),Hp=w();function Xp(t,e){Hp(e)?e=0:Lp(e===0||e===1,"The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");let r={};return e===0?t.index.forEach((n,s)=>{let i={};t.columns.forEach((o,u)=>{i[o]=t.values[s][u]}),r[n]=i}):t.columns.forEach((n,s)=>{let i={};t.index.forEach((o,u)=>{i[o]=t.values[u][s]}),r[n]=i}),r}mo.exports=Xp});var ar=l((wO,go)=>{function Zp(t,e){return JSON.stringify(t.toObject(e))}go.exports=Zp});var yo=l((NO,lr)=>{var cr=ne(),Qp=ar();function eg(t,e,r){let n=Qp(t,r),s=!1,i=!1,o,u;try{let a=e;if(e.includes("/")){let f=e.split("/");a=f[f.length-1]}let c=document.createElement("a");c.href=`data:application/json;charset=utf-8,${encodeURIComponent(n)}`,c.download=a,c.dispatchEvent(new MouseEvent("click")),s=!0}catch(a){o=a}try{let a=Jn("fs"),c=Jn("path");a.writeFileSync(c.resolve(e),n,"utf8"),i=!0}catch(a){u=a}if(!s&&!i)throw typeof window<"u"?new cr(o):typeof lr<"u"?new cr(u):new cr("I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!");return t}lr.exports=eg});var bo=l((vO,qo)=>{function tg(t){let e={};return t.columns.forEach(r=>{e[r]=t.get(r).values}),e}qo.exports=tg});var te=l((SO,vo)=>{var wo=d(),rg=m(),ng=q(),sg=y(),ig=Y(),No=Te(),og=S();function ug(t){if(ng(t)||sg(t))return t.transpose();wo(rg(t),"The `transpose` function only works on arrays, Series, and DataFrames!");let e=og(t);if(wo(e.length<=2,"I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!"),e.length===1)return No(t);if(e.length===2){let r=ig(No(e));for(let n=0;n<e[0];n++)for(let s=0;s<e[1];s++)r[s][n]=t[n][s];return r}}vo.exports=ug});var Ao=l((TO,Oo)=>{var So=d(),ag=m(),cg=q(),lg=Ke(),fg=y(),hg=S();function To(t,e,r){if(fg(r))return new t(e.values.concat(r.values));if(ag(r)){let n=hg(r);So(n.length===1&&!lg(n),"Only vectors can be appended to Series!");let s=e.copy();return r.forEach((i,o)=>{s._values.push(i),s._index.push("item"+(e.values.length+o))}),s}return So(!cg(r),"DataFrames cannot be appended to Series!"),To(e,[r])}Oo.exports=To});var Fo=l((OO,Do)=>{var dg=d(),mg=I();function pg(t,e){dg(mg(e),"The parameter to the `apply` method must be a function.");let r=t.copy();return r._values=r._values.map((n,s)=>e(n,s)),r}Do.exports=pg});var Io=l((AO,jo)=>{var gg=w();function yg(t){let e=t.copy(),r=[];return e._values=e.values.filter((n,s)=>gg(n)?!1:(r.push(e.index[s]),!0)),e._index=r,e}jo.exports=yg});var _o=l((DO,Eo)=>{var qg=g();function bg(t,e){let r=[],n=[];e.values.forEach((i,o)=>{qg(i)&&(n.push(i),r.push(e.index[o]))});let s=new t(n);return s.name=e.name,s.index=r,s}Eo.exports=bg});var xo=l((FO,Mo)=>{var{copy:wg}=R();function Ng(t,e,r){let n=e.copy(),s=wg(n.index),i=[],o=n.values.filter((u,a)=>{let c=r(u,a,n.values);return c||i.push(n.index[a]),c});return i.forEach(u=>{s.splice(s.indexOf(u),1)}),o.length===0?(n=new t,n.name=e.name,n):(n.values=o,n.index=s,n)}Mo.exports=Ng});var ko=l((jO,Co)=>{var L=d(),vg=g(),Sg=E(),Tg=w(),Og=x();function Ag(t,e){(Sg(e)||vg(e))&&(e=[e]);let r=Og((e||[]).map(n=>typeof n));return L(r.length<=2,"Only whole numbers and/or strings are allowed in `get` arrays!"),r.length===1&&L(r[0]==="string"||r[0]==="number","Only whole numbers and/or strings are allowed in `get` arrays!"),r.length===2&&(L(r.indexOf("string")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!"),L(r.indexOf("number")>-1,"Only whole numbers and/or strings are allowed in `get` arrays!")),Tg(e)||(e=e.map(n=>{if(typeof n=="string")return L(t.index.indexOf(n)>-1,`Index "${n}" does not exist!`),n;if(typeof n=="number")return L(n>=0,`Index ${n} is out of bounds!`),L(parseInt(n)===n,"Indices must be integers!"),L(n<t.index.length,`Index ${n} is out of bounds!`),t.index[n]})),t.getSubsetByNames(e)}Co.exports=Ag});var Uo=l((IO,zo)=>{var Ie=d(),Dg=m(),Fg=w(),jg=Oe(),Ig=M(),Eg=S();function _g(t,e){let r=t.shape;Fg(e)&&(e=Ig(0,r[0])),Ie(Dg(e),"The `indices` array must be 1-dimensional array of whole numbers."),Ie(Eg(e).length===1,"The `indices` array must be a 1-dimensional array of whole numbers."),Ie(e.length>0,"The `indices` array must contain at least one index."),e.forEach(s=>{Ie(jg(s),"The `indices` array must be a 1-dimensional array of whole numbers."),Ie(s<t.index.length,`The row index ${s} is out of bounds.`)});let n=e.map(s=>t.index[s]);return t.getSubsetByNames(n)}zo.exports=_g});var Ro=l((EO,Po)=>{var Ee=d(),Mg=m(),xg=E(),Cg=w(),kg=S();function zg(t,e,r){Cg(r)&&(r=e.index),Ee(Mg(r),"The `indices` array must be a 1-dimensional array of strings."),Ee(kg(r).length===1,"The `indices` array must be a 1-dimensional array of strings."),Ee(r.length>0,"The `indices` array must contain at least one index name."),r.forEach(i=>{Ee(xg(i),"The `indices` array must contain only strings."),Ee(e.index.indexOf(i)>-1,`The name "${i}" does not exist in the index.`)});let n=r.map(i=>e.values[e.index.indexOf(i)]);if(n.length===1)return n[0];let s=new t(n);return s.index=r,s.name=e.name,s}Po.exports=zg});var Jo=l((_O,Vo)=>{var{copy:Ug}=R(),Bo=M();function Pg(t){let e=t.copy(),r=typeof window>"u"?20:10;if(e.index.length>r){e=e.get(Bo(0,r/2).concat(Bo(e.index.length-r/2,e.index.length)));let s=Ug(e.index);s.splice(parseInt(s.length/2),0,"..."),e.values.push("..."),e.index.push("..."),e=e.get(s)}let n={};return e.values.forEach((s,i)=>{let o={};o[e.name]=s,n[e.index[i]]=o}),console.table(n),console.log("Shape:",t.shape,`
-`),t}Vo.exports=Pg});var Yo=l((MO,$o)=>{var Rg=tt();function Bg(t){let e=t.copy();return e.get(Rg(e.index))}$o.exports=Bg});var Go=l((xO,Ko)=>{var Vg=d(),Jg=I(),$g=w(),Yg=K(),Kg=te();function Gg(t,e,r){r=r||((a,c)=>a<c?-1:1),Vg($g(r)||Jg(r),"You must pass undefined, null, or a comparison function as the second argument to the `sort` method!");let n=Kg([e.values,e.index]),s=Yg(n,(a,c)=>r(a[0],c[0])),i=[],o=[];s.forEach(a=>{i.push(a[0]),o.push(a[1])});let u=new t;return u._values=i,u._index=o,u.name=e.name,u}Ko.exports=Gg});var Ho=l((CO,Lo)=>{var Wg=K(),Wo=te();function Lg(t,e){let r=Wo([e.values,e.index]);r=Wo(Wg(r,(s,i)=>{if(s[1]===i[1])return 0;if(s[1]<i[1])return-1;if(s[1]>i[1])return 1}));let n=new t(r[0]);return n.index=r[1],n.name=e.name,n}Lo.exports=Lg});var Zo=l((kO,Xo)=>{function Hg(t){let e={};return e[t.name]={},t.index.forEach((r,n)=>{e[t.name][r]=t.values[n]}),e}Xo.exports=Hg});var nu=l((zO,ru)=>{var{copy:st}=R(),B=d(),fr=m(),Xg=E(),Zg=w(),Qo=Qe(),eu=M(),it=Te(),Qg=Ao(),ey=Fo(),ty=Io(),ry=_o(),ny=xo(),sy=ko(),iy=Uo(),oy=Ro(),uy=Jo(),ay=Yo(),cy=Go(),ly=Ho(),fy=Zo(),_e=S(),hy=te(),tu=Symbol.for("@jrc03c/js-math-tools/series");ru.exports=function(t){class e{static[Symbol.hasInstance](n){try{return!!n._symbol&&n._symbol===tu}catch{return!1}}constructor(n){if(this.name="data",Object.defineProperty(this,"_symbol",{configurable:!1,enumerable:!1,writable:!1,value:tu}),Object.defineProperty(this,"_values",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(this,"values",{configurable:!0,enumerable:!0,get(){return this._values},set(s){B(fr(s),"The new values must be a 1-dimensional array!");let i=_e(s);B(i.length===1,"The new array of values must be 1-dimensional!"),i[0]<this._index.length?this._index=this._index.slice(0,i[0]):i[0]>this._index.length&&(this._index=this._index.concat(eu(this._index.length,i[0]).map(o=>"item"+Qo(o,(s.length-1).toString().length)))),this._values=s}}),Object.defineProperty(this,"_index",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(this,"index",{configurable:!0,enumerable:!0,get(){return this._index},set(s){B(fr(s),"The new index must be a 1-dimensional array of strings!"),B(s.length===this.shape[0],"The new index must be the same length as the old index!"),B(_e(s).length===1,"The new index must be a 1-dimensional array of strings!"),s.forEach(i=>{B(Xg(i),"All of the row names must be strings!")}),this._index=s}}),n){if(n instanceof e)this.name=n.name,this.values=st(n.values),this.index=st(n.index);else if(fr(n)){let s=_e(n);B(s.length===1,"When passing an array into the constructor of a Series, the array must be 1-dimensional!"),this.values=n}else if(n instanceof Object){let s=Object.keys(n).concat(Object.getOwnPropertySymbols(n)).map(u=>u.toString());B(s.length===1,"When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");let i=s[0],o=n[i];B(_e(o).length===1,"When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"),this.name=i,this.values=o.slice()}}}get shape(){return _e(this.values)}get length(){return this.shape[0]}get isEmpty(){return this.values.filter(n=>!Zg(n)).length===0}clear(){let n=this.copy();return n.values.forEach((s,i)=>{n.values[i]=void 0}),n}get(n){return sy(this,n)}getSubsetByNames(n){return oy(e,this,n)}getSubsetByIndices(n){return iy(this,n)}loc(n){return this.getSubsetByNames(n)}iloc(n){return this.getSubsetByIndices(n)}reverse(){let n=new e(it(this.values));return n.index=it(this.index),n.name=this.name,n}resetIndex(){let n=this.copy();return n.index=eu(0,this.shape[0]).map(s=>"item"+Qo(s,(n.index.length-1).toString().length)),n}copy(){let n=new e;return n._values=st(this.values),n._index=st(this.index),n.name=this.name,n}append(n){return Qg(e,this,n)}apply(n){return ey(this,n)}concat(n){return this.append(n)}dropMissing(n,s){return ty(this,n,s)}dropNaN(){return ry(e,this)}toObject(){return fy(this)}print(){return uy(this)}shuffle(){return ay(this)}sort(n){return cy(e,this,n)}sortByIndex(){return ly(e,this)}filter(n){return ny(e,this,n)}toDataFrame(){let n=new t(hy([this.values]));return n.columns=[this.name],n.index=this.index,n}transpose(){let n=this.copy();return n.values=it(n.values),n.index=it(n.index),n}getDummies(){return this.toDataFrame().getDummies()}oneHotEncode(){return this.getDummies()}}return e}});var xe=l((UO,au)=>{var{copy:hr}=R(),k=d(),su=ve(),dy=Bs(),my=Ks(),py=Hs(),gy=Zs(),yy=ii(),qy=ai(),by=hi(),wy=gi(),Ny=bi(),iu=Oi(),vy=Mi(),Sy=Ui(),Ty=Ri(),Oy=Ji(),Ay=oo(),Dy=ho(),Fy=po(),jy=yo(),Iy=ar(),Ey=bo(),_y=O(),Me=m(),My=$(),dr=w(),mr=Qe(),xy=Y(),pr=M(),Cy=x(),ae=S(),ou=te(),uu=Symbol.for("@jrc03c/js-math-tools/dataframe");function ot(t){let e="abcdefghijklmnopqrstuvwxyz1234567890",r="";for(let n=0;n<t;n++)r+=e[parseInt(Math.random()*e.length)];return r}var D=class{static[Symbol.hasInstance](e){try{return!!e._symbol&&e._symbol===uu}catch{return!1}}constructor(e){if(Object.defineProperty(this,"_symbol",{configurable:!1,enumerable:!1,writable:!1,value:uu}),Object.defineProperty(this,"_values",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(this,"values",{configurable:!0,enumerable:!0,get(){return this._values.length===0||!dr(this._values[0])&&this._values[0].length===0?[[]]:this._values},set(r){k(Me(r),"The new values must be a 2-dimensional array!");let n=ae(r);k(n.length===2,"The new array of values must be 2-dimensional!"),n[0]<this._index.length?this._index=this._index.slice(0,n[0]):n[0]>this._index.length&&(this._index=this._index.concat(pr(this._index.length,n[0]).map(s=>"row"+mr(s,(n[0]-1).toString().length)))),n[1]<this._columns.length?this._columns=this._columns.slice(0,n[1]):n[1]>this._columns.length&&(this._columns=this._columns.concat(pr(this._columns.length,n[1]).map(s=>"col"+mr(s,(n[1]-1).toString().length)))),this._values=r}}),Object.defineProperty(this,"_columns",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(this,"columns",{configurable:!0,enumerable:!0,get(){return this._columns},set(r){k(Me(r),"The new columns list must be a 1-dimensional array of strings!"),k(this.isEmpty||r.length===this.shape[1],"The new columns list must be the same length as the old columns list!"),k(ae(r).length===1,"The new columns list must be a 1-dimensional array of strings!"),r=r.map(s=>(typeof s!="string"&&(s=JSON.stringify(s)||s.toString()),s.trim().length===0?"untitled_"+ot(8):s.trim()));let n=(()=>{let s=su(r),i={};return s.forEach(o=>{i[o.value]=o.count}),i})();r=r.map(s=>n[s]>1?s+"_"+ot(8):s),this._columns=r}}),Object.defineProperty(this,"_index",{value:[],configurable:!0,enumerable:!1,writable:!0}),Object.defineProperty(this,"index",{configurable:!0,enumerable:!0,get(){return this._index},set(r){k(Me(r),"The new index must be a 1-dimensional array of strings!"),k(this.isEmpty||r.length===this.shape[0],"The new index must be the same length as the old index!"),k(ae(r).length===1,"The new index must be a 1-dimensional array of strings!"),r=r.map(s=>(typeof s!="string"&&(s=JSON.stringify(s)||s.toString()),s.trim().length===0?"untitled_"+ot(8):s.trim()));let n=(()=>{let s=su(r),i={};return s.forEach(o=>{i[o.value]=o.count}),i})();r=r.map(s=>n[s]>1?s+"_"+ot(8):s),this._index=r}}),k(dr(e)||My(e)||Me(e),"The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values."),e)if(e instanceof D)this.values=hr(e.values),this.columns=hr(e.columns),this.index=hr(e.index);else if(Me(e)){let r=ae(e);k(r.length===2,"The `data` array passed into the constructor of a DataFrame must be 2-dimensional!"),k(Cy(e.map(n=>n.length)).length===1,"The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!"),this.values=e}else{this._columns=Object.keys(e).concat(Object.getOwnPropertySymbols(e)).map(o=>o.toString());let r=[],n=null,s=null;this._columns.forEach(o=>{dr(s)&&(n=o,s=e[o].length),k(e[o].length===s,`The object passed into the DataFrame constructor contains arrays of different lengths! The key "${n}" points to an array containing ${s} items, and the key "${o}" points to an array containing ${e[o].length} items.`),s=e[o].length;let u=e[o];r.push(u)}),this._values=ou(r);let i=ae(this.values);this._index=pr(0,i[0]).map(o=>"row"+mr(o,(i[0]-1).toString().length))}}get shape(){return ae(this.values)}get length(){return this.shape[0]}get width(){return this.shape[1]}get rows(){return this.index}set rows(e){this.index=e}get isEmpty(){return _y(this.values).length===0}clear(){let e=new D(xy(this.shape));return e.columns=this.columns.slice(),e.index=this.index.slice(),e}get(e,r){if(arguments.length===0)return this;if(arguments.length===1)try{return this.get(null,e)}catch{return this.get(e,null)}return Ny(this,e,r)}getSubsetByNames(e,r){return Sy(D,H,this,e,r)}getSubsetByIndices(e,r){return vy(this,e,r)}getDummies(e){return iu(D,this,e)}oneHotEncode(e){return iu(D,this,e)}transpose(){let e=new D(ou(this.values));return e.columns=this.index.slice(),e.index=this.columns.slice(),e}get T(){return this.transpose()}resetIndex(e){return Oy(this,e)}copy(){return gy(D,this)}assign(e,r){return py(D,H,this,e,r)}apply(e,r){return my(D,H,this,e,r)}dropMissing(e,r,n){return qy(D,H,this,e,r,n)}dropNaN(e,r,n){return by(D,this,e,r,n)}drop(e,r){return yy(D,H,this,e,r)}dropColumns(e){return this.drop(null,e)}dropRows(e){return this.drop(e,null)}toDetailedObject(e){return Fy(this,e)}toObject(){return Ey(this)}toJSONString(e){return Iy(this,e)}saveAsJSON(e,r){return jy(this,e,r)}print(){return Ty(D,H,this)}sort(e,r){return Dy(this,e,r)}sortByIndex(){return this.sort()}filter(e,r){return wy(D,H,this,e,r)}shuffle(e){return Ay(this,e)}append(e,r){return dy(this,e,r)}concat(e,r){return this.append(e,r)}join(e,r){return this.append(e,r)}toString(){return JSON.stringify(this)}},H=nu()(D);au.exports={DataFrame:D,Series:H}});var ce=l((PO,lu)=>{var ky=d(),zy=O(),Uy=m(),Py=q(),Ry=y();function cu(t){if(Py(t)||Ry(t))return cu(t.values);ky(Uy(t),"The `max` function only works on arrays, Series, and DataFrames!");try{t=zy(t);let e=-1/0;for(let r of t)r>e&&(e=r);return e}catch{return NaN}}lu.exports=cu});var v=l((RO,pu)=>{var{DataFrame:fu,Series:hu}=xe(),du=d(),Ce=m(),gr=q(),mu=z(),By=I(),yr=y(),Vy=ce(),Jy=M(),ut=S();function $y(t){return Ce(t)||yr(t)||gr(t)}function Yy(t){return du(By(t),"You must pass a function into the `vectorize` function!"),function e(){let r,n,s=[],i=[],o=Object.keys(arguments).filter(u=>{let a=arguments[u];return Ce(a)?!0:yr(a)?(r=!0,s.push(a),!0):gr(a)?(n=!0,i.push(a),!0):!1}).map(u=>arguments[u]);if(o.slice(0,-1).forEach((u,a)=>{du(mu(Ce(u)?ut(u):u.shape,Ce(o[a+1])?ut(o[a+1]):o[a+1].shape),`When passing multiple arrays into the \`${t.name}\` function, all of the arrays must have the same shape!`)}),o.length>0){let u=Vy(o.map(c=>c.length?c.length:c.values.length)),a=Jy(0,u).map(c=>{let f=Object.keys(arguments).map(h=>{if($y(arguments[h])){if(Ce(arguments[h]))return arguments[h][c];if(yr(arguments[h]))return arguments[h].values[c];if(gr(arguments[h]))return arguments[h].values[c]}else return arguments[h]});return e(...f)});if(n)try{if(i.length===1&&mu(ut(i[0]),ut(a))){let c=new fu(a);return c.index=i[0].index.slice(),c.columns=i[0].columns.slice(),c}else return new fu(a)}catch{return a}if(r)try{if(s.length===1&&s[0].length===a.length){let c=new hu(a);return c.name=s[0].name,c.index=s[0].index.slice(),c}else return new hu(a)}catch{return a}return a}else return t(...arguments)}}pu.exports=Yy});var at=l((BO,gu)=>{var Ky=g(),Gy=v();function Wy(t){try{return Ky(t)?Math.abs(t):NaN}catch{return NaN}}gu.exports=Gy(Wy)});var ct=l((VO,yu)=>{var Ly=g(),Hy=v();function Xy(){try{let t=0,e=Object.values(arguments);for(let r=0;r<e.length;r++){if(!Ly(e[r]))return NaN;t+=e[r]}return t}catch{return NaN}}yu.exports=Hy(Xy)});var ke=l((JO,qu)=>{var Zy=v();function Qy(t,e){try{return e(t)}catch{return NaN}}qu.exports=Zy(Qy)});var wu=l(($O,bu)=>{var eq=g(),tq=v();function rq(t){try{return eq(t)?Math.acos(t):NaN}catch{return NaN}}bu.exports=tq(rq)});var vu=l((YO,Nu)=>{var nq=g(),sq=v();function iq(t){try{return nq(t)?Math.asin(t):NaN}catch{return NaN}}Nu.exports=sq(iq)});var Tu=l((KO,Su)=>{var oq=g(),uq=v();function aq(t){try{return oq(t)?Math.atan(t):NaN}catch{return NaN}}Su.exports=uq(aq)});var Au=l((GO,Ou)=>{var cq=d(),lq=qe(),fq=m(),hq=q(),dq=y(),mq=ce();function qr(t){if(hq(t)){let e=qr(t.values);return[t.index[e[0]],t.columns[e[1]]]}if(dq(t)){let e=qr(t.values);return[t.index[e]]}cq(fq(t),"The `argmax` function only works on arrays, Series, and DataFrames!");try{let e=lq(t,mq(t));return e?e.length===0?void 0:e.length===1?e[0]:e:void 0}catch{return}}Ou.exports=qr});var lt=l((WO,Fu)=>{var pq=d(),gq=O(),yq=m(),qq=q(),bq=y();function Du(t){if(qq(t)||bq(t))return Du(t.values);pq(yq(t),"The `min` function only works on arrays, Series, and DataFrames!");try{t=gq(t);let e=1/0;for(let r of t)r<e&&(e=r);return e}catch{return NaN}}Fu.exports=Du});var Iu=l((LO,ju)=>{var wq=d(),Nq=qe(),vq=m(),Sq=q(),Tq=y(),Oq=lt();function br(t){if(Sq(t)){let e=br(t.values);return[t.index[e[0]],t.columns[e[1]]]}if(Tq(t)){let e=br(t.values);return[t.index[e]]}wq(vq(t),"The `argmin` function only works on arrays, Series, and DataFrames!");try{let e=Nq(t,Oq(t));return e?e.length===0?void 0:e.length===1?e[0]:e:void 0}catch{return}}ju.exports=br});var Sr=l((HO,Mu)=>{var Eu=m(),wr=rt(),Aq=q(),Nr=we(),Dq=z(),_u=g(),Fq=$(),jq=y(),vr=w();function V(t,e){if(Aq(t)||jq(t))return t.apply(r=>V(r,e));if(Eu(t))return t.map(r=>V(r,e));if(e==="null")return null;if(e==="number"){if(vr(t))return NaN;let r=V(t,"boolean");if(wr(r))return r?1:0;try{JSON.parse(t)}catch{let i=V(t,"date");if(Nr(i))return i.getTime()}let n=parseFloat(t);return isNaN(n)?NaN:n}if(e==="boolean"){if(wr(t))return t;if(_u(t))return t===0?!1:t===1?!0:null;try{let r=(typeof t=="object"?t.toString()==="null"?"false":JSON.stringify(t):t.toString()).trim().toLowerCase();return r==="true"||r==="yes"||r==="y"?!0:r==="false"||r==="no"||r==="n"?!1:null}catch{return null}}if(e==="date"){if(Nr(t))return t;if(vr(t))return null;let r=parseFloat(t);if(!isNaN(r)){let s=new Date(t);return Nr(s)?s:null}let n=Date.parse(t);return isNaN(n)?null:new Date(n)}if(e==="object"){if(Fq(t))return t;let r=V(t,"boolean");if(wr(r))return null;try{let s=V(t,"number");if(_u(s))return JSON.parse(t),null}catch{}let n=V(t,"date");if(n)return n;try{let s=JSON.parse(t);return Eu(s)?s.map(i=>V(i,e)):s}catch{return null}}if(e==="string")return vr(t)?Dq(t,void 0)?"undefined":"null":t instanceof Date?t.toJSON():(()=>typeof t=="object"?t===null?"null":JSON.stringify(t):t.toString())()}Mu.exports=V});var Cu=l((XO,xu)=>{var Iq=g(),Eq=v();function _q(t){try{return Iq(t)?Math.ceil(t):NaN}catch{return NaN}}xu.exports=Eq(_q)});var Uu=l((ZO,zu)=>{var Mq=at(),ku=g(),xq=w(),Cq=v();function kq(t,e){try{if(!ku(t))return NaN;if(xq(e))e=1e-10;else if(!ku(e))return NaN;return Mq(t)<e?0:t}catch{return NaN}}zu.exports=Cq(kq)});var Ru=l((QO,Pu)=>{var Tr=g(),zq=v();function Uq(t,e,r){try{return Tr(t)?Tr(e)?Tr(r)?t<e?e:t>r?r:t:NaN:NaN:NaN}catch{return NaN}}Pu.exports=zq(Uq)});var Vu=l((eA,Bu)=>{var Or=d(),Pq=O(),Rq=m(),Bq=q(),Vq=g(),Jq=y();function Ar(t,e){if(Bq(t)||Jq(t))return Ar(t.values,e);if(Or(Rq(t),"The `combinations` function only works on arrays, Series, and DataFrames!"),Or(Vq(e),"`r` must be a whole number!"),t=Pq(t),e>t.length)return[t];if(e<=0)return[[]];if(Or(e===parseInt(e),"`r` must be a whole number!"),t.length<2)return t;let r=[];return t.forEach((n,s)=>{let i=t.slice(s+1);if(i.length<e-1)return;Ar(i,e-1).forEach(u=>{r.push([n].concat(u))})}),r}Bu.exports=Ar});var ft=l((tA,$u)=>{var $q=d(),Yq=O(),Kq=m(),Gq=q(),Wq=y();function Ju(t){if(Gq(t)||Wq(t))return Ju(t.values);$q(Kq(t),"The `mean` function only works on arrays, Series, and DataFrames!");try{let e=Yq(t),r=0;return e.forEach(n=>{r+=n}),r/e.length}catch{return NaN}}$u.exports=Ju});var Fr=l((rA,Hu)=>{var Yu=d(),Ku=m(),ht=g(),Gu=y(),Wu=ft(),Lu=S();function Dr(t,e){if(Gu(t))return Dr(t.values,e);if(Gu(e))return Dr(t,e.values);Yu(Ku(t)&&Ku(e)&&Lu(t).length===1&&Lu(e).length===1,"The `covariance` function only works on 1-dimensional arrays and Series!"),Yu(t.length===e.length,"The two arrays or Series passed into the `covariance` function must have the same length!");try{let r=Wu(t),n=Wu(e);if(!ht(r)||!ht(n))return NaN;let s=Math.max(t.length,e.length),i=0;for(let o=0;o<s;o++){if(!ht(t[o]))return NaN;if(!ht(e[o]))return NaN;i+=(t[o]-r)*(e[o]-n)}return i/t.length}catch{return NaN}}Hu.exports=Dr});var dt=l((nA,Xu)=>{var Lq=g(),Hq=v();function Xq(t){try{return Lq(t)?Math.sqrt(t):NaN}catch{return NaN}}Xu.exports=Hq(Xq)});var jr=l((sA,Qu)=>{var Zq=d(),Qq=O(),eb=m(),tb=q(),rb=g(),nb=y(),sb=ft();function Zu(t){if(tb(t)||nb(t))return Zu(t.values);Zq(eb(t),"The `variance` function only works on arrays, Series, and DataFrames!");try{let e=Qq(t),r=sb(e),n=0;for(let s=0;s<e.length;s++){if(!rb(e[s]))return NaN;n+=(e[s]-r)*(e[s]-r)}return n/e.length}catch{return NaN}}Qu.exports=Zu});var mt=l((iA,ta)=>{var ib=d(),ob=m(),ub=q(),ab=y(),cb=dt(),lb=jr();function ea(t){if(ub(t)||ab(t))return ea(t.values);ib(ob(t),"The `std` function only works on arrays, Series, and DataFrames!");try{return cb(lb(t))}catch{return NaN}}ta.exports=ea});var aa=l((oA,ua)=>{var ra=d(),fb=Fr(),na=m(),sa=y(),ia=S(),oa=mt();function Ir(t,e){if(sa(t))return Ir(t.values,e);if(sa(e))return Ir(t,e.values);ra(na(t)&&na(e)&&ia(t).length===1&&ia(e).length===1,"The `correl` function only works on 1-dimensional arrays and Series!"),ra(t.length===e.length,"The two arrays or Series passed into the `correl` function must have the same length!");try{return fb(t,e)/(oa(t)*oa(e))}catch{return NaN}}ua.exports=Ir});var la=l((uA,ca)=>{var hb=g(),db=v();function mb(t){try{return hb(t)?Math.cos(t):NaN}catch{return NaN}}ca.exports=db(mb)});var ha=l((aA,fa)=>{fa.exports=Object.freeze({boolean:"boolean",date:"date",null:"null",number:"number",object:"object",string:"string"})});var qa=l((cA,ya)=>{var pb=d(),da=m(),ma=q(),gb=z(),pa=y(),ga=x();function Er(t,e){if(ma(t)||pa(t))return Er(t.values,e);if(ma(e)||pa(e))return Er(t,e.values);pb(da(t)&&da(e),"The `diff` function only works on arrays, Series, and DataFrames!");let r=ga(t),n=ga(e),s=[];return r.forEach(i=>{n.findIndex(o=>gb(o,i))<0&&s.push(i)}),s}ya.exports=Er});var pt=l((lA,wa)=>{var ba=g(),yb=v();function qb(t,e){try{return ba(t)?ba(e)?Math.pow(t,e):NaN:NaN}catch{return NaN}}wa.exports=yb(qb)});var _r=l((fA,Na)=>{var bb=g(),wb=v();function Nb(){try{let t=Object.values(arguments);if(t.length===0)return NaN;let e=1;for(let r=0;r<t.length;r++){if(!bb(t[r]))return NaN;e*=t[r]}return e}catch{return NaN}}Na.exports=wb(Nb)});var le=l((hA,va)=>{var vb=_r();function Sb(){return vb(...arguments)}va.exports=Sb});var Mr=l((dA,Sa)=>{var Tb=ct(),Ob=le();function Ab(t,e){return Tb(t,Ob(e,-1))}Sa.exports=Ab});var gt=l((mA,Oa)=>{var Db=d(),Fb=O(),jb=m(),Ib=q(),Eb=y();function Ta(t){if(Ib(t)||Eb(t))return Ta(t.values);Db(jb(t),"The `sum` function only works on arrays, Series, and DataFrames!");try{return t.length===0?NaN:Fb(t).reduce((e,r)=>e+r,0)}catch{return NaN}}Oa.exports=Ta});var _a=l((pA,Ea)=>{var _b=at(),Mb=d(),Aa=m(),Da=q(),xb=z(),Fa=g(),ja=y(),Cb=pt(),Ia=S(),kb=dt(),zb=Mr(),Ub=gt();function xr(t,e){if(Fa(t)&&Fa(e))return _b(t-e);if(Da(t)||ja(t))return xr(t.values,e);if(Da(e)||ja(e))return xr(t,e.values);Aa(t)&&Aa(e)&&Mb(xb(Ia(t),Ia(e)),"If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!");try{return kb(Ub(Cb(zb(t,e),2)))}catch{return NaN}}Ea.exports=xr});var xa=l((gA,Ma)=>{var Pb=pt(),Rb=le();function Bb(t,e){return Rb(t,Pb(e,-1))}Ma.exports=Bb});var kr=l((yA,Ra)=>{var{DataFrame:Ca,Series:ka}=xe(),yt=d(),za=O(),Ua=m(),Cr=q(),Vb=g(),qt=y(),Jb=le(),bt=S(),$b=gt(),Pa=te();function X(t,e){if(Cr(t)){let s=X(t.values,e);if(bt(s).length===1){let i=new ka(s);return i.name=qt(e)?e.name:i.name,i.index=t.index.slice(),i}else{let i=new Ca(s);return i.index=t.index.slice(),Cr(e)&&(i.columns=e.columns.slice()),i}}if(Cr(e)){let s=X(t,e.values);if(bt(s).length===1){let i=new ka(s);return i.name=qt(t)?t.name:i.name,i.index=e.columns.slice(),i}else{let i=new Ca(s);return i.columns=e.columns.slice(),i}}if(qt(t))return X(t.values,e);if(qt(e))return X(t,e.values);yt(Ua(t)&&Ua(e),"The `dot` function only works on arrays, Series, and DataFrames!"),za(t).concat(za(e)).forEach(s=>{yt(Vb(s),"One of the arrays you passed into the `dot` function contains non-numerical values!")});let r=bt(t),n=bt(e);if(yt(r.length<=2&&n.length<=2,"I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!"),yt(r[r.length-1]===n[0],`There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${r[r.length-1]} !== ${n[0]})`),r.length===1&&n.length===1)return $b(Jb(t,e));if(r.length===1&&n.length===2)return Pa(e).map(s=>X(t,s));if(r.length===2&&n.length===1)return t.map(s=>X(s,e));if(r.length===2&&n.length===2){let s=Pa(e),i=[];for(let o=0;o<t.length;o++){let u=[];for(let a=0;a<s.length;a++)u.push(X(t[o],s[a]));i.push(u)}return i}}Ra.exports=X});var zr=l((qA,Va)=>{var Yb=d(),Kb=m(),Gb=q(),Wb=y(),Lb=w();function Ba(t){if(Gb(t)||Wb(t))return t.dropMissing(...Object.values(arguments).slice(1));Yb(Kb(t),"The `dropMissing` function only works on arrays, Series, and DataFrames!");let e=[];return t.forEach(r=>{try{return e.push(Ba(r))}catch{Lb(r)||e.push(r)}}),e}Va.exports=Ba});var Ha=l((bA,La)=>{var Ja=d(),$a=m(),Ya=q(),Hb=z(),Ka=y(),Ga=w(),Wa=S();function wt(t,e){if(Ya(t)||Ka(t))return wt(t.values,e);if(Ya(e)||Ka(e))return wt(t,e.values);Ja($a(t)&&$a(e),"The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!"),Ja(Hb(Wa(t),Wa(e)),"The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!");let r=[],n=[];for(let s=0;s<t.length;s++)try{let[i,o]=wt(t[s],e[s]);r.push(i),n.push(o)}catch{!Ga(t[s])&&!Ga(e[s])&&(r.push(t[s]),n.push(e[s]))}return[r,n]}La.exports=wt});var sc=l((wA,nc)=>{var Xa=d(),Za=m(),Qa=q(),Xb=z(),ec=g(),tc=y(),rc=S();function Nt(t,e){if(Qa(t)||tc(t))return Nt(t.values,e);if(Qa(e)||tc(e))return Nt(t,e.values);Xa(Za(t)&&Za(e),"The `dropNaNPairwise` only works on arrays, Series, and DataFrames!"),Xa(Xb(rc(t),rc(e)),"The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!");let r=[],n=[];for(let s=0;s<t.length;s++)try{let[i,o]=Nt(t[s],e[s]);r.push(i),n.push(o)}catch{ec(t[s])&&ec(e[s])&&(r.push(t[s]),n.push(e[s]))}return[r,n]}nc.exports=Nt});var oc=l((NA,ic)=>{var Zb=zr();function Qb(t){return Zb(t)}ic.exports=Qb});var ac=l((vA,uc)=>{var e1=g(),t1=v();function r1(t){try{return e1(t)?Math.exp(t):NaN}catch{return NaN}}uc.exports=t1(r1)});var fc=l((SA,lc)=>{var n1=v();function cc(t){try{return t!==parseInt(t)?NaN:t<=1?1:t*cc(t-1)}catch{return NaN}}lc.exports=n1(cc)});var pc=l((TA,mc)=>{var s1=d(),i1=O(),hc=m(),o1=q(),u1=I(),dc=$(),a1=y();function Ur(t,e){if(o1(t))return Ur(i1(t.values),e);if(a1(t))return Ur(t.values,e);if(s1(dc(t)||hc(t),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!"),!u1(e)){let s=e;e=i=>i===s}function r(s,i,o){if(o=o||[],o.indexOf(s)>-1)return null;if(dc(s)){o.push(s);let u=Object.keys(s).concat(Object.getOwnPropertySymbols(s));for(let a=0;a<u.length;a++){let c=u[a],f=s[c];if(i(f))return f;let h=r(f,i,o);if(h)return h}}else if(hc(s)){o.push(s);for(let u=0;u<s.length;u++){let a=s[u];if(i(a))return a;let c=r(a,i,o);if(c)return c}}else if(i(s))return s;return null}function n(s){try{return e(s)}catch{return!1}}return r(t,n)}mc.exports=Ur});var bc=l((OA,qc)=>{var c1=d(),l1=O(),gc=m(),f1=q(),h1=I(),yc=$(),d1=y();function Pr(t,e){if(f1(t))return Pr(l1(t.values),e);if(d1(t))return Pr(t.values,e);if(c1(yc(t)||gc(t),"You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `findAll` function!"),!h1(e)){let i=e;e=o=>o===i}function r(i,o,u){if(u=u||[],u.indexOf(i)>-1)return null;if(yc(i)){u.push(i);let a=Object.keys(i).concat(Object.getOwnPropertySymbols(i)),c=[];for(let f=0;f<a.length;f++){let h=a[f],p=i[h],b=!1;o(p)&&(c.push(p),b=!0);let F=r(p,o,u);F&&F.length>0&&F.slice(b?1:0).forEach(A=>c.push(A))}return c}else if(gc(i)){u.push(i);let a=[];for(let c=0;c<i.length;c++){let f=i[c],h=!1;o(f)&&(a.push(f),h=!0);let p=r(f,o,u);p&&p.length>0&&p.slice(h?1:0).forEach(b=>a.push(b))}return a}else if(o(i))return[i];return null}function n(i){try{return e(i)}catch{return!1}}let s=r(t,n);return s&&s.length>0?s:null}qc.exports=Pr});var Nc=l((AA,wc)=>{var m1=g(),p1=v();function g1(t){try{if(t==="Infinity")return 1/0;if(t==="-Infinity")return-1/0;let e=JSON.parse(t);return m1(e)?e:NaN}catch{return NaN}}wc.exports=p1(g1)});var Sc=l((DA,vc)=>{var y1=g(),q1=v();function b1(t){try{return y1(t)?Math.floor(t):NaN}catch{return NaN}}vc.exports=q1(b1)});var Rr=l((FA,Tc)=>{var w1=g(),N1=Fe(),v1=et();function S1(t){w1(t)&&(t=[t]);let e=[],r=N1(t);for(let n=0;n<r;n++)e.push(0);return v1(e,t)}Tc.exports=S1});var Ac=l((jA,Oc)=>{var vt=d(),T1=g(),O1=w(),A1=Rr();function D1(t){vt(!O1(t),"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),vt(T1(t),"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),vt(parseInt(t)===t,"You must pass an integer greater than 0 (representing the size) into the `identity` function!"),vt(t>0,"You must pass an integer greater than 0 (representing the size) into the `identity` function!");let e=A1([t,t]);for(let r=0;r<t;r++)e[r][r]=1;return e}Oc.exports=D1});var Fc=l((IA,Dc)=>{Dc.exports=["true","false","yes","no"]});var Ic=l((EA,jc)=>{jc.exports=["null","none","nan","na","n/a","","undefined"]});var Cc=l((_A,xc)=>{var F1=ke(),j1=d(),I1=Fc(),E1=Sr(),_1=ve(),_c=O(),Br=m(),M1=q(),Ec=we(),Mc=g(),x1=y(),C1=E(),k1=Ic();function St(t){return t.type==="number"&&(typeof t.value<"u"?t.isInteger=parseInt(t.value)===t.value:t.isInteger=_c(t.values).every(e=>Mc(e)?parseInt(e)===e:!0)),t}function Tt(t){if(M1(t)){let s=t.copy(),i=Tt(t.values);return s.values=i.values,St({type:i.type,values:s})}if(x1(t)){let s=t.copy(),i=Tt(t.values);return s.values=i.values,St({type:i.type,values:s})}if(!Br(t)){let s=Tt([t]);return s.value=s.values[0],delete s.values,St(s)}j1(Br(t),"The `inferType` function only works on arrays, Series, and DataFrames!");let e=_c(t).map(s=>{if(s===void 0)return"null";try{if(typeof s=="object"){let u=new Date(s.getTime());if(Ec(u))return"date"}}catch{}C1(s)||(s=JSON.stringify(s));let o=s.toLowerCase().trim();if(k1.indexOf(o)>-1)return"null";if(I1.indexOf(o)>-1)return"boolean";try{let u=JSON.parse(s);return Mc(u)?"number":typeof u=="object"?Br(u)?"string":"object":"string"}catch{let a=new Date(s);return Ec(a)?"date":"string"}}),n=_1(e).sort((s,i)=>i.count-s.count)[0].value;return St({type:n,values:F1(t,s=>E1(s,n))})}xc.exports=Tt});var zc=l((MA,kc)=>{var z1=g(),U1=v();function P1(t){try{let e=JSON.parse(t);return z1(e)?parseInt(e):NaN}catch{return NaN}}kc.exports=U1(P1)});var Pc=l((xA,Uc)=>{var R1=d(),B1=m(),V1=q(),J1=z(),$1=y(),Vr=x();function Y1(){let t=Object.values(arguments).map(r=>V1(r)||$1(r)?Vr(r.values):(R1(B1(r),"The `intersect` function only works on arrays, Series, and DataFrames!"),Vr(r)));return Vr(t).filter(r=>t.every(n=>n.findIndex(s=>J1(s,r))>-1))}Uc.exports=Y1});var Jc=l((CA,Vc)=>{var Rc=ct(),Z=d(),K1=kr(),G1=O(),W1=m(),L1=q(),Jr=g(),Bc=le(),H1=S();function Ot(t){if(L1(t)){let r=t.copy();return r.values=Ot(r.values),r}Z(W1(t),"The `inverse` function only works on square 2-dimensional arrays or DataFrames!"),G1(t).forEach(r=>Z(Jr(r),"The array passed into the `inverse` function must contain only numbers!"));let e=H1(t);if(Z(e.length===2,"The array passed into the `inverse` function must be exactly two-dimensional and square!"),Z(e[0]===e[1],"The array passed into the `inverse` function must be exactly two-dimensional and square!"),Z(e[0]>=0,"The array passed into the `inverse` function must be exactly two-dimensional and square!"),e[0]===0)return t;if(e[0]===1)return Z(t[0][0]!==0,"This matrix cannot be inverted!"),1/t[0][0];if(e[0]===2){let r=t[0][0],n=t[0][1],s=t[1][0],i=t[1][1],o=r*i-n*s;Z(o!==0,"This matrix cannot be inverted!");let u=[[i,-n],[-s,r]];return Bc(u,1/o)}else if(e[0]>1){let r=(n,s)=>Jr(n)||Jr(s)?Bc(n,s):K1(n,s);for(let n=1;n<e[0]-1;n++)try{let s=t.slice(0,n).map(A=>A.slice(0,n)),i=t.slice(0,n).map(A=>A.slice(n,e[0])),o=t.slice(n,e[0]).map(A=>A.slice(0,n)),u=t.slice(n,e[0]).map(A=>A.slice(n,e[0])),a=Ot(s),c=Ot(Rc(u,r(-1,r(r(o,a),i)))),f=Rc(a,r(r(r(r(a,i),c),o),a)),h=r(-1,r(r(a,i),c)),p=r(-1,r(r(c,o),a)),b=c;return f.map((A,P)=>A.concat(h[P])).concat(p.map((A,P)=>A.concat(b[P])))}catch{}Z(!1,"This matrix cannot be inverted!")}}Vc.exports=Ot});var Yc=l((kA,$c)=>{var X1=new Function(`
+\x1B[31m` +
+                  e +
+                  `
+\x1B[0m`,
+              )
+        }
+      }
+    $n.exports = Jt
+  })
+  var d = l((OT, Yn) => {
+    var nm = ne()
+    Yn.exports = function (t, e) {
+      if (!t) throw new nm(e)
+    }
+  })
+  var w = l((AT, Kn) => {
+    function sm(t) {
+      return t === null || typeof t > "u"
+    }
+    Kn.exports = sm
+  })
+  var Wn = l((DT, Gn) => {
+    Gn.exports = [
+      Array,
+      ArrayBuffer,
+      BigInt64Array,
+      BigUint64Array,
+      Float32Array,
+      Float64Array,
+      Int16Array,
+      Int32Array,
+      Int8Array,
+      Uint16Array,
+      Uint32Array,
+      Uint8Array,
+      Uint8ClampedArray,
+    ]
+  })
+  var m = l((FT, Hn) => {
+    var im = w(),
+      Ln = Wn(),
+      om = Ln.map(t => t.name)
+    function um(t) {
+      try {
+        return t instanceof Array
+          ? !0
+          : im(t.constructor)
+            ? !1
+            : Ln.indexOf(t.constructor) > -1 ||
+              om.indexOf(t.constructor.name) > -1
+      } catch {
+        return !1
+      }
+    }
+    Hn.exports = um
+  })
+  var q = l((jT, Xn) => {
+    function am(t) {
+      try {
+        return (
+          !!t._symbol &&
+          t._symbol === Symbol.for("@jrc03c/js-math-tools/dataframe")
+        )
+      } catch {
+        return !1
+      }
+    }
+    Xn.exports = am
+  })
+  var I = l((IT, Zn) => {
+    function cm(t) {
+      return typeof t == "function"
+    }
+    Zn.exports = cm
+  })
+  var g = l((ET, Qn) => {
+    function lm(t) {
+      return typeof t == "number" && !isNaN(t)
+    }
+    Qn.exports = lm
+  })
+  var $ = l((_T, es) => {
+    var fm = m(),
+      hm = w()
+    function dm(t) {
+      return typeof t == "object" && !hm(t) && !fm(t)
+    }
+    es.exports = dm
+  })
+  var y = l((MT, ts) => {
+    function mm(t) {
+      try {
+        return (
+          !!t._symbol &&
+          t._symbol === Symbol.for("@jrc03c/js-math-tools/series")
+        )
+      } catch {
+        return !1
+      }
+    }
+    ts.exports = mm
+  })
+  var qe = l((xT, ss) => {
+    var pm = d(),
+      rs = m(),
+      gm = q(),
+      ym = I(),
+      $t = g(),
+      ns = $(),
+      qm = y()
+    function Yt(t, e) {
+      if (gm(t)) {
+        let i = Yt(t.values, e)
+        return (
+          i.length > 0 &&
+            $t(i[0]) &&
+            i[0] >= 0 &&
+            i[0] < t.index.length &&
+            (i[0] = t.index[i[0]]),
+          i.length > 1 &&
+            $t(i[1]) &&
+            i[1] >= 0 &&
+            i[1] < t.columns.length &&
+            (i[1] = t.columns[i[1]]),
+          i
+        )
+      }
+      if (qm(t)) {
+        let i = Yt(t.values, e)
+        return (
+          i.length > 0 &&
+            $t(i[0]) &&
+            i[0] >= 0 &&
+            i[0] < t.index.length &&
+            (i[0] = t.index[i[0]]),
+          i
+        )
+      }
+      if (
+        (pm(
+          ns(t) || rs(t),
+          "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!",
+        ),
+        !ym(e))
+      ) {
+        let i = e
+        e = o => o === i
+      }
+      function r(i, o, u) {
+        if (((u = u || []), u.indexOf(i) > -1)) return null
+        if (ns(i)) {
+          u.push(i)
+          let a = Object.keys(i).concat(Object.getOwnPropertySymbols(i))
+          for (let c = 0; c < a.length; c++) {
+            let f = a[c],
+              h = i[f]
+            if (o(h)) return [f]
+            let p = r(h, o, u)
+            if (p && p.length > 0) return [f].concat(p)
+          }
+        } else if (rs(i)) {
+          u.push(i)
+          for (let a = 0; a < i.length; a++) {
+            let c = i[a]
+            if (o(c)) return [a]
+            let f = r(c, o, u)
+            if (f && f.length > 0) return [a].concat(f)
+          }
+        } else if (o(i)) return []
+        return null
+      }
+      function n(i) {
+        try {
+          return e(i)
+        } catch {
+          return !1
+        }
+      }
+      let s = r(t, n)
+      return s && s.length > 0 ? s : null
+    }
+    ss.exports = Yt
+  })
+  var R = l((CT, as) => {
+    var bm = qe(),
+      is = m(),
+      os = q(),
+      us = y()
+    function be(t) {
+      function e(r) {
+        if (typeof r == "object") {
+          if (r === null) return null
+          if (is(r)) return r instanceof Array ? r.map(s => be(s)) : r.slice()
+          if (us(r)) {
+            let s = r.copy()
+            return (s.values = be(s.values)), s
+          }
+          if (os(r)) {
+            let s = r.copy()
+            return (s.values = be(r.values)), s
+          }
+          if (r instanceof Date) return new Date(r.getTime())
+          r = Kt(r)
+          let n = {}
+          return (
+            Object.keys(r)
+              .concat(Object.getOwnPropertySymbols(r))
+              .forEach(s => {
+                n[s] = be(r[s])
+              }),
+            n
+          )
+        } else return r
+      }
+      return e(Kt(t))
+    }
+    function Kt(t) {
+      function e(s, i, o) {
+        if (((i = i || []), (o = o || ""), i.indexOf(s) > -1)) {
+          let u = o.split("/").slice(o.startsWith("/") ? 1 : 0)
+          if (
+            u.some((c, f) => {
+              let h = u.slice(0, u.length - f - 1),
+                p = r
+              return (
+                h.forEach(b => {
+                  p = p[b]
+                }),
+                p === s
+              )
+            })
+          )
+            return `<reference to "${r === s ? "/" : "/" + bm(r, s).join("/")}">`
+        }
+        return typeof s == "object"
+          ? s === null
+            ? null
+            : (i.push(s),
+              is(s)
+                ? typeof s.constructor < "u" && s.constructor.name !== "Array"
+                  ? s.slice()
+                  : s.map((u, a) => e(u, i, o + "/" + a))
+                : (Object.keys(s)
+                    .concat(Object.getOwnPropertySymbols(s))
+                    .forEach(u => {
+                      s[u] = e(s[u], i, o + "/" + u.toString())
+                    }),
+                  s))
+          : s
+      }
+      let r = t,
+        n = e(r)
+      if (os(t)) {
+        let s = t.copy()
+        ;(s._values = n.values),
+          (s._columns = n.columns),
+          (s._index = n.index),
+          (n = s)
+      }
+      if (us(t)) {
+        let s = t.copy()
+        ;(s.name = n.name),
+          (s._values = n.values),
+          (s._index = n.index),
+          (n = s)
+      }
+      return n
+    }
+    as.exports = { copy: be, decycle: Kt }
+  })
+  var O = l((kT, fs) => {
+    var wm = d(),
+      cs = m(),
+      Nm = q(),
+      vm = y()
+    function ls(t) {
+      if (Nm(t) || vm(t)) return ls(t.values)
+      wm(
+        cs(t),
+        "The `flatten` function only works on arrays, Series, and DataFrames!",
+      )
+      function e(r) {
+        let n = []
+        return (
+          r.forEach(s => {
+            cs(s) ? (n = n.concat(e(s))) : n.push(s)
+          }),
+          n
+        )
+      }
+      return e(t)
+    }
+    fs.exports = ls
+  })
+  var we = l((zT, hs) => {
+    function Sm(t) {
+      return t instanceof Date && t.toString() !== "Invalid Date"
+    }
+    hs.exports = Sm
+  })
+  var z = l((UT, ps) => {
+    var { decycle: ds } = R(),
+      ms = m(),
+      Gt = we()
+    function Tm(t, e) {
+      function r(n, s) {
+        let i = typeof n
+        if (i !== typeof s) return !1
+        if (i === "undefined") return !0
+        if (i === "boolean" || i === "symbol") return n === s
+        if (i === "number" || i === "bigint")
+          return n.toString() === "NaN" && s.toString() === "NaN" ? !0 : n === s
+        if (i === "string" || i === "function") return n === s
+        if (i === "object") {
+          if (n === null || s === null) return n === null && s === null
+          {
+            if (Gt(n)) return Gt(s) ? n.getTime() === s.getTime() : !1
+            if (Gt(s)) return !1
+            if (n instanceof RegExp && s instanceof RegExp)
+              return n.toString() === s.toString()
+            if (ms(n) !== ms(s)) return !1
+            let u = Object.keys(n).concat(Object.getOwnPropertySymbols(n)),
+              a = Object.keys(s).concat(Object.getOwnPropertySymbols(s))
+            if (u.length !== a.length) return !1
+            for (let c = 0; c < u.length; c++) {
+              let f = u[c]
+              if (!r(n[f], s[f])) return !1
+            }
+            return !0
+          }
+        }
+      }
+      try {
+        return r(t, e)
+      } catch {
+        return r(ds(t), ds(e))
+      }
+    }
+    ps.exports = Tm
+  })
+  var x = l((PT, bs) => {
+    var Om = d(),
+      Am = O(),
+      Dm = m(),
+      gs = q(),
+      Fm = I(),
+      ys = y(),
+      jm = w()
+    function Ne(t) {
+      let e = "abcdefg1234567890",
+        r = ""
+      for (; r.length < t; ) r += e[parseInt(Math.random() * e.length)]
+      return r
+    }
+    var Im = Ne(256),
+      Em = Ne(256),
+      _m = Ne(256),
+      Mm = Ne(256),
+      xm = Ne(256)
+    function qs(t) {
+      if (gs(t) || ys(t)) return qs(t.values)
+      Om(
+        Dm(t),
+        "The `set` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = [],
+        r = {}
+      return (
+        Am(t).forEach(n => {
+          let s =
+            typeof n == "object" && n === null
+              ? Im
+              : jm(n)
+                ? Em
+                : Fm(n)
+                  ? n.toString()
+                  : typeof n == "symbol"
+                    ? n.toString() + " - " + xm
+                    : n === 1 / 0
+                      ? _m
+                      : n === -1 / 0
+                        ? Mm
+                        : gs(n)
+                          ? n.toJSONString()
+                          : ys(n)
+                            ? JSON.stringify(n.toObject())
+                            : JSON.stringify(n)
+          r[s] || e.push(n), (r[s] = !0)
+        }),
+        e
+      )
+    }
+    bs.exports = qs
+  })
+  var ve = l((RT, vs) => {
+    var Cm = d(),
+      Wt = O(),
+      ws = m(),
+      km = q(),
+      Ns = z(),
+      zm = I(),
+      Um = y(),
+      Pm = x()
+    function Ye(t, e) {
+      if (km(t) || Um(t))
+        return arguments.length > 1 ? Ye(t.values, e) : Ye(t.values, t.values)
+      if (
+        (Cm(
+          ws(t),
+          "The first argument to the `count` function must be an array, Series, or DataFrame!",
+        ),
+        zm(e))
+      )
+        return Wt(t).filter(r => e(r)).length
+      if (ws(e)) {
+        let r = Wt(t)
+        return Pm(e).map(n => ({
+          value: n,
+          count: r.filter(s => Ns(s, n)).length,
+        }))
+      } else
+        return arguments.length > 1
+          ? Wt(t).filter(r => Ns(r, e)).length
+          : Ye(t, t)
+    }
+    vs.exports = Ye
+  })
+  var Se = l((BT, Ts) => {
+    var Rm = d(),
+      Ss = m(),
+      Bm = q(),
+      Vm = y()
+    function Lt(t) {
+      if (Bm(t) || Vm(t)) return Lt(t.values)
+      Rm(
+        Ss(t),
+        "The `isJagged` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = 0,
+        r = null
+      for (let n = 0; n < t.length; n++)
+        if (Ss(t[n])) {
+          if ((e++, Lt(t[n]))) return !0
+          if (r === null) r = t[n].length
+          else if (t[n].length !== r) return !0
+        }
+      return e > 0 && e < t.length
+    }
+    Ts.exports = Lt
+  })
+  var Ke = l((VT, Ds) => {
+    var Jm = d(),
+      Os = m(),
+      $m = q(),
+      Ym = y()
+    function As(t) {
+      if ($m(t) || Ym(t)) return As(t.values)
+      Jm(
+        Os(t),
+        "The `isNested` function only works on arrays, Series, and DataFrames!",
+      )
+      for (let e = 0; e < t.length; e++) if (Os(t[e])) return !0
+      return !1
+    }
+    Ds.exports = As
+  })
+  var Y = l((JT, js) => {
+    var ee = d(),
+      Km = m(),
+      Gm = Ke(),
+      Wm = g(),
+      Lm = w(),
+      se =
+        "You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!"
+    function Fs(t) {
+      ee(!Lm(t), se), Km(t) || (t = [t]), ee(!Gm(t), se), ee(t.length > 0, se)
+      let e = t[0]
+      if (
+        (ee(Wm(e), se),
+        ee(parseInt(e) === e, se),
+        ee(e >= 0, se),
+        ee(
+          e !== 1 / 0,
+          "We can't create an array containing an infinite number of values!",
+        ),
+        t.length === 1)
+      ) {
+        let r = []
+        for (let n = 0; n < e; n++) r.push(void 0)
+        return r
+      } else {
+        let r = []
+        for (let n = 0; n < e; n++) r.push(Fs(t.slice(1)))
+        return r
+      }
+    }
+    js.exports = Fs
+  })
+  var Te = l(($T, Is) => {
+    var Hm = d(),
+      Xm = m(),
+      Zm = q(),
+      Qm = y()
+    function Ht(t) {
+      if (Zm(t) || Qm(t)) {
+        let r = t.copy()
+        return (r.values = Ht(r.values)), (r.index = Ht(r.index)), r
+      }
+      Hm(
+        Xm(t),
+        "The `reverse` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = []
+      for (let r = t.length - 1; r >= 0; r--) e.push(t[r])
+      return e
+    }
+    Is.exports = Ht
+  })
+  var M = l((YT, Es) => {
+    var Xt = d(),
+      Zt = g(),
+      Qt = w(),
+      e0 = Te()
+    function t0(t, e, r = 1) {
+      Xt(
+        !Qt(t) && !Qt(e) && !Qt(r),
+        "You must pass two numbers and optionally a step value to the `range` function!",
+      ),
+        Xt(
+          Zt(t) && Zt(e) && Zt(r),
+          "You must pass two numbers and optionally a step value to the `range` function!",
+        ),
+        Xt(
+          r > 0,
+          "The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)",
+        )
+      let n = !1
+      if (t > e) {
+        n = !0
+        let i = t
+        ;(t = e + r), (e = i + r)
+      }
+      let s = []
+      for (let i = t; i < e; i += r) s.push(i)
+      return n && (s = e0(s)), s
+    }
+    Es.exports = t0
+  })
+  var S = l((KT, Cs) => {
+    var r0 = d(),
+      _s = m(),
+      n0 = q(),
+      s0 = z(),
+      i0 = y(),
+      o0 = w()
+    function Ms(t) {
+      if (!_s(t)) return
+      let e = [t.length],
+        r = 0,
+        n = t.map(s => {
+          let i = Ms(s)
+          return o0(i) ? i : (r++, i.length === 1 ? i[0] : i)
+        })
+      return r > 0
+        ? r === t.length && n.slice(0, -1).every((i, o) => s0(i, n[o + 1]))
+          ? e.concat(n[0])
+          : (e.push(n), e)
+        : e
+    }
+    function xs(t) {
+      return n0(t) || i0(t)
+        ? xs(t.values)
+        : (r0(
+            _s(t),
+            "The `shape` function only works on arrays, Series, and DataFrames!",
+          ),
+          Ms(t))
+    }
+    Cs.exports = xs
+  })
+  var Bs = l((GT, Rs) => {
+    var ks = d(),
+      u0 = m(),
+      a0 = q(),
+      c0 = Se(),
+      l0 = y(),
+      f0 = w(),
+      zs = ne(),
+      Ge = Y(),
+      Us = M(),
+      h0 = x(),
+      d0 = S()
+    function Ps(t, e, r) {
+      if (
+        (f0(r) && (r = 0),
+        ks(
+          r === 0 || r === 1 || r === "vertical" || r === "horizontal",
+          'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".',
+        ),
+        u0(e))
+      ) {
+        ks(
+          !c0(e),
+          "The array of data you're trying to append to this DataFrame is jagged!",
+        )
+        let n = d0(e)
+        if (n.length === 1)
+          if (r === 0) {
+            let s = t.copy()
+            s._values.push(e)
+            let i = Math.max(t.shape[1], n[0])
+            for (
+              s._values.forEach(o => {
+                for (; o.length < i; ) o.push(void 0)
+              });
+              s._index.length < s._values.length;
+
+            )
+              s._index.push("row" + s._index.length)
+            for (; s._columns.length < i; )
+              s._columns.push("col" + s._columns.length)
+            return s
+          } else {
+            let s = Math.max(t.shape[0], n[0]),
+              i = t.copy()
+            for (
+              Us(0, s).forEach(o => {
+                o >= i._values.length && i._values.push(Ge(t.shape[1])),
+                  i._values[o].push(e[o])
+              });
+              i._index.length < i._values.length;
+
+            )
+              i._index.push("row" + i._index.length)
+            for (; i._columns.length < i._values[0].length; )
+              i._columns.push("col" + i._columns.length)
+            return i
+          }
+        else if (n.length === 2)
+          if (r === 0) {
+            let s = Math.max(...e.map(o => o.length).concat([t.shape[1]])),
+              i = t.copy()
+            for (
+              i._values = i._values.concat(e).map(o => {
+                for (; o.length < s; ) o.push(void 0)
+                return o
+              });
+              i._index.length < i._values.length;
+
+            )
+              i._index.push("row" + i._index.length)
+            for (; i._columns.length < s; )
+              i._columns.push("col" + i._columns.length)
+            return i
+          } else {
+            let s = Math.max(...e.map(u => u.length)) + t.shape[1],
+              i = Math.max(t.shape[0], n[0]),
+              o = t.copy()
+            for (
+              Us(0, i).forEach(u => {
+                for (
+                  u >= o._values.length && o._values.push(Ge(t.shape[1])),
+                    o._values[u] = o._values[u].concat(e[u]);
+                  o._values[u].length < s;
+
+                )
+                  o._values[u].push(void 0)
+              });
+              o._index.length < o._values.length;
+
+            )
+              o._index.push("row" + o._index.length)
+            for (; o._columns.length < s; )
+              o._columns.push("col" + o._columns.length)
+            return o
+          }
+        else
+          throw new zs(
+            "Only 1- and 2-dimensional arrays can be appended to a DataFrame!",
+          )
+      } else if (l0(e)) {
+        let n = Ps(t, e.values, r)
+        return (
+          r === 0
+            ? (n.index[n.index.length - 1] =
+                n.index.indexOf(e.name) > -1 ? e.name + " (2)" : e.name)
+            : (n.columns[n.columns.length - 1] =
+                n.columns.indexOf(e.name) > -1 ? e.name + " (2)" : e.name),
+          n
+        )
+      } else if (a0(e))
+        if (r === 0) {
+          let n = t.copy(),
+            s = h0(n._columns.concat(e._columns)).length
+          for (
+            n._values.forEach(i => {
+              for (; i.length < s; ) i.push(void 0)
+            }),
+              e.apply(i => {
+                let o = i.copy(),
+                  u = []
+                n._columns.forEach(a => {
+                  let c = o._index.indexOf(a)
+                  c > -1
+                    ? (u.push(o._values[c]),
+                      o._values.splice(c, 1),
+                      o._index.splice(c, 1))
+                    : u.push(void 0)
+                }),
+                  n._values.push(u.concat(o._values))
+              }, 1),
+              n._columns = n._columns.concat(
+                e._columns.filter(i => n._columns.indexOf(i) < 0),
+              );
+            n._index.length < n._values.length;
+
+          ) {
+            let i = "row" + n._index.length
+            n._index.push(i + (t._index.indexOf(i) > -1 ? " (2)" : ""))
+          }
+          return n
+        } else {
+          let n = t.copy()
+          return (
+            n._index.forEach((s, i) => {
+              let o = e._index.indexOf(s)
+              o > -1
+                ? (n._values[i] = n._values[i].concat(e._values[o]))
+                : (n._values[i] = n._values[i].concat(Ge(e.shape[1])))
+            }),
+            e._index.forEach((s, i) => {
+              n._index.indexOf(s) < 0 &&
+                (n._index.push(s),
+                n._values.push(Ge(n._columns.length).concat(e._values[i])))
+            }),
+            (n._columns = n._columns.concat(
+              e._columns.map(
+                s => s + (n._columns.indexOf(s) > -1 ? " (2)" : ""),
+              ),
+            )),
+            n
+          )
+        }
+      else
+        throw new zs(
+          "Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!",
+        )
+    }
+    Rs.exports = Ps
+  })
+  var Ks = l((WT, Ys) => {
+    var Vs = d(),
+      Js = m(),
+      m0 = I(),
+      $s = w()
+    function p0(t, e, r, n, s) {
+      if (
+        ((s = s || 0),
+        Vs(
+          m0(n),
+          "The first parameter to the `apply` method must be a function.",
+        ),
+        Vs(
+          s === 0 || s === 1,
+          "The second parameter to the `apply` method (the `axis`) must be 0 or 1.",
+        ),
+        s === 0)
+      ) {
+        let i = {},
+          o
+        if (
+          (r.columns.forEach((u, a) => {
+            let c = new e(r.values.map(h => h[a]))
+            ;(c.name = u), (c.index = r.index)
+            let f = n(c, a, r)
+            f instanceof e ? (i[u] = f.values) : (i[u] = f),
+              $s(o) && (o = f instanceof e || Js(f))
+          }),
+          o)
+        ) {
+          let u = new t(i)
+          return (u.index = r.index), u
+        } else {
+          let u = new e(r.columns.map(a => i[a]))
+          return (u.index = r.columns), u
+        }
+      } else if (s === 1) {
+        let i,
+          o = r.values.map((u, a) => {
+            let c = new e(u)
+            ;(c.name = r.index[a]), (c.index = r.columns)
+            let f = n(c, a, r)
+            return (
+              $s(i) && (i = f instanceof e || Js(f)),
+              f instanceof e ? f.values : f
+            )
+          })
+        if (i) {
+          let u = new t(o)
+          return (u.index = r.index), (u.columns = r.columns), u
+        } else {
+          let u = new e(o)
+          return (u.index = r.index), u
+        }
+      }
+    }
+    Ys.exports = p0
+  })
+  var E = l((LT, Gs) => {
+    function g0(t) {
+      return typeof t == "string"
+    }
+    Gs.exports = g0
+  })
+  var Hs = l((HT, Ls) => {
+    var Ws = d(),
+      y0 = m(),
+      q0 = Se(),
+      b0 = $(),
+      w0 = E(),
+      N0 = w(),
+      v0 = ne(),
+      S0 = S()
+    function T0(t, e, r, n, s) {
+      let i = u => u instanceof t,
+        o = u => u instanceof e
+      if (N0(s)) {
+        if (i(n)) return r.append(n, 1)
+        if (o(n)) return r.append(n, 1)
+        if (b0(n)) {
+          let u = Math.max(
+            ...Object.keys(n)
+              .concat(Object.getOwnPropertySymbols(n))
+              .map(a => n[a].length),
+          )
+          return (
+            Object.keys(n)
+              .concat(Object.getOwnPropertySymbols(n))
+              .forEach(a => {
+                for (; n[a].length < u; ) n[a].push(void 0)
+              }),
+            r.append(new t(n), 1)
+          )
+        } else
+          throw new v0(
+            "You must pass a DataFrame, Series, or object into the `assign` method!",
+          )
+      } else {
+        Ws(
+          w0(n),
+          "If passing two arguments into the `assign` method, then the first argument must be a string name!",
+        ),
+          Ws(
+            y0(s) && !q0(s) && S0(s).length === 1,
+            "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!",
+          )
+        let u = r.append(s, 1)
+        return (u.columns[u.columns.length - 1] = n), u
+      }
+    }
+    Ls.exports = T0
+  })
+  var Zs = l((XT, Xs) => {
+    var { copy: O0 } = R()
+    function A0(t, e) {
+      if (e.isEmpty) return new t()
+      let r = new t(O0(e.values))
+      return (r.columns = e.columns.slice()), (r.index = e.index.slice()), r
+    }
+    Xs.exports = A0
+  })
+  var ii = l((ZT, si) => {
+    var We = d(),
+      Qs = m(),
+      ei = g(),
+      ti = E(),
+      ri = w(),
+      ni = S()
+    function D0(t, e, r, n, s) {
+      ri(n) && (n = []),
+        ri(s) && (s = []),
+        (ti(n) || ei(n)) && (n = [n]),
+        (ti(s) || ei(s)) && (s = [s]),
+        We(
+          Qs(n),
+          "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
+        ),
+        We(
+          Qs(s),
+          "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
+        ),
+        We(
+          ni(n).length === 1,
+          "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
+        ),
+        We(
+          ni(s).length === 1,
+          "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
+        )
+      let i, o
+      r.index.forEach((a, c) => {
+        n.indexOf(a) < 0 && n.indexOf(c) < 0 && (i || (i = []), i.push(a))
+      }),
+        r.columns.forEach((a, c) => {
+          s.indexOf(a) < 0 && s.indexOf(c) < 0 && (o || (o = []), o.push(a))
+        })
+      let u = r.get(i, o)
+      if (u instanceof e) {
+        let a = new t()
+        ;(a = a.assign(u)),
+          r.index.indexOf(u.name) > -1 && (a = a.transpose()),
+          (u = a)
+      }
+      return u
+    }
+    si.exports = D0
+  })
+  var Oe = l((QT, oi) => {
+    var F0 = g()
+    function j0(t) {
+      return F0(t) && parseInt(t) === t
+    }
+    function I0(t) {
+      return j0(t) && t >= 0
+    }
+    oi.exports = I0
+  })
+  var ai = l((eO, ui) => {
+    var er = d(),
+      E0 = E(),
+      Le = w(),
+      _0 = Oe(),
+      M0 = S()
+    function x0(t, e, r, n, s, i) {
+      ;(n = n || 0),
+        er(
+          n === 0 || n === 1,
+          "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1.",
+        ),
+        (i = i || 0),
+        er(
+          _0(i),
+          "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values).",
+        ),
+        (s = i > 0 ? "none" : s || "any"),
+        er(
+          s === "any" || s === "all" || s === "none",
+          "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).",
+        )
+      function o(c) {
+        if (i > 0) {
+          let f = 0
+          for (let h = 0; h < c.length; h++) {
+            let p = c[h]
+            if ((Le(p) && f++, f >= i)) return []
+          }
+        } else if (s === "any")
+          for (let f = 0; f < c.length; f++) {
+            let h = c[f]
+            if (Le(h)) return []
+          }
+        else if (s === "all") {
+          for (let f = 0; f < c.length; f++) {
+            let h = c[f]
+            if (!Le(h)) return c
+          }
+          return []
+        }
+        return c
+      }
+      let u = r.copy(),
+        a = Math.random().toString()
+      if (n === 0) {
+        u = u.assign(a, u.index)
+        let c = u.values.map(o).filter(h => h.length > 0)
+        if (M0(c).length < 2) return new t()
+        u.values = c
+        let f = u.get(null, a)
+        if (Le(f)) return new t()
+        E0(f) && (f = [f]),
+          f instanceof e && (f = f.values),
+          (u.index = f),
+          (u = u.drop(null, a))
+      } else if (n === 1) {
+        let c = {}
+        if (
+          (u.columns.forEach((h, p) => {
+            let b = u.values.map(A => A[p]),
+              F = o(b)
+            F.length > 0 && (c[h] = F)
+          }),
+          Object.keys(c).length + Object.getOwnPropertySymbols(c).length === 0)
+        )
+          return new t()
+        let f = new t(c)
+        return (f.index = u.index), f
+      }
+      return u
+    }
+    ui.exports = x0
+  })
+  var tr = l((tO, li) => {
+    var C0 = d(),
+      k0 = m(),
+      z0 = q(),
+      U0 = g(),
+      P0 = y()
+    function ci(t) {
+      if (z0(t) || P0(t)) return t.dropNaN(...Object.values(arguments).slice(1))
+      C0(
+        k0(t),
+        "The `dropNaN` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = []
+      return (
+        t.forEach(r => {
+          try {
+            return e.push(ci(r))
+          } catch {
+            if (U0(r)) return e.push(r)
+          }
+        }),
+        e
+      )
+    }
+    li.exports = ci
+  })
+  var hi = l((rO, fi) => {
+    var rr = d(),
+      R0 = tr(),
+      B0 = Oe()
+    function V0(t, e, r, n, s) {
+      ;(r = r || 0),
+        rr(
+          r === 0 || r === 1,
+          "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1.",
+        ),
+        (s = s || 0),
+        rr(
+          B0(s),
+          "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values).",
+        ),
+        (n = s > 0 ? "none" : n || "any"),
+        rr(
+          n === "any" || n === "all" || n === "none",
+          "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).",
+        )
+      function i(u) {
+        let a = R0(u)
+        return s > 0
+          ? u.length - a.length < s
+          : n === "any"
+            ? a.length === u.length
+            : n === "all"
+              ? a.length > 0
+              : !0
+      }
+      let o = e.copy()
+      if (r === 0) {
+        let u = o.index.filter(a => {
+          let c = o.get(a, null).values
+          return i(c)
+        })
+        return u.length > 0 ? o.get(u, null) : new t()
+      } else if (r === 1) {
+        let u = o.columns.filter(a => {
+          let c = o.get(null, a).values
+          return i(c)
+        })
+        return u.length > 0 ? o.get(null, u) : new t()
+      }
+      return o
+    }
+    fi.exports = V0
+  })
+  var gi = l((nO, pi) => {
+    var di = d(),
+      Ae = O(),
+      J0 = I(),
+      $0 = w()
+    function mi(t) {
+      let e = {}
+      return (
+        Ae(t).forEach((r, n) => {
+          e[r] = n
+        }),
+        e
+      )
+    }
+    function ie(t) {
+      return Object.keys(t)
+        .concat(Object.getOwnPropertySymbols(t))
+        .sort((e, r) => t[e] - t[r])
+    }
+    function Y0(t, e, r, n, s) {
+      di(
+        J0(n),
+        "The `filter` method takes a single parameter: a function that is used to filter the values.",
+      ),
+        $0(s) && (s = 0),
+        di(
+          s === 0 || s === 1,
+          "The `axis` parameter to the `filter` method must be 0 or 1.",
+        )
+      let i = r.copy()
+      if (i.isEmpty) return i
+      let o = mi(i.index),
+        u = mi(i.columns)
+      if (s === 0) {
+        let a = i.values.filter((c, f) => {
+          let h = new e(c)
+          ;(h.name = r.index[f]), (h.index = r.columns)
+          let p = n(h, f, r)
+          return p || delete o[i.index[f]], p
+        })
+        if (Ae(a).length === 0) return new t()
+        if (a.length === 1) {
+          let c = new e(Ae(a))
+          return (c.name = ie(o)[0]), (c.index = ie(u)), c
+        }
+        ;(i.values = a), (i.index = ie(o))
+      } else if (s === 1) {
+        i = i.transpose()
+        let a = i.values.filter((c, f) => {
+          let h = new e(c)
+          ;(h.name = r.columns[f]), (h.index = r.index)
+          let p = n(h, f, r)
+          return p || delete u[i.index[f]], p
+        })
+        if (Ae(a).length === 0) return new t()
+        if (a.length === 1) {
+          let c = new e(Ae(a))
+          return (c.name = ie(u)[0]), (c.index = ie(o)), c
+        }
+        ;(i.values = a), (i.index = ie(u)), (i = i.transpose())
+      }
+      return i
+    }
+    pi.exports = Y0
+  })
+  var bi = l((sO, qi) => {
+    var C = d(),
+      He = g(),
+      Xe = E(),
+      yi = w(),
+      K0 = x()
+    function G0(t, e, r) {
+      ;(Xe(e) || He(e)) && (e = [e]), (Xe(r) || He(r)) && (r = [r])
+      let n = K0((e || []).concat(r || []).map(s => typeof s))
+      return (
+        C(
+          n.length <= 2,
+          "Only whole numbers and/or strings are allowed in `get` arrays!",
+        ),
+        n.length === 1 &&
+          C(
+            n[0] === "string" || n[0] === "number",
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          ),
+        n.length === 2 &&
+          (C(
+            n.indexOf("string") > -1,
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          ),
+          C(
+            n.indexOf("number") > -1,
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          )),
+        yi(e) ||
+          (e = e.map(s => {
+            if (Xe(s))
+              return C(t.index.indexOf(s) > -1, `Row "${s}" does not exist!`), s
+            if (He(s))
+              return (
+                C(s >= 0, `Index ${s} is out of bounds!`),
+                C(parseInt(s) === s, "Row numbers must be integers!"),
+                C(s < t.index.length, `Index ${s} is out of bounds!`),
+                t.index[s]
+              )
+          })),
+        yi(r) ||
+          (r = r.map(s => {
+            if (Xe(s))
+              return (
+                C(t.columns.indexOf(s) > -1, `Column "${s}" does not exist!`), s
+              )
+            if (He(s))
+              return (
+                C(s >= 0, `Column ${s} is out of bounds!`),
+                C(parseInt(s) === s, "Column numbers must be integers!"),
+                C(s < t.columns.length, `Column ${s} is out of bounds!`),
+                t.columns[s]
+              )
+          })),
+        t.getSubsetByNames(e, r)
+      )
+    }
+    qi.exports = G0
+  })
+  var K = l((iO, Ni) => {
+    var wi = d(),
+      W0 = m(),
+      L0 = q(),
+      H0 = I(),
+      X0 = y(),
+      Z0 = w()
+    function Q0(t, e) {
+      try {
+        return t < e ? -1 : t > e ? 1 : 0
+      } catch {
+        return (
+          (t =
+            typeof t == "object" && t !== null
+              ? JSON.stringify(t)
+              : t.toString()),
+          (e =
+            typeof e == "object" && e !== null
+              ? JSON.stringify(e)
+              : e.toString()),
+          t < e ? -1 : t > e ? 1 : 0
+        )
+      }
+    }
+    function ep(t, e) {
+      if ((Z0(e) && (e = Q0), L0(t) || X0(t)))
+        return t.sort(...Object.values(arguments).slice(1))
+      wi(
+        W0(t),
+        "The `sort` function only works on arrays, Series, and DataFrames!",
+      ),
+        wi(
+          H0(e),
+          "The second parameter of the `sort` function must be a comparison function!",
+        )
+      let r = t.slice()
+      return r.sort(e), r
+    }
+    Ni.exports = ep
+  })
+  var Oi = l((oO, Ti) => {
+    var vi = d(),
+      Si = E(),
+      tp = w(),
+      rp = x(),
+      np = K()
+    function sp(t) {
+      let e = t.toLowerCase(),
+        r = ""
+      for (let s = 0; s < e.length; s++) {
+        let i = e[s]
+        i.match(/[a-z0-9]/g) ? (r += i) : (r += " ")
+      }
+      let n = r.split(" ").filter(s => s.length > 0)
+      return (
+        n[0] +
+        n
+          .slice(1)
+          .map(s => s[0].toUpperCase() + s.substring(1))
+          .join("")
+      )
+    }
+    function ip(t, e, r) {
+      tp(r) ? (r = e.columns) : Si(r) && (r = [r])
+      let n = {}
+      r.forEach(i => {
+        vi(
+          Si(i),
+          "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!",
+        )
+        let o = e.columns.indexOf(i)
+        vi(o > -1, `The given DataFrame does not have a column called "${i}"!`)
+        let u = e.values.map(c => c[o]),
+          a = np(rp(u))
+        u.forEach(c => {
+          a.forEach(f => {
+            let h = i + "_" + sp(f.toString())
+            n[h] || (n[h] = []), c === f ? n[h].push(1) : n[h].push(0)
+          })
+        })
+      })
+      let s = new t(n)
+      return (s.index = e.index), s
+    }
+    Ti.exports = ip
+  })
+  var Mi = l((uO, _i) => {
+    var G = d(),
+      Ai = m(),
+      Di = g(),
+      Fi = w(),
+      ji = Oe(),
+      Ii = M(),
+      Ei = S()
+    function op(t, e, r) {
+      let n = t.shape
+      Fi(e) && (e = Ii(0, n[0])),
+        Fi(r) && (r = Ii(0, n[1])),
+        Di(e) && (e = [e]),
+        Di(r) && (r = [r]),
+        G(
+          Ai(e) && Ai(r),
+          "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
+        ),
+        G(
+          Ei(e).length === 1 && Ei(r).length === 1,
+          "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
+        ),
+        G(
+          e.length > 0,
+          "The `rowIndices` array must contain at least one index.",
+        ),
+        G(
+          r.length > 0,
+          "The `colIndices` array must contain at least one index.",
+        ),
+        e.forEach(o => {
+          G(
+            ji(o),
+            "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
+          ),
+            G(o < t.index.length, `The row index ${o} is out of bounds.`)
+        }),
+        r.forEach(o => {
+          G(
+            ji(o),
+            "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
+          ),
+            G(o < t.columns.length, `The column index ${o} is out of bounds.`)
+        })
+      let s = e.map(o => t.index[o]),
+        i = r.map(o => t.columns[o])
+      return t.getSubsetByNames(s, i)
+    }
+    _i.exports = op
+  })
+  var Ui = l((aO, zi) => {
+    var W = d(),
+      nr = O(),
+      xi = m(),
+      Ze = E(),
+      Ci = w(),
+      ki = S()
+    function up(t, e, r, n, s) {
+      Ci(n) && (n = r.index),
+        Ci(s) && (s = r.columns),
+        Ze(n) && (n = [n]),
+        Ze(s) && (s = [s]),
+        W(
+          xi(n) && xi(s),
+          "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
+        ),
+        W(
+          ki(n).length === 1 && ki(s).length === 1,
+          "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
+        ),
+        W(n.length > 0, "The `rows` array must contain at least one row name."),
+        W(
+          s.length > 0,
+          "The `cols` array must contain at least one column name.",
+        ),
+        n.forEach(u => {
+          W(
+            Ze(u),
+            "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
+          ),
+            W(
+              r.index.indexOf(u) > -1,
+              `The row name "${u}" does not exist in the list of rows.`,
+            )
+        }),
+        s.forEach(u => {
+          W(
+            Ze(u),
+            "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
+          ),
+            W(
+              r.columns.indexOf(u) > -1,
+              `The column name "${u}" does not exist in the list of columns.`,
+            )
+        })
+      let i = n.map(u =>
+        s.map(a => r.values[r.index.indexOf(u)][r.columns.indexOf(a)]),
+      )
+      if (n.length === 1 && s.length === 1) return nr(i)[0]
+      if (n.length === 1) {
+        let u = new e(nr(i))
+        return (u.name = n[0]), (u.index = s), u
+      }
+      if (s.length === 1) {
+        let u = new e(nr(i))
+        return (u.name = s[0]), (u.index = n), u
+      }
+      let o = new t(i)
+      return (o.columns = s), (o.index = n), o
+    }
+    zi.exports = up
+  })
+  var Ri = l((cO, Pi) => {
+    var ap = E(),
+      De = M()
+    function cp(t, e, r) {
+      function n(p, b) {
+        return ap(p) && p.length > b ? p.substring(0, b - 3) + "..." : p
+      }
+      if (r.isEmpty)
+        return (
+          console.table({}),
+          console.log(
+            "Shape:",
+            [0, 0],
+            `
+`,
+          ),
+          r
+        )
+      let s = typeof window > "u" ? 20 : 10,
+        i = parseInt(s / 2),
+        o =
+          typeof process > "u"
+            ? 10
+            : Math.floor(process.stdout.columns / 24) - 1,
+        u = parseInt(o / 2),
+        a =
+          s > r.index.length
+            ? null
+            : De(0, i).concat(De(r.index.length - i, r.index.length)),
+        c =
+          o > r.columns.length
+            ? null
+            : De(0, u).concat(De(r.columns.length - u, r.columns.length)),
+        f = r.get(a, c)
+      f instanceof e &&
+        (r.shape[0] === 1
+          ? ((f = new t([f.values])),
+            (f.index = r.index),
+            (f.columns = new e(r.columns).get(c).values))
+          : r.shape[1] === 1 &&
+            ((f = new t([f.values]).transpose()),
+            (f.index = new e(r.index).get(a).values),
+            (f.columns = r.columns))),
+        s <= r.index.length &&
+          (f._index.splice(i, 0, "..."),
+          f._values.splice(
+            i,
+            0,
+            De(0, f.columns.length).map(() => "..."),
+          )),
+        o <= r.columns.length &&
+          (f._columns.splice(u, 0, "..."),
+          (f._values = f._values.map(p => (p.splice(u, 0, "..."), p))))
+      let h = 28
+      return (
+        f instanceof e
+          ? ((f.values = f.values.map(p => n(p, h))),
+            (f.name = n(f.name, h)),
+            (f.index = f.index.map(p => n(p, h))))
+          : ((f.values = f.values.map(p => p.map(b => n(b, h)))),
+            (f.columns = f.columns.map(p => n(p, h))),
+            (f.index = f.index.map(p => n(p, h)))),
+        console.table(f.toDetailedObject()),
+        console.log(
+          "Shape:",
+          r.shape,
+          `
+`,
+        ),
+        r
+      )
+    }
+    Pi.exports = cp
+  })
+  var Qe = l((lO, Bi) => {
+    var lp = d(),
+      fp = g()
+    function hp(t, e) {
+      lp(fp(t), "The `leftPad` function only works on numbers!")
+      let r = t.toString()
+      for (; r.length < e; ) r = "0" + r
+      return r
+    }
+    Bi.exports = hp
+  })
+  var Ji = l((fO, Vi) => {
+    var dp = Qe(),
+      mp = M()
+    function pp(t, e) {
+      let r = e ? t : t.copy()
+      return (
+        (r.index = mp(0, t.shape[0]).map(
+          n => "row" + dp(n, (r.index.length - 1).toString().length),
+        )),
+        r
+      )
+    }
+    Vi.exports = pp
+  })
+  var Fe = l((hO, Yi) => {
+    var gp = d(),
+      yp = O(),
+      qp = m(),
+      bp = q(),
+      wp = y()
+    function $i(t) {
+      if (bp(t) || wp(t)) return $i(t.values)
+      gp(
+        qp(t),
+        "The `product` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        return t.length === 0 ? NaN : yp(t).reduce((e, r) => e * r, 1)
+      } catch {
+        return NaN
+      }
+    }
+    Yi.exports = $i
+  })
+  var et = l((dO, Li) => {
+    var je = d(),
+      Ki = O(),
+      Gi = m(),
+      Np = q(),
+      Wi = g(),
+      vp = y(),
+      Sp = Fe(),
+      Tp = S()
+    function sr(t, e) {
+      if (Np(t) || vp(t)) return sr(t.values, e)
+      if (
+        (je(
+          Gi(t),
+          "The first argument passed into the `reshape` function must be an array!",
+        ),
+        Wi(e) && (e = [e]),
+        je(
+          Gi(e),
+          "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
+        ),
+        je(
+          Tp(e).length === 1,
+          "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
+        ),
+        e.forEach(i => {
+          je(
+            Wi(i) && parseInt(i) === i && i > 0,
+            "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
+          )
+        }),
+        e.length === 0)
+      )
+        return Ki(t)
+      let r = Ki(t)
+      if (e.length === 1 && e[0] === r.length) return r
+      je(
+        Sp(e) === r.length,
+        "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!",
+      )
+      let n = [],
+        s = parseInt(r.length / e[0])
+      for (let i = 0; i < e[0]; i++) {
+        let o = r.slice(i * s, (i + 1) * s)
+        n.push(sr(o, e.slice(1)))
+      }
+      return n
+    }
+    Li.exports = sr
+  })
+  var oe = l((mO, ro) => {
+    var { copy: Zi } = R(),
+      Op = d(),
+      Ap = m(),
+      Dp = g(),
+      Qi = w(),
+      Fp = Y(),
+      jp = Fe(),
+      Ip = et(),
+      eo = Math.pow(2, 64),
+      T = []
+    to(parseInt(Math.random() * eo))
+    function Ep(t, e) {
+      t = j(t)
+      function r() {
+        t += j("0x9e3779b97f4a7c15")
+        let s = Zi(t)
+        return (
+          (s = (s ^ (s >> BigInt(30))) * j("0xbf58476d1ce4e5b9")),
+          (s = (s ^ (s >> BigInt(27))) * j("0x94d049bb133111eb")),
+          s ^ (s >> BigInt(31))
+        )
+      }
+      let n = []
+      for (let s = 0; s < e; s++) n.push(r())
+      return n
+    }
+    function j(t) {
+      return BigInt.asUintN(64, BigInt(t))
+    }
+    function Hi(t, e) {
+      return (
+        (t = j(t)), (e = BigInt(e)), j(j(t << e) | j(t >> j(BigInt(64) - e)))
+      )
+    }
+    function to(t) {
+      if (Qi(t)) return Zi(T)
+      {
+        Op(
+          Dp(t),
+          "If passing a value into the `seed` function, then that value must be an integer!",
+        )
+        let e = Ep(parseInt(t), 4)
+        ;(T[0] = e[0]), (T[1] = e[1]), (T[2] = e[2]), (T[3] = e[3])
+      }
+    }
+    function Xi() {
+      let t = j(Hi(T[0] + T[3], 23) + T[0]),
+        e = j(T[1] << BigInt(17))
+      return (
+        (T[2] = j(T[2] ^ T[0])),
+        (T[3] = j(T[3] ^ T[1])),
+        (T[1] = j(T[1] ^ T[2])),
+        (T[0] = j(T[0] ^ T[3])),
+        (T[2] = j(T[2] ^ e)),
+        (T[3] = Hi(T[3], 45)),
+        parseInt(t) / eo
+      )
+    }
+    function _p(t) {
+      return Qi(t) ? Xi() : (Ap(t) || (t = [t]), Ip(Fp(jp(t)).map(Xi), t))
+    }
+    ro.exports = { random: _p, seed: to }
+  })
+  var tt = l((pO, no) => {
+    var { random: Mp } = oe(),
+      xp = d(),
+      Cp = m(),
+      kp = q(),
+      zp = y()
+    function Up(t) {
+      if (kp(t) || zp(t)) return t.shuffle(...Object.values(arguments).slice(1))
+      xp(
+        Cp(t),
+        "The `shuffle` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = [],
+        r = t.slice()
+      for (let n = 0; n < t.length; n++) {
+        let s = parseInt(Mp() * r.length)
+        e.push(r.splice(s, 1)[0])
+      }
+      return e
+    }
+    no.exports = Up
+  })
+  var oo = l((gO, io) => {
+    var Pp = d(),
+      Rp = w(),
+      so = tt()
+    function Bp(t, e) {
+      return (
+        Rp(e) && (e = 0),
+        Pp(
+          e === 0 || e === 1,
+          "The `axis` parameter to the `shuffle` must be 0, 1, or undefined.",
+        ),
+        t.get(e === 0 ? so(t.index) : null, e === 1 ? so(t.columns) : null)
+      )
+    }
+    io.exports = Bp
+  })
+  var rt = l((yO, uo) => {
+    function Vp(t) {
+      return typeof t == "boolean"
+    }
+    uo.exports = Vp
+  })
+  var ho = l((qO, fo) => {
+    var { random: Jp } = oe(),
+      _ = d(),
+      $p = O(),
+      ao = m(),
+      ir = rt(),
+      lo = I(),
+      nt = g(),
+      ue = E(),
+      or = w(),
+      Yp = M(),
+      co = S(),
+      ur = K()
+    function Kp(t, e, r) {
+      return lo(e) ? Gp(t, e, r) : Wp(t, e, r)
+    }
+    function Gp(t, e, r) {
+      if (
+        ((r = or(r) ? 0 : r),
+        _(
+          lo(e),
+          "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!",
+        ),
+        _(
+          nt(r),
+          "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other.",
+        ),
+        r === 0)
+      ) {
+        let n = ur(t.index, (s, i) => e(t.get(s, null), t.get(i, null)))
+        return t.get(n, null)
+      } else {
+        let n = ur(t.columns, (s, i) => e(t.get(null, s), t.get(null, i)))
+        return t.get(null, n)
+      }
+    }
+    function Wp(t, e, r) {
+      let n = t.copy(),
+        s = Jp().toString()
+      return (
+        (n = n.assign(s, n.index)),
+        or(e) && ((e = [s]), (r = [!0])),
+        (nt(e) || ue(e)) && ((e = [e]), (ir(r) || ue(r)) && (r = [r])),
+        _(
+          ao(e),
+          "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.",
+        ),
+        _(
+          co(e).length === 1,
+          "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.",
+        ),
+        or(r) && (r = Yp(0, e.length).map(() => !0)),
+        _(
+          ao(r),
+          "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.",
+        ),
+        _(
+          co(r).length === 1,
+          "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.",
+        ),
+        _(
+          e.length === r.length,
+          "The arrays passed into the `sort` method must be equal in length.",
+        ),
+        (e = e.map(i => {
+          if (
+            (_(
+              ue(i) || nt(i),
+              "Column references can either be column names (as strings) or column indices (as whole numbers).",
+            ),
+            ue(i))
+          ) {
+            let o = n.columns.indexOf(i)
+            return _(o > -1, `The column "${i}" does not exist!`), o
+          }
+          if (nt(i))
+            return (
+              _(parseInt(i) === i, "Column indices must be whole numbers!"),
+              _(i >= 0, `The column index ${i} is out of bounds!`),
+              _(i < n.columns.length, `The index ${i} is out of bounds!`),
+              i
+            )
+        })),
+        (r = r.map(i => {
+          if (
+            (_(
+              ue(i) || ir(i),
+              "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).",
+            ),
+            ue(i))
+          ) {
+            let o = i.trim().toLowerCase()
+            return (
+              _(
+                o === "ascending" || o === "descending",
+                "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).",
+              ),
+              o === "ascending"
+            )
+          }
+          if (ir(i)) return i
+        })),
+        (n.values = ur(n.values, (i, o) => {
+          let u = 0
+          for (; i[e[u]] === o[e[u]] && u < e.length; ) u++
+          let a = r[u]
+          if (i[e[u]] === o[e[u]]) return 0
+          if (i[e[u]] < o[e[u]]) return a ? -1 : 1
+          if (i[e[u]] > o[e[u]]) return a ? 1 : -1
+        })),
+        (n.index = $p(n.get(null, s).values)),
+        (n = n.dropColumns(s)),
+        n
+      )
+    }
+    fo.exports = Kp
+  })
+  var po = l((bO, mo) => {
+    var Lp = d(),
+      Hp = w()
+    function Xp(t, e) {
+      Hp(e)
+        ? (e = 0)
+        : Lp(
+            e === 0 || e === 1,
+            "The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.",
+          )
+      let r = {}
+      return (
+        e === 0
+          ? t.index.forEach((n, s) => {
+              let i = {}
+              t.columns.forEach((o, u) => {
+                i[o] = t.values[s][u]
+              }),
+                (r[n] = i)
+            })
+          : t.columns.forEach((n, s) => {
+              let i = {}
+              t.index.forEach((o, u) => {
+                i[o] = t.values[u][s]
+              }),
+                (r[n] = i)
+            }),
+        r
+      )
+    }
+    mo.exports = Xp
+  })
+  var ar = l((wO, go) => {
+    function Zp(t, e) {
+      return JSON.stringify(t.toObject(e))
+    }
+    go.exports = Zp
+  })
+  var yo = l((NO, lr) => {
+    var cr = ne(),
+      Qp = ar()
+    function eg(t, e, r) {
+      let n = Qp(t, r),
+        s = !1,
+        i = !1,
+        o,
+        u
+      try {
+        let a = e
+        if (e.includes("/")) {
+          let f = e.split("/")
+          a = f[f.length - 1]
+        }
+        let c = document.createElement("a")
+        ;(c.href = `data:application/json;charset=utf-8,${encodeURIComponent(n)}`),
+          (c.download = a),
+          c.dispatchEvent(new MouseEvent("click")),
+          (s = !0)
+      } catch (a) {
+        o = a
+      }
+      try {
+        let a = Jn("fs"),
+          c = Jn("path")
+        a.writeFileSync(c.resolve(e), n, "utf8"), (i = !0)
+      } catch (a) {
+        u = a
+      }
+      if (!s && !i)
+        throw typeof window < "u"
+          ? new cr(o)
+          : typeof lr < "u"
+            ? new cr(u)
+            : new cr(
+                "I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!",
+              )
+      return t
+    }
+    lr.exports = eg
+  })
+  var bo = l((vO, qo) => {
+    function tg(t) {
+      let e = {}
+      return (
+        t.columns.forEach(r => {
+          e[r] = t.get(r).values
+        }),
+        e
+      )
+    }
+    qo.exports = tg
+  })
+  var te = l((SO, vo) => {
+    var wo = d(),
+      rg = m(),
+      ng = q(),
+      sg = y(),
+      ig = Y(),
+      No = Te(),
+      og = S()
+    function ug(t) {
+      if (ng(t) || sg(t)) return t.transpose()
+      wo(
+        rg(t),
+        "The `transpose` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = og(t)
+      if (
+        (wo(
+          e.length <= 2,
+          "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!",
+        ),
+        e.length === 1)
+      )
+        return No(t)
+      if (e.length === 2) {
+        let r = ig(No(e))
+        for (let n = 0; n < e[0]; n++)
+          for (let s = 0; s < e[1]; s++) r[s][n] = t[n][s]
+        return r
+      }
+    }
+    vo.exports = ug
+  })
+  var Ao = l((TO, Oo) => {
+    var So = d(),
+      ag = m(),
+      cg = q(),
+      lg = Ke(),
+      fg = y(),
+      hg = S()
+    function To(t, e, r) {
+      if (fg(r)) return new t(e.values.concat(r.values))
+      if (ag(r)) {
+        let n = hg(r)
+        So(n.length === 1 && !lg(n), "Only vectors can be appended to Series!")
+        let s = e.copy()
+        return (
+          r.forEach((i, o) => {
+            s._values.push(i), s._index.push("item" + (e.values.length + o))
+          }),
+          s
+        )
+      }
+      return So(!cg(r), "DataFrames cannot be appended to Series!"), To(e, [r])
+    }
+    Oo.exports = To
+  })
+  var Fo = l((OO, Do) => {
+    var dg = d(),
+      mg = I()
+    function pg(t, e) {
+      dg(mg(e), "The parameter to the `apply` method must be a function.")
+      let r = t.copy()
+      return (r._values = r._values.map((n, s) => e(n, s))), r
+    }
+    Do.exports = pg
+  })
+  var Io = l((AO, jo) => {
+    var gg = w()
+    function yg(t) {
+      let e = t.copy(),
+        r = []
+      return (
+        (e._values = e.values.filter((n, s) =>
+          gg(n) ? !1 : (r.push(e.index[s]), !0),
+        )),
+        (e._index = r),
+        e
+      )
+    }
+    jo.exports = yg
+  })
+  var _o = l((DO, Eo) => {
+    var qg = g()
+    function bg(t, e) {
+      let r = [],
+        n = []
+      e.values.forEach((i, o) => {
+        qg(i) && (n.push(i), r.push(e.index[o]))
+      })
+      let s = new t(n)
+      return (s.name = e.name), (s.index = r), s
+    }
+    Eo.exports = bg
+  })
+  var xo = l((FO, Mo) => {
+    var { copy: wg } = R()
+    function Ng(t, e, r) {
+      let n = e.copy(),
+        s = wg(n.index),
+        i = [],
+        o = n.values.filter((u, a) => {
+          let c = r(u, a, n.values)
+          return c || i.push(n.index[a]), c
+        })
+      return (
+        i.forEach(u => {
+          s.splice(s.indexOf(u), 1)
+        }),
+        o.length === 0
+          ? ((n = new t()), (n.name = e.name), n)
+          : ((n.values = o), (n.index = s), n)
+      )
+    }
+    Mo.exports = Ng
+  })
+  var ko = l((jO, Co) => {
+    var L = d(),
+      vg = g(),
+      Sg = E(),
+      Tg = w(),
+      Og = x()
+    function Ag(t, e) {
+      ;(Sg(e) || vg(e)) && (e = [e])
+      let r = Og((e || []).map(n => typeof n))
+      return (
+        L(
+          r.length <= 2,
+          "Only whole numbers and/or strings are allowed in `get` arrays!",
+        ),
+        r.length === 1 &&
+          L(
+            r[0] === "string" || r[0] === "number",
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          ),
+        r.length === 2 &&
+          (L(
+            r.indexOf("string") > -1,
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          ),
+          L(
+            r.indexOf("number") > -1,
+            "Only whole numbers and/or strings are allowed in `get` arrays!",
+          )),
+        Tg(e) ||
+          (e = e.map(n => {
+            if (typeof n == "string")
+              return (
+                L(t.index.indexOf(n) > -1, `Index "${n}" does not exist!`), n
+              )
+            if (typeof n == "number")
+              return (
+                L(n >= 0, `Index ${n} is out of bounds!`),
+                L(parseInt(n) === n, "Indices must be integers!"),
+                L(n < t.index.length, `Index ${n} is out of bounds!`),
+                t.index[n]
+              )
+          })),
+        t.getSubsetByNames(e)
+      )
+    }
+    Co.exports = Ag
+  })
+  var Uo = l((IO, zo) => {
+    var Ie = d(),
+      Dg = m(),
+      Fg = w(),
+      jg = Oe(),
+      Ig = M(),
+      Eg = S()
+    function _g(t, e) {
+      let r = t.shape
+      Fg(e) && (e = Ig(0, r[0])),
+        Ie(
+          Dg(e),
+          "The `indices` array must be 1-dimensional array of whole numbers.",
+        ),
+        Ie(
+          Eg(e).length === 1,
+          "The `indices` array must be a 1-dimensional array of whole numbers.",
+        ),
+        Ie(
+          e.length > 0,
+          "The `indices` array must contain at least one index.",
+        ),
+        e.forEach(s => {
+          Ie(
+            jg(s),
+            "The `indices` array must be a 1-dimensional array of whole numbers.",
+          ),
+            Ie(s < t.index.length, `The row index ${s} is out of bounds.`)
+        })
+      let n = e.map(s => t.index[s])
+      return t.getSubsetByNames(n)
+    }
+    zo.exports = _g
+  })
+  var Ro = l((EO, Po) => {
+    var Ee = d(),
+      Mg = m(),
+      xg = E(),
+      Cg = w(),
+      kg = S()
+    function zg(t, e, r) {
+      Cg(r) && (r = e.index),
+        Ee(
+          Mg(r),
+          "The `indices` array must be a 1-dimensional array of strings.",
+        ),
+        Ee(
+          kg(r).length === 1,
+          "The `indices` array must be a 1-dimensional array of strings.",
+        ),
+        Ee(
+          r.length > 0,
+          "The `indices` array must contain at least one index name.",
+        ),
+        r.forEach(i => {
+          Ee(xg(i), "The `indices` array must contain only strings."),
+            Ee(
+              e.index.indexOf(i) > -1,
+              `The name "${i}" does not exist in the index.`,
+            )
+        })
+      let n = r.map(i => e.values[e.index.indexOf(i)])
+      if (n.length === 1) return n[0]
+      let s = new t(n)
+      return (s.index = r), (s.name = e.name), s
+    }
+    Po.exports = zg
+  })
+  var Jo = l((_O, Vo) => {
+    var { copy: Ug } = R(),
+      Bo = M()
+    function Pg(t) {
+      let e = t.copy(),
+        r = typeof window > "u" ? 20 : 10
+      if (e.index.length > r) {
+        e = e.get(
+          Bo(0, r / 2).concat(Bo(e.index.length - r / 2, e.index.length)),
+        )
+        let s = Ug(e.index)
+        s.splice(parseInt(s.length / 2), 0, "..."),
+          e.values.push("..."),
+          e.index.push("..."),
+          (e = e.get(s))
+      }
+      let n = {}
+      return (
+        e.values.forEach((s, i) => {
+          let o = {}
+          ;(o[e.name] = s), (n[e.index[i]] = o)
+        }),
+        console.table(n),
+        console.log(
+          "Shape:",
+          t.shape,
+          `
+`,
+        ),
+        t
+      )
+    }
+    Vo.exports = Pg
+  })
+  var Yo = l((MO, $o) => {
+    var Rg = tt()
+    function Bg(t) {
+      let e = t.copy()
+      return e.get(Rg(e.index))
+    }
+    $o.exports = Bg
+  })
+  var Go = l((xO, Ko) => {
+    var Vg = d(),
+      Jg = I(),
+      $g = w(),
+      Yg = K(),
+      Kg = te()
+    function Gg(t, e, r) {
+      ;(r = r || ((a, c) => (a < c ? -1 : 1))),
+        Vg(
+          $g(r) || Jg(r),
+          "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!",
+        )
+      let n = Kg([e.values, e.index]),
+        s = Yg(n, (a, c) => r(a[0], c[0])),
+        i = [],
+        o = []
+      s.forEach(a => {
+        i.push(a[0]), o.push(a[1])
+      })
+      let u = new t()
+      return (u._values = i), (u._index = o), (u.name = e.name), u
+    }
+    Ko.exports = Gg
+  })
+  var Ho = l((CO, Lo) => {
+    var Wg = K(),
+      Wo = te()
+    function Lg(t, e) {
+      let r = Wo([e.values, e.index])
+      r = Wo(
+        Wg(r, (s, i) => {
+          if (s[1] === i[1]) return 0
+          if (s[1] < i[1]) return -1
+          if (s[1] > i[1]) return 1
+        }),
+      )
+      let n = new t(r[0])
+      return (n.index = r[1]), (n.name = e.name), n
+    }
+    Lo.exports = Lg
+  })
+  var Zo = l((kO, Xo) => {
+    function Hg(t) {
+      let e = {}
+      return (
+        (e[t.name] = {}),
+        t.index.forEach((r, n) => {
+          e[t.name][r] = t.values[n]
+        }),
+        e
+      )
+    }
+    Xo.exports = Hg
+  })
+  var nu = l((zO, ru) => {
+    var { copy: st } = R(),
+      B = d(),
+      fr = m(),
+      Xg = E(),
+      Zg = w(),
+      Qo = Qe(),
+      eu = M(),
+      it = Te(),
+      Qg = Ao(),
+      ey = Fo(),
+      ty = Io(),
+      ry = _o(),
+      ny = xo(),
+      sy = ko(),
+      iy = Uo(),
+      oy = Ro(),
+      uy = Jo(),
+      ay = Yo(),
+      cy = Go(),
+      ly = Ho(),
+      fy = Zo(),
+      _e = S(),
+      hy = te(),
+      tu = Symbol.for("@jrc03c/js-math-tools/series")
+    ru.exports = function (t) {
+      class e {
+        static [Symbol.hasInstance](n) {
+          try {
+            return !!n._symbol && n._symbol === tu
+          } catch {
+            return !1
+          }
+        }
+        constructor(n) {
+          if (
+            ((this.name = "data"),
+            Object.defineProperty(this, "_symbol", {
+              configurable: !1,
+              enumerable: !1,
+              writable: !1,
+              value: tu,
+            }),
+            Object.defineProperty(this, "_values", {
+              value: [],
+              configurable: !0,
+              enumerable: !1,
+              writable: !0,
+            }),
+            Object.defineProperty(this, "values", {
+              configurable: !0,
+              enumerable: !0,
+              get() {
+                return this._values
+              },
+              set(s) {
+                B(fr(s), "The new values must be a 1-dimensional array!")
+                let i = _e(s)
+                B(
+                  i.length === 1,
+                  "The new array of values must be 1-dimensional!",
+                ),
+                  i[0] < this._index.length
+                    ? (this._index = this._index.slice(0, i[0]))
+                    : i[0] > this._index.length &&
+                      (this._index = this._index.concat(
+                        eu(this._index.length, i[0]).map(
+                          o => "item" + Qo(o, (s.length - 1).toString().length),
+                        ),
+                      )),
+                  (this._values = s)
+              },
+            }),
+            Object.defineProperty(this, "_index", {
+              value: [],
+              configurable: !0,
+              enumerable: !1,
+              writable: !0,
+            }),
+            Object.defineProperty(this, "index", {
+              configurable: !0,
+              enumerable: !0,
+              get() {
+                return this._index
+              },
+              set(s) {
+                B(
+                  fr(s),
+                  "The new index must be a 1-dimensional array of strings!",
+                ),
+                  B(
+                    s.length === this.shape[0],
+                    "The new index must be the same length as the old index!",
+                  ),
+                  B(
+                    _e(s).length === 1,
+                    "The new index must be a 1-dimensional array of strings!",
+                  ),
+                  s.forEach(i => {
+                    B(Xg(i), "All of the row names must be strings!")
+                  }),
+                  (this._index = s)
+              },
+            }),
+            n)
+          ) {
+            if (n instanceof e)
+              (this.name = n.name),
+                (this.values = st(n.values)),
+                (this.index = st(n.index))
+            else if (fr(n)) {
+              let s = _e(n)
+              B(
+                s.length === 1,
+                "When passing an array into the constructor of a Series, the array must be 1-dimensional!",
+              ),
+                (this.values = n)
+            } else if (n instanceof Object) {
+              let s = Object.keys(n)
+                .concat(Object.getOwnPropertySymbols(n))
+                .map(u => u.toString())
+              B(
+                s.length === 1,
+                "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!",
+              )
+              let i = s[0],
+                o = n[i]
+              B(
+                _e(o).length === 1,
+                "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!",
+              ),
+                (this.name = i),
+                (this.values = o.slice())
+            }
+          }
+        }
+        get shape() {
+          return _e(this.values)
+        }
+        get length() {
+          return this.shape[0]
+        }
+        get isEmpty() {
+          return this.values.filter(n => !Zg(n)).length === 0
+        }
+        clear() {
+          let n = this.copy()
+          return (
+            n.values.forEach((s, i) => {
+              n.values[i] = void 0
+            }),
+            n
+          )
+        }
+        get(n) {
+          return sy(this, n)
+        }
+        getSubsetByNames(n) {
+          return oy(e, this, n)
+        }
+        getSubsetByIndices(n) {
+          return iy(this, n)
+        }
+        loc(n) {
+          return this.getSubsetByNames(n)
+        }
+        iloc(n) {
+          return this.getSubsetByIndices(n)
+        }
+        reverse() {
+          let n = new e(it(this.values))
+          return (n.index = it(this.index)), (n.name = this.name), n
+        }
+        resetIndex() {
+          let n = this.copy()
+          return (
+            (n.index = eu(0, this.shape[0]).map(
+              s => "item" + Qo(s, (n.index.length - 1).toString().length),
+            )),
+            n
+          )
+        }
+        copy() {
+          let n = new e()
+          return (
+            (n._values = st(this.values)),
+            (n._index = st(this.index)),
+            (n.name = this.name),
+            n
+          )
+        }
+        append(n) {
+          return Qg(e, this, n)
+        }
+        apply(n) {
+          return ey(this, n)
+        }
+        concat(n) {
+          return this.append(n)
+        }
+        dropMissing(n, s) {
+          return ty(this, n, s)
+        }
+        dropNaN() {
+          return ry(e, this)
+        }
+        toObject() {
+          return fy(this)
+        }
+        print() {
+          return uy(this)
+        }
+        shuffle() {
+          return ay(this)
+        }
+        sort(n) {
+          return cy(e, this, n)
+        }
+        sortByIndex() {
+          return ly(e, this)
+        }
+        filter(n) {
+          return ny(e, this, n)
+        }
+        toDataFrame() {
+          let n = new t(hy([this.values]))
+          return (n.columns = [this.name]), (n.index = this.index), n
+        }
+        transpose() {
+          let n = this.copy()
+          return (n.values = it(n.values)), (n.index = it(n.index)), n
+        }
+        getDummies() {
+          return this.toDataFrame().getDummies()
+        }
+        oneHotEncode() {
+          return this.getDummies()
+        }
+      }
+      return e
+    }
+  })
+  var xe = l((UO, au) => {
+    var { copy: hr } = R(),
+      k = d(),
+      su = ve(),
+      dy = Bs(),
+      my = Ks(),
+      py = Hs(),
+      gy = Zs(),
+      yy = ii(),
+      qy = ai(),
+      by = hi(),
+      wy = gi(),
+      Ny = bi(),
+      iu = Oi(),
+      vy = Mi(),
+      Sy = Ui(),
+      Ty = Ri(),
+      Oy = Ji(),
+      Ay = oo(),
+      Dy = ho(),
+      Fy = po(),
+      jy = yo(),
+      Iy = ar(),
+      Ey = bo(),
+      _y = O(),
+      Me = m(),
+      My = $(),
+      dr = w(),
+      mr = Qe(),
+      xy = Y(),
+      pr = M(),
+      Cy = x(),
+      ae = S(),
+      ou = te(),
+      uu = Symbol.for("@jrc03c/js-math-tools/dataframe")
+    function ot(t) {
+      let e = "abcdefghijklmnopqrstuvwxyz1234567890",
+        r = ""
+      for (let n = 0; n < t; n++) r += e[parseInt(Math.random() * e.length)]
+      return r
+    }
+    var D = class {
+        static [Symbol.hasInstance](e) {
+          try {
+            return !!e._symbol && e._symbol === uu
+          } catch {
+            return !1
+          }
+        }
+        constructor(e) {
+          if (
+            (Object.defineProperty(this, "_symbol", {
+              configurable: !1,
+              enumerable: !1,
+              writable: !1,
+              value: uu,
+            }),
+            Object.defineProperty(this, "_values", {
+              value: [],
+              configurable: !0,
+              enumerable: !1,
+              writable: !0,
+            }),
+            Object.defineProperty(this, "values", {
+              configurable: !0,
+              enumerable: !0,
+              get() {
+                return this._values.length === 0 ||
+                  (!dr(this._values[0]) && this._values[0].length === 0)
+                  ? [[]]
+                  : this._values
+              },
+              set(r) {
+                k(Me(r), "The new values must be a 2-dimensional array!")
+                let n = ae(r)
+                k(
+                  n.length === 2,
+                  "The new array of values must be 2-dimensional!",
+                ),
+                  n[0] < this._index.length
+                    ? (this._index = this._index.slice(0, n[0]))
+                    : n[0] > this._index.length &&
+                      (this._index = this._index.concat(
+                        pr(this._index.length, n[0]).map(
+                          s => "row" + mr(s, (n[0] - 1).toString().length),
+                        ),
+                      )),
+                  n[1] < this._columns.length
+                    ? (this._columns = this._columns.slice(0, n[1]))
+                    : n[1] > this._columns.length &&
+                      (this._columns = this._columns.concat(
+                        pr(this._columns.length, n[1]).map(
+                          s => "col" + mr(s, (n[1] - 1).toString().length),
+                        ),
+                      )),
+                  (this._values = r)
+              },
+            }),
+            Object.defineProperty(this, "_columns", {
+              value: [],
+              configurable: !0,
+              enumerable: !1,
+              writable: !0,
+            }),
+            Object.defineProperty(this, "columns", {
+              configurable: !0,
+              enumerable: !0,
+              get() {
+                return this._columns
+              },
+              set(r) {
+                k(
+                  Me(r),
+                  "The new columns list must be a 1-dimensional array of strings!",
+                ),
+                  k(
+                    this.isEmpty || r.length === this.shape[1],
+                    "The new columns list must be the same length as the old columns list!",
+                  ),
+                  k(
+                    ae(r).length === 1,
+                    "The new columns list must be a 1-dimensional array of strings!",
+                  ),
+                  (r = r.map(
+                    s => (
+                      typeof s != "string" &&
+                        (s = JSON.stringify(s) || s.toString()),
+                      s.trim().length === 0 ? "untitled_" + ot(8) : s.trim()
+                    ),
+                  ))
+                let n = (() => {
+                  let s = su(r),
+                    i = {}
+                  return (
+                    s.forEach(o => {
+                      i[o.value] = o.count
+                    }),
+                    i
+                  )
+                })()
+                ;(r = r.map(s => (n[s] > 1 ? s + "_" + ot(8) : s))),
+                  (this._columns = r)
+              },
+            }),
+            Object.defineProperty(this, "_index", {
+              value: [],
+              configurable: !0,
+              enumerable: !1,
+              writable: !0,
+            }),
+            Object.defineProperty(this, "index", {
+              configurable: !0,
+              enumerable: !0,
+              get() {
+                return this._index
+              },
+              set(r) {
+                k(
+                  Me(r),
+                  "The new index must be a 1-dimensional array of strings!",
+                ),
+                  k(
+                    this.isEmpty || r.length === this.shape[0],
+                    "The new index must be the same length as the old index!",
+                  ),
+                  k(
+                    ae(r).length === 1,
+                    "The new index must be a 1-dimensional array of strings!",
+                  ),
+                  (r = r.map(
+                    s => (
+                      typeof s != "string" &&
+                        (s = JSON.stringify(s) || s.toString()),
+                      s.trim().length === 0 ? "untitled_" + ot(8) : s.trim()
+                    ),
+                  ))
+                let n = (() => {
+                  let s = su(r),
+                    i = {}
+                  return (
+                    s.forEach(o => {
+                      i[o.value] = o.count
+                    }),
+                    i
+                  )
+                })()
+                ;(r = r.map(s => (n[s] > 1 ? s + "_" + ot(8) : s))),
+                  (this._index = r)
+              },
+            }),
+            k(
+              dr(e) || My(e) || Me(e),
+              "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values.",
+            ),
+            e)
+          )
+            if (e instanceof D)
+              (this.values = hr(e.values)),
+                (this.columns = hr(e.columns)),
+                (this.index = hr(e.index))
+            else if (Me(e)) {
+              let r = ae(e)
+              k(
+                r.length === 2,
+                "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!",
+              ),
+                k(
+                  Cy(e.map(n => n.length)).length === 1,
+                  "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!",
+                ),
+                (this.values = e)
+            } else {
+              this._columns = Object.keys(e)
+                .concat(Object.getOwnPropertySymbols(e))
+                .map(o => o.toString())
+              let r = [],
+                n = null,
+                s = null
+              this._columns.forEach(o => {
+                dr(s) && ((n = o), (s = e[o].length)),
+                  k(
+                    e[o].length === s,
+                    `The object passed into the DataFrame constructor contains arrays of different lengths! The key "${n}" points to an array containing ${s} items, and the key "${o}" points to an array containing ${e[o].length} items.`,
+                  ),
+                  (s = e[o].length)
+                let u = e[o]
+                r.push(u)
+              }),
+                (this._values = ou(r))
+              let i = ae(this.values)
+              this._index = pr(0, i[0]).map(
+                o => "row" + mr(o, (i[0] - 1).toString().length),
+              )
+            }
+        }
+        get shape() {
+          return ae(this.values)
+        }
+        get length() {
+          return this.shape[0]
+        }
+        get width() {
+          return this.shape[1]
+        }
+        get rows() {
+          return this.index
+        }
+        set rows(e) {
+          this.index = e
+        }
+        get isEmpty() {
+          return _y(this.values).length === 0
+        }
+        clear() {
+          let e = new D(xy(this.shape))
+          return (
+            (e.columns = this.columns.slice()),
+            (e.index = this.index.slice()),
+            e
+          )
+        }
+        get(e, r) {
+          if (arguments.length === 0) return this
+          if (arguments.length === 1)
+            try {
+              return this.get(null, e)
+            } catch {
+              return this.get(e, null)
+            }
+          return Ny(this, e, r)
+        }
+        getSubsetByNames(e, r) {
+          return Sy(D, H, this, e, r)
+        }
+        getSubsetByIndices(e, r) {
+          return vy(this, e, r)
+        }
+        getDummies(e) {
+          return iu(D, this, e)
+        }
+        oneHotEncode(e) {
+          return iu(D, this, e)
+        }
+        transpose() {
+          let e = new D(ou(this.values))
+          return (
+            (e.columns = this.index.slice()),
+            (e.index = this.columns.slice()),
+            e
+          )
+        }
+        get T() {
+          return this.transpose()
+        }
+        resetIndex(e) {
+          return Oy(this, e)
+        }
+        copy() {
+          return gy(D, this)
+        }
+        assign(e, r) {
+          return py(D, H, this, e, r)
+        }
+        apply(e, r) {
+          return my(D, H, this, e, r)
+        }
+        dropMissing(e, r, n) {
+          return qy(D, H, this, e, r, n)
+        }
+        dropNaN(e, r, n) {
+          return by(D, this, e, r, n)
+        }
+        drop(e, r) {
+          return yy(D, H, this, e, r)
+        }
+        dropColumns(e) {
+          return this.drop(null, e)
+        }
+        dropRows(e) {
+          return this.drop(e, null)
+        }
+        toDetailedObject(e) {
+          return Fy(this, e)
+        }
+        toObject() {
+          return Ey(this)
+        }
+        toJSONString(e) {
+          return Iy(this, e)
+        }
+        saveAsJSON(e, r) {
+          return jy(this, e, r)
+        }
+        print() {
+          return Ty(D, H, this)
+        }
+        sort(e, r) {
+          return Dy(this, e, r)
+        }
+        sortByIndex() {
+          return this.sort()
+        }
+        filter(e, r) {
+          return wy(D, H, this, e, r)
+        }
+        shuffle(e) {
+          return Ay(this, e)
+        }
+        append(e, r) {
+          return dy(this, e, r)
+        }
+        concat(e, r) {
+          return this.append(e, r)
+        }
+        join(e, r) {
+          return this.append(e, r)
+        }
+        toString() {
+          return JSON.stringify(this)
+        }
+      },
+      H = nu()(D)
+    au.exports = { DataFrame: D, Series: H }
+  })
+  var ce = l((PO, lu) => {
+    var ky = d(),
+      zy = O(),
+      Uy = m(),
+      Py = q(),
+      Ry = y()
+    function cu(t) {
+      if (Py(t) || Ry(t)) return cu(t.values)
+      ky(
+        Uy(t),
+        "The `max` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        t = zy(t)
+        let e = -1 / 0
+        for (let r of t) r > e && (e = r)
+        return e
+      } catch {
+        return NaN
+      }
+    }
+    lu.exports = cu
+  })
+  var v = l((RO, pu) => {
+    var { DataFrame: fu, Series: hu } = xe(),
+      du = d(),
+      Ce = m(),
+      gr = q(),
+      mu = z(),
+      By = I(),
+      yr = y(),
+      Vy = ce(),
+      Jy = M(),
+      ut = S()
+    function $y(t) {
+      return Ce(t) || yr(t) || gr(t)
+    }
+    function Yy(t) {
+      return (
+        du(By(t), "You must pass a function into the `vectorize` function!"),
+        function e() {
+          let r,
+            n,
+            s = [],
+            i = [],
+            o = Object.keys(arguments)
+              .filter(u => {
+                let a = arguments[u]
+                return Ce(a)
+                  ? !0
+                  : yr(a)
+                    ? ((r = !0), s.push(a), !0)
+                    : gr(a)
+                      ? ((n = !0), i.push(a), !0)
+                      : !1
+              })
+              .map(u => arguments[u])
+          if (
+            (o.slice(0, -1).forEach((u, a) => {
+              du(
+                mu(
+                  Ce(u) ? ut(u) : u.shape,
+                  Ce(o[a + 1]) ? ut(o[a + 1]) : o[a + 1].shape,
+                ),
+                `When passing multiple arrays into the \`${t.name}\` function, all of the arrays must have the same shape!`,
+              )
+            }),
+            o.length > 0)
+          ) {
+            let u = Vy(o.map(c => (c.length ? c.length : c.values.length))),
+              a = Jy(0, u).map(c => {
+                let f = Object.keys(arguments).map(h => {
+                  if ($y(arguments[h])) {
+                    if (Ce(arguments[h])) return arguments[h][c]
+                    if (yr(arguments[h])) return arguments[h].values[c]
+                    if (gr(arguments[h])) return arguments[h].values[c]
+                  } else return arguments[h]
+                })
+                return e(...f)
+              })
+            if (n)
+              try {
+                if (i.length === 1 && mu(ut(i[0]), ut(a))) {
+                  let c = new fu(a)
+                  return (
+                    (c.index = i[0].index.slice()),
+                    (c.columns = i[0].columns.slice()),
+                    c
+                  )
+                } else return new fu(a)
+              } catch {
+                return a
+              }
+            if (r)
+              try {
+                if (s.length === 1 && s[0].length === a.length) {
+                  let c = new hu(a)
+                  return (c.name = s[0].name), (c.index = s[0].index.slice()), c
+                } else return new hu(a)
+              } catch {
+                return a
+              }
+            return a
+          } else return t(...arguments)
+        }
+      )
+    }
+    pu.exports = Yy
+  })
+  var at = l((BO, gu) => {
+    var Ky = g(),
+      Gy = v()
+    function Wy(t) {
+      try {
+        return Ky(t) ? Math.abs(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    gu.exports = Gy(Wy)
+  })
+  var ct = l((VO, yu) => {
+    var Ly = g(),
+      Hy = v()
+    function Xy() {
+      try {
+        let t = 0,
+          e = Object.values(arguments)
+        for (let r = 0; r < e.length; r++) {
+          if (!Ly(e[r])) return NaN
+          t += e[r]
+        }
+        return t
+      } catch {
+        return NaN
+      }
+    }
+    yu.exports = Hy(Xy)
+  })
+  var ke = l((JO, qu) => {
+    var Zy = v()
+    function Qy(t, e) {
+      try {
+        return e(t)
+      } catch {
+        return NaN
+      }
+    }
+    qu.exports = Zy(Qy)
+  })
+  var wu = l(($O, bu) => {
+    var eq = g(),
+      tq = v()
+    function rq(t) {
+      try {
+        return eq(t) ? Math.acos(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    bu.exports = tq(rq)
+  })
+  var vu = l((YO, Nu) => {
+    var nq = g(),
+      sq = v()
+    function iq(t) {
+      try {
+        return nq(t) ? Math.asin(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Nu.exports = sq(iq)
+  })
+  var Tu = l((KO, Su) => {
+    var oq = g(),
+      uq = v()
+    function aq(t) {
+      try {
+        return oq(t) ? Math.atan(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Su.exports = uq(aq)
+  })
+  var Au = l((GO, Ou) => {
+    var cq = d(),
+      lq = qe(),
+      fq = m(),
+      hq = q(),
+      dq = y(),
+      mq = ce()
+    function qr(t) {
+      if (hq(t)) {
+        let e = qr(t.values)
+        return [t.index[e[0]], t.columns[e[1]]]
+      }
+      if (dq(t)) {
+        let e = qr(t.values)
+        return [t.index[e]]
+      }
+      cq(
+        fq(t),
+        "The `argmax` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        let e = lq(t, mq(t))
+        return e
+          ? e.length === 0
+            ? void 0
+            : e.length === 1
+              ? e[0]
+              : e
+          : void 0
+      } catch {
+        return
+      }
+    }
+    Ou.exports = qr
+  })
+  var lt = l((WO, Fu) => {
+    var pq = d(),
+      gq = O(),
+      yq = m(),
+      qq = q(),
+      bq = y()
+    function Du(t) {
+      if (qq(t) || bq(t)) return Du(t.values)
+      pq(
+        yq(t),
+        "The `min` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        t = gq(t)
+        let e = 1 / 0
+        for (let r of t) r < e && (e = r)
+        return e
+      } catch {
+        return NaN
+      }
+    }
+    Fu.exports = Du
+  })
+  var Iu = l((LO, ju) => {
+    var wq = d(),
+      Nq = qe(),
+      vq = m(),
+      Sq = q(),
+      Tq = y(),
+      Oq = lt()
+    function br(t) {
+      if (Sq(t)) {
+        let e = br(t.values)
+        return [t.index[e[0]], t.columns[e[1]]]
+      }
+      if (Tq(t)) {
+        let e = br(t.values)
+        return [t.index[e]]
+      }
+      wq(
+        vq(t),
+        "The `argmin` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        let e = Nq(t, Oq(t))
+        return e
+          ? e.length === 0
+            ? void 0
+            : e.length === 1
+              ? e[0]
+              : e
+          : void 0
+      } catch {
+        return
+      }
+    }
+    ju.exports = br
+  })
+  var Sr = l((HO, Mu) => {
+    var Eu = m(),
+      wr = rt(),
+      Aq = q(),
+      Nr = we(),
+      Dq = z(),
+      _u = g(),
+      Fq = $(),
+      jq = y(),
+      vr = w()
+    function V(t, e) {
+      if (Aq(t) || jq(t)) return t.apply(r => V(r, e))
+      if (Eu(t)) return t.map(r => V(r, e))
+      if (e === "null") return null
+      if (e === "number") {
+        if (vr(t)) return NaN
+        let r = V(t, "boolean")
+        if (wr(r)) return r ? 1 : 0
+        try {
+          JSON.parse(t)
+        } catch {
+          let i = V(t, "date")
+          if (Nr(i)) return i.getTime()
+        }
+        let n = parseFloat(t)
+        return isNaN(n) ? NaN : n
+      }
+      if (e === "boolean") {
+        if (wr(t)) return t
+        if (_u(t)) return t === 0 ? !1 : t === 1 ? !0 : null
+        try {
+          let r = (
+            typeof t == "object"
+              ? t.toString() === "null"
+                ? "false"
+                : JSON.stringify(t)
+              : t.toString()
+          )
+            .trim()
+            .toLowerCase()
+          return r === "true" || r === "yes" || r === "y"
+            ? !0
+            : r === "false" || r === "no" || r === "n"
+              ? !1
+              : null
+        } catch {
+          return null
+        }
+      }
+      if (e === "date") {
+        if (Nr(t)) return t
+        if (vr(t)) return null
+        let r = parseFloat(t)
+        if (!isNaN(r)) {
+          let s = new Date(t)
+          return Nr(s) ? s : null
+        }
+        let n = Date.parse(t)
+        return isNaN(n) ? null : new Date(n)
+      }
+      if (e === "object") {
+        if (Fq(t)) return t
+        let r = V(t, "boolean")
+        if (wr(r)) return null
+        try {
+          let s = V(t, "number")
+          if (_u(s)) return JSON.parse(t), null
+        } catch {}
+        let n = V(t, "date")
+        if (n) return n
+        try {
+          let s = JSON.parse(t)
+          return Eu(s) ? s.map(i => V(i, e)) : s
+        } catch {
+          return null
+        }
+      }
+      if (e === "string")
+        return vr(t)
+          ? Dq(t, void 0)
+            ? "undefined"
+            : "null"
+          : t instanceof Date
+            ? t.toJSON()
+            : (() =>
+                typeof t == "object"
+                  ? t === null
+                    ? "null"
+                    : JSON.stringify(t)
+                  : t.toString())()
+    }
+    Mu.exports = V
+  })
+  var Cu = l((XO, xu) => {
+    var Iq = g(),
+      Eq = v()
+    function _q(t) {
+      try {
+        return Iq(t) ? Math.ceil(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    xu.exports = Eq(_q)
+  })
+  var Uu = l((ZO, zu) => {
+    var Mq = at(),
+      ku = g(),
+      xq = w(),
+      Cq = v()
+    function kq(t, e) {
+      try {
+        if (!ku(t)) return NaN
+        if (xq(e)) e = 1e-10
+        else if (!ku(e)) return NaN
+        return Mq(t) < e ? 0 : t
+      } catch {
+        return NaN
+      }
+    }
+    zu.exports = Cq(kq)
+  })
+  var Ru = l((QO, Pu) => {
+    var Tr = g(),
+      zq = v()
+    function Uq(t, e, r) {
+      try {
+        return Tr(t)
+          ? Tr(e)
+            ? Tr(r)
+              ? t < e
+                ? e
+                : t > r
+                  ? r
+                  : t
+              : NaN
+            : NaN
+          : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Pu.exports = zq(Uq)
+  })
+  var Vu = l((eA, Bu) => {
+    var Or = d(),
+      Pq = O(),
+      Rq = m(),
+      Bq = q(),
+      Vq = g(),
+      Jq = y()
+    function Ar(t, e) {
+      if (Bq(t) || Jq(t)) return Ar(t.values, e)
+      if (
+        (Or(
+          Rq(t),
+          "The `combinations` function only works on arrays, Series, and DataFrames!",
+        ),
+        Or(Vq(e), "`r` must be a whole number!"),
+        (t = Pq(t)),
+        e > t.length)
+      )
+        return [t]
+      if (e <= 0) return [[]]
+      if ((Or(e === parseInt(e), "`r` must be a whole number!"), t.length < 2))
+        return t
+      let r = []
+      return (
+        t.forEach((n, s) => {
+          let i = t.slice(s + 1)
+          if (i.length < e - 1) return
+          Ar(i, e - 1).forEach(u => {
+            r.push([n].concat(u))
+          })
+        }),
+        r
+      )
+    }
+    Bu.exports = Ar
+  })
+  var ft = l((tA, $u) => {
+    var $q = d(),
+      Yq = O(),
+      Kq = m(),
+      Gq = q(),
+      Wq = y()
+    function Ju(t) {
+      if (Gq(t) || Wq(t)) return Ju(t.values)
+      $q(
+        Kq(t),
+        "The `mean` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        let e = Yq(t),
+          r = 0
+        return (
+          e.forEach(n => {
+            r += n
+          }),
+          r / e.length
+        )
+      } catch {
+        return NaN
+      }
+    }
+    $u.exports = Ju
+  })
+  var Fr = l((rA, Hu) => {
+    var Yu = d(),
+      Ku = m(),
+      ht = g(),
+      Gu = y(),
+      Wu = ft(),
+      Lu = S()
+    function Dr(t, e) {
+      if (Gu(t)) return Dr(t.values, e)
+      if (Gu(e)) return Dr(t, e.values)
+      Yu(
+        Ku(t) && Ku(e) && Lu(t).length === 1 && Lu(e).length === 1,
+        "The `covariance` function only works on 1-dimensional arrays and Series!",
+      ),
+        Yu(
+          t.length === e.length,
+          "The two arrays or Series passed into the `covariance` function must have the same length!",
+        )
+      try {
+        let r = Wu(t),
+          n = Wu(e)
+        if (!ht(r) || !ht(n)) return NaN
+        let s = Math.max(t.length, e.length),
+          i = 0
+        for (let o = 0; o < s; o++) {
+          if (!ht(t[o])) return NaN
+          if (!ht(e[o])) return NaN
+          i += (t[o] - r) * (e[o] - n)
+        }
+        return i / t.length
+      } catch {
+        return NaN
+      }
+    }
+    Hu.exports = Dr
+  })
+  var dt = l((nA, Xu) => {
+    var Lq = g(),
+      Hq = v()
+    function Xq(t) {
+      try {
+        return Lq(t) ? Math.sqrt(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Xu.exports = Hq(Xq)
+  })
+  var jr = l((sA, Qu) => {
+    var Zq = d(),
+      Qq = O(),
+      eb = m(),
+      tb = q(),
+      rb = g(),
+      nb = y(),
+      sb = ft()
+    function Zu(t) {
+      if (tb(t) || nb(t)) return Zu(t.values)
+      Zq(
+        eb(t),
+        "The `variance` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        let e = Qq(t),
+          r = sb(e),
+          n = 0
+        for (let s = 0; s < e.length; s++) {
+          if (!rb(e[s])) return NaN
+          n += (e[s] - r) * (e[s] - r)
+        }
+        return n / e.length
+      } catch {
+        return NaN
+      }
+    }
+    Qu.exports = Zu
+  })
+  var mt = l((iA, ta) => {
+    var ib = d(),
+      ob = m(),
+      ub = q(),
+      ab = y(),
+      cb = dt(),
+      lb = jr()
+    function ea(t) {
+      if (ub(t) || ab(t)) return ea(t.values)
+      ib(
+        ob(t),
+        "The `std` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        return cb(lb(t))
+      } catch {
+        return NaN
+      }
+    }
+    ta.exports = ea
+  })
+  var aa = l((oA, ua) => {
+    var ra = d(),
+      fb = Fr(),
+      na = m(),
+      sa = y(),
+      ia = S(),
+      oa = mt()
+    function Ir(t, e) {
+      if (sa(t)) return Ir(t.values, e)
+      if (sa(e)) return Ir(t, e.values)
+      ra(
+        na(t) && na(e) && ia(t).length === 1 && ia(e).length === 1,
+        "The `correl` function only works on 1-dimensional arrays and Series!",
+      ),
+        ra(
+          t.length === e.length,
+          "The two arrays or Series passed into the `correl` function must have the same length!",
+        )
+      try {
+        return fb(t, e) / (oa(t) * oa(e))
+      } catch {
+        return NaN
+      }
+    }
+    ua.exports = Ir
+  })
+  var la = l((uA, ca) => {
+    var hb = g(),
+      db = v()
+    function mb(t) {
+      try {
+        return hb(t) ? Math.cos(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    ca.exports = db(mb)
+  })
+  var ha = l((aA, fa) => {
+    fa.exports = Object.freeze({
+      boolean: "boolean",
+      date: "date",
+      null: "null",
+      number: "number",
+      object: "object",
+      string: "string",
+    })
+  })
+  var qa = l((cA, ya) => {
+    var pb = d(),
+      da = m(),
+      ma = q(),
+      gb = z(),
+      pa = y(),
+      ga = x()
+    function Er(t, e) {
+      if (ma(t) || pa(t)) return Er(t.values, e)
+      if (ma(e) || pa(e)) return Er(t, e.values)
+      pb(
+        da(t) && da(e),
+        "The `diff` function only works on arrays, Series, and DataFrames!",
+      )
+      let r = ga(t),
+        n = ga(e),
+        s = []
+      return (
+        r.forEach(i => {
+          n.findIndex(o => gb(o, i)) < 0 && s.push(i)
+        }),
+        s
+      )
+    }
+    ya.exports = Er
+  })
+  var pt = l((lA, wa) => {
+    var ba = g(),
+      yb = v()
+    function qb(t, e) {
+      try {
+        return ba(t) ? (ba(e) ? Math.pow(t, e) : NaN) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    wa.exports = yb(qb)
+  })
+  var _r = l((fA, Na) => {
+    var bb = g(),
+      wb = v()
+    function Nb() {
+      try {
+        let t = Object.values(arguments)
+        if (t.length === 0) return NaN
+        let e = 1
+        for (let r = 0; r < t.length; r++) {
+          if (!bb(t[r])) return NaN
+          e *= t[r]
+        }
+        return e
+      } catch {
+        return NaN
+      }
+    }
+    Na.exports = wb(Nb)
+  })
+  var le = l((hA, va) => {
+    var vb = _r()
+    function Sb() {
+      return vb(...arguments)
+    }
+    va.exports = Sb
+  })
+  var Mr = l((dA, Sa) => {
+    var Tb = ct(),
+      Ob = le()
+    function Ab(t, e) {
+      return Tb(t, Ob(e, -1))
+    }
+    Sa.exports = Ab
+  })
+  var gt = l((mA, Oa) => {
+    var Db = d(),
+      Fb = O(),
+      jb = m(),
+      Ib = q(),
+      Eb = y()
+    function Ta(t) {
+      if (Ib(t) || Eb(t)) return Ta(t.values)
+      Db(
+        jb(t),
+        "The `sum` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        return t.length === 0 ? NaN : Fb(t).reduce((e, r) => e + r, 0)
+      } catch {
+        return NaN
+      }
+    }
+    Oa.exports = Ta
+  })
+  var _a = l((pA, Ea) => {
+    var _b = at(),
+      Mb = d(),
+      Aa = m(),
+      Da = q(),
+      xb = z(),
+      Fa = g(),
+      ja = y(),
+      Cb = pt(),
+      Ia = S(),
+      kb = dt(),
+      zb = Mr(),
+      Ub = gt()
+    function xr(t, e) {
+      if (Fa(t) && Fa(e)) return _b(t - e)
+      if (Da(t) || ja(t)) return xr(t.values, e)
+      if (Da(e) || ja(e)) return xr(t, e.values)
+      Aa(t) &&
+        Aa(e) &&
+        Mb(
+          xb(Ia(t), Ia(e)),
+          "If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!",
+        )
+      try {
+        return kb(Ub(Cb(zb(t, e), 2)))
+      } catch {
+        return NaN
+      }
+    }
+    Ea.exports = xr
+  })
+  var xa = l((gA, Ma) => {
+    var Pb = pt(),
+      Rb = le()
+    function Bb(t, e) {
+      return Rb(t, Pb(e, -1))
+    }
+    Ma.exports = Bb
+  })
+  var kr = l((yA, Ra) => {
+    var { DataFrame: Ca, Series: ka } = xe(),
+      yt = d(),
+      za = O(),
+      Ua = m(),
+      Cr = q(),
+      Vb = g(),
+      qt = y(),
+      Jb = le(),
+      bt = S(),
+      $b = gt(),
+      Pa = te()
+    function X(t, e) {
+      if (Cr(t)) {
+        let s = X(t.values, e)
+        if (bt(s).length === 1) {
+          let i = new ka(s)
+          return (
+            (i.name = qt(e) ? e.name : i.name), (i.index = t.index.slice()), i
+          )
+        } else {
+          let i = new Ca(s)
+          return (
+            (i.index = t.index.slice()),
+            Cr(e) && (i.columns = e.columns.slice()),
+            i
+          )
+        }
+      }
+      if (Cr(e)) {
+        let s = X(t, e.values)
+        if (bt(s).length === 1) {
+          let i = new ka(s)
+          return (
+            (i.name = qt(t) ? t.name : i.name), (i.index = e.columns.slice()), i
+          )
+        } else {
+          let i = new Ca(s)
+          return (i.columns = e.columns.slice()), i
+        }
+      }
+      if (qt(t)) return X(t.values, e)
+      if (qt(e)) return X(t, e.values)
+      yt(
+        Ua(t) && Ua(e),
+        "The `dot` function only works on arrays, Series, and DataFrames!",
+      ),
+        za(t)
+          .concat(za(e))
+          .forEach(s => {
+            yt(
+              Vb(s),
+              "One of the arrays you passed into the `dot` function contains non-numerical values!",
+            )
+          })
+      let r = bt(t),
+        n = bt(e)
+      if (
+        (yt(
+          r.length <= 2 && n.length <= 2,
+          "I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!",
+        ),
+        yt(
+          r[r.length - 1] === n[0],
+          `There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${r[r.length - 1]} !== ${n[0]})`,
+        ),
+        r.length === 1 && n.length === 1)
+      )
+        return $b(Jb(t, e))
+      if (r.length === 1 && n.length === 2) return Pa(e).map(s => X(t, s))
+      if (r.length === 2 && n.length === 1) return t.map(s => X(s, e))
+      if (r.length === 2 && n.length === 2) {
+        let s = Pa(e),
+          i = []
+        for (let o = 0; o < t.length; o++) {
+          let u = []
+          for (let a = 0; a < s.length; a++) u.push(X(t[o], s[a]))
+          i.push(u)
+        }
+        return i
+      }
+    }
+    Ra.exports = X
+  })
+  var zr = l((qA, Va) => {
+    var Yb = d(),
+      Kb = m(),
+      Gb = q(),
+      Wb = y(),
+      Lb = w()
+    function Ba(t) {
+      if (Gb(t) || Wb(t))
+        return t.dropMissing(...Object.values(arguments).slice(1))
+      Yb(
+        Kb(t),
+        "The `dropMissing` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = []
+      return (
+        t.forEach(r => {
+          try {
+            return e.push(Ba(r))
+          } catch {
+            Lb(r) || e.push(r)
+          }
+        }),
+        e
+      )
+    }
+    Va.exports = Ba
+  })
+  var Ha = l((bA, La) => {
+    var Ja = d(),
+      $a = m(),
+      Ya = q(),
+      Hb = z(),
+      Ka = y(),
+      Ga = w(),
+      Wa = S()
+    function wt(t, e) {
+      if (Ya(t) || Ka(t)) return wt(t.values, e)
+      if (Ya(e) || Ka(e)) return wt(t, e.values)
+      Ja(
+        $a(t) && $a(e),
+        "The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!",
+      ),
+        Ja(
+          Hb(Wa(t), Wa(e)),
+          "The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!",
+        )
+      let r = [],
+        n = []
+      for (let s = 0; s < t.length; s++)
+        try {
+          let [i, o] = wt(t[s], e[s])
+          r.push(i), n.push(o)
+        } catch {
+          !Ga(t[s]) && !Ga(e[s]) && (r.push(t[s]), n.push(e[s]))
+        }
+      return [r, n]
+    }
+    La.exports = wt
+  })
+  var sc = l((wA, nc) => {
+    var Xa = d(),
+      Za = m(),
+      Qa = q(),
+      Xb = z(),
+      ec = g(),
+      tc = y(),
+      rc = S()
+    function Nt(t, e) {
+      if (Qa(t) || tc(t)) return Nt(t.values, e)
+      if (Qa(e) || tc(e)) return Nt(t, e.values)
+      Xa(
+        Za(t) && Za(e),
+        "The `dropNaNPairwise` only works on arrays, Series, and DataFrames!",
+      ),
+        Xa(
+          Xb(rc(t), rc(e)),
+          "The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!",
+        )
+      let r = [],
+        n = []
+      for (let s = 0; s < t.length; s++)
+        try {
+          let [i, o] = Nt(t[s], e[s])
+          r.push(i), n.push(o)
+        } catch {
+          ec(t[s]) && ec(e[s]) && (r.push(t[s]), n.push(e[s]))
+        }
+      return [r, n]
+    }
+    nc.exports = Nt
+  })
+  var oc = l((NA, ic) => {
+    var Zb = zr()
+    function Qb(t) {
+      return Zb(t)
+    }
+    ic.exports = Qb
+  })
+  var ac = l((vA, uc) => {
+    var e1 = g(),
+      t1 = v()
+    function r1(t) {
+      try {
+        return e1(t) ? Math.exp(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    uc.exports = t1(r1)
+  })
+  var fc = l((SA, lc) => {
+    var n1 = v()
+    function cc(t) {
+      try {
+        return t !== parseInt(t) ? NaN : t <= 1 ? 1 : t * cc(t - 1)
+      } catch {
+        return NaN
+      }
+    }
+    lc.exports = n1(cc)
+  })
+  var pc = l((TA, mc) => {
+    var s1 = d(),
+      i1 = O(),
+      hc = m(),
+      o1 = q(),
+      u1 = I(),
+      dc = $(),
+      a1 = y()
+    function Ur(t, e) {
+      if (o1(t)) return Ur(i1(t.values), e)
+      if (a1(t)) return Ur(t.values, e)
+      if (
+        (s1(
+          dc(t) || hc(t),
+          "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!",
+        ),
+        !u1(e))
+      ) {
+        let s = e
+        e = i => i === s
+      }
+      function r(s, i, o) {
+        if (((o = o || []), o.indexOf(s) > -1)) return null
+        if (dc(s)) {
+          o.push(s)
+          let u = Object.keys(s).concat(Object.getOwnPropertySymbols(s))
+          for (let a = 0; a < u.length; a++) {
+            let c = u[a],
+              f = s[c]
+            if (i(f)) return f
+            let h = r(f, i, o)
+            if (h) return h
+          }
+        } else if (hc(s)) {
+          o.push(s)
+          for (let u = 0; u < s.length; u++) {
+            let a = s[u]
+            if (i(a)) return a
+            let c = r(a, i, o)
+            if (c) return c
+          }
+        } else if (i(s)) return s
+        return null
+      }
+      function n(s) {
+        try {
+          return e(s)
+        } catch {
+          return !1
+        }
+      }
+      return r(t, n)
+    }
+    mc.exports = Ur
+  })
+  var bc = l((OA, qc) => {
+    var c1 = d(),
+      l1 = O(),
+      gc = m(),
+      f1 = q(),
+      h1 = I(),
+      yc = $(),
+      d1 = y()
+    function Pr(t, e) {
+      if (f1(t)) return Pr(l1(t.values), e)
+      if (d1(t)) return Pr(t.values, e)
+      if (
+        (c1(
+          yc(t) || gc(t),
+          "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `findAll` function!",
+        ),
+        !h1(e))
+      ) {
+        let i = e
+        e = o => o === i
+      }
+      function r(i, o, u) {
+        if (((u = u || []), u.indexOf(i) > -1)) return null
+        if (yc(i)) {
+          u.push(i)
+          let a = Object.keys(i).concat(Object.getOwnPropertySymbols(i)),
+            c = []
+          for (let f = 0; f < a.length; f++) {
+            let h = a[f],
+              p = i[h],
+              b = !1
+            o(p) && (c.push(p), (b = !0))
+            let F = r(p, o, u)
+            F && F.length > 0 && F.slice(b ? 1 : 0).forEach(A => c.push(A))
+          }
+          return c
+        } else if (gc(i)) {
+          u.push(i)
+          let a = []
+          for (let c = 0; c < i.length; c++) {
+            let f = i[c],
+              h = !1
+            o(f) && (a.push(f), (h = !0))
+            let p = r(f, o, u)
+            p && p.length > 0 && p.slice(h ? 1 : 0).forEach(b => a.push(b))
+          }
+          return a
+        } else if (o(i)) return [i]
+        return null
+      }
+      function n(i) {
+        try {
+          return e(i)
+        } catch {
+          return !1
+        }
+      }
+      let s = r(t, n)
+      return s && s.length > 0 ? s : null
+    }
+    qc.exports = Pr
+  })
+  var Nc = l((AA, wc) => {
+    var m1 = g(),
+      p1 = v()
+    function g1(t) {
+      try {
+        if (t === "Infinity") return 1 / 0
+        if (t === "-Infinity") return -1 / 0
+        let e = JSON.parse(t)
+        return m1(e) ? e : NaN
+      } catch {
+        return NaN
+      }
+    }
+    wc.exports = p1(g1)
+  })
+  var Sc = l((DA, vc) => {
+    var y1 = g(),
+      q1 = v()
+    function b1(t) {
+      try {
+        return y1(t) ? Math.floor(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    vc.exports = q1(b1)
+  })
+  var Rr = l((FA, Tc) => {
+    var w1 = g(),
+      N1 = Fe(),
+      v1 = et()
+    function S1(t) {
+      w1(t) && (t = [t])
+      let e = [],
+        r = N1(t)
+      for (let n = 0; n < r; n++) e.push(0)
+      return v1(e, t)
+    }
+    Tc.exports = S1
+  })
+  var Ac = l((jA, Oc) => {
+    var vt = d(),
+      T1 = g(),
+      O1 = w(),
+      A1 = Rr()
+    function D1(t) {
+      vt(
+        !O1(t),
+        "You must pass an integer greater than 0 (representing the size) into the `identity` function!",
+      ),
+        vt(
+          T1(t),
+          "You must pass an integer greater than 0 (representing the size) into the `identity` function!",
+        ),
+        vt(
+          parseInt(t) === t,
+          "You must pass an integer greater than 0 (representing the size) into the `identity` function!",
+        ),
+        vt(
+          t > 0,
+          "You must pass an integer greater than 0 (representing the size) into the `identity` function!",
+        )
+      let e = A1([t, t])
+      for (let r = 0; r < t; r++) e[r][r] = 1
+      return e
+    }
+    Oc.exports = D1
+  })
+  var Fc = l((IA, Dc) => {
+    Dc.exports = ["true", "false", "yes", "no"]
+  })
+  var Ic = l((EA, jc) => {
+    jc.exports = ["null", "none", "nan", "na", "n/a", "", "undefined"]
+  })
+  var Cc = l((_A, xc) => {
+    var F1 = ke(),
+      j1 = d(),
+      I1 = Fc(),
+      E1 = Sr(),
+      _1 = ve(),
+      _c = O(),
+      Br = m(),
+      M1 = q(),
+      Ec = we(),
+      Mc = g(),
+      x1 = y(),
+      C1 = E(),
+      k1 = Ic()
+    function St(t) {
+      return (
+        t.type === "number" &&
+          (typeof t.value < "u"
+            ? (t.isInteger = parseInt(t.value) === t.value)
+            : (t.isInteger = _c(t.values).every(e =>
+                Mc(e) ? parseInt(e) === e : !0,
+              ))),
+        t
+      )
+    }
+    function Tt(t) {
+      if (M1(t)) {
+        let s = t.copy(),
+          i = Tt(t.values)
+        return (s.values = i.values), St({ type: i.type, values: s })
+      }
+      if (x1(t)) {
+        let s = t.copy(),
+          i = Tt(t.values)
+        return (s.values = i.values), St({ type: i.type, values: s })
+      }
+      if (!Br(t)) {
+        let s = Tt([t])
+        return (s.value = s.values[0]), delete s.values, St(s)
+      }
+      j1(
+        Br(t),
+        "The `inferType` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = _c(t).map(s => {
+          if (s === void 0) return "null"
+          try {
+            if (typeof s == "object") {
+              let u = new Date(s.getTime())
+              if (Ec(u)) return "date"
+            }
+          } catch {}
+          C1(s) || (s = JSON.stringify(s))
+          let o = s.toLowerCase().trim()
+          if (k1.indexOf(o) > -1) return "null"
+          if (I1.indexOf(o) > -1) return "boolean"
+          try {
+            let u = JSON.parse(s)
+            return Mc(u)
+              ? "number"
+              : typeof u == "object"
+                ? Br(u)
+                  ? "string"
+                  : "object"
+                : "string"
+          } catch {
+            let a = new Date(s)
+            return Ec(a) ? "date" : "string"
+          }
+        }),
+        n = _1(e).sort((s, i) => i.count - s.count)[0].value
+      return St({ type: n, values: F1(t, s => E1(s, n)) })
+    }
+    xc.exports = Tt
+  })
+  var zc = l((MA, kc) => {
+    var z1 = g(),
+      U1 = v()
+    function P1(t) {
+      try {
+        let e = JSON.parse(t)
+        return z1(e) ? parseInt(e) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    kc.exports = U1(P1)
+  })
+  var Pc = l((xA, Uc) => {
+    var R1 = d(),
+      B1 = m(),
+      V1 = q(),
+      J1 = z(),
+      $1 = y(),
+      Vr = x()
+    function Y1() {
+      let t = Object.values(arguments).map(r =>
+        V1(r) || $1(r)
+          ? Vr(r.values)
+          : (R1(
+              B1(r),
+              "The `intersect` function only works on arrays, Series, and DataFrames!",
+            ),
+            Vr(r)),
+      )
+      return Vr(t).filter(r => t.every(n => n.findIndex(s => J1(s, r)) > -1))
+    }
+    Uc.exports = Y1
+  })
+  var Jc = l((CA, Vc) => {
+    var Rc = ct(),
+      Z = d(),
+      K1 = kr(),
+      G1 = O(),
+      W1 = m(),
+      L1 = q(),
+      Jr = g(),
+      Bc = le(),
+      H1 = S()
+    function Ot(t) {
+      if (L1(t)) {
+        let r = t.copy()
+        return (r.values = Ot(r.values)), r
+      }
+      Z(
+        W1(t),
+        "The `inverse` function only works on square 2-dimensional arrays or DataFrames!",
+      ),
+        G1(t).forEach(r =>
+          Z(
+            Jr(r),
+            "The array passed into the `inverse` function must contain only numbers!",
+          ),
+        )
+      let e = H1(t)
+      if (
+        (Z(
+          e.length === 2,
+          "The array passed into the `inverse` function must be exactly two-dimensional and square!",
+        ),
+        Z(
+          e[0] === e[1],
+          "The array passed into the `inverse` function must be exactly two-dimensional and square!",
+        ),
+        Z(
+          e[0] >= 0,
+          "The array passed into the `inverse` function must be exactly two-dimensional and square!",
+        ),
+        e[0] === 0)
+      )
+        return t
+      if (e[0] === 1)
+        return Z(t[0][0] !== 0, "This matrix cannot be inverted!"), 1 / t[0][0]
+      if (e[0] === 2) {
+        let r = t[0][0],
+          n = t[0][1],
+          s = t[1][0],
+          i = t[1][1],
+          o = r * i - n * s
+        Z(o !== 0, "This matrix cannot be inverted!")
+        let u = [
+          [i, -n],
+          [-s, r],
+        ]
+        return Bc(u, 1 / o)
+      } else if (e[0] > 1) {
+        let r = (n, s) => (Jr(n) || Jr(s) ? Bc(n, s) : K1(n, s))
+        for (let n = 1; n < e[0] - 1; n++)
+          try {
+            let s = t.slice(0, n).map(A => A.slice(0, n)),
+              i = t.slice(0, n).map(A => A.slice(n, e[0])),
+              o = t.slice(n, e[0]).map(A => A.slice(0, n)),
+              u = t.slice(n, e[0]).map(A => A.slice(n, e[0])),
+              a = Ot(s),
+              c = Ot(Rc(u, r(-1, r(r(o, a), i)))),
+              f = Rc(a, r(r(r(r(a, i), c), o), a)),
+              h = r(-1, r(r(a, i), c)),
+              p = r(-1, r(r(c, o), a)),
+              b = c
+            return f
+              .map((A, P) => A.concat(h[P]))
+              .concat(p.map((A, P) => A.concat(b[P])))
+          } catch {}
+        Z(!1, "This matrix cannot be inverted!")
+      }
+    }
+    Vc.exports = Ot
+  })
+  var Yc = l((kA, $c) => {
+    var X1 = new Function(`
     try {
       return this === window
     } catch(e) {}
@@ -24,11 +4209,2689 @@
     } catch(e){}
 
     return false
-  `);$c.exports=X1});var Gc=l((zA,Kc)=>{var $r=g(),Z1=v();function Q1(t,e,r){try{return $r(t)?$r(e)?$r(r)?r*(e-t)+t:NaN:NaN:NaN}catch{return NaN}}Kc.exports=Z1(Q1)});var Hc=l((UA,Lc)=>{var Wc=g(),ew=w(),tw=v();function rw(t,e){try{return e=ew(e)?Math.E:e,Wc(t)?Wc(e)?Math.log(t)/Math.log(e):NaN:NaN}catch{return NaN}}Lc.exports=tw(rw)});var Qc=l((PA,Zc)=>{var nw=d(),sw=O(),iw=m(),ow=q(),uw=y(),aw=K();function Xc(t){if(ow(t)||uw(t))return Xc(t.values);nw(iw(t),"The `median` function only works on arrays, Series, and DataFrames!");try{let e=aw(sw(t));return e.length===0?NaN:e.length%2===0?(e[e.length/2-1]+e[e.length/2])/2:e[parseInt(e.length/2)]}catch{return NaN}}Zc.exports=Xc});var rl=l((RA,tl)=>{var el=g(),cw=v();function lw(t,e){try{return el(t)?el(e)?t%e:NaN:NaN}catch{return NaN}}tl.exports=cw(lw)});var ol=l((BA,il)=>{var fw=d(),hw=ve(),dw=O(),mw=m(),pw=q(),gw=y(),yw=x(),nl=K();function sl(t){if(pw(t)||gw(t))return sl(t.values);fw(mw(t),"The `mode` function only works on arrays, Series, and DataFrames!");try{if(t.length===0)return NaN;let e=dw(t);if(e.length===0)return NaN;let r={},n=yw(e);n.forEach(u=>{r[u]=hw(e,u)});let s=nl(n,(u,a)=>r[a]-r[u]),i=s[0];return nl(s.filter(u=>r[u]===r[i]))}catch{return NaN}}il.exports=sl});var ll=l((VA,cl)=>{var{random:ul}=oe(),qw=ke(),bw=w(),ww=Y();function al(){let t=ul(),e=ul();return Math.sqrt(-2*Math.log(t))*Math.cos(2*Math.PI*e)}function Nw(t){return bw(t)?al():qw(ww(t),al)}cl.exports=Nw});var hl=l((JA,fl)=>{var vw=ke(),Sw=Y();function Tw(t){return vw(Sw(t),()=>1)}fl.exports=Tw});var ml=l(($A,dl)=>{var Yr=d(),Ow=O(),Aw=m(),Dw=q(),Fw=g(),jw=y(),Iw=w();function At(t,e){if(Dw(t)||jw(t))return At(t.values,e);if(Yr(Aw(t),"The `permutations` function only works on arrays, Series, and DataFrames!"),Iw(e)&&(e=t.length),Yr(Fw(e),"`r` must be a whole number!"),t=Ow(t),e>t.length)return At(t);if(e<=0)return[[]];if(Yr(e===parseInt(e),"`r` must be a whole number!"),t.length<2)return t;let r=[];return t.forEach((n,s)=>{let i=t.slice(0,s),o=t.slice(s+1),u=i.concat(o);At(u,e-1).forEach(c=>{r.push([n].concat(c))})}),r}dl.exports=At});var gl=l((YA,pl)=>{var{DataFrame:Ew,Series:_w}=xe(),Mw=m(),xw=q(),Cw=Se(),kw=y(),zw=S();function Uw(){Object.keys(arguments).forEach(t=>{let e=arguments[t];if(Mw(e))if(Cw(e))console.log(e);else{let r=zw(e);r.length===1?new _w(e).print():r.length==2?new Ew(e).print():console.log(e)}else xw(e)||kw(e)?e.print():console.log(e)})}pl.exports=Uw});var bl=l((KA,ql)=>{var Pw=m(),Rw=g(),yl=w(),Bw=ce(),Vw=lt(),Jw=v(),$w=Jw(function(t,e,r,n,s){try{return[t,e,r,n,s].every(i=>Rw(i))?r-e===0?NaN:(s-n)*(t-e)/(r-e)+n:NaN}catch{return NaN}});function Yw(t,e,r,n,s){return Pw(t)&&yl(n)&&yl(s)&&(n=e,s=r,e=Vw(t),r=Bw(t)),$w(t,e,r,n,s)}ql.exports=Yw});var Nl=l((GA,wl)=>{var Kw=g(),Gw=v();function Ww(t){try{return Kw(t)?Math.round(t):NaN}catch{return NaN}}wl.exports=Gw(Ww)});var Sl=l((WA,vl)=>{var Lw=g(),Hw=v();function Xw(t){try{return Lw(t)?t<0?-1:t>0?1:0:NaN}catch{return NaN}}vl.exports=Hw(Xw)});var Ol=l((LA,Tl)=>{var Zw=g(),Qw=v();function eN(t){try{return Zw(t)?Math.sin(t):NaN}catch{return NaN}}Tl.exports=Qw(eN)});var Dl=l((HA,Al)=>{var tN=mt();function rN(t){return tN(t)}Al.exports=rN});var jl=l((XA,Fl)=>{var nN=g(),sN=v();function iN(t){try{return nN(t)?Math.tan(t):NaN}catch{return NaN}}Fl.exports=sN(iN)});var Dt=l((ZA,_l)=>{var Il=d(),El=I();function oN(t,e){Il(El(t),"`fn` must be a function!");let r=new Date;return e?t(...e):t(),new Date-r}async function uN(t,e){Il(El(t),"`fn` must be a function!");let r=new Date;return e?await t(...e):await t(),new Date-r}_l.exports={timeSync:oN,timeAsync:uN}});var xl=l((QA,Ml)=>{var aN=m(),cN=q(),lN=y(),fN=x();function hN(){return fN([...arguments].map(t=>aN(t)?t:cN(t)||lN(t)?t.values:[t]))}Ml.exports=hN});var kl=l((e3,Cl)=>{var dN=d(),mN=m(),pN=q(),gN=y(),yN=w(),qN=ce(),bN=M();function wN(){let t=[],e=Object.values(arguments).map(r=>((pN(r)||gN(r))&&(r=r.values),dN(mN(r),"The `zip` function only works on arrays, Series, and DataFrames!"),r));return bN(0,qN(e.map(r=>r.length))).forEach(r=>{let n=[];e.forEach(s=>{let i=s[r];n.push(yN(i)?void 0:i)}),t.push(n)}),t}Cl.exports=wN});var N=l((t3,Kr)=>{var{copy:NN,decycle:vN}=R(),{DataFrame:SN,Series:TN}=xe(),fe={abs:at(),add:ct(),apply:ke(),arccos:wu(),arcsin:vu(),arctan:Tu(),argmax:Au(),argmin:Iu(),assert:d(),cast:Sr(),ceil:Cu(),chop:Uu(),clamp:Ru(),combinations:Vu(),copy:NN,correl:aa(),cos:la(),count:ve(),covariance:Fr(),DataFrame:SN,dataTypes:ha(),decycle:vN,diff:qa(),distance:_a(),divide:xa(),dot:kr(),dropMissing:zr(),dropMissingPairwise:Ha(),dropNaN:tr(),dropNaNPairwise:sc(),dropUndefined:oc(),exp:ac(),factorial:fc(),find:pc(),findAll:bc(),flatten:O(),float:Nc(),floor:Sc(),identity:Ac(),indexOf:qe(),inferType:Cc(),int:zc(),intersect:Pc(),inverse:Jc(),isArray:m(),isBoolean:rt(),isBrowser:Yc(),isDataFrame:q(),isDate:we(),isEqual:z(),isFunction:I(),isJagged:Se(),isNested:Ke(),isNumber:g(),isObject:$(),isSeries:y(),isString:E(),isUndefined:w(),lerp:Gc(),log:Hc(),MathError:ne(),max:ce(),mean:ft(),median:Qc(),min:lt(),mod:rl(),mode:ol(),multiply:_r(),ndarray:Y(),normal:ll(),ones:hl(),permutations:ml(),pow:pt(),print:gl(),product:Fe(),random:oe().random,range:M(),remap:bl(),reshape:et(),reverse:Te(),round:Nl(),scale:le(),seed:oe().seed,Series:TN,set:x(),shape:S(),shuffle:tt(),sign:Sl(),sin:Ol(),sort:K(),sqrt:dt(),std:mt(),stdev:Dl(),subtract:Mr(),sum:gt(),tan:jl(),time:Dt().timeSync,timeSync:Dt().timeSync,timeAsync:Dt().timeAsync,transpose:te(),union:xl(),variance:jr(),vectorize:v(),zeros:Rr(),zip:kl(),dump:function(){let t=typeof globalThis<"u"?globalThis:typeof global<"u"?global:typeof window<"u"?window:typeof self<"u"?self:void 0;if(!t)throw new fe.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");Object.keys(fe).forEach(e=>{try{Object.defineProperty(t,e,{configurable:!1,enumerable:!0,writable:!1,value:fe[e]})}catch{t[e]=fe[e]}})}};typeof Kr<"u"&&(Kr.exports=fe);typeof window<"u"&&(window.JSMathTools=fe)});var U=l((r3,zl)=>{zl.exports={shouldIgnoreNaNValues:!0}});var Wr=l((n3,Yl)=>{var{assert:Ul,dropNaN:Pl,isArray:Rl,isSeries:Bl,mean:Vl,shape:Jl,variance:$l}=N(),ON=U();function Gr(t,e){if(Bl(t))return Gr(t.values,e);if(Bl(e))return Gr(t,e.values);Ul(Rl(t)&&Rl(e)&&Jl(t).length===1&&Jl(e).length===1,"The `cohensd` function only works on 1-dimensional arrays and Series!"),Ul(t.length===e.length,"Two arrays or Series passed into the `cohensd` function must have the same length!"),ON.shouldIgnoreNaNValues&&(t=Pl(t),e=Pl(e));try{let r=Vl(t),n=Vl(e),s=Math.sqrt(($l(t)+$l(e))/2);return(r-n)/s}catch{return NaN}}Yl.exports=Gr});var he=l((s3,Gl)=>{var{assert:AN,flatten:DN,isArray:FN,isDataFrame:jN,isNumber:IN,isSeries:EN}=N();function Kl(t){if(jN(t)||EN(t))return Kl(t.values);AN(FN(t),"The `containsOnlyNumbers` function only works on arrays, Series, and DataFrames!");let e=DN(t);for(let r=0;r<e.length;r++)if(!IN(e[r]))return!1;return!0}Gl.exports=Kl});var Lr=l((i3,Wl)=>{function _N(t){if(typeof t!="string")throw new Error("`text` must be a string!");t=t.trim();let e="",r=!1;for(let n=0;n<t.length;n++){let s=t[n];s.match(/[A-Za-z0-9]/g)?(e.length===0?e+=s.toLowerCase():r?e+=s.toUpperCase():e+=s,r=!1):!s.includes("'")&&!s.includes("\u2019")&&!s.includes("\u275C")&&(r=!0)}return e}Wl.exports=_N});var Hl=l((o3,Ll)=>{function MN(t,e){return e=e||"",t.split(`
-`).map(r=>r.trim().length>0?e+r:r).join(`
-`)}Ll.exports=MN});var Hr=l((u3,Xl)=>{Xl.exports="!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65"});var Xr=l((a3,Zl)=>{function xN(t,e,r){if(typeof t!="string")throw new Error("`text` must be a string!");if(typeof e!="string")throw new Error("`a` must be a string!");if(typeof r!="string")throw new Error("`b` must be a string!");return t.split(e).join(r)}Zl.exports=xN});var Ft=l((c3,tf)=>{var CN=Hr(),kN=Xr(),Ql="  ",ef=" ";function zN(t){if(typeof t!="string")throw new Error("`text` must be a string!");let e="";for(let r=0;r<t.length;r++){let n=t[r].toLowerCase();CN.includes(n)?e+=ef:e+=n}for(;e.includes(Ql);)e=kN(e,Ql,ef);return e.trim()}tf.exports=zN});var nf=l((l3,rf)=>{var UN=Ft();function PN(t){if(typeof t!="string")throw new Error("`text` must be a string!");let e=UN(t).split(" ");return e.length===0?"":e.length===1?e[0]:e.join("-")}rf.exports=PN});var of=l((f3,sf)=>{var{isArray:RN}=N(),BN=typeof globalThis<"u"?globalThis:typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:void 0;function VN(t){let e=Symbol.for("@TypedArrayConstructor"),r="Symbol(@TypedArrayConstructor)",n=e in t?e:r in t?r:void 0;if(n){if(!("values"in t))throw new Error("The value passed into the `convertObjectToTypedArray` must have a 'values' property!");return t[n]==="ArrayBuffer"?new Uint8Array(t.values).buffer:new BN[t[n]](t.values)}if(RN(t)&&t.constructor.name==="Array")return t;throw new Error("The value passed into the `convertObjectToTypedArray` must be an object that can be converted into a typed array!")}sf.exports=VN});var Qr=l((h3,uf)=>{var{isArray:JN,isDate:$N}=N();function Zr(t){if(t instanceof ArrayBuffer||t instanceof BigInt64Array||t instanceof BigUint64Array||t instanceof Float32Array||t instanceof Float64Array||t instanceof Int16Array||t instanceof Int32Array||t instanceof Int8Array||t instanceof Uint16Array||t instanceof Uint32Array||t instanceof Uint8Array||t instanceof Uint8ClampedArray)return{[Symbol.for("@TypedArrayConstructor")]:t.constructor.name,values:t instanceof ArrayBuffer?Array.from(new Uint8Array(t)):Array.from(t)};if(JN(t))return t.map(e=>{try{return Zr(e)}catch{return e}});if(typeof t=="object"&t!==null){if($N(t))return new Date(t.getTime());let e={};return Object.keys(t).forEach(r=>{try{e[r]=Zr(t[r])}catch{e[r]=t[r]}}),e}throw new Error("The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray.")}uf.exports=Zr});var cf=l((d3,af)=>{function YN(t){return t=t.trim(),!!(t.match(/^-?\d+(\.\d+)?$/g)||t.match(/^-?\d+(\.\d+)?e-?\d+(\.\d+)?$/g)||t.match(/^-?\.\d+$/g)||t==="NaN")}af.exports=YN});var ff=l((m3,lf)=>{lf.exports={convertObjectToTypedArray:of(),convertTypedArrayToObject:Qr(),isANumberString:cf(),punctuation:Hr(),replaceAll:Xr(),strip:Ft()}});var pf=l((p3,mf)=>{var{isArray:en}=N(),{convertObjectToTypedArray:hf,isANumberString:KN}=ff(),df={"@Infinity":1/0,"@NegativeInfinity":-1/0,"@NaN":NaN,"@undefined":void 0};function ze(t){if(typeof t=="object"){if(t===null)return t;if(en(t))for(let e=0;e<t.length;e++)t[e]=ze(t[e]);else Object.keys(t).concat(Object.getOwnPropertySymbols(t)).forEach(e=>{t[e]=ze(t[e])});return t}else return typeof t>"u"?void 0:t}function GN(t){if(typeof t!="string")return typeof t=="number"?t:void 0;if(KN(t))return parseFloat(t)}function WN(t){if(typeof t=="string"&&t.trim().match(/^("|')?Symbol\(@String\):.*?("|')?$/g)){let e=t.replace("Symbol(@String):","");return e.match(/^".*?"$/g)&&(e=e.substring(1,e.length-1)),e}}function LN(t){if(typeof t!="string")return typeof t=="symbol"?{out:t,isASymbol:!0}:void 0;if(t.trim().match(/^'?"?Symbol\(.*?\)"?'?$/g)){let e=t.replace(/^.*?Symbol\(/g,"").replace(/\).*?$/g,"");return e in df?{out:df[e],isASymbol:!0}:{out:Symbol.for(e),isASymbol:!0}}}function HN(t){if(typeof t!="string")return t instanceof RegExp?t:void 0;let e=t.trim();if(e.match(/^\/.*?\/(d|g|i|m|s|u|v|y)*?$/g))try{let r=e.replace(/^\//g,"").replace(/\/(d|g|i|m|s|u|v|y)*?$/g,""),n=e.match(/\/(d|g|i|m|s|u|v|y)*?$/g).at(-1).split("/").at(-1);return new RegExp(r,n)}catch{}}function XN(t){if(typeof t!="string")return typeof t=="object"?t:void 0;try{let e=JSON.parse(t,(r,n)=>{try{return jt(n)}catch{return n}});return en(e)&&(e=ze(e)),e}catch{}}function ZN(t){if(typeof t!="string")return t instanceof Date&&t.toString()!=="Invalid Date"?t:void 0;try{let e=new Date(Date.parse(t));if(e.toString()!=="Invalid Date")return e}catch{}}function QN(t){return typeof t=="object"?t!==null?ze(t):void 0:(Object.keys(t).concat(Object.getOwnPropertySymbols(t)).forEach(e=>{try{let r=e;try{e=jt(e)}catch{}t[e]=jt(t[r]),e!==r&&delete t[r]}catch{}}),ze(t))}function jt(t){function e(r){if(typeof r=="string"){let n=WN(r);if(typeof n=="string")return n;let s=LN(r);return n=s?s.out:void 0,s&&s.isASymbol||(n=HN(r),n instanceof RegExp)||(n=GN(r),typeof n=="number")||(n=ZN(r),n instanceof Date)||(n=XN(r),typeof n<"u")?n:r}if(typeof r=="object"){if(r===null)return null;let n;try{if(n=hf(r),en(n))return n}catch{}if(n=QN(r),n)try{return hf(n)}catch{return n}return r}return r}return e(t)}mf.exports=jt});var yf=l((g3,gf)=>{var ev=Lr();function tv(t){let e=ev(t);return e[0].toUpperCase()+e.slice(1)}gf.exports=tv});var bf=l((y3,qf)=>{var rv=Ft();function nv(t){if(typeof t!="string")throw new Error("`text` must be a string!");let e=rv(t).split(" ");return e.length===0?"":e.length===1?e[0]:e.join("_")}qf.exports=nv});var Nf=l((q3,wf)=>{var{assert:sv,decycle:iv,isArray:ov,isDate:uv,isString:tn,isUndefined:av,range:cv}=N(),rn=Qr();function Q(t,e){return!t||e<=0?"":cv(0,e).map(()=>t).join("")}function lv(t,e){sv(tn(e)||av(e),"The second parameter to the `stringify` function must be undefined or a string!");let r=e?`
-`:"";function n(s,i,o){return o=o||0,typeof s=="number"||typeof s=="bigint"?s===1/0?'"Symbol(@Infinity)"':s===-1/0?'"Symbol(@NegativeInfinity)"':isNaN(s)?'"Symbol(@NaN)"':s.toString():typeof s=="string"?JSON.stringify("Symbol(@String):"+s):typeof s=="boolean"?s.toString():typeof s>"u"?'"Symbol(@undefined)"':typeof s=="symbol"||typeof s=="function"?JSON.stringify(s.toString()):s instanceof RegExp?s.toString():typeof s=="object"?s===null?"null":uv(s)?JSON.stringify(s.toJSON()):ov(s)?s.length===0?Q(i,o-1)+"[]":s instanceof Array?Q(i,o-1)+"["+r+s.map(u=>{let a=(()=>{try{return n(rn(u),i,o+1)}catch{return n(u,i,o+1)}})();return tn(a)&&(a=a.trim()),Q(i,o+1)+a}).join(","+r)+r+Q(i,o)+"]":n(rn(s),null,i):Object.keys(s).length+Object.getOwnPropertySymbols(s).length===0?Q(i,o-1)+"{}":Q(i,o-1)+"{"+r+Object.keys(s).concat(Object.getOwnPropertySymbols(s)).map(u=>{let a=(()=>{try{return n(rn(s[u]),i,o+1)}catch{return n(s[u],i,o+1)}})();tn(a)&&(a=a.trim());let c=typeof u=="symbol"?n(u):JSON.stringify(u);return Q(i,o+1)+c+":"+(i?" ":"")+a}).join(","+r)+r+Q(i,o)+"}":"undefined"}return n(iv(t),e)}wf.exports=lv});var Sf=l((b3,vf)=>{function fv(t){let e=t.split(`
-`),r=e.filter(s=>s.trim().length>0).map(s=>s.split("").findIndex(i=>!i.match(/\s/g))),n=Math.min(...r);return e.map(s=>s.substring(n)).join(`
-`)}vf.exports=fv});var Of=l((w3,Tf)=>{function hv(t,e){if(typeof t!="string")throw new Error("The first argument to the `wrap` function must be a string!");if((typeof e>"u"||e===null)&&(typeof process<"u"&&typeof process.stdout<"u"&&typeof process.stdout.columns=="number"?e=process.stdout.columns>80?80:process.stdout.columns:e=80),isNaN(e)||typeof e!="number")throw new Error("The second argument to the `wrap` function must be undefined, null, or an integer!");let r=[];return t.split(`
-`).forEach(n=>{if(n.trim().length===0)return r.push("");let s=n.split(/[^\s]/g)[0],i=n.replace(s,"").split(" "),o=s;i.forEach(u=>{let a=o+(o.trim().length>0?" ":"")+u;a.length>e?(r.push(o),o=s+u):o=a}),o.length>0&&r.push(o)}),r.join(`
-`)}Tf.exports=hv});var Af=l((N3,nn)=>{var Ue={camelify:Lr(),indent:Hl(),kebabify:nf(),parse:pf(),pascalify:yf(),snakeify:bf(),stringify:Nf(),unindent:Sf(),wrap:Of(),dump(){Object.keys(Ue).forEach(t=>{typeof global<"u"&&(global[t]=Ue[t]),typeof window<"u"&&(window[t]=Ue[t])})}};typeof nn<"u"&&(nn.exports=Ue);typeof window<"u"&&(window.JSTextTools=Ue)});var sn=l((v3,If)=>{var{assert:Df,DataFrame:dv,isArray:mv,isSeries:pv,isString:gv,isUndefined:Ff,set:yv,shape:qv,sort:bv}=N();function jf(){if(arguments.length===1&&pv(arguments[0])){let{name:s,values:i}=arguments[0],o=jf(s,i),u=new dv(o);return u.index=arguments[0].index.slice(),u}let[t,e]=arguments;Df(gv(t),"When passing two arguments into the `getOneHotEncodings` function, the first argument must be a string representing the name of the variable being encoded!"),Df(mv(e)&&qv(e).length===1,"When passing two arguments into the `getOneHotEncodings` function, the second argument must be a 1-dimensional array!");let r={};return bv(yv(e)).filter(s=>typeof s!="number"||s.toString()!=="NaN").filter(s=>!Ff(s)).map(s=>t+"_"+s).slice(0,-1).forEach(s=>{r[s]=e.map(i=>s===t+"_"+i?1:typeof i=="number"&&i.toString()==="NaN"?NaN:Ff(i)?NaN:0)}),r}If.exports=jf});var zf=l((S3,kf)=>{var{assert:de,correl:Ef,count:wv,DataFrame:_f,inferType:Nv,isArray:vv,isDataFrame:Sv,isFunction:Tv,isJagged:Ov,isNumber:Pe,isUndefined:Mf,shape:Av,sort:Dv,sum:Fv}=N(),{stringify:jv}=Af(),Iv=sn(),xf=t=>Pe(t)&&(parseInt(t)===t||t===1/0);function Cf(t,e){e=e||{};let r=Pe(e.maxUniqueValues)?e.maxUniqueValues:7,n=Pe(e.minNonMissingValues)?e.minNonMissingValues:15,s=Pe(e.maxCorrelationThreshold)?e.maxCorrelationThreshold:1-1e-5,i=e.progress||null;if(vv(t))return de(Av(t).length===2&&!Ov(t),"The `convertToNumerical` function only works on non-jagged 2-dimensional arrays and DataFrames!"),Cf(new _f(t));de(Sv(t),"You must pass a DataFrame into the `convertToNumerical` function!"),de(xf(r),"`maxUniqueValues` must be a whole number!"),de(xf(n),"`minNonMissingValues` must be a whole number!"),de(Pe(s),"`maxCorrelationThreshold` must be a number!"),Mf(i)||de(Tv(i),"If defined, `progress` must be a function!");let o={};return t.apply((u,a)=>{i&&i(a/t.columns.length);let c=Nv(u.values);if(c.type==="boolean"&&(c.values=c.values.map(h=>h?1:0)),c.type==="date"&&(c.values=c.values.map(h=>{try{return h.getTime()}catch{return NaN}})),c.type==="null")return;c.type,c.type==="object"&&(c.values=c.values.map(h=>jv(h))),c.type;let f=c.values.filter(h=>!Mf(h));if(!(c.values.length-f.length>n)){if(c.type!=="boolean"){let h=Dv(wv(f),(b,F)=>F.count-b.count);if(Fv(h.slice(0,r).map(b=>b.count))/f.length>=.9){if(h.length<2)return;let b=Iv(u.name,c.values);for(;Object.keys(b).length>0;){let F=Object.keys(b)[0],A=b[F];delete b[F];let P=Object.keys(o);for(let ye=0;ye<P.length;ye++){let Qd=o[P[ye]];if(Ef(A,Qd)>s)return}o[F]=A}return}if(c.type==="object"||c.type==="string")return}if(c.type==="boolean"||c.type==="date"||c.type==="number"){let h=Object.keys(o);for(let p=0;p<h.length;p++){let b=o[h[p]];if(Ef(c.values,b)>s)return}o[u.name]=c.values}}}),new _f(o)}kf.exports=Cf});var Bf=l((T3,Rf)=>{var{assert:Uf,DataFrame:Ev,isArray:_v,isSeries:Mv,shape:xv,zeros:Cv}=N();function Pf(t){if(Mv(t)){let n=new Ev(Pf(t.values));return n.index=t.index.slice(),n.columns=t.index.slice(),n}Uf(_v(t),"The `diagonalize` function only works on 1-dimensional arrays and Series!");let e=xv(t);Uf(e.length===1,"The `diagonalize` function only works on 1-dimensional arrays and Series!");let r=Cv([e[0],e[0]]);return t.forEach((n,s)=>r[s][s]=n),r}Rf.exports=Pf});var cn=l((O3,Yf)=>{var{assert:on,clamp:kv,correl:Vf,DataFrame:It,dropNaNPairwise:zv,isArray:Jf,isDataFrame:Et,isJagged:$f,isUndefined:Uv,ndarray:Pv}=N(),Rv=U();function un(t){let e="@jrc03c/js-data-science-helpers/get-correlation-matrix";return Object.defineProperty(t,e,{configurable:!1,enumerable:!1,writable:!1,value:Symbol.for(e)}),t}function an(t,e){if(Uv(e)&&(e=t),Et(t)){let n=new It(an(t.values,e));return n.index=t.columns.slice(),n.columns=Et(e)?e.columns.slice():new It(e).columns.slice(),un(n)}if(Et(e)){let n=new It(an(t,e.values));return n.index=Et(t)?t.columns.slice():new It(t).columns.slice(),n.columns=e.columns.slice(),un(n)}on(Jf(t)&&Jf(e),"The `getCorrelationMatrix` function only works on 2-dimensional arrays and DataFrames!"),on(!$f(t)&&!$f(e),"The `getCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!"),on(t.length===e.length,'The dimensions of the matrices you passed into the `getCorrelationMatrix` function aren\'t compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you\'ll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.');let r=Pv([t[0].length,e[0].length]);for(let n=0;n<t[0].length;n++){let s=t.map(i=>i[n]);for(let i=0;i<e[0].length;i++){let o=e.map(u=>u[i]);Rv.shouldIgnoreNaNValues?r[n][i]=Vf(...zv(s,o)):r[n][i]=Vf(s,o)}}return un(kv(r,-1,1))}Yf.exports=an});var ln=l((A3,Kf)=>{function Bv(t){try{let e="@jrc03c/js-data-science-helpers/get-correlation-matrix";return t[e]===Symbol.for(e)}catch{return!1}}Kf.exports=Bv});var Hf=l((D3,Lf)=>{var{DataFrame:fn,isArray:Vv,isDataFrame:_t,isNumber:Gf,MathError:Jv,sort:$v}=N(),Wf=cn(),Yv=ln();function Kv(t,e,r){r=Object.values(arguments).find(i=>Gf(i))||1-1e-5;let n=(()=>{let i=Object.values(arguments).filter(o=>Vv(o)||_t(o));if(i.length===1){let o=i[0];if(Yv(o))return _t(o)?o:new fn(o);{let u=Wf(o,null);return _t(u)?u:new fn(u)}}if(i.length===2){let o=Wf(i[0],i[1]);return _t(o)?o:new fn(o)}throw new Jv("You must pass 1 or 2 2-dimensional arrays or DataFrames into the `getHighlyCorrelatedColumns` function!")})(),s={};return n.values.forEach((i,o)=>{i.forEach((u,a)=>{if(Gf(u)&&u>r){let c=n.index[o],f=n.columns[a];s[c]||(s[c]=[]),s[c].indexOf(f)<0&&s[c].push(f),s[f]||(s[f]=[]),s[f].indexOf(c)<0&&s[f].push(c)}})}),Object.keys(s).forEach(i=>{s[i]=$v(s[i])}),s}Lf.exports=Kv});var hn=l((F3,Zf)=>{var{dropNaN:Gv,isArray:Wv,isDataFrame:Lv,isNumber:Hv,isSeries:Xv,pow:Zv,sqrt:Qv,sum:eS}=N(),tS=U();function Xf(t){return Lv(t)||Xv(t)?Xf(t.values):Hv(t)?Math.abs(t):Wv(t)?(tS.shouldIgnoreNaNValues&&(t=Gv(t)),Qv(eS(Zv(t,2)))):NaN}Zf.exports=Xf});var eh=l((j3,Qf)=>{var{count:rS}=N();function nS(t){return rS(t).map(r=>(r.percentage=r.count/t.length,r))}Qf.exports=nS});var th=l((I3,sS)=>{sS.exports=[.5,.49601,.49202,.48803,.48405,.48006,.47608,.4721,.46812,.46414,.46017,.4562,.45224,.44828,.44433,.44038,.4364,.43251,.42858,.42465,.42074,.41683,.41294,.40905,.40517,.40129,.39743,.39358,.38974,.38591,.38209,.37828,.37448,.3707,.36693,.36317,.35942,.35569,.35197,.34827,.34458,.3409,.33724,.3336,.32997,.32636,.32276,.31918,.31561,.31207,.30854,.30503,.30153,.29806,.2946,.29116,.28774,.28434,.28096,.2776,.27425,.27093,.26763,.26435,.26109,.25785,.25463,.25143,.24825,.2451,.24196,.23885,.23576,.2327,.22965,.22663,.22363,.22065,.2177,.21476,.21186,.20897,.20611,.20327,.20045,.19766,.19489,.19215,.18943,.18673,.18406,.18141,.17879,.17619,.17361,.17106,.16853,.16602,.16354,.16109,.15866,.15625,.15386,.15151,.14917,.14686,.14457,.14231,.14007,.13786,.13567,.1335,.13136,.12924,.12714,.12507,.12302,.121,.119,.11702,.11507,.11314,.11123,.10935,.10749,.10565,.10383,.10204,.10027,.09853,.0968,.0951,.09342,.09176,.09012,.08851,.08692,.08534,.08379,.08226,.08076,.07927,.0778,.07636,.07493,.07353,.07215,.07078,.06944,.06811,.06681,.06552,.06426,.06301,.06178,.06057,.05938,.05821,.05705,.05592,.0548,.0537,.05262,.05155,.0505,.04947,.04846,.04746,.04648,.04551,.04457,.04363,.04272,.04182,.04093,.04006,.0392,.03836,.03754,.03673,.03593,.03515,.03438,.03362,.03288,.03216,.03144,.03074,.03005,.02938,.02872,.02807,.02743,.0268,.02619,.02559,.025,.02442,.02385,.0233,.02275,.02222,.02169,.02118,.02068,.02018,.0197,.01923,.01876,.01831,.01786,.01743,.017,.01659,.01618,.01578,.01539,.015,.01463,.01426,.0139,.01355,.01321,.01287,.01255,.01222,.01191,.0116,.0113,.01101,.01072,.01044,.01017,.0099,.00964,.00939,.00914,.00889,.00866,.00842,.0082,.00798,.00776,.00755,.00734,.00714,.00695,.00676,.00657,.00639,.00621,.00604,.00587,.0057,.00554,.00539,.00523,.00508,.00494,.0048,.00466,.00453,.0044,.00427,.00415,.00402,.00391,.00379,.00368,.00357,.00347,.00336,.00326,.00317,.00307,.00298,.00289,.0028,.00272,.00264,.00256,.00248,.0024,.00233,.00226,.00219,.00212,.00205,.00199,.00193,.00187,.00181,.00175,.00169,.00164,.00159,.00154,.00149,.00144,.00139,.00135,.00131,.00126,.00122,.00118,.00114,.00111,.00107,.00104,.001,97e-5,94e-5,9e-4,87e-5,84e-5,82e-5,79e-5,76e-5,74e-5,71e-5,69e-5,66e-5,64e-5,62e-5,6e-4,58e-5,56e-5,54e-5,52e-5,5e-4,48e-5,47e-5,45e-5,43e-5,42e-5,4e-4,39e-5,38e-5,36e-5,35e-5,34e-5,32e-5,31e-5,3e-4,29e-5,28e-5,27e-5,26e-5,25e-5,24e-5,23e-5,22e-5,22e-5,21e-5,2e-4,19e-5,19e-5,18e-5,17e-5,17e-5,16e-5,15e-5,15e-5,14e-5,14e-5,13e-5,13e-5,12e-5,12e-5,11e-5,11e-5,1e-4,1e-4,1e-4,9e-5,9e-5,8e-5,8e-5,8e-5,8e-5,7e-5,7e-5,7e-5,6e-5,6e-5,6e-5,6e-5,5e-5,5e-5,5e-5,5e-5,5e-5,4e-5,4e-5,4e-5,4e-5,4e-5,4e-5,3e-5,3e-5,3e-5,3e-5,3e-5,3e-5,3e-5,3e-5,2e-5,2e-5,2e-5,2e-5]});var mn=l((E3,lh)=>{var{abs:rh,assert:iS,dropNaNPairwise:oS,flatten:Mt,isArray:nh,isDataFrame:sh,isEqual:uS,isSeries:ih,mean:oh,remap:aS,round:cS,shape:uh,sqrt:lS,std:ah}=N(),fS=U(),ch=th();function hS(t){return rh(t)>4.1?0:ch[cS(aS(rh(t),0,4.1,0,ch.length))]}function dn(t,e){if(sh(t)||ih(t))return dn(t.values,e);if(sh(e)||ih(e))return dn(t,e.values);iS(nh(t)&&nh(e)&&uS(uh(t),uh(e)),"You must pass two identically-shaped arrays, Series, or DataFrames into the `pValue` function!");let[r,n]=fS.shouldIgnoreNaNValues?oS(Mt(t),Mt(e)):[Mt(t),Mt(e)];if(r.length===0||n.length===0)return NaN;let s=oh(r),i=oh(n),o=ah(r),u=ah(n),a=r.length,c=n.length,f=(s-i)/lS(o*o/a+u*u/c);return 2*hS(f)}lh.exports=dn});var ph=l((_3,mh)=>{var{assert:pn,clamp:dS,DataFrame:xt,dropNaNPairwise:mS,isArray:fh,isDataFrame:Ct,isJagged:hh,isUndefined:pS,ndarray:gS}=N(),yS=U(),dh=mn();function gn(t){let e="@jrc03c/js-data-science-helpers/get-p-value-matrix";return Object.defineProperty(t,e,{configurable:!1,enumerable:!1,writable:!1,value:Symbol.for(e)}),t}function yn(t,e){if(pS(e)&&(e=t),Ct(t)){let n=new xt(yn(t.values,e));return n.index=t.columns.slice(),n.columns=Ct(e)?e.columns.slice():new xt(e).columns.slice(),gn(n)}if(Ct(e)){let n=new xt(yn(t,e.values));return n.index=Ct(t)?t.columns.slice():new xt(t).columns.slice(),n.columns=e.columns.slice(),gn(n)}pn(fh(t)&&fh(e),"The `getPValueMatrix` function only works on 2-dimensional arrays and DataFrames!"),pn(!hh(t)&&!hh(e),"The `getPValueMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!"),pn(t.length===e.length,'The dimensions of the matrices you passed into the `getPValueMatrix` function aren\'t compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you\'ll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.');let r=gS([t[0].length,e[0].length]);for(let n=0;n<t[0].length;n++){let s=t.map(i=>i[n]);for(let i=0;i<e[0].length;i++){let o=e.map(u=>u[i]);yS.shouldIgnoreNaNValues?r[n][i]=dh(...mS(s,o)):r[n][i]=dh(s,o)}}return gn(dS(r,0,1))}mh.exports=yn});var wh=l((M3,bh)=>{var{assert:kt,intersect:qS,isDataFrame:gh,isSeries:yh,isUndefined:qh}=N(),me=class{constructor(e){let r=this;kt(qh(e)||e===me.DROP_NAN_MODE||e===me.DROP_MISSING_MODE,"The `mode` value passed into the `IndexMatcher` constructor must be undefined or one of [IndexMatcher.DROP_NAN_MODE, IndexMatcher.DROP_MISSING_MODE]! (By default, the mode is `Indexer.DROP_MISSING_MODE`.)"),r.mode=qh(e)?me.DROP_MISSING_MODE:e,r.index=null}fit(){let e=this,r=[];return Object.values(arguments).forEach(n=>{kt(gh(n)||yh(n),"The `IndexMatcher` only works on Series and DataFrames! To drop NaN values in a pair-wise fashion from regular arrays, use the `dropNaNPairwise` function from the @jrc03c/js-math-tools library."),e.mode===me.DROP_MISSING_MODE?r.push(n.dropMissing().index):r.push(n.dropNaN().index)}),e.index=qS(...r),e}transform(){let e=this;kt(!!e.index,"The IndexMatcher hasn't been fitted yet! Please call the `fit` method before calling the `transform` method.");let r=Object.values(arguments).map(n=>(kt(gh(n)||yh(n),"The `IndexMatcher` only works on Series and DataFrames! To drop NaN values in a pair-wise fashion from regular arrays, use the `dropNaNPairwise` function from the @jrc03c/js-math-tools library."),n.get(e.index,null)));return r.length===1?r[0]:r}fitAndTransform(){return this.fit(...arguments).transform(...arguments)}},Re=me;Vt(Re,"DROP_NAN_MODE","DROP_NAN_MODE"),Vt(Re,"DROP_MISSING_MODE","DROP_MISSING_MODE");bh.exports=Re});var bn=l((x3,Nh)=>{var{dropMissing:bS,flatten:wS,isArray:NS,isDataFrame:vS,isSeries:SS}=N();function qn(t){return typeof t=="number"?t===0||t===1:vS(t)||SS(t)?qn(t.values):NS(t)?t.length===0?!1:bS(wS(t)).every(r=>qn(r)):!1}Nh.exports=qn});var Nn=l((C3,Ah)=>{var{assert:wn,isArray:TS,isBoolean:OS,isDataFrame:vh,isSeries:Sh,int:AS,isNumber:DS,isUndefined:Th,range:Oh,set:FS,shape:jS,shuffle:IS}=N();Ah.exports=function(){let e=Array.from(arguments),r=e.find(b=>OS(b)),n=Th(r)?!0:r,s=e.find(b=>DS(b)),i=Th(s)?.1:s;wn(i>0&&i<1,"`testSize` must be a number between 0 and 1 (exclusive on both ends)!");let o=e.filter(b=>TS(b)||vh(b)||Sh(b));wn(o.length>0,"You must pass at least one dataset into the `trainTestSplit` function!");let u=o.map(b=>jS(b)[0]);wn(FS(u).length===1,`All datasets passed into the \`trainTestSplit\` function must be the same length at their shallowest dimension! The lengths of your datasets, though, are: ${u.join(", ")}`);let a=[],c=n?IS(Oh(0,u[0])):Oh(0,u[0]),f=AS((1-i)*c.length),h=c.slice(0,f),p=c.slice(f);return o.forEach(b=>{if(vh(b))a.push(b.get(h,null)),a.push(b.get(p,null));else if(Sh(b))a.push(b.get(h)),a.push(b.get(p));else{let F=[],A=[];b.forEach((P,ye)=>{h.indexOf(ye)>-1?F.push(P):A.push(P)}),a.push(F),a.push(A)}}),a}});var Be=l((k3,_h)=>{var{add:ES,argmin:_S,assert:MS,distance:xS,flatten:Dh,int:CS,isArray:kS,isDataFrame:Fh,isEqual:zS,isNumber:US,isSeries:jh,normal:vn,pow:PS,random:RS,range:BS,scale:VS,shape:zt,subtract:JS,sum:$S,zeros:YS}=N(),KS=Nn();function Sn(t,e){(Fh(t)||jh(t))&&(t=t.values),(Fh(e)||jh(e))&&(e=e.values),MS(zS(zt(t),zt(e)),"`yPred` and `yTrue` must have the same shape!");let r=Dh(t),n=Dh(e),s=0;return r.forEach((i,o)=>{i===n[o]&&s++}),s/r.length}function GS(t){let e=YS([t.length,t.length]);for(let r=0;r<t.length-1;r++)for(let n=r+1;n<t.length;n++){let s=xS(t[r],t[n]);e[r][n]=s,e[n][r]=s}return e}function WS(t){test(`tests that the \`${t.name}\` model works correctly`,()=>{let e=vn([5,10]).map(h=>h.map(p=>p*100+vn()*100)),r=[],n=BS(0,500).map(()=>{let h=CS(RS()*e.length),p=e[h];return r.push(h),ES(p,VS(5,vn(zt(p))))}),[s,i,o,u]=KS(n,r),a=new t({k:e.length});a.fit(s),a.centroids=Ih(e,a.centroids);let c=a.predict(s),f=a.predict(i);expect(Sn(o,c)).toBeGreaterThan(.95),expect(Sn(u,f)).toBeGreaterThan(.95)})}function LS(t){return kS(t)&&zt(t).length===2}function HS(t){return US(t)&&parseInt(t)===t&&t>=0}function Ih(t,e){return t.map(r=>e[_S(e.map(n=>Eh(r,n)))])}function Eh(t,e){return $S(PS(JS(t,e),2))}_h.exports={accuracy:Sn,createGenericTest:WS,getDistanceMatrix:GS,isMatrix:LS,isWholeNumber:HS,orderCentroids:Ih,sse:Eh}});var Pt=l((z3,kh)=>{var{add:Mh,argmin:XS,assert:re,copy:ZS,distance:xh,divide:QS,isDataFrame:e2,isFunction:t2,isUndefined:Ut,normal:r2,random:n2,range:s2,scale:i2,shuffle:o2,zeros:Ch}=N(),{isMatrix:u2,isWholeNumber:Tn,sse:a2}=Be(),On=class{constructor(e){re(typeof e=="object","`config` must be an object! See the documentation for more information about the properties that the `config` object can contain."),re(Tn(e.k),"`k` must be a whole number!"),re(Tn(e.maxIterations)||Ut(e.maxIterations),"`maxIterations` must be a whole number or undefined!"),re(Tn(e.maxRestarts)||Ut(e.maxRestarts),"`maxRestarts` must be a whole number or undefined!"),re(typeof e.tolerance=="number"||Ut(e.tolerance),"`tolerance` must be a number or undefined!"),this.k=e.k,this.maxRestarts=e.maxRestarts||25,this.maxIterations=e.maxIterations||100,this.tolerance=e.tolerance||1e-4,this.centroids=null}initializeCentroids(e){return o2(e).slice(0,this.k)}getFitStepFunction(e,r){re(u2(e),"`x` must be a matrix!"),e2(e)&&(e=e.values),Ut(r)||re(t2(r),"If defined, `progress` must be a function!");let n=this.initializeCentroids(e),s={currentRestart:0,currentIteration:0,currentCentroids:n,bestCentroids:n,bestScore:-1/0,isFinished:!1};return()=>{let i=this.predict(e,s.currentCentroids),o=[],u=Ch(this.k);e.forEach((c,f)=>{let h=i[f];o[h]||(o[h]=Ch(c.length)),o[h]=Mh(o[h],c),u[h]++});let a=s2(0,this.k).map(c=>u[c]===0?Mh(s.currentCentroids[parseInt(n2()*s.currentCentroids.length)],i2(.001,r2(s.currentCentroids[0].length))):QS(o[c],u[c]));if(xh(s.currentCentroids,a)<this.tolerance?s.currentIteration=this.maxIterations-1:s.currentCentroids=a,r&&r((s.currentRestart+s.currentIteration/this.maxIterations)/this.maxRestarts,this),s.currentIteration++,s.currentIteration>=this.maxIterations){let c=this.score(e,s.currentCentroids);if(c>s.bestScore&&(s.bestScore=c,s.bestCentroids=ZS(s.currentCentroids)),s.currentIteration=0,s.currentRestart++,s.currentRestart>=this.maxRestarts)s.isFinished=!0,this.centroids=s.bestCentroids,r&&r(1,this);else{let f=this.initializeCentroids(e);s.currentCentroids=f}}return s}}fit(e,r){let n=this.getFitStepFunction(e,r),s;for(;!s||!s.isFinished;)s=n();return this}predict(e,r){if(r=r||this.centroids,!r)throw new Error("No centroids were provided to the `predict` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `predict` method or run the `fit` method first!");return e.map(n=>XS(r.map(s=>xh(n,s))))}score(e,r){if(r=r||this.centroids,!r)throw new Error("No centroids were provided to the `score` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `score` method or run the `fit` method first!");let s=this.predict(e,r).map(i=>r[i]);return-a2(e,s)}};kh.exports=On});var Uh=l((U3,zh)=>{var{argmin:c2,assert:l2,DataFrame:f2,floor:An,isNumber:h2,max:d2,random:Dn}=N(),{getDistanceMatrix:m2}=Be(),p2=Pt(),Fn=class extends p2{distancesCache={};subSampleSize=0;constructor(e){e=e||{},super(e),e.subSampleSize&&(l2(h2(e.subSampleSize)&&e.subSampleSize>0&&Math.floor(e.subSampleSize)===e.subSampleSize,`If included in the configuration object passed into the \`${this.constructor.name}\` constructor, the "subSampleSize" key must point to a positive integer value!`),e.subSampleSize<this.k&&(e.subSampleSize=this.k,console.warn(`NOTE: You provided a "subSampleSize" (${e.subSampleSize}) that is smaller than \`k\` (${this.k}), so we have automatically increased the "subSampleSize" to \`k\`!`)),this.subSampleSize=e.subSampleSize)}initializeCentroids(e){if(e instanceof f2&&(e=e.values),this.subSampleSize&&this.subSampleSize>0){let o=[];for(;o.length<this.subSampleSize;){let u=e[An(Dn()*e.length)];o.includes(u)||o.push(u)}e=o}let r=(()=>{if(this.distancesCache[e])return this.distancesCache[e];{let o=m2(e);return this.distancesCache[e]=o,o}})(),s=d2(r)/this.k,i=[];return e.forEach((o,u)=>{let a=r[u];if(i.length===0)i.push([o]);else{let c=i.map(p=>a[e.indexOf(p[An(Dn()*p.length)])]),f=c2(c);c[f]<s||i.length>=this.k?i[f].push(o):i.push([o])}}),i.map(o=>o[An(Dn()*o.length)])}};zh.exports=Fn});var In=l((P3,Bh)=>{var{argmin:g2,distance:Ph,divide:y2,max:q2,random:Rh}=N(),b2=Pt(),jn=class extends b2{initializeCentroids(e){let r=[e[parseInt(Rh()*e.length)]];for(;r.length<this.k;){let n=e.map(i=>Ph(i,r[g2(r.map(o=>Ph(i,o)))])),s=y2(n,q2(n));r.push(e[s.findIndex(i=>Rh()<i)])}return r}};Bh.exports=jn});var $h=l((R3,Jh)=>{var{assert:J,isArray:w2,isDataFrame:N2,isEqual:v2,isFunction:S2,isUndefined:pe,range:T2,shape:Vh}=N(),{isMatrix:O2,isWholeNumber:En}=Be(),A2=In(),_n=class{constructor(e){pe(e)&&(e={}),J(typeof e=="object","`config` must be an object! See the documentation for more information about the properties that the `config` object can contain."),pe(e.ks)&&(e.ks=T2(1,16)),J(w2(e.ks),"`ks` must be an array of whole numbers!"),e.ks.forEach(r=>{J(En(r),"`ks` must be an array of whole numbers!")}),J(En(e.maxIterations)||pe(e.maxIterations),"`maxIterations` must be a whole number or undefined!"),J(En(e.maxRestarts)||pe(e.maxRestarts),"`maxRestarts` must be a whole number or undefined!"),J(typeof e.tolerance=="number"||pe(e.tolerance),"`tolerance` must be a number or undefined!"),this.ks=e.ks,this.maxRestarts=e.maxRestarts||25,this.maxIterations=e.maxIterations||100,this.tolerance=e.tolerance||1e-4,this.scoreStopRatio=e.scoreStopRatio||.85,this.modelClass=e.modelClass||A2,this.fittedModel=null}getFitStepFunction(e,r){J(O2(e),"`x` must be a matrix!"),N2(e)&&(e=e.values),pe(r)||J(S2(r),"If defined, `progress` must be a function!");let n={isFinished:!1,lastScore:-1/0,currentIndex:0};return()=>{let s=this.ks[n.currentIndex],i=new this.modelClass({k:s,maxRestarts:10,maxIterations:20});i.fit(e,u=>r?r((n.currentIndex+u)/(this.ks.length+1)):null);let o=i.score(e);return o/n.lastScore>this.scoreStopRatio?(n.isFinished=!0,n.currentIndex--):(n.lastScore=o,n.currentIndex+1>=this.ks.length?n.isFinished=!0:n.currentIndex++),n.isFinished&&(this.fittedModel=new this.modelClass({k:this.ks[n.currentIndex],maxRestarts:this.maxRestarts,maxIterations:this.maxIterations}),this.fittedModel.fit(e,u=>r?r((this.ks.length+u)/(this.ks.length+1)):null),r&&r(1)),n}}fit(e,r){let n=this.getFitStepFunction(e,r),s;for(;!s||!s.isFinished;)s=n();return this}predict(e,r){return this.fittedModel.predict(e,r)}score(e,r){return this.fittedModel.score(e,r)}get k(){return this.fittedModel.k}set k(e){throw new Error("You can't set the k-value manually! It has to be set automatically via the `fit` method.")}get centroids(){return this.fittedModel.centroids}set centroids(e){J(v2(Vh(e),Vh(this.fittedModel.centroids)),"When assigning a new value to the `centroids` property, the new centroids must have the same shape as the old centroids!"),this.fittedModel.centroids=e}};Jh.exports=_n});var Kh=l((B3,Yh)=>{Yh.exports={helpers:Be(),KMeansEstimated:Uh(),KMeansMeta:$h(),KMeansNaive:Pt(),KMeansPlusPlus:In()}});var Mn=l((V3,Zh)=>{var{apply:D2,assert:F2,dropNaN:Gh,isArray:j2,isDataFrame:I2,isSeries:E2,mean:Wh,std:Lh}=N(),Hh=U();function Xh(t){if(I2(t)||E2(t)){let n=t.copy();return n.values=Xh(n.values),n}F2(j2(t),"The `normalize` function only works on arrays, Series, and DataFrames!");let e=(()=>Hh.shouldIgnoreNaNValues?Wh(Gh(t)):Wh(t))(),r=(()=>Hh.shouldIgnoreNaNValues?Lh(Gh(t)):Lh(t))();return r===0?t:D2(t,n=>(n-e)/r)}Zh.exports=Xh});var Cn=l((J3,nd)=>{var{assert:ge,dot:Qh,isArray:ed,isSeries:xn,scale:_2,Series:M2,shape:td}=N(),rd=he();function Rt(t,e){if(xn(t)){if(xn(e))return new M2(Rt(t.values,e.values));{let r=t.copy();return r.values=Rt(t.values,e),r}}if(xn(e)){let r=e.copy();return r.values=Rt(t,e.values),r}return ge(ed(t),"`project` only works on vectors!"),ge(ed(e),"`project` only works on vectors!"),ge(rd(t),"`project` only works on vectors of numbers!"),ge(rd(e),"`project` only works on vectors of numbers!"),ge(td(t).length===1,"`project` only works on vectors!"),ge(td(e).length===1,"`project` only works on vectors!"),_2(Qh(e,t)/Qh(e,e),e)}nd.exports=Rt});var ad=l(($3,ud)=>{var{assert:sd,copy:x2,DataFrame:C2,divide:k2,isArray:z2,isDataFrame:U2,isJagged:P2,shape:R2,subtract:B2,transpose:id}=N(),V2=he(),J2=hn(),$2=Cn();function od(t){if(U2(t)){let s=new C2(od(t.values));return s.index=t.index.slice(),s.columns=t.columns.slice(),s}sd(z2(t)&&!P2(t)&&R2(t).length===2,"`orthonormalize` only works on matrices!"),sd(V2(t),"`orthonormalize` only works on matrices of numbers!");let e=id(t),r=[];e.forEach(s=>{let i=x2(s);r.forEach(o=>{i=B2(i,$2(i,o))}),r.push(i)});let n=r.map(s=>k2(s,J2(s)));return id(n)}ud.exports=od});var Td=l((Y3,Sd)=>{var{abs:cd,apply:kn,assert:Ve,clamp:Y2,copy:K2,divide:G2,dropNaN:ld,flatten:fd,isArray:hd,isBoolean:dd,isDataFrame:md,isNumber:zn,isSeries:pd,isUndefined:gd,log:W2,max:yd,median:qd,min:bd,sort:L2,subtract:wd}=N(),Nd=U(),vd=he(),H2=bn(),Un=class{constructor(e){e=e||{},this.isAllowedToClip=gd(e.isAllowedToClip)?!0:e.isAllowedToClip,this.isAllowedToTakeTheLog=gd(e.isAllowedToTakeTheLog)?!1:e.isAllowedToTakeTheLog,this.maxScore=e.maxScore||5,Ve(dd(this.isAllowedToClip),"The `isAllowedToClip` property on the options object passed into the `OutlierMitigator` constructor must have a boolean value!"),Ve(dd(this.isAllowedToTakeTheLog),"The `isAllowedToTakeTheLog` property on the options object passed into the `OutlierMitigator` constructor must have a boolean value!"),Ve(zn(this.maxScore)&&this.maxScore>=0,"The `maxScore` property on the options object passed into the `OutlierMitigator` constructor must have a non-negative number value!"),this.mad=0,this.median=0}fit(e){if(md(e)||pd(e))return this.fit(e.values);if(Ve(hd(e),"The `OutlierMitigator.fit` method only works on arrays, Series, and DataFrames!"),!Nd.shouldIgnoreNaNValues&&!vd(e))return this.mad=NaN,this.median=NaN,this;let r=fd(e),n=ld(r);return H2(n)?this:n.length===0?this:(this.median=qd(n),this.mad=qd(cd(wd(n,this.median))),this)}fitTransform(){return this.fit(arguments[0]).transform(...arguments)}transform(){if(arguments.length>1)return Array.from(arguments).map(o=>this.transform(o));let e=arguments[0];if(md(e)||pd(e))return this.transform(e.values);if(Ve(hd(e),"The `OutlierMitigator.transform` method only works on arrays, Series, and DataFrames!"),!Nd.shouldIgnoreNaNValues&&!vd(e))return kn(e,()=>NaN);let r=fd(e),n=ld(r),s=!1;if(this.mad===0){let o=L2(K2(n)),u=o.filter(h=>h<this.median),a=o.filter(h=>h>this.median),c=this.median,f=this.median;if(u.length>0&&(c=yd(u)),a.length>0&&(f=bd(a)),this.mad=(f-c)/2,this.mad===0)return e;s=(this.median-c)/this.mad>this.maxScore||(f-this.median)/this.mad>this.maxScore}if(yd(G2(cd(wd(n,this.median)),this.mad))>this.maxScore||s){let o=this.isAllowedToClip?kn(e,u=>zn(u)?Y2(u,this.median-this.maxScore*this.mad,this.median+this.maxScore*this.mad):u):e;if(this.isAllowedToTakeTheLog){let u=bd(o);o=kn(o,a=>zn(a)?W2(a-u+1):a)}return o}else return e}};Sd.exports=Un});var xd=l((K3,Md)=>{var{abs:X2,add:Z2,assert:Je,isArray:Od,isDataFrame:Ad,isEqual:Q2,isSeries:Dd,mean:eT,pow:Fd,scale:tT,shape:jd,sign:rT,sqrt:nT,sum:Id}=N(),Ed=he(),_d=(t,e)=>Z2(t,tT(e,-1));function Pn(t,e){if(Ad(t)||Dd(t))return Pn(t.values,e);if(Ad(e)||Dd(e))return Pn(t,e.values);Je(Od(t),"You must pass two same-shaped numerical arrays into the `rScore` function!"),Je(Od(e),"You must pass two same-shaped numerical arrays into the `rScore` function!"),Je(Q2(jd(t),jd(e)),"You must pass two same-shaped numerical arrays into the `rScore` function!"),Je(Ed(t),"You must pass two same-shaped numerical arrays into the `rScore` function!"),Je(Ed(e),"You must pass two same-shaped numerical arrays into the `rScore` function!");let r=Id(Fd(_d(t,e),2)),n=Id(Fd(_d(t,eT(t)),2));if(n===0)return NaN;let s=1-r/n;return rT(s)*nT(X2(s))}Md.exports=Pn});var Pd=l((G3,Ud)=>{var{argmax:Cd,assert:$e,copy:sT,DataFrame:iT,dot:oT,isArray:uT,isDataFrame:aT,isEqual:kd,isJagged:cT,isNumber:lT,reverse:fT,shape:hT,transpose:dT}=N();function zd(t){if(uT(t)){$e(hT(t).length===2&&!cT(t),"The `sortCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!");let u=new iT(t);return u.index=u.columns.slice(),zd(u).values}$e(aT(t),"You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function!");let e=t.copy(),r=[];e.values.forEach((u,a)=>{u.forEach((c,f)=>{lT(c)?$e(c>=-1&&c<=1,"The correlation matrix passed into the `sortCorrelationMatrix` function must not contain values less than -1 or greater than 1!"):(r.push({row:e.index[a],col:e.columns[f],value:c}),e.values[a][f]=-1/0)})}),$e(kd(e.values,dT(e.values)),"The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical!"),$e(kd(e.index,e.columns),"The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical! (In this case, although the values themselves are symmetrical, the row and column names differ.)");let n=sT(e.index),s=[];for(;n.length>0;)if(s.length===0){let u=Cd(e.values.map(a=>oT(a,a)));s.push(n[u]),n.splice(u,1)}else{let u=e.index.indexOf(s.at(-1)),a=Cd(n.map(f=>e.values[e.index.indexOf(f)][u])),c=n[a];s.push(c),n.splice(a,1)}let i=fT(s),o=e.get(i,i);return r.forEach(u=>{let a=o.index.indexOf(u.row),c=o.columns.indexOf(u.col);o.values[a][c]=u.value,o.values[c][a]=u.value}),o}Ud.exports=zd});var Bd=l((W3,Rd)=>{var mT=Mn();function pT(){return mT(...arguments)}Rd.exports=pT});var Hd=l((L3,Ld)=>{var{assert:Bt,DataFrame:Vd,dropNaN:gT,flatten:Jd,isArray:yT,isDataFrame:Rn,isSeries:Bn,mean:$d,range:qT,Series:Yd,shape:Kd,stdev:Gd,transpose:Wd}=N(),bT=U(),Vn=class{constructor(){let e=this;e.means=[],e.stdevs=[],e.wasFittedOnAVector=!1,e.hasBeenFitted=!1}_getDataArrayAndShape(e){if(Rn(e))return[e.values,e.shape];if(Bn(e)){let n=Wd([e.values]);return[n,Kd(n)]}Bt(yT(e),"`x` must be a 1- or 2-dimensional array, DataFrame, or Series!");let r=Kd(e);return Bt(r.length<3,"`x` must be a 1- or 2-dimensional array, DataFrame, or Series!"),r.length===1&&(r.push(1),e=Wd([e])),[e,r]}fit(e){let r=this,n=r._getDataArrayAndShape(e);e=n[0];let s=n[1];return r.wasFittedOnAVector=s.indexOf(1)>-1,r.means=[],r.stdevs=[],qT(0,s[1]).forEach(i=>{let o=e.map(u=>u[i]);if(bT.shouldIgnoreNaNValues){let u=gT(o);r.means.push($d(u)),r.stdevs.push(Gd(u))}else r.means.push($d(o)),r.stdevs.push(Gd(o))}),r.hasBeenFitted=!0,r}transform(e){let r=this;if(!r.hasBeenFitted)throw new Error("This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.");if(Rn(e)){let o=new Vd(r.transform(e.values));return o.columns=e.columns,o.index=e.index,o}if(Bn(e)){let o=new Yd(r.transform(e.values));return o.name=e.name,o.index=e.index,o}let n=r._getDataArrayAndShape(e);e=n[0];let s=n[1];Bt(s[1]===r.means.length,"The data you passed into the `transform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!");let i=e.map(o=>o.map((u,a)=>(u-r.means[a])/r.stdevs[a]));return r.wasFittedOnAVector?Jd(i):i}untransform(e){let r=this;if(!r.hasBeenFitted)throw new Error("This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.");if(Rn(e)){let o=new Vd(r.untransform(e.values));return o.columns=e.columns,o.index=e.index,o}if(Bn(e)){let o=new Yd(r.untransform(e.values));return o.name=e.name,o.index=e.index,o}let n=r._getDataArrayAndShape(e);e=n[0];let s=n[1];Bt(s[1]===r.means.length,"The data you passed into the `untransform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!");let i=e.map(o=>o.map((u,a)=>u*r.stdevs[a]+r.means[a]));return r.wasFittedOnAVector?Jd(i):i}};Ld.exports=Vn});var NT=l((H3,Zd)=>{var{MathError:wT}=N(),Xd={cohensd:Wr(),cohensD:Wr(),common:U(),containsOnlyNumbers:he(),convertToNumerical:zf(),diagonalize:Bf(),getCorrelationMatrix:cn(),getHighlyCorrelatedColumns:Hf(),getMagnitude:hn(),getOneHotEncodings:sn(),getPercentages:eh(),getPValueMatrix:ph(),IndexMatcher:wh(),isBinary:bn(),isCorrelationMatrix:ln(),KMeans:Kh(),normalize:Mn(),orthonormalize:ad(),OutlierMitigator:Td(),project:Cn(),pValue:mn(),rScore:xd(),sortCorrelationMatrix:Pd(),standardize:Bd(),StandardScaler:Hd(),trainTestSplit:Nn(),dump(){let t=this,e=typeof global<"u"?global:typeof window<"u"?window:null;if(!e)throw new wT("Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!");Object.keys(t).forEach(r=>{try{Object.defineProperty(e,r,{configurable:!1,enumerable:!0,writable:!1,value:t[r]})}catch{e[r]=t[r]}})}};try{window.JSDataScienceHelpers=Xd}catch{}try{Zd.exports=Xd}catch{}});NT();})();
+  `)
+    $c.exports = X1
+  })
+  var Gc = l((zA, Kc) => {
+    var $r = g(),
+      Z1 = v()
+    function Q1(t, e, r) {
+      try {
+        return $r(t) ? ($r(e) ? ($r(r) ? r * (e - t) + t : NaN) : NaN) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Kc.exports = Z1(Q1)
+  })
+  var Hc = l((UA, Lc) => {
+    var Wc = g(),
+      ew = w(),
+      tw = v()
+    function rw(t, e) {
+      try {
+        return (
+          (e = ew(e) ? Math.E : e),
+          Wc(t) ? (Wc(e) ? Math.log(t) / Math.log(e) : NaN) : NaN
+        )
+      } catch {
+        return NaN
+      }
+    }
+    Lc.exports = tw(rw)
+  })
+  var Qc = l((PA, Zc) => {
+    var nw = d(),
+      sw = O(),
+      iw = m(),
+      ow = q(),
+      uw = y(),
+      aw = K()
+    function Xc(t) {
+      if (ow(t) || uw(t)) return Xc(t.values)
+      nw(
+        iw(t),
+        "The `median` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        let e = aw(sw(t))
+        return e.length === 0
+          ? NaN
+          : e.length % 2 === 0
+            ? (e[e.length / 2 - 1] + e[e.length / 2]) / 2
+            : e[parseInt(e.length / 2)]
+      } catch {
+        return NaN
+      }
+    }
+    Zc.exports = Xc
+  })
+  var rl = l((RA, tl) => {
+    var el = g(),
+      cw = v()
+    function lw(t, e) {
+      try {
+        return el(t) ? (el(e) ? t % e : NaN) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    tl.exports = cw(lw)
+  })
+  var ol = l((BA, il) => {
+    var fw = d(),
+      hw = ve(),
+      dw = O(),
+      mw = m(),
+      pw = q(),
+      gw = y(),
+      yw = x(),
+      nl = K()
+    function sl(t) {
+      if (pw(t) || gw(t)) return sl(t.values)
+      fw(
+        mw(t),
+        "The `mode` function only works on arrays, Series, and DataFrames!",
+      )
+      try {
+        if (t.length === 0) return NaN
+        let e = dw(t)
+        if (e.length === 0) return NaN
+        let r = {},
+          n = yw(e)
+        n.forEach(u => {
+          r[u] = hw(e, u)
+        })
+        let s = nl(n, (u, a) => r[a] - r[u]),
+          i = s[0]
+        return nl(s.filter(u => r[u] === r[i]))
+      } catch {
+        return NaN
+      }
+    }
+    il.exports = sl
+  })
+  var ll = l((VA, cl) => {
+    var { random: ul } = oe(),
+      qw = ke(),
+      bw = w(),
+      ww = Y()
+    function al() {
+      let t = ul(),
+        e = ul()
+      return Math.sqrt(-2 * Math.log(t)) * Math.cos(2 * Math.PI * e)
+    }
+    function Nw(t) {
+      return bw(t) ? al() : qw(ww(t), al)
+    }
+    cl.exports = Nw
+  })
+  var hl = l((JA, fl) => {
+    var vw = ke(),
+      Sw = Y()
+    function Tw(t) {
+      return vw(Sw(t), () => 1)
+    }
+    fl.exports = Tw
+  })
+  var ml = l(($A, dl) => {
+    var Yr = d(),
+      Ow = O(),
+      Aw = m(),
+      Dw = q(),
+      Fw = g(),
+      jw = y(),
+      Iw = w()
+    function At(t, e) {
+      if (Dw(t) || jw(t)) return At(t.values, e)
+      if (
+        (Yr(
+          Aw(t),
+          "The `permutations` function only works on arrays, Series, and DataFrames!",
+        ),
+        Iw(e) && (e = t.length),
+        Yr(Fw(e), "`r` must be a whole number!"),
+        (t = Ow(t)),
+        e > t.length)
+      )
+        return At(t)
+      if (e <= 0) return [[]]
+      if ((Yr(e === parseInt(e), "`r` must be a whole number!"), t.length < 2))
+        return t
+      let r = []
+      return (
+        t.forEach((n, s) => {
+          let i = t.slice(0, s),
+            o = t.slice(s + 1),
+            u = i.concat(o)
+          At(u, e - 1).forEach(c => {
+            r.push([n].concat(c))
+          })
+        }),
+        r
+      )
+    }
+    dl.exports = At
+  })
+  var gl = l((YA, pl) => {
+    var { DataFrame: Ew, Series: _w } = xe(),
+      Mw = m(),
+      xw = q(),
+      Cw = Se(),
+      kw = y(),
+      zw = S()
+    function Uw() {
+      Object.keys(arguments).forEach(t => {
+        let e = arguments[t]
+        if (Mw(e))
+          if (Cw(e)) console.log(e)
+          else {
+            let r = zw(e)
+            r.length === 1
+              ? new _w(e).print()
+              : r.length == 2
+                ? new Ew(e).print()
+                : console.log(e)
+          }
+        else xw(e) || kw(e) ? e.print() : console.log(e)
+      })
+    }
+    pl.exports = Uw
+  })
+  var bl = l((KA, ql) => {
+    var Pw = m(),
+      Rw = g(),
+      yl = w(),
+      Bw = ce(),
+      Vw = lt(),
+      Jw = v(),
+      $w = Jw(function (t, e, r, n, s) {
+        try {
+          return [t, e, r, n, s].every(i => Rw(i))
+            ? r - e === 0
+              ? NaN
+              : ((s - n) * (t - e)) / (r - e) + n
+            : NaN
+        } catch {
+          return NaN
+        }
+      })
+    function Yw(t, e, r, n, s) {
+      return (
+        Pw(t) && yl(n) && yl(s) && ((n = e), (s = r), (e = Vw(t)), (r = Bw(t))),
+        $w(t, e, r, n, s)
+      )
+    }
+    ql.exports = Yw
+  })
+  var Nl = l((GA, wl) => {
+    var Kw = g(),
+      Gw = v()
+    function Ww(t) {
+      try {
+        return Kw(t) ? Math.round(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    wl.exports = Gw(Ww)
+  })
+  var Sl = l((WA, vl) => {
+    var Lw = g(),
+      Hw = v()
+    function Xw(t) {
+      try {
+        return Lw(t) ? (t < 0 ? -1 : t > 0 ? 1 : 0) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    vl.exports = Hw(Xw)
+  })
+  var Ol = l((LA, Tl) => {
+    var Zw = g(),
+      Qw = v()
+    function eN(t) {
+      try {
+        return Zw(t) ? Math.sin(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Tl.exports = Qw(eN)
+  })
+  var Dl = l((HA, Al) => {
+    var tN = mt()
+    function rN(t) {
+      return tN(t)
+    }
+    Al.exports = rN
+  })
+  var jl = l((XA, Fl) => {
+    var nN = g(),
+      sN = v()
+    function iN(t) {
+      try {
+        return nN(t) ? Math.tan(t) : NaN
+      } catch {
+        return NaN
+      }
+    }
+    Fl.exports = sN(iN)
+  })
+  var Dt = l((ZA, _l) => {
+    var Il = d(),
+      El = I()
+    function oN(t, e) {
+      Il(El(t), "`fn` must be a function!")
+      let r = new Date()
+      return e ? t(...e) : t(), new Date() - r
+    }
+    async function uN(t, e) {
+      Il(El(t), "`fn` must be a function!")
+      let r = new Date()
+      return e ? await t(...e) : await t(), new Date() - r
+    }
+    _l.exports = { timeSync: oN, timeAsync: uN }
+  })
+  var xl = l((QA, Ml) => {
+    var aN = m(),
+      cN = q(),
+      lN = y(),
+      fN = x()
+    function hN() {
+      return fN(
+        [...arguments].map(t => (aN(t) ? t : cN(t) || lN(t) ? t.values : [t])),
+      )
+    }
+    Ml.exports = hN
+  })
+  var kl = l((e3, Cl) => {
+    var dN = d(),
+      mN = m(),
+      pN = q(),
+      gN = y(),
+      yN = w(),
+      qN = ce(),
+      bN = M()
+    function wN() {
+      let t = [],
+        e = Object.values(arguments).map(
+          r => (
+            (pN(r) || gN(r)) && (r = r.values),
+            dN(
+              mN(r),
+              "The `zip` function only works on arrays, Series, and DataFrames!",
+            ),
+            r
+          ),
+        )
+      return (
+        bN(0, qN(e.map(r => r.length))).forEach(r => {
+          let n = []
+          e.forEach(s => {
+            let i = s[r]
+            n.push(yN(i) ? void 0 : i)
+          }),
+            t.push(n)
+        }),
+        t
+      )
+    }
+    Cl.exports = wN
+  })
+  var N = l((t3, Kr) => {
+    var { copy: NN, decycle: vN } = R(),
+      { DataFrame: SN, Series: TN } = xe(),
+      fe = {
+        abs: at(),
+        add: ct(),
+        apply: ke(),
+        arccos: wu(),
+        arcsin: vu(),
+        arctan: Tu(),
+        argmax: Au(),
+        argmin: Iu(),
+        assert: d(),
+        cast: Sr(),
+        ceil: Cu(),
+        chop: Uu(),
+        clamp: Ru(),
+        combinations: Vu(),
+        copy: NN,
+        correl: aa(),
+        cos: la(),
+        count: ve(),
+        covariance: Fr(),
+        DataFrame: SN,
+        dataTypes: ha(),
+        decycle: vN,
+        diff: qa(),
+        distance: _a(),
+        divide: xa(),
+        dot: kr(),
+        dropMissing: zr(),
+        dropMissingPairwise: Ha(),
+        dropNaN: tr(),
+        dropNaNPairwise: sc(),
+        dropUndefined: oc(),
+        exp: ac(),
+        factorial: fc(),
+        find: pc(),
+        findAll: bc(),
+        flatten: O(),
+        float: Nc(),
+        floor: Sc(),
+        identity: Ac(),
+        indexOf: qe(),
+        inferType: Cc(),
+        int: zc(),
+        intersect: Pc(),
+        inverse: Jc(),
+        isArray: m(),
+        isBoolean: rt(),
+        isBrowser: Yc(),
+        isDataFrame: q(),
+        isDate: we(),
+        isEqual: z(),
+        isFunction: I(),
+        isJagged: Se(),
+        isNested: Ke(),
+        isNumber: g(),
+        isObject: $(),
+        isSeries: y(),
+        isString: E(),
+        isUndefined: w(),
+        lerp: Gc(),
+        log: Hc(),
+        MathError: ne(),
+        max: ce(),
+        mean: ft(),
+        median: Qc(),
+        min: lt(),
+        mod: rl(),
+        mode: ol(),
+        multiply: _r(),
+        ndarray: Y(),
+        normal: ll(),
+        ones: hl(),
+        permutations: ml(),
+        pow: pt(),
+        print: gl(),
+        product: Fe(),
+        random: oe().random,
+        range: M(),
+        remap: bl(),
+        reshape: et(),
+        reverse: Te(),
+        round: Nl(),
+        scale: le(),
+        seed: oe().seed,
+        Series: TN,
+        set: x(),
+        shape: S(),
+        shuffle: tt(),
+        sign: Sl(),
+        sin: Ol(),
+        sort: K(),
+        sqrt: dt(),
+        std: mt(),
+        stdev: Dl(),
+        subtract: Mr(),
+        sum: gt(),
+        tan: jl(),
+        time: Dt().timeSync,
+        timeSync: Dt().timeSync,
+        timeAsync: Dt().timeAsync,
+        transpose: te(),
+        union: xl(),
+        variance: jr(),
+        vectorize: v(),
+        zeros: Rr(),
+        zip: kl(),
+        dump: function () {
+          let t =
+            typeof globalThis < "u"
+              ? globalThis
+              : typeof global < "u"
+                ? global
+                : typeof window < "u"
+                  ? window
+                  : typeof self < "u"
+                    ? self
+                    : void 0
+          if (!t)
+            throw new fe.MathError(
+              "Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!",
+            )
+          Object.keys(fe).forEach(e => {
+            try {
+              Object.defineProperty(t, e, {
+                configurable: !1,
+                enumerable: !0,
+                writable: !1,
+                value: fe[e],
+              })
+            } catch {
+              t[e] = fe[e]
+            }
+          })
+        },
+      }
+    typeof Kr < "u" && (Kr.exports = fe)
+    typeof window < "u" && (window.JSMathTools = fe)
+  })
+  var U = l((r3, zl) => {
+    zl.exports = { shouldIgnoreNaNValues: !0 }
+  })
+  var Wr = l((n3, Yl) => {
+    var {
+        assert: Ul,
+        dropNaN: Pl,
+        isArray: Rl,
+        isSeries: Bl,
+        mean: Vl,
+        shape: Jl,
+        variance: $l,
+      } = N(),
+      ON = U()
+    function Gr(t, e) {
+      if (Bl(t)) return Gr(t.values, e)
+      if (Bl(e)) return Gr(t, e.values)
+      Ul(
+        Rl(t) && Rl(e) && Jl(t).length === 1 && Jl(e).length === 1,
+        "The `cohensd` function only works on 1-dimensional arrays and Series!",
+      ),
+        Ul(
+          t.length === e.length,
+          "Two arrays or Series passed into the `cohensd` function must have the same length!",
+        ),
+        ON.shouldIgnoreNaNValues && ((t = Pl(t)), (e = Pl(e)))
+      try {
+        let r = Vl(t),
+          n = Vl(e),
+          s = Math.sqrt(($l(t) + $l(e)) / 2)
+        return (r - n) / s
+      } catch {
+        return NaN
+      }
+    }
+    Yl.exports = Gr
+  })
+  var he = l((s3, Gl) => {
+    var {
+      assert: AN,
+      flatten: DN,
+      isArray: FN,
+      isDataFrame: jN,
+      isNumber: IN,
+      isSeries: EN,
+    } = N()
+    function Kl(t) {
+      if (jN(t) || EN(t)) return Kl(t.values)
+      AN(
+        FN(t),
+        "The `containsOnlyNumbers` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = DN(t)
+      for (let r = 0; r < e.length; r++) if (!IN(e[r])) return !1
+      return !0
+    }
+    Gl.exports = Kl
+  })
+  var Lr = l((i3, Wl) => {
+    function _N(t) {
+      if (typeof t != "string") throw new Error("`text` must be a string!")
+      t = t.trim()
+      let e = "",
+        r = !1
+      for (let n = 0; n < t.length; n++) {
+        let s = t[n]
+        s.match(/[A-Za-z0-9]/g)
+          ? (e.length === 0
+              ? (e += s.toLowerCase())
+              : r
+                ? (e += s.toUpperCase())
+                : (e += s),
+            (r = !1))
+          : !s.includes("'") &&
+            !s.includes("\u2019") &&
+            !s.includes("\u275C") &&
+            (r = !0)
+      }
+      return e
+    }
+    Wl.exports = _N
+  })
+  var Hl = l((o3, Ll) => {
+    function MN(t, e) {
+      return (
+        (e = e || ""),
+        t
+          .split(
+            `
+`,
+          )
+          .map(r => (r.trim().length > 0 ? e + r : r)).join(`
+`)
+      )
+    }
+    Ll.exports = MN
+  })
+  var Hr = l((u3, Xl) => {
+    Xl.exports =
+      "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65"
+  })
+  var Xr = l((a3, Zl) => {
+    function xN(t, e, r) {
+      if (typeof t != "string") throw new Error("`text` must be a string!")
+      if (typeof e != "string") throw new Error("`a` must be a string!")
+      if (typeof r != "string") throw new Error("`b` must be a string!")
+      return t.split(e).join(r)
+    }
+    Zl.exports = xN
+  })
+  var Ft = l((c3, tf) => {
+    var CN = Hr(),
+      kN = Xr(),
+      Ql = "  ",
+      ef = " "
+    function zN(t) {
+      if (typeof t != "string") throw new Error("`text` must be a string!")
+      let e = ""
+      for (let r = 0; r < t.length; r++) {
+        let n = t[r].toLowerCase()
+        CN.includes(n) ? (e += ef) : (e += n)
+      }
+      for (; e.includes(Ql); ) e = kN(e, Ql, ef)
+      return e.trim()
+    }
+    tf.exports = zN
+  })
+  var nf = l((l3, rf) => {
+    var UN = Ft()
+    function PN(t) {
+      if (typeof t != "string") throw new Error("`text` must be a string!")
+      let e = UN(t).split(" ")
+      return e.length === 0 ? "" : e.length === 1 ? e[0] : e.join("-")
+    }
+    rf.exports = PN
+  })
+  var of = l((f3, sf) => {
+    var { isArray: RN } = N(),
+      BN =
+        typeof globalThis < "u"
+          ? globalThis
+          : typeof window < "u"
+            ? window
+            : typeof global < "u"
+              ? global
+              : typeof self < "u"
+                ? self
+                : void 0
+    function VN(t) {
+      let e = Symbol.for("@TypedArrayConstructor"),
+        r = "Symbol(@TypedArrayConstructor)",
+        n = e in t ? e : r in t ? r : void 0
+      if (n) {
+        if (!("values" in t))
+          throw new Error(
+            "The value passed into the `convertObjectToTypedArray` must have a 'values' property!",
+          )
+        return t[n] === "ArrayBuffer"
+          ? new Uint8Array(t.values).buffer
+          : new BN[t[n]](t.values)
+      }
+      if (RN(t) && t.constructor.name === "Array") return t
+      throw new Error(
+        "The value passed into the `convertObjectToTypedArray` must be an object that can be converted into a typed array!",
+      )
+    }
+    sf.exports = VN
+  })
+  var Qr = l((h3, uf) => {
+    var { isArray: JN, isDate: $N } = N()
+    function Zr(t) {
+      if (
+        t instanceof ArrayBuffer ||
+        t instanceof BigInt64Array ||
+        t instanceof BigUint64Array ||
+        t instanceof Float32Array ||
+        t instanceof Float64Array ||
+        t instanceof Int16Array ||
+        t instanceof Int32Array ||
+        t instanceof Int8Array ||
+        t instanceof Uint16Array ||
+        t instanceof Uint32Array ||
+        t instanceof Uint8Array ||
+        t instanceof Uint8ClampedArray
+      )
+        return {
+          [Symbol.for("@TypedArrayConstructor")]: t.constructor.name,
+          values:
+            t instanceof ArrayBuffer
+              ? Array.from(new Uint8Array(t))
+              : Array.from(t),
+        }
+      if (JN(t))
+        return t.map(e => {
+          try {
+            return Zr(e)
+          } catch {
+            return e
+          }
+        })
+      if ((typeof t == "object") & (t !== null)) {
+        if ($N(t)) return new Date(t.getTime())
+        let e = {}
+        return (
+          Object.keys(t).forEach(r => {
+            try {
+              e[r] = Zr(t[r])
+            } catch {
+              e[r] = t[r]
+            }
+          }),
+          e
+        )
+      }
+      throw new Error(
+        "The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray.",
+      )
+    }
+    uf.exports = Zr
+  })
+  var cf = l((d3, af) => {
+    function YN(t) {
+      return (
+        (t = t.trim()),
+        !!(
+          t.match(/^-?\d+(\.\d+)?$/g) ||
+          t.match(/^-?\d+(\.\d+)?e-?\d+(\.\d+)?$/g) ||
+          t.match(/^-?\.\d+$/g) ||
+          t === "NaN"
+        )
+      )
+    }
+    af.exports = YN
+  })
+  var ff = l((m3, lf) => {
+    lf.exports = {
+      convertObjectToTypedArray: of(),
+      convertTypedArrayToObject: Qr(),
+      isANumberString: cf(),
+      punctuation: Hr(),
+      replaceAll: Xr(),
+      strip: Ft(),
+    }
+  })
+  var pf = l((p3, mf) => {
+    var { isArray: en } = N(),
+      { convertObjectToTypedArray: hf, isANumberString: KN } = ff(),
+      df = {
+        "@Infinity": 1 / 0,
+        "@NegativeInfinity": -1 / 0,
+        "@NaN": NaN,
+        "@undefined": void 0,
+      }
+    function ze(t) {
+      if (typeof t == "object") {
+        if (t === null) return t
+        if (en(t)) for (let e = 0; e < t.length; e++) t[e] = ze(t[e])
+        else
+          Object.keys(t)
+            .concat(Object.getOwnPropertySymbols(t))
+            .forEach(e => {
+              t[e] = ze(t[e])
+            })
+        return t
+      } else return typeof t > "u" ? void 0 : t
+    }
+    function GN(t) {
+      if (typeof t != "string") return typeof t == "number" ? t : void 0
+      if (KN(t)) return parseFloat(t)
+    }
+    function WN(t) {
+      if (
+        typeof t == "string" &&
+        t.trim().match(/^("|')?Symbol\(@String\):.*?("|')?$/g)
+      ) {
+        let e = t.replace("Symbol(@String):", "")
+        return e.match(/^".*?"$/g) && (e = e.substring(1, e.length - 1)), e
+      }
+    }
+    function LN(t) {
+      if (typeof t != "string")
+        return typeof t == "symbol" ? { out: t, isASymbol: !0 } : void 0
+      if (t.trim().match(/^'?"?Symbol\(.*?\)"?'?$/g)) {
+        let e = t.replace(/^.*?Symbol\(/g, "").replace(/\).*?$/g, "")
+        return e in df
+          ? { out: df[e], isASymbol: !0 }
+          : { out: Symbol.for(e), isASymbol: !0 }
+      }
+    }
+    function HN(t) {
+      if (typeof t != "string") return t instanceof RegExp ? t : void 0
+      let e = t.trim()
+      if (e.match(/^\/.*?\/(d|g|i|m|s|u|v|y)*?$/g))
+        try {
+          let r = e.replace(/^\//g, "").replace(/\/(d|g|i|m|s|u|v|y)*?$/g, ""),
+            n = e
+              .match(/\/(d|g|i|m|s|u|v|y)*?$/g)
+              .at(-1)
+              .split("/")
+              .at(-1)
+          return new RegExp(r, n)
+        } catch {}
+    }
+    function XN(t) {
+      if (typeof t != "string") return typeof t == "object" ? t : void 0
+      try {
+        let e = JSON.parse(t, (r, n) => {
+          try {
+            return jt(n)
+          } catch {
+            return n
+          }
+        })
+        return en(e) && (e = ze(e)), e
+      } catch {}
+    }
+    function ZN(t) {
+      if (typeof t != "string")
+        return t instanceof Date && t.toString() !== "Invalid Date" ? t : void 0
+      try {
+        let e = new Date(Date.parse(t))
+        if (e.toString() !== "Invalid Date") return e
+      } catch {}
+    }
+    function QN(t) {
+      return typeof t == "object"
+        ? t !== null
+          ? ze(t)
+          : void 0
+        : (Object.keys(t)
+            .concat(Object.getOwnPropertySymbols(t))
+            .forEach(e => {
+              try {
+                let r = e
+                try {
+                  e = jt(e)
+                } catch {}
+                ;(t[e] = jt(t[r])), e !== r && delete t[r]
+              } catch {}
+            }),
+          ze(t))
+    }
+    function jt(t) {
+      function e(r) {
+        if (typeof r == "string") {
+          let n = WN(r)
+          if (typeof n == "string") return n
+          let s = LN(r)
+          return (
+            (n = s ? s.out : void 0),
+            (s && s.isASymbol) ||
+            ((n = HN(r)), n instanceof RegExp) ||
+            ((n = GN(r)), typeof n == "number") ||
+            ((n = ZN(r)), n instanceof Date) ||
+            ((n = XN(r)), typeof n < "u")
+              ? n
+              : r
+          )
+        }
+        if (typeof r == "object") {
+          if (r === null) return null
+          let n
+          try {
+            if (((n = hf(r)), en(n))) return n
+          } catch {}
+          if (((n = QN(r)), n))
+            try {
+              return hf(n)
+            } catch {
+              return n
+            }
+          return r
+        }
+        return r
+      }
+      return e(t)
+    }
+    mf.exports = jt
+  })
+  var yf = l((g3, gf) => {
+    var ev = Lr()
+    function tv(t) {
+      let e = ev(t)
+      return e[0].toUpperCase() + e.slice(1)
+    }
+    gf.exports = tv
+  })
+  var bf = l((y3, qf) => {
+    var rv = Ft()
+    function nv(t) {
+      if (typeof t != "string") throw new Error("`text` must be a string!")
+      let e = rv(t).split(" ")
+      return e.length === 0 ? "" : e.length === 1 ? e[0] : e.join("_")
+    }
+    qf.exports = nv
+  })
+  var Nf = l((q3, wf) => {
+    var {
+        assert: sv,
+        decycle: iv,
+        isArray: ov,
+        isDate: uv,
+        isString: tn,
+        isUndefined: av,
+        range: cv,
+      } = N(),
+      rn = Qr()
+    function Q(t, e) {
+      return !t || e <= 0
+        ? ""
+        : cv(0, e)
+            .map(() => t)
+            .join("")
+    }
+    function lv(t, e) {
+      sv(
+        tn(e) || av(e),
+        "The second parameter to the `stringify` function must be undefined or a string!",
+      )
+      let r = e
+        ? `
+`
+        : ""
+      function n(s, i, o) {
+        return (
+          (o = o || 0),
+          typeof s == "number" || typeof s == "bigint"
+            ? s === 1 / 0
+              ? '"Symbol(@Infinity)"'
+              : s === -1 / 0
+                ? '"Symbol(@NegativeInfinity)"'
+                : isNaN(s)
+                  ? '"Symbol(@NaN)"'
+                  : s.toString()
+            : typeof s == "string"
+              ? JSON.stringify("Symbol(@String):" + s)
+              : typeof s == "boolean"
+                ? s.toString()
+                : typeof s > "u"
+                  ? '"Symbol(@undefined)"'
+                  : typeof s == "symbol" || typeof s == "function"
+                    ? JSON.stringify(s.toString())
+                    : s instanceof RegExp
+                      ? s.toString()
+                      : typeof s == "object"
+                        ? s === null
+                          ? "null"
+                          : uv(s)
+                            ? JSON.stringify(s.toJSON())
+                            : ov(s)
+                              ? s.length === 0
+                                ? Q(i, o - 1) + "[]"
+                                : s instanceof Array
+                                  ? Q(i, o - 1) +
+                                    "[" +
+                                    r +
+                                    s
+                                      .map(u => {
+                                        let a = (() => {
+                                          try {
+                                            return n(rn(u), i, o + 1)
+                                          } catch {
+                                            return n(u, i, o + 1)
+                                          }
+                                        })()
+                                        return (
+                                          tn(a) && (a = a.trim()),
+                                          Q(i, o + 1) + a
+                                        )
+                                      })
+                                      .join("," + r) +
+                                    r +
+                                    Q(i, o) +
+                                    "]"
+                                  : n(rn(s), null, i)
+                              : Object.keys(s).length +
+                                    Object.getOwnPropertySymbols(s).length ===
+                                  0
+                                ? Q(i, o - 1) + "{}"
+                                : Q(i, o - 1) +
+                                  "{" +
+                                  r +
+                                  Object.keys(s)
+                                    .concat(Object.getOwnPropertySymbols(s))
+                                    .map(u => {
+                                      let a = (() => {
+                                        try {
+                                          return n(rn(s[u]), i, o + 1)
+                                        } catch {
+                                          return n(s[u], i, o + 1)
+                                        }
+                                      })()
+                                      tn(a) && (a = a.trim())
+                                      let c =
+                                        typeof u == "symbol"
+                                          ? n(u)
+                                          : JSON.stringify(u)
+                                      return (
+                                        Q(i, o + 1) +
+                                        c +
+                                        ":" +
+                                        (i ? " " : "") +
+                                        a
+                                      )
+                                    })
+                                    .join("," + r) +
+                                  r +
+                                  Q(i, o) +
+                                  "}"
+                        : "undefined"
+        )
+      }
+      return n(iv(t), e)
+    }
+    wf.exports = lv
+  })
+  var Sf = l((b3, vf) => {
+    function fv(t) {
+      let e = t.split(`
+`),
+        r = e
+          .filter(s => s.trim().length > 0)
+          .map(s => s.split("").findIndex(i => !i.match(/\s/g))),
+        n = Math.min(...r)
+      return e.map(s => s.substring(n)).join(`
+`)
+    }
+    vf.exports = fv
+  })
+  var Of = l((w3, Tf) => {
+    function hv(t, e) {
+      if (typeof t != "string")
+        throw new Error(
+          "The first argument to the `wrap` function must be a string!",
+        )
+      if (
+        ((typeof e > "u" || e === null) &&
+          (typeof process < "u" &&
+          typeof process.stdout < "u" &&
+          typeof process.stdout.columns == "number"
+            ? (e = process.stdout.columns > 80 ? 80 : process.stdout.columns)
+            : (e = 80)),
+        isNaN(e) || typeof e != "number")
+      )
+        throw new Error(
+          "The second argument to the `wrap` function must be undefined, null, or an integer!",
+        )
+      let r = []
+      return (
+        t
+          .split(
+            `
+`,
+          )
+          .forEach(n => {
+            if (n.trim().length === 0) return r.push("")
+            let s = n.split(/[^\s]/g)[0],
+              i = n.replace(s, "").split(" "),
+              o = s
+            i.forEach(u => {
+              let a = o + (o.trim().length > 0 ? " " : "") + u
+              a.length > e ? (r.push(o), (o = s + u)) : (o = a)
+            }),
+              o.length > 0 && r.push(o)
+          }),
+        r.join(`
+`)
+      )
+    }
+    Tf.exports = hv
+  })
+  var Af = l((N3, nn) => {
+    var Ue = {
+      camelify: Lr(),
+      indent: Hl(),
+      kebabify: nf(),
+      parse: pf(),
+      pascalify: yf(),
+      snakeify: bf(),
+      stringify: Nf(),
+      unindent: Sf(),
+      wrap: Of(),
+      dump() {
+        Object.keys(Ue).forEach(t => {
+          typeof global < "u" && (global[t] = Ue[t]),
+            typeof window < "u" && (window[t] = Ue[t])
+        })
+      },
+    }
+    typeof nn < "u" && (nn.exports = Ue)
+    typeof window < "u" && (window.JSTextTools = Ue)
+  })
+  var sn = l((v3, If) => {
+    var {
+      assert: Df,
+      DataFrame: dv,
+      isArray: mv,
+      isSeries: pv,
+      isString: gv,
+      isUndefined: Ff,
+      set: yv,
+      shape: qv,
+      sort: bv,
+    } = N()
+    function jf() {
+      if (arguments.length === 1 && pv(arguments[0])) {
+        let { name: s, values: i } = arguments[0],
+          o = jf(s, i),
+          u = new dv(o)
+        return (u.index = arguments[0].index.slice()), u
+      }
+      let [t, e] = arguments
+      Df(
+        gv(t),
+        "When passing two arguments into the `getOneHotEncodings` function, the first argument must be a string representing the name of the variable being encoded!",
+      ),
+        Df(
+          mv(e) && qv(e).length === 1,
+          "When passing two arguments into the `getOneHotEncodings` function, the second argument must be a 1-dimensional array!",
+        )
+      let r = {}
+      return (
+        bv(yv(e))
+          .filter(s => typeof s != "number" || s.toString() !== "NaN")
+          .filter(s => !Ff(s))
+          .map(s => t + "_" + s)
+          .slice(0, -1)
+          .forEach(s => {
+            r[s] = e.map(i =>
+              s === t + "_" + i
+                ? 1
+                : typeof i == "number" && i.toString() === "NaN"
+                  ? NaN
+                  : Ff(i)
+                    ? NaN
+                    : 0,
+            )
+          }),
+        r
+      )
+    }
+    If.exports = jf
+  })
+  var zf = l((S3, kf) => {
+    var {
+        assert: de,
+        correl: Ef,
+        count: wv,
+        DataFrame: _f,
+        inferType: Nv,
+        isArray: vv,
+        isDataFrame: Sv,
+        isFunction: Tv,
+        isJagged: Ov,
+        isNumber: Pe,
+        isUndefined: Mf,
+        shape: Av,
+        sort: Dv,
+        sum: Fv,
+      } = N(),
+      { stringify: jv } = Af(),
+      Iv = sn(),
+      xf = t => Pe(t) && (parseInt(t) === t || t === 1 / 0)
+    function Cf(t, e) {
+      e = e || {}
+      let r = Pe(e.maxUniqueValues) ? e.maxUniqueValues : 7,
+        n = Pe(e.minNonMissingValues) ? e.minNonMissingValues : 15,
+        s = Pe(e.maxCorrelationThreshold)
+          ? e.maxCorrelationThreshold
+          : 1 - 1e-5,
+        i = e.progress || null
+      if (vv(t))
+        return (
+          de(
+            Av(t).length === 2 && !Ov(t),
+            "The `convertToNumerical` function only works on non-jagged 2-dimensional arrays and DataFrames!",
+          ),
+          Cf(new _f(t))
+        )
+      de(
+        Sv(t),
+        "You must pass a DataFrame into the `convertToNumerical` function!",
+      ),
+        de(xf(r), "`maxUniqueValues` must be a whole number!"),
+        de(xf(n), "`minNonMissingValues` must be a whole number!"),
+        de(Pe(s), "`maxCorrelationThreshold` must be a number!"),
+        Mf(i) || de(Tv(i), "If defined, `progress` must be a function!")
+      let o = {}
+      return (
+        t.apply((u, a) => {
+          i && i(a / t.columns.length)
+          let c = Nv(u.values)
+          if (
+            (c.type === "boolean" &&
+              (c.values = c.values.map(h => (h ? 1 : 0))),
+            c.type === "date" &&
+              (c.values = c.values.map(h => {
+                try {
+                  return h.getTime()
+                } catch {
+                  return NaN
+                }
+              })),
+            c.type === "null")
+          )
+            return
+          c.type,
+            c.type === "object" && (c.values = c.values.map(h => jv(h))),
+            c.type
+          let f = c.values.filter(h => !Mf(h))
+          if (!(c.values.length - f.length > n)) {
+            if (c.type !== "boolean") {
+              let h = Dv(wv(f), (b, F) => F.count - b.count)
+              if (Fv(h.slice(0, r).map(b => b.count)) / f.length >= 0.9) {
+                if (h.length < 2) return
+                let b = Iv(u.name, c.values)
+                for (; Object.keys(b).length > 0; ) {
+                  let F = Object.keys(b)[0],
+                    A = b[F]
+                  delete b[F]
+                  let P = Object.keys(o)
+                  for (let ye = 0; ye < P.length; ye++) {
+                    let Qd = o[P[ye]]
+                    if (Ef(A, Qd) > s) return
+                  }
+                  o[F] = A
+                }
+                return
+              }
+              if (c.type === "object" || c.type === "string") return
+            }
+            if (
+              c.type === "boolean" ||
+              c.type === "date" ||
+              c.type === "number"
+            ) {
+              let h = Object.keys(o)
+              for (let p = 0; p < h.length; p++) {
+                let b = o[h[p]]
+                if (Ef(c.values, b) > s) return
+              }
+              o[u.name] = c.values
+            }
+          }
+        }),
+        new _f(o)
+      )
+    }
+    kf.exports = Cf
+  })
+  var Bf = l((T3, Rf) => {
+    var {
+      assert: Uf,
+      DataFrame: Ev,
+      isArray: _v,
+      isSeries: Mv,
+      shape: xv,
+      zeros: Cv,
+    } = N()
+    function Pf(t) {
+      if (Mv(t)) {
+        let n = new Ev(Pf(t.values))
+        return (n.index = t.index.slice()), (n.columns = t.index.slice()), n
+      }
+      Uf(
+        _v(t),
+        "The `diagonalize` function only works on 1-dimensional arrays and Series!",
+      )
+      let e = xv(t)
+      Uf(
+        e.length === 1,
+        "The `diagonalize` function only works on 1-dimensional arrays and Series!",
+      )
+      let r = Cv([e[0], e[0]])
+      return t.forEach((n, s) => (r[s][s] = n)), r
+    }
+    Rf.exports = Pf
+  })
+  var cn = l((O3, Yf) => {
+    var {
+        assert: on,
+        clamp: kv,
+        correl: Vf,
+        DataFrame: It,
+        dropNaNPairwise: zv,
+        isArray: Jf,
+        isDataFrame: Et,
+        isJagged: $f,
+        isUndefined: Uv,
+        ndarray: Pv,
+      } = N(),
+      Rv = U()
+    function un(t) {
+      let e = "@jrc03c/js-data-science-helpers/get-correlation-matrix"
+      return (
+        Object.defineProperty(t, e, {
+          configurable: !1,
+          enumerable: !1,
+          writable: !1,
+          value: Symbol.for(e),
+        }),
+        t
+      )
+    }
+    function an(t, e) {
+      if ((Uv(e) && (e = t), Et(t))) {
+        let n = new It(an(t.values, e))
+        return (
+          (n.index = t.columns.slice()),
+          (n.columns = Et(e) ? e.columns.slice() : new It(e).columns.slice()),
+          un(n)
+        )
+      }
+      if (Et(e)) {
+        let n = new It(an(t, e.values))
+        return (
+          (n.index = Et(t) ? t.columns.slice() : new It(t).columns.slice()),
+          (n.columns = e.columns.slice()),
+          un(n)
+        )
+      }
+      on(
+        Jf(t) && Jf(e),
+        "The `getCorrelationMatrix` function only works on 2-dimensional arrays and DataFrames!",
+      ),
+        on(
+          !$f(t) && !$f(e),
+          "The `getCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
+        ),
+        on(
+          t.length === e.length,
+          'The dimensions of the matrices you passed into the `getCorrelationMatrix` function aren\'t compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you\'ll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.',
+        )
+      let r = Pv([t[0].length, e[0].length])
+      for (let n = 0; n < t[0].length; n++) {
+        let s = t.map(i => i[n])
+        for (let i = 0; i < e[0].length; i++) {
+          let o = e.map(u => u[i])
+          Rv.shouldIgnoreNaNValues
+            ? (r[n][i] = Vf(...zv(s, o)))
+            : (r[n][i] = Vf(s, o))
+        }
+      }
+      return un(kv(r, -1, 1))
+    }
+    Yf.exports = an
+  })
+  var ln = l((A3, Kf) => {
+    function Bv(t) {
+      try {
+        let e = "@jrc03c/js-data-science-helpers/get-correlation-matrix"
+        return t[e] === Symbol.for(e)
+      } catch {
+        return !1
+      }
+    }
+    Kf.exports = Bv
+  })
+  var Hf = l((D3, Lf) => {
+    var {
+        DataFrame: fn,
+        isArray: Vv,
+        isDataFrame: _t,
+        isNumber: Gf,
+        MathError: Jv,
+        sort: $v,
+      } = N(),
+      Wf = cn(),
+      Yv = ln()
+    function Kv(t, e, r) {
+      r = Object.values(arguments).find(i => Gf(i)) || 1 - 1e-5
+      let n = (() => {
+          let i = Object.values(arguments).filter(o => Vv(o) || _t(o))
+          if (i.length === 1) {
+            let o = i[0]
+            if (Yv(o)) return _t(o) ? o : new fn(o)
+            {
+              let u = Wf(o, null)
+              return _t(u) ? u : new fn(u)
+            }
+          }
+          if (i.length === 2) {
+            let o = Wf(i[0], i[1])
+            return _t(o) ? o : new fn(o)
+          }
+          throw new Jv(
+            "You must pass 1 or 2 2-dimensional arrays or DataFrames into the `getHighlyCorrelatedColumns` function!",
+          )
+        })(),
+        s = {}
+      return (
+        n.values.forEach((i, o) => {
+          i.forEach((u, a) => {
+            if (Gf(u) && u > r) {
+              let c = n.index[o],
+                f = n.columns[a]
+              s[c] || (s[c] = []),
+                s[c].indexOf(f) < 0 && s[c].push(f),
+                s[f] || (s[f] = []),
+                s[f].indexOf(c) < 0 && s[f].push(c)
+            }
+          })
+        }),
+        Object.keys(s).forEach(i => {
+          s[i] = $v(s[i])
+        }),
+        s
+      )
+    }
+    Lf.exports = Kv
+  })
+  var hn = l((F3, Zf) => {
+    var {
+        dropNaN: Gv,
+        isArray: Wv,
+        isDataFrame: Lv,
+        isNumber: Hv,
+        isSeries: Xv,
+        pow: Zv,
+        sqrt: Qv,
+        sum: eS,
+      } = N(),
+      tS = U()
+    function Xf(t) {
+      return Lv(t) || Xv(t)
+        ? Xf(t.values)
+        : Hv(t)
+          ? Math.abs(t)
+          : Wv(t)
+            ? (tS.shouldIgnoreNaNValues && (t = Gv(t)), Qv(eS(Zv(t, 2))))
+            : NaN
+    }
+    Zf.exports = Xf
+  })
+  var eh = l((j3, Qf) => {
+    var { count: rS } = N()
+    function nS(t) {
+      return rS(t).map(r => ((r.percentage = r.count / t.length), r))
+    }
+    Qf.exports = nS
+  })
+  var th = l((I3, sS) => {
+    sS.exports = [
+      0.5, 0.49601, 0.49202, 0.48803, 0.48405, 0.48006, 0.47608, 0.4721,
+      0.46812, 0.46414, 0.46017, 0.4562, 0.45224, 0.44828, 0.44433, 0.44038,
+      0.4364, 0.43251, 0.42858, 0.42465, 0.42074, 0.41683, 0.41294, 0.40905,
+      0.40517, 0.40129, 0.39743, 0.39358, 0.38974, 0.38591, 0.38209, 0.37828,
+      0.37448, 0.3707, 0.36693, 0.36317, 0.35942, 0.35569, 0.35197, 0.34827,
+      0.34458, 0.3409, 0.33724, 0.3336, 0.32997, 0.32636, 0.32276, 0.31918,
+      0.31561, 0.31207, 0.30854, 0.30503, 0.30153, 0.29806, 0.2946, 0.29116,
+      0.28774, 0.28434, 0.28096, 0.2776, 0.27425, 0.27093, 0.26763, 0.26435,
+      0.26109, 0.25785, 0.25463, 0.25143, 0.24825, 0.2451, 0.24196, 0.23885,
+      0.23576, 0.2327, 0.22965, 0.22663, 0.22363, 0.22065, 0.2177, 0.21476,
+      0.21186, 0.20897, 0.20611, 0.20327, 0.20045, 0.19766, 0.19489, 0.19215,
+      0.18943, 0.18673, 0.18406, 0.18141, 0.17879, 0.17619, 0.17361, 0.17106,
+      0.16853, 0.16602, 0.16354, 0.16109, 0.15866, 0.15625, 0.15386, 0.15151,
+      0.14917, 0.14686, 0.14457, 0.14231, 0.14007, 0.13786, 0.13567, 0.1335,
+      0.13136, 0.12924, 0.12714, 0.12507, 0.12302, 0.121, 0.119, 0.11702,
+      0.11507, 0.11314, 0.11123, 0.10935, 0.10749, 0.10565, 0.10383, 0.10204,
+      0.10027, 0.09853, 0.0968, 0.0951, 0.09342, 0.09176, 0.09012, 0.08851,
+      0.08692, 0.08534, 0.08379, 0.08226, 0.08076, 0.07927, 0.0778, 0.07636,
+      0.07493, 0.07353, 0.07215, 0.07078, 0.06944, 0.06811, 0.06681, 0.06552,
+      0.06426, 0.06301, 0.06178, 0.06057, 0.05938, 0.05821, 0.05705, 0.05592,
+      0.0548, 0.0537, 0.05262, 0.05155, 0.0505, 0.04947, 0.04846, 0.04746,
+      0.04648, 0.04551, 0.04457, 0.04363, 0.04272, 0.04182, 0.04093, 0.04006,
+      0.0392, 0.03836, 0.03754, 0.03673, 0.03593, 0.03515, 0.03438, 0.03362,
+      0.03288, 0.03216, 0.03144, 0.03074, 0.03005, 0.02938, 0.02872, 0.02807,
+      0.02743, 0.0268, 0.02619, 0.02559, 0.025, 0.02442, 0.02385, 0.0233,
+      0.02275, 0.02222, 0.02169, 0.02118, 0.02068, 0.02018, 0.0197, 0.01923,
+      0.01876, 0.01831, 0.01786, 0.01743, 0.017, 0.01659, 0.01618, 0.01578,
+      0.01539, 0.015, 0.01463, 0.01426, 0.0139, 0.01355, 0.01321, 0.01287,
+      0.01255, 0.01222, 0.01191, 0.0116, 0.0113, 0.01101, 0.01072, 0.01044,
+      0.01017, 0.0099, 0.00964, 0.00939, 0.00914, 0.00889, 0.00866, 0.00842,
+      0.0082, 0.00798, 0.00776, 0.00755, 0.00734, 0.00714, 0.00695, 0.00676,
+      0.00657, 0.00639, 0.00621, 0.00604, 0.00587, 0.0057, 0.00554, 0.00539,
+      0.00523, 0.00508, 0.00494, 0.0048, 0.00466, 0.00453, 0.0044, 0.00427,
+      0.00415, 0.00402, 0.00391, 0.00379, 0.00368, 0.00357, 0.00347, 0.00336,
+      0.00326, 0.00317, 0.00307, 0.00298, 0.00289, 0.0028, 0.00272, 0.00264,
+      0.00256, 0.00248, 0.0024, 0.00233, 0.00226, 0.00219, 0.00212, 0.00205,
+      0.00199, 0.00193, 0.00187, 0.00181, 0.00175, 0.00169, 0.00164, 0.00159,
+      0.00154, 0.00149, 0.00144, 0.00139, 0.00135, 0.00131, 0.00126, 0.00122,
+      0.00118, 0.00114, 0.00111, 0.00107, 0.00104, 0.001, 97e-5, 94e-5, 9e-4,
+      87e-5, 84e-5, 82e-5, 79e-5, 76e-5, 74e-5, 71e-5, 69e-5, 66e-5, 64e-5,
+      62e-5, 6e-4, 58e-5, 56e-5, 54e-5, 52e-5, 5e-4, 48e-5, 47e-5, 45e-5, 43e-5,
+      42e-5, 4e-4, 39e-5, 38e-5, 36e-5, 35e-5, 34e-5, 32e-5, 31e-5, 3e-4, 29e-5,
+      28e-5, 27e-5, 26e-5, 25e-5, 24e-5, 23e-5, 22e-5, 22e-5, 21e-5, 2e-4,
+      19e-5, 19e-5, 18e-5, 17e-5, 17e-5, 16e-5, 15e-5, 15e-5, 14e-5, 14e-5,
+      13e-5, 13e-5, 12e-5, 12e-5, 11e-5, 11e-5, 1e-4, 1e-4, 1e-4, 9e-5, 9e-5,
+      8e-5, 8e-5, 8e-5, 8e-5, 7e-5, 7e-5, 7e-5, 6e-5, 6e-5, 6e-5, 6e-5, 5e-5,
+      5e-5, 5e-5, 5e-5, 5e-5, 4e-5, 4e-5, 4e-5, 4e-5, 4e-5, 4e-5, 3e-5, 3e-5,
+      3e-5, 3e-5, 3e-5, 3e-5, 3e-5, 3e-5, 2e-5, 2e-5, 2e-5, 2e-5,
+    ]
+  })
+  var mn = l((E3, lh) => {
+    var {
+        abs: rh,
+        assert: iS,
+        dropNaNPairwise: oS,
+        flatten: Mt,
+        isArray: nh,
+        isDataFrame: sh,
+        isEqual: uS,
+        isSeries: ih,
+        mean: oh,
+        remap: aS,
+        round: cS,
+        shape: uh,
+        sqrt: lS,
+        std: ah,
+      } = N(),
+      fS = U(),
+      ch = th()
+    function hS(t) {
+      return rh(t) > 4.1 ? 0 : ch[cS(aS(rh(t), 0, 4.1, 0, ch.length))]
+    }
+    function dn(t, e) {
+      if (sh(t) || ih(t)) return dn(t.values, e)
+      if (sh(e) || ih(e)) return dn(t, e.values)
+      iS(
+        nh(t) && nh(e) && uS(uh(t), uh(e)),
+        "You must pass two identically-shaped arrays, Series, or DataFrames into the `pValue` function!",
+      )
+      let [r, n] = fS.shouldIgnoreNaNValues ? oS(Mt(t), Mt(e)) : [Mt(t), Mt(e)]
+      if (r.length === 0 || n.length === 0) return NaN
+      let s = oh(r),
+        i = oh(n),
+        o = ah(r),
+        u = ah(n),
+        a = r.length,
+        c = n.length,
+        f = (s - i) / lS((o * o) / a + (u * u) / c)
+      return 2 * hS(f)
+    }
+    lh.exports = dn
+  })
+  var ph = l((_3, mh) => {
+    var {
+        assert: pn,
+        clamp: dS,
+        DataFrame: xt,
+        dropNaNPairwise: mS,
+        isArray: fh,
+        isDataFrame: Ct,
+        isJagged: hh,
+        isUndefined: pS,
+        ndarray: gS,
+      } = N(),
+      yS = U(),
+      dh = mn()
+    function gn(t) {
+      let e = "@jrc03c/js-data-science-helpers/get-p-value-matrix"
+      return (
+        Object.defineProperty(t, e, {
+          configurable: !1,
+          enumerable: !1,
+          writable: !1,
+          value: Symbol.for(e),
+        }),
+        t
+      )
+    }
+    function yn(t, e) {
+      if ((pS(e) && (e = t), Ct(t))) {
+        let n = new xt(yn(t.values, e))
+        return (
+          (n.index = t.columns.slice()),
+          (n.columns = Ct(e) ? e.columns.slice() : new xt(e).columns.slice()),
+          gn(n)
+        )
+      }
+      if (Ct(e)) {
+        let n = new xt(yn(t, e.values))
+        return (
+          (n.index = Ct(t) ? t.columns.slice() : new xt(t).columns.slice()),
+          (n.columns = e.columns.slice()),
+          gn(n)
+        )
+      }
+      pn(
+        fh(t) && fh(e),
+        "The `getPValueMatrix` function only works on 2-dimensional arrays and DataFrames!",
+      ),
+        pn(
+          !hh(t) && !hh(e),
+          "The `getPValueMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
+        ),
+        pn(
+          t.length === e.length,
+          'The dimensions of the matrices you passed into the `getPValueMatrix` function aren\'t compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you\'ll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.',
+        )
+      let r = gS([t[0].length, e[0].length])
+      for (let n = 0; n < t[0].length; n++) {
+        let s = t.map(i => i[n])
+        for (let i = 0; i < e[0].length; i++) {
+          let o = e.map(u => u[i])
+          yS.shouldIgnoreNaNValues
+            ? (r[n][i] = dh(...mS(s, o)))
+            : (r[n][i] = dh(s, o))
+        }
+      }
+      return gn(dS(r, 0, 1))
+    }
+    mh.exports = yn
+  })
+  var wh = l((M3, bh) => {
+    var {
+        assert: kt,
+        intersect: qS,
+        isDataFrame: gh,
+        isSeries: yh,
+        isUndefined: qh,
+      } = N(),
+      me = class {
+        constructor(e) {
+          let r = this
+          kt(
+            qh(e) || e === me.DROP_NAN_MODE || e === me.DROP_MISSING_MODE,
+            "The `mode` value passed into the `IndexMatcher` constructor must be undefined or one of [IndexMatcher.DROP_NAN_MODE, IndexMatcher.DROP_MISSING_MODE]! (By default, the mode is `Indexer.DROP_MISSING_MODE`.)",
+          ),
+            (r.mode = qh(e) ? me.DROP_MISSING_MODE : e),
+            (r.index = null)
+        }
+        fit() {
+          let e = this,
+            r = []
+          return (
+            Object.values(arguments).forEach(n => {
+              kt(
+                gh(n) || yh(n),
+                "The `IndexMatcher` only works on Series and DataFrames! To drop NaN values in a pair-wise fashion from regular arrays, use the `dropNaNPairwise` function from the @jrc03c/js-math-tools library.",
+              ),
+                e.mode === me.DROP_MISSING_MODE
+                  ? r.push(n.dropMissing().index)
+                  : r.push(n.dropNaN().index)
+            }),
+            (e.index = qS(...r)),
+            e
+          )
+        }
+        transform() {
+          let e = this
+          kt(
+            !!e.index,
+            "The IndexMatcher hasn't been fitted yet! Please call the `fit` method before calling the `transform` method.",
+          )
+          let r = Object.values(arguments).map(
+            n => (
+              kt(
+                gh(n) || yh(n),
+                "The `IndexMatcher` only works on Series and DataFrames! To drop NaN values in a pair-wise fashion from regular arrays, use the `dropNaNPairwise` function from the @jrc03c/js-math-tools library.",
+              ),
+              n.get(e.index, null)
+            ),
+          )
+          return r.length === 1 ? r[0] : r
+        }
+        fitAndTransform() {
+          return this.fit(...arguments).transform(...arguments)
+        }
+      },
+      Re = me
+    Vt(Re, "DROP_NAN_MODE", "DROP_NAN_MODE"),
+      Vt(Re, "DROP_MISSING_MODE", "DROP_MISSING_MODE")
+    bh.exports = Re
+  })
+  var bn = l((x3, Nh) => {
+    var {
+      dropMissing: bS,
+      flatten: wS,
+      isArray: NS,
+      isDataFrame: vS,
+      isSeries: SS,
+    } = N()
+    function qn(t) {
+      return typeof t == "number"
+        ? t === 0 || t === 1
+        : vS(t) || SS(t)
+          ? qn(t.values)
+          : NS(t)
+            ? t.length === 0
+              ? !1
+              : bS(wS(t)).every(r => qn(r))
+            : !1
+    }
+    Nh.exports = qn
+  })
+  var Nn = l((C3, Ah) => {
+    var {
+      assert: wn,
+      isArray: TS,
+      isBoolean: OS,
+      isDataFrame: vh,
+      isSeries: Sh,
+      int: AS,
+      isNumber: DS,
+      isUndefined: Th,
+      range: Oh,
+      set: FS,
+      shape: jS,
+      shuffle: IS,
+    } = N()
+    Ah.exports = function () {
+      let e = Array.from(arguments),
+        r = e.find(b => OS(b)),
+        n = Th(r) ? !0 : r,
+        s = e.find(b => DS(b)),
+        i = Th(s) ? 0.1 : s
+      wn(
+        i > 0 && i < 1,
+        "`testSize` must be a number between 0 and 1 (exclusive on both ends)!",
+      )
+      let o = e.filter(b => TS(b) || vh(b) || Sh(b))
+      wn(
+        o.length > 0,
+        "You must pass at least one dataset into the `trainTestSplit` function!",
+      )
+      let u = o.map(b => jS(b)[0])
+      wn(
+        FS(u).length === 1,
+        `All datasets passed into the \`trainTestSplit\` function must be the same length at their shallowest dimension! The lengths of your datasets, though, are: ${u.join(", ")}`,
+      )
+      let a = [],
+        c = n ? IS(Oh(0, u[0])) : Oh(0, u[0]),
+        f = AS((1 - i) * c.length),
+        h = c.slice(0, f),
+        p = c.slice(f)
+      return (
+        o.forEach(b => {
+          if (vh(b)) a.push(b.get(h, null)), a.push(b.get(p, null))
+          else if (Sh(b)) a.push(b.get(h)), a.push(b.get(p))
+          else {
+            let F = [],
+              A = []
+            b.forEach((P, ye) => {
+              h.indexOf(ye) > -1 ? F.push(P) : A.push(P)
+            }),
+              a.push(F),
+              a.push(A)
+          }
+        }),
+        a
+      )
+    }
+  })
+  var Be = l((k3, _h) => {
+    var {
+        add: ES,
+        argmin: _S,
+        assert: MS,
+        distance: xS,
+        flatten: Dh,
+        int: CS,
+        isArray: kS,
+        isDataFrame: Fh,
+        isEqual: zS,
+        isNumber: US,
+        isSeries: jh,
+        normal: vn,
+        pow: PS,
+        random: RS,
+        range: BS,
+        scale: VS,
+        shape: zt,
+        subtract: JS,
+        sum: $S,
+        zeros: YS,
+      } = N(),
+      KS = Nn()
+    function Sn(t, e) {
+      ;(Fh(t) || jh(t)) && (t = t.values),
+        (Fh(e) || jh(e)) && (e = e.values),
+        MS(zS(zt(t), zt(e)), "`yPred` and `yTrue` must have the same shape!")
+      let r = Dh(t),
+        n = Dh(e),
+        s = 0
+      return (
+        r.forEach((i, o) => {
+          i === n[o] && s++
+        }),
+        s / r.length
+      )
+    }
+    function GS(t) {
+      let e = YS([t.length, t.length])
+      for (let r = 0; r < t.length - 1; r++)
+        for (let n = r + 1; n < t.length; n++) {
+          let s = xS(t[r], t[n])
+          ;(e[r][n] = s), (e[n][r] = s)
+        }
+      return e
+    }
+    function WS(t) {
+      test(`tests that the \`${t.name}\` model works correctly`, () => {
+        let e = vn([5, 10]).map(h => h.map(p => p * 100 + vn() * 100)),
+          r = [],
+          n = BS(0, 500).map(() => {
+            let h = CS(RS() * e.length),
+              p = e[h]
+            return r.push(h), ES(p, VS(5, vn(zt(p))))
+          }),
+          [s, i, o, u] = KS(n, r),
+          a = new t({ k: e.length })
+        a.fit(s), (a.centroids = Ih(e, a.centroids))
+        let c = a.predict(s),
+          f = a.predict(i)
+        expect(Sn(o, c)).toBeGreaterThan(0.95),
+          expect(Sn(u, f)).toBeGreaterThan(0.95)
+      })
+    }
+    function LS(t) {
+      return kS(t) && zt(t).length === 2
+    }
+    function HS(t) {
+      return US(t) && parseInt(t) === t && t >= 0
+    }
+    function Ih(t, e) {
+      return t.map(r => e[_S(e.map(n => Eh(r, n)))])
+    }
+    function Eh(t, e) {
+      return $S(PS(JS(t, e), 2))
+    }
+    _h.exports = {
+      accuracy: Sn,
+      createGenericTest: WS,
+      getDistanceMatrix: GS,
+      isMatrix: LS,
+      isWholeNumber: HS,
+      orderCentroids: Ih,
+      sse: Eh,
+    }
+  })
+  var Pt = l((z3, kh) => {
+    var {
+        add: Mh,
+        argmin: XS,
+        assert: re,
+        copy: ZS,
+        distance: xh,
+        divide: QS,
+        isDataFrame: e2,
+        isFunction: t2,
+        isUndefined: Ut,
+        normal: r2,
+        random: n2,
+        range: s2,
+        scale: i2,
+        shuffle: o2,
+        zeros: Ch,
+      } = N(),
+      { isMatrix: u2, isWholeNumber: Tn, sse: a2 } = Be(),
+      On = class {
+        constructor(e) {
+          re(
+            typeof e == "object",
+            "`config` must be an object! See the documentation for more information about the properties that the `config` object can contain.",
+          ),
+            re(Tn(e.k), "`k` must be a whole number!"),
+            re(
+              Tn(e.maxIterations) || Ut(e.maxIterations),
+              "`maxIterations` must be a whole number or undefined!",
+            ),
+            re(
+              Tn(e.maxRestarts) || Ut(e.maxRestarts),
+              "`maxRestarts` must be a whole number or undefined!",
+            ),
+            re(
+              typeof e.tolerance == "number" || Ut(e.tolerance),
+              "`tolerance` must be a number or undefined!",
+            ),
+            (this.k = e.k),
+            (this.maxRestarts = e.maxRestarts || 25),
+            (this.maxIterations = e.maxIterations || 100),
+            (this.tolerance = e.tolerance || 1e-4),
+            (this.centroids = null)
+        }
+        initializeCentroids(e) {
+          return o2(e).slice(0, this.k)
+        }
+        getFitStepFunction(e, r) {
+          re(u2(e), "`x` must be a matrix!"),
+            e2(e) && (e = e.values),
+            Ut(r) || re(t2(r), "If defined, `progress` must be a function!")
+          let n = this.initializeCentroids(e),
+            s = {
+              currentRestart: 0,
+              currentIteration: 0,
+              currentCentroids: n,
+              bestCentroids: n,
+              bestScore: -1 / 0,
+              isFinished: !1,
+            }
+          return () => {
+            let i = this.predict(e, s.currentCentroids),
+              o = [],
+              u = Ch(this.k)
+            e.forEach((c, f) => {
+              let h = i[f]
+              o[h] || (o[h] = Ch(c.length)), (o[h] = Mh(o[h], c)), u[h]++
+            })
+            let a = s2(0, this.k).map(c =>
+              u[c] === 0
+                ? Mh(
+                    s.currentCentroids[
+                      parseInt(n2() * s.currentCentroids.length)
+                    ],
+                    i2(0.001, r2(s.currentCentroids[0].length)),
+                  )
+                : QS(o[c], u[c]),
+            )
+            if (
+              (xh(s.currentCentroids, a) < this.tolerance
+                ? (s.currentIteration = this.maxIterations - 1)
+                : (s.currentCentroids = a),
+              r &&
+                r(
+                  (s.currentRestart + s.currentIteration / this.maxIterations) /
+                    this.maxRestarts,
+                  this,
+                ),
+              s.currentIteration++,
+              s.currentIteration >= this.maxIterations)
+            ) {
+              let c = this.score(e, s.currentCentroids)
+              if (
+                (c > s.bestScore &&
+                  ((s.bestScore = c),
+                  (s.bestCentroids = ZS(s.currentCentroids))),
+                (s.currentIteration = 0),
+                s.currentRestart++,
+                s.currentRestart >= this.maxRestarts)
+              )
+                (s.isFinished = !0),
+                  (this.centroids = s.bestCentroids),
+                  r && r(1, this)
+              else {
+                let f = this.initializeCentroids(e)
+                s.currentCentroids = f
+              }
+            }
+            return s
+          }
+        }
+        fit(e, r) {
+          let n = this.getFitStepFunction(e, r),
+            s
+          for (; !s || !s.isFinished; ) s = n()
+          return this
+        }
+        predict(e, r) {
+          if (((r = r || this.centroids), !r))
+            throw new Error(
+              "No centroids were provided to the `predict` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `predict` method or run the `fit` method first!",
+            )
+          return e.map(n => XS(r.map(s => xh(n, s))))
+        }
+        score(e, r) {
+          if (((r = r || this.centroids), !r))
+            throw new Error(
+              "No centroids were provided to the `score` method, and the K-Means model hasn't been fitted yet. Please either pass centroids as a second parameter to the `score` method or run the `fit` method first!",
+            )
+          let s = this.predict(e, r).map(i => r[i])
+          return -a2(e, s)
+        }
+      }
+    kh.exports = On
+  })
+  var Uh = l((U3, zh) => {
+    var {
+        argmin: c2,
+        assert: l2,
+        DataFrame: f2,
+        floor: An,
+        isNumber: h2,
+        max: d2,
+        random: Dn,
+      } = N(),
+      { getDistanceMatrix: m2 } = Be(),
+      p2 = Pt(),
+      Fn = class extends p2 {
+        distancesCache = {}
+        subSampleSize = 0
+        constructor(e) {
+          ;(e = e || {}),
+            super(e),
+            e.subSampleSize &&
+              (l2(
+                h2(e.subSampleSize) &&
+                  e.subSampleSize > 0 &&
+                  Math.floor(e.subSampleSize) === e.subSampleSize,
+                `If included in the configuration object passed into the \`${this.constructor.name}\` constructor, the "subSampleSize" key must point to a positive integer value!`,
+              ),
+              e.subSampleSize < this.k &&
+                ((e.subSampleSize = this.k),
+                console.warn(
+                  `NOTE: You provided a "subSampleSize" (${e.subSampleSize}) that is smaller than \`k\` (${this.k}), so we have automatically increased the "subSampleSize" to \`k\`!`,
+                )),
+              (this.subSampleSize = e.subSampleSize))
+        }
+        initializeCentroids(e) {
+          if (
+            (e instanceof f2 && (e = e.values),
+            this.subSampleSize && this.subSampleSize > 0)
+          ) {
+            let o = []
+            for (; o.length < this.subSampleSize; ) {
+              let u = e[An(Dn() * e.length)]
+              o.includes(u) || o.push(u)
+            }
+            e = o
+          }
+          let r = (() => {
+              if (this.distancesCache[e]) return this.distancesCache[e]
+              {
+                let o = m2(e)
+                return (this.distancesCache[e] = o), o
+              }
+            })(),
+            s = d2(r) / this.k,
+            i = []
+          return (
+            e.forEach((o, u) => {
+              let a = r[u]
+              if (i.length === 0) i.push([o])
+              else {
+                let c = i.map(p => a[e.indexOf(p[An(Dn() * p.length)])]),
+                  f = c2(c)
+                c[f] < s || i.length >= this.k ? i[f].push(o) : i.push([o])
+              }
+            }),
+            i.map(o => o[An(Dn() * o.length)])
+          )
+        }
+      }
+    zh.exports = Fn
+  })
+  var In = l((P3, Bh) => {
+    var { argmin: g2, distance: Ph, divide: y2, max: q2, random: Rh } = N(),
+      b2 = Pt(),
+      jn = class extends b2 {
+        initializeCentroids(e) {
+          let r = [e[parseInt(Rh() * e.length)]]
+          for (; r.length < this.k; ) {
+            let n = e.map(i => Ph(i, r[g2(r.map(o => Ph(i, o)))])),
+              s = y2(n, q2(n))
+            r.push(e[s.findIndex(i => Rh() < i)])
+          }
+          return r
+        }
+      }
+    Bh.exports = jn
+  })
+  var $h = l((R3, Jh) => {
+    var {
+        assert: J,
+        isArray: w2,
+        isDataFrame: N2,
+        isEqual: v2,
+        isFunction: S2,
+        isUndefined: pe,
+        range: T2,
+        shape: Vh,
+      } = N(),
+      { isMatrix: O2, isWholeNumber: En } = Be(),
+      A2 = In(),
+      _n = class {
+        constructor(e) {
+          pe(e) && (e = {}),
+            J(
+              typeof e == "object",
+              "`config` must be an object! See the documentation for more information about the properties that the `config` object can contain.",
+            ),
+            pe(e.ks) && (e.ks = T2(1, 16)),
+            J(w2(e.ks), "`ks` must be an array of whole numbers!"),
+            e.ks.forEach(r => {
+              J(En(r), "`ks` must be an array of whole numbers!")
+            }),
+            J(
+              En(e.maxIterations) || pe(e.maxIterations),
+              "`maxIterations` must be a whole number or undefined!",
+            ),
+            J(
+              En(e.maxRestarts) || pe(e.maxRestarts),
+              "`maxRestarts` must be a whole number or undefined!",
+            ),
+            J(
+              typeof e.tolerance == "number" || pe(e.tolerance),
+              "`tolerance` must be a number or undefined!",
+            ),
+            (this.ks = e.ks),
+            (this.maxRestarts = e.maxRestarts || 25),
+            (this.maxIterations = e.maxIterations || 100),
+            (this.tolerance = e.tolerance || 1e-4),
+            (this.scoreStopRatio = e.scoreStopRatio || 0.85),
+            (this.modelClass = e.modelClass || A2),
+            (this.fittedModel = null)
+        }
+        getFitStepFunction(e, r) {
+          J(O2(e), "`x` must be a matrix!"),
+            N2(e) && (e = e.values),
+            pe(r) || J(S2(r), "If defined, `progress` must be a function!")
+          let n = { isFinished: !1, lastScore: -1 / 0, currentIndex: 0 }
+          return () => {
+            let s = this.ks[n.currentIndex],
+              i = new this.modelClass({
+                k: s,
+                maxRestarts: 10,
+                maxIterations: 20,
+              })
+            i.fit(e, u =>
+              r ? r((n.currentIndex + u) / (this.ks.length + 1)) : null,
+            )
+            let o = i.score(e)
+            return (
+              o / n.lastScore > this.scoreStopRatio
+                ? ((n.isFinished = !0), n.currentIndex--)
+                : ((n.lastScore = o),
+                  n.currentIndex + 1 >= this.ks.length
+                    ? (n.isFinished = !0)
+                    : n.currentIndex++),
+              n.isFinished &&
+                ((this.fittedModel = new this.modelClass({
+                  k: this.ks[n.currentIndex],
+                  maxRestarts: this.maxRestarts,
+                  maxIterations: this.maxIterations,
+                })),
+                this.fittedModel.fit(e, u =>
+                  r ? r((this.ks.length + u) / (this.ks.length + 1)) : null,
+                ),
+                r && r(1)),
+              n
+            )
+          }
+        }
+        fit(e, r) {
+          let n = this.getFitStepFunction(e, r),
+            s
+          for (; !s || !s.isFinished; ) s = n()
+          return this
+        }
+        predict(e, r) {
+          return this.fittedModel.predict(e, r)
+        }
+        score(e, r) {
+          return this.fittedModel.score(e, r)
+        }
+        get k() {
+          return this.fittedModel.k
+        }
+        set k(e) {
+          throw new Error(
+            "You can't set the k-value manually! It has to be set automatically via the `fit` method.",
+          )
+        }
+        get centroids() {
+          return this.fittedModel.centroids
+        }
+        set centroids(e) {
+          J(
+            v2(Vh(e), Vh(this.fittedModel.centroids)),
+            "When assigning a new value to the `centroids` property, the new centroids must have the same shape as the old centroids!",
+          ),
+            (this.fittedModel.centroids = e)
+        }
+      }
+    Jh.exports = _n
+  })
+  var Kh = l((B3, Yh) => {
+    Yh.exports = {
+      helpers: Be(),
+      KMeansEstimated: Uh(),
+      KMeansMeta: $h(),
+      KMeansNaive: Pt(),
+      KMeansPlusPlus: In(),
+    }
+  })
+  var Mn = l((V3, Zh) => {
+    var {
+        apply: D2,
+        assert: F2,
+        dropNaN: Gh,
+        isArray: j2,
+        isDataFrame: I2,
+        isSeries: E2,
+        mean: Wh,
+        std: Lh,
+      } = N(),
+      Hh = U()
+    function Xh(t) {
+      if (I2(t) || E2(t)) {
+        let n = t.copy()
+        return (n.values = Xh(n.values)), n
+      }
+      F2(
+        j2(t),
+        "The `normalize` function only works on arrays, Series, and DataFrames!",
+      )
+      let e = (() => (Hh.shouldIgnoreNaNValues ? Wh(Gh(t)) : Wh(t)))(),
+        r = (() => (Hh.shouldIgnoreNaNValues ? Lh(Gh(t)) : Lh(t)))()
+      return r === 0 ? t : D2(t, n => (n - e) / r)
+    }
+    Zh.exports = Xh
+  })
+  var Cn = l((J3, nd) => {
+    var {
+        assert: ge,
+        dot: Qh,
+        isArray: ed,
+        isSeries: xn,
+        scale: _2,
+        Series: M2,
+        shape: td,
+      } = N(),
+      rd = he()
+    function Rt(t, e) {
+      if (xn(t)) {
+        if (xn(e)) return new M2(Rt(t.values, e.values))
+        {
+          let r = t.copy()
+          return (r.values = Rt(t.values, e)), r
+        }
+      }
+      if (xn(e)) {
+        let r = e.copy()
+        return (r.values = Rt(t, e.values)), r
+      }
+      return (
+        ge(ed(t), "`project` only works on vectors!"),
+        ge(ed(e), "`project` only works on vectors!"),
+        ge(rd(t), "`project` only works on vectors of numbers!"),
+        ge(rd(e), "`project` only works on vectors of numbers!"),
+        ge(td(t).length === 1, "`project` only works on vectors!"),
+        ge(td(e).length === 1, "`project` only works on vectors!"),
+        _2(Qh(e, t) / Qh(e, e), e)
+      )
+    }
+    nd.exports = Rt
+  })
+  var ad = l(($3, ud) => {
+    var {
+        assert: sd,
+        copy: x2,
+        DataFrame: C2,
+        divide: k2,
+        isArray: z2,
+        isDataFrame: U2,
+        isJagged: P2,
+        shape: R2,
+        subtract: B2,
+        transpose: id,
+      } = N(),
+      V2 = he(),
+      J2 = hn(),
+      $2 = Cn()
+    function od(t) {
+      if (U2(t)) {
+        let s = new C2(od(t.values))
+        return (s.index = t.index.slice()), (s.columns = t.columns.slice()), s
+      }
+      sd(
+        z2(t) && !P2(t) && R2(t).length === 2,
+        "`orthonormalize` only works on matrices!",
+      ),
+        sd(V2(t), "`orthonormalize` only works on matrices of numbers!")
+      let e = id(t),
+        r = []
+      e.forEach(s => {
+        let i = x2(s)
+        r.forEach(o => {
+          i = B2(i, $2(i, o))
+        }),
+          r.push(i)
+      })
+      let n = r.map(s => k2(s, J2(s)))
+      return id(n)
+    }
+    ud.exports = od
+  })
+  var Td = l((Y3, Sd) => {
+    var {
+        abs: cd,
+        apply: kn,
+        assert: Ve,
+        clamp: Y2,
+        copy: K2,
+        divide: G2,
+        dropNaN: ld,
+        flatten: fd,
+        isArray: hd,
+        isBoolean: dd,
+        isDataFrame: md,
+        isNumber: zn,
+        isSeries: pd,
+        isUndefined: gd,
+        log: W2,
+        max: yd,
+        median: qd,
+        min: bd,
+        sort: L2,
+        subtract: wd,
+      } = N(),
+      Nd = U(),
+      vd = he(),
+      H2 = bn(),
+      Un = class {
+        constructor(e) {
+          ;(e = e || {}),
+            (this.isAllowedToClip = gd(e.isAllowedToClip)
+              ? !0
+              : e.isAllowedToClip),
+            (this.isAllowedToTakeTheLog = gd(e.isAllowedToTakeTheLog)
+              ? !1
+              : e.isAllowedToTakeTheLog),
+            (this.maxScore = e.maxScore || 5),
+            Ve(
+              dd(this.isAllowedToClip),
+              "The `isAllowedToClip` property on the options object passed into the `OutlierMitigator` constructor must have a boolean value!",
+            ),
+            Ve(
+              dd(this.isAllowedToTakeTheLog),
+              "The `isAllowedToTakeTheLog` property on the options object passed into the `OutlierMitigator` constructor must have a boolean value!",
+            ),
+            Ve(
+              zn(this.maxScore) && this.maxScore >= 0,
+              "The `maxScore` property on the options object passed into the `OutlierMitigator` constructor must have a non-negative number value!",
+            ),
+            (this.mad = 0),
+            (this.median = 0)
+        }
+        fit(e) {
+          if (md(e) || pd(e)) return this.fit(e.values)
+          if (
+            (Ve(
+              hd(e),
+              "The `OutlierMitigator.fit` method only works on arrays, Series, and DataFrames!",
+            ),
+            !Nd.shouldIgnoreNaNValues && !vd(e))
+          )
+            return (this.mad = NaN), (this.median = NaN), this
+          let r = fd(e),
+            n = ld(r)
+          return H2(n)
+            ? this
+            : n.length === 0
+              ? this
+              : ((this.median = qd(n)),
+                (this.mad = qd(cd(wd(n, this.median)))),
+                this)
+        }
+        fitAndTransform() {
+          return this.fit(arguments[0]).transform(...arguments)
+        }
+        transform() {
+          if (arguments.length > 1)
+            return Array.from(arguments).map(o => this.transform(o))
+          let e = arguments[0]
+          if (md(e) || pd(e)) return this.transform(e.values)
+          if (
+            (Ve(
+              hd(e),
+              "The `OutlierMitigator.transform` method only works on arrays, Series, and DataFrames!",
+            ),
+            !Nd.shouldIgnoreNaNValues && !vd(e))
+          )
+            return kn(e, () => NaN)
+          let r = fd(e),
+            n = ld(r),
+            s = !1
+          if (this.mad === 0) {
+            let o = L2(K2(n)),
+              u = o.filter(h => h < this.median),
+              a = o.filter(h => h > this.median),
+              c = this.median,
+              f = this.median
+            if (
+              (u.length > 0 && (c = yd(u)),
+              a.length > 0 && (f = bd(a)),
+              (this.mad = (f - c) / 2),
+              this.mad === 0)
+            )
+              return e
+            s =
+              (this.median - c) / this.mad > this.maxScore ||
+              (f - this.median) / this.mad > this.maxScore
+          }
+          if (yd(G2(cd(wd(n, this.median)), this.mad)) > this.maxScore || s) {
+            let o = this.isAllowedToClip
+              ? kn(e, u =>
+                  zn(u)
+                    ? Y2(
+                        u,
+                        this.median - this.maxScore * this.mad,
+                        this.median + this.maxScore * this.mad,
+                      )
+                    : u,
+                )
+              : e
+            if (this.isAllowedToTakeTheLog) {
+              let u = bd(o)
+              o = kn(o, a => (zn(a) ? W2(a - u + 1) : a))
+            }
+            return o
+          } else return e
+        }
+      }
+    Sd.exports = Un
+  })
+  var xd = l((K3, Md) => {
+    var {
+        abs: X2,
+        add: Z2,
+        assert: Je,
+        isArray: Od,
+        isDataFrame: Ad,
+        isEqual: Q2,
+        isSeries: Dd,
+        mean: eT,
+        pow: Fd,
+        scale: tT,
+        shape: jd,
+        sign: rT,
+        sqrt: nT,
+        sum: Id,
+      } = N(),
+      Ed = he(),
+      _d = (t, e) => Z2(t, tT(e, -1))
+    function Pn(t, e) {
+      if (Ad(t) || Dd(t)) return Pn(t.values, e)
+      if (Ad(e) || Dd(e)) return Pn(t, e.values)
+      Je(
+        Od(t),
+        "You must pass two same-shaped numerical arrays into the `rScore` function!",
+      ),
+        Je(
+          Od(e),
+          "You must pass two same-shaped numerical arrays into the `rScore` function!",
+        ),
+        Je(
+          Q2(jd(t), jd(e)),
+          "You must pass two same-shaped numerical arrays into the `rScore` function!",
+        ),
+        Je(
+          Ed(t),
+          "You must pass two same-shaped numerical arrays into the `rScore` function!",
+        ),
+        Je(
+          Ed(e),
+          "You must pass two same-shaped numerical arrays into the `rScore` function!",
+        )
+      let r = Id(Fd(_d(t, e), 2)),
+        n = Id(Fd(_d(t, eT(t)), 2))
+      if (n === 0) return NaN
+      let s = 1 - r / n
+      return rT(s) * nT(X2(s))
+    }
+    Md.exports = Pn
+  })
+  var Pd = l((G3, Ud) => {
+    var {
+      argmax: Cd,
+      assert: $e,
+      copy: sT,
+      DataFrame: iT,
+      dot: oT,
+      isArray: uT,
+      isDataFrame: aT,
+      isEqual: kd,
+      isJagged: cT,
+      isNumber: lT,
+      reverse: fT,
+      shape: hT,
+      transpose: dT,
+    } = N()
+    function zd(t) {
+      if (uT(t)) {
+        $e(
+          hT(t).length === 2 && !cT(t),
+          "The `sortCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
+        )
+        let u = new iT(t)
+        return (u.index = u.columns.slice()), zd(u).values
+      }
+      $e(
+        aT(t),
+        "You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function!",
+      )
+      let e = t.copy(),
+        r = []
+      e.values.forEach((u, a) => {
+        u.forEach((c, f) => {
+          lT(c)
+            ? $e(
+                c >= -1 && c <= 1,
+                "The correlation matrix passed into the `sortCorrelationMatrix` function must not contain values less than -1 or greater than 1!",
+              )
+            : (r.push({ row: e.index[a], col: e.columns[f], value: c }),
+              (e.values[a][f] = -1 / 0))
+        })
+      }),
+        $e(
+          kd(e.values, dT(e.values)),
+          "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical!",
+        ),
+        $e(
+          kd(e.index, e.columns),
+          "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical! (In this case, although the values themselves are symmetrical, the row and column names differ.)",
+        )
+      let n = sT(e.index),
+        s = []
+      for (; n.length > 0; )
+        if (s.length === 0) {
+          let u = Cd(e.values.map(a => oT(a, a)))
+          s.push(n[u]), n.splice(u, 1)
+        } else {
+          let u = e.index.indexOf(s.at(-1)),
+            a = Cd(n.map(f => e.values[e.index.indexOf(f)][u])),
+            c = n[a]
+          s.push(c), n.splice(a, 1)
+        }
+      let i = fT(s),
+        o = e.get(i, i)
+      return (
+        r.forEach(u => {
+          let a = o.index.indexOf(u.row),
+            c = o.columns.indexOf(u.col)
+          ;(o.values[a][c] = u.value), (o.values[c][a] = u.value)
+        }),
+        o
+      )
+    }
+    Ud.exports = zd
+  })
+  var Bd = l((W3, Rd) => {
+    var mT = Mn()
+    function pT() {
+      return mT(...arguments)
+    }
+    Rd.exports = pT
+  })
+  var Hd = l((L3, Ld) => {
+    var {
+        assert: Bt,
+        DataFrame: Vd,
+        dropNaN: gT,
+        flatten: Jd,
+        isArray: yT,
+        isDataFrame: Rn,
+        isSeries: Bn,
+        mean: $d,
+        range: qT,
+        Series: Yd,
+        shape: Kd,
+        stdev: Gd,
+        transpose: Wd,
+      } = N(),
+      bT = U(),
+      Vn = class {
+        constructor() {
+          let e = this
+          ;(e.means = []),
+            (e.stdevs = []),
+            (e.wasFittedOnAVector = !1),
+            (e.hasBeenFitted = !1)
+        }
+        _getDataArrayAndShape(e) {
+          if (Rn(e)) return [e.values, e.shape]
+          if (Bn(e)) {
+            let n = Wd([e.values])
+            return [n, Kd(n)]
+          }
+          Bt(
+            yT(e),
+            "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!",
+          )
+          let r = Kd(e)
+          return (
+            Bt(
+              r.length < 3,
+              "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!",
+            ),
+            r.length === 1 && (r.push(1), (e = Wd([e]))),
+            [e, r]
+          )
+        }
+        fit(e) {
+          let r = this,
+            n = r._getDataArrayAndShape(e)
+          e = n[0]
+          let s = n[1]
+          return (
+            (r.wasFittedOnAVector = s.indexOf(1) > -1),
+            (r.means = []),
+            (r.stdevs = []),
+            qT(0, s[1]).forEach(i => {
+              let o = e.map(u => u[i])
+              if (bT.shouldIgnoreNaNValues) {
+                let u = gT(o)
+                r.means.push($d(u)), r.stdevs.push(Gd(u))
+              } else r.means.push($d(o)), r.stdevs.push(Gd(o))
+            }),
+            (r.hasBeenFitted = !0),
+            r
+          )
+        }
+        transform(e) {
+          let r = this
+          if (!r.hasBeenFitted)
+            throw new Error(
+              "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.",
+            )
+          if (Rn(e)) {
+            let o = new Vd(r.transform(e.values))
+            return (o.columns = e.columns), (o.index = e.index), o
+          }
+          if (Bn(e)) {
+            let o = new Yd(r.transform(e.values))
+            return (o.name = e.name), (o.index = e.index), o
+          }
+          let n = r._getDataArrayAndShape(e)
+          e = n[0]
+          let s = n[1]
+          Bt(
+            s[1] === r.means.length,
+            "The data you passed into the `transform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
+          )
+          let i = e.map(o => o.map((u, a) => (u - r.means[a]) / r.stdevs[a]))
+          return r.wasFittedOnAVector ? Jd(i) : i
+        }
+        untransform(e) {
+          let r = this
+          if (!r.hasBeenFitted)
+            throw new Error(
+              "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.",
+            )
+          if (Rn(e)) {
+            let o = new Vd(r.untransform(e.values))
+            return (o.columns = e.columns), (o.index = e.index), o
+          }
+          if (Bn(e)) {
+            let o = new Yd(r.untransform(e.values))
+            return (o.name = e.name), (o.index = e.index), o
+          }
+          let n = r._getDataArrayAndShape(e)
+          e = n[0]
+          let s = n[1]
+          Bt(
+            s[1] === r.means.length,
+            "The data you passed into the `untransform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
+          )
+          let i = e.map(o => o.map((u, a) => u * r.stdevs[a] + r.means[a]))
+          return r.wasFittedOnAVector ? Jd(i) : i
+        }
+      }
+    Ld.exports = Vn
+  })
+  var NT = l((H3, Zd) => {
+    var { MathError: wT } = N(),
+      Xd = {
+        cohensd: Wr(),
+        cohensD: Wr(),
+        common: U(),
+        containsOnlyNumbers: he(),
+        convertToNumerical: zf(),
+        diagonalize: Bf(),
+        getCorrelationMatrix: cn(),
+        getHighlyCorrelatedColumns: Hf(),
+        getMagnitude: hn(),
+        getOneHotEncodings: sn(),
+        getPercentages: eh(),
+        getPValueMatrix: ph(),
+        IndexMatcher: wh(),
+        isBinary: bn(),
+        isCorrelationMatrix: ln(),
+        KMeans: Kh(),
+        normalize: Mn(),
+        orthonormalize: ad(),
+        OutlierMitigator: Td(),
+        project: Cn(),
+        pValue: mn(),
+        rScore: xd(),
+        sortCorrelationMatrix: Pd(),
+        standardize: Bd(),
+        StandardScaler: Hd(),
+        trainTestSplit: Nn(),
+        dump() {
+          let t = this,
+            e =
+              typeof global < "u" ? global : typeof window < "u" ? window : null
+          if (!e)
+            throw new wT(
+              "Cannot dump functions into global scope because neither `global` nor `window` exist in the current context!",
+            )
+          Object.keys(t).forEach(r => {
+            try {
+              Object.defineProperty(e, r, {
+                configurable: !1,
+                enumerable: !0,
+                writable: !1,
+                value: t[r],
+              })
+            } catch {
+              e[r] = t[r]
+            }
+          })
+        },
+      }
+    try {
+      window.JSDataScienceHelpers = Xd
+    } catch {}
+    try {
+      Zd.exports = Xd
+    } catch {}
+  })
+  NT()
+})()
