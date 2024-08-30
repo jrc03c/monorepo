@@ -45,7 +45,9 @@ test("tests that data can be normalized correctly", () => {
   const jPred = normalize(i)
   expect(isEqual(jPred, jTrue)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const kBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
+  const kFloats = kBigInts.map(v => Number(v))
+  expect(isEqual(normalize(kBigInts), normalize(kFloats))).toBe(true)
 
   const wrongs = [
     0,

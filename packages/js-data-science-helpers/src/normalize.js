@@ -20,7 +20,7 @@ function normalize(x) {
 
   assert(
     isArray(x),
-    "The `normalize` function only works on arrays, Series, and DataFrames!"
+    "The `normalize` function only works on arrays, Series, and DataFrames!",
   )
 
   const m = (() => {
@@ -39,7 +39,7 @@ function normalize(x) {
     }
   })()
 
-  return s === 0 ? x : apply(x, v => (v - m) / s)
+  return s === 0 ? x : apply(x, v => (Number(v) - m) / s)
 }
 
 module.exports = normalize
