@@ -155,11 +155,25 @@ function stats(x, which) {
   }
 
   if (which.median) {
-    const xnumsSorted = xnums.toSorted((a, b) => a - b)
+    const xnumsSorted = xnums.toSorted((a, b) => Number(a) - Number(b))
     const middle = Math.floor(xnumsSorted.length / 2)
 
     if (xnumsSorted.length % 2 === 0) {
-      out.median = (xnumsSorted[middle - 1] + xnumsSorted[middle]) / 2
+      const left = xnumsSorted[middle - 1]
+      const right = xnumsSorted[middle]
+      out.median = (Number(left) + Number(right)) / 2
+
+      if (
+        resultsShouldIncludeBigInts &&
+        typeof left === "bigint" &&
+        typeof right === "bigint"
+      ) {
+        try {
+          out.median = BigInt(out.median)
+        } catch (e) {
+          // ...
+        }
+      }
     } else {
       out.median = xnumsSorted[middle]
     }
