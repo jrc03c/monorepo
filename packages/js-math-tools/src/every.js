@@ -1,8 +1,14 @@
 const assert = require("./assert")
 const isArray = require("./is-array")
+const isDataFrame = require("./is-dataframe")
 const isFunction = require("./is-function")
+const isSeries = require("./is-series")
 
 function every(x, fn) {
+  if (isDataFrame(x) || isSeries(x)) {
+    return every(x.values, fn)
+  }
+
   assert(
     isArray(x),
     "The first argument passed into the `every` function must be an array, Series, or DataFrame!",
