@@ -2,8 +2,10 @@ const { DataFrame, Series } = require("./dataframe")
 const { random } = require("./random")
 const flatten = require("./flatten")
 const isArray = require("./is-array")
+const isDataFrame = require("./is-dataframe")
 const isFunction = require("./is-function")
 const isNumber = require("./is-number")
+const isSeries = require("./is-series")
 const isUndefined = require("./is-undefined")
 const some = require("./some")
 
@@ -18,6 +20,30 @@ test("tests that the `some` function works as expected", () => {
   const b = random([2, 3, 4, 5])
   expect(some(b, v => v < 0 || v > 1)).toBe(false)
   expect(some(b, v => v > 0.5)).toBe(true)
+
+  const c = new DataFrame(random([100, 5]))
+  expect(some(c, v => v < 0 || v > 1)).toBe(false)
+
+  let counter = 0
+
+  some(c, () => {
+    counter++
+    return false
+  })
+
+  expect(counter).toBe(500)
+
+  const d = new Series(random(100))
+  expect(some(d, v => v > 0.5)).toBe(true)
+
+  counter = 0
+
+  some(d, () => {
+    counter++
+    return false
+  })
+
+  expect(counter).toBe(100)
 
   const selfReferencer = [2, 3, 4]
   selfReferencer.push(selfReferencer)
@@ -56,7 +82,10 @@ test("tests that the `some` function works as expected", () => {
 
   wrongs.forEach(v1 => {
     wrongs.forEach(v2 => {
-      if (!isArray(v1) || !isFunction(v2)) {
+      if (
+        (!isArray(v1) && !isDataFrame(v1) && !isSeries(v1)) ||
+        !isFunction(v2)
+      ) {
         expect(() => some(v1, v2)).toThrow()
       }
     })
