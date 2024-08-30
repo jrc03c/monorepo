@@ -93,6 +93,7 @@ const out = {
   sin: require("./sin"),
   sort: require("./sort"),
   sqrt: require("./sqrt"),
+  stats: require("./stats"),
   std: require("./std"),
   stdev: require("./stdev"),
   subtract: require("./subtract"),
@@ -113,16 +114,16 @@ const out = {
       typeof globalThis !== "undefined"
         ? globalThis
         : typeof global !== "undefined"
-        ? global
-        : typeof window !== "undefined"
-        ? window
-        : typeof self !== "undefined"
-        ? self
-        : undefined
+          ? global
+          : typeof window !== "undefined"
+            ? window
+            : typeof self !== "undefined"
+              ? self
+              : undefined
 
     if (!context) {
       throw new out.MathError(
-        "Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!"
+        "Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!",
       )
     }
 

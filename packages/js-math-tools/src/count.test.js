@@ -2,7 +2,6 @@ const { DataFrame, Series } = require("./dataframe")
 const count = require("./count")
 const flatten = require("./flatten")
 const isEqual = require("./is-equal")
-const range = require("./range")
 const round = require("./round")
 const normal = require("./normal")
 const set = require("./set")
@@ -11,20 +10,20 @@ test("tests that values in an array can be counted correctly", () => {
   const a = round(normal(1000))
 
   set(a).forEach(v => {
-    expect(count(a, v)).toBe(a.filter(x => x === v).length)
+    expect(count(a, v).get(v)).toBe(a.filter(x => x === v).length)
   })
 
   const b = new Series(round(normal(1000)))
   const c = new DataFrame(round(normal([100, 10])))
 
   set(b).forEach(v => {
-    expect(count(b, v)).toBe(
+    expect(count(b, v).get(v)).toBe(
       flatten(b.values).filter(x => isEqual(x, v)).length,
     )
   })
 
   set(c).forEach(v => {
-    expect(count(c, v)).toBe(
+    expect(count(c, v).get(v)).toBe(
       flatten(c.values).filter(x => isEqual(x, v)).length,
     )
   })
@@ -37,45 +36,134 @@ test("tests that values in an array can be counted correctly", () => {
   const d = [2n, 3n, 2n, 3n, 3n, 4n, 3n, 2n, 3n]
   const dCounts = count(d)
 
-  expect(dCounts.find(v => v.value === 2n).count).toBe(
-    d.filter(v => v === 2n).length,
-  )
+  for (const v of [2n, 3n, 4n]) {
+    expect(dCounts.get(v)).toBe(d.filter(other => other === v).length)
+  }
 
-  expect(dCounts.find(v => v.value === 3n).count).toBe(
-    d.filter(v => v === 3n).length,
-  )
+  const fn1 = x => x
 
-  expect(dCounts.find(v => v.value === 4n).count).toBe(
-    d.filter(v => v === 4n).length,
-  )
+  function fn2(x) {
+    return x
+  }
 
-  const types = [
-    0,
+  const temp = [
     1,
     2.3,
-    -2.3,
-    Infinity,
-    -Infinity,
-    NaN,
-    "foo",
-    true,
+    0,
     false,
+    -2.3,
+    NaN,
+    -Infinity,
+    false,
+    Symbol.for("Hello, world!"),
+    true,
+    true,
+    0,
+    true,
+    fn2,
+    fn1,
+    true,
+    undefined,
+    fn1,
+    NaN,
+    0,
+    fn1,
+    NaN,
+    2.3,
+    -Infinity,
+    0,
+    -2.3,
+    true,
+    Symbol.for("Hello, world!"),
+    -Infinity,
+    fn2,
+    undefined,
+    true,
+    0,
+    0,
+    "foo",
+    2.3,
+    "foo",
+    -2.3,
+    2.3,
+    -Infinity,
+    false,
+    true,
+    fn1,
+    "foo",
+    2.3,
+    true,
+    fn1,
     null,
+    Symbol.for("Hello, world!"),
+    0,
+    null,
+    NaN,
+    NaN,
     undefined,
     Symbol.for("Hello, world!"),
-    x => x,
-    function (x) {
-      return x
-    },
+    Infinity,
+    NaN,
+    2.3,
+    Infinity,
+    -Infinity,
+    undefined,
+    fn1,
+    "foo",
+    -Infinity,
+    "foo",
+    1,
+    undefined,
+    "foo",
+    Infinity,
+    fn2,
+    "foo",
+    Symbol.for("Hello, world!"),
+    fn1,
+    0,
+    undefined,
+    "foo",
+    Symbol.for("Hello, world!"),
+    fn1,
+    Infinity,
+    0,
+    undefined,
+    fn1,
+    Symbol.for("Hello, world!"),
+    NaN,
+    Infinity,
+    Infinity,
+    Infinity,
+    -2.3,
+    -Infinity,
+    1,
+    Infinity,
+    0,
+    NaN,
+    Infinity,
+    "foo",
+    1,
+    Infinity,
+    false,
+    true,
+    Symbol.for("Hello, world!"),
   ]
-
-  const temp = range(0, 1000).map(
-    () => types[parseInt(Math.random() * types.length)],
-  )
 
   const tempCounts = count(temp)
 
-  tempCounts.forEach(c => {
-    expect(c.count).toBe(temp.filter(v => isEqual(v, c.value)).length)
-  })
+  expect(tempCounts.get(1)).toBe(4)
+  expect(tempCounts.get(2.3)).toBe(6)
+  expect(tempCounts.get(0)).toBe(10)
+  expect(tempCounts.get(false)).toBe(4)
+  expect(tempCounts.get(-2.3)).toBe(4)
+  expect(tempCounts.get(NaN)).toBe(8)
+  expect(tempCounts.get(-Infinity)).toBe(7)
+  expect(tempCounts.get(Symbol.for("Hello, world!"))).toBe(8)
+  expect(tempCounts.get(true)).toBe(9)
+  expect(tempCounts.get(fn1)).toBe(9)
+  expect(tempCounts.get(undefined)).toBe(7)
+  expect(tempCounts.get(fn2)).toBe(3)
+  expect(tempCounts.get("foo")).toBe(9)
+  expect(tempCounts.get(null)).toBe(2)
+  expect(tempCounts.get(Infinity)).toBe(10)
 })
