@@ -183,7 +183,7 @@ function stats(x, which) {
     let variance = 0
 
     for (const v of xnums) {
-      variance += Math.pow(v - mean, 2)
+      variance += Math.pow(Number(v) - mean, 2)
     }
 
     variance /= xnums.length
