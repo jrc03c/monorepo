@@ -33,7 +33,7 @@ function project(v, u) {
   assert(containsOnlyNumbers(u), "`project` only works on vectors of numbers!")
   assert(shape(v).length === 1, "`project` only works on vectors!")
   assert(shape(u).length === 1, "`project` only works on vectors!")
-  return scale(dot(u, v) / dot(u, u), u)
+  return scale(Number(dot(u, v)) / Number(dot(u, u)), u)
 }
 
 module.exports = project

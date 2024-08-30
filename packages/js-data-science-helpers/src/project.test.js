@@ -28,7 +28,19 @@ test("tests that vectors can be correctly projected onto other vectors", () => {
   const iPred = project(g, h)
   expect(isEqual(iPred, iTrue)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const jBigInts = normal(100).map(v => BigInt(Math.round(v)))
+  const kBigInts = normal(100).map(v => BigInt(Math.round(v)))
+
+  const jFloats = jBigInts.map(v => Number(v))
+  const kFloats = kBigInts.map(v => Number(v))
+
+  expect(isEqual(project(jBigInts, kBigInts), project(jFloats, kFloats))).toBe(
+    true,
+  )
+
+  expect(isEqual(project(jBigInts, kFloats), project(jFloats, kBigInts))).toBe(
+    true,
+  )
 
   const wrongs = [
     0,
