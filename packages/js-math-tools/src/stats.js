@@ -106,7 +106,6 @@ function stats(x, which) {
     if (isNumber(v)) {
       if (typeof v === "bigint") {
         resultsShouldIncludeBigInts = true
-        v = Number(v)
       }
 
       if (v > max) {
@@ -117,12 +116,8 @@ function stats(x, which) {
         min = v
       }
 
-      sum += v
+      sum += Number(v)
       xnums.push(v)
-
-      if (resultsShouldIncludeBigInts) {
-        v = BigInt(v)
-      }
     }
 
     counts.increment(v)
@@ -181,20 +176,10 @@ function stats(x, which) {
   }
 
   if (resultsShouldIncludeBigInts) {
-    for (const stat of [
-      "max",
-      "mean",
-      "median",
-      "min",
-      "stdev",
-      "sum",
-      "variance",
-    ]) {
-      try {
-        out[stat] = BigInt(out.stat)
-      } catch (e) {
-        // ...
-      }
+    try {
+      out.sum = BigInt(out.sum)
+    } catch (e) {
+      // ...
     }
 
     if (which.mode) {
