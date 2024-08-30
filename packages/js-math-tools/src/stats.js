@@ -55,7 +55,10 @@ class Counter {
 
   has(value) {
     return (
-      this.dict.has(value) || !!this.values.find(other => isEqual(other, value))
+      this.dict.has(value) ||
+      (typeof value === "object" &&
+        value !== null &&
+        !!this.values.find(other => isEqual(other, value)))
     )
   }
 
