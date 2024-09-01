@@ -14,6 +14,8 @@ const {
   transpose,
 } = require("@jrc03c/js-math-tools")
 
+const isCorrelationMatrix = require("./is-correlation-matrix")
+
 // NOTE: This assumes a correlation matrix that represents the internal
 // correlations of a single dataset; i.e., the correlations of each column with
 // each other column in a dataset, NOT the correlations among columns of two
@@ -23,7 +25,7 @@ function sortCorrelationMatrix(c) {
   if (isArray(c)) {
     assert(
       shape(c).length === 2 && !isJagged(c),
-      "The `sortCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!"
+      "The `sortCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
     )
 
     const temp = new DataFrame(c)
@@ -32,8 +34,13 @@ function sortCorrelationMatrix(c) {
   }
 
   assert(
+    isCorrelationMatrix(c),
+    "You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function! This function expects to receive a precomputed correlation matrix (e.g., of the type returned by the `getCorrelationMatrix` function) containing only numerical values between -1 and 1.",
+  )
+
+  assert(
     isDataFrame(c),
-    "You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function!"
+    "You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function!",
   )
 
   // for each value:
@@ -51,7 +58,7 @@ function sortCorrelationMatrix(c) {
       } else {
         assert(
           v >= -1 && v <= 1,
-          "The correlation matrix passed into the `sortCorrelationMatrix` function must not contain values less than -1 or greater than 1!"
+          "The correlation matrix passed into the `sortCorrelationMatrix` function must not contain values less than -1 or greater than 1!",
         )
       }
     })
@@ -59,12 +66,12 @@ function sortCorrelationMatrix(c) {
 
   assert(
     isEqual(temp.values, transpose(temp.values)),
-    "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical!"
+    "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical!",
   )
 
   assert(
     isEqual(temp.index, temp.columns),
-    "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical! (In this case, although the values themselves are symmetrical, the row and column names differ.)"
+    "The correlation matrix passed into the `sortCorrelationMatrix` function must be symmetrical! (In this case, although the values themselves are symmetrical, the row and column names differ.)",
   )
 
   const freeRows = copy(temp.index)
@@ -87,7 +94,7 @@ function sortCorrelationMatrix(c) {
         freeRows.map(rowName => {
           const row = temp.values[temp.index.indexOf(rowName)]
           return row[lastFixedRowIndex]
-        })
+        }),
       )
 
       const nextRowName = freeRows[nextRowIndex]

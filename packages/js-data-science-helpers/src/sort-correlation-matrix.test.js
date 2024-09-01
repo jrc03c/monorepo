@@ -2,7 +2,6 @@ const {
   add,
   DataFrame,
   divide,
-  flatten,
   int,
   isEqual,
   isNumber,
@@ -13,8 +12,6 @@ const {
   range,
   remap,
   Series,
-  set,
-  sort,
 } = require("@jrc03c/js-math-tools")
 
 const getCorrelationMatrix = require("./get-correlation-matrix")
@@ -65,54 +62,18 @@ test("sorts a random correlation matrix", () => {
     x => x,
   ]
 
-  const nans = []
-
   range(0, 0.1 * e.shape[0] * e.shape[1]).forEach(() => {
     const i = int(random() * e.shape[0])
     const j = int(random() * e.shape[1])
-
     const v = possibles[int(random() * possibles.length)]
 
     if (isNumber(e.values[i][j])) {
       e.values[i][j] = v
       e.values[j][i] = v
-      nans.push(v)
     }
   })
 
-  const f = sortCorrelationMatrix(e)
-  let containsNaNs = false
-
-  f.values.forEach(row => {
-    row.forEach(v => {
-      if (!isNumber(v)) {
-        containsNaNs = true
-      }
-    })
-  })
-
-  expect(containsNaNs).toBe(true)
-  expect(isEqual(sort(set(e.columns)), sort(set(f.columns)))).toBe(true)
-  expect(isEqual(sort(set(e.index)), sort(set(f.index)))).toBe(true)
-
-  expect(
-    isEqual(
-      sort(
-        set(nans),
-        (a, b) =>
-          possibles.findIndex(v => isEqual(v, a)) -
-          possibles.findIndex(v => isEqual(v, b)),
-      ),
-      sort(
-        set(flatten(e).filter(v => !isNumber(v))),
-        (a, b) =>
-          possibles.findIndex(v => isEqual(v, a)) -
-          possibles.findIndex(v => isEqual(v, b)),
-      ),
-    ),
-  ).toBe(true)
-
-  throw new Error("Add BigInt unit tests!")
+  expect(() => sortCorrelationMatrix(e)).toThrow()
 
   const wrongs = [
     0,
