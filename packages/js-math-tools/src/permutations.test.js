@@ -1,10 +1,21 @@
 const { DataFrame, Series } = require("./dataframe")
+const { permutations, permutationsIterator } = require("./permutations")
 const factorial = require("./factorial")
+const isArray = require("./is-array")
 const isEqual = require("./is-equal")
-const permutations = require("./permutations")
 const range = require("./range")
 const set = require("./set")
 const sort = require("./sort")
+
+function depthSort(a, b) {
+  let i = 0
+
+  while (i < a.length && i < b.length && a[i] === b[i]) {
+    i++
+  }
+
+  return a[i] < b[i] ? -1 : 1
+}
 
 function turnIntoStrings(arr) {
   return arr.map(item => JSON.stringify(item))
@@ -80,20 +91,8 @@ test("tests that permutations can be correctly computed", () => {
     expect(permutations(e, i).length).toBe(getNumberOfPermutations(e, i))
   }
 
-  function trioSort(a, b) {
-    if (a[0] === b[0]) {
-      if (a[1] === b[1]) {
-        return a[2] - b[2]
-      } else {
-        return a[1] - b[1]
-      }
-    } else {
-      return a[0] - b[0]
-    }
-  }
-
   const f = [2, [3, 4, [5]]]
-  const gPred = sort(permutations(f, 3), trioSort)
+  const gPred = sort(permutations(f, 3), depthSort)
 
   const gTrue = sort(
     [
@@ -122,7 +121,7 @@ test("tests that permutations can be correctly computed", () => {
       [5, 4, 2],
       [5, 4, 3],
     ],
-    trioSort,
+    depthSort,
   )
 
   expect(isEqual(gPred, gTrue)).toBe(true)
@@ -133,14 +132,34 @@ test("tests that permutations can be correctly computed", () => {
   const i = new DataFrame({ foo: [1, 2, 3, 4, 5], bar: [6, 7, 8, 9, 10] })
   expect(isEqual(permutations(i, 2), permutations(i.values, 2))).toBe(true)
 
-  expect(permutations([2n, 3n, 4n])).toStrictEqual([
-    [2n, 3n, 4n],
-    [2n, 4n, 3n],
-    [3n, 2n, 4n],
-    [3n, 4n, 2n],
-    [4n, 2n, 3n],
-    [4n, 3n, 2n],
-  ])
+  const jTrue = sort(
+    [
+      [2n, 3n, 4n],
+      [2n, 4n, 3n],
+      [3n, 2n, 4n],
+      [3n, 4n, 2n],
+      [4n, 2n, 3n],
+      [4n, 3n, 2n],
+    ],
+    depthSort,
+  )
+
+  const jPred = sort(permutations([2n, 3n, 4n]), depthSort)
+  expect(jPred).toStrictEqual(jTrue)
+
+  const k = range(0, 10)
+  const m = []
+
+  for (const perm of permutationsIterator(k, 3)) {
+    m.push(perm.slice())
+  }
+
+  expect(m.length).toBe(getNumberOfPermutations(k, 3))
+
+  expect(
+    typeof permutationsIterator(k, 3) === "object" &&
+      !isArray(permutationsIterator(k, 3)),
+  ).toBe(true)
 })
 
 test("tests that errors are thrown when trying to get permutations from non-arrays", () => {
