@@ -1,46 +1,62 @@
 const assert = require("./assert")
 const flatten = require("./flatten")
+const int = require("./int")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
 
-function combinations(arr, r) {
-  if (isDataFrame(arr) || isSeries(arr)) {
-    return combinations(arr.values, r)
+function combinationsIterator(x, r) {
+  function* helper(x, r) {
+    if (r > x.length) {
+      yield x
+    } else if (r <= 0) {
+      yield []
+    } else if (x.length < 2) {
+      yield x
+    } else {
+      for (let i = 0; i < x.length; i++) {
+        const item = x[i]
+        const after = x.slice(i + 1)
+
+        if (after.length < r - 1) {
+          continue
+        }
+
+        if (r - 1 >= 0) {
+          for (const child of combinationsIterator(after, r - 1)) {
+            yield [item].concat(child)
+          }
+        }
+      }
+    }
+  }
+
+  if (isDataFrame(x) || isSeries(x)) {
+    return combinationsIterator(x.values, r)
   }
 
   assert(
-    isArray(arr),
-    "The `combinations` function only works on arrays, Series, and DataFrames!"
+    isArray(x),
+    "The `combinations` function only works on arrays, Series, and DataFrames!",
   )
-  assert(isNumber(r), "`r` must be a whole number!")
-  arr = flatten(arr)
 
-  if (r > arr.length) {
-    return [arr]
-  }
+  assert(
+    isNumber(r) && int(r) === r && r >= 0,
+    "`r` must be a non-negative integer!",
+  )
 
-  if (r <= 0) {
-    return [[]]
-  }
+  return helper(flatten(x), r)
+}
 
-  assert(r === parseInt(r), "`r` must be a whole number!")
-
-  if (arr.length < 2) return arr
+function combinations(x, r) {
   const out = []
 
-  arr.forEach((item, i) => {
-    const after = arr.slice(i + 1)
-    if (after.length < r - 1) return
-    const children = combinations(after, r - 1)
-
-    children.forEach(child => {
-      out.push([item].concat(child))
-    })
-  })
+  for (const combo of combinationsIterator(x, r)) {
+    out.push(combo.slice())
+  }
 
   return out
 }
 
-module.exports = combinations
+module.exports = { combinations, combinationsIterator }

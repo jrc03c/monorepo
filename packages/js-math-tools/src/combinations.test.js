@@ -1,5 +1,6 @@
-const combinations = require("./combinations")
+const { combinations, combinationsIterator } = require("./combinations")
 const factorial = require("./factorial")
+const isArray = require("./is-array")
 const range = require("./range")
 const set = require("./set")
 const sort = require("./sort")
@@ -13,7 +14,7 @@ function getNumberOfCombinations(arr, r) {
   return factorial(n) / (factorial(r) * factorial(n - r))
 }
 
-test("", () => {
+test("tests that the combinations function works as expected", () => {
   const aTrue = sort(
     set(
       turnIntoStrings([
@@ -27,8 +28,8 @@ test("", () => {
         [1, 2, 4],
         [1, 3, 4],
         [2, 3, 4],
-      ])
-    )
+      ]),
+    ),
   )
 
   const aPred = sort(set(turnIntoStrings(combinations(range(0, 5), 3))))
@@ -38,11 +39,22 @@ test("", () => {
   const r = 3
   expect(combinations(x, r).length).toBe(getNumberOfCombinations(x, r))
 
-  expect(combinations(range(0, 10), -1)).toStrictEqual([[]])
   expect(combinations(range(0, 10), 100)).toStrictEqual([range(0, 10)])
-})
 
-test("", () => {
+  const b = range(0, 10)
+  const c = []
+
+  for (const combo of combinationsIterator(b, 3)) {
+    c.push(combo.slice())
+  }
+
+  expect(c.length).toBe(getNumberOfCombinations(b, 3))
+
+  expect(
+    typeof combinationsIterator(b, 3) === "object" &&
+      !isArray(combinationsIterator(b, 3)),
+  ).toBe(true)
+
   const failures = [
     [[1, 2, 3, 4, 5], 3.5],
     [[1, 2, 3, 4, 5], "3"],
