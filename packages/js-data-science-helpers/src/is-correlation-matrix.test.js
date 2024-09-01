@@ -1,4 +1,11 @@
-const { copy, DataFrame, normal, Series } = require("@jrc03c/js-math-tools")
+const {
+  copy,
+  DataFrame,
+  normal,
+  random,
+  Series,
+} = require("@jrc03c/js-math-tools")
+
 const getCorrelationMatrix = require("./get-correlation-matrix")
 const isCorrelationMatrix = require("./is-correlation-matrix")
 
@@ -8,14 +15,17 @@ test("tests that correlation matrices can be correctly identified", () => {
   const c = getCorrelationMatrix(a, b)
   const d = copy(c)
   expect(isCorrelationMatrix(c)).toBe(true)
-  expect(isCorrelationMatrix(d)).toBe(false)
+  expect(isCorrelationMatrix(d)).toBe(true)
 
   const e = new DataFrame(normal([100, 5]))
   const f = new DataFrame(normal([100, 7]))
   const g = getCorrelationMatrix(e, f)
   const h = g.copy()
   expect(isCorrelationMatrix(g)).toBe(true)
-  expect(isCorrelationMatrix(h)).toBe(false)
+  expect(isCorrelationMatrix(h)).toBe(true)
+
+  expect(isCorrelationMatrix(normal([25, 25]))).toBe(false)
+  expect(isCorrelationMatrix(random([25, 25]))).toBe(true)
 
   expect(
     isCorrelationMatrix(
