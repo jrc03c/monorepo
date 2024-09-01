@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/js-text-tools",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "description": "a few small tools for working with text in js",
   "main": "src/index.js",
   "dependencies": {
