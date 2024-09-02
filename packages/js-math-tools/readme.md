@@ -171,6 +171,27 @@ Returns `min` if `x` is less than `min`; returns `max` if `x` is greater than `m
 
 Returns all possible combinations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the combinations — so it won't be possible with this function to get combinations of _arrays_.
 
+**NOTE:** If you're planning on finding all combinations of more than a few items, please consider using the `combinationsIterator` function below.
+
+## `combinationsIterator(x, r)`
+
+Returns an iterator that iterates over all possible combinations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the combinations — so it won't be possible with this function to get combinations of _arrays_.
+
+The plain ol' `combinations` function returns an array containing all possible combinations. However, combinations of more than a few items can be extremely costly to compute. Therefore, it often makes more sense to use an iterator instead of trying to precompute them all first and return them as an array.
+
+Here's an example of how to use this function:
+
+```js
+const { combinationsIterator } = require("@jrc03c/js-math-tools")
+
+const x = [2, 3, 4, 5, 6]
+const r = 3
+
+for (const combo of combinationsIterator(x, r)) {
+  console.log(combo)
+}
+```
+
 ## `copy(x)`
 
 Returns a copy of `x`. The only exception is if `x` is an instance of a custom class. In such a case, a plain JavaScript `Object` will be returned, though bearing the same members as `x` but not an instance of the same class. Also, this function handles circular references by replacing them with strings like `"<reference to '/some/path/down/into/the/object'>"`. If you need a copy of `x` using a custom class, use [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone).
@@ -822,7 +843,28 @@ Returns an _n_-dimensional array of 1s where `shape` is an array of whole number
 
 ## `permutations(x, r)`
 
-Given an arbitrarily nested array `x`, returns all possible permutations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the permutations — so it won't be possible with this function to get permutations of arrays.
+Given an arbitrarily nested array `x`, returns all possible permutations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the permutations — so it won't be possible with this function to get permutations of _arrays_.
+
+**NOTE:** If you're planning on finding all permutations of more than a few items, please consider using the `permutationsIterator` function below.
+
+## `permutationsIterator(x, r)`
+
+Returns an iterator that iterates over all possible permutations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the combinations — so it won't be possible with this function to get permutations of _arrays_.
+
+The plain ol' `permutations` function returns an array containing all possible permutations. However, permutations of more than a few items can be extremely costly to compute. Therefore, it often makes more sense to use an iterator instead of trying to precompute them all first and return them as an array.
+
+Here's an example of how to use this function:
+
+```js
+const { permutationsIterator } = require("@jrc03c/js-math-tools")
+
+const x = [2, 3, 4, 5, 6]
+const r = 3
+
+for (const perm of permutationsIterator(x, r)) {
+  console.log(perm)
+}
+```
 
 ## `product(x, shouldDropNaNs=false)`
 

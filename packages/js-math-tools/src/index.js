@@ -43,6 +43,7 @@ const out = {
   float: require("./float"),
   floor: require("./floor"),
   identity: require("./identity"),
+  IndexMatcher: require("./index-matcher"),
   indexOf: require("./index-of"),
   inferType: require("./infer-type"),
   int: require("./int"),
