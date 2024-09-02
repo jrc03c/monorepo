@@ -1,7 +1,10 @@
 const {
   add,
   DataFrame,
+  isDataFrame,
   isEqual,
+  isNumber,
+  isUndefined,
   normal,
   range,
   scale,
@@ -18,9 +21,9 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   const b = new DataFrame({ foo: a, bar: a, baz: a })
 
   const cTrue = {
-    foo: ["bar", "baz", "foo"],
-    bar: ["bar", "baz", "foo"],
-    baz: ["bar", "baz", "foo"],
+    foo: ["bar", "baz"],
+    bar: ["baz", "foo"],
+    baz: ["bar", "foo"],
   }
 
   const cPred = getHighlyCorrelatedColumns(b)
@@ -35,47 +38,53 @@ test("tests that highly correlated columns in matrices can be correctly identifi
     d4: add(d, scale(1e5, normal(100))),
   })
 
-  const fTrue = { d1: ["d1", "d2"], d2: ["d1", "d2"], d3: ["d3"], d4: ["d4"] }
+  const fTrue = { d1: ["d2"], d2: ["d1"] }
   const fPred = getHighlyCorrelatedColumns(e)
   expect(isEqual(fPred, fTrue)).toBe(true)
 
   const g = new DataFrame(normal([100, 5]))
-  const h = new DataFrame(normal([100, 7]))
 
   expect(
     isEqual(
-      getHighlyCorrelatedColumns(g, h),
-      getHighlyCorrelatedColumns(g.values, h.values),
+      getHighlyCorrelatedColumns(g),
+      getHighlyCorrelatedColumns(g.values),
     ),
   ).toBe(true)
 
-  const i = new DataFrame(orthonormalize(normal([100, 10])))
-  const jTrue = {}
-  i.columns.forEach(c => (jTrue[c] = [c]))
-  const jPred = getHighlyCorrelatedColumns(i)
-  expect(isEqual(jPred, jTrue)).toBe(true)
+  const h = new DataFrame(orthonormalize(normal([100, 10])))
+  const iTrue = {}
+  const iPred = getHighlyCorrelatedColumns(h)
+  expect(isEqual(iPred, iTrue)).toBe(true)
 
-  const k = normal(100)
+  const j = normal(100)
 
-  const l = new DataFrame(
-    transpose(range(0, 5).map(() => add(k, scale(1e-20, normal(100))))),
+  const k = new DataFrame(
+    transpose(range(0, 5).map(() => add(j, scale(1e-20, normal(100))))),
   )
 
   common.shouldIgnoreNaNValues = false
-  const mTrue = getHighlyCorrelatedColumns(l)
+  const mTrue = getHighlyCorrelatedColumns(k)
 
-  l.values[parseInt(Math.random() * l.shape[0])][
-    parseInt(Math.random() * l.shape[1])
+  k.values[parseInt(Math.random() * k.shape[0])][
+    parseInt(Math.random() * k.shape[1])
   ] = "uh-oh"
 
-  const mPred1 = getHighlyCorrelatedColumns(l)
+  const mPred1 = getHighlyCorrelatedColumns(k)
   expect(isEqual(mPred1, mTrue)).toBe(false)
 
   common.shouldIgnoreNaNValues = true
-  const mPred2 = getHighlyCorrelatedColumns(l)
+  const mPred2 = getHighlyCorrelatedColumns(k)
   expect(isEqual(mPred2, mTrue)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const n = new DataFrame({ a: [2n, 3n, 4n], b: [5n, 6n, 7n] })
+  const p = n.apply(col => col.apply(v => Number(v)))
+  const qTrue = { a: ["b"], b: ["a"] }
+
+  expect(
+    isEqual(getHighlyCorrelatedColumns(n), getHighlyCorrelatedColumns(p)),
+  ).toBe(true)
+
+  expect(isEqual(getHighlyCorrelatedColumns(n), qTrue)).toBe(true)
 
   const wrongs = [
     0,
@@ -102,7 +111,9 @@ test("tests that highly correlated columns in matrices can be correctly identifi
 
   wrongs.forEach(a => {
     wrongs.forEach(b => {
-      expect(() => getHighlyCorrelatedColumns(a, b)).toThrow()
+      if (!isDataFrame(a) && !isNumber(b) && !isUndefined(b)) {
+        expect(() => getHighlyCorrelatedColumns(a, b)).toThrow()
+      }
     })
   })
 })

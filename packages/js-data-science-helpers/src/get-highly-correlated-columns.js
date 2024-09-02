@@ -1,70 +1,63 @@
 const {
+  assert,
+  correl,
   DataFrame,
   isArray,
   isDataFrame,
   isNumber,
-  MathError,
+  shape,
   sort,
+  isUndefined,
 } = require("@jrc03c/js-math-tools")
 
-const getCorrelationMatrix = require("./get-correlation-matrix")
-const isCorrelationMatrix = require("./is-correlation-matrix")
+const common = require("./common")
 
-function getHighlyCorrelatedColumns(a, b, threshold) {
-  threshold = Object.values(arguments).find(v => isNumber(v)) || 1 - 1e-5
+function getHighlyCorrelatedColumns(x, threshold) {
+  threshold = isUndefined(threshold) ? 1 - 1e-5 : threshold
 
-  const c = (() => {
-    const arrays = Object.values(arguments).filter(
-      v => isArray(v) || isDataFrame(v)
-    )
+  if (!isDataFrame(x)) {
+    x = new DataFrame(x)
+  }
 
-    if (arrays.length === 1) {
-      const x = arrays[0]
+  const xshape = shape(x)
 
-      if (isCorrelationMatrix(x)) {
-        return isDataFrame(x) ? x : new DataFrame(x)
-      } else {
-        const out = getCorrelationMatrix(x, null)
-        return isDataFrame(out) ? out : new DataFrame(out)
-      }
-    }
+  assert(
+    (isArray(x) || isDataFrame(x)) && xshape.length === 2,
+    "The first argument passed into the `getHighlyCorrelatedColumns` function must be a 2-dimensional array or DataFrame!",
+  )
 
-    if (arrays.length === 2) {
-      const out = getCorrelationMatrix(arrays[0], arrays[1])
-      return isDataFrame(out) ? out : new DataFrame(out)
-    }
-
-    throw new MathError(
-      "You must pass 1 or 2 2-dimensional arrays or DataFrames into the `getHighlyCorrelatedColumns` function!"
-    )
-  })()
+  assert(
+    isNumber(threshold) && threshold >= -1 && threshold <= 1,
+    "The second argument passed into the `getHighlyCorrelatedColumns` must be a number in the range [-1, 1] representing the threshold above which two columns will be considered to be highly correlated!",
+  )
 
   const out = {}
 
-  c.values.forEach((row, i) => {
-    row.forEach((value, j) => {
-      if (isNumber(value) && value > threshold) {
-        const rowName = c.index[i]
-        const colName = c.columns[j]
+  if (common.shouldIgnoreNaNValues) {
+    x = x.dropNaN()
+  }
 
-        if (!out[rowName]) {
-          out[rowName] = []
+  for (let i = 0; i < xshape[1] - 1; i++) {
+    for (let j = i + 1; j < xshape[1]; j++) {
+      const col1 = x.columns[i]
+      const col2 = x.columns[j]
+      const r = correl(x.get(col1), x.get(col2))
+
+      if (r > threshold) {
+        if (!out[col1]) {
+          out[col1] = []
         }
 
-        if (out[rowName].indexOf(colName) < 0) {
-          out[rowName].push(colName)
+        out[col1].push(col2)
+
+        if (!out[col2]) {
+          out[col2] = []
         }
 
-        if (!out[colName]) {
-          out[colName] = []
-        }
-
-        if (out[colName].indexOf(rowName) < 0) {
-          out[colName].push(rowName)
-        }
+        out[col2].push(col1)
       }
-    })
-  })
+    }
+  }
 
   Object.keys(out).forEach(key => {
     out[key] = sort(out[key])
