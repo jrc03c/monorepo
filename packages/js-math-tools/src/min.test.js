@@ -24,6 +24,11 @@ test("tests that the minimum value in arrays, series, and dataframes can be foun
   expect(min([234n, 234])).toBe(234n)
   expect(min([234, 234n])).toBe(234)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(min(e)).toBeNaN()
+  expect(min(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

@@ -23,6 +23,11 @@ test("tests that the mean of arrays, series, and dataframes can be computed corr
 
   expect(mean([2n, 3n, 4n])).toBe(3n)
 
+  const f = normal(100)
+  f[0] = "uh-oh!"
+  expect(mean(f)).toBeNaN()
+  expect(mean(f, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

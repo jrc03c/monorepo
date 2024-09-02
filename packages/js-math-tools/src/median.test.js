@@ -27,6 +27,11 @@ test("tests that the median of arrays, series, and dataframes can be computed co
   expect(median([2n, 3.1, 4n])).toBe(3.1)
   expect(median([2n, 2n, 3n, 3n])).toBe(2.5)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(median(e)).toBeNaN()
+  expect(median(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

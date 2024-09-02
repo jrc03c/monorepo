@@ -35,6 +35,11 @@ test("tests that the sums of values can be computed correctly", () => {
   expect(sum([2n, 3n, 4n])).toBe(9n)
   expect(sum([2n, 3n, 4n, 5.5])).toBe(14.5)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(sum(e)).toBeNaN()
+  expect(sum(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

@@ -54,4 +54,21 @@ test("tests that basic stats can be computed for datasets", () => {
   expect(results2.sum).toBeNaN()
   expect(results2.variance).toBeNaN()
   expect(isEqual(sort(set(b)), sort(results2.counts.values)))
+
+  const results3 = stats(b, {
+    dropNaNs: true,
+    median: true,
+    mode: true,
+    stdev: true,
+    variance: true,
+  })
+
+  expect(results3.max).not.toBeNaN()
+  expect(results3.mean).not.toBeNaN()
+  expect(results3.median).not.toBeNaN()
+  expect(results3.min).not.toBeNaN()
+  expect(results3.stdev).not.toBeNaN()
+  expect(results3.sum).not.toBeNaN()
+  expect(results3.variance).not.toBeNaN()
+  expect(isEqual(sort(set(b)), sort(results3.counts.values)))
 })

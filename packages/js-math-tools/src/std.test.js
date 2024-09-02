@@ -20,6 +20,11 @@ test("tests that standard deviations can be correctly computed", () => {
 
   expect(std([2n, 3n, 4n, 5n, 6n])).toBe(std([2, 3, 4, 5, 6]))
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(std(e)).toBeNaN()
+  expect(std(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

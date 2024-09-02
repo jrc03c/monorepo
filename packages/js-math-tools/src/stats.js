@@ -1,9 +1,10 @@
 const Counter = require("./helpers/counter")
 const flatten = require("./flatten")
+const isNumber = require("./is-number")
 
-function stats(x, which) {
-  // `which` is an options object which allows users to specify which stats they
-  // want to return (which can be useful because some stats require looping over
+function stats(x, options) {
+  // `options` is an options object options allows users to specify options stats they
+  // want to return (options can be useful because some stats require looping over
   // the array more than once); default stats include:
   // - counts
   // - max
@@ -16,14 +17,15 @@ function stats(x, which) {
   // - stdev
   // - variance
   // also note that some of them are freebies because they *must* be computed
-  // (e.g., sum), in which case we'll probably ignore them even if they're
-  // marked as false in `which`;
+  // (e.g., sum), in options case we'll probably ignore them even if they're
+  // marked as false in `options`;
 
-  which = which || {}
+  options = options || {}
 
   const counts = new Counter()
   const out = {}
   const xflat = flatten(x)
+  const xnums = []
   let max = -Infinity
   let min = Infinity
   let resultsShouldIncludeBigInts = false
@@ -34,26 +36,29 @@ function stats(x, which) {
       resultsShouldIncludeBigInts = true
     }
 
-    try {
-      if (v > max) {
-        max = v
-      }
+    if (!options.dropNaNs || isNumber(v)) {
+      try {
+        if (v > max) {
+          max = v
+        }
 
-      if (v < min) {
-        min = v
-      }
+        if (v < min) {
+          min = v
+        }
 
-      sum += Number(v)
-    } catch (e) {
-      max = NaN
-      min = NaN
-      sum = NaN
+        sum += Number(v)
+        xnums.push(v)
+      } catch (e) {
+        max = NaN
+        min = NaN
+        sum = NaN
+      }
     }
 
     counts.increment(v)
   }
 
-  const mean = sum / xflat.length
+  const mean = sum / xnums.length
 
   out.counts = counts
   out.max = max
@@ -66,7 +71,7 @@ function stats(x, which) {
     out.min = NaN
   }
 
-  if (which.mode) {
+  if (options.mode) {
     const sortedCountPairs = Array.from(
       counts.values.map(v => [v, counts.get(v)]),
     ).toSorted((a, b) => b[1] - a[1])
@@ -85,16 +90,16 @@ function stats(x, which) {
     out.mode = mode.toSorted()
   }
 
-  if (which.median) {
+  if (options.median) {
     if (isNaN(mean)) {
       out.median = NaN
     } else {
-      const xflatSorted = xflat.toSorted((a, b) => Number(a) - Number(b))
-      const middle = Math.floor(xflatSorted.length / 2)
+      const xnumsSorted = xnums.toSorted((a, b) => Number(a) - Number(b))
+      const middle = Math.floor(xnumsSorted.length / 2)
 
-      if (xflatSorted.length % 2 === 0) {
-        const left = xflatSorted[middle - 1]
-        const right = xflatSorted[middle]
+      if (xnumsSorted.length % 2 === 0) {
+        const left = xnumsSorted[middle - 1]
+        const right = xnumsSorted[middle]
         out.median = (Number(left) + Number(right)) / 2
 
         if (
@@ -109,19 +114,19 @@ function stats(x, which) {
           }
         }
       } else {
-        out.median = xflatSorted[middle]
+        out.median = xnumsSorted[middle]
       }
     }
   }
 
-  if (which.stdev || which.variance) {
+  if (options.stdev || options.variance) {
     let variance = 0
 
-    for (const v of xflat) {
+    for (const v of xnums) {
       variance += Math.pow(Number(v) - mean, 2)
     }
 
-    variance /= xflat.length
+    variance /= xnums.length
     const stdev = Math.sqrt(variance)
 
     out.stdev = stdev
@@ -135,7 +140,13 @@ function stats(x, which) {
       // ...
     }
 
-    if (which.mode) {
+    try {
+      out.mean = BigInt(out.mean)
+    } catch (e) {
+      // ...
+    }
+
+    if (options.mode) {
       out.mode = out.mode.map(v => {
         try {
           return BigInt(v)

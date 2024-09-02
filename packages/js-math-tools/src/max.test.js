@@ -21,6 +21,11 @@ test("tests that the maximum value in arrays, series, and dataframes can be foun
   expect(max([234n, 234])).toBe(234n)
   expect(max([234, 234n])).toBe(234)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(max(e)).toBeNaN()
+  expect(max(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

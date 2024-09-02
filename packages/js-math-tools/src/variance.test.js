@@ -17,6 +17,11 @@ test("tests that variance can be correctly computed", () => {
 
   expect(variance([2n, 3n, 4n, 5n, 6n])).toBe(variance([2, 3, 4, 5, 6]))
 
+  const c = normal(100)
+  c[0] = "uh-oh!"
+  expect(variance(c)).toBeNaN()
+  expect(variance(c, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,
