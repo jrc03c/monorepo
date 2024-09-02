@@ -28,6 +28,10 @@ test("tests that the mode of an array, series, or dataframe can be found correct
   expect(mode([2n, 2n, 2n, 3, 4])).toStrictEqual([2n])
   expect(mode([2n, 2n, 3n, 3n, 4n, 4n])).toStrictEqual([2n, 3n, 4n])
 
+  const e = [2, 2, 2, 2, 2, "uh-oh!", 3, 4]
+  expect(mode(e)).toStrictEqual([2])
+  expect(mode(e, true)).toStrictEqual([2])
+
   const wrongs = [
     0,
     1,

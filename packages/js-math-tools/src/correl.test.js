@@ -25,6 +25,13 @@ test("tests that correlations can be computed correctly", () => {
   expect(correl([2n, 3n, 4n], [5n, 6n, 7n])).toBeCloseTo(1)
   expect(correl([2n, 3n, 4n], [7n, 6n, 5n])).toBeCloseTo(-1)
 
+  const g = normal(100)
+  g[0] = "uh-oh!"
+  const h = normal(100)
+  h[1] = "uh-oh!"
+  expect(correl(g, h)).toBeNaN()
+  expect(correl(g, h, true)).not.toBeNaN()
+
   const wrongs = [
     [0, 1],
     [Infinity, NaN],

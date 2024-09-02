@@ -38,6 +38,13 @@ test("tests that covariances can be computed correctly", () => {
   expect(covariance([2, 3, 4], ["five", "six", "seven"])).toBeNaN()
   expect(covariance([2n, 3n, 4n], [5n, 6n, 7n])).toBeCloseTo(0.6666666666666666)
 
+  const n = normal(100)
+  n[0] = "uh-oh!"
+  const p = normal(100)
+  p[1] = "uh-oh!"
+  expect(covariance(n, p)).toBeNaN()
+  expect(covariance(n, p, true)).not.toBeNaN()
+
   const wrongs = [
     [0, 1],
     [Infinity, NaN],

@@ -51,6 +51,11 @@ test("gets the argmin of various kinds of containers", () => {
   expect(argmin([432n, 324n, 342n, 234n, 243n, 423n])).toBe(3)
   expect(argmin([-2n, -3n, -4n, -234n, -23n])).toBe(3)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(argmin(e)).toBe(undefined)
+  expect(argmin(e, true)).not.toBe(undefined)
+
   const wrongs = [
     0,
     1,

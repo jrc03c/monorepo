@@ -5,7 +5,7 @@ const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
 const min = require("./min")
 
-function argmin(x) {
+function argmin(x, shouldDropNaNs) {
   if (isDataFrame(x)) {
     const index = argmin(x.values)
     return [x.index[index[0]], x.columns[index[1]]]
@@ -18,11 +18,11 @@ function argmin(x) {
 
   assert(
     isArray(x),
-    "The `argmin` function only works on arrays, Series, and DataFrames!"
+    "The `argmin` function only works on arrays, Series, and DataFrames!",
   )
 
   try {
-    const out = indexOf(x, min(x))
+    const out = indexOf(x, min(x, shouldDropNaNs))
 
     if (out) {
       if (out.length === 0) {

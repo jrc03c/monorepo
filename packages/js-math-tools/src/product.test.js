@@ -35,6 +35,11 @@ test("tests that the products of values can be computed correctly", () => {
   expect(product([2n, 3n, 4n])).toBe(24n)
   expect(product([2n, 3n, 4.1])).toBe(product([2, 3, 4.1]))
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(product(e)).toBeNaN()
+  expect(product(e, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

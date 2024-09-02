@@ -51,6 +51,11 @@ test("gets the argmax of various kinds of containers", () => {
   expect(argmax([234n, 243n, 423n, 432n, 324n, 342n])).toBe(3)
   expect(argmax([-234n, -23n, -2n, -3n, -4n])).toBe(2)
 
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(argmax(e)).toBe(undefined)
+  expect(argmax(e, true)).not.toBe(undefined)
+
   const wrongs = [
     0,
     1,

@@ -1,12 +1,14 @@
 const assert = require("./assert")
+const IndexMatcher = require("./index-matcher")
 const isArray = require("./is-array")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
 const shape = require("./shape")
 const stats = require("./stats")
 
-function covariance(x, y, shouldAlsoReturnStatsObjects) {
-  shouldAlsoReturnStatsObjects = !!shouldAlsoReturnStatsObjects
+function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
+  // shouldDropNaNs = !!shouldDropNaNs
+  // shouldAlsoReturnStatsObjects = !!shouldAlsoReturnStatsObjects
 
   if (isSeries(x)) {
     return covariance(x.values, y)
@@ -25,6 +27,14 @@ function covariance(x, y, shouldAlsoReturnStatsObjects) {
     x.length === y.length,
     "The two arrays or Series passed into the `covariance` function must have the same length!",
   )
+
+  if (shouldDropNaNs) {
+    return covariance(
+      ...new IndexMatcher().fitAndTransform(x, y),
+      false,
+      shouldAlsoReturnStatsObjects,
+    )
+  }
 
   try {
     const xstats = stats(x, { stdev: shouldAlsoReturnStatsObjects })

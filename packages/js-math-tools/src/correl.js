@@ -4,7 +4,7 @@ const isArray = require("./is-array")
 const isSeries = require("./is-series")
 const shape = require("./shape")
 
-function correl(x, y) {
+function correl(x, y, shouldDropNaNs) {
   if (isSeries(x)) {
     return correl(x.values, y)
   }
@@ -25,7 +25,14 @@ function correl(x, y) {
 
   try {
     const shouldAlsoReturnStatsObjects = true
-    const [num, xstats, ystats] = covariance(x, y, shouldAlsoReturnStatsObjects)
+
+    const [num, xstats, ystats] = covariance(
+      x,
+      y,
+      shouldDropNaNs,
+      shouldAlsoReturnStatsObjects,
+    )
+
     const den = xstats.stdev * ystats.stdev
     return num / den
   } catch (e) {

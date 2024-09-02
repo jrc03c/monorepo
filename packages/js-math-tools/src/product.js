@@ -5,7 +5,7 @@ const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
 
-function product(arr) {
+function product(arr, shouldDropNaNs) {
   if (isDataFrame(arr) || isSeries(arr)) {
     return product(arr.values)
   }
@@ -23,7 +23,13 @@ function product(arr) {
     let out = 1
 
     for (let v of temp) {
-      if (!isNumber(v)) return NaN
+      if (!isNumber(v)) {
+        if (shouldDropNaNs) {
+          v = 1
+        } else {
+          return NaN
+        }
+      }
 
       if (typeof v === "bigint") {
         resultShouldBeABigInt = true

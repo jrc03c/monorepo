@@ -5,7 +5,7 @@ const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
 const max = require("./max")
 
-function argmax(x) {
+function argmax(x, shouldDropNaNs) {
   if (isDataFrame(x)) {
     const index = argmax(x.values)
     return [x.index[index[0]], x.columns[index[1]]]
@@ -22,7 +22,7 @@ function argmax(x) {
   )
 
   try {
-    const out = indexOf(x, max(x))
+    const out = indexOf(x, max(x, shouldDropNaNs))
 
     if (out) {
       if (out.length === 0) {
