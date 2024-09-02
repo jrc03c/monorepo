@@ -107,7 +107,7 @@ Returns the inverse sine(s) of `x`.
 
 Returns the inverse tangent(s) of `x`.
 
-## `argmax(x)`
+## `argmax(x, shouldDropNaNs=false)`
 
 Returns the index of the maximum value in `x`. If `x` is 1-dimensional, then a whole number will be returned. If, however, `x` is an arbitrarily nested array, then the returned value will be an array of whole numbers representing indices at each dimension. For example:
 
@@ -134,7 +134,7 @@ console.log(argmax(c))
 
 If `x` is a `Series`, then the returned value will be a string from the object's index (i.e., something akin to a "row" name, though a `Series` doesn't actually have rows). If `x` is a `DataFrame`, then the returned value will be an array of the form `[rowName, colName]`. To obtain numerical indices in either of these cases, just pass `x.values` into the `argmax` function rather than `x` itself.
 
-## `argmin(x)`
+## `argmin(x, shouldDropNaNs=false)`
 
 Returns the index of the minimum value in `x`. See `argmax` for examples and more information about the returned values.
 
@@ -175,7 +175,7 @@ Returns all possible combinations of `r` items from `x`. Note that any nesting o
 
 Returns a copy of `x`. The only exception is if `x` is an instance of a custom class. In such a case, a plain JavaScript `Object` will be returned, though bearing the same members as `x` but not an instance of the same class. Also, this function handles circular references by replacing them with strings like `"<reference to '/some/path/down/into/the/object'>"`. If you need a copy of `x` using a custom class, use [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone).
 
-## `correl(a, b)`
+## `correl(a, b, shouldDropNaNs=false)`
 
 Returns the correlation of `a` and `b`, which are 1-dimensional arrays or `Series` instances.
 
@@ -637,7 +637,7 @@ Returns a 1-dimensional copy of `x`.
 
 ## `float(x)`
 
-Returns `x` converted to floating point number(s).
+Returns `x` converted to floating point numbers.
 
 ## `floor(x)`
 
@@ -699,7 +699,7 @@ This function doesn't cover every possible edge case, of course; it should proba
 
 ## `int(x)`
 
-Returns `x` converted to integer(s).
+Returns `x` converted to integers.
 
 ## `intersect(a, b, c, ...)`
 
@@ -784,23 +784,23 @@ Returns the natural log(s) of `x`.
 
 This class only exists because (1) I wanted to make it clear when errors where coming specifically from this library, and (2) I wanted to color-code the errors in the command line. Those are the only two ways in which `MathError` differs from `Error`.
 
-## `max(x)`
+## `max(x, shouldDropNaNs=false)`
 
 Returns the maximum value in `x`.
 
-## `mean(x)`
+## `mean(x, shouldDropNaNs=false)`
 
 Returns the average value in `x`.
 
-## `median(x)`
+## `median(x, shouldDropNaNs=false)`
 
 Returns the median value in `x`.
 
-## `min(x)`
+## `min(x, shouldDropNaNs=false)`
 
 Returns the minimum value in `x`.
 
-## `mode(x)`
+## `mode(x, shouldDropNaNs=false)`
 
 Returns the mode(s) of `x`. Note that an array will always be returned since there can be potentially be multiple modes in `x`.
 
@@ -824,7 +824,7 @@ Returns an _n_-dimensional array of 1s where `shape` is an array of whole number
 
 Given an arbitrarily nested array `x`, returns all possible permutations of `r` items from `x`. Note that any nesting of `x` will be ignored — i.e., `x` will be "flattened" into a 1-dimensional array before getting the permutations — so it won't be possible with this function to get permutations of arrays.
 
-## `product(x)`
+## `product(x, shouldDropNaNs=false)`
 
 Returns the product of all of the values in arbitrarily nested array `x`. Note that `product` differs slightly in functionality from `multiply` and `scale` in that `product` _only_ accepts arrays, `Series` instances, and `DataFrame` instances. Just as you might want to get the `sum` of values in an array, so you might also want to get the `product` of values in an array. If you want to multiply values by each other (whether those values are numbers, arrays, `Series` instances, or `DataFrame` instances), you'll want to use the `multiply` or `scale` functions.
 
@@ -1043,6 +1043,10 @@ Some stats that require at least one more iteration through the data are:
 - `stdev` = the standard deviation of the data
 - `variance` = the variance of the data (i.e., the square of the standard deviation)
 
+To compute the stats after dropping `NaN` values, pass this option in the options object:
+
+- `shouldDropNaNs` = a boolean indicating whether or not `NaN` values should be dropped before the statistics are computed
+
 To compute only the cheap set of stats, call the `stats` function without passing an options object as a second parameter. For example:
 
 ```js
@@ -1059,7 +1063,7 @@ console.log(results)
 //  }
 ```
 
-To compute any of the costlier stats, pass an options object with the name of that stat as a key and `true` as the corresponding value. For example, to compute _all_ possible statistics offered by this function, do this:
+To compute any of the costlier stats, pass an options object with the name of that stat as a key and `true` as the corresponding value. For example, to compute _all_ possible statistics offered by this function (and to drop `NaN` values), do this:
 
 ```js
 const { normal, stats } = require("@jrc03c/js-math-tools")
@@ -1068,6 +1072,7 @@ const x = normal(100)
 const results = stats(x, {
   median: true,
   mode: true,
+  shouldDropNaNs: true,
   stdev: true,
   variance: true,
 })
@@ -1177,11 +1182,11 @@ Returns an array of objects of the form `{ value: ..., count: ... }`.
 
 Returns an object of the form `{ value1: count1, value2: count2, ... }`.
 
-## `std(x)`
+## `std(x, shouldDropNaNs=false)`
 
 Returns the standard deviation of the values in `x`.
 
-## `stdev(x)`
+## `stdev(x, shouldDropNaNs=false)`
 
 Identical to `std`.
 
@@ -1189,7 +1194,7 @@ Identical to `std`.
 
 Returns the difference of `a` and `b`.
 
-## `sum(x)`
+## `sum(x, shouldDropNaNs=false)`
 
 Returns the sum of all values in `x`. The difference between `add` and `sum` is that `sum` _only_ accepts arrays. In other words, use `add` when you want to add up multiple distinct values passed as arguments (where those arguments can be numbers, arrays, `Series` instances, or `DataFrame` instances); and use `sum` when you want to add up all of the values in a single array.
 
@@ -1217,7 +1222,7 @@ Returns the transpose of a 1- or 2-dimensional array (or `Series` or `DataFrame`
 
 Returns the union of the sets of values in the given items.
 
-## `variance(x)`
+## `variance(x, shouldDropNaNs=false)`
 
 Returns the variance of the values in `x`.
 
@@ -1324,6 +1329,5 @@ Note that in certain build setups, errors may be thrown when you try to import t
 - Add a method that makes it easy to merge `DataFrames` along a certain key. For example, it'd be nice to be able to merge multiple datasets that have a unique ID column with values that match across the sets.
 - Add a simplex noise function.
 - Convert to TS?
-- Organize the files a little better? Right now, they're just in a big heap. It might be better, though, to classify them as randomization functions, statistics functions, etc.
 - Work out a more coherent theory of when to return false / NaN / undefined / null values versus when to throw errors.
 - Keep documentation up-to-date!
