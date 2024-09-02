@@ -1,15 +1,13 @@
 const {
   assert,
-  dropNaN,
+  IndexMatcher,
   isArray,
   isSeries,
   shape,
   stats,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
-function cohensd(arr1, arr2) {
+function cohensd(arr1, arr2, shouldDropNaNs) {
   if (isSeries(arr1)) {
     return cohensd(arr1.values, arr2)
   }
@@ -31,9 +29,10 @@ function cohensd(arr1, arr2) {
     "Two arrays or Series passed into the `cohensd` function must have the same length!",
   )
 
-  if (common.shouldIgnoreNaNValues) {
-    arr1 = dropNaN(arr1)
-    arr2 = dropNaN(arr2)
+  if (shouldDropNaNs) {
+    const results = new IndexMatcher().fitAndTransform(arr1, arr2)
+    arr1 = results[0]
+    arr2 = results[1]
   }
 
   try {

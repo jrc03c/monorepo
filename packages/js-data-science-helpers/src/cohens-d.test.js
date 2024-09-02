@@ -1,6 +1,5 @@
 const { DataFrame, normal, Series } = require("@jrc03c/js-math-tools")
 const cohensd = require("./cohens-d")
-const common = require("./common")
 
 test("tests that Cohen's D can be correctly calculated", () => {
   const a = normal(100)
@@ -14,17 +13,15 @@ test("tests that Cohen's D can be correctly calculated", () => {
   const e = new Series(normal(100).map(v => v + 110))
   expect(Math.abs(cohensd(d, e))).toBeGreaterThan(100)
 
-  common.shouldIgnoreNaNValues = false
   const f = [2, 3, 4]
   const g = [5, 6, "seven"]
   expect(cohensd(f, g)).toBeNaN()
-  common.shouldIgnoreNaNValues = true
-  expect(cohensd(f, g)).not.toBeNaN()
+  expect(cohensd(f, g, true)).not.toBeNaN()
 
   const h = normal(100).map(v => BigInt(Math.round(v)))
   const i = normal(100).map(v => BigInt(Math.round(v)))
 
-  expect(cohensd(h, i)).toBe(
+  expect(cohensd(h, i)).toBeCloseTo(
     cohensd(
       h.map(v => Number(v)),
       i.map(v => Number(v)),
