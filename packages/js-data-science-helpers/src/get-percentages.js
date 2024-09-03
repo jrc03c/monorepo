@@ -1,12 +1,15 @@
-const { count } = require("@jrc03c/js-math-tools")
+const { isNumber, stats } = require("@jrc03c/js-math-tools")
 
-function getPercentages(x) {
-  const counts = count(x)
+function getPercentages(x, shouldDropNaNs) {
+  const results = stats(x, { shouldDropNaNs })
+  const n = shouldDropNaNs ? results.nWithoutNaNs : results.n
 
-  return counts.map(c => {
-    c.percentage = c.count / x.length
-    return c
-  })
+  return results.counts.values
+    .filter(v => isNumber(v) || !shouldDropNaNs)
+    .map(v => {
+      const c = results.counts.get(v)
+      return { value: v, count: c, percentage: c / n }
+    })
 }
 
 module.exports = getPercentages
