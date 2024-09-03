@@ -1,17 +1,13 @@
 const {
   apply,
   assert,
-  dropNaN,
   isArray,
   isDataFrame,
   isSeries,
-  mean,
-  std,
+  stats,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
-function normalize(x) {
+function normalize(x, shouldDropNaNs) {
   if (isDataFrame(x) || isSeries(x)) {
     const out = x.copy()
     out.values = normalize(out.values)
@@ -23,23 +19,10 @@ function normalize(x) {
     "The `normalize` function only works on arrays, Series, and DataFrames!",
   )
 
-  const m = (() => {
-    if (common.shouldIgnoreNaNValues) {
-      return mean(dropNaN(x))
-    } else {
-      return mean(x)
-    }
-  })()
-
-  const s = (() => {
-    if (common.shouldIgnoreNaNValues) {
-      return std(dropNaN(x))
-    } else {
-      return std(x)
-    }
-  })()
-
-  return s === 0 ? x : apply(x, v => (Number(v) - m) / s)
+  const results = stats(x, { shouldDropNaNs, stdev: true })
+  const m = results.mean
+  const s = results.stdev
+  return apply(x, v => (Number(v) - m) / s)
 }
 
 module.exports = normalize

@@ -49,6 +49,11 @@ test("tests that data can be normalized correctly", () => {
   const kFloats = kBigInts.map(v => Number(v))
   expect(isEqual(normalize(kBigInts), normalize(kFloats))).toBe(true)
 
+  const m = normal(100)
+  m[0] = "uh-oh!"
+  expect(normalize(m).every(v => isNaN(v))).toBe(true)
+  expect(normalize(m, true).every(v => isNaN(v))).toBe(false)
+
   const wrongs = [
     0,
     1,
