@@ -7,12 +7,12 @@ const min = require("./min")
 
 function argmin(x, shouldDropNaNs) {
   if (isDataFrame(x)) {
-    const index = argmin(x.values)
+    const index = argmin(x.values, shouldDropNaNs)
     return [x.index[index[0]], x.columns[index[1]]]
   }
 
   if (isSeries(x)) {
-    const index = argmin(x.values)
+    const index = argmin(x.values, shouldDropNaNs)
     return [x.index[index]]
   }
 

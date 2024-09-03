@@ -7,12 +7,12 @@ const max = require("./max")
 
 function argmax(x, shouldDropNaNs) {
   if (isDataFrame(x)) {
-    const index = argmax(x.values)
+    const index = argmax(x.values, shouldDropNaNs)
     return [x.index[index[0]], x.columns[index[1]]]
   }
 
   if (isSeries(x)) {
-    const index = argmax(x.values)
+    const index = argmax(x.values, shouldDropNaNs)
     return [x.index[index]]
   }
 
