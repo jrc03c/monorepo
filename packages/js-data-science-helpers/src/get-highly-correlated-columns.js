@@ -10,9 +10,7 @@ const {
   isUndefined,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
-function getHighlyCorrelatedColumns(x, threshold) {
+function getHighlyCorrelatedColumns(x, threshold, shouldDropNaNs) {
   threshold = isUndefined(threshold) ? 1 - 1e-5 : threshold
 
   if (!isDataFrame(x)) {
@@ -33,7 +31,7 @@ function getHighlyCorrelatedColumns(x, threshold) {
 
   const out = {}
 
-  if (common.shouldIgnoreNaNValues) {
+  if (shouldDropNaNs) {
     x = x.dropNaN()
   }
 
@@ -48,19 +46,19 @@ function getHighlyCorrelatedColumns(x, threshold) {
           out[col1] = []
         }
 
-        out[col1].push(col2)
+        out[col1].push({ column: col2, correlation: r })
 
         if (!out[col2]) {
           out[col2] = []
         }
 
-        out[col2].push(col1)
+        out[col2].push({ column: col1, correlation: r })
       }
     }
   }
 
   Object.keys(out).forEach(key => {
-    out[key] = sort(out[key])
+    out[key] = sort(out[key], (a, b) => (a.column < b.column ? -1 : 1))
   })
 
   return out

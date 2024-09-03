@@ -11,8 +11,6 @@ const {
   ndarray,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
 function stamp(x) {
   const prop = "@jrc03c/js-data-science-helpers/get-correlation-matrix"
 
@@ -26,7 +24,7 @@ function stamp(x) {
   return x
 }
 
-function getCorrelationMatrix(a, b) {
+function getCorrelationMatrix(a, b, shouldDropNaNs) {
   if (isUndefined(b)) {
     b = a
   }
@@ -55,17 +53,17 @@ function getCorrelationMatrix(a, b) {
 
   assert(
     isArray(a) && isArray(b),
-    "The `getCorrelationMatrix` function only works on 2-dimensional arrays and DataFrames!"
+    "The `getCorrelationMatrix` function only works on 2-dimensional arrays and DataFrames!",
   )
 
   assert(
     !isJagged(a) && !isJagged(b),
-    "The `getCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!"
+    "The `getCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
   )
 
   assert(
     a.length === b.length,
-    `The dimensions of the matrices you passed into the \`getCorrelationMatrix\` function aren't compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you'll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.`
+    `The dimensions of the matrices you passed into the \`getCorrelationMatrix\` function aren't compatible! ([shape(a).join(", ")] vs. [shape(b).join(", ")]) The function expects that you'll be comparing the columns of two matrices where the columns are all of the same length, so please make sure that the matrices are oriented accordingly.`,
   )
 
   const out = ndarray([a[0].length, b[0].length])
@@ -76,7 +74,7 @@ function getCorrelationMatrix(a, b) {
     for (let j = 0; j < b[0].length; j++) {
       const bcol = b.map(row => row[j])
 
-      if (common.shouldIgnoreNaNValues) {
+      if (shouldDropNaNs) {
         out[i][j] = correl(...dropNaNPairwise(acol, bcol))
       } else {
         out[i][j] = correl(acol, bcol)

@@ -11,7 +11,6 @@ const {
   shape,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
 const getCorrelationMatrix = require("./get-correlation-matrix")
 const orthonormalize = require("./orthonormalize")
 
@@ -49,13 +48,11 @@ test("tests that correlation matrices can be correctly computed", () => {
   const e = normal([10, 10])
   e.forEach((row, i) => (row[i] = "foo"))
 
-  common.shouldIgnoreNaNValues = false
   const fPred1 = set(getCorrelationMatrix(e))
   expect(fPred1.length).toBe(1)
   expect(fPred1[0]).toBeNaN()
 
-  common.shouldIgnoreNaNValues = true
-  const fPred2 = set(getCorrelationMatrix(e))
+  const fPred2 = set(getCorrelationMatrix(e, e, true))
   expect(fPred2.length).toBeGreaterThan(1)
 
   fPred2.forEach(v => {
