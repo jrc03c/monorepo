@@ -9,7 +9,7 @@ const {
   transpose,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
+const containsOnlyNumbers = require("./contains-only-numbers")
 const getPValueMatrix = require("./get-p-value-matrix")
 
 test("tests that a p-value matrix can be computed correctly", () => {
@@ -36,15 +36,13 @@ test("tests that a p-value matrix can be computed correctly", () => {
     isEqual(getPValueMatrix(f, g).values, getPValueMatrix(f.values, g.values)),
   ).toBe(true)
 
-  common.shouldIgnoreNaNValues = false
   const h = normal([10, 10])
   h.forEach((row, i) => (row[i] = "uh-oh"))
   const gPred1 = getPValueMatrix(h)
   expect(set(gPred1).length).toBe(1)
   expect(set(gPred1)[0]).toBeNaN()
 
-  common.shouldIgnoreNaNValues = true
-  const gPred2 = getPValueMatrix(h)
+  const gPred2 = getPValueMatrix(h, h, true)
   expect(set(gPred2).length).toBeGreaterThan(1)
 
   gPred2.forEach(row => {
@@ -62,6 +60,13 @@ test("tests that a p-value matrix can be computed correctly", () => {
   expect(isEqual(getPValueMatrix(hBigInts), getPValueMatrix(hFloats))).toBe(
     true,
   )
+
+  const i = normal([100, 5])
+  i[0][0] = "uh-oh!"
+  const j = normal([100, 5])
+  j[1][1] = "uh-oh!"
+  expect(containsOnlyNumbers(getPValueMatrix(i, j))).toBe(false)
+  expect(containsOnlyNumbers(getPValueMatrix(i, j, true))).toBe(true)
 
   const wrongs = [
     0,
