@@ -5,25 +5,43 @@ const {
   clamp,
   copy,
   divide,
-  dropNaN,
-  flatten,
   isArray,
   isBoolean,
   isDataFrame,
+  isEqual,
   isNumber,
   isSeries,
   isUndefined,
   log,
-  max,
-  median,
-  min,
-  sort,
+  stats,
   subtract,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-const containsOnlyNumbers = require("./contains-only-numbers")
-const isBinary = require("./is-binary")
+function isBinary(stats) {
+  const xset = stats.counts.values
+
+  return (
+    xset.length < 3 &&
+    ((xset.length === 2 && isEqual(xset.toSorted(), [0, 1])) ||
+      (xset.length === 1 && (xset[0] === 0 || xset[0] === 1)))
+  )
+}
+
+function getNumericalValues(stats) {
+  const out = []
+
+  stats.counts.values.forEach(value => {
+    if (isNumber(value)) {
+      const count = stats.counts.get(value)
+
+      for (let i = 0; i < count; i++) {
+        out.push(value)
+      }
+    }
+  })
+
+  return out
+}
 
 class OutlierMitigator {
   constructor(options) {
@@ -68,27 +86,26 @@ class OutlierMitigator {
       "The `OutlierMitigator.fit` method only works on arrays, Series, and DataFrames!",
     )
 
-    if (!common.shouldIgnoreNaNValues) {
-      if (!containsOnlyNumbers(x)) {
-        this.mad = NaN
-        this.median = NaN
-        return this
-      }
+    if (x.length === 0) {
+      return
     }
 
-    const xFlat = flatten(x)
-    const numericalValues = dropNaN(xFlat)
+    const results = stats(x, {
+      shouldDropNaNs: true,
+      median: true,
+    })
 
-    if (isBinary(numericalValues)) {
+    if (isBinary(results)) {
       return this
     }
 
-    if (numericalValues.length === 0) {
-      return this
-    }
+    const xnums = getNumericalValues(results)
+    this.median = Number(results.median)
 
-    this.median = median(numericalValues)
-    this.mad = median(abs(subtract(numericalValues, this.median)))
+    this.mad = Number(
+      stats(abs(subtract(xnums, this.median)), { median: true }).median,
+    )
+
     return this
   }
 
@@ -112,25 +129,37 @@ class OutlierMitigator {
       "The `OutlierMitigator.transform` method only works on arrays, Series, and DataFrames!",
     )
 
-    if (!common.shouldIgnoreNaNValues) {
-      if (!containsOnlyNumbers(x)) {
-        return apply(x, () => NaN)
-      }
-    }
-
-    const xFlat = flatten(x)
-    const numericalValues = dropNaN(xFlat)
+    const results = stats(x, { shouldDropNaNs: true })
+    const xnums = getNumericalValues(results)
     let outlierIsImmediatelyAboveOrBelowMedian = false
 
     if (this.mad === 0) {
-      const temp = sort(copy(numericalValues))
-      const low = temp.filter(value => value < this.median)
-      const high = temp.filter(value => value > this.median)
+      const low = []
+      const high = []
+      let highestLowValue = -Infinity
+      let lowestHighValue = Infinity
+
+      xnums.forEach(value => {
+        if (value < this.median) {
+          low.push(value)
+
+          if (value > highestLowValue) {
+            highestLowValue = value
+          }
+        } else if (value > this.median) {
+          high.push(value)
+
+          if (value < lowestHighValue) {
+            lowestHighValue = value
+          }
+        }
+      })
+
       let before = this.median
       let after = this.median
 
-      if (low.length > 0) before = max(low)
-      if (high.length > 0) after = min(high)
+      if (low.length > 0) before = highestLowValue
+      if (high.length > 0) after = lowestHighValue
 
       this.mad = (after - before) / 2
 
@@ -143,27 +172,38 @@ class OutlierMitigator {
         (after - this.median) / this.mad > this.maxScore
     }
 
-    const score = max(
-      divide(abs(subtract(numericalValues, this.median)), this.mad),
-    )
+    const score = stats(divide(abs(subtract(xnums, this.median)), this.mad)).max
 
     if (score > this.maxScore || outlierIsImmediatelyAboveOrBelowMedian) {
-      let out = this.isAllowedToClip
-        ? apply(x, v => {
-            if (isNumber(v)) {
-              return clamp(
+      let outMin = null
+      let out = copy(x)
+
+      if (this.isAllowedToClip) {
+        out = apply(out, v => {
+          v = isNumber(v)
+            ? clamp(
                 v,
                 this.median - this.maxScore * this.mad,
                 this.median + this.maxScore * this.mad,
               )
-            } else {
-              return v
-            }
-          })
-        : x
+            : v
+
+          if (
+            this.isAllowedToTakeTheLog &&
+            isNumber(v) &&
+            (outMin === null || v < outMin)
+          ) {
+            outMin = v
+          }
+
+          return v
+        })
+      }
 
       if (this.isAllowedToTakeTheLog) {
-        const outMin = min(out)
+        if (outMin === null) {
+          outMin = stats(out).min
+        }
 
         out = apply(out, v => {
           if (isNumber(v)) {

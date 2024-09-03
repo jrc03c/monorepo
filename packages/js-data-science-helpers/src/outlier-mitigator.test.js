@@ -15,7 +15,6 @@ const {
 } = require("@jrc03c/js-math-tools")
 
 const OutlierMitigator = require("./outlier-mitigator")
-const common = require("./common")
 
 test("tests that outliers can be correctly clipped", () => {
   const gator1 = new OutlierMitigator()
@@ -65,32 +64,6 @@ test("tests that outliers can be correctly clipped", () => {
   const hPred = new OutlierMitigator().fitAndTransform(g.values)
   expect(isEqual(hTrue, hPred)).toBe(true)
 
-  const i = [2, 3, 4, 1000, "foo"]
-
-  common.shouldIgnoreNaNValues = false
-
-  expect(
-    isEqual(new OutlierMitigator().fitAndTransform(i), [
-      NaN,
-      NaN,
-      NaN,
-      NaN,
-      NaN,
-    ]),
-  ).toBe(true)
-
-  common.shouldIgnoreNaNValues = true
-
-  expect(
-    isEqual(new OutlierMitigator().fitAndTransform(i), [
-      NaN,
-      NaN,
-      NaN,
-      NaN,
-      NaN,
-    ]),
-  ).not.toBe(true)
-
   const j = normal(100).concat([10000])
   const jmin = min(j)
 
@@ -117,12 +90,31 @@ test("tests that outliers can be correctly clipped", () => {
 
   const p = normal(100).concat([10000])
   const qTrue = p.slice()
+
   const qPred = new OutlierMitigator({
     isAllowedToClip: false,
   }).fitAndTransform(p)
+
   expect(isEqual(qTrue, qPred)).toBe(true)
 
-  throw new Error("Add BigInt unit tests!")
+  const r = [2n, 3n, 4n, 5n, 10000n]
+
+  expect(
+    isEqual(
+      new OutlierMitigator().fitAndTransform(r),
+      new OutlierMitigator().fitAndTransform(r.map(v => Number(v))),
+    ),
+  ).toBe(true)
+
+  const s = normal(100)
+  s[0] = "uh-oh!"
+
+  expect(
+    isEqual(
+      new OutlierMitigator().fitAndTransform(s),
+      new OutlierMitigator().fitAndTransform([s[0]].concat(s.slice(1))),
+    ),
+  ).toBe(true)
 
   const wrongs = [
     0,
