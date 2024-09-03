@@ -89,6 +89,16 @@ test("tests that the dot products of vectors and matrices can be computed correc
     ),
   )
 
+  const v = normal([10, 10])
+  const w = normal([10, 10])
+
+  for (let i = 0; i < v.length; i++) {
+    v[i][i] = "uh-oh!"
+    w[i][i] = "uh-oh!"
+  }
+
+  expect(dot(v, w).every(row => row.every(v => isNaN(v)))).toBe(true)
+
   const wrongs = [
     [0, 1],
     [2.3, -2.3],

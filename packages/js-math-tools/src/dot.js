@@ -1,9 +1,7 @@
 const { DataFrame, Series } = require("./dataframe")
 const assert = require("./assert")
-const flatten = require("./flatten")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
 const isSeries = require("./is-series")
 const scale = require("./scale")
 const shape = require("./shape")
@@ -56,31 +54,22 @@ function dot(a, b) {
 
   assert(
     isArray(a) && isArray(b),
-    "The `dot` function only works on arrays, Series, and DataFrames!"
+    "The `dot` function only works on arrays, Series, and DataFrames!",
   )
-
-  flatten(a)
-    .concat(flatten(b))
-    .forEach(v => {
-      assert(
-        isNumber(v),
-        "One of the arrays you passed into the `dot` function contains non-numerical values!"
-      )
-    })
 
   const aShape = shape(a)
   const bShape = shape(b)
 
   assert(
     aShape.length <= 2 && bShape.length <= 2,
-    "I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!"
+    "I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!",
   )
 
   assert(
     aShape[aShape.length - 1] === bShape[0],
     `There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${
       aShape[aShape.length - 1]
-    } !== ${bShape[0]})`
+    } !== ${bShape[0]})`,
   )
 
   if (aShape.length === 1 && bShape.length === 1) {
