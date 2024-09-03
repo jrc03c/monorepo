@@ -7,15 +7,13 @@ const {
   isDataFrame,
   isEqual,
   isSeries,
-  mean,
   remap,
   round,
   shape,
   sqrt,
-  std,
+  stats,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
 const zTable = require("./z-table.json")
 
 function probability(z) {
@@ -23,7 +21,7 @@ function probability(z) {
   return zTable[round(remap(abs(z), 0, 4.1, 0, zTable.length))]
 }
 
-function ttest(a, b) {
+function ttest(a, b, shouldDropNaNs) {
   if (isDataFrame(a) || isSeries(a)) {
     return ttest(a.values, b)
   }
@@ -34,10 +32,10 @@ function ttest(a, b) {
 
   assert(
     isArray(a) && isArray(b) && isEqual(shape(a), shape(b)),
-    "You must pass two identically-shaped arrays, Series, or DataFrames into the `pValue` function!"
+    "You must pass two identically-shaped arrays, Series, or DataFrames into the `pValue` function!",
   )
 
-  const [aTemp, bTemp] = common.shouldIgnoreNaNValues
+  const [aTemp, bTemp] = shouldDropNaNs
     ? dropNaNPairwise(flatten(a), flatten(b))
     : [flatten(a), flatten(b)]
 
@@ -45,10 +43,12 @@ function ttest(a, b) {
     return NaN
   }
 
-  const m1 = mean(aTemp)
-  const m2 = mean(bTemp)
-  const s1 = std(aTemp)
-  const s2 = std(bTemp)
+  const astats = stats(aTemp, { stdev: true })
+  const bstats = stats(bTemp, { stdev: true })
+  const m1 = astats.mean
+  const m2 = bstats.mean
+  const s1 = astats.stdev
+  const s2 = bstats.stdev
   const n1 = aTemp.length
   const n2 = bTemp.length
   const t = (m1 - m2) / sqrt((s1 * s1) / n1 + (s2 * s2) / n2)

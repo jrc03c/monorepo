@@ -21,7 +21,19 @@ test("tests that p-values can be correctly computed", () => {
   const i = new DataFrame({ baz: normal(100), aha: normal(100) })
   expect(() => pValue(h, i)).not.toThrow()
 
-  throw new Error("Add BigInt unit tests!")
+  const jBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
+  const kBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
+  const jFloats = jBigInts.map(v => Number(v))
+  const kFloats = kBigInts.map(v => Number(v))
+
+  expect(pValue(jBigInts, kBigInts)).toBeCloseTo(pValue(jFloats, kFloats))
+
+  const m = normal(100)
+  m[0] = "uh-oh!"
+  const n = normal(100)
+  n[1] = "uh-oh!"
+  expect(pValue(m, n)).toBeNaN()
+  expect(pValue(m, n, true)).not.toBeNaN()
 
   const wrongs = [
     0,
