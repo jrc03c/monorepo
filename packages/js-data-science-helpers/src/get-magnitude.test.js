@@ -1,5 +1,4 @@
 const { DataFrame, flatten, normal, Series } = require("@jrc03c/js-math-tools")
-const common = require("./common")
 const getMagnitude = require("./get-magnitude")
 
 test("tests that the magnitudes of various arrays, Series, and DataFrames can be correctly computed", () => {
@@ -22,15 +21,18 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
   const d = new DataFrame({ foo: normal(100), bar: normal(100) })
   expect(getMagnitude(d)).toBe(getMagnitude(d.values))
 
-  common.shouldIgnoreNaNValues = false
   expect(getMagnitude([3, 4, "five"])).toBeNaN()
-  common.shouldIgnoreNaNValues = true
-  expect(getMagnitude([3, 4, "five"])).toBe(5)
+  expect(getMagnitude([3, 4, "five"], true)).toBe(5)
 
   expect(getMagnitude(234n)).toBe(234n)
   expect(getMagnitude(-234n)).toBe(234n)
   expect(getMagnitude([3n, 4n])).toBe(5n)
   expect(getMagnitude([3n, 4.5])).toBeCloseTo(5.408326913)
+
+  const e = normal(100)
+  e[0] = "uh-oh!"
+  expect(getMagnitude(e)).toBeNaN()
+  expect(getMagnitude(e, true)).not.toBeNaN()
 
   const wrongs = [
     NaN,

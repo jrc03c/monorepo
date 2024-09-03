@@ -10,9 +10,7 @@ const {
   sum,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
-function getMagnitude(x) {
+function getMagnitude(x, shouldDropNaNs) {
   if (isDataFrame(x) || isSeries(x)) {
     return getMagnitude(x.values)
   }
@@ -22,7 +20,7 @@ function getMagnitude(x) {
   }
 
   if (isArray(x)) {
-    if (common.shouldIgnoreNaNValues) {
+    if (shouldDropNaNs) {
       x = dropNaN(x)
     }
 
