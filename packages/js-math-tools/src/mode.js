@@ -1,7 +1,7 @@
 const stats = require("./stats")
 
-function mode(arr, dropNaNs) {
-  return stats(arr, { dropNaNs, mode: true }).mode
+function mode(arr, shouldDropNaNs) {
+  return stats(arr, { shouldDropNaNs, mode: true }).mode
 }
 
 module.exports = mode

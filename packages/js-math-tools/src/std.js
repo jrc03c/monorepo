@@ -1,7 +1,7 @@
 const stats = require("./stats")
 
-function std(arr, dropNaNs) {
-  return stats(arr, { dropNaNs, stdev: true }).stdev
+function std(arr, shouldDropNaNs) {
+  return stats(arr, { shouldDropNaNs, stdev: true }).stdev
 }
 
 module.exports = std

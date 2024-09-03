@@ -1,7 +1,7 @@
 const stats = require("./stats")
 
-function mean(arr, dropNaNs) {
-  return stats(arr, { dropNaNs }).mean
+function mean(arr, shouldDropNaNs) {
+  return stats(arr, { shouldDropNaNs }).mean
 }
 
 module.exports = mean

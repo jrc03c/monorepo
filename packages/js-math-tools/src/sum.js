@@ -1,7 +1,7 @@
 const stats = require("./stats")
 
-function sum(arr, dropNaNs) {
-  return stats(arr, { dropNaNs }).sum
+function sum(arr, shouldDropNaNs) {
+  return stats(arr, { shouldDropNaNs }).sum
 }
 
 module.exports = sum

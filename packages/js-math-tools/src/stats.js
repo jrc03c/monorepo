@@ -36,7 +36,7 @@ function stats(x, options) {
       resultsShouldIncludeBigInts = true
     }
 
-    if (!options.dropNaNs || isNumber(v)) {
+    if (!options.shouldDropNaNs || isNumber(v)) {
       try {
         if (v > max) {
           max = v
@@ -64,11 +64,16 @@ function stats(x, options) {
   out.max = max
   out.mean = mean
   out.min = min
+  out.n = xflat.length
   out.sum = sum
 
   if (isNaN(out.mean)) {
     out.max = NaN
     out.min = NaN
+  }
+
+  if (options.shouldDropNaNs) {
+    out.nWithoutNaNs = xnums.length
   }
 
   if (options.mode) {

@@ -1,7 +1,7 @@
 const stats = require("./stats")
 
-function min(arr, dropNaNs) {
-  return stats(arr, { dropNaNs }).min
+function min(arr, shouldDropNaNs) {
+  return stats(arr, { shouldDropNaNs }).min
 }
 
 module.exports = min

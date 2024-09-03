@@ -56,7 +56,7 @@ test("tests that basic stats can be computed for datasets", () => {
   expect(isEqual(sort(set(b)), sort(results2.counts.values)))
 
   const results3 = stats(b, {
-    dropNaNs: true,
+    shouldDropNaNs: true,
     median: true,
     mode: true,
     stdev: true,
