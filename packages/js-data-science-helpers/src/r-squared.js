@@ -12,7 +12,6 @@ const {
   sum,
 } = require("@jrc03c/js-math-tools")
 
-const containsOnlyNumbers = require("./contains-only-numbers")
 const subtract = (a, b) => add(a, scale(b, -1))
 
 function rSquared(xTrue, xPred) {
@@ -36,16 +35,6 @@ function rSquared(xTrue, xPred) {
 
   assert(
     isEqual(shape(xTrue), shape(xPred)),
-    "You must pass two same-shaped numerical arrays into the `rSquared` function!",
-  )
-
-  assert(
-    containsOnlyNumbers(xTrue),
-    "You must pass two same-shaped numerical arrays into the `rSquared` function!",
-  )
-
-  assert(
-    containsOnlyNumbers(xPred),
     "You must pass two same-shaped numerical arrays into the `rSquared` function!",
   )
 
