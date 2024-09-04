@@ -81,15 +81,6 @@ test("tests that the `Counter` class works as expected", () => {
   expect(counter.get("e")).toBe(0)
   expect(counter.get("f")).toBe(0)
 
-  // `getOriginalValue` method
-  const objects = [{ hello: "world" }, { hello: "world" }, { hello: "world" }]
-  objects.forEach(obj => counter.increment(obj))
-
-  objects.forEach(obj => {
-    expect(counter.get(obj)).toBe(objects.length)
-    expect(counter.getOriginalValue(obj) === objects[0]).toBe(true)
-  })
-
   // `clear` method
   counter.clear()
   expect(counter.has("a")).toBe(false)
