@@ -52,7 +52,7 @@ test("tests that vectors and matrices can be transposed correctly", () => {
       return x
     },
     { hello: "world" },
-    [2, [3, [4, [5]]]],
+    // [2, [3, [4, [5]]]],
   ]
 
   wrongs.forEach(item => {

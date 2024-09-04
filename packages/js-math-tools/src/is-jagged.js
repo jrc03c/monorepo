@@ -1,42 +1,46 @@
-const assert = require("./assert")
+const { decycle } = require("./copy")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isSeries = require("./is-series")
 
-function isJagged(x) {
+function helper(x) {
   if (isDataFrame(x) || isSeries(x)) {
-    return isJagged(x.values)
+    return helper(x.values)
   }
 
-  assert(
-    isArray(x),
-    "The `isJagged` function only works on arrays, Series, and DataFrames!"
-  )
+  if (isArray(x)) {
+    let hasArrayValues = false
+    let hasNonArrayValues = false
+    let arrayLength = null
 
-  let childArrayCount = 0
-  let firstChildArrayLength = null
-
-  for (let i = 0; i < x.length; i++) {
-    if (isArray(x[i])) {
-      childArrayCount++
-
-      if (isJagged(x[i])) {
+    for (const v of x) {
+      if (helper(v)) {
         return true
       }
 
-      if (firstChildArrayLength === null) {
-        firstChildArrayLength = x[i].length
-      } else if (x[i].length !== firstChildArrayLength) {
+      if (isArray(v)) {
+        if (arrayLength === null) {
+          arrayLength = v.length
+        } else if (v.length !== arrayLength) {
+          return true
+        }
+
+        hasArrayValues = true
+      } else {
+        hasNonArrayValues = true
+      }
+
+      if (hasArrayValues && hasNonArrayValues) {
         return true
       }
     }
   }
 
-  if (childArrayCount > 0 && childArrayCount < x.length) {
-    return true
-  }
-
   return false
+}
+
+function isJagged(x) {
+  return helper(decycle(x))
 }
 
 module.exports = isJagged
