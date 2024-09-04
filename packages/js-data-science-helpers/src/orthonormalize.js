@@ -1,6 +1,5 @@
 const {
   assert,
-  copy,
   DataFrame,
   divide,
   isArray,
@@ -11,7 +10,6 @@ const {
   transpose,
 } = require("@jrc03c/js-math-tools")
 
-const containsOnlyNumbers = require("./contains-only-numbers")
 const getMagnitude = require("./get-magnitude")
 const project = require("./project")
 
@@ -26,11 +24,6 @@ function orthonormalize(x) {
   assert(
     isArray(x) && !isJagged(x) && shape(x).length === 2,
     "`orthonormalize` only works on matrices!",
-  )
-
-  assert(
-    containsOnlyNumbers(x),
-    "`orthonormalize` only works on matrices of numbers!",
   )
 
   // note: this produces a matrix where the *columns* are orthogonal to each
