@@ -59,7 +59,55 @@ test("tests that the `StandardScaler` transforms and untransforms data correctly
   expect(stdev(dPred)).toBeCloseTo(1)
   expect(rScore(d, scaler.untransform(dPred))).toBeCloseTo(1)
 
-  throw new Error("Add BigInt unit tests!")
+  const eBigInts = random(100).map(v => BigInt(Math.round(v * 100)))
+  const eFloats = eBigInts.map(v => Number(v))
+
+  expect(
+    isEqual(
+      new StandardScaler().fit(eBigInts),
+      new StandardScaler().fit(eFloats),
+    ),
+  )
+
+  expect(
+    isEqual(
+      new StandardScaler().fit(eBigInts).transform(eBigInts),
+      new StandardScaler().fit(eFloats).transform(eBigInts),
+    ),
+  )
+
+  expect(
+    isEqual(
+      new StandardScaler().fit(eBigInts).transform(eFloats),
+      new StandardScaler().fit(eFloats).transform(eFloats),
+    ),
+  )
+
+  expect(
+    isEqual(
+      new StandardScaler().fit(eBigInts).transform(eBigInts, eFloats),
+      new StandardScaler().fitAndTransform(eBigInts, eFloats),
+    ),
+  )
+
+  const f = random(100)
+  f[0] = "uh-oh!"
+
+  expect(new StandardScaler().fitAndTransform(f).every(v => isNaN(v))).toBe(
+    true,
+  )
+
+  expect(
+    new StandardScaler({ shouldDropNaNs: true })
+      .fitAndTransform(f)
+      .every(v => isNaN(v)),
+  ).toBe(false)
+
+  expect(
+    new StandardScaler({ shouldDropNaNs: true })
+      .fitAndTransform(f)
+      .some(v => isNaN(v)),
+  ).toBe(true)
 })
 
 test("tests that the `StandardScaler` throws errors when asked to transform data with shapes different than the data on which it was trained", () => {

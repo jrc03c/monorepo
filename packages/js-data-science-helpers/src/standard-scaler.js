@@ -1,28 +1,29 @@
 const {
   assert,
   DataFrame,
-  dropNaN,
   flatten,
   isArray,
   isDataFrame,
   isSeries,
-  mean,
   range,
   Series,
   shape,
-  stdev,
+  stats,
   transpose,
 } = require("@jrc03c/js-math-tools")
 
-const common = require("./common")
-
 class StandardScaler {
-  constructor() {
-    const self = this
-    self.means = []
-    self.stdevs = []
-    self.wasFittedOnAVector = false
-    self.hasBeenFitted = false
+  constructor(options) {
+    options = options || {}
+    this.means = []
+    this.stdevs = []
+    this.wasFittedOnAVector = false
+    this.hasBeenFitted = false
+
+    this.shouldDropNaNs =
+      typeof options.shouldDropNaNs === "undefined"
+        ? false
+        : options.shouldDropNaNs
   }
 
   _getDataArrayAndShape(x) {
@@ -37,14 +38,14 @@ class StandardScaler {
 
     assert(
       isArray(x),
-      "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!"
+      "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!",
     )
 
     const xShape = shape(x)
 
     assert(
       xShape.length < 3,
-      "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!"
+      "`x` must be a 1- or 2-dimensional array, DataFrame, or Series!",
     )
 
     if (xShape.length === 1) {
@@ -56,71 +57,79 @@ class StandardScaler {
   }
 
   fit(x) {
-    const self = this
-    const results = self._getDataArrayAndShape(x)
+    const results = this._getDataArrayAndShape(x)
     x = results[0]
     const xShape = results[1]
 
-    self.wasFittedOnAVector = xShape.indexOf(1) > -1
-    self.means = []
-    self.stdevs = []
+    this.wasFittedOnAVector = xShape.indexOf(1) > -1
+    this.means = []
+    this.stdevs = []
 
     range(0, xShape[1]).forEach(j => {
       const values = x.map(row => row[j])
 
-      if (common.shouldIgnoreNaNValues) {
-        const valuesWithoutNaNs = dropNaN(values)
-        self.means.push(mean(valuesWithoutNaNs))
-        self.stdevs.push(stdev(valuesWithoutNaNs))
-      } else {
-        self.means.push(mean(values))
-        self.stdevs.push(stdev(values))
-      }
+      const results = stats(values, {
+        shouldDropNaNs: this.shouldDropNaNs,
+        stdev: true,
+      })
+
+      this.means.push(results.mean)
+      this.stdevs.push(results.stdev)
     })
 
-    self.hasBeenFitted = true
-    return self
+    this.hasBeenFitted = true
+    return this
   }
 
-  transform(x) {
-    const self = this
+  fitAndTransform() {
+    return this.fit(arguments[0]).transform(...arguments)
+  }
 
-    if (!self.hasBeenFitted) {
+  transform() {
+    const datas = Array.from(arguments)
+
+    if (datas.length > 1) {
+      return datas.map(data => this.transform(data))
+    }
+
+    let x = datas[0]
+
+    if (!this.hasBeenFitted) {
       throw new Error(
-        "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method."
+        "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.",
       )
     }
 
     if (isDataFrame(x)) {
-      const out = new DataFrame(self.transform(x.values))
+      const out = new DataFrame(this.transform(x.values))
       out.columns = x.columns
       out.index = x.index
       return out
     }
 
     if (isSeries(x)) {
-      const out = new Series(self.transform(x.values))
+      const out = new Series(this.transform(x.values))
       out.name = x.name
       out.index = x.index
       return out
     }
 
-    const results = self._getDataArrayAndShape(x)
+    const results = this._getDataArrayAndShape(x)
     x = results[0]
     const xShape = results[1]
 
     assert(
-      xShape[1] === self.means.length,
-      "The data you passed into the `transform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!"
+      xShape[1] === this.means.length,
+      "The data you passed into the `transform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
     )
 
     const out = x.map(row => {
       return row.map((v, j) => {
-        return (v - self.means[j]) / self.stdevs[j]
+        return (Number(v) - this.means[j]) / this.stdevs[j]
       })
     })
 
-    if (self.wasFittedOnAVector) {
+    if (this.wasFittedOnAVector) {
       return flatten(out)
     } else {
       return out
@@ -128,44 +137,42 @@ class StandardScaler {
   }
 
   untransform(x) {
-    const self = this
-
-    if (!self.hasBeenFitted) {
+    if (!this.hasBeenFitted) {
       throw new Error(
-        "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method."
+        "This `StandardScaler` instance hasn't been trained on any data yet! Please use the `fit` method to train it before calling the `transform` method.",
       )
     }
 
     if (isDataFrame(x)) {
-      const out = new DataFrame(self.untransform(x.values))
+      const out = new DataFrame(this.untransform(x.values))
       out.columns = x.columns
       out.index = x.index
       return out
     }
 
     if (isSeries(x)) {
-      const out = new Series(self.untransform(x.values))
+      const out = new Series(this.untransform(x.values))
       out.name = x.name
       out.index = x.index
       return out
     }
 
-    const results = self._getDataArrayAndShape(x)
+    const results = this._getDataArrayAndShape(x)
     x = results[0]
     const xShape = results[1]
 
     assert(
-      xShape[1] === self.means.length,
-      "The data you passed into the `untransform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!"
+      xShape[1] === this.means.length,
+      "The data you passed into the `untransform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
     )
 
     const out = x.map(row => {
       return row.map((v, j) => {
-        return v * self.stdevs[j] + self.means[j]
+        return v * this.stdevs[j] + this.means[j]
       })
     })
 
-    if (self.wasFittedOnAVector) {
+    if (this.wasFittedOnAVector) {
       return flatten(out)
     } else {
       return out
