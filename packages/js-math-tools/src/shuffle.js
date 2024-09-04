@@ -11,14 +11,14 @@ function shuffle(arr) {
 
   assert(
     isArray(arr),
-    "The `shuffle` function only works on arrays, Series, and DataFrames!"
+    "The `shuffle` function only works on arrays, Series, and DataFrames!",
   )
 
   const out = []
   const temp = arr.slice()
 
   for (let i = 0; i < arr.length; i++) {
-    const index = parseInt(random() * temp.length)
+    const index = Math.floor(random() * temp.length)
     out.push(temp.splice(index, 1)[0])
   }
 

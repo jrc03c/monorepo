@@ -2,6 +2,7 @@ const assert = require("./assert")
 const flatten = require("./flatten")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
+const isNaturalNumber = require("./helpers/is-natural-number")
 const isNumber = require("./is-number")
 const isSeries = require("./is-series")
 const product = require("./product")
@@ -35,7 +36,7 @@ function reshape(x, newShape) {
     }
 
     assert(
-      isNumber(v) && parseInt(v) === v && v > 0,
+      isNaturalNumber(v),
       "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
     )
 
@@ -58,7 +59,7 @@ function reshape(x, newShape) {
   )
 
   const out = []
-  const step = parseInt(temp.length / newShape[0])
+  const step = Math.floor(temp.length / newShape[0])
 
   for (let i = 0; i < newShape[0]; i++) {
     const row = temp.slice(i * step, (i + 1) * step)

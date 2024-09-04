@@ -1,12 +1,12 @@
 const { random } = require("../random")
 const assert = require("../assert")
-const flatten = require("../flatten")
 const isArray = require("../is-array")
 const isBoolean = require("../is-boolean")
 const isFunction = require("../is-function")
 const isNumber = require("../is-number")
 const isString = require("../is-string")
 const isUndefined = require("../is-undefined")
+const isWholeNumber = require("../helpers/is-whole-number")
 const range = require("../range")
 const shape = require("../shape")
 const sort = require("../sort")
@@ -24,12 +24,12 @@ function dfSortByFunction(df, fn, axis) {
 
   assert(
     isFunction(fn),
-    "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!"
+    "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!",
   )
 
   assert(
     isNumber(axis),
-    "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other."
+    "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other.",
   )
 
   if (axis === 0) {
@@ -66,12 +66,12 @@ function dfSortByColumns(df, cols, directions) {
 
   assert(
     isArray(cols),
-    "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."
+    "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.",
   )
 
   assert(
     shape(cols).length === 1,
-    "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."
+    "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.",
   )
 
   if (isUndefined(directions))
@@ -79,24 +79,24 @@ function dfSortByColumns(df, cols, directions) {
 
   assert(
     isArray(directions),
-    "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."
+    "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.",
   )
 
   assert(
     shape(directions).length === 1,
-    "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."
+    "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.",
   )
 
   assert(
     cols.length === directions.length,
-    "The arrays passed into the `sort` method must be equal in length."
+    "The arrays passed into the `sort` method must be equal in length.",
   )
 
   // convert all columns to indices
   cols = cols.map(col => {
     assert(
       isString(col) || isNumber(col),
-      "Column references can either be column names (as strings) or column indices (as whole numbers)."
+      "Column references can either be column names (as strings) or column indices (as whole numbers).",
     )
 
     if (isString(col)) {
@@ -106,8 +106,7 @@ function dfSortByColumns(df, cols, directions) {
     }
 
     if (isNumber(col)) {
-      assert(parseInt(col) === col, "Column indices must be whole numbers!")
-      assert(col >= 0, `The column index ${col} is out of bounds!`)
+      assert(isWholeNumber(col), "Column indices must be whole numbers!")
       assert(col < out.columns.length, `The index ${col} is out of bounds!`)
       return col
     }
@@ -117,7 +116,7 @@ function dfSortByColumns(df, cols, directions) {
   directions = directions.map(dir => {
     assert(
       isString(dir) || isBoolean(dir),
-      "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."
+      "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).",
     )
 
     if (isString(dir)) {
@@ -125,7 +124,7 @@ function dfSortByColumns(df, cols, directions) {
 
       assert(
         value === "ascending" || value === "descending",
-        "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."
+        "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).",
       )
 
       return value === "ascending"
@@ -150,7 +149,8 @@ function dfSortByColumns(df, cols, directions) {
     if (a[cols[counter]] > b[cols[counter]]) return isAscending ? 1 : -1
   })
 
-  out.index = flatten(out.get(null, indexID).values)
+  const indexNumber = out.columns.indexOf(indexID)
+  out.index = out.values.map(row => row[indexNumber])
   out = out.dropColumns(indexID)
   return out
 }

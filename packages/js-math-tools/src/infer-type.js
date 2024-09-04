@@ -5,6 +5,7 @@ const cast = require("./cast")
 const count = require("./count")
 const every = require("./every")
 const flatten = require("./flatten")
+const int = require("./int")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isDate = require("./is-date")
@@ -16,10 +17,10 @@ const nullValues = require("./helpers/null-values")
 function checkIfInteger(results) {
   if (results.type === "number") {
     if (typeof results.value !== "undefined") {
-      results.isInteger = parseInt(results.value) === results.value
+      results.isInteger = int(results.value) === results.value
     } else {
       results.isInteger = every(results.values, v =>
-        isNumber(v) ? parseInt(v) === v : true,
+        isNumber(v) ? int(v) === v : true,
       )
     }
   }

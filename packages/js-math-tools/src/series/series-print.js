@@ -8,12 +8,12 @@ function seriesPrint(series) {
   if (temp.index.length > maxRows) {
     temp = temp.get(
       range(0, maxRows / 2).concat(
-        range(temp.index.length - maxRows / 2, temp.index.length)
-      )
+        range(temp.index.length - maxRows / 2, temp.index.length),
+      ),
     )
 
     const tempIndex = copy(temp.index)
-    tempIndex.splice(parseInt(tempIndex.length / 2), 0, "...")
+    tempIndex.splice(Math.floor(tempIndex.length / 2), 0, "...")
     temp.values.push("...")
     temp.index.push("...")
     temp = temp.get(tempIndex)

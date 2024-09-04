@@ -1,7 +1,6 @@
 const add = require("./add")
 const assert = require("./assert")
 const dot = require("./dot")
-const flatten = require("./flatten")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isNumber = require("./is-number")
@@ -18,13 +17,6 @@ function inverse(x) {
   assert(
     isArray(x),
     "The `inverse` function only works on square 2-dimensional arrays or DataFrames!",
-  )
-
-  flatten(x).forEach(v =>
-    assert(
-      isNumber(v),
-      "The array passed into the `inverse` function must contain only numbers!",
-    ),
   )
 
   const xShape = shape(x)

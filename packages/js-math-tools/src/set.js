@@ -9,7 +9,7 @@ const isUndefined = require("./is-undefined")
 function makeKey(n) {
   const alpha = "abcdefg1234567890"
   let out = ""
-  while (out.length < n) out += alpha[parseInt(Math.random() * alpha.length)]
+  while (out.length < n) out += alpha[Math.floor(Math.random() * alpha.length)]
   return out
 }
 

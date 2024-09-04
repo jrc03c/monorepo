@@ -20,7 +20,7 @@ function identity(size) {
   )
 
   assert(
-    parseInt(size) === size,
+    int(size) === size,
     "You must pass an integer greater than 0 (representing the size) into the `identity` function!",
   )
 

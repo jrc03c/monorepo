@@ -1,6 +1,6 @@
 const assert = require("../assert")
 const isArray = require("../is-array")
-const isDataFrame = require("../is-dataframe")
+// const isDataFrame = require("../is-dataframe")
 const isNested = require("../is-nested")
 const isSeries = require("../is-series")
 const shape = require("../shape")
@@ -15,7 +15,7 @@ function seriesAppend(Series, series, x) {
 
     assert(
       xShape.length === 1 && !isNested(xShape),
-      "Only vectors can be appended to Series!"
+      "Only vectors can be appended to Series!",
     )
 
     const out = series.copy()
@@ -28,7 +28,7 @@ function seriesAppend(Series, series, x) {
     return out
   }
 
-  assert(!isDataFrame(x), "DataFrames cannot be appended to Series!")
+  // assert(!isDataFrame(x), "DataFrames cannot be appended to Series!")
   return seriesAppend(series, [x])
 }
 

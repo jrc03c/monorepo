@@ -1,5 +1,4 @@
 const assert = require("./assert")
-const flatten = require("./flatten")
 const isArray = require("./is-array")
 const isDataFrame = require("./is-dataframe")
 const isFunction = require("./is-function")
@@ -8,7 +7,7 @@ const isSeries = require("./is-series")
 
 function find(x, fn) {
   if (isDataFrame(x)) {
-    return find(flatten(x.values), fn)
+    return find(x.values, fn)
   }
 
   if (isSeries(x)) {
@@ -17,7 +16,7 @@ function find(x, fn) {
 
   assert(
     isObject(x) || isArray(x),
-    "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!"
+    "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `find` function!",
   )
 
   if (!isFunction(fn)) {

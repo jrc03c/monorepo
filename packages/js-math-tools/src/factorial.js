@@ -7,7 +7,7 @@ function factorial(n) {
       return BigInt(factorial(int(n)))
     }
 
-    if (n !== parseInt(n)) return NaN
+    if (n !== int(n)) return NaN
     if (n <= 1) return 1
     return n * factorial(n - 1)
   } catch (e) {

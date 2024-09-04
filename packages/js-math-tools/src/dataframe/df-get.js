@@ -55,7 +55,7 @@ function dfGet(df, rows, cols) {
 
       if (isNumber(r)) {
         assert(r >= 0, `Index ${r} is out of bounds!`)
-        assert(parseInt(r) === r, `Row numbers must be integers!`)
+        assert(Math.floor(r) === r, `Row numbers must be integers!`)
         assert(r < df.index.length, `Index ${r} is out of bounds!`)
         return df.index[r]
       }
@@ -71,7 +71,7 @@ function dfGet(df, rows, cols) {
 
       if (isNumber(c)) {
         assert(c >= 0, `Column ${c} is out of bounds!`)
-        assert(parseInt(c) === c, `Column numbers must be integers!`)
+        assert(Math.floor(c) === c, `Column numbers must be integers!`)
         assert(c < df.columns.length, `Column ${c} is out of bounds!`)
         return df.columns[c]
       }

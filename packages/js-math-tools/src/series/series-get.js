@@ -48,7 +48,7 @@ function seriesGet(series, indices) {
 
       if (typeof i === "number") {
         assert(i >= 0, `Index ${i} is out of bounds!`)
-        assert(parseInt(i) === i, `Indices must be integers!`)
+        assert(Math.floor(i) === i, `Indices must be integers!`)
         assert(i < series.index.length, `Index ${i} is out of bounds!`)
         return series.index[i]
       }

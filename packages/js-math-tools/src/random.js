@@ -14,7 +14,7 @@ const reshape = require("./reshape")
 
 const MAX = Math.pow(2, 64)
 const s = []
-seed(parseInt(Math.random() * MAX))
+seed(Math.floor(Math.random() * MAX))
 
 function splitmix64(state, n) {
   state = uint(state)
@@ -53,7 +53,7 @@ function seed(val) {
       "If passing a value into the `seed` function, then that value must be an integer!",
     )
 
-    const temp = splitmix64(parseInt(val), 4)
+    const temp = splitmix64(Math.floor(val), 4)
     s[0] = temp[0]
     s[1] = temp[1]
     s[2] = temp[2]
@@ -72,7 +72,7 @@ function next() {
   s[0] = uint(s[0] ^ s[3])
   s[2] = uint(s[2] ^ t)
   s[3] = rotl(s[3], 45)
-  return parseInt(result) / MAX
+  return Math.floor(Number(result)) / MAX
 }
 
 function random(shape) {

@@ -21,27 +21,27 @@ function dfPrint(DataFrame, Series, df) {
   }
 
   const maxRows = typeof window === "undefined" ? 20 : 10
-  const halfMaxRows = parseInt(maxRows / 2)
+  const halfMaxRows = Math.floor(maxRows / 2)
 
   const maxColumns =
     typeof process === "undefined"
       ? 10
       : Math.floor(process.stdout.columns / 24) - 1
 
-  const halfMaxColumns = parseInt(maxColumns / 2)
+  const halfMaxColumns = Math.floor(maxColumns / 2)
 
   const tempRows =
     maxRows > df.index.length
       ? null
       : range(0, halfMaxRows).concat(
-          range(df.index.length - halfMaxRows, df.index.length)
+          range(df.index.length - halfMaxRows, df.index.length),
         )
 
   const tempColumns =
     maxColumns > df.columns.length
       ? null
       : range(0, halfMaxColumns).concat(
-          range(df.columns.length - halfMaxColumns, df.columns.length)
+          range(df.columns.length - halfMaxColumns, df.columns.length),
         )
 
   let temp = df.get(tempRows, tempColumns)
@@ -65,7 +65,7 @@ function dfPrint(DataFrame, Series, df) {
     temp._values.splice(
       halfMaxRows,
       0,
-      range(0, temp.columns.length).map(() => "...")
+      range(0, temp.columns.length).map(() => "..."),
     )
   }
 

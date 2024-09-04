@@ -16,8 +16,8 @@ function ndarray(shape) {
   let s = shape[0]
   if (typeof s === "bigint") s = Number(s)
   assert(isNumber(s), error)
-  assert(parseInt(s) === s, error)
   assert(s >= 0, error)
+  assert(Math.floor(s) === s, error)
 
   assert(
     s !== Infinity,

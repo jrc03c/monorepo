@@ -1,4 +1,5 @@
 const { copy } = require("../copy")
+const { random } = require("../random")
 const assert = require("../assert")
 const count = require("../count")
 const dfAppend = require("./df-append")
@@ -21,14 +22,13 @@ const dfToDetailedObject = require("./df-to-detailed-object")
 const dfToJSON = require("./df-to-json")
 const dfToJSONString = require("./df-to-json-string")
 const dfToObject = require("./df-to-object")
-const flatten = require("../flatten")
 const isArray = require("../is-array")
+const isJagged = require("../is-jagged")
 const isObject = require("../is-object")
 const isUndefined = require("../is-undefined")
 const leftPad = require("../helpers/left-pad")
 const ndarray = require("../ndarray")
 const range = require("../range")
-const set = require("../set")
 const shape = require("../shape")
 const transpose = require("../transpose")
 
@@ -37,8 +37,7 @@ const DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe")
 function makeKey(n) {
   const alpha = "abcdefghijklmnopqrstuvwxyz1234567890"
   let out = ""
-  for (let i = 0; i < n; i++)
-    out += alpha[parseInt(Math.random() * alpha.length)]
+  for (let i = 0; i < n; i++) out += alpha[Math.floor(random() * alpha.length)]
   return out
 }
 
@@ -266,7 +265,7 @@ class DataFrame {
         )
 
         assert(
-          set(data.map(row => row.length)).length === 1,
+          !isJagged(data),
           "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!",
         )
 
@@ -328,7 +327,9 @@ class DataFrame {
   }
 
   get isEmpty() {
-    return flatten(this.values).length === 0
+    return (
+      this.values.length === 0 || this.values.every(row => row.length === 0)
+    )
   }
 
   clear() {

@@ -1,8 +1,4 @@
-const isNumber = require("../is-number")
-
-function isInteger(x) {
-  return isNumber(x) && parseInt(x) === x
-}
+const isInteger = require("./is-integer")
 
 function isWholeNumber(x) {
   return isInteger(x) && x >= 0
