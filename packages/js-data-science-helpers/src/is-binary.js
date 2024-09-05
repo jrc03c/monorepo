@@ -6,7 +6,7 @@ const {
   isSeries,
 } = require("@jrc03c/js-math-tools")
 
-function isBinary(x, shouldDropNaNs) {
+function isBinary(x, shouldIgnoreNaNs) {
   if (typeof x === "number") {
     return x === 0 || x === 1
   }
@@ -16,11 +16,11 @@ function isBinary(x, shouldDropNaNs) {
   }
 
   if (isDataFrame(x) || isSeries(x)) {
-    return isBinary(x.values, shouldDropNaNs)
+    return isBinary(x.values, shouldIgnoreNaNs)
   }
 
   if (isArray(x)) {
-    if (shouldDropNaNs) {
+    if (shouldIgnoreNaNs) {
       x = dropNaN(x)
     }
 

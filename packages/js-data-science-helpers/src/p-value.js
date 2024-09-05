@@ -21,7 +21,7 @@ function probability(z) {
   return zTable[round(remap(abs(z), 0, 4.1, 0, zTable.length))]
 }
 
-function ttest(a, b, shouldDropNaNs) {
+function ttest(a, b, shouldIgnoreNaNs) {
   if (isDataFrame(a) || isSeries(a)) {
     return ttest(a.values, b)
   }
@@ -35,7 +35,7 @@ function ttest(a, b, shouldDropNaNs) {
     "You must pass two identically-shaped arrays, Series, or DataFrames into the `pValue` function!",
   )
 
-  const [aTemp, bTemp] = shouldDropNaNs
+  const [aTemp, bTemp] = shouldIgnoreNaNs
     ? dropNaNPairwise(flatten(a), flatten(b))
     : [flatten(a), flatten(b)]
 

@@ -80,7 +80,7 @@ function convertToNumerical(df, config) {
   // - string
 
   const out = {}
-  const shouldDropNaNs = true
+  const shouldIgnoreNaNs = true
 
   df.apply((col, colIndex) => {
     if (progress) {
@@ -140,7 +140,7 @@ function convertToNumerical(df, config) {
       const topNPercent =
         sum(
           counts.slice(0, maxUniqueValues).map(item => item.count),
-          shouldDropNaNs,
+          shouldIgnoreNaNs,
         ) / nonMissingValues.length
 
       if (topNPercent >= 0.9) {
@@ -162,7 +162,7 @@ function convertToNumerical(df, config) {
 
           for (let i = 0; i < otherColNames.length; i++) {
             const otherColValues = out[otherColNames[i]]
-            const r = correl(values, otherColValues, shouldDropNaNs)
+            const r = correl(values, otherColValues, shouldIgnoreNaNs)
 
             if (r > maxCorrelationThreshold) {
               return
@@ -191,7 +191,7 @@ function convertToNumerical(df, config) {
 
       for (let i = 0; i < otherColNames.length; i++) {
         const otherColValues = out[otherColNames[i]]
-        const r = correl(inferred.values, otherColValues, shouldDropNaNs)
+        const r = correl(inferred.values, otherColValues, shouldIgnoreNaNs)
 
         if (r > maxCorrelationThreshold) {
           return

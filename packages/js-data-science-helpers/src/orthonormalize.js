@@ -44,10 +44,10 @@ function orthonormalize(x) {
     bases.push(temp)
   })
 
-  const shouldDropNaNs = true
+  const shouldIgnoreNaNs = true
 
   const out = bases.map(basis =>
-    divide(basis, getMagnitude(basis, shouldDropNaNs)),
+    divide(basis, getMagnitude(basis, shouldIgnoreNaNs)),
   )
 
   return transpose(out)

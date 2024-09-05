@@ -20,10 +20,10 @@ class StandardScaler {
     this.wasFittedOnAVector = false
     this.hasBeenFitted = false
 
-    this.shouldDropNaNs =
-      typeof options.shouldDropNaNs === "undefined"
+    this.shouldIgnoreNaNs =
+      typeof options.shouldIgnoreNaNs === "undefined"
         ? false
-        : options.shouldDropNaNs
+        : options.shouldIgnoreNaNs
   }
 
   _getDataArrayAndShape(x) {
@@ -69,7 +69,7 @@ class StandardScaler {
       const values = x.map(row => row[j])
 
       const results = stats(values, {
-        shouldDropNaNs: this.shouldDropNaNs,
+        shouldDropNaNs: this.shouldIgnoreNaNs,
         stdev: true,
       })
 

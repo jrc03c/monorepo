@@ -25,7 +25,7 @@ function stamp(x) {
   return x
 }
 
-function getPValueMatrix(a, b, shouldDropNaNs) {
+function getPValueMatrix(a, b, shouldIgnoreNaNs) {
   if (isUndefined(b)) {
     b = a
   }
@@ -75,7 +75,7 @@ function getPValueMatrix(a, b, shouldDropNaNs) {
     for (let j = 0; j < b[0].length; j++) {
       const bcol = b.map(row => row[j])
 
-      if (shouldDropNaNs) {
+      if (shouldIgnoreNaNs) {
         out[i][j] = pValue(...dropNaNPairwise(acol, bcol))
       } else {
         out[i][j] = pValue(acol, bcol)

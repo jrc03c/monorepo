@@ -28,7 +28,7 @@ function hunterChainSort(c) {
     "You must pass a 2-dimensional array or DataFrame into the `hunterChainSort` function!",
   )
 
-  const shouldDropNaNs = true
+  const shouldIgnoreNaNs = true
   const freeRows = c.index.slice()
   const fixedRows = []
 
@@ -39,9 +39,9 @@ function hunterChainSort(c) {
         freeRows[
           argmax(
             freeRows.map(rowName =>
-              sum(pow(c.values[c.index.indexOf(rowName)], 2), shouldDropNaNs),
+              sum(pow(c.values[c.index.indexOf(rowName)], 2), shouldIgnoreNaNs),
             ),
-            shouldDropNaNs,
+            shouldIgnoreNaNs,
           )
         ]
 
@@ -58,7 +58,7 @@ function hunterChainSort(c) {
         freeRows.includes(c.index[i]),
       )
 
-      const nextRowName = freeRows[argmax(lastRow, shouldDropNaNs)]
+      const nextRowName = freeRows[argmax(lastRow, shouldIgnoreNaNs)]
       freeRows.splice(freeRows.indexOf(nextRowName), 1)
       fixedRows.push(nextRowName)
     }

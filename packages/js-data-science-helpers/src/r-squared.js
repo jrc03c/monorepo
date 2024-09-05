@@ -15,7 +15,7 @@ const {
 
 const subtract = (a, b) => add(a, scale(b, -1))
 
-function rSquared(xTrue, xPred, shouldDropNaNs) {
+function rSquared(xTrue, xPred, shouldIgnoreNaNs) {
   if (isDataFrame(xTrue) || isSeries(xTrue)) {
     return rSquared(xTrue.values, xPred)
   }
@@ -39,7 +39,7 @@ function rSquared(xTrue, xPred, shouldDropNaNs) {
     "You must pass two same-shaped numerical arrays into the `rSquared` function!",
   )
 
-  if (shouldDropNaNs) {
+  if (shouldIgnoreNaNs) {
     const results = dropNaNPairwise(xTrue, xPred)
     xTrue = results[0]
     xPred = results[1]

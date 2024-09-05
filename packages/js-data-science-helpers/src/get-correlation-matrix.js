@@ -24,7 +24,7 @@ function stamp(x) {
   return x
 }
 
-function getCorrelationMatrix(a, b, shouldDropNaNs) {
+function getCorrelationMatrix(a, b, shouldIgnoreNaNs) {
   if (isUndefined(b)) {
     b = a
   }
@@ -74,7 +74,7 @@ function getCorrelationMatrix(a, b, shouldDropNaNs) {
     for (let j = 0; j < b[0].length; j++) {
       const bcol = b.map(row => row[j])
 
-      if (shouldDropNaNs) {
+      if (shouldIgnoreNaNs) {
         out[i][j] = correl(...dropNaNPairwise(acol, bcol))
       } else {
         out[i][j] = correl(acol, bcol)

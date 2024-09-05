@@ -10,7 +10,7 @@ const {
   sum,
 } = require("@jrc03c/js-math-tools")
 
-function getMagnitude(x, shouldDropNaNs) {
+function getMagnitude(x, shouldIgnoreNaNs) {
   if (isDataFrame(x) || isSeries(x)) {
     return getMagnitude(x.values)
   }
@@ -20,7 +20,7 @@ function getMagnitude(x, shouldDropNaNs) {
   }
 
   if (isArray(x)) {
-    if (shouldDropNaNs) {
+    if (shouldIgnoreNaNs) {
       x = dropNaN(x)
     }
 

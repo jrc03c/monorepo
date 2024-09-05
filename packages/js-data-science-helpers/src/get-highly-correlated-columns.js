@@ -10,7 +10,7 @@ const {
   isUndefined,
 } = require("@jrc03c/js-math-tools")
 
-function getHighlyCorrelatedColumns(x, threshold, shouldDropNaNs) {
+function getHighlyCorrelatedColumns(x, threshold, shouldIgnoreNaNs) {
   threshold = isUndefined(threshold) ? 1 - 1e-5 : threshold
 
   if (!isDataFrame(x)) {
@@ -31,7 +31,7 @@ function getHighlyCorrelatedColumns(x, threshold, shouldDropNaNs) {
 
   const out = {}
 
-  if (shouldDropNaNs) {
+  if (shouldIgnoreNaNs) {
     x = x.dropNaN()
   }
 

@@ -127,8 +127,8 @@ function orderCentroids(ctrue, cpred) {
 }
 
 function sse(xtrue, xpred) {
-  const shouldDropNaNs = true
-  return sum(pow(subtract(xtrue, xpred), 2), shouldDropNaNs)
+  const shouldIgnoreNaNs = true
+  return sum(pow(subtract(xtrue, xpred), 2), shouldIgnoreNaNs)
 }
 
 module.exports = {

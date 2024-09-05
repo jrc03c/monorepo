@@ -12,7 +12,7 @@ class KMeansPlusPlus extends KMeansNaive {
     //    c) use the probabilities to randomly select a point to be the next
     //       centroid
 
-    const shouldDropNaNs = true
+    const shouldIgnoreNaNs = true
     const centroids = [x[Math.floor(random() * x.length)]]
 
     while (centroids.length < this.k) {
@@ -22,13 +22,13 @@ class KMeansPlusPlus extends KMeansNaive {
           centroids[
             argmin(
               centroids.map(c => sse(p, c)),
-              shouldDropNaNs,
+              shouldIgnoreNaNs,
             )
           ],
         ),
       )
 
-      const probabilities = divide(distances, max(distances, shouldDropNaNs))
+      const probabilities = divide(distances, max(distances, shouldIgnoreNaNs))
       centroids.push(x[probabilities.findIndex(v => random() < v)])
     }
 

@@ -7,7 +7,7 @@ const {
   stats,
 } = require("@jrc03c/js-math-tools")
 
-function cohensd(arr1, arr2, shouldDropNaNs) {
+function cohensd(arr1, arr2, shouldIgnoreNaNs) {
   if (isSeries(arr1)) {
     return cohensd(arr1.values, arr2)
   }
@@ -29,7 +29,7 @@ function cohensd(arr1, arr2, shouldDropNaNs) {
     "Two arrays or Series passed into the `cohensd` function must have the same length!",
   )
 
-  if (shouldDropNaNs) {
+  if (shouldIgnoreNaNs) {
     const results = new IndexMatcher().fitAndTransform(arr1, arr2)
     arr1 = results[0]
     arr2 = results[1]

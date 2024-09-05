@@ -98,13 +98,13 @@ test("tests that the `StandardScaler` transforms and untransforms data correctly
   )
 
   expect(
-    new StandardScaler({ shouldDropNaNs: true })
+    new StandardScaler({ shouldIgnoreNaNs: true })
       .fitAndTransform(f)
       .every(v => isNaN(v)),
   ).toBe(false)
 
   expect(
-    new StandardScaler({ shouldDropNaNs: true })
+    new StandardScaler({ shouldIgnoreNaNs: true })
       .fitAndTransform(f)
       .some(v => isNaN(v)),
   ).toBe(true)
