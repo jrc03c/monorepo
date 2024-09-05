@@ -35,8 +35,9 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   const cTestTrue = c.get(testIndex)
 
   seed(12345)
+
   const [aTrainPred, aTestPred, bTrainPred, bTestPred, cTrainPred, cTestPred] =
-    trainTestSplit(a, b, c, true, 0.1)
+    trainTestSplit(a, b, c, { shouldShuffle: true, testSize: 0.1 })
 
   expect(rScore(aTrainTrue, aTrainPred)).toBeGreaterThan(0.99)
   expect(rScore(aTestTrue, aTestPred)).toBeGreaterThan(0.99)
@@ -55,12 +56,20 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   expect(isEqual(cTestTrue.index, cTestPred.index)).toBe(true)
   expect(cTestTrue.name).toBe(cTestPred.name)
 
-  throw new Error("Add BigInt unit tests!")
+  const dBigInts = normal(100).map(v => BigInt(Math.floor(v * 100)))
+  const dFloats = dBigInts.map(v => Number(v))
+  const results = trainTestSplit(dBigInts, dFloats)
+  const dBigIntsTrain = results[0].map(v => Number(v))
+  const dBigIntsTest = results[1].map(v => Number(v))
+  const dFloatsTrain = results[2]
+  const dFloatsTest = results[3]
+  expect(isEqual(dBigIntsTrain, dFloatsTrain)).toBe(true)
+  expect(isEqual(dBigIntsTest, dFloatsTest)).toBe(true)
 })
 
 test("tests that `trainTestSplit` throws errors at the right times", () => {
   // no data sets at all
-  expect(() => trainTestSplit(0.1, true)).toThrow()
+  expect(() => trainTestSplit({ testSize: 0.1, shouldShuffle: true })).toThrow()
 
   // data sets of different lengths
   const a = normal(100)
@@ -70,5 +79,5 @@ test("tests that `trainTestSplit` throws errors at the right times", () => {
   // wrong test size
   const c = normal(100)
   const d = normal(100)
-  expect(() => trainTestSplit(c, d, 234)).toThrow()
+  expect(() => trainTestSplit(c, d, { testSize: 234 })).toThrow()
 })

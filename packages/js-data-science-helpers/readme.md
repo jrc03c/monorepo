@@ -385,9 +385,12 @@ Transforms each column in `x` by subtracting that column's corresponding mean an
 
 Reverses the transformation done by the `transform` method. Specifically, it transforms each column in `x` by multiplying by that column's corresponding standard deviation and adding that column's corresponding mean. If `x` is a 1-dimensional array or `Series`, then it's treated as a 1-column matrix or `DataFrame` respectively. The number of columns in `x` must be the same as the number of columns in the data on which the `StandardScaler` instance was trained.
 
-### `trainTestSplit(a, b, c, ..., testSize=0.1, shouldShuffle=true)`
+### `trainTestSplit(a, b, c, ..., options)`
 
-Splits the given datasets into train and test sets in the same way as [sklearn's `train_test_split` function](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html).
+Splits the given datasets into train and test sets in the same way as [sklearn's `train_test_split` function](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html). Can optionally be passed an options object. Properties on this object can include:
+
+- `shouldShuffle` = a boolean indicating whether or not the dataset(s) should be shuffled row-wise before being split into train and test sets
+- `testSize` = a number in the range [0, 1] representing the fraction of rows to reserve as the test dataset(s)
 
 # Notes
 

@@ -13,32 +13,41 @@ const {
   shuffle,
 } = require("@jrc03c/js-math-tools")
 
-module.exports = function trainTestSplit() {
+function trainTestSplit() {
   const args = Array.from(arguments)
-  const shouldShuffleArg = args.find(a => isBoolean(a))
-  const shouldShuffle = isUndefined(shouldShuffleArg) ? true : shouldShuffleArg
-  const testSizeArg = args.find(a => isNumber(a))
-  const testSize = isUndefined(testSizeArg) ? 0.1 : testSizeArg
+  const datasets = args.filter(a => isArray(a) || isDataFrame(a) || isSeries(a))
+
+  const options =
+    args.find(a => !datasets.includes(a) && typeof a === "object") || {}
+
+  const shouldShuffle = isUndefined(options.shouldShuffle)
+    ? true
+    : options.shouldShuffle
+
+  const testSize = isUndefined(options.testSize) ? 0.1 : options.testSize
 
   assert(
-    testSize > 0 && testSize < 1,
-    "`testSize` must be a number between 0 and 1 (exclusive on both ends)!"
+    isBoolean(shouldShuffle),
+    "If passing an options object to the `trainTestSplit` function and including a `shouldShuffle` property on that object, then the value of that property must be a boolean!",
   )
-
-  const dataArgs = args.filter(a => isArray(a) || isDataFrame(a) || isSeries(a))
 
   assert(
-    dataArgs.length > 0,
-    "You must pass at least one dataset into the `trainTestSplit` function!"
+    isNumber(testSize) && testSize > 0 && testSize < 1,
+    "If passing an options object to the `trainTestSplit` function and including a `testSize` property on that object, then the value of that property must be a number between 0 and 1 (exclusive on both ends)!",
   )
 
-  const shapes = dataArgs.map(d => shape(d)[0])
+  assert(
+    datasets.length > 0,
+    "You must pass at least one dataset into the `trainTestSplit` function!",
+  )
+
+  const shapes = datasets.map(d => shape(d)[0])
 
   assert(
     set(shapes).length === 1,
-    `All datasets passed into the \`trainTestSplit\` function must be the same length at their shallowest dimension! The lengths of your datasets, though, are: ${shapes.join(
-      ", "
-    )}`
+    `All datasets passed into the \`trainTestSplit\` function must have the same length at their shallowest dimension! The lengths of the datasets you provided, though, are: ${shapes.join(
+      ", ",
+    )}`,
   )
 
   const out = []
@@ -51,7 +60,7 @@ module.exports = function trainTestSplit() {
   const trainIndex = index.slice(0, split)
   const testIndex = index.slice(split)
 
-  dataArgs.forEach(d => {
+  datasets.forEach(d => {
     if (isDataFrame(d)) {
       out.push(d.get(trainIndex, null))
       out.push(d.get(testIndex, null))
@@ -63,7 +72,7 @@ module.exports = function trainTestSplit() {
       const test = []
 
       d.forEach((v, i) => {
-        if (trainIndex.indexOf(i) > -1) {
+        if (trainIndex.includes(i)) {
           train.push(v)
         } else {
           test.push(v)
@@ -77,3 +86,5 @@ module.exports = function trainTestSplit() {
 
   return out
 }
+
+module.exports = trainTestSplit
