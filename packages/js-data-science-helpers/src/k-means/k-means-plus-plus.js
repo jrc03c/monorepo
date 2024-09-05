@@ -13,7 +13,7 @@ class KMeansPlusPlus extends KMeansNaive {
     //       centroid
 
     const shouldDropNaNs = true
-    const centroids = [x[parseInt(random() * x.length)]]
+    const centroids = [x[Math.floor(random() * x.length)]]
 
     while (centroids.length < this.k) {
       const distances = x.map(p =>

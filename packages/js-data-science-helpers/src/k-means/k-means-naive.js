@@ -103,7 +103,7 @@ class KMeansNaive {
         if (counts[k] === 0) {
           return add(
             state.currentCentroids[
-              parseInt(random() * state.currentCentroids.length)
+              Math.floor(random() * state.currentCentroids.length)
             ],
             scale(0.001, normal(state.currentCentroids[0].length)),
           )

@@ -21,7 +21,7 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   seed(12345)
   const index = shuffle(range(0, c.shape[0]))
   const testSize = 0.1
-  const split = parseInt((1 - testSize) * index.length)
+  const split = Math.floor((1 - testSize) * index.length)
   const trainIndex = index.slice(0, split)
   const testIndex = index.slice(split)
 

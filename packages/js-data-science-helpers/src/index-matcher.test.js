@@ -147,7 +147,7 @@ test("tests that indices in Series and DataFrames can be correctly matched after
 
   range(0, 100).forEach(() => {
     const vars = range(0, Math.random() * 10 + 5).map(
-      () => wrongs[parseInt(Math.random() * wrongs.length)],
+      () => wrongs[Math.floor(Math.random() * wrongs.length)],
     )
 
     expect(() => new IndexMatcher().fitAndTransform(...vars)).toThrow()

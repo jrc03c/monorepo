@@ -78,8 +78,8 @@ test("tests that highly correlated columns in matrices can be correctly identifi
     key => (mTrue[key] = mTrue[key].map(v => v.column)),
   )
 
-  k.values[parseInt(Math.random() * k.shape[0])][
-    parseInt(Math.random() * k.shape[1])
+  k.values[Math.floor(Math.random() * k.shape[0])][
+    Math.floor(Math.random() * k.shape[1])
   ] = "uh-oh"
 
   const mPred1 = getHighlyCorrelatedColumns(k)
