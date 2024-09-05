@@ -13,7 +13,7 @@ function argmin(x, shouldDropNaNs) {
 
   if (isSeries(x)) {
     const index = argmin(x.values, shouldDropNaNs)
-    return [x.index[index]]
+    return x.index[index]
   }
 
   assert(

@@ -26,10 +26,7 @@ test("gets the argmin of various kinds of containers", () => {
   expect(argmin(b)).toStrictEqual([minRow, minCol])
 
   const c = new Series(normal(100))
-
-  expect(argmin(c)).toStrictEqual([
-    c.index[c.values.indexOf(Math.min(...c.values))],
-  ])
+  expect(argmin(c)).toBe(c.index[c.values.indexOf(Math.min(...c.values))])
 
   const d = new DataFrame(normal([50, 50]))
   minRow = 0

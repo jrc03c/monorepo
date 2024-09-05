@@ -26,10 +26,7 @@ test("gets the argmax of various kinds of containers", () => {
   expect(argmax(b)).toStrictEqual([maxRow, maxCol])
 
   const c = new Series(normal(100))
-
-  expect(argmax(c)).toStrictEqual([
-    c.index[c.values.indexOf(Math.max(...c.values))],
-  ])
+  expect(argmax(c)).toBe(c.index[c.values.indexOf(Math.max(...c.values))])
 
   const d = new DataFrame(normal([50, 50]))
   maxRow = 0
