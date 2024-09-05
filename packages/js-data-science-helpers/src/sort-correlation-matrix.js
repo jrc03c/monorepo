@@ -35,10 +35,15 @@ function sortCorrelationMatrix(c) {
   while (freeRows.length > 1) {
     // get row with greatest 2-norm and move it to `fixedRows`
     if (fixedRows.length === 0) {
-      const firstRowName = argmax(
-        c.apply(col => sum(pow(col, 2), shouldDropNaNs)),
-        shouldDropNaNs,
-      )
+      const firstRowName =
+        freeRows[
+          argmax(
+            freeRows.map(rowName =>
+              sum(pow(c.values[c.index.indexOf(rowName)], 2), shouldDropNaNs),
+            ),
+            shouldDropNaNs,
+          )
+        ]
 
       freeRows.splice(freeRows.indexOf(firstRowName), 1)
       fixedRows.push(firstRowName)
@@ -48,7 +53,12 @@ function sortCorrelationMatrix(c) {
     // `fixedRows`
     else {
       const lastRowName = fixedRows.at(-1)
-      const nextRowName = argmax(c.get(lastRowName).get(freeRows))
+
+      const lastRow = c.values[c.index.indexOf(lastRowName)].filter((v, i) =>
+        freeRows.includes(c.index[i]),
+      )
+
+      const nextRowName = freeRows[argmax(lastRow, shouldDropNaNs)]
       freeRows.splice(freeRows.indexOf(nextRowName), 1)
       fixedRows.push(nextRowName)
     }
