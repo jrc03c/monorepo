@@ -13,8 +13,8 @@
   "author": "jrc03c",
   "license": "ISC",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.79",
-    "@jrc03c/js-text-tools": "^0.0.49",
-    "@jrc03c/make-key": "^0.0.26"
+    "@jrc03c/js-math-tools": "^0.0.80",
+    "@jrc03c/js-text-tools": "^0.0.50",
+    "@jrc03c/make-key": "^0.0.27"
   }
 }
