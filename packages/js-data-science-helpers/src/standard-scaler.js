@@ -125,7 +125,7 @@ class StandardScaler {
 
     const out = x.map(row => {
       return row.map((v, j) => {
-        return (Number(v) - this.means[j]) / this.stdevs[j]
+        return (Number(v) - Number(this.means[j])) / Number(this.stdevs[j])
       })
     })
 
