@@ -2,6 +2,7 @@ const {
   DataFrame,
   identity,
   isEqual,
+  isNumber,
   normal,
   range,
   Series,
@@ -35,6 +36,12 @@ test("tests that matrices can be correctly orthonormalized", () => {
 
   const fFloats = fBigInts.map(row => row.map(v => Number(v)))
   expect(isEqual(orthonormalize(fBigInts), orthonormalize(fFloats))).toBe(true)
+
+  const g = normal([10, 10])
+  g[0][0] = "uh-oh!"
+  const h = orthonormalize(g)
+  expect(h.some(row => row.some(v => isNaN(v)))).toBe(true)
+  expect(h.some(row => row.some(v => isNumber(v)))).toBe(true)
 
   const wrongs = [
     0,
