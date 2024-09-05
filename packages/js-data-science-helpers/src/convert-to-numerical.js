@@ -122,7 +122,7 @@ function convertToNumerical(df, config) {
 
     if (
       inferred.values.length - nonMissingValues.length >
-      minNonMissingValues
+      minNonMissingValues.length
     ) {
       return
     }
@@ -130,13 +130,17 @@ function convertToNumerical(df, config) {
     // one-hot encode
     if (inferred.type !== "boolean") {
       const counts = sort(
-        count(nonMissingValues).toArray(),
+        count(nonMissingValues)
+          .toArray()
+          .filter(item => !isUndefined(item.value) && isNumber(item.count)),
         (a, b) => b.count - a.count,
       )
 
       const topNPercent =
-        sum(counts.slice(0, maxUniqueValues).map(item => item.count)) /
-        nonMissingValues.length
+        sum(
+          counts.slice(0, maxUniqueValues).map(item => item.count),
+          shouldDropNaNs,
+        ) / nonMissingValues.length
 
       if (topNPercent >= 0.9) {
         if (counts.length < 2) {

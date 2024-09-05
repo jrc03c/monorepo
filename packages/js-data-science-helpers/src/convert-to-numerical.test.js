@@ -44,11 +44,11 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   const booleans = range(0, n).map(() => (random() < random() ? 1 : 0))
 
   const datesFromSmallSet = (() => {
-    const datesSet = range(0, 7).map(
+    const datesSet = range(0, 5).map(
       () => new Date(int(random() * new Date().getTime())),
     )
 
-    return range(0, n).map(() => datesSet[int(random() * datesSet.length)])
+    return shuffle(range(0, n).map(i => datesSet[i % datesSet.length]))
   })()
 
   const datesAllUnique = range(0, n).map(
@@ -56,15 +56,15 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   )
 
   const floatsFromSmallSet = (() => {
-    const floatSet = normal(7)
-    return range(0, n).map(() => floatSet[int(random() * floatSet.length)])
+    const floatSet = normal(5)
+    return shuffle(range(0, n).map(i => floatSet[i % floatSet.length]))
   })()
 
   const floatsAllUnique = normal(n)
 
   const intsFromSmallSet = (() => {
     const intSet = range(-3, 4)
-    return range(0, n).map(() => intSet[int(random() * intSet.length)])
+    return shuffle(range(0, n).map(i => intSet[i % intSet.length]))
   })()
 
   const intsAllUnique = shuffle(range(0, n)).map(v => int(v - n / 2))
@@ -76,7 +76,7 @@ test("tests that DataFrames can be converted to all numerical values correctly",
       z: random(),
     }))
 
-    return range(0, n).map(() => objectsSet[int(random() * objectsSet.length)])
+    return shuffle(range(0, n).map(i => objectsSet[i % objectsSet.length]))
   })()
 
   const objectsAllUnique = range(0, n).map(() => ({
@@ -86,8 +86,8 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   }))
 
   const stringsFromSmallSet = (() => {
-    const stringSet = range(0, 7).map(() => makeKey(8))
-    return range(0, n).map(() => stringSet[int(random() * stringSet.length)])
+    const stringSet = range(0, 5).map(() => makeKey(8))
+    return shuffle(range(0, n).map(i => stringSet[i % stringSet.length]))
   })()
 
   const stringsAllUnique = range(0, n).map(() => makeKey(8))
