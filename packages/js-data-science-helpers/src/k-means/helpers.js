@@ -120,10 +120,6 @@ function isMatrix(x) {
   return isArray(x) && shape(x).length === 2
 }
 
-function isWholeNumber(x) {
-  return isNumber(x) && x >= 0 && Math.floor(x) === x
-}
-
 function orderCentroids(ctrue, cpred) {
   return ctrue.map(c1 => {
     return cpred[argmin(cpred.map(c2 => sse(c1, c2)))]
@@ -139,7 +135,6 @@ module.exports = {
   accuracy,
   createGenericTest,
   isMatrix,
-  isWholeNumber,
   orderCentroids,
   sse,
 }

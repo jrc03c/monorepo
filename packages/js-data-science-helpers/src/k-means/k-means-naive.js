@@ -15,7 +15,9 @@ const {
   zeros,
 } = require("@jrc03c/js-math-tools")
 
-const { isMatrix, isWholeNumber, sse } = require("./helpers")
+const { isMatrix, sse } = require("./helpers")
+
+const isWholeNumber = require("@jrc03c/js-math-tools/src/helpers/is-whole-number")
 
 class KMeansNaive {
   constructor(config) {

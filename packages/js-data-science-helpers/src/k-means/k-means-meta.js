@@ -9,7 +9,10 @@ const {
   shape,
 } = require("@jrc03c/js-math-tools")
 
-const { isMatrix, isWholeNumber } = require("./helpers")
+const { isMatrix } = require("./helpers")
+
+const isWholeNumber = require("@jrc03c/js-math-tools/src/helpers/is-whole-number")
+
 const KMeansPlusPlus = require("./k-means-plus-plus")
 
 class KMeansMeta {

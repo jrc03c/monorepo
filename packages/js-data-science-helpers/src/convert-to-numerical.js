@@ -17,7 +17,8 @@ const {
 
 const { stringify } = require("@jrc03c/js-text-tools")
 const getOneHotEncodings = require("./get-one-hot-encodings")
-const isWholeNumber = x => isNumber(x) && (parseInt(x) === x || x === Infinity)
+
+const isWholeNumber = require("@jrc03c/js-math-tools/src/helpers/is-whole-number")
 
 function convertToNumerical(df, config) {
   config = config || {}
