@@ -1,7 +1,9 @@
 const {
   DataFrame,
+  flatten,
   isDataFrame,
   isEqual,
+  isNumber,
   normal,
   Series,
 } = require("@jrc03c/js-math-tools")
@@ -44,6 +46,18 @@ test("tests that an array can be correctly diagonalized", () => {
 
   const hPred = diagonalize(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
+
+  const i = normal(10)
+  i[0] = "uh-oh!"
+  const j = diagonalize(i)
+
+  expect(
+    flatten(j)
+      .slice(1)
+      .every(v => isNumber(v)),
+  ).toBe(true)
+
+  expect(isNumber(j[0][0])).toBe(false)
 
   const wrongs = [
     0,
