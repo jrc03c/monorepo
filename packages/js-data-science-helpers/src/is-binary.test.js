@@ -35,6 +35,10 @@ test("tests that arrays, Series, and DataFrames can be correctly identified as b
   expect(isBinary([0, 1n])).toBe(true)
   expect(isBinary([2n, 3n, 4n])).toBe(false)
 
+  const x = [0, 1, 0, 1, "foo"]
+  expect(isBinary(x)).toBe(false)
+  expect(isBinary(x, true)).toBe(true)
+
   const wrongs = [
     2.3,
     -2.3,

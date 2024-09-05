@@ -1,12 +1,12 @@
 const {
-  dropMissing,
-  flatten,
+  count,
+  dropNaN,
   isArray,
   isDataFrame,
   isSeries,
 } = require("@jrc03c/js-math-tools")
 
-function isBinary(x) {
+function isBinary(x, shouldDropNaNs) {
   if (typeof x === "number") {
     return x === 0 || x === 1
   }
@@ -16,16 +16,24 @@ function isBinary(x) {
   }
 
   if (isDataFrame(x) || isSeries(x)) {
-    return isBinary(x.values)
+    return isBinary(x.values, shouldDropNaNs)
   }
 
   if (isArray(x)) {
-    if (x.length === 0) {
-      return false
+    if (shouldDropNaNs) {
+      x = dropNaN(x)
     }
 
-    const nonMissingValues = dropMissing(flatten(x))
-    return nonMissingValues.every(v => isBinary(v))
+    const counts = count(x)
+    const values = counts.values.toSorted()
+
+    return (
+      (values.length === 2 &&
+        Number(values[0]) === 0 &&
+        Number(values[1]) === 1) ||
+      (values.length === 1 &&
+        (Number(values[0]) === 0 || Number(values[0]) === 1))
+    )
   }
 
   return false
