@@ -7,9 +7,14 @@ module.exports = {
     node: true,
   },
   extends: "eslint:recommended",
+  globals: {
+    JSDataScienceHelpers: "readonly",
+    JSMathTools: "readonly",
+  },
   parserOptions: {
     ecmaVersion: "latest",
   },
+  plugins: ["eslint-plugin-html"],
   rules: {
     "no-empty": ["error", { allowEmptyCatch: true }],
 
