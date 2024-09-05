@@ -7,7 +7,7 @@ const isSeries = require("./is-series")
 
 function product(arr, shouldDropNaNs) {
   if (isDataFrame(arr) || isSeries(arr)) {
-    return product(arr.values)
+    return product(arr.values, shouldDropNaNs)
   }
 
   assert(

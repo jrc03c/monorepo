@@ -6,11 +6,11 @@ const shape = require("./shape")
 
 function correl(x, y, shouldDropNaNs) {
   if (isSeries(x)) {
-    return correl(x.values, y)
+    return correl(x.values, y, shouldDropNaNs)
   }
 
   if (isSeries(y)) {
-    return correl(x, y.values)
+    return correl(x, y.values, shouldDropNaNs)
   }
 
   assert(

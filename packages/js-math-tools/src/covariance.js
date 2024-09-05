@@ -7,15 +7,12 @@ const shape = require("./shape")
 const stats = require("./stats")
 
 function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
-  // shouldDropNaNs = !!shouldDropNaNs
-  // shouldAlsoReturnStatsObjects = !!shouldAlsoReturnStatsObjects
-
   if (isSeries(x)) {
-    return covariance(x.values, y)
+    return covariance(x.values, y, shouldDropNaNs, shouldAlsoReturnStatsObjects)
   }
 
   if (isSeries(y)) {
-    return covariance(x, y.values)
+    return covariance(x, y.values, shouldDropNaNs, shouldAlsoReturnStatsObjects)
   }
 
   assert(
