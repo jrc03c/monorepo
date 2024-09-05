@@ -31,6 +31,13 @@ test("gets the r-score of various arrays", () => {
   const k = j.map(v => v + 0.1 * normal())
   expect(rSquared(j, k)).toBeLessThan(rScore(j, k))
 
+  const m = normal(100)
+  m[0] = "uh-oh!"
+  const n = normal(100)
+  n[1] = "uh-oh!"
+  expect(rScore(m, n)).toBeNaN()
+  expect(rScore(m, n, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

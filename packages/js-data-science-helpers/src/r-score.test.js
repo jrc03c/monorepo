@@ -26,6 +26,13 @@ test("gets the r-score of various arrays", () => {
   expect(rScore(hBigInts, iBigInts)).toBe(rScore(hFloats, iFloats))
   expect(rScore(hBigInts, iFloats)).toBe(rScore(hFloats, iBigInts))
 
+  const j = normal(100)
+  j[0] = "uh-oh!"
+  const k = normal(100)
+  k[1] = "uh-oh!"
+  expect(rScore(j, k)).toBeNaN()
+  expect(rScore(j, k, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,

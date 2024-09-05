@@ -1,6 +1,7 @@
 const {
   add,
   assert,
+  dropNaNPairwise,
   isArray,
   isDataFrame,
   isEqual,
@@ -14,7 +15,7 @@ const {
 
 const subtract = (a, b) => add(a, scale(b, -1))
 
-function rSquared(xTrue, xPred) {
+function rSquared(xTrue, xPred, shouldDropNaNs) {
   if (isDataFrame(xTrue) || isSeries(xTrue)) {
     return rSquared(xTrue.values, xPred)
   }
@@ -37,6 +38,12 @@ function rSquared(xTrue, xPred) {
     isEqual(shape(xTrue), shape(xPred)),
     "You must pass two same-shaped numerical arrays into the `rSquared` function!",
   )
+
+  if (shouldDropNaNs) {
+    const results = dropNaNPairwise(xTrue, xPred)
+    xTrue = results[0]
+    xPred = results[1]
+  }
 
   const num = Number(sum(pow(subtract(xTrue, xPred), 2)))
   const den = Number(sum(pow(subtract(xTrue, mean(xTrue)), 2)))
