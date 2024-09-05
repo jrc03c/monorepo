@@ -39,8 +39,7 @@ test("sorts a random correlation matrix", () => {
     }
   })
 
-  // make sure that NaNs are handled correctly by replacing them with (e.g.)
-  // -Infinity before sorting and then re-replacing them with NaNs afterwards!
+  // make sure that NaNs are handled correctly
   const e = new DataFrame(normal([10, 10]))
   e.index = e.columns
   e.values = divide(add(e.values, e.transpose().values), 2)
@@ -73,7 +72,9 @@ test("sorts a random correlation matrix", () => {
     }
   })
 
-  expect(() => sortCorrelationMatrix(e)).toThrow()
+  const f = sortCorrelationMatrix(e).values
+  expect(f.some(row => row.some(v => isNaN(v)))).toBe(true)
+  expect(f.some(row => row.some(v => isNumber(v)))).toBe(true)
 
   const wrongs = [
     0,
