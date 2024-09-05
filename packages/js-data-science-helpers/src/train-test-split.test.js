@@ -65,6 +65,11 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   const dFloatsTest = results[3]
   expect(isEqual(dBigIntsTrain, dFloatsTrain)).toBe(true)
   expect(isEqual(dBigIntsTest, dFloatsTest)).toBe(true)
+
+  const e = normal(100)
+  e[0][0] = "uh-oh!"
+  const [eTrain, eTest] = trainTestSplit(e)
+  expect(isEqual(eTrain.concat(eTest).toSorted(), e.toSorted()))
 })
 
 test("tests that `trainTestSplit` throws errors at the right times", () => {
