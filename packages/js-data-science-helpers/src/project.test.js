@@ -42,6 +42,13 @@ test("tests that vectors can be correctly projected onto other vectors", () => {
     true,
   )
 
+  const m = normal(100)
+  m[0] = "uh-oh!"
+  const n = normal(100)
+  n[1] = "uh-oh!"
+
+  expect(project(m, n).every(v => isNaN(v))).toBe(true)
+
   const wrongs = [
     0,
     1,
