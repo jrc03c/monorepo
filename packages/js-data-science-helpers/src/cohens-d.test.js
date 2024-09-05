@@ -28,6 +28,13 @@ test("tests that Cohen's D can be correctly calculated", () => {
     ),
   )
 
+  const j = normal(100)
+  j[0] = "uh-oh!"
+  const k = normal(100)
+  k[1] = "uh-oh!"
+  expect(cohensd(j, k)).toBeNaN()
+  expect(cohensd(j, k, true)).not.toBeNaN()
+
   const wrongs = [
     0,
     1,
