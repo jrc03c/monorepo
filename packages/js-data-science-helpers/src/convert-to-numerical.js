@@ -79,6 +79,7 @@ function convertToNumerical(df, config) {
   // - string
 
   const out = {}
+  const shouldDropNaNs = true
 
   df.apply((col, colIndex) => {
     if (progress) {
@@ -128,7 +129,10 @@ function convertToNumerical(df, config) {
 
     // one-hot encode
     if (inferred.type !== "boolean") {
-      const counts = sort(count(nonMissingValues), (a, b) => b.count - a.count)
+      const counts = sort(
+        count(nonMissingValues).toArray(),
+        (a, b) => b.count - a.count,
+      )
 
       const topNPercent =
         sum(counts.slice(0, maxUniqueValues).map(item => item.count)) /
@@ -153,7 +157,7 @@ function convertToNumerical(df, config) {
 
           for (let i = 0; i < otherColNames.length; i++) {
             const otherColValues = out[otherColNames[i]]
-            const r = correl(values, otherColValues)
+            const r = correl(values, otherColValues, shouldDropNaNs)
 
             if (r > maxCorrelationThreshold) {
               return
@@ -182,7 +186,7 @@ function convertToNumerical(df, config) {
 
       for (let i = 0; i < otherColNames.length; i++) {
         const otherColValues = out[otherColNames[i]]
-        const r = correl(inferred.values, otherColValues)
+        const r = correl(inferred.values, otherColValues, shouldDropNaNs)
 
         if (r > maxCorrelationThreshold) {
           return

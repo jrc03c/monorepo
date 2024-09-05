@@ -181,6 +181,7 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   // check that no columns have a single unique value
   dfCleaned.apply(col => {
     const valuesSet = set(dropMissing(col.values))
+    if (valuesSet.length === 1) col.print()
     expect(valuesSet.length).toBeGreaterThan(1)
   })
 
