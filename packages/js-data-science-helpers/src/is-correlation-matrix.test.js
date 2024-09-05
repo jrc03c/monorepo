@@ -44,6 +44,10 @@ test("tests that correlation matrices can be correctly identified", () => {
     ),
   ).toBe(true)
 
+  const i = random([10, 10])
+  i[0][0] = "uh-oh!"
+  expect(isCorrelationMatrix(i)).toBe(true)
+
   const wrongs = [
     0,
     1,

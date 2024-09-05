@@ -8,7 +8,7 @@ function isCorrelationMatrix(x) {
       return true
     }
 
-    const s = stats(x)
+    const s = stats(x, { shouldDropNaNs: true })
     return s.min >= -1 && s.max <= 1
   } catch (e) {
     return false
