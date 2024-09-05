@@ -3,7 +3,6 @@ const {
   argmin,
   assert,
   copy,
-  distance,
   divide,
   isDataFrame,
   isFunction,
@@ -114,7 +113,7 @@ class KMeansNaive {
       // if the change from the previous centroids to these new centroids
       // is very small (i.e., less then `tolerance`), then we should stop
       // iterating
-      if (distance(state.currentCentroids, newCentroids) < this.tolerance) {
+      if (sse(state.currentCentroids, newCentroids) < this.tolerance) {
         state.currentIteration = this.maxIterations - 1
       } else {
         state.currentCentroids = newCentroids
@@ -178,7 +177,7 @@ class KMeansNaive {
       )
     }
 
-    return x.map(p => argmin(centroids.map(c => distance(p, c))))
+    return x.map(p => argmin(centroids.map(c => sse(p, c))))
   }
 
   score(x, centroids) {

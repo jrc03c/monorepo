@@ -1,11 +1,5 @@
-const {
-  argmin,
-  distance,
-  divide,
-  max,
-  random,
-} = require("@jrc03c/js-math-tools")
-
+const { argmin, divide, max, random } = require("@jrc03c/js-math-tools")
+const { sse } = require("./helpers")
 const KMeansNaive = require("./k-means-naive")
 
 class KMeansPlusPlus extends KMeansNaive {
@@ -18,14 +12,23 @@ class KMeansPlusPlus extends KMeansNaive {
     //    c) use the probabilities to randomly select a point to be the next
     //       centroid
 
+    const shouldDropNaNs = true
     const centroids = [x[parseInt(random() * x.length)]]
 
     while (centroids.length < this.k) {
       const distances = x.map(p =>
-        distance(p, centroids[argmin(centroids.map(c => distance(p, c)))]),
+        sse(
+          p,
+          centroids[
+            argmin(
+              centroids.map(c => sse(p, c)),
+              shouldDropNaNs,
+            )
+          ],
+        ),
       )
 
-      const probabilities = divide(distances, max(distances))
+      const probabilities = divide(distances, max(distances, shouldDropNaNs))
       centroids.push(x[probabilities.findIndex(v => random() < v)])
     }
 
