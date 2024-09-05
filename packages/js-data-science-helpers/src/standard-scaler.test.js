@@ -94,20 +94,10 @@ test("tests that the `StandardScaler` transforms and untransforms data correctly
   f[0] = "uh-oh!"
 
   expect(new StandardScaler().fitAndTransform(f).every(v => isNaN(v))).toBe(
-    true,
+    false,
   )
 
-  expect(
-    new StandardScaler({ shouldDropNaNs: true })
-      .fitAndTransform(f)
-      .every(v => isNaN(v)),
-  ).toBe(false)
-
-  expect(
-    new StandardScaler({ shouldDropNaNs: true })
-      .fitAndTransform(f)
-      .some(v => isNaN(v)),
-  ).toBe(true)
+  expect(new StandardScaler().fitAndTransform(f).some(v => isNaN(v))).toBe(true)
 })
 
 test("tests that the `StandardScaler` throws errors when asked to transform data with shapes different than the data on which it was trained", () => {

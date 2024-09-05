@@ -13,17 +13,11 @@ const {
 } = require("@jrc03c/js-math-tools")
 
 class StandardScaler {
-  constructor(options) {
-    options = options || {}
+  constructor() {
     this.means = []
     this.stdevs = []
     this.wasFittedOnAVector = false
     this.hasBeenFitted = false
-
-    this.shouldDropNaNs =
-      typeof options.shouldDropNaNs === "undefined"
-        ? false
-        : options.shouldDropNaNs
   }
 
   _getDataArrayAndShape(x) {
@@ -69,7 +63,7 @@ class StandardScaler {
       const values = x.map(row => row[j])
 
       const results = stats(values, {
-        shouldDropNaNs: this.shouldDropNaNs,
+        shouldDropNaNs: true,
         stdev: true,
       })
 
