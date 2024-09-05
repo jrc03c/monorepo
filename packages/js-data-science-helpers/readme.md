@@ -222,6 +222,10 @@ console.log(percentages)
 // ]
 ```
 
+### `hunterChainSort(c)`
+
+Sorts a correlation matrix (array or `DataFrame`) so that variables near each other in the visualization are also highly correlated with one another. The first variable chosen is the one with the highest sum of squared correlations. The second variable chosen is the remaining variable most highly correlated with the first; the third variable chosen is the remaining variable most highly correlated with the second; and so on. This algorithm is called the Hunter chain method. (See: ["Methods of Reordering the Correlation Matrix to Vacilitate Visual Inspection and Preliminary Cluster Analysis" by John Edward Hunter](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1745-3984.1973.tb00782.x))
+
 ### `IndexMatcher(mode=IndexMatcher.DROP_MISSING_MODE)`
 
 The `IndexMatcher` class makes it relatively easy to make sure that two `Series` or `DataFrame` instances have the same index. The constructor takes a single argument, the `mode`, which is one of:
@@ -360,10 +364,6 @@ Returns the projection of vector or `Series` `v` onto vector or `Series` `u`.
 ### `rScore(xTrue, xPred)`
 
 Returns (roughly) the square root of the <i>R</i><sup>2</sup> value of `xTrue` versus `xPred`. Since <i>R</i><sup>2</sup> can be negative, the actual value returned is `sign(R^2) * sqrt(abs(R^2))`. The two datasets can be any shape provided that they have the same shape as each other.
-
-### `sortCorrelationMatrix(c)`
-
-Sorts a correlation matrix (array or `DataFrame`) so that variables near each other in the visualization are also highly correlated with one another. The first variable chosen is the one with the highest sum of squared correlations. The second variable chosen is the remaining variable most highly correlated with the first; the third variable chosen is the remaining variable most highly correlated with the second; and so on. This algorithm is called the Hunter chain method. (See: ["Methods of Reordering the Correlation Matrix to Vacilitate Visual Inspection and Preliminary Cluster Analysis" by John Edward Hunter](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1745-3984.1973.tb00782.x))
 
 ### `standardize(x)`
 

@@ -15,18 +15,18 @@ const {
 } = require("@jrc03c/js-math-tools")
 
 const getCorrelationMatrix = require("./get-correlation-matrix")
-const sortCorrelationMatrix = require("./sort-correlation-matrix")
+const hunterChainSort = require("./hunter-chain-sort")
 
 test("sorts a random correlation matrix", () => {
   const a = normal([1000, 5])
   const b = getCorrelationMatrix(a)
-  expect(() => sortCorrelationMatrix(b)).not.toThrow()
+  expect(() => hunterChainSort(b)).not.toThrow()
 
   const c = new DataFrame(b)
   c.index = c.columns.slice()
 
-  const d = sortCorrelationMatrix(c)
-  expect(isEqual(sortCorrelationMatrix(b), d.values)).toBe(true)
+  const d = hunterChainSort(c)
+  expect(isEqual(hunterChainSort(b), d.values)).toBe(true)
 
   d.values.forEach((row, i) => {
     if (i < d.shape[0] - 2) {
@@ -72,8 +72,20 @@ test("sorts a random correlation matrix", () => {
     }
   })
 
-  const f = sortCorrelationMatrix(e).values
-  expect(f.some(row => row.some(v => isNaN(v)))).toBe(true)
+  const f = hunterChainSort(e).values
+
+  expect(
+    f.some(row =>
+      row.some(v => {
+        try {
+          return isNaN(v)
+        } catch (e) {
+          return true
+        }
+      }),
+    ),
+  ).toBe(true)
+
   expect(f.some(row => row.some(v => isNumber(v)))).toBe(true)
 
   const wrongs = [
@@ -100,6 +112,6 @@ test("sorts a random correlation matrix", () => {
   ]
 
   wrongs.forEach(item => {
-    expect(() => sortCorrelationMatrix(item)).toThrow()
+    expect(() => hunterChainSort(item)).toThrow()
   })
 })

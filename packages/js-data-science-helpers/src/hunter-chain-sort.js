@@ -11,21 +11,21 @@ const {
   sum,
 } = require("@jrc03c/js-math-tools")
 
-function sortCorrelationMatrix(c) {
+function hunterChainSort(c) {
   if (isArray(c)) {
     assert(
       shape(c).length === 2 && !isJagged(c),
-      "The `sortCorrelationMatrix` function only works on non-jagged 2-dimensional arrays and DataFrames!",
+      "The `hunterChainSort` function only works on non-jagged 2-dimensional arrays and DataFrames!",
     )
 
     const temp = new DataFrame(c)
     temp.index = temp.columns.slice()
-    return sortCorrelationMatrix(temp).values
+    return hunterChainSort(temp).values
   }
 
   assert(
     isDataFrame(c),
-    "You must pass a 2-dimensional array or DataFrame into the `sortCorrelationMatrix` function!",
+    "You must pass a 2-dimensional array or DataFrame into the `hunterChainSort` function!",
   )
 
   const shouldDropNaNs = true
@@ -71,4 +71,4 @@ function sortCorrelationMatrix(c) {
   return out
 }
 
-module.exports = sortCorrelationMatrix
+module.exports = hunterChainSort
