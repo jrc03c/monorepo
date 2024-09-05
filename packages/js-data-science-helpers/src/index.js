@@ -3,7 +3,6 @@ const { MathError } = require("@jrc03c/js-math-tools")
 const helpers = {
   cohensd: require("./cohens-d"),
   cohensD: require("./cohens-d"),
-  containsOnlyNumbers: require("./contains-only-numbers"),
   convertToNumerical: require("./convert-to-numerical"),
   diagonalize: require("./diagonalize"),
   getCorrelationMatrix: require("./get-correlation-matrix"),

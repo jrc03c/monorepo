@@ -1,7 +1,12 @@
 const {
+  assert,
   DataFrame,
+  flatten,
+  isArray,
+  isDataFrame,
   isEqual,
   isNumber,
+  isSeries,
   normal,
   range,
   Series,
@@ -9,8 +14,28 @@ const {
   transpose,
 } = require("@jrc03c/js-math-tools")
 
-const containsOnlyNumbers = require("./contains-only-numbers")
 const getPValueMatrix = require("./get-p-value-matrix")
+
+function containsOnlyNumbers(x) {
+  if (isDataFrame(x) || isSeries(x)) {
+    return containsOnlyNumbers(x.values)
+  }
+
+  assert(
+    isArray(x),
+    "The `containsOnlyNumbers` function only works on arrays, Series, and DataFrames!",
+  )
+
+  const temp = flatten(x)
+
+  for (let i = 0; i < temp.length; i++) {
+    if (!isNumber(temp[i])) {
+      return false
+    }
+  }
+
+  return true
+}
 
 test("tests that a p-value matrix can be computed correctly", () => {
   const a = normal(100)
