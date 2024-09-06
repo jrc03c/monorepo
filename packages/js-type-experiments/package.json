@@ -10,7 +10,7 @@
     "prettier": "^3.0.3"
   },
   "name": "@jrc03c/js-type-experiments",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "src/index.js",
   "description": "",
   "keywords": [],
