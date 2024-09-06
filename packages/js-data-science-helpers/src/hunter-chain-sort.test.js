@@ -88,6 +88,13 @@ test("sorts a random correlation matrix", () => {
 
   expect(f.some(row => row.some(v => isNumber(v)))).toBe(true)
 
+  const g = normal([10, 10]).map(row =>
+    row.map(v => BigInt(Math.round(v * 100))),
+  )
+
+  const h = hunterChainSort(g)
+  expect(h.every(row => row.every(v => isNumber(v)))).toBe(true)
+
   const wrongs = [
     0,
     1,
