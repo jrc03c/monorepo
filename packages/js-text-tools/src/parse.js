@@ -177,7 +177,7 @@ function parseWithJSONParse(x) {
 
     return out
   } catch (e) {
-    return "Symbol(@undefined)"
+    return x
   }
 }
 
@@ -239,23 +239,41 @@ function parse(x) {
   function helper(x) {
     if (typeof x === "string") {
       let out = parseAsString(x)
-      if (typeof out === "string") return out
+
+      if (typeof out === "string") {
+        return out
+      }
 
       const results = parseAsSymbol(x)
       out = results ? results.out : undefined
-      if (results && results.isASymbol) return out
+
+      if (results && results.isASymbol) {
+        return out
+      }
 
       out = parseAsRegex(x)
-      if (out instanceof RegExp) return out
+
+      if (out instanceof RegExp) {
+        return out
+      }
 
       out = parseAsBigInt(x)
-      if (typeof out === "bigint") return out
+
+      if (typeof out === "bigint") {
+        return out
+      }
 
       out = parseAsNumber(x)
-      if (typeof out === "number") return out
+
+      if (typeof out === "number") {
+        return out
+      }
 
       out = parseAsDate(x)
-      if (out instanceof Date) return out
+
+      if (out instanceof Date) {
+        return out
+      }
 
       out = parseWithJSONParse(x)
 

@@ -434,12 +434,6 @@ test("tests that stringification and parsing work when writing to and reading fr
   expect(isEqual(objPred, objTrue)).toBe(true)
 })
 
-afterAll(() => {
-  files.forEach(file => {
-    fs.unlinkSync(file)
-  })
-})
-
 test("tests that core value types can be stringified correctly", () => {
   // prettier-ignore
   function dubble(x) { return 2 * x }
@@ -500,5 +494,15 @@ test("tests that core value types can be stringified correctly", () => {
 
   pairs.forEach(pair => {
     expect(stringify(pair[0])).toBe(pair[1])
+  })
+})
+
+test("tests that unparseable strings are returned as-is from the `parse` function", () => {
+  expect(parse("Hello, world!")).toBe("Hello, world!")
+})
+
+afterAll(() => {
+  files.forEach(file => {
+    fs.unlinkSync(file)
   })
 })
