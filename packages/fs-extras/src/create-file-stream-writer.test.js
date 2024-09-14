@@ -16,7 +16,7 @@ test("tests that the file stream writer works as expected", async () => {
     await writer.write(n + "\n")
   }
 
-  writer.close()
+  await writer.close()
 
   const raw = fs.readFileSync(file, "utf8")
 

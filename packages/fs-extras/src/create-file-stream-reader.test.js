@@ -19,7 +19,7 @@ test("tests that the file stream reader works as expected", async () => {
     i++
   }
 
-  reader.close()
+  await reader.close()
   expect(i).toBe(numbers.length)
 })
 

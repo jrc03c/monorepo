@@ -3,7 +3,7 @@ const fs = require("fs")
 function createFileStreamWriter(file) {
   if (typeof file !== "string") {
     throw new Error(
-      "The first argument passed into the `createFileStreamReader` function must be a string representing a file path!"
+      "The first argument passed into the `createFileStreamReader` function must be a string representing a file path!",
     )
   }
 
@@ -41,7 +41,19 @@ function createFileStreamWriter(file) {
     },
 
     close() {
-      stream.destroy()
+      return new Promise((resolve, reject) => {
+        try {
+          stream.close(error => {
+            if (error) {
+              reject(error)
+            } else {
+              resolve()
+            }
+          })
+        } catch (e) {
+          return reject(e)
+        }
+      })
     },
   }
 }
