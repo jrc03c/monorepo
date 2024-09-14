@@ -1,33 +1,39 @@
 dependsOn:
-- js-text-tools
-- js-type-experiments
-- pause
-- id: filedb
-  scope: development
-- id: js-crypto-helpers
-  scope: development
-- id: js-math-tools
-  scope: development
-- id: logger
-  scope: development
-- id: make-key
-  scope: development
+  - js-text-tools
+  - js-type-experiments
+  - pause
+  - id: filedb
+    scope: development
+  - id: js-crypto-helpers
+    scope: development
+  - id: js-math-tools
+    scope: development
+  - id: logger
+    scope: development
+  - id: make-key
+    scope: development
 language: javascript
 tasks:
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
     local: true
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
+    platform: node
+  test:
+    command:
+      - npx
+      - jest
     local: true
     platform: node

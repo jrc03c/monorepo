@@ -25,7 +25,7 @@ function absolutifyUrl(currentUrl, targetUrl) {
     return (
       temp.protocol +
       "//" +
-      pathJoin(temp.hostname + ":" + temp.port, targetUrl)
+      pathJoin(temp.hostname + (temp.port ? ":" + temp.port : ""), targetUrl)
     )
   }
 
@@ -38,7 +38,11 @@ function absolutifyUrl(currentUrl, targetUrl) {
   return (
     temp.protocol +
     "//" +
-    pathJoin(temp.hostname + ":" + temp.port, updatedPath, targetUrl)
+    pathJoin(
+      temp.hostname + (temp.port ? ":" + temp.port : ""),
+      updatedPath,
+      targetUrl,
+    )
   )
 }
 
