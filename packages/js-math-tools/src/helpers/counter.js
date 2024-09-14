@@ -26,7 +26,7 @@ class Counter {
   }
 
   get counts() {
-    return this.values.map(v => this.countsDict[v])
+    return this.values.map(v => this.get(v))
   }
 
   get values() {
@@ -101,14 +101,14 @@ class Counter {
   }
 
   toArray() {
-    return this.values.map(v => ({ value: v, count: this.countsDict[v] }))
+    return this.values.map(v => ({ value: v, count: this.get(v) }))
   }
 
   toObject() {
     const out = {}
 
     this.values.forEach(value => {
-      out[value] = this.countsDict[value]
+      out[value] = this.get(value)
     })
 
     return out

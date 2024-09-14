@@ -37,8 +37,10 @@ test("tests that the `Counter` class works as expected", () => {
   // `counts` getter
   expect(
     isEqual(
-      counter.counts,
-      set(x).map(v => counter.get(v)),
+      counter.counts.toSorted(),
+      set(x)
+        .map(v => counter.get(v))
+        .toSorted(),
     ),
   ).toBe(true)
 
@@ -62,11 +64,14 @@ test("tests that the `Counter` class works as expected", () => {
 
   // `toArray` method
   expect(
-    isEqual(counter.toArray(), [
-      { value: "a", count: 4 },
-      { value: "b", count: 100 },
-      { value: "c", count: 5 },
-    ]),
+    isEqual(
+      counter.toArray().toSorted((a, b) => a.count - b.count),
+      [
+        { value: "a", count: 4 },
+        { value: "b", count: 100 },
+        { value: "c", count: 5 },
+      ].toSorted((a, b) => a.count - b.count),
+    ),
   ).toBe(true)
 
   // `toObject` method

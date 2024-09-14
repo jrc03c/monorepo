@@ -78,4 +78,9 @@ test("tests equality of primitives", () => {
   expect(isEqual(234n, 234n)).toBe(true)
   expect(isEqual(234, 234n)).toBe(true)
   expect(isEqual(1e3, 1000)).toBe(true)
+
+  const e1 = { a: undefined, b: undefined, c: undefined }
+  const e2 = { a: 3, b: 4, c: 5 }
+  expect(isEqual(e1, e2)).toBe(false)
+  expect(isEqual(e2, e1)).toBe(false)
 })

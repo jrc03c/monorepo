@@ -16,7 +16,7 @@ function isEqual(a, b) {
     )
       return false
 
-    if (aType === "undefined") return true
+    if (aType === "undefined" && bType === "undefined") return true
     if (aType === "boolean") return a === b
     if (aType === "symbol") return a === b
 
