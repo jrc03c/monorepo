@@ -9,12 +9,12 @@
   "author": "jrc03c",
   "license": "ISC",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.64",
-    "@jrc03c/js-text-tools": "^0.0.37",
-    "@jrc03c/make-key": "^0.0.15"
+    "@jrc03c/js-math-tools": "^0.0.81",
+    "@jrc03c/js-text-tools": "^0.0.52",
+    "@jrc03c/make-key": "^0.0.28"
   },
   "devDependencies": {
-    "@jrc03c/watch": "^0.0.12",
+    "@jrc03c/watch": "^0.0.14",
     "esbuild": "^0.14.51",
     "eslint": "^8.21.0",
     "eslint-plugin-html": "^8.1.0",
