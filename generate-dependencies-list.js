@@ -10,10 +10,12 @@ const packageJsons = fsx
   .filter(f => f.endsWith("package.json") && !f.includes("node_modules"))
 
 const deps = []
+const versions = {}
 
 progress(packageJsons).forEach(file => {
   const packageJson = JSON.parse(fs.readFileSync(file, "utf8"))
   const name = file.split("/").at(-2)
+  versions[name] = packageJson.version
 
   if (packageJson.dependencies) {
     Object.keys(packageJson.dependencies).forEach(dep => {
@@ -75,7 +77,13 @@ while (libraries.length > 0) {
 
 const out = sorted
   .map((lib, i) =>
-    [i.toString().padStart(sorted.length.toString().length, "0") + ") " + lib]
+    [
+      i.toString().padStart(sorted.length.toString().length, "0") +
+        ") " +
+        lib +
+        " " +
+        `(${versions[lib] || "???"})`,
+    ]
       .concat(
         deps
           .filter(d => d.package === lib)
