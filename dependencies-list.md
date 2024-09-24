@@ -58,7 +58,7 @@
   - fs-extras
   - make-key
   - pause
-# cli-utils (???)
+# cli-utils (0.0.1)
   - bash-colors
   - js-math-tools
   - js-text-tools
