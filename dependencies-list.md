@@ -1,0 +1,89 @@
+# base-class
+# bash-colors
+# color
+# create-high-dpi-canvas
+# custom-scroller
+# freeze
+# pause
+# progress
+# prompt
+# radio
+# vector2
+# js-math-tools
+  - freeze
+# js-convex-hull
+  - js-math-tools
+# make-key
+  - js-math-tools
+# queue
+  - make-key
+# filedb
+  - js-math-tools
+  - make-key
+# js-plot-tools
+  - js-math-tools
+  - make-key
+# js-text-tools
+  - bash-colors
+  - js-math-tools
+  - make-key
+# js-type-experiments
+  - js-math-tools
+  - js-text-tools
+# js-data-science-helpers
+  - js-math-tools
+  - js-text-tools
+  - make-key
+# fs-extras
+  - filedb
+  - js-math-tools
+  - make-key
+  - progress
+# js-crypto-helpers
+  - bash-colors
+  - js-math-tools
+  - js-text-tools
+  - prompt
+# logger
+  - bash-colors
+  - js-math-tools
+  - js-text-tools
+  - make-key
+  - pause
+# js-csv-helpers
+  - fs-extras
+  - js-math-tools
+  - make-key
+# watch
+  - fs-extras
+  - make-key
+  - pause
+# cli-utils
+  - bash-colors
+  - js-math-tools
+  - js-text-tools
+  - js-type-experiments
+  - prompt
+# js-nlp-tools
+  - base-class
+  - filedb
+  - fs-extras
+  - js-crypto-helpers
+  - js-math-tools
+  - js-text-tools
+  - js-type-experiments
+  - make-key
+# web-crawler
+  - filedb
+  - js-crypto-helpers
+  - js-math-tools
+  - js-text-tools
+  - js-type-experiments
+  - logger
+  - make-key
+  - pause
+# bee
+  - js-math-tools
+  - js-text-tools
+  - make-key
+  - watch
