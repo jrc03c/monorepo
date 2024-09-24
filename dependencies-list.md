@@ -54,7 +54,7 @@
   - fs-extras
   - js-math-tools
   - make-key
-# watch (0.0.14)
+# watch (0.0.15)
   - fs-extras
   - make-key
   - pause
