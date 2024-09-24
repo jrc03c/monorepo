@@ -10,13 +10,13 @@
     "prettier": "^3.0.3"
   },
   "dependencies": {
-    "@jrc03c/base-class": "^0.0.2",
-    "@jrc03c/filedb": "^0.0.18",
-    "@jrc03c/fs-extras": "^0.0.14",
-    "@jrc03c/js-crypto-helpers": "^0.0.9",
-    "@jrc03c/js-math-tools": "^0.0.58",
-    "@jrc03c/js-text-tools": "^0.0.24",
-    "@jrc03c/js-type-experiments": "^0.0.12",
-    "@jrc03c/make-key": "^0.0.14"
+    "@jrc03c/base-class": "^0.0.3",
+    "@jrc03c/filedb": "^0.0.21",
+    "@jrc03c/fs-extras": "^0.0.18",
+    "@jrc03c/js-crypto-helpers": "^0.0.15",
+    "@jrc03c/js-math-tools": "^0.0.81",
+    "@jrc03c/js-text-tools": "^0.0.53",
+    "@jrc03c/js-type-experiments": "^0.0.16",
+    "@jrc03c/make-key": "^0.0.28"
   }
 }
