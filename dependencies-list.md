@@ -44,7 +44,7 @@
   - js-math-tools
   - js-text-tools
   - prompt
-# logger (0.0.14)
+# logger (0.0.15)
   - bash-colors
   - js-math-tools
   - js-text-tools
