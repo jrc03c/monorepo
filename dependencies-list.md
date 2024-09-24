@@ -39,7 +39,7 @@
   - js-math-tools
   - make-key
   - progress
-# js-crypto-helpers (0.0.14)
+# js-crypto-helpers (0.0.15)
   - bash-colors
   - js-math-tools
   - js-text-tools
