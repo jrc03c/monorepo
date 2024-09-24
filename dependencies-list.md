@@ -73,7 +73,7 @@
   - js-text-tools
   - js-type-experiments
   - make-key
-# web-crawler (0.0.10)
+# web-crawler (0.0.11)
   - filedb
   - js-crypto-helpers
   - js-math-tools
