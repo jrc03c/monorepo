@@ -107,7 +107,7 @@ fs.writeFileSync(
     .split("\n")
     .map(line => {
       if (line.match(/^\d+\)/g)) {
-        return "# " + line.replace(/\d+\)/g, "").trim()
+        return "# " + line.replace(/^\d+\)/g, "").trim()
       } else {
         return line
       }
