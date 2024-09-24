@@ -82,7 +82,7 @@
   - logger
   - make-key
   - pause
-# bee (0.0.44)
+# bee (0.0.45)
   - js-math-tools
   - js-text-tools
   - make-key
