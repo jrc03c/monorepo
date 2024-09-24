@@ -4,7 +4,7 @@
   "description": "a few small tools for working with text in js",
   "main": "src/index.js",
   "dependencies": {
-    "@jrc03c/bash-colors": "^0.0.3",
+    "@jrc03c/bash-colors": "^0.0.4",
     "@jrc03c/js-math-tools": "^0.0.81"
   },
   "author": "jrc03c",
