@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@jrc03c/js-math-tools": "^0.0.81",
-    "@jrc03c/js-text-tools": "^0.0.52"
+    "@jrc03c/js-text-tools": "^0.0.53"
   },
   "devDependencies": {
     "esbuild": "^0.19.2",
