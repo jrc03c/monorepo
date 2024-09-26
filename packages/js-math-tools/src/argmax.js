@@ -36,7 +36,6 @@ function argmax(x, shouldDropNaNs) {
       return undefined
     }
   } catch (e) {
-    console.log(e)
     return undefined
   }
 }
