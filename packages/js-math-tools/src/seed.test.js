@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random, seed } = require("./random")
-const isEqual = require("./is-equal")
+import { DataFrame, Series } from "./dataframe.js"
+import { random, seed } from "./random.js"
+import isEqual from "./is-equal.js"
 
 test("tests that random numbers can be seeded correctly", () => {
   const a = random()

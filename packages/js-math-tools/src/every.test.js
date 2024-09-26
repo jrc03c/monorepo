@@ -1,13 +1,13 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const every = require("./every")
-const flatten = require("./flatten")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import every from "./every.js"
+import flatten from "./flatten.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
 
 test("tests that the `every` function works as expected", () => {
   const a = [234, ["foo", [true, [{ hello: "world" }]]]]

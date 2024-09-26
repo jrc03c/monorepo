@@ -1,25 +1,25 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import shape from "../shape.js"
 
 function seriesGetSubsetByNames(Series, series, indices) {
   if (isUndefined(indices)) indices = series.index
 
   assert(
     isArray(indices),
-    "The `indices` array must be a 1-dimensional array of strings."
+    "The `indices` array must be a 1-dimensional array of strings.",
   )
 
   assert(
     shape(indices).length === 1,
-    "The `indices` array must be a 1-dimensional array of strings."
+    "The `indices` array must be a 1-dimensional array of strings.",
   )
 
   assert(
     indices.length > 0,
-    "The `indices` array must contain at least one index name."
+    "The `indices` array must contain at least one index name.",
   )
 
   indices.forEach(name => {
@@ -27,7 +27,7 @@ function seriesGetSubsetByNames(Series, series, indices) {
 
     assert(
       series.index.indexOf(name) > -1,
-      `The name "${name}" does not exist in the index.`
+      `The name "${name}" does not exist in the index.`,
     )
   })
 
@@ -43,4 +43,4 @@ function seriesGetSubsetByNames(Series, series, indices) {
   return out
 }
 
-module.exports = seriesGetSubsetByNames
+export default seriesGetSubsetByNames

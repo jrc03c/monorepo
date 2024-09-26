@@ -8,4 +8,4 @@ function isSeries(x) {
   }
 }
 
-module.exports = isSeries
+export default isSeries

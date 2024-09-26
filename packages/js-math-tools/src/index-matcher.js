@@ -1,11 +1,11 @@
-const { DataFrame, Series } = require("./dataframe")
-const assert = require("./assert")
-const intersect = require("./intersect")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import assert from "./assert.js"
+import intersect from "./intersect.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
+import shape from "./shape.js"
 
 class IndexMatcher {
   static DROP_NAN_MODE = "DROP_NAN_MODE"
@@ -94,4 +94,4 @@ class IndexMatcher {
   }
 }
 
-module.exports = IndexMatcher
+export default IndexMatcher

@@ -1,6 +1,6 @@
-const { decycle } = require("./copy")
-const isArray = require("./is-array")
-const isDate = require("./is-date")
+import { decycle } from "./copy.js"
+import isArray from "./is-array.js"
+import isDate from "./is-date.js"
 
 const numberTypes = ["number", "int", "float", "bigint"]
 
@@ -81,4 +81,4 @@ function isEqual(a, b) {
   }
 }
 
-module.exports = isEqual
+export default isEqual

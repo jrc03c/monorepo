@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const dot = require("./dot")
-const float = require("./float")
-const int = require("./int")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import dot from "./dot.js"
+import float from "./float.js"
+import int from "./int.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that the dot products of vectors and matrices can be computed correctly", () => {
   const a = [2, 3, 4]

@@ -1,8 +1,8 @@
-const { copy, decycle } = require("./copy")
-const { DataFrame, Series } = require("./dataframe")
-const arrayTypes = require("./helpers/array-types")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { copy, decycle } from "./copy.js"
+import { DataFrame, Series } from "./dataframe.js"
+import arrayTypes from "./helpers/array-types.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 function isACopy(a, b) {
   if (typeof a === "object" && typeof b === "object" && a !== null) {

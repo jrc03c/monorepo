@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const argmax = require("./argmax")
-const normal = require("./normal")
-const range = require("./range")
-const shuffle = require("./shuffle")
+import { DataFrame, Series } from "./dataframe.js"
+import argmax from "./argmax.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import shuffle from "./shuffle.js"
 
 test("gets the argmax of various kinds of containers", () => {
   const a = shuffle(range(0, 100))

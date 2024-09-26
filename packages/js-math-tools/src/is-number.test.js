@@ -1,5 +1,5 @@
-const { DataFrame, Series } = require("./dataframe")
-const isNumber = require("./is-number")
+import { DataFrame, Series } from "./dataframe.js"
+import isNumber from "./is-number.js"
 
 test("checks to see if various things are numbers", () => {
   const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity, Math.PI, 234n, -234n]

@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const range = require("./range")
-const reverse = require("./reverse")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import reverse from "./reverse.js"
 
 test("tests that arrays can be correctly reversed", () => {
   expect(reverse([2, 3, 4])).toStrictEqual([4, 3, 2])

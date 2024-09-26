@@ -1,5 +1,5 @@
-const isString = require("../is-string")
-const range = require("../range")
+import isString from "../is-string.js"
+import range from "../range.js"
 
 function dfPrint(DataFrame, Series, df) {
   function truncate(s, maxLength) {
@@ -98,4 +98,4 @@ function dfPrint(DataFrame, Series, df) {
   return df
 }
 
-module.exports = dfPrint
+export default dfPrint

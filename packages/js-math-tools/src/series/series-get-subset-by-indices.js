@@ -1,9 +1,9 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isUndefined = require("../is-undefined")
-const isWholeNumber = require("../helpers/is-whole-number")
-const range = require("../range")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isUndefined from "../is-undefined.js"
+import isWholeNumber from "../helpers/is-whole-number.js"
+import range from "../range.js"
+import shape from "../shape.js"
 
 function seriesGetSubsetByIndices(series, indices) {
   const dataShape = series.shape
@@ -12,28 +12,28 @@ function seriesGetSubsetByIndices(series, indices) {
 
   assert(
     isArray(indices),
-    "The `indices` array must be 1-dimensional array of whole numbers."
+    "The `indices` array must be 1-dimensional array of whole numbers.",
   )
 
   assert(
     shape(indices).length === 1,
-    "The `indices` array must be a 1-dimensional array of whole numbers."
+    "The `indices` array must be a 1-dimensional array of whole numbers.",
   )
 
   assert(
     indices.length > 0,
-    "The `indices` array must contain at least one index."
+    "The `indices` array must contain at least one index.",
   )
 
   indices.forEach(index => {
     assert(
       isWholeNumber(index),
-      "The `indices` array must be a 1-dimensional array of whole numbers."
+      "The `indices` array must be a 1-dimensional array of whole numbers.",
     )
 
     assert(
       index < series.index.length,
-      `The row index ${index} is out of bounds.`
+      `The row index ${index} is out of bounds.`,
     )
   })
 
@@ -41,4 +41,4 @@ function seriesGetSubsetByIndices(series, indices) {
   return series.getSubsetByNames(rows)
 }
 
-module.exports = seriesGetSubsetByIndices
+export default seriesGetSubsetByIndices

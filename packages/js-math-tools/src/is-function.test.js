@@ -1,5 +1,5 @@
-const { DataFrame, Series } = require("./dataframe")
-const isFunction = require("./is-function")
+import { DataFrame, Series } from "./dataframe.js"
+import isFunction from "./is-function.js"
 
 test("tests that functions can be identified correctly", () => {
   const rights = [

@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const normal = require("./normal")
-const reshape = require("./reshape")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import normal from "./normal.js"
+import reshape from "./reshape.js"
+import shape from "./shape.js"
 
 test("tests that arrays can be reshaped correctly", () => {
   expect(shape(reshape(normal(100), [2, 5, 10]))).toStrictEqual([2, 5, 10])

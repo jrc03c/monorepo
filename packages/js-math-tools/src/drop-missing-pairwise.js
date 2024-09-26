@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
-const shape = require("./shape")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
+import shape from "./shape.js"
 
 function dropMissingPairwise(a, b) {
   if (isDataFrame(a) || isSeries(a)) {
@@ -17,12 +17,12 @@ function dropMissingPairwise(a, b) {
 
   assert(
     isArray(a) && isArray(b),
-    "The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!"
+    "The `dropMissingPairwise` function only works on arrays, Series, and DataFrames!",
   )
 
   assert(
     isEqual(shape(a), shape(b)),
-    "The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!"
+    "The two arrays, Series, and/or DataFrames passed into the `dropMissingPairwise` function must have the same shape!",
   )
 
   const aOut = []
@@ -44,4 +44,4 @@ function dropMissingPairwise(a, b) {
   return [aOut, bOut]
 }
 
-module.exports = dropMissingPairwise
+export default dropMissingPairwise

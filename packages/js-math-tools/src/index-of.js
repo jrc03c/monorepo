@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isNumber = require("./is-number")
-const isObject = require("./is-object")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isNumber from "./is-number.js"
+import isObject from "./is-object.js"
+import isSeries from "./is-series.js"
 
 function indexOf(x, fn) {
   if (isDataFrame(x)) {
@@ -48,7 +48,7 @@ function indexOf(x, fn) {
 
   assert(
     isObject(x) || isArray(x),
-    "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!"
+    "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!",
   )
 
   if (!isFunction(fn)) {
@@ -123,4 +123,4 @@ function indexOf(x, fn) {
   }
 }
 
-module.exports = indexOf
+export default indexOf

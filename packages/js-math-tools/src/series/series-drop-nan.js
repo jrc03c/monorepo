@@ -1,4 +1,4 @@
-const isNumber = require("../is-number")
+import isNumber from "../is-number.js"
 
 function seriesDropNaN(Series, series) {
   const index = []
@@ -17,4 +17,4 @@ function seriesDropNaN(Series, series) {
   return out
 }
 
-module.exports = seriesDropNaN
+export default seriesDropNaN

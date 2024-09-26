@@ -9,4 +9,4 @@ function seriesToObject(series) {
   return out
 }
 
-module.exports = seriesToObject
+export default seriesToObject

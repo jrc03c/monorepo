@@ -1,8 +1,8 @@
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const vectorize = require("./vectorize")
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import vectorize from "./vectorize.js"
 
 function int(x) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -32,4 +32,4 @@ function int(x) {
   }
 }
 
-module.exports = vectorize(int)
+export default vectorize(int)

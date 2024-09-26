@@ -8,4 +8,4 @@ function dfToObject(df) {
   return out
 }
 
-module.exports = dfToObject
+export default dfToObject

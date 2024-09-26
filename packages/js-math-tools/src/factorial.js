@@ -1,5 +1,5 @@
-const int = require("./int")
-const vectorize = require("./vectorize")
+import int from "./int.js"
+import vectorize from "./vectorize.js"
 
 function factorial(n) {
   try {
@@ -15,4 +15,4 @@ function factorial(n) {
   }
 }
 
-module.exports = vectorize(factorial)
+export default vectorize(factorial)

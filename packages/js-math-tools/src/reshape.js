@@ -1,12 +1,12 @@
-const assert = require("./assert")
-const flatten = require("./flatten")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNaturalNumber = require("./helpers/is-natural-number")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const product = require("./product")
-const shape = require("./shape")
+import assert from "./assert.js"
+import flatten from "./flatten.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNaturalNumber from "./helpers/is-natural-number.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import product from "./product.js"
+import shape from "./shape.js"
 
 function reshape(x, newShape) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -69,4 +69,4 @@ function reshape(x, newShape) {
   return out
 }
 
-module.exports = reshape
+export default reshape

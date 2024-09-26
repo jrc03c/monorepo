@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function arcsin(x) {
   try {
@@ -15,4 +15,4 @@ function arcsin(x) {
   }
 }
 
-module.exports = vectorize(arcsin)
+export default vectorize(arcsin)

@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const isDataFrame = require("./is-dataframe")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import isDataFrame from "./is-dataframe.js"
+import normal from "./normal.js"
 class SubDataFrame extends DataFrame {}
 
 test("tests that dataframes can be identified correctly", () => {

@@ -1,36 +1,36 @@
-const { copy } = require("../copy")
-const { random } = require("../random")
-const assert = require("../assert")
-const count = require("../count")
-const dfAppend = require("./df-append")
-const dfApply = require("./df-apply")
-const dfAssign = require("./df-assign")
-const dfCopy = require("./df-copy")
-const dfDrop = require("./df-drop")
-const dfDropMissing = require("./df-drop-missing")
-const dfDropNaN = require("./df-drop-nan")
-const dfFilter = require("./df-filter")
-const dfGet = require("./df-get")
-const dfGetDummies = require("./df-get-dummies")
-const dfGetSubsetByIndices = require("./df-get-subset-by-indices")
-const dfGetSubsetByNames = require("./df-get-subset-by-names")
-const dfPrint = require("./df-print")
-const dfResetIndex = require("./df-reset-index")
-const dfShuffle = require("./df-shuffle")
-const dfSort = require("./df-sort")
-const dfToDetailedObject = require("./df-to-detailed-object")
-const dfToJSON = require("./df-to-json")
-const dfToJSONString = require("./df-to-json-string")
-const dfToObject = require("./df-to-object")
-const isArray = require("../is-array")
-const isJagged = require("../is-jagged")
-const isObject = require("../is-object")
-const isUndefined = require("../is-undefined")
-const leftPad = require("../helpers/left-pad")
-const ndarray = require("../ndarray")
-const range = require("../range")
-const shape = require("../shape")
-const transpose = require("../transpose")
+import { copy } from "../copy.js"
+import { random } from "../random.js"
+import assert from "../assert.js"
+import count from "../count.js"
+import dfAppend from "./df-append.js"
+import dfApply from "./df-apply.js"
+import dfAssign from "./df-assign.js"
+import dfCopy from "./df-copy.js"
+import dfDrop from "./df-drop.js"
+import dfDropMissing from "./df-drop-missing.js"
+import dfDropNaN from "./df-drop-nan.js"
+import dfFilter from "./df-filter.js"
+import dfGet from "./df-get.js"
+import dfGetDummies from "./df-get-dummies.js"
+import dfGetSubsetByIndices from "./df-get-subset-by-indices.js"
+import dfGetSubsetByNames from "./df-get-subset-by-names.js"
+import dfPrint from "./df-print.js"
+import dfResetIndex from "./df-reset-index.js"
+import dfShuffle from "./df-shuffle.js"
+import dfSort from "./df-sort.js"
+import dfToDetailedObject from "./df-to-detailed-object.js"
+import dfToJSON from "./df-to-json.js"
+import dfToJSONString from "./df-to-json-string.js"
+import dfToObject from "./df-to-object.js"
+import isArray from "../is-array.js"
+import isJagged from "../is-jagged.js"
+import isObject from "../is-object.js"
+import isUndefined from "../is-undefined.js"
+import leftPad from "../helpers/left-pad.js"
+import ndarray from "../ndarray.js"
+import range from "../range.js"
+import shape from "../shape.js"
+import transpose from "../transpose.js"
 
 const DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe")
 
@@ -471,5 +471,6 @@ class DataFrame {
   }
 }
 
-const Series = require("../series")(DataFrame)
-module.exports = { DataFrame, Series }
+import SeriesSetup from "../series"
+const Series = SeriesSetup(DataFrame)
+export default { DataFrame, Series }

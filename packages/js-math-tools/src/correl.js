@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const covariance = require("./covariance")
-const isArray = require("./is-array")
-const isSeries = require("./is-series")
-const shape = require("./shape")
+import assert from "./assert.js"
+import covariance from "./covariance.js"
+import isArray from "./is-array.js"
+import isSeries from "./is-series.js"
+import shape from "./shape.js"
 
 function correl(x, y, shouldDropNaNs) {
   if (isSeries(x)) {
@@ -40,4 +40,4 @@ function correl(x, y, shouldDropNaNs) {
   }
 }
 
-module.exports = correl
+export default correl

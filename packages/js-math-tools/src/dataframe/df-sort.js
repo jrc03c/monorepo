@@ -1,15 +1,15 @@
-const { random } = require("../random")
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isBoolean = require("../is-boolean")
-const isFunction = require("../is-function")
-const isNumber = require("../is-number")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const isWholeNumber = require("../helpers/is-whole-number")
-const range = require("../range")
-const shape = require("../shape")
-const sort = require("../sort")
+import { random } from "../random.js"
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isBoolean from "../is-boolean.js"
+import isFunction from "../is-function.js"
+import isNumber from "../is-number.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import isWholeNumber from "../helpers/is-whole-number.js"
+import range from "../range.js"
+import shape from "../shape.js"
+import sort from "../sort.js"
 
 function dfSort(df, a, b) {
   if (isFunction(a)) {
@@ -155,4 +155,4 @@ function dfSortByColumns(df, cols, directions) {
   return out
 }
 
-module.exports = dfSort
+export default dfSort

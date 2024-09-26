@@ -1,7 +1,7 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function helper(x) {
   if (isArray(x)) {
@@ -25,4 +25,4 @@ function shape(x) {
   return helper(x)
 }
 
-module.exports = shape
+export default shape

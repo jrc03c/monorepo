@@ -1,6 +1,6 @@
-const Counter = require("./counter")
-const isEqual = require("../is-equal")
-const set = require("../set")
+import Counter from "./counter.js"
+import isEqual from "../is-equal.js"
+import set from "../set.js"
 
 test("tests that the `Counter` class works as expected", () => {
   const x = ["a", "a", "a", "b", "b", "c", "c", "c", "c", "c"]

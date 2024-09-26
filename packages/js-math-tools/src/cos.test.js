@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const cos = require("./cos")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import cos from "./cos.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that cosines can be computed correctly", () => {
   const r = normal([50, 50])

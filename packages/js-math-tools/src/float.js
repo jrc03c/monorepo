@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function float(x) {
   try {
@@ -19,4 +19,4 @@ function float(x) {
   }
 }
 
-module.exports = vectorize(float)
+export default vectorize(float)

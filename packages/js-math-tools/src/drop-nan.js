@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
 
 function dropNaN(x) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -11,7 +11,7 @@ function dropNaN(x) {
 
   assert(
     isArray(x),
-    "The `dropNaN` function only works on arrays, Series, and DataFrames!"
+    "The `dropNaN` function only works on arrays, Series, and DataFrames!",
   )
 
   const out = []
@@ -29,4 +29,4 @@ function dropNaN(x) {
   return out
 }
 
-module.exports = dropNaN
+export default dropNaN

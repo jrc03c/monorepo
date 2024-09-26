@@ -1,7 +1,7 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function flatten(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -10,7 +10,7 @@ function flatten(arr) {
 
   assert(
     isArray(arr),
-    "The `flatten` function only works on arrays, Series, and DataFrames!"
+    "The `flatten` function only works on arrays, Series, and DataFrames!",
   )
 
   function helper(arr) {
@@ -30,4 +30,4 @@ function flatten(arr) {
   return helper(arr)
 }
 
-module.exports = flatten
+export default flatten

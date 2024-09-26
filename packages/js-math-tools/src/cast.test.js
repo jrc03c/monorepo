@@ -1,11 +1,11 @@
-const { random } = require("./random")
-const abs = require("./abs")
-const cast = require("./cast")
-const int = require("./int")
-const isEqual = require("./is-equal")
-const max = require("./max")
-const normal = require("./normal")
-const range = require("./range")
+import { random } from "./random.js"
+import abs from "./abs.js"
+import cast from "./cast.js"
+import int from "./int.js"
+import isEqual from "./is-equal.js"
+import max from "./max.js"
+import normal from "./normal.js"
+import range from "./range.js"
 
 test("tests that both individual values and arrays can be cast", () => {
   // types = ["boolean", "date", "null", "number", "object", "string"]

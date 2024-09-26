@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const distance = require("./distance")
-const inverse = require("./inverse")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import distance from "./distance.js"
+import inverse from "./inverse.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that matrix inverses can be computed correctly", () => {
   const a = [

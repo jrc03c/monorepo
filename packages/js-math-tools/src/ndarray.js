@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isNested = require("./is-nested")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isNested from "./is-nested.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
 
 const error =
   "You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!"
@@ -39,4 +39,4 @@ function ndarray(shape) {
   }
 }
 
-module.exports = ndarray
+export default ndarray

@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
-const max = require("./max")
-const range = require("./range")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
+import max from "./max.js"
+import range from "./range.js"
 
 function zip() {
   const out = []
@@ -16,7 +16,7 @@ function zip() {
 
     assert(
       isArray(arr),
-      "The `zip` function only works on arrays, Series, and DataFrames!"
+      "The `zip` function only works on arrays, Series, and DataFrames!",
     )
 
     return arr
@@ -36,4 +36,4 @@ function zip() {
   return out
 }
 
-module.exports = zip
+export default zip

@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const ones = require("./ones")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import ones from "./ones.js"
+import shape from "./shape.js"
 
 test("tests that arrays of 1s can be generated correctly", () => {
   expect(ones(5)).toStrictEqual([1, 1, 1, 1, 1])

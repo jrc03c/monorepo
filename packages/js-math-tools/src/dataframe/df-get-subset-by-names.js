@@ -1,8 +1,8 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import shape from "../shape.js"
 
 function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
   if (isUndefined(rows)) rows = df.index
@@ -84,4 +84,4 @@ function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
   return out
 }
 
-module.exports = dfGetSubsetByNames
+export default dfGetSubsetByNames

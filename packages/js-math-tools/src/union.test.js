@@ -1,12 +1,12 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const range = require("./range")
-const round = require("./round")
-const set = require("./set")
-const sort = require("./sort")
-const union = require("./union")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import round from "./round.js"
+import set from "./set.js"
+import sort from "./sort.js"
+import union from "./union.js"
 
 test("tests that set unions can be determined correctly", () => {
   const a = round(normal(100))
@@ -26,7 +26,7 @@ test("tests that set unions can be determined correctly", () => {
   const i = new Series(normal(20))
 
   expect(isEqual(union(g, h, i), union(g.values, h.values, i.values))).toBe(
-    true
+    true,
   )
 
   const j = new DataFrame(round(normal([100, 100])))
@@ -35,7 +35,7 @@ test("tests that set unions can be determined correctly", () => {
   const m = new DataFrame(round(normal([100, 100])))
 
   expect(
-    isEqual(union(j, k, l, m), union(j.values, k.values, l.values, m.values))
+    isEqual(union(j, k, l, m), union(j.values, k.values, l.values, m.values)),
   ).toBe(true)
 
   const variables = [
@@ -68,13 +68,13 @@ test("tests that set unions can be determined correctly", () => {
 
   range(0, 100).forEach(() => {
     const vars = range(0, 100).map(
-      () => variables[parseInt(Math.random() * variables.length)]
+      () => variables[parseInt(Math.random() * variables.length)],
     )
 
     expect(() => union(...vars)).not.toThrow()
   })
 
   expect(
-    isEqual(union(variables.concat(variables), variables), set(variables))
+    isEqual(union(variables.concat(variables), variables), set(variables)),
   ).toBe(true)
 })

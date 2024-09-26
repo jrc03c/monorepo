@@ -1,8 +1,8 @@
-const add = require("./add")
-const scale = require("./scale")
+import add from "./add.js"
+import scale from "./scale.js"
 
 function subtract(a, b) {
   return add(a, scale(b, -1))
 }
 
-module.exports = subtract
+export default subtract

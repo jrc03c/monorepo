@@ -1,7 +1,7 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function isNested(x) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -10,7 +10,7 @@ function isNested(x) {
 
   assert(
     isArray(x),
-    "The `isNested` function only works on arrays, Series, and DataFrames!"
+    "The `isNested` function only works on arrays, Series, and DataFrames!",
   )
 
   for (let i = 0; i < x.length; i++) {
@@ -22,4 +22,4 @@ function isNested(x) {
   return false
 }
 
-module.exports = isNested
+export default isNested

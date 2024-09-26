@@ -1,7 +1,7 @@
-const { random } = require("./random")
-const apply = require("./apply")
-const isUndefined = require("./is-undefined")
-const ndarray = require("./ndarray")
+import { random } from "./random.js"
+import apply from "./apply.js"
+import isUndefined from "./is-undefined.js"
+import ndarray from "./ndarray.js"
 
 function helper() {
   const u1 = random()
@@ -14,4 +14,4 @@ function normal(shape) {
   return apply(ndarray(shape), helper)
 }
 
-module.exports = normal
+export default normal

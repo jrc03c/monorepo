@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const reshape = require("./reshape")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import reshape from "./reshape.js"
 
 test("tests that items can be flattened correctly", () => {
   const a = normal(100)

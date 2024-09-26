@@ -1,15 +1,15 @@
-const assert = require("../assert")
-const isFunction = require("../is-function")
-const isUndefined = require("../is-undefined")
-const sort = require("../sort")
-const transpose = require("../transpose")
+import assert from "../assert.js"
+import isFunction from "../is-function.js"
+import isUndefined from "../is-undefined.js"
+import sort from "../sort.js"
+import transpose from "../transpose.js"
 
 function seriesSort(Series, series, fn) {
   fn = fn || ((a, b) => (a < b ? -1 : 1))
 
   assert(
     isUndefined(fn) || isFunction(fn),
-    "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!"
+    "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!",
   )
 
   const pairs = transpose([series.values, series.index])
@@ -33,4 +33,4 @@ function seriesSort(Series, series, fn) {
   return out
 }
 
-module.exports = seriesSort
+export default seriesSort

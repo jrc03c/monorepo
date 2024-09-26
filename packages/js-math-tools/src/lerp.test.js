@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const lerp = require("./lerp")
-const normal = require("./normal")
-const reshape = require("./reshape")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import lerp from "./lerp.js"
+import normal from "./normal.js"
+import reshape from "./reshape.js"
 
 test("tests that linear interpolations can be computed correctly", () => {
   expect(lerp(2, 3, 0.5)).toBe(2.5)

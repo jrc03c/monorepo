@@ -2,4 +2,4 @@ function isBoolean(x) {
   return typeof x === "boolean"
 }
 
-module.exports = isBoolean
+export default isBoolean

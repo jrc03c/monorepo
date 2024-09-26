@@ -1,27 +1,27 @@
-const assert = require("../assert")
-const dropNaN = require("../drop-nan")
-const isWholeNumber = require("../helpers/is-whole-number")
+import assert from "../assert.js"
+import dropNaN from "../drop-nan.js"
+import isWholeNumber from "../helpers/is-whole-number.js"
 
 function dfDropNaN(DataFrame, df, axis, condition, threshold) {
   axis = axis || 0
 
   assert(
     axis === 0 || axis === 1,
-    "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1."
+    "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1.",
   )
 
   threshold = threshold || 0
 
   assert(
     isWholeNumber(threshold),
-    "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values)."
+    "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values).",
   )
 
   condition = threshold > 0 ? "none" : condition || "any"
 
   assert(
     condition === "any" || condition === "all" || condition === "none",
-    "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped)."
+    "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).",
   )
 
   function helper(values) {
@@ -55,4 +55,4 @@ function dfDropNaN(DataFrame, df, axis, condition, threshold) {
   return out
 }
 
-module.exports = dfDropNaN
+export default dfDropNaN

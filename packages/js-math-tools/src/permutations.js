@@ -1,13 +1,13 @@
-const { combinations } = require("./combinations")
-const assert = require("./assert")
-const flatten = require("./flatten")
-const int = require("./int")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
-const zeros = require("./zeros")
+import { combinations } from "./combinations.js"
+import assert from "./assert.js"
+import flatten from "./flatten.js"
+import int from "./int.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
+import zeros from "./zeros.js"
 
 function permutationsIterator(x, r) {
   function* helper(x, r) {
@@ -82,4 +82,4 @@ function permutations(x, r) {
   return out
 }
 
-module.exports = { permutations, permutationsIterator }
+export default { permutations, permutationsIterator }

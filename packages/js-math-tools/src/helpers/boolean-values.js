@@ -1,1 +1,1 @@
-module.exports = ["true", "false", "yes", "no"]
+export default ["true", "false", "yes", "no"]

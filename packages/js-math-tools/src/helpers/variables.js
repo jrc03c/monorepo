@@ -1,4 +1,4 @@
-const { DataFrame, Series } = require("../dataframe")
+import { DataFrame, Series } from "../dataframe/index.js"
 
 const selfReferencer = [2, 3, 4]
 selfReferencer.push(selfReferencer)
@@ -35,4 +35,4 @@ const variables = [
   new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
 ]
 
-module.exports = variables
+export default variables

@@ -1,4 +1,4 @@
-const vectorize = require("./vectorize")
+import vectorize from "./vectorize.js"
 
 function apply(x, fn) {
   try {
@@ -8,4 +8,4 @@ function apply(x, fn) {
   }
 }
 
-module.exports = vectorize(apply)
+export default vectorize(apply)

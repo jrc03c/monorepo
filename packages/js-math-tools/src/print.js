@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isJagged = require("./is-jagged")
-const isSeries = require("./is-series")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isJagged from "./is-jagged.js"
+import isSeries from "./is-series.js"
+import shape from "./shape.js"
 
 function print() {
   Object.keys(arguments).forEach(key => {
@@ -31,4 +31,4 @@ function print() {
   })
 }
 
-module.exports = print
+export default print

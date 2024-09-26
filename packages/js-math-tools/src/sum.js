@@ -1,7 +1,7 @@
-const stats = require("./stats")
+import stats from "./stats.js"
 
 function sum(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs }).sum
 }
 
-module.exports = sum
+export default sum

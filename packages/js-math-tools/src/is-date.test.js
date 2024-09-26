@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const isDate = require("./is-date")
-const normal = require("./normal")
-const range = require("./range")
-const round = require("./round")
+import { DataFrame, Series } from "./dataframe.js"
+import isDate from "./is-date.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import round from "./round.js"
 
 test("tests that dates can be identified correctly", () => {
   expect(isDate(new Date())).toBe(true)

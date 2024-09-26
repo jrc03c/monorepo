@@ -1,5 +1,5 @@
-const { copy, decycle } = require("./copy")
-const { DataFrame, Series } = require("./dataframe")
+import { copy, decycle } from "./copy.js"
+import { DataFrame, Series } from "./dataframe.js"
 
 const out = {
   abs: require("./abs"),
@@ -148,7 +148,7 @@ const out = {
 }
 
 if (typeof module !== "undefined") {
-  module.exports = out
+  export default out
 }
 
 if (typeof window !== "undefined") {

@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const abs = require("./abs")
-const normal = require("./normal")
-const variance = require("./variance")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import abs from "./abs.js"
+import normal from "./normal.js"
+import variance from "./variance.js"
 
 test("tests that variance can be correctly computed", () => {
   expect(abs(variance(normal(10000)) - 1)).toBeLessThan(0.05)

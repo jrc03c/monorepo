@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const flatten = require("./flatten")
-const int = require("./int")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import flatten from "./flatten.js"
+import int from "./int.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
 
 function combinationsIterator(x, r) {
   function* helper(x, r) {
@@ -59,4 +59,4 @@ function combinations(x, r) {
   return out
 }
 
-module.exports = { combinations, combinationsIterator }
+export default { combinations, combinationsIterator }

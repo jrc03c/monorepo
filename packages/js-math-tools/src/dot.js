@@ -1,12 +1,12 @@
-const { DataFrame, Series } = require("./dataframe")
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const scale = require("./scale")
-const shape = require("./shape")
-const sum = require("./sum")
-const transpose = require("./transpose")
+import { DataFrame, Series } from "./dataframe.js"
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import scale from "./scale.js"
+import shape from "./shape.js"
+import sum from "./sum.js"
+import transpose from "./transpose.js"
 
 function dot(a, b) {
   if (isDataFrame(a)) {
@@ -96,4 +96,4 @@ function dot(a, b) {
   }
 }
 
-module.exports = dot
+export default dot

@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isSeries = require("./is-series")
-const normal = require("./normal")
-const vectorize = require("./vectorize")
+import { DataFrame, Series } from "./dataframe.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isSeries from "./is-series.js"
+import normal from "./normal.js"
+import vectorize from "./vectorize.js"
 
 test("tests function vectorization on single-argument functions", () => {
   const x = [2, 3, 4]
@@ -77,8 +77,8 @@ test("tests passing in single values, arrays, Series, and DataFrames", () => {
         [7, 8],
         [9, 10],
         [11, 12],
-      ])
-    )
+      ]),
+    ),
   ).toBe(true)
 
   expect(
@@ -88,8 +88,8 @@ test("tests passing in single values, arrays, Series, and DataFrames", () => {
         [25, 35],
         [45, 55],
         [65, 75],
-      ])
-    )
+      ]),
+    ),
   ).toBe(true)
 
   expect(
@@ -99,8 +99,8 @@ test("tests passing in single values, arrays, Series, and DataFrames", () => {
         [22, 33],
         [44, 55],
         [66, 77],
-      ])
-    )
+      ]),
+    ),
   ).toBe(true)
 
   expect(isDataFrame(add(c, d))).toBe(true)

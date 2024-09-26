@@ -1,12 +1,12 @@
-const isArray = require("./is-array")
-const isBoolean = require("./is-boolean")
-const isDataFrame = require("./is-dataframe")
-const isDate = require("./is-date")
-const isEqual = require("./is-equal")
-const isNumber = require("./is-number")
-const isObject = require("./is-object")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
+import isArray from "./is-array.js"
+import isBoolean from "./is-boolean.js"
+import isDataFrame from "./is-dataframe.js"
+import isDate from "./is-date.js"
+import isEqual from "./is-equal.js"
+import isNumber from "./is-number.js"
+import isObject from "./is-object.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
 
 function cast(value, type) {
   if (isDataFrame(value) || isSeries(value)) {
@@ -205,4 +205,4 @@ function cast(value, type) {
   }
 }
 
-module.exports = cast
+export default cast

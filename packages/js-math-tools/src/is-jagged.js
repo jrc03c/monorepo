@@ -1,7 +1,7 @@
-const { decycle } = require("./copy")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import { decycle } from "./copy.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function helper(x) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -43,4 +43,4 @@ function isJagged(x) {
   return helper(decycle(x))
 }
 
-module.exports = isJagged
+export default isJagged

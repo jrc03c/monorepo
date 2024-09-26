@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const dropMissing = require("./drop-missing")
-const isEqual = require("./is-equal")
-const isUndefined = require("./is-undefined")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import dropMissing from "./drop-missing.js"
+import isEqual from "./is-equal.js"
+import isUndefined from "./is-undefined.js"
+import normal from "./normal.js"
 
 test("tests that missing values can be dropped correctly", () => {
   const a = normal(100)
@@ -48,11 +48,11 @@ test("tests that missing values can be dropped correctly", () => {
   expect(isEqual(gPred, gTrue)).toBe(true)
 
   const g = new DataFrame(
-    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? null : v)))
+    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? null : v))),
   )
 
   const hTrue = new DataFrame(
-    g.values.filter(row => row.every(v => !isUndefined(v)))
+    g.values.filter(row => row.every(v => !isUndefined(v))),
   )
 
   const hPred = dropMissing(g)

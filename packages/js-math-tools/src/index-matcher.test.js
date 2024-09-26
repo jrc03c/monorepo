@@ -1,11 +1,11 @@
-const { Series, DataFrame } = require("./dataframe")
-const flatten = require("./flatten")
-const IndexMatcher = require("./index-matcher")
-const isEqual = require("./is-equal")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const normal = require("./normal")
-const range = require("./range")
+import { Series, DataFrame } from "./dataframe.js"
+import flatten from "./flatten.js"
+import IndexMatcher from "./index-matcher.js"
+import isEqual from "./is-equal.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import normal from "./normal.js"
+import range from "./range.js"
 
 function containsOnlyNumbers(x) {
   return flatten(x).every(v => isNumber(v))

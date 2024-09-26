@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const { decycle } = require("./copy")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import { decycle } from "./copy.js"
+import normal from "./normal.js"
 
 test("tests that cyclic objects can be decycled correctly", () => {
   const a = [2, 3, 4]

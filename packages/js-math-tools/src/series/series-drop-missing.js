@@ -1,4 +1,4 @@
-const isUndefined = require("../is-undefined")
+import isUndefined from "../is-undefined.js"
 
 function seriesDropMissing(series) {
   const out = series.copy()
@@ -17,4 +17,4 @@ function seriesDropMissing(series) {
   return out
 }
 
-module.exports = seriesDropMissing
+export default seriesDropMissing

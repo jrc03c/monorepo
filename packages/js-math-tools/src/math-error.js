@@ -24,4 +24,4 @@ class MathError extends Error {
   }
 }
 
-module.exports = MathError
+export default MathError

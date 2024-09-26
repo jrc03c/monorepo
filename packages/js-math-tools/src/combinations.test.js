@@ -1,9 +1,9 @@
-const { combinations, combinationsIterator } = require("./combinations")
-const factorial = require("./factorial")
-const isArray = require("./is-array")
-const range = require("./range")
-const set = require("./set")
-const sort = require("./sort")
+import { combinations, combinationsIterator } from "./combinations.js"
+import factorial from "./factorial.js"
+import isArray from "./is-array.js"
+import range from "./range.js"
+import set from "./set.js"
+import sort from "./sort.js"
 
 function turnIntoStrings(arr) {
   return arr.map(item => JSON.stringify(item))

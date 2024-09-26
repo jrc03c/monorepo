@@ -1,11 +1,11 @@
-const { copy } = require("./copy")
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const ndarray = require("./ndarray")
-const product = require("./product")
-const reshape = require("./reshape")
+import { copy } from "./copy.js"
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import ndarray from "./ndarray.js"
+import product from "./product.js"
+import reshape from "./reshape.js"
 
 // This is an implementation of the xoroshiro256++ algorithm:
 // https://prng.di.unimi.it/xoshiro256plusplus.c
@@ -81,4 +81,4 @@ function random(shape) {
   return reshape(ndarray(product(shape)).map(next), shape)
 }
 
-module.exports = { random, seed }
+export default { random, seed }

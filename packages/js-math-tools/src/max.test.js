@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const max = require("./max")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import max from "./max.js"
+import normal from "./normal.js"
 
 test("tests that the maximum value in arrays, series, and dataframes can be found correctly", () => {
   const a = normal(100)

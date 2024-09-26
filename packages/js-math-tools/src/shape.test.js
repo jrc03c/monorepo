@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import shape from "./shape.js"
 
 test("gets the shape of some non-jagged arrays, Series, and DataFrames", () => {
   expect(shape(normal(500))).toStrictEqual([500])

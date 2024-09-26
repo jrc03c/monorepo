@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isSeries from "./is-series.js"
 
 function some(x, fn) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -34,4 +34,4 @@ function some(x, fn) {
   return false
 }
 
-module.exports = some
+export default some

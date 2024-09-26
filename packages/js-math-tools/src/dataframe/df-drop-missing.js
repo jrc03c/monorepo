@@ -1,29 +1,29 @@
-const assert = require("../assert")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const isWholeNumber = require("../helpers/is-whole-number")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import isWholeNumber from "../helpers/is-whole-number.js"
+import shape from "../shape.js"
 
 function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
   axis = axis || 0
 
   assert(
     axis === 0 || axis === 1,
-    "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1."
+    "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1.",
   )
 
   threshold = threshold || 0
 
   assert(
     isWholeNumber(threshold),
-    "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values)."
+    "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values).",
   )
 
   condition = threshold > 0 ? "none" : condition || "any"
 
   assert(
     condition === "any" || condition === "all" || condition === "none",
-    "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped)."
+    "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).",
   )
 
   function helper(values) {
@@ -101,4 +101,4 @@ function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
   return out
 }
 
-module.exports = dfDropMissing
+export default dfDropMissing

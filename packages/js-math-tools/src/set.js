@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const flatten = require("./flatten")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
+import assert from "./assert.js"
+import flatten from "./flatten.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
 
 function makeKey(n) {
   const alpha = "abcdefg1234567890"
@@ -62,4 +62,4 @@ function set(arr) {
   return out
 }
 
-module.exports = set
+export default set

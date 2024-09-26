@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const reverse = require("./reverse")
-const sort = require("./sort")
-const zip = require("./zip")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import reverse from "./reverse.js"
+import sort from "./sort.js"
+import zip from "./zip.js"
 
 test("tests that arrays, Series, and DataFrames can be correctly sorted", () => {
   const a = normal(100)
@@ -34,7 +34,7 @@ test("tests that arrays, Series, and DataFrames can be correctly sorted", () => 
 
   const jTemp = sort(
     zip(jTrue.values, jTrue.index),
-    (a, b) => a[0][1] - b[0][1]
+    (a, b) => a[0][1] - b[0][1],
   )
 
   jTrue.values = jTemp.map(v => v[0])

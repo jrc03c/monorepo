@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const exp = require("./exp")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import exp from "./exp.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that values to the power of E can be computed correctly", () => {
   const a = normal(100)

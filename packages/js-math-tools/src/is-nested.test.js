@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const isNested = require("./is-nested")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import isNested from "./is-nested.js"
+import normal from "./normal.js"
 
 test("tests that nested arrays can be identified correctly", () => {
   expect(isNested(normal(100))).toBe(false)

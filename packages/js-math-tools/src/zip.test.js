@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const max = require("./max")
-const normal = require("./normal")
-const range = require("./range")
-const zip = require("./zip")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import max from "./max.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import zip from "./zip.js"
 
 test("tests that arrays and Series can be zipped correctly", () => {
   const a = normal(100)
@@ -12,8 +12,8 @@ test("tests that arrays and Series can be zipped correctly", () => {
   expect(
     isEqual(
       zip(a, b),
-      a.map((v, i) => [v, b[i]])
-    )
+      a.map((v, i) => [v, b[i]]),
+    ),
   ).toBe(true)
 
   const c = normal([10, 10])
@@ -25,8 +25,8 @@ test("tests that arrays and Series can be zipped correctly", () => {
   expect(
     isEqual(
       zip(...cde),
-      range(0, maxLength).map(i => [c[i], d[i], e[i]])
-    )
+      range(0, maxLength).map(i => [c[i], d[i], e[i]]),
+    ),
   ).toBe(true)
 
   const f = new Series({ hello: normal(100) })
@@ -61,7 +61,7 @@ test("tests that arrays and Series can be zipped correctly", () => {
 
   range(0, 100).forEach(() => {
     const vars = range(0, parseInt(Math.random() * wrongs.length - 1) + 1).map(
-      () => wrongs[parseInt(Math.random() * wrongs.length)]
+      () => wrongs[parseInt(Math.random() * wrongs.length)],
     )
 
     expect(() => zip(...vars)).toThrow()

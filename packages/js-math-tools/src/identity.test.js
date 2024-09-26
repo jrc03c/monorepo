@@ -1,7 +1,7 @@
-const identity = require("./identity")
-const isEqual = require("./is-equal")
-const set = require("./set")
-const sort = require("./sort")
+import identity from "./identity.js"
+import isEqual from "./is-equal.js"
+import set from "./set.js"
+import sort from "./sort.js"
 
 function isIdentity(x) {
   for (let i = 0; i < x.length; i++) {

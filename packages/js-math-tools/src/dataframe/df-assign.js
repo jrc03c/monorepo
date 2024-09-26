@@ -1,11 +1,11 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isJagged = require("../is-jagged")
-const isObject = require("../is-object")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const MathError = require("../math-error")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isJagged from "../is-jagged.js"
+import isObject from "../is-object.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import MathError from "../math-error.js"
+import shape from "../shape.js"
 
 function dfAssign(DataFrame, Series, df, p1, p2) {
   const isDataFrame = x => x instanceof DataFrame
@@ -14,12 +14,12 @@ function dfAssign(DataFrame, Series, df, p1, p2) {
   if (!isUndefined(p2)) {
     assert(
       isString(p1),
-      "If passing two arguments into the `assign` method, then the first argument must be a string name!"
+      "If passing two arguments into the `assign` method, then the first argument must be a string name!",
     )
 
     assert(
       isArray(p2) && !isJagged(p2) && shape(p2).length === 1,
-      "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!"
+      "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!",
     )
 
     const out = df.append(p2, 1)
@@ -34,7 +34,7 @@ function dfAssign(DataFrame, Series, df, p1, p2) {
       const maxColumnLength = Math.max(
         ...Object.keys(p1)
           .concat(Object.getOwnPropertySymbols(p1))
-          .map(key => p1[key].length)
+          .map(key => p1[key].length),
       )
 
       Object.keys(p1)
@@ -48,10 +48,10 @@ function dfAssign(DataFrame, Series, df, p1, p2) {
       return df.append(new DataFrame(p1), 1)
     } else {
       throw new MathError(
-        "You must pass a DataFrame, Series, or object into the `assign` method!"
+        "You must pass a DataFrame, Series, or object into the `assign` method!",
       )
     }
   }
 }
 
-module.exports = dfAssign
+export default dfAssign

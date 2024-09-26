@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const inferType = require("./infer-type")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const range = require("./range")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import inferType from "./infer-type.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import range from "./range.js"
 
 function makeKey(n) {
   const alpha = "abcdefghijklmnopqrstuvwxyz1234567890"

@@ -1,5 +1,5 @@
-const assert = require("./assert")
-const isFunction = require("./is-function")
+import assert from "./assert.js"
+import isFunction from "./is-function.js"
 
 function timeSync(fn, args) {
   assert(isFunction(fn), "`fn` must be a function!")
@@ -29,4 +29,4 @@ async function timeAsync(fn, args) {
   return new Date() - start
 }
 
-module.exports = { timeSync, timeAsync }
+export default { timeSync, timeAsync }

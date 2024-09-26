@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const round = require("./round")
-const set = require("./set")
-const sort = require("./sort")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import round from "./round.js"
+import set from "./set.js"
+import sort from "./sort.js"
 
 test("tests that sets of values can be correctly selected", () => {
   expect(set([2, 2, 2, 3, 4])).toStrictEqual([2, 3, 4])

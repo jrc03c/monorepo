@@ -1,15 +1,15 @@
-const abs = require("./abs")
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const pow = require("./pow")
-const shape = require("./shape")
-const sqrt = require("./sqrt")
-const subtract = require("./subtract")
-const sum = require("./sum")
+import abs from "./abs.js"
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import pow from "./pow.js"
+import shape from "./shape.js"
+import sqrt from "./sqrt.js"
+import subtract from "./subtract.js"
+import sum from "./sum.js"
 
 function distance(a, b) {
   if (isNumber(a) && isNumber(b)) {
@@ -27,7 +27,7 @@ function distance(a, b) {
   if (isArray(a) && isArray(b)) {
     assert(
       isEqual(shape(a), shape(b)),
-      "If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!"
+      "If passing two arrays, Series, or DataFrames into the `distance` function, then those objects must have the same shape!",
     )
   }
 
@@ -38,4 +38,4 @@ function distance(a, b) {
   }
 }
 
-module.exports = distance
+export default distance

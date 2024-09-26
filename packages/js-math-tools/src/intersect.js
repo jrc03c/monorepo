@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isSeries = require("./is-series")
-const set = require("./set")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isSeries from "./is-series.js"
+import set from "./set.js"
 
 function intersect() {
   const arrays = Object.values(arguments).map(x => {
@@ -13,7 +13,7 @@ function intersect() {
 
     assert(
       isArray(x),
-      "The `intersect` function only works on arrays, Series, and DataFrames!"
+      "The `intersect` function only works on arrays, Series, and DataFrames!",
     )
 
     return set(x)
@@ -26,4 +26,4 @@ function intersect() {
   })
 }
 
-module.exports = intersect
+export default intersect

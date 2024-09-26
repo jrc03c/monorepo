@@ -1,5 +1,5 @@
-const { DataFrame, Series } = require("./dataframe")
-const range = require("./range")
+import { DataFrame, Series } from "./dataframe.js"
+import range from "./range.js"
 
 test("tests that ranges of values can be generated correctly", () => {
   expect(range(0, 10)).toStrictEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])

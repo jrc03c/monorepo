@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isSeries = require("./is-series")
-const set = require("./set")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isSeries from "./is-series.js"
+import set from "./set.js"
 
 function diff(a, b) {
   if (isDataFrame(a) || isSeries(a)) {
@@ -16,7 +16,7 @@ function diff(a, b) {
 
   assert(
     isArray(a) && isArray(b),
-    "The `diff` function only works on arrays, Series, and DataFrames!"
+    "The `diff` function only works on arrays, Series, and DataFrames!",
   )
 
   const aTemp = set(a)
@@ -32,4 +32,4 @@ function diff(a, b) {
   return out
 }
 
-module.exports = diff
+export default diff

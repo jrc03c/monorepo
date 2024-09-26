@@ -1,6 +1,6 @@
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import vectorize from "./vectorize.js"
 
 function log(x, base) {
   try {
@@ -24,4 +24,4 @@ function log(x, base) {
   }
 }
 
-module.exports = vectorize(log)
+export default vectorize(log)

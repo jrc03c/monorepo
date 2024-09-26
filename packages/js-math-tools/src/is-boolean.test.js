@@ -1,5 +1,5 @@
-const { DataFrame, Series } = require("./dataframe")
-const isBoolean = require("./is-boolean")
+import { DataFrame, Series } from "./dataframe.js"
+import isBoolean from "./is-boolean.js"
 
 test("tests that booleans can be identified correctly", () => {
   const rights = [true, false, 1 > 0, 1 < 0, 1 === 0]

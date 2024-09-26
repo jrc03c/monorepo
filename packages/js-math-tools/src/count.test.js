@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const count = require("./count")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const round = require("./round")
-const normal = require("./normal")
-const set = require("./set")
+import { DataFrame, Series } from "./dataframe.js"
+import count from "./count.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import round from "./round.js"
+import normal from "./normal.js"
+import set from "./set.js"
 
 test("tests that values in an array can be counted correctly", () => {
   const a = round(normal(1000))

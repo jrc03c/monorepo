@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random, seed } = require("./random")
-const abs = require("./abs")
-const mean = require("./mean")
-const shape = require("./shape")
-const std = require("./std")
+import { DataFrame, Series } from "./dataframe.js"
+import { random, seed } from "./random.js"
+import abs from "./abs.js"
+import mean from "./mean.js"
+import shape from "./shape.js"
+import std from "./std.js"
 
 test("tests that random numbers can be generated correctly", () => {
   expect(typeof random()).toBe("number")

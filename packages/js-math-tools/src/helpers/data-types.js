@@ -1,4 +1,4 @@
-module.exports = Object.freeze({
+export default Object.freeze({
   boolean: "boolean",
   date: "date",
   null: "null",

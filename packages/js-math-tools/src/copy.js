@@ -1,7 +1,7 @@
-const indexOf = require("./index-of")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import indexOf from "./index-of.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function copy(x) {
   function helper(x) {
@@ -128,4 +128,4 @@ function decycle(x) {
   return out
 }
 
-module.exports = { copy, decycle }
+export default { copy, decycle }

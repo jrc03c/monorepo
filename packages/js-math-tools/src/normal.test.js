@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const abs = require("./abs")
-const mean = require("./mean")
-const normal = require("./normal")
-const seed = require("./random").seed
-const shape = require("./shape")
-const std = require("./std")
+import { DataFrame, Series } from "./dataframe.js"
+import abs from "./abs.js"
+import mean from "./mean.js"
+import normal from "./normal.js"
+import seed from "./random.js".seed
+import shape from "./shape.js"
+import std from "./std.js"
 
 test("tests that normally-distributed random numbers can be generated correctly", () => {
   expect(typeof normal()).toBe("number")

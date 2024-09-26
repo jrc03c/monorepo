@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const dropMissingPairwise = require("./drop-missing-pairwise")
-const isEqual = require("./is-equal")
-const isJagged = require("./is-jagged")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import dropMissingPairwise from "./drop-missing-pairwise.js"
+import isEqual from "./is-equal.js"
+import isJagged from "./is-jagged.js"
+import normal from "./normal.js"
 
 test("tests that missing values can be correctly dropped pairwise", () => {
   const a = [2, 3, 4]
@@ -17,14 +17,14 @@ test("tests that missing values can be correctly dropped pairwise", () => {
     isEqual(dropMissingPairwise(c, d), [
       [3, 6],
       [8, 11],
-    ])
+    ]),
   ).toBe(true)
 
   const e = [[[2, 3, null, 5]]]
   const f = [[[null, 7, 8, 9]]]
 
   expect(isEqual(dropMissingPairwise(e, f), [[[[3, 5]]], [[[7, 9]]]])).toBe(
-    true
+    true,
   )
 
   const g = new Series(normal(100))

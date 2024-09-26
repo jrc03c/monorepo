@@ -1,6 +1,6 @@
-const int = require("./int")
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import int from "./int.js"
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function clamp(x, a, b) {
   try {
@@ -20,4 +20,4 @@ function clamp(x, a, b) {
   }
 }
 
-module.exports = vectorize(clamp)
+export default vectorize(clamp)

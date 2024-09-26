@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
 
 function dropMissing(x) {
   if (isDataFrame(x) || isSeries(x)) {
@@ -11,7 +11,7 @@ function dropMissing(x) {
 
   assert(
     isArray(x),
-    "The `dropMissing` function only works on arrays, Series, and DataFrames!"
+    "The `dropMissing` function only works on arrays, Series, and DataFrames!",
   )
 
   const out = []
@@ -29,4 +29,4 @@ function dropMissing(x) {
   return out
 }
 
-module.exports = dropMissing
+export default dropMissing

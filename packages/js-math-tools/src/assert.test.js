@@ -1,4 +1,4 @@
-const assert = require("./assert")
+import assert from "./assert.js"
 
 test("asserts a true statement", () => {
   expect(assert(true, "Yay!")).toBe(undefined)

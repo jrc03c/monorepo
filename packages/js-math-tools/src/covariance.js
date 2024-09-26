@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const IndexMatcher = require("./index-matcher")
-const isArray = require("./is-array")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const shape = require("./shape")
-const stats = require("./stats")
+import assert from "./assert.js"
+import IndexMatcher from "./index-matcher.js"
+import isArray from "./is-array.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import shape from "./shape.js"
+import stats from "./stats.js"
 
 function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
   if (isSeries(x)) {
@@ -74,4 +74,4 @@ function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
   }
 }
 
-module.exports = covariance
+export default covariance

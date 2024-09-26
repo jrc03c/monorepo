@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const sign = require("./sign")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import sign from "./sign.js"
 
 test("tests that the sign of a number can be correctly identified", () => {
   expect(sign(-234.567)).toBe(-1)

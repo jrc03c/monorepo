@@ -1,13 +1,13 @@
-const { DataFrame, Series } = require("./dataframe")
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isFunction = require("./is-function")
-const isSeries = require("./is-series")
-const max = require("./max")
-const range = require("./range")
-const shape = require("./shape")
+import { DataFrame, Series } from "./dataframe.js"
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isFunction from "./is-function.js"
+import isSeries from "./is-series.js"
+import max from "./max.js"
+import range from "./range.js"
+import shape from "./shape.js"
 
 function vectorize(fn) {
   assert(
@@ -113,4 +113,4 @@ function vectorize(fn) {
   }
 }
 
-module.exports = vectorize
+export default vectorize

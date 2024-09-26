@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isObject = require("./is-object")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isObject from "./is-object.js"
+import isSeries from "./is-series.js"
 
 function findAll(x, fn) {
   if (isDataFrame(x)) {
@@ -105,4 +105,4 @@ function findAll(x, fn) {
   }
 }
 
-module.exports = findAll
+export default findAll

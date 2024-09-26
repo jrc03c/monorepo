@@ -1,8 +1,8 @@
-const assert = require("../assert")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const set = require("../set")
-const sort = require("../sort")
+import assert from "../assert.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import set from "../set.js"
+import sort from "../sort.js"
 
 function camelify(text) {
   const temp = text.toLowerCase()
@@ -41,14 +41,14 @@ function dfGetDummies(DataFrame, df, columns) {
   columns.forEach(col => {
     assert(
       isString(col),
-      "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!"
+      "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!",
     )
 
     const colIndex = df.columns.indexOf(col)
 
     assert(
       colIndex > -1,
-      `The given DataFrame does not have a column called "${col}"!`
+      `The given DataFrame does not have a column called "${col}"!`,
     )
 
     const values = df.values.map(row => row[colIndex])
@@ -76,4 +76,4 @@ function dfGetDummies(DataFrame, df, columns) {
   return out
 }
 
-module.exports = dfGetDummies
+export default dfGetDummies

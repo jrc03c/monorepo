@@ -1,13 +1,13 @@
-const { DataFrame, Series } = require(".")
-const flatten = require("../flatten")
-const isEqual = require("../is-equal")
-const isUndefined = require("../is-undefined")
-const normal = require("../normal")
-const range = require("../range")
-const set = require("../set")
-const sort = require("../sort")
-const sum = require("../sum")
-const zeros = require("../zeros")
+import { DataFrame, Series } from "./index.js"
+import flatten from "../flatten.js"
+import isEqual from "../is-equal.js"
+import isUndefined from "../is-undefined.js"
+import normal from "../normal.js"
+import range from "../range.js"
+import set from "../set.js"
+import sort from "../sort.js"
+import sum from "../sum.js"
+import zeros from "../zeros.js"
 
 test("tests DataFrame emptiness", () => {
   const xShape = [17, 32]

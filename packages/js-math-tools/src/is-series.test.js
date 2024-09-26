@@ -1,6 +1,6 @@
-const { DataFrame, Series } = require("./dataframe")
-const isSeries = require("./is-series")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import isSeries from "./is-series.js"
+import normal from "./normal.js"
 
 class SubSeries extends Series {}
 

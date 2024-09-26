@@ -2,4 +2,4 @@ function isString(s) {
   return typeof s === "string"
 }
 
-module.exports = isString
+export default isString

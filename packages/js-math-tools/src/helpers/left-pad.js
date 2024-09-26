@@ -1,5 +1,5 @@
-const assert = require("../assert")
-const isNumber = require("../is-number")
+import assert from "../assert.js"
+import isNumber from "../is-number.js"
 
 function leftPad(x, maxLength) {
   assert(isNumber(x), "The `leftPad` function only works on numbers!")
@@ -8,4 +8,4 @@ function leftPad(x, maxLength) {
   return out
 }
 
-module.exports = leftPad
+export default leftPad

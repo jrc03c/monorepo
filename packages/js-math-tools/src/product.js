@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const flatten = require("./flatten")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import flatten from "./flatten.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
 
 function product(arr, shouldDropNaNs) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -51,4 +51,4 @@ function product(arr, shouldDropNaNs) {
   }
 }
 
-module.exports = product
+export default product

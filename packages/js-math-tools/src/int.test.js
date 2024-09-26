@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const int = require("./int")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import int from "./int.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that values can be correctly cast to integers", () => {
   const a = normal(100).map(v => v.toString())

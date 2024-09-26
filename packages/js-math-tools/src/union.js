@@ -1,7 +1,7 @@
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const set = require("./set")
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import set from "./set.js"
 
 function union() {
   return set(
@@ -10,8 +10,8 @@ function union() {
       if (isDataFrame(v)) return v.values
       if (isSeries(v)) return v.values
       return [v]
-    })
+    }),
   )
 }
 
-module.exports = union
+export default union

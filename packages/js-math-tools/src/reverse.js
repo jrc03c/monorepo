@@ -1,7 +1,7 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function reverse(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -13,7 +13,7 @@ function reverse(arr) {
 
   assert(
     isArray(arr),
-    "The `reverse` function only works on arrays, Series, and DataFrames!"
+    "The `reverse` function only works on arrays, Series, and DataFrames!",
   )
 
   const out = []
@@ -21,4 +21,4 @@ function reverse(arr) {
   return out
 }
 
-module.exports = reverse
+export default reverse

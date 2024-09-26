@@ -1,5 +1,5 @@
-const isUndefined = require("./is-undefined")
-const types = require("./helpers/array-types")
+import isUndefined from "./is-undefined.js"
+import types from "./helpers/array-types.js"
 const typeStrings = types.map(s => s.name)
 
 function isArray(obj) {
@@ -21,4 +21,4 @@ function isArray(obj) {
   }
 }
 
-module.exports = isArray
+export default isArray

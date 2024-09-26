@@ -1,7 +1,7 @@
-const assert = require("./assert")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const reverse = require("./reverse")
+import assert from "./assert.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import reverse from "./reverse.js"
 
 function range(a, b, step = 1) {
   assert(
@@ -53,4 +53,4 @@ function range(a, b, step = 1) {
   return out
 }
 
-module.exports = range
+export default range

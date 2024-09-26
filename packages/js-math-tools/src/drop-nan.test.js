@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const dropNaN = require("./drop-nan")
-const isEqual = require("./is-equal")
-const isNumber = require("./is-number")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import dropNaN from "./drop-nan.js"
+import isEqual from "./is-equal.js"
+import isNumber from "./is-number.js"
+import normal from "./normal.js"
 
 test("tests that missing values can be dropped correctly", () => {
   const a = normal(100)
@@ -48,11 +48,11 @@ test("tests that missing values can be dropped correctly", () => {
   expect(isEqual(gPred, gTrue)).toBe(true)
 
   const g = new DataFrame(
-    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? false : v)))
+    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? false : v))),
   )
 
   const hTrue = new DataFrame(
-    g.values.filter(row => row.every(v => isNumber(v)))
+    g.values.filter(row => row.every(v => isNumber(v))),
   )
 
   const hPred = dropNaN(g)

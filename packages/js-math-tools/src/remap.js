@@ -1,8 +1,8 @@
-const isArray = require("./is-array")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const stats = require("./stats")
-const vectorize = require("./vectorize")
+import isArray from "./is-array.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import stats from "./stats.js"
+import vectorize from "./vectorize.js"
 
 const helper = vectorize((x, a, b, c, d) => {
   try {
@@ -58,4 +58,4 @@ function remap(x, a, b, c, d) {
   return helper(x, a, b, c, d)
 }
 
-module.exports = remap
+export default remap

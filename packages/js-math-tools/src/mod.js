@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function mod(a, b) {
   try {
@@ -22,4 +22,4 @@ function mod(a, b) {
   }
 }
 
-module.exports = vectorize(mod)
+export default vectorize(mod)

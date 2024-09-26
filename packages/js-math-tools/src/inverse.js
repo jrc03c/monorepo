@@ -1,11 +1,11 @@
-const add = require("./add")
-const assert = require("./assert")
-const dot = require("./dot")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isNumber = require("./is-number")
-const scale = require("./scale")
-const shape = require("./shape")
+import add from "./add.js"
+import assert from "./assert.js"
+import dot from "./dot.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isNumber from "./is-number.js"
+import scale from "./scale.js"
+import shape from "./shape.js"
 
 function inverse(x) {
   if (isDataFrame(x)) {
@@ -102,4 +102,4 @@ function inverse(x) {
   }
 }
 
-module.exports = inverse
+export default inverse

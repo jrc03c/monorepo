@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function lerp(a, b, f) {
   try {
@@ -23,4 +23,4 @@ function lerp(a, b, f) {
   }
 }
 
-module.exports = vectorize(lerp)
+export default vectorize(lerp)

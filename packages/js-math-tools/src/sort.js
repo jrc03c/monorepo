@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isFunction = require("./is-function")
-const isSeries = require("./is-series")
-const isUndefined = require("./is-undefined")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isFunction from "./is-function.js"
+import isSeries from "./is-series.js"
+import isUndefined from "./is-undefined.js"
 
 function alphaSort(a, b) {
   try {
@@ -28,12 +28,12 @@ function sort(arr, fn) {
 
   assert(
     isArray(arr),
-    "The `sort` function only works on arrays, Series, and DataFrames!"
+    "The `sort` function only works on arrays, Series, and DataFrames!",
   )
 
   assert(
     isFunction(fn),
-    "The second parameter of the `sort` function must be a comparison function!"
+    "The second parameter of the `sort` function must be a comparison function!",
   )
 
   const out = arr.slice()
@@ -41,4 +41,4 @@ function sort(arr, fn) {
   return out
 }
 
-module.exports = sort
+export default sort

@@ -1,7 +1,7 @@
-const dropMissing = require("./drop-missing")
+import dropMissing from "./drop-missing.js"
 
 function dropUndefined(x) {
   return dropMissing(x)
 }
 
-module.exports = dropUndefined
+export default dropUndefined

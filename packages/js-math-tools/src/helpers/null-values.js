@@ -1,1 +1,1 @@
-module.exports = ["null", "none", "nan", "na", "n/a", "", "undefined"]
+export default ["null", "none", "nan", "na", "n/a", "", "undefined"]

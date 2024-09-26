@@ -8,4 +8,4 @@ function isDataFrame(x) {
   }
 }
 
-module.exports = isDataFrame
+export default isDataFrame

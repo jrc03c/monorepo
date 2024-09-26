@@ -1,6 +1,6 @@
-const { copy } = require("./copy")
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
+import { copy } from "./copy.js"
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
 
 test("tests equality of primitives", () => {
   // Dates were causing this test to fail. See my note in the `isEqual`

@@ -1,5 +1,5 @@
-const leftPad = require("../helpers/left-pad")
-const range = require("../range")
+import leftPad from "../helpers/left-pad.js"
+import range from "../range.js"
 
 function dfResetIndex(df, shouldSkipCopying) {
   const out = shouldSkipCopying ? df : df.copy()
@@ -11,4 +11,4 @@ function dfResetIndex(df, shouldSkipCopying) {
   return out
 }
 
-module.exports = dfResetIndex
+export default dfResetIndex

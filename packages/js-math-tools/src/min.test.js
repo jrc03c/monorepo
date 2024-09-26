@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const min = require("./min")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import min from "./min.js"
+import normal from "./normal.js"
 
 test("tests that the minimum value in arrays, series, and dataframes can be found correctly", () => {
   expect(min([2, 3, 4])).toBe(2)

@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const intersect = require("./intersect")
-const isEqual = require("./is-equal")
-const range = require("./range")
-const reshape = require("./reshape")
-const shuffle = require("./shuffle")
-const sort = require("./sort")
+import { DataFrame, Series } from "./dataframe.js"
+import intersect from "./intersect.js"
+import isEqual from "./is-equal.js"
+import range from "./range.js"
+import reshape from "./reshape.js"
+import shuffle from "./shuffle.js"
+import sort from "./sort.js"
 
 test("tests that the intersections of sets can be computed correctly", () => {
   const a = [2, 3, 4]

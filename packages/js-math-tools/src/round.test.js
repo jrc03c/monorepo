@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const round = require("./round")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import round from "./round.js"
 
 test("tests that values can be rounded correctly", () => {
   expect(round(2.3)).toBe(2)

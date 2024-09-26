@@ -1,5 +1,5 @@
-const sort = require("../sort")
-const transpose = require("../transpose")
+import sort from "../sort.js"
+import transpose from "../transpose.js"
 
 function seriesSortByIndex(Series, series) {
   let temp = transpose([series.values, series.index])
@@ -9,7 +9,7 @@ function seriesSortByIndex(Series, series) {
       if (a[1] === b[1]) return 0
       if (a[1] < b[1]) return -1
       if (a[1] > b[1]) return 1
-    })
+    }),
   )
 
   const out = new Series(temp[0])
@@ -18,4 +18,4 @@ function seriesSortByIndex(Series, series) {
   return out
 }
 
-module.exports = seriesSortByIndex
+export default seriesSortByIndex

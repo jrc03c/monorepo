@@ -1,18 +1,18 @@
-const apply = require("./apply")
-const assert = require("./assert")
-const booleanValues = require("./helpers/boolean-values")
-const cast = require("./cast")
-const count = require("./count")
-const every = require("./every")
-const flatten = require("./flatten")
-const int = require("./int")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isDate = require("./is-date")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const isString = require("./is-string")
-const nullValues = require("./helpers/null-values")
+import apply from "./apply.js"
+import assert from "./assert.js"
+import booleanValues from "./helpers/boolean-values.js"
+import cast from "./cast.js"
+import count from "./count.js"
+import every from "./every.js"
+import flatten from "./flatten.js"
+import int from "./int.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isDate from "./is-date.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import isString from "./is-string.js"
+import nullValues from "./helpers/null-values.js"
 
 function checkIfInteger(results) {
   if (results.type === "number") {
@@ -143,4 +143,4 @@ function inferType(arr) {
   })
 }
 
-module.exports = inferType
+export default inferType

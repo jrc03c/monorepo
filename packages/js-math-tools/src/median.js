@@ -1,7 +1,7 @@
-const stats = require("./stats")
+import stats from "./stats.js"
 
 function median(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs, median: true }).median
 }
 
-module.exports = median
+export default median

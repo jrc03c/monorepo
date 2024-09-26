@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const findAll = require("./find-all")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const isObject = require("./is-object")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import findAll from "./find-all.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import isObject from "./is-object.js"
+import normal from "./normal.js"
 
 function makeKey(n) {
   const alpha = "1234567890abcdef"

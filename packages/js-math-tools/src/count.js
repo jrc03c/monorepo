@@ -1,7 +1,7 @@
-const isEqual = require("./is-equal")
-const isFunction = require("./is-function")
-const isUndefined = require("./is-undefined")
-const stats = require("./stats")
+import isEqual from "./is-equal.js"
+import isFunction from "./is-function.js"
+import isUndefined from "./is-undefined.js"
+import stats from "./stats.js"
 
 function count(arr, matcher) {
   const { counts } = stats(arr)
@@ -25,4 +25,4 @@ function count(arr, matcher) {
   return counts
 }
 
-module.exports = count
+export default count

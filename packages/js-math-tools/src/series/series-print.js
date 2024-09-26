@@ -1,5 +1,5 @@
-const { copy } = require("../copy")
-const range = require("../range")
+import { copy } from "../copy.js"
+import range from "../range.js"
 
 function seriesPrint(series) {
   let temp = series.copy()
@@ -32,4 +32,4 @@ function seriesPrint(series) {
   return series
 }
 
-module.exports = seriesPrint
+export default seriesPrint

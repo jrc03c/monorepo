@@ -1,7 +1,7 @@
-const stats = require("./stats")
+import stats from "./stats.js"
 
 function min(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs }).min
 }
 
-module.exports = min
+export default min

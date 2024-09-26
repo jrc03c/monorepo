@@ -1,11 +1,11 @@
-const { DataFrame, Series } = require("./dataframe")
-const { permutations, permutationsIterator } = require("./permutations")
-const factorial = require("./factorial")
-const isArray = require("./is-array")
-const isEqual = require("./is-equal")
-const range = require("./range")
-const set = require("./set")
-const sort = require("./sort")
+import { DataFrame, Series } from "./dataframe.js"
+import { permutations, permutationsIterator } from "./permutations.js"
+import factorial from "./factorial.js"
+import isArray from "./is-array.js"
+import isEqual from "./is-equal.js"
+import range from "./range.js"
+import set from "./set.js"
+import sort from "./sort.js"
 
 function depthSort(a, b) {
   let i = 0

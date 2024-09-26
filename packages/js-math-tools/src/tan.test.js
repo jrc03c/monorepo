@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const tan = require("./tan")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import tan from "./tan.js"
 
 test("tests that tangents can be computed correctly", () => {
   const r = normal([50, 50])

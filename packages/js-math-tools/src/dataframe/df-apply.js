@@ -1,19 +1,19 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isFunction = require("../is-function")
-const isUndefined = require("../is-undefined")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isFunction from "../is-function.js"
+import isUndefined from "../is-undefined.js"
 
 function dfApply(DataFrame, Series, df, fn, axis) {
   axis = axis || 0
 
   assert(
     isFunction(fn),
-    "The first parameter to the `apply` method must be a function."
+    "The first parameter to the `apply` method must be a function.",
   )
 
   assert(
     axis === 0 || axis === 1,
-    "The second parameter to the `apply` method (the `axis`) must be 0 or 1."
+    "The second parameter to the `apply` method (the `axis`) must be 0 or 1.",
   )
 
   // apply to columns
@@ -83,4 +83,4 @@ function dfApply(DataFrame, Series, df, fn, axis) {
   }
 }
 
-module.exports = dfApply
+export default dfApply

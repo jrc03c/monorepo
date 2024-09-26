@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const ndarray = require("./ndarray")
-const reverse = require("./reverse")
-const shape = require("./shape")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import ndarray from "./ndarray.js"
+import reverse from "./reverse.js"
+import shape from "./shape.js"
 
 function transpose(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -13,14 +13,14 @@ function transpose(arr) {
 
   assert(
     isArray(arr),
-    "The `transpose` function only works on arrays, Series, and DataFrames!"
+    "The `transpose` function only works on arrays, Series, and DataFrames!",
   )
 
   const theShape = shape(arr)
 
   assert(
     theShape.length <= 2,
-    "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!"
+    "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!",
   )
 
   if (theShape.length === 1) {
@@ -38,4 +38,4 @@ function transpose(arr) {
   }
 }
 
-module.exports = transpose
+export default transpose

@@ -1,8 +1,8 @@
-const assert = require("./assert")
-const int = require("./int")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const zeros = require("./zeros")
+import assert from "./assert.js"
+import int from "./int.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import zeros from "./zeros.js"
 
 function identity(size) {
   if (typeof size === "bigint") {
@@ -34,4 +34,4 @@ function identity(size) {
   return out
 }
 
-module.exports = identity
+export default identity

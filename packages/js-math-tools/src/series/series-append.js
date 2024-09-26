@@ -1,9 +1,8 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-// const isDataFrame = require("../is-dataframe")
-const isNested = require("../is-nested")
-const isSeries = require("../is-series")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isNested from "../is-nested.js"
+import isSeries from "../is-series.js"
+import shape from "../shape.js"
 
 function seriesAppend(Series, series, x) {
   if (isSeries(x)) {
@@ -32,4 +31,4 @@ function seriesAppend(Series, series, x) {
   return seriesAppend(series, [x])
 }
 
-module.exports = seriesAppend
+export default seriesAppend

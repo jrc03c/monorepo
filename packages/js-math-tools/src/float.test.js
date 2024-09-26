@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const apply = require("./apply")
-const float = require("./float")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import apply from "./apply.js"
+import float from "./float.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that values can be correctly cast to floats", () => {
   const a = normal(100).map(v => v.toString())

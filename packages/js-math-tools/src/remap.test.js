@@ -1,12 +1,12 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const max = require("./max")
-const min = require("./min")
-const normal = require("./normal")
-const range = require("./range")
-const remap = require("./remap")
-const reshape = require("./reshape")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import max from "./max.js"
+import min from "./min.js"
+import normal from "./normal.js"
+import range from "./range.js"
+import remap from "./remap.js"
+import reshape from "./reshape.js"
 
 test("tests that values can be remapped correctly from one range to another", () => {
   expect(remap(5, 0, 10, 0, 100)).toBe(50)

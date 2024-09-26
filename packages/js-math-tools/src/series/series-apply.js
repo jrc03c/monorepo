@@ -1,10 +1,10 @@
-const assert = require("../assert")
-const isFunction = require("../is-function")
+import assert from "../assert.js.js"
+import isFunction from "../is-function.js.js"
 
 function seriesApply(series, fn) {
   assert(
     isFunction(fn),
-    "The parameter to the `apply` method must be a function."
+    "The parameter to the `apply` method must be a function.",
   )
 
   const out = series.copy()
@@ -12,4 +12,4 @@ function seriesApply(series, fn) {
   return out
 }
 
-module.exports = seriesApply
+export default seriesApply

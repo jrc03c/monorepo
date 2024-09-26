@@ -1,4 +1,4 @@
-const { copy } = require("../copy")
+import { copy } from "../copy.js"
 
 function dfCopy(DataFrame, df) {
   if (df.isEmpty) return new DataFrame()
@@ -8,4 +8,4 @@ function dfCopy(DataFrame, df) {
   return out
 }
 
-module.exports = dfCopy
+export default dfCopy

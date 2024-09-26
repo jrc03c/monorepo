@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const ceil = require("./ceil")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import ceil from "./ceil.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that the ceiling of various values can be computed correctly", () => {
   const r = normal([50, 50])

@@ -1,7 +1,7 @@
-const stats = require("./stats")
+import stats from "./stats.js"
 
 function std(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs, stdev: true }).stdev
 }
 
-module.exports = std
+export default std

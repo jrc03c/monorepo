@@ -1,4 +1,4 @@
-const { copy } = require("../copy")
+import { copy } from "../copy.js"
 
 function seriesFilter(Series, series, fn) {
   let out = series.copy()
@@ -26,4 +26,4 @@ function seriesFilter(Series, series, fn) {
   return out
 }
 
-module.exports = seriesFilter
+export default seriesFilter

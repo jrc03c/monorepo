@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
-const seed = require("./random").seed
-const shuffle = require("./shuffle")
-const sort = require("./sort")
+import { DataFrame, Series } from "./dataframe.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
+import seed from "./random.js".seed
+import shuffle from "./shuffle.js"
+import sort from "./sort.js"
 
 test("tests that arrays, Series, and DataFrames can be correctly shuffled", () => {
   const a = normal(100)

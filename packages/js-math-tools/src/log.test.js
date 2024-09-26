@@ -1,8 +1,8 @@
-const { DataFrame, Series } = require("./dataframe")
-const { random } = require("./random")
-const apply = require("./apply")
-const isEqual = require("./is-equal")
-const log = require("./log")
+import { DataFrame, Series } from "./dataframe.js"
+import { random } from "./random.js"
+import apply from "./apply.js"
+import isEqual from "./is-equal.js"
+import log from "./log.js"
 
 test("tests that the log of various values can be computed correctly", () => {
   const a = random(100).map(v => v * 100 + 1)

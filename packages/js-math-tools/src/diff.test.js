@@ -1,10 +1,10 @@
-const { DataFrame, Series } = require("./dataframe")
-const diff = require("./diff")
-const isEqual = require("./is-equal")
-const range = require("./range")
-const reshape = require("./reshape")
-const shuffle = require("./shuffle")
-const sort = require("./sort")
+import { DataFrame, Series } from "./dataframe.js"
+import diff from "./diff.js"
+import isEqual from "./is-equal.js"
+import range from "./range.js"
+import reshape from "./reshape.js"
+import shuffle from "./shuffle.js"
+import sort from "./sort.js"
 
 test("tests that the differences of sets can be computed correctly", () => {
   const a = [2, 3, 4]

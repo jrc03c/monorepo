@@ -1,7 +1,7 @@
-const std = require("./std")
+import std from "./std.js"
 
 function stdev(x) {
   return std(x)
 }
 
-module.exports = stdev
+export default stdev

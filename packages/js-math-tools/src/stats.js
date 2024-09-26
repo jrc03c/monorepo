@@ -1,6 +1,6 @@
-const Counter = require("./helpers/counter")
-const flatten = require("./flatten")
-const isNumber = require("./is-number")
+import Counter from "./helpers/counter.js"
+import flatten from "./flatten.js"
+import isNumber from "./is-number.js"
 
 function stats(x, options) {
   // `options` is an options object options allows users to specify options stats they
@@ -165,4 +165,4 @@ function stats(x, options) {
   return out
 }
 
-module.exports = stats
+export default stats

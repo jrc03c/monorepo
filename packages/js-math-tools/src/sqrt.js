@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function sqrt(x) {
   try {
@@ -21,4 +21,4 @@ function sqrt(x) {
   }
 }
 
-module.exports = vectorize(sqrt)
+export default vectorize(sqrt)

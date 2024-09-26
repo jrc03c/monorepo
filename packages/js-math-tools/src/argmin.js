@@ -1,9 +1,9 @@
-const assert = require("./assert")
-const indexOf = require("./index-of")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
-const min = require("./min")
+import assert from "./assert.js"
+import indexOf from "./index-of.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
+import min from "./min.js"
 
 function argmin(x, shouldDropNaNs) {
   if (isDataFrame(x)) {
@@ -40,4 +40,4 @@ function argmin(x, shouldDropNaNs) {
   }
 }
 
-module.exports = argmin
+export default argmin

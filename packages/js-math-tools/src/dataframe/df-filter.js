@@ -1,7 +1,7 @@
-const assert = require("../assert")
-const flatten = require("../flatten")
-const isFunction = require("../is-function")
-const isUndefined = require("../is-undefined")
+import assert from "../assert.js"
+import flatten from "../flatten.js"
+import isFunction from "../is-function.js"
+import isUndefined from "../is-undefined.js"
 
 function arrayToObject(x) {
   const out = {}
@@ -111,4 +111,4 @@ function dfFilter(DataFrame, Series, df, fn, axis) {
   return out
 }
 
-module.exports = dfFilter
+export default dfFilter

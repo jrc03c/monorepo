@@ -1,10 +1,10 @@
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isEqual = require("./is-equal")
-const isNumber = require("./is-number")
-const isSeries = require("./is-series")
-const shape = require("./shape")
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isEqual from "./is-equal.js"
+import isNumber from "./is-number.js"
+import isSeries from "./is-series.js"
+import shape from "./shape.js"
 
 function dropNaNPairwise(a, b) {
   if (isDataFrame(a) || isSeries(a)) {
@@ -17,12 +17,12 @@ function dropNaNPairwise(a, b) {
 
   assert(
     isArray(a) && isArray(b),
-    "The `dropNaNPairwise` only works on arrays, Series, and DataFrames!"
+    "The `dropNaNPairwise` only works on arrays, Series, and DataFrames!",
   )
 
   assert(
     isEqual(shape(a), shape(b)),
-    "The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!"
+    "The two arrays, Series, and/or DataFrames passed into the `dropNaNPairwise` must have the same shape!",
   )
 
   const aOut = []
@@ -44,4 +44,4 @@ function dropNaNPairwise(a, b) {
   return [aOut, bOut]
 }
 
-module.exports = dropNaNPairwise
+export default dropNaNPairwise

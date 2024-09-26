@@ -1,8 +1,8 @@
-const { random } = require("./random")
-const assert = require("./assert")
-const isArray = require("./is-array")
-const isDataFrame = require("./is-dataframe")
-const isSeries = require("./is-series")
+import { random } from "./random.js"
+import assert from "./assert.js"
+import isArray from "./is-array.js"
+import isDataFrame from "./is-dataframe.js"
+import isSeries from "./is-series.js"
 
 function shuffle(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -25,4 +25,4 @@ function shuffle(arr) {
   return out
 }
 
-module.exports = shuffle
+export default shuffle

@@ -1,9 +1,9 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isNumber = require("../is-number")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isNumber from "../is-number.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import shape from "../shape.js"
 
 function dfDrop(DataFrame, Series, df, rows, cols) {
   if (isUndefined(rows)) rows = []
@@ -13,22 +13,22 @@ function dfDrop(DataFrame, Series, df, rows, cols) {
 
   assert(
     isArray(rows),
-    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
   )
 
   assert(
     isArray(cols),
-    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
   )
 
   assert(
     shape(rows).length === 1,
-    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
   )
 
   assert(
     shape(cols).length === 1,
-    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.",
   )
 
   let outIndex, outColumns
@@ -59,4 +59,4 @@ function dfDrop(DataFrame, Series, df, rows, cols) {
   return out
 }
 
-module.exports = dfDrop
+export default dfDrop

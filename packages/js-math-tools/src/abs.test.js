@@ -1,7 +1,7 @@
-const { DataFrame, Series } = require("./dataframe")
-const abs = require("./abs")
-const isEqual = require("./is-equal")
-const normal = require("./normal")
+import { DataFrame, Series } from "./dataframe.js"
+import abs from "./abs.js"
+import isEqual from "./is-equal.js"
+import normal from "./normal.js"
 
 test("tests that absolute values can be computed correctly", () => {
   const x = normal(100)

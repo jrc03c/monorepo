@@ -1,8 +1,8 @@
-const apply = require("./apply")
-const ndarray = require("./ndarray")
+import apply from "./apply.js"
+import ndarray from "./ndarray.js"
 
 function ones(shape) {
   return apply(ndarray(shape), () => 1)
 }
 
-module.exports = ones
+export default ones

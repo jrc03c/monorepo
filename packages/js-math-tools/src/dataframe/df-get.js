@@ -1,8 +1,8 @@
-const assert = require("../assert")
-const isNumber = require("../is-number")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const set = require("../set")
+import assert from "../assert.js"
+import isNumber from "../is-number.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import set from "../set.js"
 
 function dfGet(df, rows, cols) {
   if (isString(rows) || isNumber(rows)) rows = [rows]
@@ -81,4 +81,4 @@ function dfGet(df, rows, cols) {
   return df.getSubsetByNames(rows, cols)
 }
 
-module.exports = dfGet
+export default dfGet

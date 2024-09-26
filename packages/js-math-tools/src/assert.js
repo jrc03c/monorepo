@@ -1,5 +1,5 @@
-const MathError = require("./math-error")
+import MathError from "./math-error.js"
 
-module.exports = function (isTrue, message) {
+export default function (isTrue, message) {
   if (!isTrue) throw new MathError(message)
 }

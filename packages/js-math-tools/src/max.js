@@ -1,7 +1,7 @@
-const stats = require("./stats")
+import stats from "./stats.js"
 
 function max(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs }).max
 }
 
-module.exports = max
+export default max

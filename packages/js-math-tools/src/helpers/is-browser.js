@@ -9,7 +9,7 @@ const isBrowser = new Function(
     } catch(e){}
 
     return false
-  `
+  `,
 )
 
-module.exports = isBrowser
+export default isBrowser

@@ -1,9 +1,9 @@
-const { DataFrame, Series } = require("./dataframe")
-const flatten = require("./flatten")
-const isEqual = require("./is-equal")
-const mod = require("./mod")
-const normal = require("./normal")
-const reshape = require("./reshape")
+import { DataFrame, Series } from "./dataframe.js"
+import flatten from "./flatten.js"
+import isEqual from "./is-equal.js"
+import mod from "./mod.js"
+import normal from "./normal.js"
+import reshape from "./reshape.js"
 
 test("tests that the modulo function works as expected", () => {
   expect(mod(5, 2)).toBe(1)

@@ -1,14 +1,14 @@
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isDataFrame = require("../is-dataframe")
-const isJagged = require("../is-jagged")
-const isSeries = require("../is-series")
-const isUndefined = require("../is-undefined")
-const MathError = require("../math-error")
-const ndarray = require("../ndarray")
-const range = require("../range")
-const set = require("../set")
-const shape = require("../shape")
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isDataFrame from "../is-dataframe.js"
+import isJagged from "../is-jagged.js"
+import isSeries from "../is-series.js"
+import isUndefined from "../is-undefined.js"
+import MathError from "../math-error.js"
+import ndarray from "../ndarray.js"
+import range from "../range.js"
+import set from "../set.js"
+import shape from "../shape.js"
 
 function dfAppend(df, x, axis) {
   if (isUndefined(axis)) {
@@ -17,7 +17,7 @@ function dfAppend(df, x, axis) {
 
   assert(
     axis === 0 || axis === 1 || axis === "vertical" || axis === "horizontal",
-    'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".'
+    'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".',
   )
 
   // appending arrays is relatively straightforward: either all of the rows in
@@ -26,7 +26,7 @@ function dfAppend(df, x, axis) {
   if (isArray(x)) {
     assert(
       !isJagged(x),
-      "The array of data you're trying to append to this DataFrame is jagged!"
+      "The array of data you're trying to append to this DataFrame is jagged!",
     )
 
     const xShape = shape(x)
@@ -101,7 +101,7 @@ function dfAppend(df, x, axis) {
       // rows of `x` until they're the right length
       if (axis === 0) {
         const maxRowLength = Math.max(
-          ...x.map(row => row.length).concat([df.shape[1]])
+          ...x.map(row => row.length).concat([df.shape[1]]),
         )
 
         const out = df.copy()
@@ -161,7 +161,7 @@ function dfAppend(df, x, axis) {
       }
     } else {
       throw new MathError(
-        "Only 1- and 2-dimensional arrays can be appended to a DataFrame!"
+        "Only 1- and 2-dimensional arrays can be appended to a DataFrame!",
       )
     }
   }
@@ -223,14 +223,14 @@ function dfAppend(df, x, axis) {
       }, 1)
 
       out._columns = out._columns.concat(
-        x._columns.filter(c => out._columns.indexOf(c) < 0)
+        x._columns.filter(c => out._columns.indexOf(c) < 0),
       )
 
       while (out._index.length < out._values.length) {
         const newRowName = "row" + out._index.length
 
         out._index.push(
-          newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : "")
+          newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""),
         )
       }
 
@@ -258,16 +258,16 @@ function dfAppend(df, x, axis) {
       })
 
       out._columns = out._columns.concat(
-        x._columns.map(c => c + (out._columns.indexOf(c) > -1 ? " (2)" : ""))
+        x._columns.map(c => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")),
       )
 
       return out
     }
   } else {
     throw new MathError(
-      "Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!"
+      "Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!",
     )
   }
 }
 
-module.exports = dfAppend
+export default dfAppend

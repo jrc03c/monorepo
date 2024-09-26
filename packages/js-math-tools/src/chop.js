@@ -1,7 +1,7 @@
-const abs = require("./abs")
-const isNumber = require("./is-number")
-const isUndefined = require("./is-undefined")
-const vectorize = require("./vectorize")
+import abs from "./abs.js"
+import isNumber from "./is-number.js"
+import isUndefined from "./is-undefined.js"
+import vectorize from "./vectorize.js"
 
 function chop(x, threshold) {
   try {
@@ -20,4 +20,4 @@ function chop(x, threshold) {
   }
 }
 
-module.exports = vectorize(chop)
+export default vectorize(chop)

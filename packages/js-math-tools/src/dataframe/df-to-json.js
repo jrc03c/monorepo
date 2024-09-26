@@ -1,5 +1,12 @@
-const MathError = require("../math-error")
-const dfToJSONString = require("./df-to-json-string")
+import MathError from "../math-error.js"
+import dfToJSONString from "./df-to-json-string.js"
+
+let fs, path
+
+import("node:fs").then(async fs_ => {
+  fs = fs_
+  path = await import("node:path")
+})
 
 function toJSON(df, filename, axis) {
   const out = dfToJSONString(df, axis)
@@ -28,10 +35,10 @@ function toJSON(df, filename, axis) {
 
   // node
   try {
-    const fs = require("fs")
-    const path = require("path")
-    fs.writeFileSync(path.resolve(filename), out, "utf8")
-    wroteToDiskInNode = true
+    if (fs && path) {
+      fs.writeFileSync(path.resolve(filename), out, "utf8")
+      wroteToDiskInNode = true
+    }
   } catch (e) {
     nodeError = e
   }
@@ -43,7 +50,7 @@ function toJSON(df, filename, axis) {
       throw new MathError(nodeError)
     } else {
       throw new MathError(
-        "I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!"
+        "I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!",
       )
     }
   }
@@ -51,4 +58,4 @@ function toJSON(df, filename, axis) {
   return df
 }
 
-module.exports = toJSON
+export default toJSON

@@ -1,30 +1,30 @@
-const { copy } = require("../copy")
-const assert = require("../assert")
-const isArray = require("../is-array")
-const isString = require("../is-string")
-const isUndefined = require("../is-undefined")
-const leftPad = require("../helpers/left-pad")
-const range = require("../range")
-const reverse = require("../reverse")
-const seriesAppend = require("./series-append")
-const seriesApply = require("./series-apply")
-const seriesDropMissing = require("./series-drop-missing")
-const seriesDropNaN = require("./series-drop-nan")
-const seriesFilter = require("./series-filter")
-const seriesGet = require("./series-get")
-const seriesGetSubsetByIndices = require("./series-get-subset-by-indices")
-const seriesGetSubsetByNames = require("./series-get-subset-by-names")
-const seriesPrint = require("./series-print")
-const seriesShuffle = require("./series-shuffle")
-const seriesSort = require("./series-sort")
-const seriesSortByIndex = require("./series-sort-by-index")
-const seriesToObject = require("./series-to-object")
-const shape = require("../shape")
-const transpose = require("../transpose")
+import { copy } from "../copy.js"
+import assert from "../assert.js"
+import isArray from "../is-array.js"
+import isString from "../is-string.js"
+import isUndefined from "../is-undefined.js"
+import leftPad from "../helpers/left-pad.js"
+import range from "../range.js"
+import reverse from "../reverse.js"
+import seriesAppend from "./series-append.js"
+import seriesApply from "./series-apply.js"
+import seriesDropMissing from "./series-drop-missing.js"
+import seriesDropNaN from "./series-drop-nan.js"
+import seriesFilter from "./series-filter.js"
+import seriesGet from "./series-get.js"
+import seriesGetSubsetByIndices from "./series-get-subset-by-indices.js"
+import seriesGetSubsetByNames from "./series-get-subset-by-names.js"
+import seriesPrint from "./series-print.js"
+import seriesShuffle from "./series-shuffle.js"
+import seriesSort from "./series-sort.js"
+import seriesSortByIndex from "./series-sort-by-index.js"
+import seriesToObject from "./series-to-object.js"
+import shape from "../shape.js"
+import transpose from "../transpose.js"
 
 const SERIES_SYMBOL = Symbol.for("@jrc03c/js-math-tools/series")
 
-module.exports = function (DataFrame) {
+export default function (DataFrame) {
   class Series {
     static [Symbol.hasInstance](x) {
       try {
@@ -66,7 +66,7 @@ module.exports = function (DataFrame) {
 
           assert(
             dataShape.length === 1,
-            "The new array of values must be 1-dimensional!"
+            "The new array of values must be 1-dimensional!",
           )
 
           if (dataShape[0] < this._index.length) {
@@ -75,7 +75,7 @@ module.exports = function (DataFrame) {
             this._index = this._index.concat(
               range(this._index.length, dataShape[0]).map(i => {
                 return "item" + leftPad(i, (x.length - 1).toString().length)
-              })
+              }),
             )
           }
 
@@ -101,17 +101,17 @@ module.exports = function (DataFrame) {
         set(x) {
           assert(
             isArray(x),
-            "The new index must be a 1-dimensional array of strings!"
+            "The new index must be a 1-dimensional array of strings!",
           )
 
           assert(
             x.length === this.shape[0],
-            "The new index must be the same length as the old index!"
+            "The new index must be the same length as the old index!",
           )
 
           assert(
             shape(x).length === 1,
-            "The new index must be a 1-dimensional array of strings!"
+            "The new index must be a 1-dimensional array of strings!",
           )
 
           x.forEach(value => {
@@ -132,7 +132,7 @@ module.exports = function (DataFrame) {
 
           assert(
             dataShape.length === 1,
-            "When passing an array into the constructor of a Series, the array must be 1-dimensional!"
+            "When passing an array into the constructor of a Series, the array must be 1-dimensional!",
           )
 
           this.values = data
@@ -143,7 +143,7 @@ module.exports = function (DataFrame) {
 
           assert(
             keys.length === 1,
-            "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"
+            "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!",
           )
 
           const name = keys[0]
@@ -151,7 +151,7 @@ module.exports = function (DataFrame) {
 
           assert(
             shape(values).length === 1,
-            "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"
+            "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!",
           )
 
           this.name = name

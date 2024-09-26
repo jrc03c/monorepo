@@ -1,8 +1,8 @@
-const isArray = require("../is-array")
-const isDataFrame = require("../is-dataframe")
-const isFunction = require("../is-function")
-const isSeries = require("../is-series")
-const isUndefined = require("../is-undefined")
+import isArray from "../is-array.js"
+import isDataFrame from "../is-dataframe.js"
+import isFunction from "../is-function.js"
+import isSeries from "../is-series.js"
+import isUndefined from "../is-undefined.js"
 
 // NOTE: a lot of this code was copied from the `set` function, so it might be
 // good to extract out some of the shared functionality
@@ -115,4 +115,4 @@ class Counter {
   }
 }
 
-module.exports = Counter
+export default Counter

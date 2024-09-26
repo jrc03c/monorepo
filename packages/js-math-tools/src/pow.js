@@ -1,5 +1,5 @@
-const isNumber = require("./is-number")
-const vectorize = require("./vectorize")
+import isNumber from "./is-number.js"
+import vectorize from "./vectorize.js"
 
 function pow(x, p) {
   try {
@@ -22,4 +22,4 @@ function pow(x, p) {
   }
 }
 
-module.exports = vectorize(pow)
+export default vectorize(pow)

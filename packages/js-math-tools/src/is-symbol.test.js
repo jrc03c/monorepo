@@ -1,5 +1,5 @@
-const { DataFrame, Series } = require("./dataframe")
-const isSymbol = require("./is-symbol")
+import { DataFrame, Series } from "./dataframe.js"
+import isSymbol from "./is-symbol.js"
 
 test("tests that symbols can be identified correctly", () => {
   expect(isSymbol(Symbol.for("Hello, world!"))).toBe(true)

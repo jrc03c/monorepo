@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   Array,
   ArrayBuffer,
   BigInt64Array,

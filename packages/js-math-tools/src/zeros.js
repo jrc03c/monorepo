@@ -1,6 +1,6 @@
-const isNumber = require("./is-number")
-const product = require("./product")
-const reshape = require("./reshape")
+import isNumber from "./is-number.js"
+import product from "./product.js"
+import reshape from "./reshape.js"
 
 function zeros(shape) {
   if (isNumber(shape)) shape = [shape]
@@ -10,4 +10,4 @@ function zeros(shape) {
   return reshape(out, shape)
 }
 
-module.exports = zeros
+export default zeros
