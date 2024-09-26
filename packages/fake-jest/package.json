@@ -1,0 +1,18 @@
+{
+  "author": "jrc03c",
+  "description": "a jest stand-in for esm",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "esbuild": "^0.14.21",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0"
+  },
+  "main": "src/index.js",
+  "name": "@jrc03c/fake-jest",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jrc03c/fake-jest.git"
+  },
+  "type": "module",
+  "version": "0.0.1"
+}
