@@ -16,9 +16,11 @@ function multiplyString(s, n) {
     if (process.argv.length > 2) {
       return Array.from(process.argv)
         .slice(2)
-        .filter(f => f.endsWith(".test.js"))
+        .filter(f => !f.includes("node_modules") && f.endsWith(".test.js"))
     } else {
-      return getFilesDeepSync(".").filter(f => f.endsWith(".test.js"))
+      return getFilesDeepSync(".").filter(
+        f => !f.includes("node_modules") && f.endsWith(".test.js"),
+      )
     }
   })()
 
