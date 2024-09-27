@@ -6,7 +6,6 @@
   "description": "a jest stand-in for esm",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
-    "@jrc03c/bash-colors": "^0.0.4",
     "@jrc03c/freeze": "file:../freeze",
     "eslint": "^9.11.1",
     "globals": "^15.9.0"
@@ -21,5 +20,8 @@
     "test": "node src/bin.js"
   },
   "type": "module",
-  "version": "0.0.2"
+  "version": "0.0.2",
+  "dependencies": {
+    "@jrc03c/bash-colors": "^0.0.4"
+  }
 }
