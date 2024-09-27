@@ -6,11 +6,11 @@
   "description": "some math tools for JS",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@jrc03c/fake-jest": "^0.0.5",
     "@jrc03c/freeze": "github:jrc03c/freeze",
     "esbuild": "^0.14.21",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
-    "jest": "^29.0.3",
     "madge": "^5.0.1"
   },
   "homepage": "https://github.com/jrc03c/js-math-tools#readme",
