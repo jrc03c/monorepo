@@ -12,7 +12,12 @@ class Expecter {
   }
 
   toBe(other) {
-    const valuesAreEquivalent = this.value === other
+    const valuesAreEquivalent =
+      this.value === other ||
+      (typeof this.value === "number" &&
+        isNaN(this.value) &&
+        typeof other === "number" &&
+        isNaN(other))
 
     if (this.valenceIsPositive) {
       if (!valuesAreEquivalent) {

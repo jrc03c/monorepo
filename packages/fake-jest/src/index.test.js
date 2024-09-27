@@ -5,6 +5,7 @@ test("tests that fake-jest works at all!", () => {
 test("tests the `toBe` method!", () => {
   expect(5).toBe(5)
   expect(5).not.toBe(6)
+  expect(NaN).toBe(NaN)
 })
 
 test("tests the `toBeCloseTo` method", () => {
