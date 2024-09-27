@@ -6,12 +6,12 @@ export default function getFilesDeepAsync(dir) {
   const children = fs.readdirSync(dir)
 
   for (const child of children) {
-    const childDir = path.join(dir, child)
+    const childPath = path.join(dir, child)
 
-    if (fs.lstatSync(childDir).isDirectory()) {
-      out.push(...getFilesDeepAsync(childDir))
+    if (fs.lstatSync(childPath).isDirectory()) {
+      out.push(...getFilesDeepAsync(childPath))
     } else {
-      out.push(child)
+      out.push(childPath)
     }
   }
 
