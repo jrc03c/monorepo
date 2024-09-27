@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import { random } from "./random.js"
 import arccos from "./arccos.js"
 import isEqual from "./is-equal.js"

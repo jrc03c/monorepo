@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import clamp from "./clamp.js"
 import isEqual from "./is-equal.js"
 import normal from "./normal.js"

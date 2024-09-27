@@ -1,5 +1,5 @@
 import { copy } from "./copy.js"
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isEqual from "./is-equal.js"
 
 test("tests equality of primitives", () => {

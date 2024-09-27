@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import { random, seed } from "./random.js"
 import isEqual from "./is-equal.js"
 

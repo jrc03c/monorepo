@@ -6,7 +6,7 @@ import isDataFrame from "./is-dataframe.js"
 import isNumber from "./is-number.js"
 import isSeries from "./is-series.js"
 
-function combinationsIterator(x, r) {
+export function combinationsIterator(x, r) {
   function* helper(x, r) {
     if (r > x.length) {
       yield x
@@ -49,7 +49,7 @@ function combinationsIterator(x, r) {
   return helper(flatten(x), r)
 }
 
-function combinations(x, r) {
+export function combinations(x, r) {
   const out = []
 
   for (const combo of combinationsIterator(x, r)) {
@@ -58,5 +58,3 @@ function combinations(x, r) {
 
   return out
 }
-
-export default { combinations, combinationsIterator }

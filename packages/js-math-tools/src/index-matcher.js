@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import assert from "./assert.js"
 import intersect from "./intersect.js"
 import isArray from "./is-array.js"

@@ -1,7 +1,7 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
+import { seed } from "./random.js"
 import isEqual from "./is-equal.js"
 import normal from "./normal.js"
-import seed from "./random.js".seed
 import shuffle from "./shuffle.js"
 import sort from "./sort.js"
 

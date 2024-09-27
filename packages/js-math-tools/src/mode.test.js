@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import flatten from "./flatten.js"
 import mode from "./mode.js"
 import normal from "./normal.js"

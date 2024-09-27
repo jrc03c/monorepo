@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isDataFrame from "./is-dataframe.js"
 import normal from "./normal.js"
 class SubDataFrame extends DataFrame {}

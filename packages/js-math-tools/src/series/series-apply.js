@@ -1,5 +1,5 @@
-import assert from "../assert.js.js"
-import isFunction from "../is-function.js.js"
+import assert from "../assert.js"
+import isFunction from "../is-function.js"
 
 function seriesApply(series, fn) {
   assert(

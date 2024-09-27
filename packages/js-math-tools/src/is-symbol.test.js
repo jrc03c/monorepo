@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isSymbol from "./is-symbol.js"
 
 test("tests that symbols can be identified correctly", () => {

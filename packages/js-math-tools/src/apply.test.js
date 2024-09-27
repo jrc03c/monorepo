@@ -1,5 +1,6 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import apply from "./apply.js"
+import isEqual from "./is-equal.js"
 
 test("tests that the `apply` function works correctly", () => {
   const x = [
@@ -80,5 +81,5 @@ test("tests that the `apply` function works correctly", () => {
   ]
 
   const yPred = apply(x, v => typeof v)
-  expect(yPred).toStrictEqual(yTrue)
+  expect(isEqual(yPred, yTrue)).toBe(true)
 })

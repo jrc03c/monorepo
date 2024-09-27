@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import distance from "./distance.js"
 import inverse from "./inverse.js"
 import isEqual from "./is-equal.js"

@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import diff from "./diff.js"
 import isEqual from "./is-equal.js"
 import range from "./range.js"

@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import abs from "./abs.js"
 import add from "./add.js"
 import covariance from "./covariance.js"

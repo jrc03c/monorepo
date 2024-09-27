@@ -41,7 +41,7 @@ function makeKey(n) {
   return out
 }
 
-class DataFrame {
+export class DataFrame {
   static [Symbol.hasInstance](x) {
     try {
       return !!x._symbol && x._symbol === DATAFRAME_SYMBOL
@@ -471,6 +471,6 @@ class DataFrame {
   }
 }
 
-import SeriesSetup from "../series"
-const Series = SeriesSetup(DataFrame)
-export default { DataFrame, Series }
+import SeriesSetup from "../series/index.js"
+export const Series = SeriesSetup(DataFrame)
+// export default { DataFrame, Series }

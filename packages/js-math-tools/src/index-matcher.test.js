@@ -1,4 +1,4 @@
-import { Series, DataFrame } from "./dataframe.js"
+import { Series, DataFrame } from "./dataframe/index.js"
 import flatten from "./flatten.js"
 import IndexMatcher from "./index-matcher.js"
 import isEqual from "./is-equal.js"

@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import { permutations, permutationsIterator } from "./permutations.js"
 import factorial from "./factorial.js"
 import isArray from "./is-array.js"

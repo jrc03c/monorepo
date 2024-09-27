@@ -1,5 +1,5 @@
 import { copy, decycle } from "./copy.js"
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import arrayTypes from "./helpers/array-types.js"
 import isEqual from "./is-equal.js"
 import normal from "./normal.js"

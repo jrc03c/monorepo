@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import apply from "./apply.js"
 import dot from "./dot.js"
 import float from "./float.js"

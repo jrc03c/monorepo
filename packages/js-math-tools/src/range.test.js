@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import range from "./range.js"
 
 test("tests that ranges of values can be generated correctly", () => {

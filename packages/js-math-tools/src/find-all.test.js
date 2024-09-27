@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import findAll from "./find-all.js"
 import flatten from "./flatten.js"
 import isEqual from "./is-equal.js"

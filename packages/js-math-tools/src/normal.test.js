@@ -1,8 +1,8 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
+import { seed } from "./random.js"
 import abs from "./abs.js"
 import mean from "./mean.js"
 import normal from "./normal.js"
-import seed from "./random.js".seed
 import shape from "./shape.js"
 import std from "./std.js"
 

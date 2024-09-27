@@ -13,6 +13,10 @@ export default [
         test: "readonly",
       },
     },
+
+    rules: {
+      "no-unused-vars": ["error", { caughtErrors: "none" }],
+    },
   },
   pluginJs.configs.recommended,
 ]

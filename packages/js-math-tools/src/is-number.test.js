@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isNumber from "./is-number.js"
 
 test("checks to see if various things are numbers", () => {

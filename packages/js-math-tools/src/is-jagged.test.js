@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isJagged from "./is-jagged.js"
 import normal from "./normal.js"
 

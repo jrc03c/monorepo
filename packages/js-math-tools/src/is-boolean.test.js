@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isBoolean from "./is-boolean.js"
 
 test("tests that booleans can be identified correctly", () => {

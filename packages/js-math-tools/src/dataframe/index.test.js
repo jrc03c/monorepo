@@ -15,7 +15,7 @@ test("tests DataFrame emptiness", () => {
   const df = new DataFrame(x)
 
   expect(df instanceof DataFrame).toBe(true)
-  expect(df.shape).toStrictEqual(xShape)
+  expect(isEqual(df.shape, xShape)).toBe(true)
   expect(!df.isEmpty).toBe(true)
   expect(new DataFrame().isEmpty).toBe(true)
 
@@ -29,10 +29,10 @@ test("tests DataFrame selectors", () => {
   const b = normal(100)
   const c = normal(100)
   const df = new DataFrame({ a, b, c })
-  expect(a).toStrictEqual(df.get(null, "a").values)
-  expect(b).toStrictEqual(df.get(null, "b").values)
-  expect(c).toStrictEqual(df.get(null, "c").values)
-  expect(df.values).toStrictEqual(df.T.T.values)
+  expect(isEqual(a, df.get(null, "a").values)).toBe(true)
+  expect(isEqual(b, df.get(null, "b").values)).toBe(true)
+  expect(isEqual(c, df.get(null, "c").values)).toBe(true)
+  expect(isEqual(df.values, df.T.T.values)).toBe(true)
   expect(df.get(null, ["b", "c"]) instanceof DataFrame).toBe(true)
   expect(df.get(null, "a") instanceof Series).toBe(true)
 
@@ -95,7 +95,7 @@ test("tests DataFrame mapping", () => {
     ["col0/2", "col1/2", "col2/2"],
   ]
 
-  expect(df.values).toStrictEqual(newValuesShouldBe)
+  expect(isEqual(df.values, newValuesShouldBe)).toBe(true)
 })
 
 test("tests DataFrame mapping", () => {
@@ -113,7 +113,7 @@ test("tests DataFrame mapping", () => {
     ["row2/0", "row2/1", "row2/2"],
   ]
 
-  expect(df.values).toStrictEqual(newValuesShouldBe)
+  expect(isEqual(df.values, newValuesShouldBe)).toBe(true)
 })
 
 test("tests DataFrame missing value dropping", () => {
@@ -126,12 +126,12 @@ test("tests DataFrame missing value dropping", () => {
     [null, "uh-oh"],
   ])
 
-  expect(df.dropMissing().shape).toStrictEqual([2, 2])
-  expect(df.dropMissing().index).toStrictEqual(["row1", "row2"])
+  expect(isEqual(df.dropMissing().shape, [2, 2])).toBe(true)
+  expect(isEqual(df.dropMissing().index, ["row1", "row2"])).toBe(true)
   expect(df.dropMissing(1).isEmpty).toBe(true)
-  expect(df.dropMissing(1, "all").shape).toStrictEqual(df.shape)
-  expect(df.dropMissing(1, null, 4).shape).toStrictEqual(df.shape)
-  expect(df.dropMissing(1, null, 3).shape).toStrictEqual([6, 1])
+  expect(isEqual(df.dropMissing(1, "all").shape, df.shape)).toBe(true)
+  expect(isEqual(df.dropMissing(1, null, 4).shape, df.shape)).toBe(true)
+  expect(isEqual(df.dropMissing(1, null, 3).shape, [6, 1])).toBe(true)
   expect(df.dropMissing(1, null, 1).isEmpty).toBe(true)
 })
 
@@ -148,53 +148,65 @@ test("tests DataFrame NaN value dropping", () => {
     [NaN, NaN, NaN],
   ])
 
-  expect(df.dropNaN(0, "any").values).toStrictEqual([
-    [-10, -20, -30],
-    [1, 2, 3],
-  ])
+  expect(
+    isEqual(df.dropNaN(0, "any").values, [
+      [-10, -20, -30],
+      [1, 2, 3],
+    ]),
+  ).toBe(true)
 
-  expect(df.dropNaN(0, "any").index).toStrictEqual(["row2", "row7"])
-  expect(df.dropNaN(0, "any").columns).toStrictEqual(df.columns)
+  expect(isEqual(df.dropNaN(0, "any").index, ["row2", "row7"])).toBe(true)
+  expect(isEqual(df.dropNaN(0, "any").columns, df.columns)).toBe(true)
 
-  expect(df.dropNaN(0, "all").values).toStrictEqual([
-    [0, null, NaN],
-    [1, "foo", 234],
-    [-10, -20, -30],
-    [2, "bar", true],
-    [3, null, 3.5],
-    [4, null, -3.75],
-    [null, "uh-oh", Infinity],
-    [1, 2, 3],
-  ])
+  expect(
+    isEqual(df.dropNaN(0, "all").values, [
+      [0, null, NaN],
+      [1, "foo", 234],
+      [-10, -20, -30],
+      [2, "bar", true],
+      [3, null, 3.5],
+      [4, null, -3.75],
+      [null, "uh-oh", Infinity],
+      [1, 2, 3],
+    ]),
+  ).toBe(true)
 
-  expect(df.dropNaN(0, "all").index).toStrictEqual(
-    df.index.slice(0, df.index.length - 1),
-  )
-  expect(df.dropNaN(0, "all").columns).toStrictEqual(df.columns)
+  expect(
+    isEqual(df.dropNaN(0, "all").index, df.index.slice(0, df.index.length - 1)),
+  ).toBe(true)
 
-  expect(df.dropNaN(0, null, 2).values).toStrictEqual([
-    [1, "foo", 234],
-    [-10, -20, -30],
-    [3, null, 3.5],
-    [4, null, -3.75],
-    [1, 2, 3],
-  ])
+  expect(isEqual(df.dropNaN(0, "all").columns, df.columns)).toBe(true)
 
-  expect(df.dropNaN(0, null, 2).index).toStrictEqual([
-    "row1",
-    "row2",
-    "row4",
-    "row5",
-    "row7",
-  ])
+  expect(
+    isEqual(df.dropNaN(0, null, 2).values, [
+      [1, "foo", 234],
+      [-10, -20, -30],
+      [3, null, 3.5],
+      [4, null, -3.75],
+      [1, 2, 3],
+    ]),
+  ).toBe(true)
 
-  expect(df.dropNaN(0, null, 2).columns).toStrictEqual(df.columns)
+  expect(
+    isEqual(df.dropNaN(0, null, 2).index, [
+      "row1",
+      "row2",
+      "row4",
+      "row5",
+      "row7",
+    ]),
+  ).toBe(true)
 
+  expect(isEqual(df.dropNaN(0, null, 2).columns, df.columns)).toBe(true)
   expect(df.dropNaN(1, "any").isEmpty).toBe(true)
-  expect(df.dropNaN(1, "all").values).toStrictEqual(df.values)
-  expect(df.dropNaN(1, null, 3).values).toStrictEqual(
-    flatten([[0], [1], [-10], [2], [3], [4], [null], [1], [NaN]]),
-  )
+  expect(isEqual(df.dropNaN(1, "all").values, df.values)).toBe(true)
+
+  expect(
+    isEqual(
+      df.dropNaN(1, null, 3).values,
+      flatten([[0], [1], [-10], [2], [3], [4], [null], [1], [NaN]]),
+    ),
+  ).toBe(true)
 })
 
 test("tests DataFrame sorting", () => {
@@ -225,33 +237,37 @@ test("tests DataFrame sorting", () => {
   ]
 
   const sortedX = x.sort(["col4", "col5", "col1"], [false, true, false])
-  expect(sortedX.values).toStrictEqual(sortedXValues)
+  expect(isEqual(sortedX.values, sortedXValues)).toBe(true)
 
-  expect(sortedX.index).toStrictEqual([
-    "row1",
-    "row7",
-    "row8",
-    "row5",
-    "row0",
-    "row9",
-    "row3",
-    "row6",
-    "row2",
-    "row4",
-  ])
+  expect(
+    isEqual(sortedX.index, [
+      "row1",
+      "row7",
+      "row8",
+      "row5",
+      "row0",
+      "row9",
+      "row3",
+      "row6",
+      "row2",
+      "row4",
+    ]),
+  ).toBe(true)
 
-  expect(sortedX.columns).toStrictEqual([
-    "col0",
-    "col1",
-    "col2",
-    "col3",
-    "col4",
-    "col5",
-    "col6",
-    "col7",
-    "col8",
-    "col9",
-  ])
+  expect(
+    isEqual(sortedX.columns, [
+      "col0",
+      "col1",
+      "col2",
+      "col3",
+      "col4",
+      "col5",
+      "col6",
+      "col7",
+      "col8",
+      "col9",
+    ]),
+  )
 })
 
 test("tests DataFrame filtering", () => {
@@ -263,9 +279,9 @@ test("tests DataFrame filtering", () => {
 
   // test row filtering (that returns a dataframe)
   const f1 = x.filter(row => row.values.every(v => v % 2 === 0))
-  expect(f1.shape).toStrictEqual([2, 3])
-  expect(sort(f1.columns)).toStrictEqual(["bar", "baz", "foo"])
-  expect(sort(f1.index)).toStrictEqual(["row0", "row2"])
+  expect(isEqual(f1.shape, [2, 3])).toBe(true)
+  expect(isEqual(sort(f1.columns), ["bar", "baz", "foo"])).toBe(true)
+  expect(isEqual(sort(f1.index), ["row0", "row2"])).toBe(true)
   expect(isEqual(sort(flatten(f1.values)), [0, 0, 2, 4, 10, 1000])).toBe(true)
 
   // test row filtering (that returns a series)
@@ -275,16 +291,16 @@ test("tests DataFrame filtering", () => {
 
   expect(f2 instanceof Series).toBe(true)
   expect(f2.name).toBe("row1")
-  expect(sort(f2.index)).toStrictEqual(["bar", "baz", "foo"])
+  expect(isEqual(sort(f2.index), ["bar", "baz", "foo"])).toBe(true)
   expect(isEqual(sort(f2.values), [0, 3, 100])).toBe(true)
 
   // test column filtering (that returns a dataframe)
   const f3 = x.filter(col => sum(col.values) < 1000, 1)
 
-  expect(f3.shape).toStrictEqual([3, 2])
-  expect(sort(f3.columns)).toStrictEqual(["baz", "foo"])
-  expect(sort(f3.index)).toStrictEqual(["row0", "row1", "row2"])
-  expect(sort(flatten(f3.values))).toStrictEqual([0, 0, 0, 2, 3, 4])
+  expect(isEqual(f3.shape, [3, 2])).toBe(true)
+  expect(isEqual(sort(f3.columns), ["baz", "foo"])).toBe(true)
+  expect(isEqual(sort(f3.index), ["row0", "row1", "row2"])).toBe(true)
+  expect(isEqual(sort(flatten(f3.values)), [0, 0, 0, 2, 3, 4])).toBe(true)
 
   // test column filtering (that returns a series)
   const f4 = x.filter(col => {
@@ -293,8 +309,8 @@ test("tests DataFrame filtering", () => {
 
   expect(f4 instanceof Series).toBe(true)
   expect(f4.name).toBe("baz")
-  expect(sort(f4.index)).toStrictEqual(["row0", "row1", "row2"])
-  expect(sort(f4.values)).toStrictEqual([0, 0, 0])
+  expect(isEqual(sort(f4.index), ["row0", "row1", "row2"])).toBe(true)
+  expect(isEqual(sort(f4.values), [0, 0, 0])).toBe(true)
 })
 
 test("tests DataFrame one-hot encoding", () => {
@@ -338,6 +354,7 @@ test("tests DataFrame one-hot encoding", () => {
   const favoriteIceCreamColumns = sort(
     yTrue.columns.filter(c => c.includes("favoriteIceCream")),
   )
+
   const randomNumberColumns = sort(
     yTrue.columns.filter(c => c.includes("randomNumber")),
   )
@@ -363,7 +380,7 @@ test("tests appending a single vector to a DataFrame", () => {
   const c = a.append(b)
   const d = a.append(b, 1)
 
-  expect(c.shape).toStrictEqual([4, 4])
+  expect(isEqual(c.shape, [4, 4])).toBe(true)
 
   expect(
     isEqual(c.values, [
@@ -374,10 +391,9 @@ test("tests appending a single vector to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
-  expect(c.index).toStrictEqual(["row0", "row1", "row2", "row3"])
-
-  expect(d.shape).toStrictEqual([4, 3])
+  expect(isEqual(c.columns, ["foo", "bar", "col2", "col3"])).toBe(true)
+  expect(isEqual(c.index, ["row0", "row1", "row2", "row3"])).toBe(true)
+  expect(isEqual(d.shape, [4, 3])).toBe(true)
 
   expect(
     isEqual(d.values, [
@@ -388,8 +404,8 @@ test("tests appending a single vector to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(d.columns).toStrictEqual(["foo", "bar", "col2"])
-  expect(d.index).toStrictEqual(["row0", "row1", "row2", "row3"])
+  expect(isEqual(d.columns, ["foo", "bar", "col2"])).toBe(true)
+  expect(isEqual(d.index, ["row0", "row1", "row2", "row3"])).toBe(true)
 })
 
 test("tests appending a matrix to a DataFrame", () => {
@@ -403,7 +419,7 @@ test("tests appending a matrix to a DataFrame", () => {
   const c = a.append(b)
   const d = a.append(b, 1)
 
-  expect(c.shape).toStrictEqual([5, 4])
+  expect(isEqual(c.shape, [5, 4])).toBe(true)
 
   expect(
     isEqual(c.values, [
@@ -415,10 +431,9 @@ test("tests appending a matrix to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
-  expect(c.index).toStrictEqual(["row0", "row1", "row2", "row3", "row4"])
-
-  expect(d.shape).toStrictEqual([3, 6])
+  expect(isEqual(c.columns, ["foo", "bar", "col2", "col3"])).toBe(true)
+  expect(isEqual(c.index, ["row0", "row1", "row2", "row3", "row4"])).toBe(true)
+  expect(isEqual(d.shape, [3, 6])).toBe(true)
 
   expect(
     isEqual(d.values, [
@@ -428,16 +443,11 @@ test("tests appending a matrix to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(d.columns).toStrictEqual([
-    "foo",
-    "bar",
-    "col2",
-    "col3",
-    "col4",
-    "col5",
-  ])
+  expect(
+    isEqual(d.columns, ["foo", "bar", "col2", "col3", "col4", "col5"]),
+  ).toBe(true)
 
-  expect(d.index).toStrictEqual(["row0", "row1", "row2"])
+  expect(isEqual(d.index, ["row0", "row1", "row2"])).toBe(true)
 })
 
 test("tests appending a Series to a DataFrame", () => {
@@ -448,7 +458,7 @@ test("tests appending a Series to a DataFrame", () => {
   const c = a.append(b)
   const d = a.append(b, 1)
 
-  expect(c.shape).toStrictEqual([4, 4])
+  expect(isEqual(c.shape, [4, 4])).toBe(true)
 
   expect(
     isEqual(c.values, [
@@ -459,10 +469,9 @@ test("tests appending a Series to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(c.columns).toStrictEqual(["foo", "bar", "col2", "col3"])
-  expect(c.index).toStrictEqual(["row0", "row1", "row2", "bee"])
-
-  expect(d.shape).toStrictEqual([4, 3])
+  expect(isEqual(c.columns, ["foo", "bar", "col2", "col3"])).toBe(true)
+  expect(isEqual(c.index, ["row0", "row1", "row2", "bee"])).toBe(true)
+  expect(isEqual(d.shape, [4, 3])).toBe(true)
 
   expect(
     isEqual(d.values, [
@@ -473,8 +482,8 @@ test("tests appending a Series to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(d.columns).toStrictEqual(["foo", "bar", "bee"])
-  expect(d.index).toStrictEqual(["row0", "row1", "row2", "row3"])
+  expect(isEqual(d.columns, ["foo", "bar", "bee"])).toBe(true)
+  expect(isEqual(d.index, ["row0", "row1", "row2", "row3"])).toBe(true)
 })
 
 test("tests appending a DataFrame to a DataFrame", () => {
@@ -491,7 +500,7 @@ test("tests appending a DataFrame to a DataFrame", () => {
   const c = a.append(b)
   const d = a.append(b, 1)
 
-  expect(c.shape).toStrictEqual([5, 5])
+  expect(isEqual(c.shape, [5, 5])).toBe(true)
 
   expect(
     isEqual(c.values, [
@@ -503,9 +512,8 @@ test("tests appending a DataFrame to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(c.columns).toStrictEqual(["foo", "bar", "col0", "col2", "col3"])
-
-  expect(d.shape).toStrictEqual([4, 6])
+  expect(isEqual(c.columns, ["foo", "bar", "col0", "col2", "col3"])).toBe(true)
+  expect(isEqual(d.shape, [4, 6])).toBe(true)
 
   expect(
     isEqual(d.values, [
@@ -516,7 +524,7 @@ test("tests appending a DataFrame to a DataFrame", () => {
     ]),
   ).toBe(true)
 
-  expect(d.index).toStrictEqual(["row0", "row1", "row2", "beeRow0"])
+  expect(isEqual(d.index, ["row0", "row1", "row2", "beeRow0"])).toBe(true)
 })
 
 test("tests DataFrame dimensions", () => {

@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import add from "./add.js"
 import correl from "./correl.js"
 import normal from "./normal.js"

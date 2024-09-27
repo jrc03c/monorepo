@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import { random } from "./random.js"
 import dropNaNPairwise from "./drop-nan-pairwise.js"
 import isEqual from "./is-equal.js"

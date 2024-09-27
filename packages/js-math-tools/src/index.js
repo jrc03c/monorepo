@@ -1,5 +1,5 @@
 import { copy, decycle } from "./copy.js"
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 
 const out = {
   abs: require("./abs"),

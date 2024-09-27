@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import normal from "./normal.js"
 import reshape from "./reshape.js"
 import shape from "./shape.js"

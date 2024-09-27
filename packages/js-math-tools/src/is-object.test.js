@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isObject from "./is-object.js"
 
 test("tests that objects can be correctly identified", () => {

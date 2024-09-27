@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import flatten from "./flatten.js"
 import isEqual from "./is-equal.js"
 import max from "./max.js"
@@ -70,8 +70,8 @@ test("tests that values can be remapped correctly from one range to another", ()
 
   const m = normal([2, 3, 4, 5])
   const n = remap(m, 0, 1)
-  expect(min(n)).toBeGreaterThanOrEqual(0)
-  expect(max(n)).toBeLessThanOrEqual(1)
+  expect(min(n)).toBeGreaterThanOrEqualTo(0)
+  expect(max(n)).toBeLessThanOrEqualTo(1)
 
   expect(remap(5n, 0n, 10n, 0n, 100n)).toBe(50n)
   expect(remap(5.234, 0n, 10n, 0n, 100n)).toBeCloseTo(52.34)

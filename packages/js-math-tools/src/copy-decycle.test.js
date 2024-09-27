@@ -1,5 +1,6 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import { decycle } from "./copy.js"
+import isEqual from "./is-equal.js"
 import normal from "./normal.js"
 
 test("tests that cyclic objects can be decycled correctly", () => {
@@ -7,7 +8,7 @@ test("tests that cyclic objects can be decycled correctly", () => {
   a.push(a)
   const bTrue = [2, 3, 4, '<reference to "/">']
   const bPred = decycle(a)
-  expect(bPred).toEqual(bTrue)
+  expect(isEqual(bPred, bTrue)).toBe(true)
 
   const c = { foo: { bar: { baz: "hello" } } }
   c.foo.bar.self = c.foo.bar
@@ -17,7 +18,7 @@ test("tests that cyclic objects can be decycled correctly", () => {
   }
 
   const dPred = decycle(c)
-  expect(dPred).toEqual(dTrue)
+  expect(isEqual(dPred, dTrue)).toBe(true)
 
   const e = new DataFrame(normal([100, 5]))
   e.values[0][0] = e
@@ -27,7 +28,7 @@ test("tests that cyclic objects can be decycled correctly", () => {
   fTrue._columns = e.columns
   fTrue._index = e.index
   const fPred = decycle(e)
-  expect(fPred).toEqual(fTrue)
+  expect(isEqual(fPred, fTrue)).toBe(true)
 
   const g = new Series(normal(100))
   g.name = "foobar"
@@ -38,7 +39,7 @@ test("tests that cyclic objects can be decycled correctly", () => {
   hTrue.values[hTrue.values.length - 1] = '<reference to "/">'
   hTrue._index = g.index
   const hPred = decycle(g)
-  expect(hPred).toEqual(hTrue)
+  expect(isEqual(hPred, hTrue)).toBe(true)
 
   const others = [
     0,
@@ -67,6 +68,6 @@ test("tests that cyclic objects can be decycled correctly", () => {
   ]
 
   others.forEach(value => {
-    expect(decycle(value)).toEqual(value)
+    expect(isEqual(decycle(value), value)).toBe(true)
   })
 })

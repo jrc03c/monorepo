@@ -9,7 +9,7 @@ import isSeries from "./is-series.js"
 import isUndefined from "./is-undefined.js"
 import zeros from "./zeros.js"
 
-function permutationsIterator(x, r) {
+export function permutationsIterator(x, r) {
   function* helper(x, r) {
     r = r || x.length
 
@@ -72,7 +72,7 @@ function permutationsIterator(x, r) {
   return helper(flatten(x), r)
 }
 
-function permutations(x, r) {
+export function permutations(x, r) {
   const out = []
 
   for (const perm of permutationsIterator(x, r)) {
@@ -81,5 +81,3 @@ function permutations(x, r) {
 
   return out
 }
-
-export default { permutations, permutationsIterator }

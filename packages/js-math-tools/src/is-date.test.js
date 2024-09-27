@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isDate from "./is-date.js"
 import normal from "./normal.js"
 import range from "./range.js"

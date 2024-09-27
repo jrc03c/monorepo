@@ -42,7 +42,7 @@ function rotl(x, k) {
   return uint(uint(x << k) | uint(x >> uint(BigInt(64) - k)))
 }
 
-function seed(val) {
+export function seed(val) {
   if (typeof val === "bigint") {
     val = Number(val)
   }
@@ -75,10 +75,10 @@ function next() {
   return Math.floor(Number(result)) / MAX
 }
 
-function random(shape) {
+export function random(shape) {
   if (isUndefined(shape)) return next()
   if (!isArray(shape)) shape = [shape]
   return reshape(ndarray(product(shape)).map(next), shape)
 }
 
-export default { random, seed }
+// export default { random, seed }

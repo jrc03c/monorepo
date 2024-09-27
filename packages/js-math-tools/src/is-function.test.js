@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isFunction from "./is-function.js"
 
 test("tests that functions can be identified correctly", () => {

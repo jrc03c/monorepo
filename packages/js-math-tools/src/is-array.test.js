@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "./dataframe.js"
+import { DataFrame, Series } from "./dataframe/index.js"
 import isArray from "./is-array.js"
 import normal from "./normal.js"
 class SubArray extends Array {}

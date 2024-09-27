@@ -3,7 +3,7 @@ import isArray from "./is-array.js"
 import isDataFrame from "./is-dataframe.js"
 import isSeries from "./is-series.js"
 
-function copy(x) {
+export function copy(x) {
   function helper(x) {
     if (typeof x === "object") {
       if (x === null) {
@@ -52,7 +52,7 @@ function copy(x) {
   return helper(decycle(x))
 }
 
-function decycle(x) {
+export function decycle(x) {
   function helper(x, checked, currentPath) {
     checked = checked || []
     currentPath = currentPath || ""
@@ -128,4 +128,4 @@ function decycle(x) {
   return out
 }
 
-export default { copy, decycle }
+// export default { copy, decycle }
