@@ -7,15 +7,15 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        test: "readonly",
+        afterAll: "readonly",
+        beforeAll: "readonly",
         expect: "readonly",
+        test: "readonly",
       },
     },
 
     rules: {
-      "no-empty": ["error", { allowEmptyCatch: true }],
-      "no-unused-vars": ["error", { caughtErrors: "off" }],
-      "no-useless-catch": "off",
+      "no-unused-vars": ["error", { caughtErrors: "none" }],
     },
   },
   pluginJs.configs.recommended,

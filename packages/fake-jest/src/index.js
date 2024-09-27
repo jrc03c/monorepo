@@ -206,12 +206,16 @@ class Expecter {
   }
 }
 
-export async function afterAll(fn) {
-  await fn()
+const afterAlls = []
+const beforeAlls = []
+const tests = []
+
+export function afterAll(fn) {
+  afterAlls.push(fn)
 }
 
-export async function beforeAll(fn) {
-  await fn()
+export function beforeAll(fn) {
+  beforeAlls.push(fn)
 }
 
 export function expect(value) {
@@ -219,23 +223,42 @@ export function expect(value) {
 }
 
 export async function test(description, fn) {
-  let passed = true
-
-  try {
-    await fn()
-  } catch (e) {
-    console.error(colors.fx.dim(colors.fg.red(e.stack)))
-    passed = false
-  }
-
-  if (passed) {
-    console.log(colors.fx.bright(colors.fg.green("PASS")), ":", description)
-  } else {
-    console.log(colors.fx.bright(colors.fg.red("FAIL")), ":", description)
-  }
+  tests.push({ description, fn })
 }
 
-globalThis.afterAll = afterAll
-globalThis.beforeAll = beforeAll
-globalThis.expect = expect
-globalThis.test = test
+// {{ content }}
+
+!(async () => {
+  for (const fn of beforeAlls) {
+    await fn()
+  }
+
+  for (const item of tests) {
+    let passed = true
+
+    try {
+      await item.fn()
+    } catch (e) {
+      console.error(colors.fx.dim(colors.fg.red(e.stack)))
+      passed = false
+    }
+
+    if (passed) {
+      console.log(
+        colors.fx.bright(colors.fg.green("PASS")),
+        ":",
+        item.description,
+      )
+    } else {
+      console.log(
+        colors.fx.bright(colors.fg.red("FAIL")),
+        ":",
+        item.description,
+      )
+    }
+  }
+
+  for (const fn of afterAlls) {
+    await fn()
+  }
+})()

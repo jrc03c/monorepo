@@ -28,7 +28,7 @@ function multiplyString(s, n) {
   for (const file of files) {
     const fileRaw = fs.readFileSync(file, "utf8")
     const newFile = file.split(".").slice(0, -1).join(".") + ".foo.js"
-    const newFileRaw = libRaw + "\n\n" + fileRaw
+    const newFileRaw = libRaw.replace("// {{ content }}", fileRaw)
     fs.writeFileSync(newFile, newFileRaw, "utf8")
 
     try {
