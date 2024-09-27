@@ -21,7 +21,7 @@
     "test": "node src/bin.js"
   },
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
     "@jrc03c/bash-colors": "^0.0.4"
   }
