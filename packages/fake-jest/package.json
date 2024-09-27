@@ -1,6 +1,12 @@
 {
   "author": "jrc03c",
+  "bin": {
+    "fake-jest": "src/bin.js"
+  },
   "description": "a jest stand-in for esm",
+  "dependencies": {
+    "@jrc03c/bash-colors": "^0.0.4"
+  },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "eslint": "^9.11.1",
@@ -13,8 +19,5 @@
     "url": "git+ssh://git@github.com/jrc03c/fake-jest.git"
   },
   "type": "module",
-  "version": "0.0.1",
-  "dependencies": {
-    "@jrc03c/bash-colors": "^0.0.4"
-  }
+  "version": "0.0.1"
 }
