@@ -1,17 +1,15 @@
 {
-  "name": "@jrc03c/create-high-dpi-canvas",
-  "version": "1.0.0",
-  "description": "",
+  "author": "jrc03c",
+  "description": "creates a <canvas> element with the correct specs for high-dpi screens",
+  "license": "ISC",
   "main": "create-high-dpi-canvas.js",
+  "name": "@jrc03c/create-high-dpi-canvas",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrc03c/create-high-dpi-canvas.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jrc03c/create-high-dpi-canvas/issues"
+  "scripts": {
+    "pub": "npm version patch --force && npm publish --access=public"
   },
-  "homepage": "https://github.com/jrc03c/create-high-dpi-canvas#readme"
+  "version": "1.0.0"
 }
