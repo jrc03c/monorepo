@@ -1,7 +1,7 @@
 import assert from "./assert.js"
 import isFunction from "./is-function.js"
 
-function timeSync(fn, args) {
+export function timeSync(fn, args) {
   assert(isFunction(fn), "`fn` must be a function!")
 
   const start = new Date()
@@ -15,7 +15,7 @@ function timeSync(fn, args) {
   return new Date() - start
 }
 
-async function timeAsync(fn, args) {
+export async function timeAsync(fn, args) {
   assert(isFunction(fn), "`fn` must be a function!")
 
   const start = new Date()
@@ -28,5 +28,3 @@ async function timeAsync(fn, args) {
 
   return new Date() - start
 }
-
-export default { timeSync, timeAsync }
