@@ -32,8 +32,8 @@ tasks:
     platform: node
   test:
     command:
-      - npx
-      - jest
+      - node
+      - src/bin.js
     platform: node
   watch:
     command:
