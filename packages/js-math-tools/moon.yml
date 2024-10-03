@@ -5,8 +5,13 @@ language: javascript
 tasks:
   build:
     command:
-      - node
-      - build.js
+      - npx
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --format=esm
+      - --minify
+      - --outfile=dist/js-math-tools.js
     outputs:
       - "dist/js-math-tools.js"
     platform: node
@@ -32,3 +37,16 @@ tasks:
       - bash
       - ./test.sh
     platform: system
+  watch:
+    command:
+      - npx
+      - esbuild
+      - src/index.js
+      - --bundle
+      - --format=esm
+      - --minify
+      - --outfile=dist/js-math-tools.js
+      - --watch
+    outputs:
+      - "dist/js-math-tools.js"
+    platform: node
