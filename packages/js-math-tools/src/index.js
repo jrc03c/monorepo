@@ -147,9 +147,9 @@ const out = {
   },
 }
 
-if (typeof module !== "undefined") {
-  export default out
-}
+// if (typeof module !== "undefined") {
+//   export default out
+// }
 
 if (typeof window !== "undefined") {
   window.JSMathTools = out

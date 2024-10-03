@@ -13,6 +13,9 @@
     "globals": "^15.9.0",
     "madge": "^5.0.1"
   },
+  "exports": {
+    ".": "./dist/js-math-tools.js"
+  },
   "homepage": "https://github.com/jrc03c/js-math-tools#readme",
   "keywords": [
     "js",

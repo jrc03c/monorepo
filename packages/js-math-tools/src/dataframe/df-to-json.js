@@ -1,14 +1,7 @@
 import MathError from "../math-error.js"
 import dfToJSONString from "./df-to-json-string.js"
 
-let fs, path
-
-import("node:fs").then(async fs_ => {
-  fs = fs_
-  path = await import("node:path")
-})
-
-function toJSON(df, filename, axis) {
+async function toJSON(df, filename, axis) {
   const out = dfToJSONString(df, axis)
   let downloadedInBrowser = false
   let wroteToDiskInNode = false
@@ -35,10 +28,10 @@ function toJSON(df, filename, axis) {
 
   // node
   try {
-    if (fs && path) {
-      fs.writeFileSync(path.resolve(filename), out, "utf8")
-      wroteToDiskInNode = true
-    }
+    const fs = await import("node:fs")
+    const path = await import("node:path")
+    fs.writeFileSync(path.resolve(filename), out, "utf8")
+    wroteToDiskInNode = true
   } catch (e) {
     nodeError = e
   }
