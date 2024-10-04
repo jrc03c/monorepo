@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/create-high-dpi-canvas",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "create-high-dpi-canvas.js",
   "repository": {
@@ -13,5 +13,6 @@
   "bugs": {
     "url": "https://github.com/jrc03c/create-high-dpi-canvas/issues"
   },
-  "homepage": "https://github.com/jrc03c/create-high-dpi-canvas#readme"
+  "homepage": "https://github.com/jrc03c/create-high-dpi-canvas#readme",
+  "type": "module"
 }

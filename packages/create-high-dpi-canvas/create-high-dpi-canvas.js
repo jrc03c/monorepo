@@ -19,6 +19,4 @@ if (typeof window !== "undefined") {
   window.createHighDPICanvas = createHighDPICanvas
 }
 
-if (typeof module !== "undefined") {
-  module.exports = createHighDPICanvas
-}
+export default createHighDPICanvas
