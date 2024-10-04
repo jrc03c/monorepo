@@ -4,11 +4,16 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <script src="dist/js-convex-hull.js"></script>
-    <script src="src/point-is-in-triangle.js"></script>
-    <script src="https://unpkg.com/@jrc03c/js-math-tools@latest/dist/js-math-tools.js"></script>
-    <script>
-      const { combinations, remap } = JSMathTools
+    <script type="module">
+      import {
+        combinations,
+        remap,
+      } from "./node_modules/@jrc03c/js-math-tools/dist/js-math-tools.js"
+
+      import {
+        getConvexHull,
+        pointIsInTriangle,
+      } from "./dist/js-convex-hull.js"
 
       CanvasRenderingContext2D.prototype.drawLine = function (x1, y1, x2, y2) {
         const self = this

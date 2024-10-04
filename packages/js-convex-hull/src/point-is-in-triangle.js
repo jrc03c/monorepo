@@ -64,10 +64,8 @@ function pointIsInTriangle(mouse, points) {
   return true
 }
 
-if (typeof module !== "undefined") {
-  module.exports = pointIsInTriangle
-}
-
 if (typeof window !== "undefined") {
   window.pointIsInTriangle = pointIsInTriangle
 }
+
+export default pointIsInTriangle

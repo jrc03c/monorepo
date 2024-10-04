@@ -1,12 +1,5 @@
-const {
-  combinations,
-  isEqual,
-  normal,
-  range,
-} = require("@jrc03c/js-math-tools")
-
-const getConvexHull = require(".")
-const pointIsInTriangle = require("./point-is-in-triangle")
+import { combinations, isEqual, normal, range } from "@jrc03c/js-math-tools"
+import { getConvexHull, pointIsInTriangle } from "./index.js"
 
 test("tests that the hull can be found correctly", () => {
   range(0, 100).forEach(() => {

@@ -1,4 +1,5 @@
-const { set } = require("@jrc03c/js-math-tools")
+import { set } from "@jrc03c/js-math-tools"
+import pointIsInTriangle from "./point-is-in-triangle.js"
 
 function rotatePointAroundZero(point, angle) {
   let radius = getMagnitude(point)
@@ -54,10 +55,9 @@ function getConvexHull(points) {
   return set(hull.map(p => JSON.stringify(p))).map(p => JSON.parse(p))
 }
 
-if (typeof module !== "undefined") {
-  module.exports = getConvexHull
-}
-
 if (typeof window !== "undefined") {
   window.getConvexHull = getConvexHull
 }
+
+export { getConvexHull, pointIsInTriangle }
+export default { getConvexHull, pointIsInTriangle }

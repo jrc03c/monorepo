@@ -8,6 +8,7 @@ tasks:
       - esbuild
       - src/index.js
       - --bundle
+      - --format=esm
       - --outfile=dist/js-convex-hull.js
       - --minify
     platform: node
@@ -29,13 +30,16 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
+    command:
+      - npx
+      - fake-jest
     platform: node
   watch:
     command:
       - esbuild
       - src/index.js
       - --bundle
+      - --format=esm
       - --outfile=dist/js-convex-hull.js
       - --minify
       - --watch
