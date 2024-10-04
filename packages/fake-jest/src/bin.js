@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync } from "node:child_process"
-import colors from "@jrc03c/bash-colors"
+import colors from "../../bash-colors/index.js"
 import fs from "node:fs"
 import getFilesDeepSync from "./get-files-deep-sync.js"
 import process from "node:process"
