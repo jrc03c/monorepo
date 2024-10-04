@@ -1,6 +1,6 @@
-const freeze = require("./index.js")
+import freeze from "./index.js"
 
-test("ensures that one-dimensional arrays are correctly frozen", () => {
+test("tests that one-dimensional arrays are correctly frozen", () => {
   const x = freeze([2, 3, 4])
 
   x[0] = 5
@@ -8,11 +8,11 @@ test("ensures that one-dimensional arrays are correctly frozen", () => {
 
   expect(() => {
     x.push(5)
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     x.splice(0, 1)
-  }).toThrow()
+  }).not.toThrow()
 
   delete x[0]
   expect(x[0]).toBe(2)
@@ -23,7 +23,7 @@ test("ensures that one-dimensional arrays are correctly frozen", () => {
         return "foo"
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     Object.defineProperties(x, {
@@ -33,7 +33,7 @@ test("ensures that one-dimensional arrays are correctly frozen", () => {
         },
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   x.prototype = Number
   expect(x.prototype).toBe(undefined)
@@ -45,7 +45,7 @@ test("ensures that one-dimensional arrays are correctly frozen", () => {
   expect(x).toStrictEqual([2, 3, 4])
 })
 
-test("ensures that two-dimensional arrays are correctly frozen", () => {
+test("tests that two-dimensional arrays are correctly frozen", () => {
   const x = freeze([
     [2, 3, 4],
     [5, 6, 7],
@@ -59,11 +59,11 @@ test("ensures that two-dimensional arrays are correctly frozen", () => {
 
   expect(() => {
     x.push(5)
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     x.splice(0, 1)
-  }).toThrow()
+  }).not.toThrow()
 
   delete x[0]
   expect(x[0]).toStrictEqual([2, 3, 4])
@@ -74,7 +74,7 @@ test("ensures that two-dimensional arrays are correctly frozen", () => {
         return "foo"
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     Object.defineProperties(x, {
@@ -84,7 +84,7 @@ test("ensures that two-dimensional arrays are correctly frozen", () => {
         },
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   x.prototype = Number
   expect(x.prototype).toBe(undefined)
@@ -99,7 +99,7 @@ test("ensures that two-dimensional arrays are correctly frozen", () => {
   ])
 })
 
-test("ensures that shallow objects are correctly frozen", () => {
+test("tests that shallow objects are correctly frozen", () => {
   const x = freeze({ foo: "bar" })
 
   x.hello = "world"
@@ -114,7 +114,7 @@ test("ensures that shallow objects are correctly frozen", () => {
         return "world"
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     Object.defineProperties(x, {
@@ -124,7 +124,7 @@ test("ensures that shallow objects are correctly frozen", () => {
         },
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   x.prototype = Number
   expect(x.prototype).toBe(undefined)
@@ -133,10 +133,16 @@ test("ensures that shallow objects are correctly frozen", () => {
     x.foo
   }).not.toThrow()
 
-  expect(x).toStrictEqual({ foo: "bar" })
+  const y = { foo: "bar" }
+  expect(typeof x).toBe(typeof y)
+  expect(Object.keys(x)).toStrictEqual(Object.keys(y))
+
+  Object.keys(x).forEach(key => {
+    expect(x[key]).toBe(y[key])
+  })
 })
 
-test("ensures that deeply-nested objects are correctly frozen", () => {
+test("tests that deeply-nested objects are correctly frozen", () => {
   const x = freeze({
     foo: "bar",
     settings: { name: { first: "James", last: "Bond" } },
@@ -160,7 +166,7 @@ test("ensures that deeply-nested objects are correctly frozen", () => {
         return "world"
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   expect(() => {
     Object.defineProperties(x, {
@@ -170,7 +176,7 @@ test("ensures that deeply-nested objects are correctly frozen", () => {
         },
       },
     })
-  }).toThrow()
+  }).not.toThrow()
 
   x.prototype = Number
   expect(x.prototype).toBe(undefined)
@@ -183,13 +189,19 @@ test("ensures that deeply-nested objects are correctly frozen", () => {
     x.settings.name.first
   }).not.toThrow()
 
-  expect(x).toStrictEqual({
+  const y = {
     foo: "bar",
     settings: { name: { first: "James", last: "Bond" } },
-  })
+  }
+
+  expect(typeof x).toBe(typeof y)
+  expect(Object.keys(x)).toStrictEqual(Object.keys(y))
+  expect(x.foo).toBe(y.foo)
+  expect(x.settings.name.first).toBe(y.settings.name.first)
+  expect(x.settings.name.last).toBe(y.settings.name.last)
 })
 
-test("ensures that class instances are correctly frozen", () => {
+test("tests that class instances are correctly frozen", () => {
   class Person {
     constructor(name, age) {
       this.name = name
@@ -226,4 +238,34 @@ test("ensures that class instances are correctly frozen", () => {
   expect(a.friends[0].age).toBe(45)
   expect(a.friends[1].sayHi()).toBe("Hi! I'm Charlize!")
   expect(a.friends[1].age).toBe(67)
+})
+
+test("tests that errors are thrown when we want them to be thrown", () => {
+  const shouldThrowErrors = true
+  const x = freeze([2, 3, 4], shouldThrowErrors)
+
+  expect(() => {
+    x[0] = 5
+  }).toThrow()
+
+  expect(() => {
+    x.push(234)
+  }).toThrow()
+
+  expect(() => {
+    delete x[0]
+  }).toThrow()
+
+  expect(() => {
+    Object.defineProperty(x, "foo", {
+      configurable: true,
+      enumerable: true,
+      writable: true,
+      value: "foo!",
+    })
+  }).toThrow()
+
+  expect(() => {
+    x.prototype = Object
+  }).toThrow()
 })
