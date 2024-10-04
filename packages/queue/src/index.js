@@ -1,103 +1,91 @@
-const makeKey = require("./make-key.js")
-const pause = require("./pause.js")
+import makeKey from "@jrc03c/make-key"
+import pause from "@jrc03c/pause"
 
 class Queue {
-  jobs = []
-  results = {}
   interval = null
   isRunning = false
+  jobs = []
+  results = {}
   timeBetweenJobs = 100
 
   constructor(timeBetweenJobs) {
-    const self = this
-
-    self.timeBetweenJobs =
+    this.timeBetweenJobs =
       typeof timeBetweenJobs === "undefined"
-        ? self.timeBetweenJobs
+        ? this.timeBetweenJobs
         : timeBetweenJobs
   }
 
   append(fn) {
-    const self = this
     const id = makeKey(8)
-    self.jobs.push({ fn, id })
-    self.start()
+    this.jobs.push({ fn, id })
+    this.start()
     return id
   }
 
   async retrieve(id) {
-    const self = this
-
-    while (!self.results[id]) {
+    while (!this.results[id]) {
       await pause(10)
     }
 
-    return self.results[id]
+    return this.results[id]
   }
 
   async process(fn) {
-    const self = this
-    const id = self.append(fn)
-    return await self.retrieve(id)
+    const id = this.append(fn)
+    return await this.retrieve(id)
   }
 
   start() {
-    const self = this
-    if (self.isRunning) return
-    self.isRunning = true
+    if (this.isRunning) return
+    this.isRunning = true
     let isProcessing = false
 
-    async function process() {
+    const process = async () => {
       if (isProcessing) return
       isProcessing = true
 
-      if (!self.jobs || self.jobs.length === 0) {
-        return self.stop()
+      if (!this.jobs || this.jobs.length === 0) {
+        return this.stop()
       }
 
-      const job = self.jobs.shift()
+      const job = this.jobs.shift()
       const result = await job.fn()
 
-      if (self.results) {
-        self.results[job.id] = result
+      if (this.results) {
+        this.results[job.id] = result
       }
 
       isProcessing = false
     }
 
     process()
-    self.interval = setInterval(process, self.timeBetweenJobs)
-    return self
+    this.interval = setInterval(process, this.timeBetweenJobs)
+    return this
   }
 
   stop() {
-    const self = this
-
-    if (self.interval) {
-      clearInterval(self.interval)
-      self.interval = null
+    if (this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
     }
 
-    self.isRunning = false
-    return self
+    this.isRunning = false
+    return this
   }
 
   destroy() {
-    const self = this
-    self.stop()
-    self.jobs = null
-    self.results = null
-    self.interval = null
-    self.isRunning = null
-    self.timeBetweenJobs = null
+    this.stop()
+    this.jobs = null
+    this.results = null
+    this.interval = null
+    this.isRunning = null
+    this.timeBetweenJobs = null
     return undefined
   }
-}
-
-if (typeof module !== "undefined") {
-  module.exports = Queue
 }
 
 if (typeof window !== "undefined") {
   window.Queue = Queue
 }
+
+export default Queue
