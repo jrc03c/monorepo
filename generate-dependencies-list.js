@@ -19,7 +19,7 @@ progress(packageJsons).forEach(file => {
 
   if (packageJson.dependencies) {
     Object.keys(packageJson.dependencies).forEach(dep => {
-      const lib = libraries.find(lib => lib.includes(dep) || dep.includes(lib))
+      const lib = libraries.find(lib => dep === lib || dep === "@jrc03c/" + lib)
 
       if (lib) {
         deps.push({ package: name, dependency: lib })
@@ -29,7 +29,7 @@ progress(packageJsons).forEach(file => {
 
   if (packageJson.devDependencies) {
     Object.keys(packageJson.devDependencies).forEach(dep => {
-      const lib = libraries.find(lib => lib.includes(dep) || dep.includes(lib))
+      const lib = libraries.find(lib => dep === lib || dep === "@jrc03c/" + lib)
 
       if (lib) {
         deps.push({ package: name, dependency: lib })
