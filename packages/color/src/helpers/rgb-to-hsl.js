@@ -24,12 +24,12 @@ function RGBToHSL(r, g, b) {
     range === 0
       ? 0
       : max === r
-      ? 60 * (0 + (g - b) / range)
-      : max === g
-      ? 60 * (2 + (b - r) / range)
-      : max === b
-      ? 60 * (4 + (r - g) / range)
-      : NaN
+        ? 60 * (0 + (g - b) / range)
+        : max === g
+          ? 60 * (2 + (b - r) / range)
+          : max === b
+            ? 60 * (4 + (r - g) / range)
+            : NaN
 
   const saturation =
     midrange === 0 || midrange === 1
@@ -40,4 +40,4 @@ function RGBToHSL(r, g, b) {
   return { h: hue - Math.floor(hue / 360) * 360, s: saturation, l: lightness }
 }
 
-module.exports = RGBToHSL
+export default RGBToHSL

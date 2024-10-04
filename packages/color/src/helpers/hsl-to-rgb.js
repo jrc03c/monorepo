@@ -1,19 +1,19 @@
 function HSLToRGB(h, s, l) {
   if (isNaN(h) || h < 0 || h >= 360) {
     throw new Error(
-      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!"
+      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!",
     )
   }
 
   if (isNaN(s) || s < 0 || s > 1) {
     throw new Error(
-      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!"
+      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!",
     )
   }
 
   if (isNaN(l) || l < 0 || l > 1) {
     throw new Error(
-      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!"
+      "HSL values must be in the ranges [0, 360), [0, 1], and [0, 1] respectively!",
     )
   }
 
@@ -43,4 +43,4 @@ function HSLToRGB(h, s, l) {
   return { r, g, b }
 }
 
-module.exports = HSLToRGB
+export default HSLToRGB

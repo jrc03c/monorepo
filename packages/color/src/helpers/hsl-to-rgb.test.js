@@ -1,4 +1,4 @@
-const HSLToRGB = require("./hsl-to-rgb.js")
+import HSLToRGB from "./hsl-to-rgb.js"
 
 test("tests that HSLToRGB works as expected", () => {
   const pred = HSLToRGB(50, 1, 0.5)

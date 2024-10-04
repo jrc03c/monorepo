@@ -1,4 +1,4 @@
-const {
+import {
   CMYKToHSL,
   hexToHSL,
   HSLToCMYK,
@@ -7,7 +7,7 @@ const {
   HSLToRGB,
   HSVToHSL,
   RGBToHSL,
-} = require("./helpers")
+} from "./helpers/index.js"
 
 class Color {
   static fromRGB(r, g, b) {
@@ -47,13 +47,11 @@ class Color {
   }
 
   constructor() {
-    const self = this
-
     let _hue = 0
     let _saturation = 1
     let _lightness = 0.5
 
-    Object.defineProperty(self, "_hue", {
+    Object.defineProperty(this, "_hue", {
       configurable: false,
       enumerable: false,
 
@@ -64,7 +62,7 @@ class Color {
       set(v) {
         if (isNaN(v) || v < 0 || v >= 360) {
           throw new Error(
-            "The new `_hue` value must be a number in the range [0, 360)!"
+            "The new `_hue` value must be a number in the range [0, 360)!",
           )
         }
 
@@ -72,7 +70,7 @@ class Color {
       },
     })
 
-    Object.defineProperty(self, "_saturation", {
+    Object.defineProperty(this, "_saturation", {
       configurable: false,
       enumerable: false,
 
@@ -83,7 +81,7 @@ class Color {
       set(v) {
         if (isNaN(v) || v < 0 || v > 1) {
           throw new Error(
-            "The new `_saturation` value must be a number in the range [0, 1]!"
+            "The new `_saturation` value must be a number in the range [0, 1]!",
           )
         }
 
@@ -91,7 +89,7 @@ class Color {
       },
     })
 
-    Object.defineProperty(self, "_lightness", {
+    Object.defineProperty(this, "_lightness", {
       configurable: false,
       enumerable: false,
 
@@ -102,7 +100,7 @@ class Color {
       set(v) {
         if (isNaN(v) || v < 0 || v > 1) {
           throw new Error(
-            "The new `_lightness` value must be a number in the range [0, 1]!"
+            "The new `_lightness` value must be a number in the range [0, 1]!",
           )
         }
 
@@ -112,12 +110,11 @@ class Color {
   }
 
   get rgb() {
-    const self = this
-    const out = HSLToRGB(self._hue, self._saturation, self._lightness)
+    const out = HSLToRGB(this._hue, this._saturation, this._lightness)
 
     out.toCSSString = function () {
       return `rgb(${out.r.toFixed(2)}, ${out.g.toFixed(2)}, ${out.b.toFixed(
-        2
+        2,
       )})`
     }
 
@@ -125,32 +122,28 @@ class Color {
   }
 
   set rgb(data) {
-    const self = this
-
     if (typeof data === "object" && !(data instanceof Array)) {
       data = [data.r, data.g, data.b]
     }
 
     if (!(data instanceof Array)) {
       throw new Error(
-        "The `rgb` property must be assigned with an array in the form [r, g, b] or with an object in the form {r: 0, g: 0, b: 0}!"
+        "The `rgb` property must be assigned with an array in the form [r, g, b] or with an object in the form {r: 0, g: 0, b: 0}!",
       )
     }
 
     const [r, g, b] = data
     const temp = RGBToHSL(r, g, b)
-    self._hue = temp.h
-    self._saturation = temp.s
-    self._lightness = temp.l
+    this._hue = temp.h
+    this._saturation = temp.s
+    this._lightness = temp.l
   }
 
   get hsl() {
-    const self = this
-
     const out = {
-      h: self._hue,
-      s: self._saturation,
-      l: self._lightness,
+      h: this._hue,
+      s: this._saturation,
+      l: this._lightness,
     }
 
     out.toCSSString = function () {
@@ -163,27 +156,24 @@ class Color {
   }
 
   set hsl(data) {
-    const self = this
-
     if (typeof data === "object" && !(data instanceof Array)) {
       data = [data.h, data.s, data.l]
     }
 
     if (!(data instanceof Array)) {
       throw new Error(
-        "The `hsl` property must be assigned with an array in the form [h, s, l] or with an object in the form {h: 0, s: 0, l: 0}!"
+        "The `hsl` property must be assigned with an array in the form [h, s, l] or with an object in the form {h: 0, s: 0, l: 0}!",
       )
     }
 
     const [h, s, l] = data
-    self._hue = h
-    self._saturation = s
-    self._lightness = l
+    this._hue = h
+    this._saturation = s
+    this._lightness = l
   }
 
   get hsv() {
-    const self = this
-    const out = HSLToHSV(self._hue, self._saturation, self._lightness)
+    const out = HSLToHSV(this._hue, this._saturation, this._lightness)
 
     out.toCSSString = function () {
       return `hsv(${out.h.toFixed(2)}deg, ${(out.s * 100).toFixed(2)}%, ${(
@@ -195,28 +185,25 @@ class Color {
   }
 
   set hsv(data) {
-    const self = this
-
     if (typeof data === "object" && !(data instanceof Array)) {
       data = [data.h, data.s, data.v]
     }
 
     if (!(data instanceof Array)) {
       throw new Error(
-        "The `hsv` property must be assigned with an array in the form [h, s, v] or with an object in the form {h: 0, s: 0, v: 0}!"
+        "The `hsv` property must be assigned with an array in the form [h, s, v] or with an object in the form {h: 0, s: 0, v: 0}!",
       )
     }
 
     const [h, s, v] = data
     const temp = HSVToHSL(h, s, v)
-    self._hue = temp.h
-    self._saturation = temp.s
-    self._lightness = temp.l
+    this._hue = temp.h
+    this._saturation = temp.s
+    this._lightness = temp.l
   }
 
   get hex() {
-    const self = this
-    const out = HSLToHex(self._hue, self._saturation, self._lightness)
+    const out = HSLToHex(this._hue, this._saturation, this._lightness)
 
     out.toCSSString = function () {
       return `#${out.value}`
@@ -226,20 +213,18 @@ class Color {
   }
 
   set hex(hex) {
-    const self = this
     const { h, s, l } = hexToHSL(hex)
-    self._hue = h
-    self._saturation = s
-    self._lightness = l
+    this._hue = h
+    this._saturation = s
+    this._lightness = l
   }
 
   get cmyk() {
-    const self = this
-    const out = HSLToCMYK(self._hue, self._saturation, self._lightness)
+    const out = HSLToCMYK(this._hue, this._saturation, this._lightness)
 
     out.toCSSString = function () {
       return `cmyk(${(100 * out.c).toFixed(2)}%, ${(100 * out.m).toFixed(
-        2
+        2,
       )}%, ${(100 * out.y).toFixed(2)}%, ${(100 * out.k).toFixed(2)}%)`
     }
 
@@ -247,30 +232,26 @@ class Color {
   }
 
   set cmyk(data) {
-    const self = this
-
     if (typeof data === "object" && !(data instanceof Array)) {
       data = [data.c, data.m, data.y, data.k]
     }
 
     if (!(data instanceof Array)) {
       throw new Error(
-        "The `cmyk` property must be assigned with an array in the form [c, m, y, k] or with an object in the form {c: 0, m: 0, y: 0, k: 0}!"
+        "The `cmyk` property must be assigned with an array in the form [c, m, y, k] or with an object in the form {c: 0, m: 0, y: 0, k: 0}!",
       )
     }
 
     const [c, m, y, k] = data
     const temp = CMYKToHSL(c, m, y, k)
-    self._hue = temp.h
-    self._saturation = temp.s
-    self._lightness = temp.l
+    this._hue = temp.h
+    this._saturation = temp.s
+    this._lightness = temp.l
   }
-}
-
-if (typeof module !== "undefined") {
-  module.exports = Color
 }
 
 if (typeof window !== "undefined") {
   window.Color = Color
 }
+
+export default Color

@@ -1,4 +1,4 @@
-const RGBToHSL = require("./rgb-to-hsl.js")
+import RGBToHSL from "./rgb-to-hsl.js"
 
 function hexToHSL(hex) {
   if (typeof hex !== "string") {
@@ -17,4 +17,4 @@ function hexToHSL(hex) {
   return RGBToHSL(r, g, b)
 }
 
-module.exports = hexToHSL
+export default hexToHSL

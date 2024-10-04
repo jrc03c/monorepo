@@ -2,22 +2,26 @@ language: javascript
 tasks:
   build:
     command:
-    - esbuild
-    - src/color.js
-    - --bundle
-    - --outfile=dist/color.js
-    - --minify
+      - esbuild
+      - src/color.js
+      - --bundle
+      - --format=esm
+      - --outfile=dist/color.js
+      - --minify
     platform: node
   test:
-    command: jest
+    command:
+      - npx
+      - fake-jest
     platform: node
   watch:
     command:
-    - esbuild
-    - src/color.js
-    - --bundle
-    - --outfile=dist/color.js
-    - --minify
-    - --watch
+      - esbuild
+      - src/color.js
+      - --bundle
+      - --format=esm
+      - --outfile=dist/color.js
+      - --minify
+      - --watch
     local: true
     platform: node

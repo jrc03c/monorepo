@@ -4,4 +4,4 @@ function leftPad(s, n) {
   return out
 }
 
-module.exports = leftPad
+export default leftPad

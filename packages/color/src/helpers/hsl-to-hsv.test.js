@@ -1,4 +1,4 @@
-const HSLToHSV = require("./hsl-to-hsv.js")
+import HSLToHSV from "./hsl-to-hsv.js"
 
 test("tests that HSLToHSV works as expected", () => {
   const pred = HSLToHSV(50, 1, 0.5)

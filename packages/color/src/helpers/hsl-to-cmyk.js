@@ -1,4 +1,4 @@
-const HSLToRGB = require("./hsl-to-rgb.js")
+import HSLToRGB from "./hsl-to-rgb.js"
 
 function HSLToCMYK(h, s, l) {
   const { r, g, b } = HSLToRGB(h, s, l)
@@ -17,4 +17,4 @@ function HSLToCMYK(h, s, l) {
   }
 }
 
-module.exports = HSLToCMYK
+export default HSLToCMYK
