@@ -1,11 +1,11 @@
-const {
+import {
   assert,
   int,
   isNumber,
   isString,
   random,
   seed,
-} = require("@jrc03c/js-math-tools")
+} from "@jrc03c/js-math-tools"
 
 function makeKey(keyLength, keySeed, charset) {
   if (arguments.length === 2) {
@@ -19,13 +19,13 @@ function makeKey(keyLength, keySeed, charset) {
 
   assert(
     isNumber(keyLength) && int(keyLength) === keyLength,
-    "`keyLength` must be an integer!"
+    "`keyLength` must be an integer!",
   )
 
   if (keySeed) {
     assert(
       isNumber(keySeed) && int(keySeed) === keySeed,
-      "`keySeed` must be an integer!"
+      "`keySeed` must be an integer!",
     )
 
     seed(keySeed)
@@ -45,10 +45,8 @@ function makeKey(keyLength, keySeed, charset) {
   return out
 }
 
-if (typeof module !== "undefined") {
-  module.exports = makeKey
-}
-
 if (typeof window !== "undefined") {
   window.makeKey = makeKey
 }
+
+export default makeKey

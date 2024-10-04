@@ -1,12 +1,12 @@
 {
   "name": "@jrc03c/make-key",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "",
   "main": "src/index.js",
   "devDependencies": {
+    "@jrc03c/fake-jest": "^0.0.6",
     "esbuild": "^0.17.11",
-    "eslint": "^8.36.0",
-    "jest": "^29.5.0"
+    "eslint": "^8.36.0"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "key": "./bin.js"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.81"
-  }
+    "@jrc03c/js-math-tools": "^0.0.82"
+  },
+  "type": "module"
 }

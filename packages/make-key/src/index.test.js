@@ -1,4 +1,4 @@
-const makeKey = require("./index.js")
+import makeKey from "./index.js"
 
 test("tests that random strings can be generated correctly", () => {
   const a = makeKey(123)

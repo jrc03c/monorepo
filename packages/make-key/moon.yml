@@ -7,6 +7,7 @@ tasks:
       - esbuild
       - src/index.js
       - --bundle
+      - --format=esm
       - --outfile=dist/make-key.js
       - --minify
     inputs:
@@ -33,13 +34,16 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
+    command:
+      - npx
+      - fake-jest
     platform: node
   watch:
     command:
       - esbuild
       - src/index.js
       - --bundle
+      - --format=esm
       - --outfile=dist/make-key.js
       - --minify
       - --watch
