@@ -32,4 +32,8 @@ const color = {
   },
 }
 
-module.exports = color
+if (typeof window !== "undefined") {
+  window.color = color
+}
+
+export default color
