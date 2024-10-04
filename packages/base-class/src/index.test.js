@@ -1,4 +1,4 @@
-const BaseClass = require(".")
+import BaseClass from "./index.js"
 
 test("tests that the `BaseClass` class works as expected", () => {
   const a = new BaseClass()

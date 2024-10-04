@@ -71,10 +71,8 @@ class BaseClass {
   }
 }
 
-if (typeof module !== "undefined") {
-  module.exports = BaseClass
-}
-
 if (typeof window !== "undefined") {
   window.BaseClass = BaseClass
 }
+
+export default BaseClass
