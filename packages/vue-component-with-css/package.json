@@ -3,18 +3,14 @@
   "version": "0.0.5",
   "description": "",
   "main": "src/index.js",
-  "scripts": {
-    "build": "node build.js",
-    "watch": "node build.js --watch",
-    "pub": "npm version patch --force && npm publish --access=public"
+  "devDependencies": {
+    "@jrc03c/watch": "^0.0.15",
+    "esbuild": "^0.19.2",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.3.3"
   },
   "keywords": [],
   "author": "jrc03c",
-  "license": "ISC",
-  "devDependencies": {
-    "@jrc03c/watch": "github:jrc03c/watch",
-    "esbuild": "^0.19.2",
-    "eslint": "^8.49.0",
-    "eslint-plugin-vue": "^9.17.0"
-  }
+  "license": "ISC"
 }

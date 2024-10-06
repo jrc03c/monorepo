@@ -1,0 +1,31 @@
+dependsOn:
+  - id: watch
+    scope: development
+tasks:
+  build:
+    command:
+      - node
+      - build.js
+    platform: node
+  pub:
+    command:
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+      - npm
+      - version
+      - patch
+      - --force
+    platform: node
+  watch:
+    command:
+      - node
+      - build.js
+      - --watch
+    local: true
+    platform: node
