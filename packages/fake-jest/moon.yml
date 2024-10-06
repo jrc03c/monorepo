@@ -3,16 +3,6 @@ dependsOn:
     scope: development
 language: javascript
 tasks:
-  build:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/fake-jest.js
-      - --minify
-    outputs:
-      - "dist/fake-jest.js"
-    platform: node
   pub:
     command:
       - npm
@@ -34,16 +24,4 @@ tasks:
     command:
       - node
       - src/bin.js
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/fake-jest.js
-      - --minify
-      - --watch
-    local: true
-    outputs:
-      - "dist/fake-jest.js"
     platform: node
