@@ -1,4 +1,4 @@
-const Vector2 = require(".")
+import Vector2 from "./index.js"
 
 test("adds vectors", () => {
   const a = new Vector2(3, 4)

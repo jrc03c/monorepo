@@ -119,10 +119,8 @@ class Vector2 {
   }
 }
 
-if (typeof module !== "undefined") {
-  module.exports = Vector2
-}
-
 if (typeof window !== "undefined") {
   window.Vector2 = Vector2
 }
+
+export default Vector2
