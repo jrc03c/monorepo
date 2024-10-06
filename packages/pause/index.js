@@ -8,10 +8,8 @@ function pause(ms) {
   })
 }
 
-if (typeof module !== "undefined") {
-  module.exports = pause
-}
-
 if (typeof window !== "undefined") {
   window.pause = pause
 }
+
+export default pause

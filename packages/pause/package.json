@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/pause",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a simple async pause function",
   "main": "index.js",
   "license": "ISC",
@@ -9,5 +9,6 @@
     "js",
     "settimeout"
   ],
-  "author": "jrc03c"
+  "author": "jrc03c",
+  "type": "module"
 }
