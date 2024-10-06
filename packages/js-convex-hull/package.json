@@ -19,8 +19,8 @@
   "license": "ISC",
   "homepage": "https://github.com/jrc03c/js-convex-hull#readme",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.6",
-    "@jrc03c/js-math-tools": "^0.0.82",
+    "@jrc03c/fake-jest": "^0.0.7",
+    "@jrc03c/js-math-tools": "^0.0.83",
     "esbuild": "^0.17.4",
     "eslint": "^8.32.0",
     "prettier": "^2.8.3"
