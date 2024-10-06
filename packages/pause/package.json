@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/pause",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a simple async pause function",
   "main": "index.js",
   "license": "ISC",
