@@ -1,15 +1,18 @@
-# base-class (0.0.3)
-# bash-colors (0.0.4)
-# color (0.0.5)
-# create-high-dpi-canvas (1.0.0)
+# bash-colors (0.0.5)
+# create-high-dpi-canvas (1.0.3)
 # custom-scroller (0.0.1)
 # fake-jest (0.0.7)
-# freeze (0.0.1)
 # pause (0.0.2)
 # progress (0.0.2)
 # prompt (0.0.6)
 # radio (0.0.5)
 # vector2 (0.0.2)
+# base-class (0.0.4)
+  - fake-jest
+# color (0.0.6)
+  - fake-jest
+# freeze (0.0.2)
+  - fake-jest
 # misc-vue-components (0.0.13)
   - pause
 # js-math-tools (0.0.82)
