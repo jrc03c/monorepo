@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/color",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "a color class to help with converting from one notation to another (e.g., hex to rgb)",
   "main": "src/index.js",
   "devDependencies": {
