@@ -1,5 +1,6 @@
+import Radio from "./index.js"
+
 test("subscribes and unsubscribes callbacks", () => {
-  const Radio = require(".")
   const radio = new Radio()
   const fn1 = () => {}
   radio.subscribe("foo", fn1)
@@ -23,7 +24,6 @@ test("subscribes and unsubscribes callbacks", () => {
 })
 
 test("broadcasts using callbacks", () => {
-  const Radio = require(".")
   const radio = new Radio()
   let x = 5
 
@@ -44,16 +44,4 @@ test("broadcasts using callbacks", () => {
 
   radio.broadcast("new-name", "Ronald")
   expect(name).toBe("Ronald")
-})
-
-test("checks singleton identity", () => {
-  const s1 = (() => {
-    return require(".").singleton
-  })()
-
-  const s2 = (() => {
-    return require(".").singleton
-  })()
-
-  expect(s1 === s2).toBe(true)
 })
