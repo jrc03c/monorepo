@@ -4,12 +4,11 @@ function lerp(a, b, f) {
 
 class CustomScroller {
   constructor(element, easingFunction) {
-    const self = this
-    self.element = element
-    self.shouldKeepScrolling = false
-    self.hasStoppedScrolling = true
+    this.element = element
+    this.shouldKeepScrolling = false
+    this.hasStoppedScrolling = true
 
-    self.easingFunction =
+    this.easingFunction =
       easingFunction ||
       function (x) {
         return Math.sin(x * Math.PI - Math.PI / 2) * 0.5 + 0.5
@@ -17,45 +16,44 @@ class CustomScroller {
   }
 
   scrollTo(x, y, ms) {
-    const self = this
-    const xProperty = self.element === window ? "scrollX" : "scrollLeft"
-    const yProperty = self.element === window ? "scrollY" : "scrollTop"
-    const originalX = self.element[xProperty]
-    const originalY = self.element[yProperty]
+    const xProperty = this.element === window ? "scrollX" : "scrollLeft"
+    const yProperty = this.element === window ? "scrollY" : "scrollTop"
+    const originalX = this.element[xProperty]
+    const originalY = this.element[yProperty]
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        await self.stop()
+        this.stop().then(() => {
+          this.shouldKeepScrolling = true
+          this.hasStoppedScrolling = false
 
-        self.shouldKeepScrolling = true
-        self.hasStoppedScrolling = false
+          let elapsedTime = 0
+          let lastTimestamp = new Date()
 
-        let elapsedTime = 0
-        let lastTimestamp = new Date()
+          const loop = () => {
+            if (this.shouldKeepScrolling) {
+              window.requestAnimationFrame(loop)
+            } else {
+              this.hasStoppedScrolling = true
+              return resolve()
+            }
 
-        function loop() {
-          if (self.shouldKeepScrolling) {
-            window.requestAnimationFrame(loop)
-          } else {
-            self.hasStoppedScrolling = true
-            return resolve()
+            this.element.scrollTo(
+              lerp(originalX, x, this.easingFunction(elapsedTime / ms)),
+              lerp(originalY, y, this.easingFunction(elapsedTime / ms)),
+            )
+
+            const currentTimestamp = new Date()
+            elapsedTime += currentTimestamp - lastTimestamp
+            lastTimestamp = currentTimestamp
+
+            if (elapsedTime >= ms) {
+              this.shouldKeepScrolling = false
+            }
           }
 
-          self.element.scrollTo(
-            lerp(originalX, x, self.easingFunction(elapsedTime / ms)),
-            lerp(originalY, y, self.easingFunction(elapsedTime / ms))
-          )
-
-          const currentTimestamp = new Date()
-          elapsedTime += currentTimestamp - lastTimestamp
-          lastTimestamp = currentTimestamp
-
-          if (elapsedTime >= ms) {
-            self.shouldKeepScrolling = false
-          }
-        }
-
-        loop()
+          loop()
+        })
       } catch (e) {
         reject(e)
       }
@@ -63,14 +61,12 @@ class CustomScroller {
   }
 
   stop() {
-    const self = this
-
     return new Promise((resolve, reject) => {
       try {
-        self.shouldKeepScrolling = false
+        this.shouldKeepScrolling = false
 
         let interval = setInterval(() => {
-          if (!self.hasStoppedScrolling) return
+          if (!this.hasStoppedScrolling) return
           clearInterval(interval)
           resolve()
         }, 5)
@@ -81,10 +77,8 @@ class CustomScroller {
   }
 }
 
-if (typeof module !== "undefined") {
-  module.exports = CustomScroller
-}
-
 if (typeof window !== "undefined") {
   window.customScrollElementTo = CustomScroller
 }
+
+export default CustomScroller
