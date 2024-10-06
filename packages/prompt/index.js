@@ -1,5 +1,5 @@
-const process = require("process")
-const readline = require("readline")
+import process from "process"
+import readline from "readline"
 
 function prompt(text, isHidden, callback) {
   if (arguments.length === 2) {
@@ -41,4 +41,4 @@ function prompt(text, isHidden, callback) {
   })
 }
 
-module.exports = prompt
+export default prompt

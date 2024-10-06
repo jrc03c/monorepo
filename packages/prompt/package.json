@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/prompt",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "index.js",
   "keywords": [
@@ -8,5 +8,6 @@
     "prompt"
   ],
   "author": "jrc03c",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
