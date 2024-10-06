@@ -18,5 +18,7 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
+    command:
+      - npx
+      - fake-jest
     platform: node
