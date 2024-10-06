@@ -1,4 +1,4 @@
-const readline = require("readline")
+import readline from "readline"
 
 function repeat(text, n) {
   let out = ""
@@ -82,7 +82,7 @@ class Progress extends Array {
     const self = this
     let out = initialValue || self[0]
 
-    self.slice(initialValue ? 0 : 1).forEach((v, i, arr) => {
+    self.slice(initialValue ? 0 : 1).forEach(v => {
       out = fn(out, v)
     })
 
@@ -100,8 +100,8 @@ function progress(x, y) {
   }
 
   throw new Error(
-    "You must pass either (1) an array or (2) one or two numbers into the `progress` function!"
+    "You must pass either (1) an array or (2) one or two numbers into the `progress` function!",
   )
 }
 
-module.exports = progress
+export default progress
