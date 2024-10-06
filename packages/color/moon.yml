@@ -1,27 +1,19 @@
 language: javascript
 tasks:
-  build:
+  pub:
     command:
-      - esbuild
-      - src/color.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/color.js
-      - --minify
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    local: true
     platform: node
-  test:
+  pub-dep1:
     command:
-      - npx
-      - fake-jest
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/color.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/color.js
-      - --minify
-      - --watch
+      - npm
+      - version
+      - patch
+      - --force
     local: true
     platform: node

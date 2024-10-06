@@ -1,4 +1,4 @@
-import Color from "./color.js"
+import Color from "./index.js"
 
 test("tests that the Color class works as expected", () => {
   const c = new Color()
