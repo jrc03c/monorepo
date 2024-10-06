@@ -3,15 +3,6 @@ dependsOn:
     scope: development
 language: javascript
 tasks:
-  build:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/js-convex-hull.js
-      - --minify
-    platform: node
   pub:
     command:
       - npm
@@ -33,15 +24,4 @@ tasks:
     command:
       - npx
       - fake-jest
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/js-convex-hull.js
-      - --minify
-      - --watch
-    local: true
     platform: node
