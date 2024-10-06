@@ -1,7 +1,7 @@
-const { sort } = require("@jrc03c/js-math-tools")
-const fs = require("fs")
-const os = require("os")
-const path = require("path")
+import { sort } from "@jrc03c/js-math-tools"
+import fs from "node:fs"
+import os from "node:os"
+import path from "node:path"
 
 const ARRAY_QUALIFIER = ".filedb.meta.is-array"
 
@@ -31,7 +31,7 @@ function standardizeKey(key) {
     throw new Error(
       `The key "${key}" cannot be used as a valid filesystem path! Only forward slashes, alphanumeric characters, underscores, hyphens, and periods should be used in keys. The key also cannot include whitespace, and it cannot include "." or ".." as file or directory names, like "./foo" or "bar/../baz". The offending parts are:\n${invalidParts
         .map(part => "→ " + part)
-        .join("\n")}`
+        .join("\n")}`,
     )
   }
 
@@ -49,7 +49,7 @@ class FileDB {
     if (relativePath[0] === "~") {
       relativePath = path.join(
         os.homedir(),
-        relativePath.substring(1, relativePath.length)
+        relativePath.substring(1, relativePath.length),
       )
     }
 
@@ -213,7 +213,7 @@ class FileDB {
                         return key
                       }
                     }),
-                  (a, b) => (a < b ? -1 : 1)
+                  (a, b) => (a < b ? -1 : 1),
                 ),
               }
             }
@@ -265,4 +265,4 @@ class FileDB {
   }
 }
 
-module.exports = FileDB
+export default FileDB

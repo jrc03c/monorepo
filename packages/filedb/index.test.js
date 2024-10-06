@@ -1,10 +1,10 @@
-const { isEqual, random, range } = require("@jrc03c/js-math-tools")
-const FileDB = require("./index.js")
-const fs = require("fs")
-const makeKey = require("@jrc03c/make-key")
-const path = require("path")
+import { isEqual, random, range } from "@jrc03c/js-math-tools"
+import FileDB from "./index.js"
+import fs from "node:fs"
+import makeKey from "@jrc03c/make-key"
+import path from "node:path"
 
-const TEST_DIRECTORY = path.join(__dirname, makeKey(8))
+const TEST_DIRECTORY = path.join(import.meta.dirname, makeKey(8))
 const db = new FileDB(TEST_DIRECTORY)
 
 test("tests that values can be randomly written and read", () => {
@@ -164,8 +164,8 @@ test("tests that arrays can be retrieved from disk", () => {
   expect(
     isEqual(
       Object.keys(g).map(key => g[key]),
-      h
-    )
+      h,
+    ),
   ).toBe(true)
 
   expect(h instanceof Array).toBe(true)
@@ -189,7 +189,7 @@ test("tests that arrays can be retrieved from disk", () => {
     fs.writeFileSync(
       path.join(db.dbPath, "one-more-array-test", i),
       value.toString(),
-      "utf8"
+      "utf8",
     )
   }
 
