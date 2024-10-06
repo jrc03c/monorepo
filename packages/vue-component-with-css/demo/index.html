@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* THESE STYLES SHOULD HAVE NO EFFECT! */
+      .foo,
+      .bar {
+        color: red !important;
+        font-weight: bold !important;
+      }
+
+      /* but these styles *should* have an effect */
+      blockquote {
+        background-color: hsl(45deg, 100%, 95%);
+        padding: 1rem;
+        border-radius: 0 4px 4px 0;
+        border-left: 4px solid hsl(45deg, 100%, 50%);
+        margin: 0 0 1rem 0;
+        font-family: monospace;
+      }
+
+      blockquote h1 {
+        margin: 0 0 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <blockquote>
+      <h1>NOTE:</h1>
+      If you look in the page source, you'll see that there's a style element in
+      the document head. Those styles intentionally
+      <i>do not</i>
+      have any effect because this Vue app is mounted into a shadow DOM!
+    </blockquote>
+
+    <div id="app"></div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="vue-component-with-css.js"></script>
+    <script>
+      function makeKey(n) {
+        const alpha = "abcdefg1234567890"
+        let out = ""
+
+        while (out.length < n) {
+          out += alpha[parseInt(Math.random() * alpha.length)]
+        }
+
+        return out
+      }
+
+      function range(a, b) {
+        const out = []
+        for (let i = a; i < b; i++) out.push(i)
+        return out
+      }
+
+      const FooComponent = createVueComponentWithCSS({
+        name: "x-foo",
+        emits: ["delete"],
+
+        template: /* html */ `
+          <div class="foo">
+            This is a foo component!
+
+            <button @click="$emit('delete')">
+              Delete
+            </button>
+          </div>
+        `,
+
+        data() {
+          return {
+            css: /* css */ `
+              .foo {
+                color: green;
+              }
+            `,
+          }
+        },
+      })
+
+      const BarComponent = createVueComponentWithCSS({
+        name: "x-bar",
+        emits: ["delete"],
+
+        template: /* html */ `
+          <div class="bar">
+            bar counter: {{ count }}
+
+            <button @click="count++">
+              +
+            </button>
+
+            <button @click="count--">
+              −
+            </button>
+
+            <button @click="$emit('delete')">
+              Delete
+            </button>
+          </div>
+        `,
+
+        data() {
+          return {
+            count: 0,
+
+            css: /* css */ `
+              .bar {
+                color: blue;
+              }
+            `,
+          }
+        },
+      })
+
+      const app = Vue.createApp(
+        createVueComponentWithCSS({
+          components: {
+            "x-foo": FooComponent,
+            "x-bar": BarComponent,
+          },
+
+          template: /* html */ `
+            <div class="container">
+              <p>
+                <button @click="addFoo">
+                  Add foo
+                </button>
+
+                <button @click="addBar">
+                  Add bar
+                </button>
+              </p>
+              
+              <x-foo
+                :key="id"
+                v-for="id in fooIds"
+                @delete="fooIds.splice(fooIds.indexOf(id), 1)">
+              </x-foo>
+
+              <x-bar
+                :key="id"
+                v-for="id in barIds"
+                @delete="barIds.splice(barIds.indexOf(id), 1)">
+              </x-bar>
+            </div>
+          `,
+
+          data() {
+            return {
+              css: /* css */ `
+                .container {
+                  font-family: monospace;
+                  background-color: rgb(235, 235, 235);
+                  padding: 1rem;
+                  border-radius: 4px;
+                }
+              `,
+
+              fooIds: range(0, 3).map(() => makeKey(8)),
+              barIds: range(0, 3).map(() => makeKey(8)),
+            }
+          },
+
+          methods: {
+            addFoo() {
+              this.fooIds.push(makeKey(8))
+            },
+
+            addBar() {
+              this.barIds.push(makeKey(8))
+            },
+
+            sayHi() {
+              console.log("Hello!")
+            },
+          },
+
+          mounted() {
+            const self = this
+            self.sayHi()
+          },
+        })
+      )
+
+      const container = document.querySelector("#app")
+      const shadow = container.attachShadow({ mode: "open" })
+      app.mount(shadow)
+    </script>
+  </body>
+</html>
