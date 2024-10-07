@@ -1,33 +1,34 @@
 # bash-colors (0.0.5)
 # create-high-dpi-canvas (1.0.3)
-# custom-scroller (0.0.1)
+# custom-scroller (0.0.3)
 # fake-jest (0.0.7)
-# pause (0.0.2)
-# progress (0.0.2)
-# prompt (0.0.6)
-# radio (0.0.5)
-# vector2 (0.0.2)
+# pause (0.0.4)
+# progress (0.0.3)
+# prompt (0.0.7)
 # base-class (0.0.4)
   - fake-jest
-# color (0.0.6)
+# color (0.0.8)
   - fake-jest
 # freeze (0.0.2)
   - fake-jest
-# misc-vue-components (0.0.13)
-  - pause
-# js-math-tools (0.0.82)
+# radio (0.0.6)
+  - fake-jest
+# vector2 (0.0.3)
+  - fake-jest
+# js-math-tools (0.0.83)
   - fake-jest
   - freeze
-# js-convex-hull (0.0.14)
+# js-convex-hull (0.0.16)
   - fake-jest
   - js-math-tools
-# make-key (0.0.29)
+# make-key (0.0.30)
   - fake-jest
   - js-math-tools
-# filedb (0.0.21)
+# js-plot-tools (0.0.9)
   - js-math-tools
   - make-key
-# js-plot-tools (0.0.9)
+# filedb (0.0.22)
+  - fake-jest
   - js-math-tools
   - make-key
 # js-text-tools (0.0.53)
@@ -93,8 +94,13 @@
   - logger
   - make-key
   - pause
+# vue-component-with-css (0.0.5)
+  - watch
 # bee (0.0.45)
   - js-math-tools
   - js-text-tools
   - make-key
   - watch
+# misc-vue-components (0.0.13)
+  - pause
+  - vue-component-with-css
