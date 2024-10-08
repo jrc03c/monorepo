@@ -1,24 +1,24 @@
 {
-  "name": "@jrc03c/bash-colors",
-  "version": "0.0.6",
-  "description": "a less-well-made clone of `chalk`",
-  "main": "src/index.mjs",
-  "keywords": [
-    "color",
-    "bash",
-    "log",
-    "print",
-    "node",
-    "js"
-  ],
   "author": "jrc03c",
-  "license": "ISC",
-  "type": "module",
+  "description": "a less-well-made clone of `chalk`",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
-  }
+  },
+  "keywords": [
+    "bash",
+    "color",
+    "js",
+    "log",
+    "node",
+    "print"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "@jrc03c/bash-colors",
+  "type": "module",
+  "version": "0.0.5"
 }
