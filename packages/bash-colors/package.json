@@ -8,6 +8,10 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/bash-colors.require.cjs"
+  },
   "keywords": [
     "bash",
     "color",
