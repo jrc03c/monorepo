@@ -25,7 +25,7 @@
 
 6. In `package.json`, make sure that the `"main"` property points to the CommonJS bundle.
 
-6. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
+7. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
 
 ```bash
 # Node / CommonJS / `require`
@@ -43,6 +43,8 @@ If it makes sense, also add minified bundles using the `--minify` flag.
 (See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for my reasoning behind these.)
 
 7. Convert all `module.exports` and `require` statements in the source code to `export` and `import` respectively.
+
+> **NOTE:** Importantly, use only named exports and _never_ default exports! That's because default exports are unpleasant to use in CommonJS environments.
 
 8. For libraries that employ unit testing, uninstall `jest` and install my `fake-jest` library.
 
