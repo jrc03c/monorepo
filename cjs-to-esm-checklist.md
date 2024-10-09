@@ -1,0 +1,41 @@
+# Checklist for converting from CommonJS to ES Module format
+
+> **NOTE:** Pay close attention to the use of `.mjs` and `.cjs` extensions in the instructions that follow.
+
+1. Install `esbuild`, `eslint`, and `prettier`. Configure `eslint` using `npm init @eslint/config`.
+
+2. Create `src` and `dist` directories if they don't already exist, and move all source code into the `src` directory.
+
+3. In `package.json`, add a `"type": "module"` key-value pair.
+
+4. In `package.json`, add an `"exports"` property defined this way:
+
+```json
+{
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/lib.require.cjs"
+  }
+}
+```
+
+5. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
+
+```bash
+# Node / CommonJS / `require`
+npx esbuild src/index.js --bundle --platform=node --outfile=dist/lib.require.cjs
+
+# ESM / `import`
+npx esbuild src/index.js --bundle --format=esm --outfile=dist/lib.import.mjs
+
+# Standalone / IIFE
+npx esbuild src/index.js --bundle --outfile=dist/lib.standalone.cjs
+```
+
+(See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for my reasoning behind these.)
+
+6. Convert all `module.exports` and `require` statements in the source code to `export` and `import` respectively.
+
+7. For libraries that employ unit testing, uninstall `jest` and install my `fake-jest` library.
+
+8. In any web pages rely on scripts from a library, make sure that any `<script>` tags have a `type="module"` attribute-value pair _if_ they point to ESM scripts.
