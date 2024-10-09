@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execSync } from "node:child_process"
-import colors from "../../bash-colors/index.mjs"
+import { fx } from "./colors.mjs"
 import fs from "node:fs"
 import getFilesDeepSync from "./get-files-deep-sync.mjs"
 import process from "node:process"
@@ -40,7 +40,7 @@ function multiplyString(s, n) {
     try {
       const width = Math.min(process.stdout.columns, 80)
       console.log(multiplyString("=", width))
-      console.log(colors.fx.bright(file))
+      console.log(fx.bright(file))
       console.log(multiplyString("=", width))
       console.log(execSync(`node "${newFile}"`, { encoding: "utf8" }).trim())
     } catch (e) {

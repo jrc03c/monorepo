@@ -1,4 +1,4 @@
-import colors from "../../bash-colors/index.mjs"
+import { fg, fx } from "./colors.mjs"
 
 class Expecter {
   constructor(value) {
@@ -244,22 +244,14 @@ export async function test(description, fn) {
     try {
       await item.fn()
     } catch (e) {
-      console.error(colors.fx.dim(colors.fg.red(e.stack)))
+      console.error(fx.dim(fg.red(e.stack)))
       passed = false
     }
 
     if (passed) {
-      console.log(
-        colors.fx.bright(colors.fg.green("PASS")),
-        ":",
-        item.description,
-      )
+      console.log(fx.bright(fg.green("PASS")), ":", item.description)
     } else {
-      console.log(
-        colors.fx.bright(colors.fg.red("FAIL")),
-        ":",
-        item.description,
-      )
+      console.log(fx.bright(fg.red("FAIL")), ":", item.description)
     }
   }
 
