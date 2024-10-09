@@ -1,8 +1,8 @@
-import { random } from "./random.mjs"
 import { assert } from "./assert.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
+import { random } from "./random.mjs"
 
 function shuffle(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {

@@ -1,9 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { dropNaNPairwise } from "./drop-nan-pairwise.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isJagged } from "./is-jagged.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 
 test("tests that NaN values can be correctly dropped pairwise", () => {
   const a = [2, 3, 4]

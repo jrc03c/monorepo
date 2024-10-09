@@ -1,4 +1,3 @@
-import { Series, DataFrame } from "./dataframe/index.mjs"
 import { flatten } from "./flatten.mjs"
 import { IndexMatcher } from "./index-matcher.mjs"
 import { isEqual } from "./is-equal.mjs"
@@ -6,6 +5,7 @@ import { isNumber } from "./is-number.mjs"
 import { isUndefined } from "./is-undefined.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
+import { Series, DataFrame } from "./dataframe/index.mjs"
 
 function containsOnlyNumbers(x) {
   return flatten(x).every(v => isNumber(v))

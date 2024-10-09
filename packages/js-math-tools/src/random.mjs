@@ -1,5 +1,5 @@
-import { copy } from "./copy.mjs"
 import { assert } from "./assert.mjs"
+import { copy } from "./copy.mjs"
 import { isArray } from "./is-array.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isUndefined } from "./is-undefined.mjs"

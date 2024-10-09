@@ -1,5 +1,4 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { flatten } from "./flatten.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
@@ -7,6 +6,7 @@ import { isFunction } from "./is-function.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isSeries } from "./is-series.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { random } from "./random.mjs"
 import { some } from "./some.mjs"
 
 test("tests that the `some` function works as expected", () => {

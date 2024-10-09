@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isArray } from "./is-array.mjs"
 import { normal } from "./normal.mjs"
+
 class SubArray extends Array {}
 
 test("tests that arrays can be identified correctly", () => {

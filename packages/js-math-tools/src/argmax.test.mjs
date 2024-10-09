@@ -1,5 +1,5 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { argmax } from "./argmax.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { shuffle } from "./shuffle.mjs"

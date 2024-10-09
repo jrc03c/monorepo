@@ -1,5 +1,5 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { assert } from "./assert.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { intersect } from "./intersect.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"

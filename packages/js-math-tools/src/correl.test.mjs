@@ -1,6 +1,6 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { add } from "./add.mjs"
 import { correl } from "./correl.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { normal } from "./normal.mjs"
 import { scale } from "./scale.mjs"
 

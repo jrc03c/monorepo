@@ -1,5 +1,6 @@
 import { arrayTypes } from "./helpers/array-types.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+
 const typeStrings = arrayTypes.map(s => s.name)
 
 function isArray(obj) {

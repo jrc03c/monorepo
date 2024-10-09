@@ -1,9 +1,9 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { count } from "./count.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
-import { round } from "./round.mjs"
 import { normal } from "./normal.mjs"
+import { round } from "./round.mjs"
 import { set } from "./set.mjs"
 
 test("tests that values in an array can be counted correctly", () => {

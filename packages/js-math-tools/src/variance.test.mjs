@@ -1,7 +1,7 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { abs } from "./abs.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 import { variance } from "./variance.mjs"
 
 test("tests that variance can be correctly computed", () => {

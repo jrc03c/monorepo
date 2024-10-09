@@ -1,9 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { lerp } from "./lerp.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 import { reshape } from "./reshape.mjs"
 
 test("tests that linear interpolations can be computed correctly", () => {

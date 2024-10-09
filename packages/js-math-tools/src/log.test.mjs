@@ -1,8 +1,8 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { apply } from "./apply.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { log } from "./log.mjs"
+import { random } from "./random.mjs"
 
 test("tests that the log of various values can be computed correctly", () => {
   const a = random(100).map(v => v * 100 + 1)

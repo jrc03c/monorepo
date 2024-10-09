@@ -1,7 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { seed } from "./random.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
+import { seed } from "./random.mjs"
 import { shuffle } from "./shuffle.mjs"
 import { sort } from "./sort.mjs"
 

@@ -1,5 +1,5 @@
-import { MathError } from "../math-error.mjs"
 import { dfToJSONString } from "./df-to-json-string.mjs"
+import { MathError } from "../math-error.mjs"
 
 async function dfToJSON(df, filename, axis) {
   const out = dfToJSONString(df, axis)

@@ -1,9 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { dropMissing } from "./drop-missing.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isUndefined } from "./is-undefined.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 
 test("tests that missing values can be dropped correctly", () => {
   const a = normal(100)

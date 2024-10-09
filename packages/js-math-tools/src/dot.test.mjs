@@ -1,5 +1,5 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { apply } from "./apply.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dot } from "./dot.mjs"
 import { float } from "./float.mjs"
 import { int } from "./int.mjs"

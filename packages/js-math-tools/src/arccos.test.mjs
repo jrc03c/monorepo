@@ -1,8 +1,8 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { arccos } from "./arccos.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 
 test("tests that the inverse cosine can be computed correctly", () => {
   const r = random([2, 3])

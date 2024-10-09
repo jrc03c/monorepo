@@ -1,9 +1,9 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { apply } from "./apply.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { floor } from "./floor.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 
 test("tests that values can be correctly floored", () => {
   const a = random(100)

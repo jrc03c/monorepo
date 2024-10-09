@@ -1,5 +1,5 @@
-import { combinations } from "./combinations.mjs"
 import { assert } from "./assert.mjs"
+import { combinations } from "./combinations.mjs"
 import { flatten } from "./flatten.mjs"
 import { int } from "./int.mjs"
 import { isArray } from "./is-array.mjs"

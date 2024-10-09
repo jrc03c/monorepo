@@ -1,7 +1,7 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random, seed } from "./random.mjs"
 import { abs } from "./abs.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { mean } from "./mean.mjs"
+import { random, seed } from "./random.mjs"
 import { shape } from "./shape.mjs"
 import { std } from "./std.mjs"
 

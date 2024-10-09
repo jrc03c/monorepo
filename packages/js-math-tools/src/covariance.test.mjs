@@ -1,7 +1,7 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { abs } from "./abs.mjs"
 import { add } from "./add.mjs"
 import { covariance } from "./covariance.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { normal } from "./normal.mjs"
 import { scale } from "./scale.mjs"
 

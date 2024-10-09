@@ -1,6 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random, seed } from "./random.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { random, seed } from "./random.mjs"
 
 test("tests that random numbers can be seeded correctly", () => {
   const a = random()

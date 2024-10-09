@@ -1,5 +1,5 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { chop } from "./chop.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { range } from "./range.mjs"

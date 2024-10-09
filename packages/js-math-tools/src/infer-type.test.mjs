@@ -1,8 +1,8 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { inferType } from "./infer-type.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 import { range } from "./range.mjs"
 
 function makeKey(n) {

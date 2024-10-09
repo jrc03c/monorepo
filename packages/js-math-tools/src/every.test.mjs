@@ -1,5 +1,4 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
-import { random } from "./random.mjs"
 import { every } from "./every.mjs"
 import { flatten } from "./flatten.mjs"
 import { isArray } from "./is-array.mjs"
@@ -8,6 +7,7 @@ import { isFunction } from "./is-function.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isSeries } from "./is-series.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { random } from "./random.mjs"
 
 test("tests that the `every` function works as expected", () => {
   const a = [234, ["foo", [true, [{ hello: "world" }]]]]

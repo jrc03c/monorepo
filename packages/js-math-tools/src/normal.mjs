@@ -1,7 +1,7 @@
-import { random } from "./random.mjs"
 import { apply } from "./apply.mjs"
 import { isUndefined } from "./is-undefined.mjs"
 import { ndarray } from "./ndarray.mjs"
+import { random } from "./random.mjs"
 
 function helper() {
   const u1 = random()

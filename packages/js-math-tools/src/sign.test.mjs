@@ -1,5 +1,5 @@
-import { DataFrame, Series } from "./dataframe/index.mjs"
 import { apply } from "./apply.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { sign } from "./sign.mjs"

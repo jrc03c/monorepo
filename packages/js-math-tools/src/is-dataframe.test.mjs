@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { normal } from "./normal.mjs"
+
 class SubDataFrame extends DataFrame {}
 
 test("tests that dataframes can be identified correctly", () => {

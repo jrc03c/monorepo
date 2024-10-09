@@ -1,10 +1,10 @@
-import { random } from "./random.mjs"
 import { abs } from "./abs.mjs"
 import { cast } from "./cast.mjs"
 import { int } from "./int.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { max } from "./max.mjs"
 import { normal } from "./normal.mjs"
+import { random } from "./random.mjs"
 import { range } from "./range.mjs"
 
 test("tests that both individual values and arrays can be cast", () => {
