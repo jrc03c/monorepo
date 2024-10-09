@@ -1,13 +1,14 @@
 {
   "author": "jrc03c",
   "bin": {
-    "fake-jest": "src/bin.js"
+    "fake-jest": "src/bin.mjs"
   },
-  "description": "a jest stand-in for esm",
+  "description": "a temporary jest stand-in for esm",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "eslint": "^9.11.1",
-    "globals": "^15.9.0"
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
   },
   "main": "src/index.js",
   "name": "@jrc03c/fake-jest",

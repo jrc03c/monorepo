@@ -1,4 +1,4 @@
-import colors from "../../bash-colors/index.js"
+import colors from "../../bash-colors/index.mjs"
 
 class Expecter {
   constructor(value) {

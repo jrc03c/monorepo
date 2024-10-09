@@ -1,6 +1,3 @@
-dependsOn:
-  - id: freeze
-    scope: development
 language: javascript
 tasks:
   pub:
@@ -23,5 +20,5 @@ tasks:
   test:
     command:
       - node
-      - src/bin.js
+      - src/bin.mjs
     platform: node

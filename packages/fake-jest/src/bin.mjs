@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { execSync } from "node:child_process"
-import colors from "../../bash-colors/index.js"
+import colors from "../../bash-colors/index.mjs"
 import fs from "node:fs"
-import getFilesDeepSync from "./get-files-deep-sync.js"
+import getFilesDeepSync from "./get-files-deep-sync.mjs"
 import process from "node:process"
 
 function multiplyString(s, n) {
@@ -16,20 +16,24 @@ function multiplyString(s, n) {
     if (process.argv.length > 2) {
       return Array.from(process.argv)
         .slice(2)
-        .filter(f => !f.includes("node_modules") && f.endsWith(".test.js"))
+        .filter(f => !f.includes("node_modules") && f.match(/\.test\.[cm]?js$/))
     } else {
       return getFilesDeepSync(".").filter(
-        f => !f.includes("node_modules") && f.endsWith(".test.js"),
+        f => !f.includes("node_modules") && f.match(/\.test\.[cm]?js$/),
       )
     }
   })()
 
-  const lib = import.meta.filename.replace("bin.js", "index.js")
+  const lib = import.meta.filename.replace("bin.mjs", "index.mjs")
   const libRaw = fs.readFileSync(lib, "utf8")
 
   for (const file of files) {
     const fileRaw = fs.readFileSync(file, "utf8")
-    const newFile = file.split(".").slice(0, -1).join(".") + ".foo.js"
+    const extension = file.split(".").at(-1)
+
+    const newFile =
+      file.split(".").slice(0, -1).join(".") + ".fake-jest-temp." + extension
+
     const newFileRaw = libRaw.replace("// {{ content }}", fileRaw)
     fs.writeFileSync(newFile, newFileRaw, "utf8")
 
