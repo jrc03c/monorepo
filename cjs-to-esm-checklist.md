@@ -2,7 +2,7 @@
 
 > **NOTE:** Pay close attention to the use of `.mjs` and `.cjs` extensions in the instructions that follow.
 
-1. Install `esbuild`, `eslint`, and `prettier`. Configure `eslint` using `npm init @eslint/config`.
+1. Install `esbuild`, `eslint`, and `prettier`. Configure `eslint`.
 
 2. Create `src` and `dist` directories if they don't already exist, and move all source code into the `src` directory.
 
