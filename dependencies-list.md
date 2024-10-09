@@ -1,11 +1,12 @@
 # bash-colors (0.0.6)
-# create-high-dpi-canvas (1.0.3)
-# custom-scroller (0.0.3)
-# fake-jest (0.0.7)
-# pause (0.0.4)
-# progress (0.0.3)
-# prompt (0.0.7)
-# base-class (0.0.4)
+# create-high-dpi-canvas (1.0.4)
+# custom-scroller (0.0.5)
+# pause (0.0.5)
+# progress (0.0.4)
+# prompt (0.0.8)
+# fake-jest (0.0.11)
+  - bash-colors
+# base-class (0.0.5)
   - fake-jest
 # color (0.0.8)
   - fake-jest

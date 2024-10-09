@@ -1,9 +1,9 @@
-!(async () => {
-  const { fg, fx } = (await import("./packages/bash-colors/src/index.mjs"))
-  const fs = await import("fs")
-  const fsx = (await import("./packages/fs-extras/index.js")).default
-  const progress = (await import("./packages/progress/index.js")).default
+import { fg, fx } from "./packages/bash-colors/src/index.mjs"
+import { progress } from "./packages/progress/src/index.mjs"
+import fs from "node:fs"
+import fsx from "./packages/fs-extras/index.js"
 
+!(async () => {
   const libraries = fs.readdirSync("packages")
 
   const packageJsons = fsx
