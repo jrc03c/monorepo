@@ -21,6 +21,8 @@
 }
 ```
 
+6. In `package.json`, make sure that the `"main"` property has the correct value.
+
 6. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
 
 ```bash
