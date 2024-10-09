@@ -20,5 +20,5 @@
   "main": "src/index.mjs",
   "name": "@jrc03c/prompt",
   "type": "module",
-  "version": "0.0.7"
+  "version": "0.0.8"
 }
