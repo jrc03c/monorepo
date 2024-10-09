@@ -39,25 +39,22 @@ class Progress extends Array {
   }
 
   forEach(fn, otherThis) {
-    const self = this
-
-    for (let i = 0; i < self.length; i++) {
-      const boundFn = fn.bind(otherThis || self)
-      boundFn(self[i], i, self)
-      Progress.drawBar(i, self.length)
+    for (let i = 0; i < this.length; i++) {
+      const boundFn = fn.bind(otherThis || this)
+      boundFn(this[i], i, this)
+      Progress.drawBar(i, this.length)
     }
 
-    Progress.drawBar(self.length, self.length)
+    Progress.drawBar(this.length, this.length)
     process.stdout.write("\n")
     return undefined
   }
 
   map(fn, otherThis) {
-    const self = this
     const out = []
-    const boundFn = fn.bind(otherThis || self)
+    const boundFn = fn.bind(otherThis || this)
 
-    self.forEach((v, i, arr) => {
+    this.forEach((v, i, arr) => {
       out.push(boundFn(v, i, arr))
     })
 
@@ -65,11 +62,10 @@ class Progress extends Array {
   }
 
   filter(fn, otherThis) {
-    const self = this
     const out = []
-    const boundFn = fn.bind(otherThis || self)
+    const boundFn = fn.bind(otherThis || this)
 
-    self.forEach((v, i, arr) => {
+    this.forEach((v, i, arr) => {
       if (boundFn(v, i, arr)) {
         out.push(v)
       }
@@ -79,10 +75,9 @@ class Progress extends Array {
   }
 
   reduce(fn, initialValue) {
-    const self = this
-    let out = initialValue || self[0]
+    let out = initialValue || this[0]
 
-    self.slice(initialValue ? 0 : 1).forEach(v => {
+    this.slice(initialValue ? 0 : 1).forEach(v => {
       out = fn(out, v)
     })
 
@@ -104,4 +99,4 @@ function progress(x, y) {
   )
 }
 
-export default progress
+export { progress }

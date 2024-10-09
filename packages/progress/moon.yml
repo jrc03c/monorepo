@@ -1,5 +1,15 @@
 language: javascript
 tasks:
+  build:
+    command:
+      - npx
+      - esbuild
+      - src/index.mjs
+      - --bundle
+      - --external:readline
+      - --outfile=dist/progress.require.cjs
+      - --platform=node
+    platform: node
   pub:
     command:
       - npm
