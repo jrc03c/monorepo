@@ -6,9 +6,11 @@
 
 2. Create `src` and `dist` directories if they don't already exist, and move all source code into the `src` directory.
 
-3. In `package.json`, add a `"type": "module"` key-value pair.
+3. Rename all files to use either `.mjs` or `.cjs` extensions.
 
-4. In `package.json`, add an `"exports"` property defined this way:
+4. In `package.json`, add a `"type": "module"` key-value pair.
+
+5. In `package.json`, add an `"exports"` property defined this way:
 
 ```json
 {
@@ -19,7 +21,7 @@
 }
 ```
 
-5. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
+6. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
 
 ```bash
 # Node / CommonJS / `require`
@@ -34,8 +36,8 @@ npx esbuild src/index.js --bundle --outfile=dist/lib.standalone.cjs
 
 (See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for my reasoning behind these.)
 
-6. Convert all `module.exports` and `require` statements in the source code to `export` and `import` respectively.
+7. Convert all `module.exports` and `require` statements in the source code to `export` and `import` respectively.
 
-7. For libraries that employ unit testing, uninstall `jest` and install my `fake-jest` library.
+8. For libraries that employ unit testing, uninstall `jest` and install my `fake-jest` library.
 
-8. In any web pages rely on scripts from a library, make sure that any `<script>` tags have a `type="module"` attribute-value pair _if_ they point to ESM scripts.
+9. In any web pages rely on scripts from a library, make sure that any `<script>` tags have a `type="module"` attribute-value pair _if_ they point to ESM scripts.
