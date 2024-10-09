@@ -41,4 +41,4 @@ function prompt(text, isHidden, callback) {
   })
 }
 
-export default prompt
+export { prompt }

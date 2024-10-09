@@ -1,19 +1,24 @@
 {
-  "name": "@jrc03c/prompt",
-  "version": "0.0.7",
+  "author": "jrc03c",
   "description": "",
-  "main": "index.js",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.10.0",
+    "prettier": "^3.3.3"
+  },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/prompt.require.cjs"
+  },
   "keywords": [
     "node",
     "prompt"
   ],
-  "author": "jrc03c",
   "license": "ISC",
+  "main": "src/index.mjs",
+  "name": "@jrc03c/prompt",
   "type": "module",
-  "devDependencies": {
-    "@eslint/js": "^9.12.0",
-    "eslint": "^9.12.0",
-    "globals": "^15.10.0",
-    "prettier": "^3.3.3"
-  }
+  "version": "0.0.7"
 }
