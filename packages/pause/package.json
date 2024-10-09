@@ -1,14 +1,21 @@
 {
-  "name": "@jrc03c/pause",
-  "version": "0.0.4",
+  "author": "jrc03c",
   "description": "a simple async pause function",
-  "main": "index.js",
-  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
+  },
   "keywords": [
-    "pause",
     "js",
+    "pause",
     "settimeout"
   ],
-  "author": "jrc03c",
-  "type": "module"
+  "license": "ISC",
+  "main": "index.js",
+  "name": "@jrc03c/pause",
+  "type": "module",
+  "version": "0.0.4"
 }
