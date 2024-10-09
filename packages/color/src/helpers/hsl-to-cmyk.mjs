@@ -1,4 +1,4 @@
-import HSLToRGB from "./hsl-to-rgb.js"
+import { HSLToRGB } from "./hsl-to-rgb.mjs"
 
 function HSLToCMYK(h, s, l) {
   const { r, g, b } = HSLToRGB(h, s, l)
@@ -17,4 +17,4 @@ function HSLToCMYK(h, s, l) {
   }
 }
 
-export default HSLToCMYK
+export { HSLToCMYK }

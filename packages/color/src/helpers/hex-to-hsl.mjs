@@ -1,4 +1,4 @@
-import RGBToHSL from "./rgb-to-hsl.js"
+import { RGBToHSL } from "./rgb-to-hsl.mjs"
 
 function hexToHSL(hex) {
   if (typeof hex !== "string") {
@@ -17,4 +17,4 @@ function hexToHSL(hex) {
   return RGBToHSL(r, g, b)
 }
 
-export default hexToHSL
+export { hexToHSL }

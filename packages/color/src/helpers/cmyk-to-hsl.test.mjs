@@ -1,4 +1,4 @@
-import CMYKToHSL from "./cmyk-to-hsl.js"
+import { CMYKToHSL } from "./cmyk-to-hsl.mjs"
 
 test("tests that CMYKToHSL works as expected", () => {
   const pred = CMYKToHSL(0.5, 0, 1, 0.5)

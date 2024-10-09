@@ -1,4 +1,4 @@
-import Color from "./index.js"
+import { Color } from "./index.mjs"
 
 test("tests that the Color class works as expected", () => {
   const c = new Color()

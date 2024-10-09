@@ -1,4 +1,4 @@
-import RGBToHSL from "./rgb-to-hsl.js"
+import { RGBToHSL } from "./rgb-to-hsl.mjs"
 
 function CMYKToHSL(c, m, y, k) {
   const values = [c, m, y, k]
@@ -15,4 +15,4 @@ function CMYKToHSL(c, m, y, k) {
   return RGBToHSL(r, g, b)
 }
 
-export default CMYKToHSL
+export { CMYKToHSL }

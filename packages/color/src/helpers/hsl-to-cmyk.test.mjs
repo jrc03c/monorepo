@@ -1,4 +1,4 @@
-import HSLToCMYK from "./hsl-to-cmyk.js"
+import { HSLToCMYK } from "./hsl-to-cmyk.mjs"
 
 test("tests that HSLToCMYK works as expected", () => {
   const pred = HSLToCMYK(90, 1, 0.25)

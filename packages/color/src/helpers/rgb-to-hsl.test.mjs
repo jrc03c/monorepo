@@ -1,4 +1,4 @@
-import RGBToHSL from "./rgb-to-hsl.js"
+import { RGBToHSL } from "./rgb-to-hsl.mjs"
 
 test("tests that RGBToHSL works as expected", () => {
   const pred = RGBToHSL(255, 213, 0)

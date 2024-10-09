@@ -4,4 +4,4 @@ function leftPad(s, n) {
   return out
 }
 
-export default leftPad
+export { leftPad }

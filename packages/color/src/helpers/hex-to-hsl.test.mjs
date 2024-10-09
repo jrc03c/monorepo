@@ -1,5 +1,5 @@
-import hexToHSL from "./hex-to-hsl.js"
-import leftPad from "./left-pad.js"
+import { hexToHSL } from "./hex-to-hsl.mjs"
+import { leftPad } from "./left-pad.mjs"
 
 test("tests that hexToHSL works as expected", () => {
   const pred1 = hexToHSL("#ffd400")

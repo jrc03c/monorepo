@@ -40,4 +40,4 @@ function RGBToHSL(r, g, b) {
   return { h: hue - Math.floor(hue / 360) * 360, s: saturation, l: lightness }
 }
 
-export default RGBToHSL
+export { RGBToHSL }

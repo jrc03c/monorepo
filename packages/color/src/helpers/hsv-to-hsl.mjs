@@ -27,4 +27,4 @@ function HSVToHSL(h, s, v) {
   return { h, s: saturation, l: lightness }
 }
 
-export default HSVToHSL
+export { HSVToHSL }

@@ -43,4 +43,4 @@ function HSLToRGB(h, s, l) {
   return { r, g, b }
 }
 
-export default HSLToRGB
+export { HSLToRGB }

@@ -22,4 +22,4 @@ function HSLToHSV(h, s, l) {
   return { h, s: saturation, v: value }
 }
 
-export default HSLToHSV
+export { HSLToHSV }

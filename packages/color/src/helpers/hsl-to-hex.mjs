@@ -1,5 +1,5 @@
-import leftPad from "./left-pad.js"
-import HSLToRGB from "./hsl-to-rgb.js"
+import { leftPad } from "./left-pad.mjs"
+import { HSLToRGB } from "./hsl-to-rgb.mjs"
 
 function HSLToHex(h, s, l) {
   if (isNaN(h) || h < 0 || h >= 360) {
@@ -27,4 +27,4 @@ function HSLToHex(h, s, l) {
   return { value: `${rHex}${gHex}${bHex}` }
 }
 
-export default HSLToHex
+export { HSLToHex }

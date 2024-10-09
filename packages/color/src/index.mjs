@@ -7,7 +7,7 @@ import {
   HSLToRGB,
   HSVToHSL,
   RGBToHSL,
-} from "./helpers/index.js"
+} from "./helpers/index.mjs"
 
 class Color {
   static fromRGB(r, g, b) {
@@ -254,4 +254,4 @@ if (typeof window !== "undefined") {
   window.Color = Color
 }
 
-export default Color
+export { Color }
