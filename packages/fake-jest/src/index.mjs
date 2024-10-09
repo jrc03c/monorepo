@@ -1,4 +1,4 @@
-import { fg, fx } from "./colors.mjs"
+import { fg, fx } from "@jrc03c/bash-colors"
 
 class Expecter {
   constructor(value) {

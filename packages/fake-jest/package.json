@@ -17,5 +17,8 @@
     "url": "git+ssh://git@github.com/jrc03c/fake-jest.git"
   },
   "type": "module",
-  "version": "0.0.10"
+  "version": "0.0.10",
+  "dependencies": {
+    "@jrc03c/bash-colors": "^0.0.6"
+  }
 }
