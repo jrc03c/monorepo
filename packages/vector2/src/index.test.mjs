@@ -1,4 +1,4 @@
-import Vector2 from "./index.js"
+import { Vector2 } from "./index.mjs"
 
 test("adds vectors", () => {
   const a = new Vector2(3, 4)

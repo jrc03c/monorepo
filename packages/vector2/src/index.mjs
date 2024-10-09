@@ -123,4 +123,4 @@ if (typeof window !== "undefined") {
   window.Vector2 = Vector2
 }
 
-export default Vector2
+export { Vector2 }
