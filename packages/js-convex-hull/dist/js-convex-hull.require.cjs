@@ -63,20 +63,20 @@ function getPointRelationToLine(point, pair) {
     return BELOW;
   }
 }
-function pointIsInTriangle(mouse, points) {
-  const [p1, p2, p3] = points;
+function pointIsInTriangle(point, vertices) {
+  const [p1, p2, p3] = vertices;
   const rel1True = getPointRelationToLine(p3, [p1, p2]);
-  const rel1Pred = getPointRelationToLine(mouse, [p1, p2]);
+  const rel1Pred = getPointRelationToLine(point, [p1, p2]);
   if (rel1True !== rel1Pred && rel1Pred !== EXACTLY_ON) {
     return false;
   }
   const rel2True = getPointRelationToLine(p2, [p1, p3]);
-  const rel2Pred = getPointRelationToLine(mouse, [p1, p3]);
+  const rel2Pred = getPointRelationToLine(point, [p1, p3]);
   if (rel2True !== rel2Pred && rel2Pred !== EXACTLY_ON) {
     return false;
   }
   const rel3True = getPointRelationToLine(p1, [p2, p3]);
-  const rel3Pred = getPointRelationToLine(mouse, [p2, p3]);
+  const rel3Pred = getPointRelationToLine(point, [p2, p3]);
   if (rel3True !== rel3Pred && rel3Pred !== EXACTLY_ON) {
     return false;
   }
