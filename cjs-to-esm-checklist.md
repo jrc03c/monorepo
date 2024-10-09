@@ -15,13 +15,15 @@
 ```json
 {
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/lib.import.mjs",
     "require": "./dist/lib.require.cjs"
   }
 }
 ```
 
-6. In `package.json`, make sure that the `"main"` property has the correct value.
+(Note that both "import" and "require" point to bundles, not the source code entry point!)
+
+6. In `package.json`, make sure that the `"main"` property points to the CommonJS bundle.
 
 6. For _all_ libraries — including those that will only be used in Node — install `esbuild` and add some or all of these build commands:
 
