@@ -15,5 +15,5 @@
   "main": "src/index.mjs",
   "name": "@jrc03c/progress",
   "type": "module",
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
