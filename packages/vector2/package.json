@@ -1,8 +1,6 @@
 {
-  "name": "@jrc03c/vector2",
-  "version": "0.0.3",
+  "author": "jrc03c",
   "description": "",
-  "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "@jrc03c/fake-jest": "^0.0.11",
@@ -11,8 +9,14 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/vector2.require.cjs"
+  },
   "keywords": [],
-  "author": "jrc03c",
   "license": "ISC",
-  "type": "module"
+  "main": "src/index.mjs",
+  "name": "@jrc03c/vector2",
+  "type": "module",
+  "version": "0.0.3"
 }
