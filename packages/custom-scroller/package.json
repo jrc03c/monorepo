@@ -7,7 +7,11 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
-  "main": "custom-scroller.js",
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/custom-scroller.require.cjs"
+  },
+  "main": "src/index.mjs",
   "name": "@jrc03c/custom-scroller",
   "type": "module",
   "version": "0.0.4"
