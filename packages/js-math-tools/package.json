@@ -6,7 +6,7 @@
   "description": "some math tools for JS",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
-    "@jrc03c/fake-jest": "^0.0.7",
+    "@jrc03c/fake-jest": "^0.0.11",
     "@jrc03c/freeze": "^0.0.2",
     "esbuild": "^0.14.21",
     "eslint": "^9.11.1",
@@ -14,7 +14,8 @@
     "madge": "^5.0.1"
   },
   "exports": {
-    ".": "./dist/js-math-tools.js"
+    "import": "./src/index.mjs",
+    "require": "./dist/js-math-tools.require.cjs"
   },
   "homepage": "https://github.com/jrc03c/js-math-tools#readme",
   "keywords": [
@@ -22,7 +23,7 @@
     "math"
   ],
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "name": "@jrc03c/js-math-tools",
   "repository": {
     "type": "git",
