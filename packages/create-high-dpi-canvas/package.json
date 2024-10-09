@@ -12,13 +12,13 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/create-high-dpi-canvas.import.mjs",
     "require": "./dist/create-high-dpi-canvas.require.cjs"
   },
   "homepage": "https://github.com/jrc03c/create-high-dpi-canvas#readme",
   "keywords": [],
   "license": "ISC",
-  "main": "src/index.js",
+  "main": "./dist/create-high-dpi-canvas.require.cjs",
   "name": "@jrc03c/create-high-dpi-canvas",
   "repository": {
     "type": "git",
