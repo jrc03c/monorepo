@@ -1,5 +1,5 @@
 !(async () => {
-  const { fg, fx } = (await import("./packages/bash-colors/index.js")).default
+  const { fg, fx } = (await import("./packages/bash-colors/src/index.mjs"))
   const fs = await import("fs")
   const fsx = (await import("./packages/fs-extras/index.js")).default
   const progress = (await import("./packages/progress/index.js")).default

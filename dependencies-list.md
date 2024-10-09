@@ -1,4 +1,4 @@
-# bash-colors (0.0.5)
+# bash-colors (0.0.6)
 # create-high-dpi-canvas (1.0.3)
 # custom-scroller (0.0.3)
 # fake-jest (0.0.7)
