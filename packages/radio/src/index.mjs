@@ -63,4 +63,4 @@ if (typeof window !== "undefined") {
   window.Radio = Radio
 }
 
-export default Radio
+export { Radio }

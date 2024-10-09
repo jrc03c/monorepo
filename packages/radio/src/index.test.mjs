@@ -1,4 +1,4 @@
-import Radio from "./index.js"
+import { Radio } from "./index.mjs"
 
 test("subscribes and unsubscribes callbacks", () => {
   const radio = new Radio()

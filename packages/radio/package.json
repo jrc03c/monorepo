@@ -1,17 +1,22 @@
 {
-  "name": "@jrc03c/radio",
-  "version": "0.0.6",
+  "author": "jrc03c",
   "description": "",
-  "main": "index.js",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.7",
+    "@jrc03c/fake-jest": "^0.0.11",
+    "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/radio.require.cjs"
+  },
   "keywords": [],
-  "author": "jrc03c",
   "license": "ISC",
-  "type": "module"
+  "main": "src/index.mjs",
+  "name": "@jrc03c/radio",
+  "type": "module",
+  "version": "0.0.6"
 }
