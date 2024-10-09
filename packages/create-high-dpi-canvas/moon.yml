@@ -3,7 +3,7 @@ tasks:
   build:
     command:
       - node
-      - build.js
+      - build.mjs
     platform: node
   pub:
     command:
