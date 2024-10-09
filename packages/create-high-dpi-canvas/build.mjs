@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/create-high-dpi-canvas.require.cjs`,
       `${baseCommand} --outfile=dist/create-high-dpi-canvas.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/create-high-dpi-canvas.import.mjs`,
     ]
 
     commands.forEach(command => {
