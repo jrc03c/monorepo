@@ -1,17 +1,22 @@
 {
-  "name": "@jrc03c/freeze",
-  "version": "0.0.2",
-  "main": "index.js",
+  "author": "jrc03c",
+  "description": "",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.7",
+    "@jrc03c/fake-jest": "^0.0.11",
+    "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/freeze.require.cjs"
+  },
   "keywords": [],
-  "author": "jrc03c",
   "license": "ISC",
-  "description": "",
-  "type": "module"
+  "main": "src/index.mjs",
+  "name": "@jrc03c/freeze",
+  "type": "module",
+  "version": "0.0.2"
 }

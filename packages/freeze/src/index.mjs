@@ -10,7 +10,7 @@ function proxify(x, shouldThrowErrors) {
       return true
     },
 
-    deleteProperty() {
+    deleteProperty(prop) {
       if (shouldThrowErrors) {
         throw new Error(
           `The target object is read-only, so its "${prop}" property cannot be deleted!`,
@@ -62,4 +62,4 @@ if (typeof window !== "undefined") {
   window.freeze = freeze
 }
 
-export default freeze
+export { freeze }

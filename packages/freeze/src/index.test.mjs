@@ -1,4 +1,4 @@
-import freeze from "./index.js"
+import { freeze } from "./index.mjs"
 
 test("tests that one-dimensional arrays are correctly frozen", () => {
   const x = freeze([2, 3, 4])
