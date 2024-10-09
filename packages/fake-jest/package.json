@@ -10,7 +10,7 @@
     "globals": "^15.9.0",
     "prettier": "^3.3.3"
   },
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "name": "@jrc03c/fake-jest",
   "repository": {
     "type": "git",
