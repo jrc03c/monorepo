@@ -1,9 +1,9 @@
 // gist: check to see if a point lies inside a triangle
 // https://gist.github.com/jrc03c/782f4ebd2a1b793cec2f3b70df423d0c
 
-const ABOVE = "above"
-const BELOW = "below"
-const EXACTLY_ON = "exactly_on"
+const ABOVE = 1
+const BELOW = -1
+const EXACTLY_ON = 0
 
 function getPointRelationToLine(point, pair) {
   const [p1, p2] = pair
@@ -15,7 +15,7 @@ function getPointRelationToLine(point, pair) {
     // and an error should be thrown
     if (p2[1] - p1[1] === 0) {
       throw new Error(
-        "The pair of points provided are identical and therefore do not form a line!"
+        "The pair of points provided are identical and therefore do not form a line!",
       )
     }
 
@@ -65,7 +65,11 @@ function pointIsInTriangle(mouse, points) {
 }
 
 if (typeof window !== "undefined") {
+  window.ABOVE = ABOVE
+  window.BELOW = BELOW
+  window.EXACTLY_ON = EXACTLY_ON
+  window.getPointRelationToLine = getPointRelationToLine
   window.pointIsInTriangle = pointIsInTriangle
 }
 
-export default pointIsInTriangle
+export { ABOVE, BELOW, EXACTLY_ON, getPointRelationToLine, pointIsInTriangle }

@@ -1,28 +1,35 @@
 {
-  "name": "@jrc03c/js-convex-hull",
-  "version": "0.0.16",
+  "author": "jrc03c",
+  "dependencies": {
+    "@jrc03c/js-math-tools": "^0.0.84"
+  },
   "description": "gets the convex hull of 2D points using the \"gift-wrapping\" (AKA \"Jarvis march\") algorithm",
-  "main": "src/index.js",
+  "devDependencies": {
+    "@jrc03c/fake-jest": "^0.0.11",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "prettier": "^3.3.3"
+  },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/js-convex-hull.require.cjs"
+  },
+  "homepage": "https://github.com/jrc03c/js-convex-hull#readme",
+  "keywords": [
+    "boundary",
+    "convex",
+    "hull",
+    "javascript",
+    "js",
+    "points"
+  ],
+  "license": "ISC",
+  "main": "src/index.mjs",
+  "name": "@jrc03c/js-convex-hull",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrc03c/js-convex-hull.git"
   },
-  "keywords": [
-    "convex",
-    "hull",
-    "js",
-    "javascript",
-    "boundary",
-    "points"
-  ],
-  "author": "jrc03c",
-  "license": "ISC",
-  "homepage": "https://github.com/jrc03c/js-convex-hull#readme",
-  "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.7",
-    "@jrc03c/js-math-tools": "^0.0.83",
-    "eslint": "^8.32.0",
-    "prettier": "^2.8.3"
-  },
-  "type": "module"
+  "type": "module",
+  "version": "0.0.16"
 }
