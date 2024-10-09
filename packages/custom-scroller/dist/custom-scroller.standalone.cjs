@@ -67,5 +67,4 @@
   if (typeof window !== "undefined") {
     window.CustomScroller = CustomScroller;
   }
-  var src_default = CustomScroller;
 })();

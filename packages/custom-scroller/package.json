@@ -8,10 +8,10 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/custom-scroller.import.mjs",
     "require": "./dist/custom-scroller.require.cjs"
   },
-  "main": "src/index.mjs",
+  "main": "./dist/custom-scroller.require.cjs",
   "name": "@jrc03c/custom-scroller",
   "type": "module",
   "version": "0.0.5"

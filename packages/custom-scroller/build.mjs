@@ -10,6 +10,7 @@ function rebuild() {
     const commands = [
       `${baseCommand} --platform=node --outfile=dist/custom-scroller.require.cjs`,
       `${baseCommand} --outfile=dist/custom-scroller.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/custom-scroller.import.mjs`,
     ]
 
     commands.forEach(command => {

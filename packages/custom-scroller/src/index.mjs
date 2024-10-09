@@ -81,4 +81,4 @@ if (typeof window !== "undefined") {
   window.CustomScroller = CustomScroller
 }
 
-export default CustomScroller
+export { CustomScroller }
