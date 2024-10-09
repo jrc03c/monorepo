@@ -75,4 +75,4 @@ if (typeof window !== "undefined") {
   window.BaseClass = BaseClass
 }
 
-export default BaseClass
+export { BaseClass }
