@@ -15,7 +15,6 @@ function createHighDPICanvas(width, height) {
 if (typeof window !== "undefined") {
   window.createHighDPICanvas = createHighDPICanvas;
 }
-var src_default = createHighDPICanvas;
 export {
-  src_default as default
+  createHighDPICanvas
 };

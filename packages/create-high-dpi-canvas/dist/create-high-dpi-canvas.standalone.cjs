@@ -16,5 +16,4 @@
   if (typeof window !== "undefined") {
     window.createHighDPICanvas = createHighDPICanvas;
   }
-  var src_default = createHighDPICanvas;
 })();
