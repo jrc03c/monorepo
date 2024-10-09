@@ -43,3 +43,5 @@ If it makes sense, also add minified bundles using the `--minify` flag.
 8. For libraries that employ unit testing, uninstall `jest` and install my `fake-jest` library.
 
 9. In any web pages rely on scripts from a library, make sure that any `<script>` tags have a `type="module"` attribute-value pair _if_ they point to ESM scripts.
+
+10. Update all documentation!
