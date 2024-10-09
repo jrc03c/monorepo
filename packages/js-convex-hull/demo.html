@@ -4,10 +4,16 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <script src="./node_modules/@jrc03c/js-math-tools/dist/js-math-tools.standalone.min.cjs"></script>
-    <script src="./dist/js-convex-hull.standalone.cjs"></script>
     <script type="module">
-      const { combinations, remap } = JSMathTools
+      import {
+        combinations,
+        remap,
+      } from "./node_modules/@jrc03c/js-math-tools/src/index.mjs"
+
+      import {
+        pointIsInTriangle,
+        getConvexHull,
+      } from "./dist/js-convex-hull.import.mjs"
 
       CanvasRenderingContext2D.prototype.drawLine = function (x1, y1, x2, y2) {
         const self = this

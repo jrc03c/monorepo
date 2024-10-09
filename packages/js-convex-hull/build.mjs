@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-convex-hull.require.cjs`,
       `${baseCommand} --outfile=dist/js-convex-hull.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/js-convex-hull.import.mjs`,
     ]
 
     commands.forEach(command => {
