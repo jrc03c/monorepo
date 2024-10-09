@@ -78,7 +78,7 @@ class CustomScroller {
 }
 
 if (typeof window !== "undefined") {
-  window.customScrollElementTo = CustomScroller
+  window.CustomScroller = CustomScroller
 }
 
 export default CustomScroller
