@@ -17,5 +17,5 @@
     "url": "git+ssh://git@github.com/jrc03c/fake-jest.git"
   },
   "type": "module",
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
