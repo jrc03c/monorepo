@@ -34,6 +34,8 @@ npx esbuild src/index.js --bundle --format=esm --outfile=dist/lib.import.mjs
 npx esbuild src/index.js --bundle --outfile=dist/lib.standalone.cjs
 ```
 
+If it makes sense, also add minified bundles using the `--minify` flag.
+
 (See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for my reasoning behind these.)
 
 7. Convert all `module.exports` and `require` statements in the source code to `export` and `import` respectively.
