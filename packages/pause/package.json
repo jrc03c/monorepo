@@ -8,13 +8,17 @@
     "globals": "^15.11.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/pause.require.cjs"
+  },
   "keywords": [
     "js",
     "pause",
     "settimeout"
   ],
   "license": "ISC",
-  "main": "index.js",
+  "main": "src/index.mjs",
   "name": "@jrc03c/pause",
   "type": "module",
   "version": "0.0.4"
