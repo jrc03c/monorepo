@@ -19,5 +19,5 @@
   "main": "./dist/filedb.require.cjs",
   "name": "@jrc03c/filedb",
   "type": "module",
-  "version": "0.0.22"
+  "version": "0.0.23"
 }
