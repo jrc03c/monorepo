@@ -1,6 +1,6 @@
-const fs = require("fs")
-const makeKey = require("@jrc03c/make-key")
-const path = require("path")
+import { makeKey } from "@jrc03c/make-key"
+import fs from "node:fs"
+import path from "node:path"
 
 Array.prototype.random = function () {
   const self = this
@@ -81,7 +81,7 @@ function setup() {
 
     if (!fs.lstatSync(target).isFile()) {
       throw new Error(
-        `The target of the symlink is supposed to be a file! (${target})`
+        `The target of the symlink is supposed to be a file! (${target})`,
       )
     }
   })
@@ -95,7 +95,7 @@ function setup() {
 
     if (!fs.lstatSync(target).isDirectory()) {
       throw new Error(
-        `The target of the symlink is supposed to be a directory! (${target})`
+        `The target of the symlink is supposed to be a directory! (${target})`,
       )
     }
   })
@@ -108,7 +108,7 @@ function teardown() {
 const root = path.resolve("temp/" + makeKey(8))
 let files, dirs, fileSymlinks, dirSymlinks
 
-module.exports = {
+const config = {
   get root() {
     return root
   },
@@ -132,3 +132,5 @@ module.exports = {
   setup,
   teardown,
 }
+
+export { config }

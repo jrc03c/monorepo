@@ -1,7 +1,7 @@
-const { random } = require("@jrc03c/js-math-tools")
-const createFileStreamWriter = require("./create-file-stream-writer")
-const fs = require("node:fs")
-const makeKey = require("@jrc03c/make-key")
+import { createFileStreamWriter } from "./create-file-stream-writer.mjs"
+import { makeKey } from "@jrc03c/make-key"
+import { random } from "@jrc03c/js-math-tools"
+import fs from "node:fs"
 
 const files = []
 

@@ -1,6 +1,6 @@
-const { set, sort } = require("@jrc03c/js-math-tools")
-const config = require("./setup-and-teardown.js")
-const getFilesDeep = require("../src/get-files-deep.js")
+import { config } from "./setup-and-teardown.mjs"
+import { getFilesDeep } from "../src/get-files-deep.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
 
 test("tests that files can be gotten deeply and asynchronously", async () => {
   config.setup()
@@ -8,8 +8,8 @@ test("tests that files can be gotten deeply and asynchronously", async () => {
 
   expect(results).toStrictEqual(
     sort(
-      set(config.files.concat(config.fileSymlinks).concat(config.dirSymlinks))
-    )
+      set(config.files.concat(config.fileSymlinks).concat(config.dirSymlinks)),
+    ),
   )
 
   config.teardown()

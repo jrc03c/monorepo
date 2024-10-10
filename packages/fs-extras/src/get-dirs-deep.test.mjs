@@ -1,6 +1,6 @@
-const { set, sort } = require("@jrc03c/js-math-tools")
-const config = require("./setup-and-teardown.js")
-const getDirsDeep = require("../src/get-dirs-deep.js")
+import { config } from "./setup-and-teardown.mjs"
+import { getDirsDeep } from "../src/get-dirs-deep.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
 
 test("tests that directories can be gotten deeply and asynchronously", async () => {
   config.setup()
@@ -20,7 +20,7 @@ test("tests that directories can be gotten shallowly and asynchronously", async 
       .split("/")
       .filter(p => p.length > 0)
 
-    expect(parts.length).toBeLessThanOrEqual(depth)
+    expect(parts.length).toBeLessThanOrEqualTo(depth)
   })
 
   config.teardown()

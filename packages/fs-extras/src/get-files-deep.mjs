@@ -1,4 +1,4 @@
-const getFilesDeepSync = require("./get-files-deep-sync.js")
+import { getFilesDeepSync } from "./get-files-deep-sync.mjs"
 
 function getFilesDeep() {
   const args = Object.values(arguments)
@@ -17,4 +17,4 @@ function getFilesDeep() {
   })
 }
 
-module.exports = getFilesDeep
+export { getFilesDeep }

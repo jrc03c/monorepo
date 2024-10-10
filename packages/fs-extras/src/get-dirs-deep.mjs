@@ -1,4 +1,4 @@
-const getDirsDeepSync = require("./get-dirs-deep-sync.js")
+import { getDirsDeepSync } from "./get-dirs-deep-sync.mjs"
 
 function getDirsDeep() {
   const args = Object.values(arguments)
@@ -17,4 +17,4 @@ function getDirsDeep() {
   })
 }
 
-module.exports = getDirsDeep
+export { getDirsDeep }

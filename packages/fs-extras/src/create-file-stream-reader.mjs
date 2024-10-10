@@ -1,5 +1,5 @@
-const fs = require("fs")
-const readline = require("readline")
+import fs from "node:fs"
+import readline from "node:readline"
 
 function createFileStreamReader(file, progress) {
   if (typeof file !== "string") {
@@ -56,4 +56,4 @@ function createFileStreamReader(file, progress) {
   }
 }
 
-module.exports = createFileStreamReader
+export { createFileStreamReader }

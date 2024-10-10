@@ -1,6 +1,6 @@
-const findSync = require("./find-sync.js")
+import { findSync } from "./find-sync.mjs"
 
-function find(dir, pattern, depth, callback) {
+function findAsync(dir, pattern, depth, callback) {
   return new Promise((resolve, reject) => {
     try {
       const out = findSync(dir, pattern, depth)
@@ -12,4 +12,4 @@ function find(dir, pattern, depth, callback) {
   })
 }
 
-module.exports = find
+export { findAsync }

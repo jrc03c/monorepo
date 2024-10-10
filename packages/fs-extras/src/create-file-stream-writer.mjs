@@ -1,4 +1,4 @@
-const fs = require("fs")
+import fs from "node:fs"
 
 function createFileStreamWriter(file) {
   if (typeof file !== "string") {
@@ -58,4 +58,4 @@ function createFileStreamWriter(file) {
   }
 }
 
-module.exports = createFileStreamWriter
+export { createFileStreamWriter }

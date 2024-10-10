@@ -1,6 +1,6 @@
-const getFilesDeepSync = require("./get-files-deep-sync.js")
-const getDirsDeepSync = require("./get-dirs-deep-sync.js")
-const { sort, set } = require("@jrc03c/js-math-tools")
+import { getDirsDeepSync } from "./get-dirs-deep-sync.mjs"
+import { getFilesDeepSync } from "./get-files-deep-sync.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
 
 function findSync(dir, matcher, depth) {
   if (matcher instanceof RegExp || typeof matcher === "string") {
@@ -15,4 +15,4 @@ function findSync(dir, matcher, depth) {
   return sort(set(out))
 }
 
-module.exports = findSync
+export { findSync }

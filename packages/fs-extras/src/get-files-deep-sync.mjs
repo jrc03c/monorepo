@@ -1,8 +1,8 @@
-const fs = require("fs")
-const path = require("path")
-const { sort, set } = require("@jrc03c/js-math-tools")
+import { set, sort } from "@jrc03c/js-math-tools"
+import fs from "node:fs"
+import path from "node:path"
 
-function getAllDirsDeepSync(dir, depth) {
+function getFilesDeepSync(dir, depth) {
   if (typeof depth !== "number") {
     depth = Infinity
   }
@@ -36,13 +36,14 @@ function getAllDirsDeepSync(dir, depth) {
 
     if (!stat) return
 
-    if (stat.isDirectory()) {
+    if (stat.isFile() || stat.isSymbolicLink()) {
       out.push(childPath)
-      getAllDirsDeepSync(childPath, depth - 1).forEach(d => out.push(d))
+    } else {
+      getFilesDeepSync(childPath, depth - 1).forEach(d => out.push(d))
     }
   })
 
   return sort(set(out))
 }
 
-module.exports = getAllDirsDeepSync
+export { getFilesDeepSync }

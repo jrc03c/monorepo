@@ -1,7 +1,7 @@
-const { set, sort } = require("@jrc03c/js-math-tools")
-const config = require("./setup-and-teardown.js")
-const fs = require("fs")
-const getFilesDeepSync = require("../src/get-files-deep-sync.js")
+import { config } from "./setup-and-teardown.mjs"
+import { getFilesDeepSync } from "../src/get-files-deep-sync.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
+import fs from "node:fs"
 
 test("tests that files can be gotten deeply and synchronously", () => {
   config.setup()
@@ -9,8 +9,8 @@ test("tests that files can be gotten deeply and synchronously", () => {
 
   expect(results).toStrictEqual(
     sort(
-      set(config.files.concat(config.fileSymlinks).concat(config.dirSymlinks))
-    )
+      set(config.files.concat(config.fileSymlinks).concat(config.dirSymlinks)),
+    ),
   )
 
   config.teardown()
