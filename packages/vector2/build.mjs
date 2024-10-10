@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/vector2.require.cjs`,
       `${baseCommand} --outfile=dist/vector2.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/vector2.import.mjs`,
     ]
 
     commands.forEach(command => {

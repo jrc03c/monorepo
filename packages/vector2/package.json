@@ -10,12 +10,12 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/vector2.import.mjs",
     "require": "./dist/vector2.require.cjs"
   },
   "keywords": [],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/vector2.require.cjs",
   "name": "@jrc03c/vector2",
   "type": "module",
   "version": "0.0.4"
