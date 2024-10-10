@@ -10,12 +10,12 @@ function rebuild() {
     const commands = [
       "mkdir -p dist",
       "rm -rf dist/*",
-      `${baseCommand} --external:fs,path --platform=node --outfile=dist/js-plot-tools.require.cjs`,
-      `${baseCommand} --external:fs,path --platform=node --outfile=dist/js-plot-tools.require.min.cjs --minify`,
-      `${baseCommand} --external:fs,path --platform=node --outfile=dist/js-plot-tools.standalone.cjs`,
-      `${baseCommand} --external:fs,path --platform=node --outfile=dist/js-plot-tools.standalone.min.cjs --minify`,
-      `${baseCommand} --external:fs,path --platform=node --format=esm --outfile=dist/js-plot-tools.import.mjs`,
-      `${baseCommand} --external:fs,path --platform=node --format=esm --outfile=dist/js-plot-tools.import.min.mjs --minify`,
+      `${baseCommand} --platform=node --outfile=dist/js-plot-tools.require.cjs`,
+      `${baseCommand} --platform=node --outfile=dist/js-plot-tools.require.min.cjs --minify`,
+      `${baseCommand} --external:node:fs --external:node:path --external:node:child_process --outfile=dist/js-plot-tools.standalone.cjs`,
+      `${baseCommand} --external:node:fs --external:node:path --external:node:child_process --outfile=dist/js-plot-tools.standalone.min.cjs --minify`,
+      `${baseCommand} --external:node:fs --external:node:path --external:node:child_process --format=esm --outfile=dist/js-plot-tools.import.mjs`,
+      `${baseCommand} --external:node:fs --external:node:path --external:node:child_process --format=esm --outfile=dist/js-plot-tools.import.min.mjs --minify`,
     ]
 
     commands.forEach(command => {
