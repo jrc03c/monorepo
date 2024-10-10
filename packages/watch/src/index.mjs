@@ -1,7 +1,7 @@
-const { getFilesDeepSync } = require("@jrc03c/fs-extras")
-const applyInclusionsAndExclusions = require("./apply-inclusions-and-exclusions.js")
-const fs = require("node:fs")
-const path = require("node:path")
+import { getFilesDeepSync } from "@jrc03c/fs-extras"
+import { applyInclusionsAndExclusions } from "./apply-inclusions-and-exclusions.mjs"
+import fs from "node:fs"
+import path from "node:path"
 
 function watch(config) {
   if (typeof config.target !== "string") {
@@ -110,4 +110,4 @@ function watch(config) {
   }
 }
 
-module.exports = watch
+export { watch }

@@ -1,9 +1,9 @@
-const { exec } = require("child_process")
-const fs = require("fs")
-const makeKey = require("@jrc03c/make-key")
-const path = require("path")
-const pause = require("@jrc03c/pause")
-const watch = require("./watch.js")
+import { exec } from "node:child_process"
+import { makeKey } from "@jrc03c/make-key"
+import { pause } from "@jrc03c/pause"
+import { watch } from "./index.mjs"
+import fs from "node:fs"
+import path from "node:path"
 
 Array.prototype.random = function () {
   const self = this

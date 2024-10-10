@@ -6,6 +6,11 @@ dependsOn:
     scope: development
 language: javascript
 tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
   pub:
     command:
       - npm
@@ -24,5 +29,7 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
+    command:
+      - npx
+      - fake-jest
     platform: node

@@ -26,4 +26,4 @@ function applyInclusionsAndExclusions(items, inclusions, exclusions) {
   return items
 }
 
-module.exports = applyInclusionsAndExclusions
+export { applyInclusionsAndExclusions }

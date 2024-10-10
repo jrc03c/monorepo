@@ -1,4 +1,4 @@
-const applyInclusionsAndExclusions = require("./apply-inclusions-and-exclusions.js")
+import { applyInclusionsAndExclusions } from "./apply-inclusions-and-exclusions.mjs"
 
 test("tests the application of inclusions", () => {
   const items = [
