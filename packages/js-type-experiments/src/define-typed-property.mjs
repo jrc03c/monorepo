@@ -1,4 +1,4 @@
-const isOfType = require("./is-of-type")
+import { isOfType } from "./is-of-type.mjs"
 
 // options must include:
 // - type
@@ -71,4 +71,4 @@ function defineTypedProperty(obj, prop, type, options) {
   })
 }
 
-module.exports = defineTypedProperty
+export { defineTypedProperty }

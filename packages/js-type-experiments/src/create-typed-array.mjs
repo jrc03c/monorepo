@@ -1,6 +1,6 @@
-const { flatten, isArray } = require("@jrc03c/js-math-tools")
-const { pascalify } = require("@jrc03c/js-text-tools")
-const isOfType = require("./is-of-type")
+import { flatten, isArray } from "@jrc03c/js-math-tools"
+import { isOfType } from "./is-of-type.mjs"
+import { pascalify } from "@jrc03c/js-text-tools"
 
 const canUseNewKeyword = {
   allowsSubclassInstances: {},
@@ -353,4 +353,4 @@ function createTypedArray(type, allowsSubclassInstances) {
   return TypedArray.proxify(out)
 }
 
-module.exports = createTypedArray
+export { createTypedArray }

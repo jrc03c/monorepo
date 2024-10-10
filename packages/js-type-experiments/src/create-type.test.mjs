@@ -1,4 +1,4 @@
-const createType = require("./create-type")
+import { createType } from "./create-type.mjs"
 
 test("test that the `createType` function works as expected", () => {
   const variables = [

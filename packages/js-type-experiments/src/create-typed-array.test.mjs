@@ -1,6 +1,6 @@
-const { isEqual, range } = require("@jrc03c/js-math-tools")
-const createTypedArray = require("./create-typed-array")
-const isOfType = require("./is-of-type")
+import { createTypedArray } from "./create-typed-array.mjs"
+import { isEqual, range } from "@jrc03c/js-math-tools"
+import { isOfType } from "./is-of-type.mjs"
 
 test("test that the `createTypedArray` function works as expected", () => {
   // primitive array types

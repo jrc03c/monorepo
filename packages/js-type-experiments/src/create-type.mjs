@@ -1,4 +1,4 @@
-const { pascalify } = require("@jrc03c/js-text-tools")
+import { pascalify } from "@jrc03c/js-text-tools"
 
 function createType(name, fn) {
   if (typeof name !== "string") {
@@ -43,4 +43,4 @@ function createType(name, fn) {
   return out
 }
 
-module.exports = createType
+export { createType }

@@ -1,4 +1,4 @@
-const { isDate } = require("@jrc03c/js-math-tools")
+import { isDate } from "@jrc03c/js-math-tools"
 
 function isOfType(value, type, allowsSubclassInstances) {
   if (typeof allowsSubclassInstances === "undefined") {
@@ -27,4 +27,4 @@ function isOfType(value, type, allowsSubclassInstances) {
   }
 }
 
-module.exports = isOfType
+export { isOfType }

@@ -1,6 +1,6 @@
-const createType = require("./create-type")
-const createTypedArray = require("./create-typed-array")
-const defineTypedProperty = require("./define-typed-property")
+import { createType } from "./create-type.mjs"
+import { createTypedArray } from "./create-typed-array.mjs"
+import { defineTypedProperty } from "./define-typed-property.mjs"
 
 test("test that the `defineTypedProperty` function works as expected", () => {
   // primitive types

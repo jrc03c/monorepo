@@ -1,6 +1,6 @@
-const createType = require("./create-type")
-const createTypedArray = require("./create-typed-array")
-const isOfType = require("./is-of-type")
+import { createType } from "./create-type.mjs"
+import { createTypedArray } from "./create-typed-array.mjs"
+import { isOfType } from "./is-of-type.mjs"
 
 test("tests that the `isOfType` function works as expected", () => {
   // check correct types
