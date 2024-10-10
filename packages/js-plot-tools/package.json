@@ -21,5 +21,5 @@
   "main": "./dist/js-plot-tools.require.cjs",
   "name": "@jrc03c/js-plot-tools",
   "type": "module",
-  "version": "0.0.9"
+  "version": "0.0.10"
 }
