@@ -1,5 +1,5 @@
-import process from "process"
-import readline from "readline"
+import process from "node:process"
+import readline from "node:readline"
 
 function prompt(text, isHidden, callback) {
   if (arguments.length === 2) {

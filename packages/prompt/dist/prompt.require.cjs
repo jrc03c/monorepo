@@ -32,8 +32,8 @@ __export(src_exports, {
   prompt: () => prompt
 });
 module.exports = __toCommonJS(src_exports);
-var import_process = __toESM(require("process"), 1);
-var import_readline = __toESM(require("readline"), 1);
+var import_node_process = __toESM(require("node:process"), 1);
+var import_node_readline = __toESM(require("node:readline"), 1);
 function prompt(text, isHidden, callback) {
   if (arguments.length === 2) {
     if (typeof arguments[1] === "function") {
@@ -46,9 +46,9 @@ function prompt(text, isHidden, callback) {
       if (!text.match(/\s$/g)) {
         text += " ";
       }
-      const rl = import_readline.default.createInterface({
-        input: import_process.default.stdin,
-        output: import_process.default.stdout
+      const rl = import_node_readline.default.createInterface({
+        input: import_node_process.default.stdin,
+        output: import_node_process.default.stdout
       });
       rl.question(text, (response) => {
         if (callback) callback(response);
