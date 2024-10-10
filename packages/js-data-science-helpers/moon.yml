@@ -6,11 +6,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-data-science-helpers.js
-      - --minify
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -34,13 +31,3 @@ tasks:
       - bash
       - ./test.sh
     platform: system
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-data-science-helpers.js
-      - --minify
-      - --watch
-    local: true
-    platform: node
