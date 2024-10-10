@@ -8887,7 +8887,7 @@ var NodePlotter = class extends AbstractPlotter {
 
 // src/index.mjs
 var Plotter = isBrowser2() ? BrowserPlotter : NodePlotter;
-var plot = Plotter();
+var plot = new Plotter();
 if (typeof window !== "undefined") {
   window.plot = plot;
   window.Plotter = Plotter;
