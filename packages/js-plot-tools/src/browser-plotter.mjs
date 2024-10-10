@@ -1,4 +1,4 @@
-const {
+import {
   abs,
   ceil,
   clamp,
@@ -9,9 +9,9 @@ const {
   pow,
   range,
   remap,
-} = require("@jrc03c/js-math-tools")
+} from "@jrc03c/js-math-tools"
 
-const AbstractPlotter = require("./abstract-plotter.js")
+import { AbstractPlotter } from "./abstract-plotter.mjs"
 
 function getTickSize(xrange) {
   const xpow10 = floor(log(abs(xrange)) / log(10))
@@ -51,20 +51,18 @@ class BrowserPlotter extends AbstractPlotter {
   constructor(element) {
     super()
 
-    const self = this
-
     if (typeof element === "string") {
-      self.element = document.querySelector(element)
+      this.element = document.querySelector(element)
     } else if (element instanceof HTMLElement) {
-      self.element = element
+      this.element = element
     } else {
-      self.element = document.body
+      this.element = document.body
     }
 
-    self.left = -1
-    self.right = 1
-    self.bottom = -1
-    self.top = 1
+    this.left = -1
+    this.right = 1
+    this.bottom = -1
+    this.top = 1
   }
 
   static hydrate(obj) {
@@ -78,24 +76,22 @@ class BrowserPlotter extends AbstractPlotter {
   }
 
   show() {
-    const self = this
-
-    const { width, height } = self.element.getBoundingClientRect()
+    const { width, height } = this.element.getBoundingClientRect()
     const canvas = document.createElement("canvas")
     canvas.width = width
     canvas.height = height
-    self.element.appendChild(canvas)
+    this.element.appendChild(canvas)
 
     const context = canvas.getContext("2d")
     context.fillStyle = "rgb(245, 245, 245)"
     context.fillRect(0, 0, width, height)
 
-    if (self.instructions.length === 0) {
-      return self
+    if (this.instructions.length === 0) {
+      return this
     }
 
     // get all points (for bounds setting and tick mark drawing)
-    const drawInstructions = self.instructions
+    const drawInstructions = this.instructions
       .filter(i => i.action === "draw")
       .map(i => {
         if (i.type === "hist") {
@@ -114,76 +110,76 @@ class BrowserPlotter extends AbstractPlotter {
     const allYValues = drawInstructions.map(i => i.data.y || [])
 
     // set bounds automatically
-    if (self.shouldSetBoundsAutomatically) {
-      self.left = min(allXValues)
-      self.right = max(allXValues)
-      self.bottom = min(allYValues)
-      self.top = max(allYValues)
+    if (this.shouldSetBoundsAutomatically) {
+      this.left = min(allXValues)
+      this.right = max(allXValues)
+      this.bottom = min(allYValues)
+      this.top = max(allYValues)
     }
 
     // set bounds manually
     else {
-      const setBoundsInstructions = self.instructions.filter(
-        i => i.action === "set-bounds"
+      const setBoundsInstructions = this.instructions.filter(
+        i => i.action === "set-bounds",
       )
 
       const instruction =
         setBoundsInstructions[setBoundsInstructions.length - 1]
 
-      self.left = instruction.data.xmin
-      self.right = instruction.data.xmax
-      self.bottom = instruction.data.ymin
-      self.top = instruction.data.ymax
+      this.left = instruction.data.xmin
+      this.right = instruction.data.xmax
+      this.bottom = instruction.data.ymin
+      this.top = instruction.data.ymax
     }
 
-    if (self.left === self.right) {
-      self.left -= 1
-      self.right += 1
+    if (this.left === this.right) {
+      this.left -= 1
+      this.right += 1
     }
 
-    if (self.top === self.bottom) {
-      self.top += 1
-      self.bottom -= 1
+    if (this.top === this.bottom) {
+      this.top += 1
+      this.bottom -= 1
     }
 
     // draw axes
-    if (self.shouldDrawAxes) {
+    if (this.shouldDrawAxes) {
       context.strokeStyle = "black"
       context.lineWidth = 2
 
       const xZero = remap(
         0,
-        self.left,
-        self.right,
-        self.padding,
-        width - self.padding
+        this.left,
+        this.right,
+        this.padding,
+        width - this.padding,
       )
 
       const yZero = remap(
         0,
-        self.bottom,
-        self.top,
-        height - self.padding,
-        self.padding
+        this.bottom,
+        this.top,
+        height - this.padding,
+        this.padding,
       )
 
       context.beginPath()
-      context.moveTo(xZero, self.padding)
-      context.lineTo(xZero, height - self.padding)
-      context.moveTo(self.padding, yZero)
-      context.lineTo(width - self.padding, yZero)
+      context.moveTo(xZero, this.padding)
+      context.lineTo(xZero, height - this.padding)
+      context.moveTo(this.padding, yZero)
+      context.lineTo(width - this.padding, yZero)
       context.stroke()
 
-      if (self.shouldDrawAxisTicks) {
-        const xmin = self.left
-        const xmax = self.right
+      if (this.shouldDrawAxisTicks) {
+        const xmin = this.left
+        const xmax = this.right
         const xrange = xmax - xmin
 
         const xtick = getTickSize(xrange)
         const xticks = getMultiplesOfXBetweenAAndB(xtick, xmin, xmax)
 
-        const ymin = self.bottom
-        const ymax = self.top
+        const ymin = this.bottom
+        const ymax = this.top
         const yrange = ymax - ymin
 
         const ytick = getTickSize(yrange)
@@ -197,22 +193,22 @@ class BrowserPlotter extends AbstractPlotter {
         xticks.forEach(tick => {
           const x = remap(
             tick,
-            self.left,
-            self.right,
-            self.padding,
-            width - self.padding
+            this.left,
+            this.right,
+            this.padding,
+            width - this.padding,
           )
 
           const y = clamp(
             remap(
               0,
-              self.bottom,
-              self.top,
-              height - self.padding,
-              self.padding
+              this.bottom,
+              this.top,
+              height - this.padding,
+              this.padding,
             ),
-            self.padding,
-            height - self.padding
+            this.padding,
+            height - this.padding,
           )
 
           context.beginPath()
@@ -227,17 +223,17 @@ class BrowserPlotter extends AbstractPlotter {
 
         yticks.forEach(tick => {
           const x = clamp(
-            remap(0, self.left, self.right, self.padding, width - self.padding),
-            self.padding,
-            width - self.padding
+            remap(0, this.left, this.right, this.padding, width - this.padding),
+            this.padding,
+            width - this.padding,
           )
 
           const y = remap(
             tick,
-            self.bottom,
-            self.top,
-            height - self.padding,
-            self.padding
+            this.bottom,
+            this.top,
+            height - this.padding,
+            this.padding,
           )
 
           context.beginPath()
@@ -255,7 +251,7 @@ class BrowserPlotter extends AbstractPlotter {
     const angleStep = 110
 
     // run all instructions
-    self.instructions.forEach(instruction => {
+    this.instructions.forEach(instruction => {
       // draw
       if (instruction.action === "draw") {
         // scatter plots
@@ -266,20 +262,20 @@ class BrowserPlotter extends AbstractPlotter {
           const x = instruction.data.x.map(v => {
             return remap(
               v,
-              self.left,
-              self.right,
-              self.padding,
-              width - self.padding
+              this.left,
+              this.right,
+              this.padding,
+              width - this.padding,
             )
           })
 
           const y = instruction.data.y.map(v => {
             return remap(
               v,
-              self.bottom,
-              self.top,
-              height - self.padding,
-              self.padding
+              this.bottom,
+              this.top,
+              height - this.padding,
+              this.padding,
             )
           })
 
@@ -299,20 +295,20 @@ class BrowserPlotter extends AbstractPlotter {
           const x = instruction.data.x.map(v => {
             return remap(
               v,
-              self.left,
-              self.right,
-              self.padding,
-              width - self.padding
+              this.left,
+              this.right,
+              this.padding,
+              width - this.padding,
             )
           })
 
           const y = instruction.data.y.map(v => {
             return remap(
               v,
-              self.bottom,
-              self.top,
-              height - self.padding,
-              self.padding
+              this.bottom,
+              this.top,
+              height - this.padding,
+              this.padding,
             )
           })
 
@@ -335,9 +331,9 @@ class BrowserPlotter extends AbstractPlotter {
           const w = remap(
             instruction.data.x[1] - instruction.data.x[0],
             0,
-            self.right - self.left,
+            this.right - this.left,
             0,
-            width - 2 * self.padding
+            width - 2 * this.padding,
           )
 
           console.log("w:", w)
@@ -345,10 +341,10 @@ class BrowserPlotter extends AbstractPlotter {
           for (let i = 0; i < instruction.data.x.length; i++) {
             const x = remap(
               instruction.data.x[i],
-              self.left,
-              self.right,
-              self.padding,
-              width - self.padding
+              this.left,
+              this.right,
+              this.padding,
+              width - this.padding,
             )
 
             const h = remap(
@@ -356,25 +352,23 @@ class BrowserPlotter extends AbstractPlotter {
               0,
               max(instruction.data.y),
               0,
-              height - 2 * self.padding
+              height - 2 * this.padding,
             )
 
-            context.fillRect(x, height - self.padding - h, w, h)
-            context.strokeRect(x, height - self.padding - h, w, h)
+            context.fillRect(x, height - this.padding - h, w, h)
+            context.strokeRect(x, height - this.padding - h, w, h)
           }
         }
       }
     })
 
-    return self
+    return this
   }
-}
-
-if (typeof module !== "undefined") {
-  module.exports = BrowserPlotter
 }
 
 if (typeof window !== "undefined") {
   window.plot = new BrowserPlotter()
   window.Plotter = BrowserPlotter
 }
+
+export { BrowserPlotter }

@@ -5,6 +5,4 @@ function linspace(a, b, n) {
   return range(a, b + step, step)
 }
 
-module.exports = {
-  linspace,
-}
+export { linspace }

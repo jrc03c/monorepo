@@ -1,64 +1,55 @@
-const { MathError, max, min, range } = require("@jrc03c/js-math-tools")
+import { MathError, max, min, range } from "@jrc03c/js-math-tools"
 
 class AbstractPlotter {
   constructor() {
-    const self = this
-    self.instructions = []
-    self.shouldDrawAxes = true
-    self.shouldDrawAxisTicks = true
-    self.shouldSetBoundsAutomatically = true
-    self.padding = 25
+    this.instructions = []
+    this.shouldDrawAxes = true
+    this.shouldDrawAxisTicks = true
+    this.shouldSetBoundsAutomatically = true
+    this.padding = 25
   }
 
   clear() {
-    const self = this
-    self.instructions = []
-    return self
+    this.instructions = []
+    return this
   }
 
   dehydrate() {
-    const self = this
-    return JSON.stringify(self)
+    return JSON.stringify(this)
   }
 
   setBounds(xmin, xmax, ymin, ymax) {
-    const self = this
-    self.shouldSetBoundsAutomatically = false
+    this.shouldSetBoundsAutomatically = false
 
-    self.instructions.push({
+    this.instructions.push({
       action: "set-bounds",
       data: { xmin, ymin, xmax, ymax },
     })
 
-    return self
+    return this
   }
 
   scatter(x, y) {
-    const self = this
-
-    self.instructions.push({
+    this.instructions.push({
       action: "draw",
       type: "scatter",
       data: { x, y },
     })
 
-    return self
+    return this
   }
 
   line(x, y) {
-    const self = this
-
-    self.instructions.push({
+    this.instructions.push({
       action: "draw",
       type: "line",
       data: { x, y },
     })
 
-    return self
+    return this
   }
 
   hist(values, bins) {
-    const self = this
     bins = bins || 20
 
     const xmin = min(values)
@@ -73,20 +64,20 @@ class AbstractPlotter {
       y.push(count)
     }
 
-    self.instructions.push({
+    this.instructions.push({
       action: "draw",
       type: "hist",
       data: { x, y },
     })
 
-    return self
+    return this
   }
 
   show() {
     throw new MathError(
-      "The `show` method must be overridden in a concrete class!"
+      "The `show` method must be overridden in a concrete class!",
     )
   }
 }
 
-module.exports = AbstractPlotter
+export { AbstractPlotter }
