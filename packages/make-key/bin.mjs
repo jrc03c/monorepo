@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { exec } from "node:child_process"
-import makeKey from "./src/index.js"
+import { makeKey } from "./src/index.mjs"
 
 const args = process.argv.slice(2)
 

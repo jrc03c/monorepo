@@ -49,4 +49,4 @@ if (typeof window !== "undefined") {
   window.makeKey = makeKey
 }
 
-export default makeKey
+export { makeKey }

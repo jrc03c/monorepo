@@ -1,4 +1,4 @@
-import makeKey from "./index.js"
+import { makeKey } from "./index.mjs"
 
 test("tests that random strings can be generated correctly", () => {
   const a = makeKey(123)
