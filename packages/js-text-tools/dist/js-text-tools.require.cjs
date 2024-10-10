@@ -23,12 +23,18 @@ var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: tr
 var src_exports = {};
 __export(src_exports, {
   camelify: () => camelify,
+  convertObjectToTypedArray: () => convertObjectToTypedArray,
+  convertTypedArrayToObject: () => convertTypedArrayToObject,
   indent: () => indent,
+  isANumberString: () => isANumberString,
   kebabify: () => kebabify,
   parse: () => parse,
   pascalify: () => pascalify,
+  punctuation: () => punctuation,
+  replaceAll: () => replaceAll,
   snakeify: () => snakeify,
   stringify: () => stringify,
+  strip: () => strip,
   unindent: () => unindent,
   wrap: () => wrap
 });
@@ -40,88 +46,24 @@ function camelify(text) {
     throw new Error("`text` must be a string!");
   }
   text = text.trim();
-  let out3 = "";
+  let out2 = "";
   let shouldCapitalizeNextCharacter = false;
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
     if (char.match(/[A-Za-z0-9]/g)) {
-      if (out3.length === 0) {
-        out3 += char.toLowerCase();
+      if (out2.length === 0) {
+        out2 += char.toLowerCase();
       } else if (shouldCapitalizeNextCharacter) {
-        out3 += char.toUpperCase();
+        out2 += char.toUpperCase();
       } else {
-        out3 += char;
+        out2 += char;
       }
       shouldCapitalizeNextCharacter = false;
     } else if (!char.includes("'") && !char.includes("\u2019") && !char.includes("\u275C")) {
       shouldCapitalizeNextCharacter = true;
     }
   }
-  return out3;
-}
-
-// src/indent.mjs
-function indent(text, chars) {
-  chars = chars || "";
-  return text.split("\n").map((line) => {
-    if (line.trim().length > 0) {
-      return chars + line;
-    } else {
-      return line;
-    }
-  }).join("\n");
-}
-
-// src/helpers/punctuation.mjs
-var punctuation = "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65";
-
-// src/helpers/replace-all.mjs
-function replaceAll(text, a, b) {
-  if (typeof text !== "string") {
-    throw new Error("`text` must be a string!");
-  }
-  if (typeof a !== "string") {
-    throw new Error("`a` must be a string!");
-  }
-  if (typeof b !== "string") {
-    throw new Error("`b` must be a string!");
-  }
-  return text.split(a).join(b);
-}
-
-// src/helpers/strip.mjs
-var doubleSpace = "  ";
-var singleSpace = " ";
-function strip(text) {
-  if (typeof text !== "string") {
-    throw new Error("`text` must be a string!");
-  }
-  let out3 = "";
-  for (let i = 0; i < text.length; i++) {
-    const char = text[i].toLowerCase();
-    if (punctuation.includes(char)) {
-      out3 += singleSpace;
-    } else {
-      out3 += char;
-    }
-  }
-  while (out3.includes(doubleSpace)) {
-    out3 = replaceAll(out3, doubleSpace, singleSpace);
-  }
-  return out3.trim();
-}
-
-// src/kebabify.mjs
-function kebabify(text) {
-  if (typeof text !== "string") {
-    throw new Error("`text` must be a string!");
-  }
-  const words = strip(text).split(" ");
-  if (words.length === 0)
-    return "";
-  if (words.length === 1)
-    return words[0];
-  return words.join("-");
+  return out2;
 }
 
 // node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.mjs
@@ -311,11 +253,11 @@ function copy(x) {
         return new Date(x2.getTime());
       }
       x2 = decycle(x2);
-      const out22 = {};
+      const out2 = {};
       Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).forEach((key) => {
-        out22[key] = copy(x2[key]);
+        out2[key] = copy(x2[key]);
       });
-      return out22;
+      return out2;
     } else {
       return x2;
     }
@@ -361,22 +303,22 @@ function decycle(x) {
     }
   }
   const orig = x;
-  let out22 = helper5(orig);
+  let out2 = helper5(orig);
   if (isDataFrame(x)) {
     const temp = x.copy();
-    temp._values = out22.values;
-    temp._columns = out22.columns;
-    temp._index = out22.index;
-    out22 = temp;
+    temp._values = out2.values;
+    temp._columns = out2.columns;
+    temp._index = out2.index;
+    out2 = temp;
   }
   if (isSeries(x)) {
     const temp = x.copy();
-    temp.name = out22.name;
-    temp._values = out22.values;
-    temp._index = out22.index;
-    out22 = temp;
+    temp.name = out2.name;
+    temp._values = out2.values;
+    temp._index = out2.index;
+    out2 = temp;
   }
-  return out22;
+  return out2;
 }
 function isDate(x) {
   return x instanceof Date && x.toString() !== "Invalid Date";
@@ -447,10 +389,10 @@ function isEqual(a, b) {
 }
 function makeKey(n) {
   const alpha = "abcdefg1234567890";
-  let out22 = "";
-  while (out22.length < n)
-    out22 += alpha[Math.floor(Math.random() * alpha.length)];
-  return out22;
+  let out2 = "";
+  while (out2.length < n)
+    out2 += alpha[Math.floor(Math.random() * alpha.length)];
+  return out2;
 }
 var NULL_KEY = makeKey(16);
 var UNDEFINED_KEY = makeKey(16);
@@ -510,11 +452,11 @@ var Counter = class {
     return this.values.map((v) => ({ value: v, count: this.get(v) }));
   }
   toObject() {
-    const out22 = {};
+    const out2 = {};
     this.values.forEach((value) => {
-      out22[value] = this.get(value);
+      out2[value] = this.get(value);
     });
-    return out22;
+    return out2;
   }
 };
 function flatten(arr) {
@@ -523,22 +465,22 @@ function flatten(arr) {
   }
   assert(isArray(arr), "The `flatten` function only works on arrays, Series, and DataFrames!");
   function helper5(arr2) {
-    let out22 = [];
+    let out2 = [];
     arr2.forEach((child) => {
       if (isArray(child)) {
-        out22 = out22.concat(helper5(child));
+        out2 = out2.concat(helper5(child));
       } else {
-        out22.push(child);
+        out2.push(child);
       }
     });
-    return out22;
+    return out2;
   }
   return helper5(arr);
 }
 function stats(x, options) {
   options = options || {};
   const counts = new Counter();
-  const out22 = {};
+  const out2 = {};
   const xflat = flatten(x);
   const xnums = [];
   let max2 = -Infinity;
@@ -568,18 +510,18 @@ function stats(x, options) {
     counts.increment(v);
   }
   const mean2 = sum2 / xnums.length;
-  out22.counts = counts;
-  out22.max = max2;
-  out22.mean = mean2;
-  out22.min = min2;
-  out22.n = xflat.length;
-  out22.sum = sum2;
-  if (isNaN(out22.mean)) {
-    out22.max = NaN;
-    out22.min = NaN;
+  out2.counts = counts;
+  out2.max = max2;
+  out2.mean = mean2;
+  out2.min = min2;
+  out2.n = xflat.length;
+  out2.sum = sum2;
+  if (isNaN(out2.mean)) {
+    out2.max = NaN;
+    out2.min = NaN;
   }
   if (options.shouldDropNaNs) {
-    out22.nWithoutNaNs = xnums.length;
+    out2.nWithoutNaNs = xnums.length;
   }
   if (options.mode) {
     const sortedCountPairs = Array.from(counts.values.map((v) => [v, counts.get(v)])).toSorted((a, b) => b[1] - a[1]);
@@ -592,26 +534,26 @@ function stats(x, options) {
         break;
       }
     }
-    out22.mode = mode2.toSorted();
+    out2.mode = mode2.toSorted();
   }
   if (options.median) {
     if (isNaN(mean2)) {
-      out22.median = NaN;
+      out2.median = NaN;
     } else {
       const xnumsSorted = xnums.toSorted((a, b) => Number(a) - Number(b));
       const middle = Math.floor(xnumsSorted.length / 2);
       if (xnumsSorted.length % 2 === 0) {
         const left = xnumsSorted[middle - 1];
         const right = xnumsSorted[middle];
-        out22.median = (Number(left) + Number(right)) / 2;
+        out2.median = (Number(left) + Number(right)) / 2;
         if (resultsShouldIncludeBigInts && typeof left === "bigint" && typeof right === "bigint") {
           try {
-            out22.median = BigInt(out22.median);
+            out2.median = BigInt(out2.median);
           } catch (e) {
           }
         }
       } else {
-        out22.median = xnumsSorted[middle];
+        out2.median = xnumsSorted[middle];
       }
     }
   }
@@ -622,20 +564,20 @@ function stats(x, options) {
     }
     variance2 /= xnums.length;
     const stdev2 = Math.sqrt(variance2);
-    out22.stdev = stdev2;
-    out22.variance = variance2;
+    out2.stdev = stdev2;
+    out2.variance = variance2;
   }
   if (resultsShouldIncludeBigInts) {
     try {
-      out22.sum = BigInt(out22.sum);
+      out2.sum = BigInt(out2.sum);
     } catch (e) {
     }
     try {
-      out22.mean = BigInt(out22.mean);
+      out2.mean = BigInt(out2.mean);
     } catch (e) {
     }
     if (options.mode) {
-      out22.mode = out22.mode.map((v) => {
+      out2.mode = out2.mode.map((v) => {
         try {
           return BigInt(v);
         } catch (e) {
@@ -644,7 +586,7 @@ function stats(x, options) {
       });
     }
   }
-  return out22;
+  return out2;
 }
 function count(arr, matcher) {
   const { counts } = stats(arr);
@@ -724,16 +666,16 @@ function ndarray(shape2) {
   assert(Math.floor(s2) === s2, error);
   assert(s2 !== Infinity, "We can't create an array containing an infinite number of values!");
   if (shape2.length === 1) {
-    const out22 = [];
+    const out2 = [];
     for (let i = 0; i < s2; i++)
-      out22.push(void 0);
-    return out22;
+      out2.push(void 0);
+    return out2;
   } else {
-    const out22 = [];
+    const out2 = [];
     for (let i = 0; i < s2; i++) {
-      out22.push(ndarray(shape2.slice(1)));
+      out2.push(ndarray(shape2.slice(1)));
     }
-    return out22;
+    return out2;
   }
 }
 function reverse(arr) {
@@ -744,10 +686,10 @@ function reverse(arr) {
     return out3;
   }
   assert(isArray(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
-  const out22 = [];
+  const out2 = [];
   for (let i = arr.length - 1; i >= 0; i--)
-    out22.push(arr[i]);
-  return out22;
+    out2.push(arr[i]);
+  return out2;
 }
 function range(a, b, step = 1) {
   assert(!isUndefined(a) && !isUndefined(b) && !isUndefined(step), "You must pass two numbers and optionally a step value to the `range` function!");
@@ -764,28 +706,28 @@ function range(a, b, step = 1) {
     a = b + step;
     b = buffer + step;
   }
-  let out22 = [];
+  let out2 = [];
   for (let i = a; i < b; i += step) {
     if (shouldIncludeBigInts) {
       try {
-        out22.push(BigInt(i));
+        out2.push(BigInt(i));
       } catch (e) {
-        out22.push(i);
+        out2.push(i);
       }
     } else {
-      out22.push(i);
+      out2.push(i);
     }
   }
   if (shouldReverse)
-    out22 = reverse(out22);
-  return out22;
+    out2 = reverse(out2);
+  return out2;
 }
 function makeKey2(n) {
   const alpha = "abcdefg1234567890";
-  let out22 = "";
-  while (out22.length < n)
-    out22 += alpha[Math.floor(Math.random() * alpha.length)];
-  return out22;
+  let out2 = "";
+  while (out2.length < n)
+    out2 += alpha[Math.floor(Math.random() * alpha.length)];
+  return out2;
 }
 var NULL_KEY2 = makeKey2(256);
 var UNDEFINED_KEY2 = makeKey2(256);
@@ -797,15 +739,15 @@ function set(arr) {
     return set(arr.values);
   }
   assert(isArray(arr), "The `set` function only works on arrays, Series, and DataFrames!");
-  const out22 = [];
+  const out2 = [];
   const temp = {};
   flatten(arr).forEach((item) => {
     const key = typeof item === "object" && item === null ? NULL_KEY2 : isUndefined(item) ? UNDEFINED_KEY2 : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY2 : item === Infinity ? INFINITY_KEY2 : item === -Infinity ? MINUS_INFINITY_KEY2 : typeof item === "bigint" ? item.toString() : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
     if (!temp[key])
-      out22.push(item);
+      out2.push(item);
     temp[key] = true;
   });
-  return out22;
+  return out2;
 }
 function helper2(x) {
   if (isArray(x)) {
@@ -832,92 +774,92 @@ function dfAppend(df, x, axis) {
     const xShape = shape(x);
     if (xShape.length === 1) {
       if (axis === 0) {
-        const out22 = df.copy();
-        out22._values.push(x);
+        const out2 = df.copy();
+        out2._values.push(x);
         const maxRowLength = Math.max(df.shape[1], xShape[0]);
-        out22._values.forEach((row) => {
+        out2._values.forEach((row) => {
           while (row.length < maxRowLength) {
             row.push(void 0);
           }
         });
-        while (out22._index.length < out22._values.length) {
-          out22._index.push("row" + out22._index.length);
+        while (out2._index.length < out2._values.length) {
+          out2._index.push("row" + out2._index.length);
         }
-        while (out22._columns.length < maxRowLength) {
-          out22._columns.push("col" + out22._columns.length);
+        while (out2._columns.length < maxRowLength) {
+          out2._columns.push("col" + out2._columns.length);
         }
-        return out22;
+        return out2;
       } else {
         const maxColLength = Math.max(df.shape[0], xShape[0]);
-        const out22 = df.copy();
+        const out2 = df.copy();
         range(0, maxColLength).forEach((i) => {
-          if (i >= out22._values.length) {
-            out22._values.push(ndarray(df.shape[1]));
+          if (i >= out2._values.length) {
+            out2._values.push(ndarray(df.shape[1]));
           }
-          out22._values[i].push(x[i]);
+          out2._values[i].push(x[i]);
         });
-        while (out22._index.length < out22._values.length) {
-          out22._index.push("row" + out22._index.length);
+        while (out2._index.length < out2._values.length) {
+          out2._index.push("row" + out2._index.length);
         }
-        while (out22._columns.length < out22._values[0].length) {
-          out22._columns.push("col" + out22._columns.length);
+        while (out2._columns.length < out2._values[0].length) {
+          out2._columns.push("col" + out2._columns.length);
         }
-        return out22;
+        return out2;
       }
     } else if (xShape.length === 2) {
       if (axis === 0) {
         const maxRowLength = Math.max(...x.map((row) => row.length).concat([df.shape[1]]));
-        const out22 = df.copy();
-        out22._values = out22._values.concat(x).map((row) => {
+        const out2 = df.copy();
+        out2._values = out2._values.concat(x).map((row) => {
           while (row.length < maxRowLength) {
             row.push(void 0);
           }
           return row;
         });
-        while (out22._index.length < out22._values.length) {
-          out22._index.push("row" + out22._index.length);
+        while (out2._index.length < out2._values.length) {
+          out2._index.push("row" + out2._index.length);
         }
-        while (out22._columns.length < maxRowLength) {
-          out22._columns.push("col" + out22._columns.length);
+        while (out2._columns.length < maxRowLength) {
+          out2._columns.push("col" + out2._columns.length);
         }
-        return out22;
+        return out2;
       } else {
         const maxRowLength = Math.max(...x.map((row) => row.length)) + df.shape[1];
         const maxColLength = Math.max(df.shape[0], xShape[0]);
-        const out22 = df.copy();
+        const out2 = df.copy();
         range(0, maxColLength).forEach((i) => {
-          if (i >= out22._values.length) {
-            out22._values.push(ndarray(df.shape[1]));
+          if (i >= out2._values.length) {
+            out2._values.push(ndarray(df.shape[1]));
           }
-          out22._values[i] = out22._values[i].concat(x[i]);
-          while (out22._values[i].length < maxRowLength) {
-            out22._values[i].push(void 0);
+          out2._values[i] = out2._values[i].concat(x[i]);
+          while (out2._values[i].length < maxRowLength) {
+            out2._values[i].push(void 0);
           }
         });
-        while (out22._index.length < out22._values.length) {
-          out22._index.push("row" + out22._index.length);
+        while (out2._index.length < out2._values.length) {
+          out2._index.push("row" + out2._index.length);
         }
-        while (out22._columns.length < maxRowLength) {
-          out22._columns.push("col" + out22._columns.length);
+        while (out2._columns.length < maxRowLength) {
+          out2._columns.push("col" + out2._columns.length);
         }
-        return out22;
+        return out2;
       }
     } else {
       throw new MathError("Only 1- and 2-dimensional arrays can be appended to a DataFrame!");
     }
   } else if (isSeries(x)) {
-    const out22 = dfAppend(df, x.values, axis);
+    const out2 = dfAppend(df, x.values, axis);
     if (axis === 0) {
-      out22.index[out22.index.length - 1] = out22.index.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+      out2.index[out2.index.length - 1] = out2.index.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
     } else {
-      out22.columns[out22.columns.length - 1] = out22.columns.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+      out2.columns[out2.columns.length - 1] = out2.columns.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
     }
-    return out22;
+    return out2;
   } else if (isDataFrame(x)) {
     if (axis === 0) {
-      const out22 = df.copy();
-      const maxRowLength = set(out22._columns.concat(x._columns)).length;
-      out22._values.forEach((row) => {
+      const out2 = df.copy();
+      const maxRowLength = set(out2._columns.concat(x._columns)).length;
+      out2._values.forEach((row) => {
         while (row.length < maxRowLength) {
           row.push(void 0);
         }
@@ -925,7 +867,7 @@ function dfAppend(df, x, axis) {
       x.apply((row) => {
         const rowCopy = row.copy();
         const temp = [];
-        out22._columns.forEach((col) => {
+        out2._columns.forEach((col) => {
           const index = rowCopy._index.indexOf(col);
           if (index > -1) {
             temp.push(rowCopy._values[index]);
@@ -935,33 +877,33 @@ function dfAppend(df, x, axis) {
             temp.push(void 0);
           }
         });
-        out22._values.push(temp.concat(rowCopy._values));
+        out2._values.push(temp.concat(rowCopy._values));
       }, 1);
-      out22._columns = out22._columns.concat(x._columns.filter((c) => out22._columns.indexOf(c) < 0));
-      while (out22._index.length < out22._values.length) {
-        const newRowName = "row" + out22._index.length;
-        out22._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
+      out2._columns = out2._columns.concat(x._columns.filter((c) => out2._columns.indexOf(c) < 0));
+      while (out2._index.length < out2._values.length) {
+        const newRowName = "row" + out2._index.length;
+        out2._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
       }
-      return out22;
+      return out2;
     } else {
-      const out22 = df.copy();
-      out22._index.forEach((rowName, i) => {
+      const out2 = df.copy();
+      out2._index.forEach((rowName, i) => {
         const xIndex = x._index.indexOf(rowName);
         if (xIndex > -1) {
-          out22._values[i] = out22._values[i].concat(x._values[xIndex]);
+          out2._values[i] = out2._values[i].concat(x._values[xIndex]);
         } else {
-          out22._values[i] = out22._values[i].concat(ndarray(x.shape[1]));
+          out2._values[i] = out2._values[i].concat(ndarray(x.shape[1]));
         }
       });
       x._index.forEach((rowName, i) => {
-        const outIndex = out22._index.indexOf(rowName);
+        const outIndex = out2._index.indexOf(rowName);
         if (outIndex < 0) {
-          out22._index.push(rowName);
-          out22._values.push(ndarray(out22._columns.length).concat(x._values[i]));
+          out2._index.push(rowName);
+          out2._values.push(ndarray(out2._columns.length).concat(x._values[i]));
         }
       });
-      out22._columns = out22._columns.concat(x._columns.map((c) => c + (out22._columns.indexOf(c) > -1 ? " (2)" : "")));
-      return out22;
+      out2._columns = out2._columns.concat(x._columns.map((c) => c + (out2._columns.indexOf(c) > -1 ? " (2)" : "")));
+      return out2;
     }
   } else {
     throw new MathError("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!");
@@ -989,13 +931,13 @@ function dfApply(DataFrame2, Series2, df, fn, axis) {
       }
     });
     if (shouldReturnADataFrame) {
-      const out22 = new DataFrame2(temp);
-      out22.index = df.index;
-      return out22;
+      const out2 = new DataFrame2(temp);
+      out2.index = df.index;
+      return out2;
     } else {
-      const out22 = new Series2(df.columns.map((colName) => temp[colName]));
-      out22.index = df.columns;
-      return out22;
+      const out2 = new Series2(df.columns.map((colName) => temp[colName]));
+      out2.index = df.columns;
+      return out2;
     }
   } else if (axis === 1) {
     let shouldReturnADataFrame;
@@ -1014,14 +956,14 @@ function dfApply(DataFrame2, Series2, df, fn, axis) {
       }
     });
     if (shouldReturnADataFrame) {
-      const out22 = new DataFrame2(temp);
-      out22.index = df.index;
-      out22.columns = df.columns;
-      return out22;
+      const out2 = new DataFrame2(temp);
+      out2.index = df.index;
+      out2.columns = df.columns;
+      return out2;
     } else {
-      const out22 = new Series2(temp);
-      out22.index = df.index;
-      return out22;
+      const out2 = new Series2(temp);
+      out2.index = df.index;
+      return out2;
     }
   }
 }
@@ -1034,9 +976,9 @@ function dfAssign(DataFrame2, Series2, df, p1, p2) {
   if (!isUndefined(p2)) {
     assert(isString(p1), "If passing two arguments into the `assign` method, then the first argument must be a string name!");
     assert(isArray(p2) && !isJagged(p2) && shape(p2).length === 1, "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");
-    const out22 = df.append(p2, 1);
-    out22.columns[out22.columns.length - 1] = p1;
-    return out22;
+    const out2 = df.append(p2, 1);
+    out2.columns[out2.columns.length - 1] = p1;
+    return out2;
   } else {
     if (isDataFrame2(p1)) {
       return df.append(p1, 1);
@@ -1058,10 +1000,10 @@ function dfAssign(DataFrame2, Series2, df, p1, p2) {
 function dfCopy(DataFrame2, df) {
   if (df.isEmpty)
     return new DataFrame2();
-  const out22 = new DataFrame2(copy(df.values));
-  out22.columns = df.columns.slice();
-  out22.index = df.index.slice();
-  return out22;
+  const out2 = new DataFrame2(copy(df.values));
+  out2.columns = df.columns.slice();
+  out2.index = df.index.slice();
+  return out2;
 }
 function dfDrop(DataFrame2, Series2, df, rows, cols) {
   if (isUndefined(rows))
@@ -1091,15 +1033,15 @@ function dfDrop(DataFrame2, Series2, df, rows, cols) {
       outColumns.push(col);
     }
   });
-  let out22 = df.get(outIndex, outColumns);
-  if (out22 instanceof Series2) {
+  let out2 = df.get(outIndex, outColumns);
+  if (out2 instanceof Series2) {
     let temp = new DataFrame2();
-    temp = temp.assign(out22);
-    if (df.index.indexOf(out22.name) > -1)
+    temp = temp.assign(out2);
+    if (df.index.indexOf(out2.name) > -1)
       temp = temp.transpose();
-    out22 = temp;
+    out2 = temp;
   }
-  return out22;
+  return out2;
 }
 function isInteger(x) {
   return isNumber(x) && (x >= 0 ? Math.floor(x) === x : Math.ceil(x) === x);
@@ -1140,27 +1082,27 @@ function dfDropMissing(DataFrame2, Series2, df, axis, condition, threshold) {
     }
     return values;
   }
-  let out22 = df.copy();
+  let out2 = df.copy();
   const tempID = Math.random().toString();
   if (axis === 0) {
-    out22 = out22.assign(tempID, out22.index);
-    const newValues = out22.values.map(helper5).filter((row) => row.length > 0);
+    out2 = out2.assign(tempID, out2.index);
+    const newValues = out2.values.map(helper5).filter((row) => row.length > 0);
     if (shape(newValues).length < 2)
       return new DataFrame2();
-    out22.values = newValues;
-    let newIndex = out22.get(null, tempID);
+    out2.values = newValues;
+    let newIndex = out2.get(null, tempID);
     if (isUndefined(newIndex))
       return new DataFrame2();
     if (isString(newIndex))
       newIndex = [newIndex];
     if (newIndex instanceof Series2)
       newIndex = newIndex.values;
-    out22.index = newIndex;
-    out22 = out22.drop(null, tempID);
+    out2.index = newIndex;
+    out2 = out2.drop(null, tempID);
   } else if (axis === 1) {
     const temp = {};
-    out22.columns.forEach((colName, i) => {
-      const values = out22.values.map((row) => row[i]);
+    out2.columns.forEach((colName, i) => {
+      const values = out2.values.map((row) => row[i]);
       const newValues = helper5(values);
       if (newValues.length > 0) {
         temp[colName] = newValues;
@@ -1170,27 +1112,27 @@ function dfDropMissing(DataFrame2, Series2, df, axis, condition, threshold) {
       return new DataFrame2();
     }
     const newOut = new DataFrame2(temp);
-    newOut.index = out22.index;
+    newOut.index = out2.index;
     return newOut;
   }
-  return out22;
+  return out2;
 }
 function dropNaN(x) {
   if (isDataFrame(x) || isSeries(x)) {
     return x.dropNaN(...Object.values(arguments).slice(1));
   }
   assert(isArray(x), "The `dropNaN` function only works on arrays, Series, and DataFrames!");
-  const out22 = [];
+  const out2 = [];
   x.forEach((v) => {
     try {
-      return out22.push(dropNaN(v));
+      return out2.push(dropNaN(v));
     } catch (e) {
       if (isNumber(v)) {
-        return out22.push(v);
+        return out2.push(v);
       }
     }
   });
-  return out22;
+  return out2;
 }
 function dfDropNaN(DataFrame2, df, axis, condition, threshold) {
   axis = axis || 0;
@@ -1209,34 +1151,34 @@ function dfDropNaN(DataFrame2, df, axis, condition, threshold) {
       return numericalValues.length > 0;
     return true;
   }
-  const out22 = df.copy();
+  const out2 = df.copy();
   if (axis === 0) {
-    const rowsToKeep = out22.index.filter((row) => {
-      const values = out22.get(row, null).values;
+    const rowsToKeep = out2.index.filter((row) => {
+      const values = out2.get(row, null).values;
       return helper5(values);
     });
     if (rowsToKeep.length > 0)
-      return out22.get(rowsToKeep, null);
+      return out2.get(rowsToKeep, null);
     else
       return new DataFrame2();
   } else if (axis === 1) {
-    const colsToKeep = out22.columns.filter((col) => {
-      const values = out22.get(null, col).values;
+    const colsToKeep = out2.columns.filter((col) => {
+      const values = out2.get(null, col).values;
       return helper5(values);
     });
     if (colsToKeep.length > 0)
-      return out22.get(null, colsToKeep);
+      return out2.get(null, colsToKeep);
     else
       return new DataFrame2();
   }
-  return out22;
+  return out2;
 }
 function arrayToObject(x) {
-  const out22 = {};
+  const out2 = {};
   flatten(x).forEach((value, i) => {
-    out22[value] = i;
+    out2[value] = i;
   });
-  return out22;
+  return out2;
 }
 function undoArrayToObject(obj) {
   return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)).sort((a, b) => obj[a] - obj[b]);
@@ -1246,14 +1188,14 @@ function dfFilter(DataFrame2, Series2, df, fn, axis) {
   if (isUndefined(axis))
     axis = 0;
   assert(axis === 0 || axis === 1, "The `axis` parameter to the `filter` method must be 0 or 1.");
-  let out22 = df.copy();
-  if (out22.isEmpty)
-    return out22;
-  const index = arrayToObject(out22.index);
-  const columns = arrayToObject(out22.columns);
+  let out2 = df.copy();
+  if (out2.isEmpty)
+    return out2;
+  const index = arrayToObject(out2.index);
+  const columns = arrayToObject(out2.columns);
   if (axis === 0) {
     let count2 = 0;
-    const newValues = out22.values.filter((row, i) => {
+    const newValues = out2.values.filter((row, i) => {
       const series = new Series2(row);
       series.name = df.index[i];
       series.index = df.columns;
@@ -1261,7 +1203,7 @@ function dfFilter(DataFrame2, Series2, df, fn, axis) {
       if (shouldKeep) {
         count2++;
       } else {
-        delete index[out22.index[i]];
+        delete index[out2.index[i]];
       }
       return shouldKeep;
     });
@@ -1274,12 +1216,12 @@ function dfFilter(DataFrame2, Series2, df, fn, axis) {
       temp.index = undoArrayToObject(columns);
       return temp;
     }
-    out22.values = newValues;
-    out22.index = undoArrayToObject(index);
+    out2.values = newValues;
+    out2.index = undoArrayToObject(index);
   } else if (axis === 1) {
-    out22 = out22.transpose();
+    out2 = out2.transpose();
     let count2 = 0;
-    const newValues = out22.values.filter((row, i) => {
+    const newValues = out2.values.filter((row, i) => {
       const series = new Series2(row);
       series.name = df.columns[i];
       series.index = df.index;
@@ -1287,7 +1229,7 @@ function dfFilter(DataFrame2, Series2, df, fn, axis) {
       if (shouldKeep) {
         count2++;
       } else {
-        delete columns[out22.index[i]];
+        delete columns[out2.index[i]];
       }
       return shouldKeep;
     });
@@ -1300,11 +1242,11 @@ function dfFilter(DataFrame2, Series2, df, fn, axis) {
       temp.index = undoArrayToObject(index);
       return temp;
     }
-    out22.values = newValues;
-    out22.index = undoArrayToObject(columns);
-    out22 = out22.transpose();
+    out2.values = newValues;
+    out2.index = undoArrayToObject(columns);
+    out2 = out2.transpose();
   }
-  return out22;
+  return out2;
 }
 function dfGet(df, rows, cols) {
   if (isString(rows) || isNumber(rows))
@@ -1385,22 +1327,22 @@ function sort(arr, fn) {
   }
   assert(isArray(arr), "The `sort` function only works on arrays, Series, and DataFrames!");
   assert(isFunction(fn), "The second parameter of the `sort` function must be a comparison function!");
-  const out22 = arr.slice();
-  out22.sort(fn);
-  return out22;
+  const out2 = arr.slice();
+  out2.sort(fn);
+  return out2;
 }
 function camelify2(text) {
   const temp = text.toLowerCase();
-  let out22 = "";
+  let out2 = "";
   for (let i = 0; i < temp.length; i++) {
     const char = temp[i];
     if (char.match(/[a-z0-9]/g)) {
-      out22 += char;
+      out2 += char;
     } else {
-      out22 += " ";
+      out2 += " ";
     }
   }
-  const words = out22.split(" ").filter((word) => word.length > 0);
+  const words = out2.split(" ").filter((word) => word.length > 0);
   return words[0] + words.slice(1).map((word) => word[0].toUpperCase() + word.substring(1)).join("");
 }
 function dfGetDummies(DataFrame2, df, columns) {
@@ -1430,9 +1372,9 @@ function dfGetDummies(DataFrame2, df, columns) {
       });
     });
   });
-  const out22 = new DataFrame2(temp);
-  out22.index = df.index;
-  return out22;
+  const out2 = new DataFrame2(temp);
+  out2.index = df.index;
+  return out2;
 }
 function dfGetSubsetByIndices(df, rowIndices, colIndices) {
   const dataShape = df.shape;
@@ -1501,10 +1443,10 @@ function dfGetSubsetByNames(DataFrame2, Series2, df, rows, cols) {
     out3.index = rows;
     return out3;
   }
-  const out22 = new DataFrame2(values);
-  out22.columns = cols;
-  out22.index = rows;
-  return out22;
+  const out2 = new DataFrame2(values);
+  out2.columns = cols;
+  out2.index = rows;
+  return out2;
 }
 function dfPrint(DataFrame2, Series2, df) {
   function truncate(s2, maxLength2) {
@@ -1570,17 +1512,17 @@ function dfPrint(DataFrame2, Series2, df) {
 }
 function leftPad(x, maxLength) {
   assert(isNumber(x), "The `leftPad` function only works on numbers!");
-  let out22 = x.toString();
-  while (out22.length < maxLength)
-    out22 = "0" + out22;
-  return out22;
+  let out2 = x.toString();
+  while (out2.length < maxLength)
+    out2 = "0" + out2;
+  return out2;
 }
 function dfResetIndex(df, shouldSkipCopying) {
-  const out22 = shouldSkipCopying ? df : df.copy();
-  out22.index = range(0, df.shape[0]).map((i) => {
-    return "row" + leftPad(i, (out22.index.length - 1).toString().length);
+  const out2 = shouldSkipCopying ? df : df.copy();
+  out2.index = range(0, df.shape[0]).map((i) => {
+    return "row" + leftPad(i, (out2.index.length - 1).toString().length);
   });
-  return out22;
+  return out2;
 }
 function product(arr, shouldDropNaNs) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -1592,7 +1534,7 @@ function product(arr, shouldDropNaNs) {
       return NaN;
     const temp = flatten(arr);
     let resultShouldBeABigInt = false;
-    let out22 = 1;
+    let out2 = 1;
     for (let v of temp) {
       if (!isNumber(v)) {
         if (shouldDropNaNs) {
@@ -1605,15 +1547,15 @@ function product(arr, shouldDropNaNs) {
         resultShouldBeABigInt = true;
         v = Number(v);
       }
-      out22 *= v;
+      out2 *= v;
     }
     if (resultShouldBeABigInt) {
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
       }
     }
-    return out22;
+    return out2;
   } catch (e) {
     return NaN;
   }
@@ -1645,13 +1587,13 @@ function reshape(x, newShape) {
     return temp;
   }
   assert(product(newShape) === temp.length, "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");
-  const out22 = [];
+  const out2 = [];
   const step = Math.floor(temp.length / newShape[0]);
   for (let i = 0; i < newShape[0]; i++) {
     const row = temp.slice(i * step, (i + 1) * step);
-    out22.push(reshape(row, newShape.slice(1)));
+    out2.push(reshape(row, newShape.slice(1)));
   }
-  return out22;
+  return out2;
 }
 var MAX = Math.pow(2, 64);
 var s = [];
@@ -1665,10 +1607,10 @@ function splitmix64(state, n) {
     z = (z ^ z >> BigInt(27)) * uint("0x94d049bb133111eb");
     return z ^ z >> BigInt(31);
   }
-  const out22 = [];
+  const out2 = [];
   for (let i = 0; i < n; i++)
-    out22.push(helper5());
-  return out22;
+    out2.push(helper5());
+  return out2;
 }
 function uint(x) {
   return BigInt.asUintN(64, BigInt(x));
@@ -1716,13 +1658,13 @@ function shuffle(arr) {
     return arr.shuffle(...Object.values(arguments).slice(1));
   }
   assert(isArray(arr), "The `shuffle` function only works on arrays, Series, and DataFrames!");
-  const out22 = [];
+  const out2 = [];
   const temp = arr.slice();
   for (let i = 0; i < arr.length; i++) {
     const index = Math.floor(random() * temp.length);
-    out22.push(temp.splice(index, 1)[0]);
+    out2.push(temp.splice(index, 1)[0]);
   }
-  return out22;
+  return out2;
 }
 function dfShuffle(df, axis) {
   if (isUndefined(axis))
@@ -1757,9 +1699,9 @@ function dfSortByFunction(df, fn, axis) {
   }
 }
 function dfSortByColumns(df, cols, directions) {
-  let out22 = df.copy();
+  let out2 = df.copy();
   const indexID = random().toString();
-  out22 = out22.assign(indexID, out22.index);
+  out2 = out2.assign(indexID, out2.index);
   if (isUndefined(cols)) {
     cols = [indexID];
     directions = [true];
@@ -1779,13 +1721,13 @@ function dfSortByColumns(df, cols, directions) {
   cols = cols.map((col) => {
     assert(isString(col) || isNumber(col), "Column references can either be column names (as strings) or column indices (as whole numbers).");
     if (isString(col)) {
-      const index = out22.columns.indexOf(col);
+      const index = out2.columns.indexOf(col);
       assert(index > -1, `The column "${col}" does not exist!`);
       return index;
     }
     if (isNumber(col)) {
       assert(isWholeNumber(col), "Column indices must be whole numbers!");
-      assert(col < out22.columns.length, `The index ${col} is out of bounds!`);
+      assert(col < out2.columns.length, `The index ${col} is out of bounds!`);
       return col;
     }
   });
@@ -1800,7 +1742,7 @@ function dfSortByColumns(df, cols, directions) {
       return dir;
     }
   });
-  out22.values = sort(out22.values, (a, b) => {
+  out2.values = sort(out2.values, (a, b) => {
     let counter = 0;
     while (a[cols[counter]] === b[cols[counter]] && counter < cols.length) {
       counter++;
@@ -1813,10 +1755,10 @@ function dfSortByColumns(df, cols, directions) {
     if (a[cols[counter]] > b[cols[counter]])
       return isAscending ? 1 : -1;
   });
-  const indexNumber = out22.columns.indexOf(indexID);
-  out22.index = out22.values.map((row) => row[indexNumber]);
-  out22 = out22.dropColumns(indexID);
-  return out22;
+  const indexNumber = out2.columns.indexOf(indexID);
+  out2.index = out2.values.map((row) => row[indexNumber]);
+  out2 = out2.dropColumns(indexID);
+  return out2;
 }
 function dfToDetailedObject(df, axis) {
   if (isUndefined(axis)) {
@@ -1824,14 +1766,14 @@ function dfToDetailedObject(df, axis) {
   } else {
     assert(axis === 0 || axis === 1, "The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");
   }
-  const out22 = {};
+  const out2 = {};
   if (axis === 0) {
     df.index.forEach((rowName, i) => {
       const temp = {};
       df.columns.forEach((colName, j) => {
         temp[colName] = df.values[i][j];
       });
-      out22[rowName] = temp;
+      out2[rowName] = temp;
     });
   } else {
     df.columns.forEach((colName, j) => {
@@ -1839,16 +1781,16 @@ function dfToDetailedObject(df, axis) {
       df.index.forEach((rowName, i) => {
         temp[rowName] = df.values[i][j];
       });
-      out22[colName] = temp;
+      out2[colName] = temp;
     });
   }
-  return out22;
+  return out2;
 }
 function dfToJSONString(df, axis) {
   return JSON.stringify(df.toObject(axis));
 }
 async function dfToJSON(df, filename, axis) {
-  const out22 = dfToJSONString(df, axis);
+  const out2 = dfToJSONString(df, axis);
   let downloadedInBrowser = false;
   let wroteToDiskInNode = false;
   let browserError, nodeError;
@@ -1859,7 +1801,7 @@ async function dfToJSON(df, filename, axis) {
       newFilename = parts[parts.length - 1];
     }
     const a = document.createElement("a");
-    a.href = `data:application/json;charset=utf-8,${encodeURIComponent(out22)}`;
+    a.href = `data:application/json;charset=utf-8,${encodeURIComponent(out2)}`;
     a.download = newFilename;
     a.dispatchEvent(new MouseEvent("click"));
     downloadedInBrowser = true;
@@ -1869,7 +1811,7 @@ async function dfToJSON(df, filename, axis) {
   try {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    fs.writeFileSync(path.resolve(filename), out22, "utf8");
+    fs.writeFileSync(path.resolve(filename), out2, "utf8");
     wroteToDiskInNode = true;
   } catch (e) {
     nodeError = e;
@@ -1886,11 +1828,11 @@ async function dfToJSON(df, filename, axis) {
   return df;
 }
 function dfToObject(df) {
-  const out22 = {};
+  const out2 = {};
   df.columns.forEach((col) => {
-    out22[col] = df.get(col).values;
+    out2[col] = df.get(col).values;
   });
-  return out22;
+  return out2;
 }
 function transpose(arr) {
   if (isDataFrame(arr) || isSeries(arr)) {
@@ -1902,13 +1844,13 @@ function transpose(arr) {
   if (theShape.length === 1) {
     return reverse(arr);
   } else if (theShape.length === 2) {
-    const out22 = ndarray(reverse(theShape));
+    const out2 = ndarray(reverse(theShape));
     for (let row = 0; row < theShape[0]; row++) {
       for (let col = 0; col < theShape[1]; col++) {
-        out22[col][row] = arr[row][col];
+        out2[col][row] = arr[row][col];
       }
     }
-    return out22;
+    return out2;
   }
 }
 function seriesAppend(Series2, series, x) {
@@ -1918,34 +1860,34 @@ function seriesAppend(Series2, series, x) {
   if (isArray(x)) {
     const xShape = shape(x);
     assert(xShape.length === 1 && !isNested(xShape), "Only vectors can be appended to Series!");
-    const out22 = series.copy();
+    const out2 = series.copy();
     x.forEach((v, i) => {
-      out22._values.push(v);
-      out22._index.push("item" + (series.values.length + i));
+      out2._values.push(v);
+      out2._index.push("item" + (series.values.length + i));
     });
-    return out22;
+    return out2;
   }
   return seriesAppend(series, [x]);
 }
 function seriesApply(series, fn) {
   assert(isFunction(fn), "The parameter to the `apply` method must be a function.");
-  const out22 = series.copy();
-  out22._values = out22._values.map((v, i) => fn(v, i));
-  return out22;
+  const out2 = series.copy();
+  out2._values = out2._values.map((v, i) => fn(v, i));
+  return out2;
 }
 function seriesDropMissing(series) {
-  const out22 = series.copy();
+  const out2 = series.copy();
   const outIndex = [];
-  out22._values = out22.values.filter((v, i) => {
+  out2._values = out2.values.filter((v, i) => {
     if (isUndefined(v)) {
       return false;
     } else {
-      outIndex.push(out22.index[i]);
+      outIndex.push(out2.index[i]);
       return true;
     }
   });
-  out22._index = outIndex;
-  return out22;
+  out2._index = outIndex;
+  return out2;
 }
 function seriesDropNaN(Series2, series) {
   const index = [];
@@ -1956,32 +1898,32 @@ function seriesDropNaN(Series2, series) {
       index.push(series.index[i]);
     }
   });
-  const out22 = new Series2(values);
-  out22.name = series.name;
-  out22.index = index;
-  return out22;
+  const out2 = new Series2(values);
+  out2.name = series.name;
+  out2.index = index;
+  return out2;
 }
 function seriesFilter(Series2, series, fn) {
-  let out22 = series.copy();
-  const index = copy(out22.index);
+  let out2 = series.copy();
+  const index = copy(out2.index);
   const indicesToRemove = [];
-  const newValues = out22.values.filter((value, i) => {
-    const shouldKeep = fn(value, i, out22.values);
+  const newValues = out2.values.filter((value, i) => {
+    const shouldKeep = fn(value, i, out2.values);
     if (!shouldKeep)
-      indicesToRemove.push(out22.index[i]);
+      indicesToRemove.push(out2.index[i]);
     return shouldKeep;
   });
   indicesToRemove.forEach((i) => {
     index.splice(index.indexOf(i), 1);
   });
   if (newValues.length === 0) {
-    out22 = new Series2();
-    out22.name = series.name;
-    return out22;
+    out2 = new Series2();
+    out2.name = series.name;
+    return out2;
   }
-  out22.values = newValues;
-  out22.index = index;
-  return out22;
+  out2.values = newValues;
+  out2.index = index;
+  return out2;
 }
 function seriesGet(series, indices) {
   if (isString(indices) || isNumber(indices))
@@ -2045,10 +1987,10 @@ function seriesGetSubsetByNames(Series2, series, indices) {
   });
   if (values.length === 1)
     return values[0];
-  const out22 = new Series2(values);
-  out22.index = indices;
-  out22.name = series.name;
-  return out22;
+  const out2 = new Series2(values);
+  out2.index = indices;
+  out2.name = series.name;
+  return out2;
 }
 function seriesPrint(series) {
   let temp = series.copy();
@@ -2061,19 +2003,19 @@ function seriesPrint(series) {
     temp.index.push("...");
     temp = temp.get(tempIndex);
   }
-  const out22 = {};
+  const out2 = {};
   temp.values.forEach((value, i) => {
     const obj = {};
     obj[temp.name] = value;
-    out22[temp.index[i]] = obj;
+    out2[temp.index[i]] = obj;
   });
-  console.table(out22);
+  console.table(out2);
   console.log("Shape:", series.shape, "\n");
   return series;
 }
 function seriesShuffle(series) {
-  const out22 = series.copy();
-  return out22.get(shuffle(out22.index));
+  const out2 = series.copy();
+  return out2.get(shuffle(out2.index));
 }
 function seriesSort(Series2, series, fn) {
   fn = fn || ((a, b) => a < b ? -1 : 1);
@@ -2088,11 +2030,11 @@ function seriesSort(Series2, series, fn) {
     newValues.push(pair[0]);
     newIndex.push(pair[1]);
   });
-  const out22 = new Series2();
-  out22._values = newValues;
-  out22._index = newIndex;
-  out22.name = series.name;
-  return out22;
+  const out2 = new Series2();
+  out2._values = newValues;
+  out2._index = newIndex;
+  out2.name = series.name;
+  return out2;
 }
 function seriesSortByIndex(Series2, series) {
   let temp = transpose([series.values, series.index]);
@@ -2104,18 +2046,18 @@ function seriesSortByIndex(Series2, series) {
     if (a[1] > b[1])
       return 1;
   }));
-  const out22 = new Series2(temp[0]);
-  out22.index = temp[1];
-  out22.name = series.name;
-  return out22;
+  const out2 = new Series2(temp[0]);
+  out2.index = temp[1];
+  out2.name = series.name;
+  return out2;
 }
 function seriesToObject(series) {
-  const out22 = {};
-  out22[series.name] = {};
+  const out2 = {};
+  out2[series.name] = {};
   series.index.forEach((index, i) => {
-    out22[series.name][index] = series.values[i];
+    out2[series.name][index] = series.values[i];
   });
-  return out22;
+  return out2;
 }
 var SERIES_SYMBOL = Symbol.for("@jrc03c/js-math-tools/series");
 function createSeriesClass(DataFrame2) {
@@ -2213,11 +2155,11 @@ function createSeriesClass(DataFrame2) {
       return this.values.filter((v) => !isUndefined(v)).length === 0;
     }
     clear() {
-      const out22 = this.copy();
-      out22.values.forEach((v, i) => {
-        out22.values[i] = void 0;
+      const out2 = this.copy();
+      out2.values.forEach((v, i) => {
+        out2.values[i] = void 0;
       });
-      return out22;
+      return out2;
     }
     get(indices) {
       return seriesGet(this, indices);
@@ -2235,24 +2177,24 @@ function createSeriesClass(DataFrame2) {
       return this.getSubsetByIndices(indices);
     }
     reverse() {
-      const out22 = new Series2(reverse(this.values));
-      out22.index = reverse(this.index);
-      out22.name = this.name;
-      return out22;
+      const out2 = new Series2(reverse(this.values));
+      out2.index = reverse(this.index);
+      out2.name = this.name;
+      return out2;
     }
     resetIndex() {
-      const out22 = this.copy();
-      out22.index = range(0, this.shape[0]).map((i) => {
-        return "item" + leftPad(i, (out22.index.length - 1).toString().length);
+      const out2 = this.copy();
+      out2.index = range(0, this.shape[0]).map((i) => {
+        return "item" + leftPad(i, (out2.index.length - 1).toString().length);
       });
-      return out22;
+      return out2;
     }
     copy() {
-      const out22 = new Series2();
-      out22._values = copy(this.values);
-      out22._index = copy(this.index);
-      out22.name = this.name;
-      return out22;
+      const out2 = new Series2();
+      out2._values = copy(this.values);
+      out2._index = copy(this.index);
+      out2.name = this.name;
+      return out2;
     }
     append(x) {
       return seriesAppend(Series2, this, x);
@@ -2288,16 +2230,16 @@ function createSeriesClass(DataFrame2) {
       return seriesFilter(Series2, this, fn);
     }
     toDataFrame() {
-      const out22 = new DataFrame2(transpose([this.values]));
-      out22.columns = [this.name];
-      out22.index = this.index;
-      return out22;
+      const out2 = new DataFrame2(transpose([this.values]));
+      out2.columns = [this.name];
+      out2.index = this.index;
+      return out2;
     }
     transpose() {
-      const out22 = this.copy();
-      out22.values = reverse(out22.values);
-      out22.index = reverse(out22.index);
-      return out22;
+      const out2 = this.copy();
+      out2.values = reverse(out2.values);
+      out2.index = reverse(out2.index);
+      return out2;
     }
     getDummies() {
       return this.toDataFrame().getDummies();
@@ -2311,10 +2253,10 @@ function createSeriesClass(DataFrame2) {
 var DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe");
 function makeKey3(n) {
   const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
-  let out22 = "";
+  let out2 = "";
   for (let i = 0; i < n; i++)
-    out22 += alpha[Math.floor(random() * alpha.length)];
-  return out22;
+    out2 += alpha[Math.floor(random() * alpha.length)];
+  return out2;
 }
 var DataFrame = class {
   static [Symbol.hasInstance](x) {
@@ -2394,11 +2336,11 @@ var DataFrame = class {
         });
         const counts = (() => {
           const temp = count(x);
-          const out22 = {};
+          const out2 = {};
           temp.values.forEach((v) => {
-            out22[v] = temp.get(v);
+            out2[v] = temp.get(v);
           });
-          return out22;
+          return out2;
         })();
         x = x.map((v) => {
           if (counts[v] > 1) {
@@ -2436,11 +2378,11 @@ var DataFrame = class {
         });
         const counts = (() => {
           const temp = count(x);
-          const out22 = {};
+          const out2 = {};
           temp.values.forEach((v) => {
-            out22[v] = temp.get(v);
+            out2[v] = temp.get(v);
           });
-          return out22;
+          return out2;
         })();
         x = x.map((v) => {
           if (counts[v] > 1) {
@@ -2504,10 +2446,10 @@ var DataFrame = class {
     return this.values.length === 0 || this.values.every((row) => row.length === 0);
   }
   clear() {
-    const out22 = new DataFrame(ndarray(this.shape));
-    out22.columns = this.columns.slice();
-    out22.index = this.index.slice();
-    return out22;
+    const out2 = new DataFrame(ndarray(this.shape));
+    out2.columns = this.columns.slice();
+    out2.index = this.index.slice();
+    return out2;
   }
   get(rows, cols) {
     if (arguments.length === 0) {
@@ -2535,10 +2477,10 @@ var DataFrame = class {
     return dfGetDummies(DataFrame, this, columns);
   }
   transpose() {
-    const out22 = new DataFrame(transpose(this.values));
-    out22.columns = this.index.slice();
-    out22.index = this.columns.slice();
-    return out22;
+    const out2 = new DataFrame(transpose(this.values));
+    out2.columns = this.index.slice();
+    out2.index = this.columns.slice();
+    return out2;
   }
   get T() {
     return this.transpose();
@@ -2641,7 +2583,7 @@ function vectorize(fn) {
     });
     if (childArrays.length > 0) {
       const maxLength = max(childArrays.map((a) => a.length ? a.length : a.values.length));
-      const out22 = range(0, maxLength).map((i) => {
+      const out2 = range(0, maxLength).map((i) => {
         const args = Object.keys(arguments).map((key) => {
           if (isArray(arguments[key])) {
             return arguments[key][i];
@@ -2657,33 +2599,33 @@ function vectorize(fn) {
       });
       if (hasDataFrames) {
         try {
-          if (dataframes.length === 1 && isEqual(shape(dataframes[0]), shape(out22))) {
-            const temp = new DataFrame(out22);
+          if (dataframes.length === 1 && isEqual(shape(dataframes[0]), shape(out2))) {
+            const temp = new DataFrame(out2);
             temp.index = dataframes[0].index.slice();
             temp.columns = dataframes[0].columns.slice();
             return temp;
           } else {
-            return new DataFrame(out22);
+            return new DataFrame(out2);
           }
         } catch (e) {
-          return out22;
+          return out2;
         }
       }
       if (hasSeries) {
         try {
-          if (series.length === 1 && series[0].length === out22.length) {
-            const temp = new Series(out22);
+          if (series.length === 1 && series[0].length === out2.length) {
+            const temp = new Series(out2);
             temp.name = series[0].name;
             temp.index = series[0].index.slice();
             return temp;
           } else {
-            return new Series(out22);
+            return new Series(out2);
           }
         } catch (e) {
-          return out22;
+          return out2;
         }
       }
-      return out22;
+      return out2;
     } else {
       return fn(...arguments);
     }
@@ -2705,7 +2647,7 @@ function abs(x) {
 var vabs = vectorize(abs);
 function add() {
   try {
-    let out22 = 0;
+    let out2 = 0;
     let resultShouldBeABigInt = false;
     const x = Object.values(arguments);
     for (let v of x) {
@@ -2715,15 +2657,15 @@ function add() {
         resultShouldBeABigInt = true;
         v = Number(v);
       }
-      out22 += v;
+      out2 += v;
     }
     if (resultShouldBeABigInt) {
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
       }
     }
-    return out22;
+    return out2;
   } catch (e) {
     return NaN;
   }
@@ -2787,14 +2729,14 @@ function argmax(x, shouldDropNaNs) {
   }
   assert(isArray(x), "The `argmax` function only works on arrays, Series, and DataFrames!");
   try {
-    const out22 = indexOf(x, max(x, shouldDropNaNs));
-    if (out22) {
-      if (out22.length === 0) {
+    const out2 = indexOf(x, max(x, shouldDropNaNs));
+    if (out2) {
+      if (out2.length === 0) {
         return void 0;
-      } else if (out22.length === 1) {
-        return out22[0];
+      } else if (out2.length === 1) {
+        return out2[0];
       } else {
-        return out22;
+        return out2;
       }
     } else {
       return void 0;
@@ -2817,14 +2759,14 @@ function argmin(x, shouldDropNaNs) {
   }
   assert(isArray(x), "The `argmin` function only works on arrays, Series, and DataFrames!");
   try {
-    const out22 = indexOf(x, min(x, shouldDropNaNs));
-    if (out22) {
-      if (out22.length === 0) {
+    const out2 = indexOf(x, min(x, shouldDropNaNs));
+    if (out2) {
+      if (out2.length === 0) {
         return void 0;
-      } else if (out22.length === 1) {
-        return out22[0];
+      } else if (out2.length === 1) {
+        return out2[0];
       } else {
-        return out22;
+        return out2;
       }
     } else {
       return void 0;
@@ -2859,14 +2801,14 @@ function cast(value, type) {
         return dateValue.getTime();
       }
     }
-    const out22 = parseFloat(value);
-    if (isNaN(out22))
+    const out2 = parseFloat(value);
+    if (isNaN(out2))
       return NaN;
-    return out22;
+    return out2;
   }
   if (type === "int") {
-    const out22 = cast(value, "number");
-    return out22 >= 0 ? Math.floor(out22) : Math.ceil(out22);
+    const out2 = cast(value, "number");
+    return out2 >= 0 ? Math.floor(out2) : Math.ceil(out2);
   }
   if (type === "float") {
     return cast(value, "number");
@@ -2912,10 +2854,10 @@ function cast(value, type) {
     }
     const valueFloat = parseFloat(value);
     if (!isNaN(valueFloat)) {
-      const out22 = new Date(value);
-      if (!isDate(out22))
+      const out2 = new Date(value);
+      if (!isDate(out2))
         return null;
-      return out22;
+      return out2;
     }
     const valueDate = Date.parse(value);
     if (!isNaN(valueDate)) {
@@ -2944,11 +2886,11 @@ function cast(value, type) {
       return dateValue;
     }
     try {
-      const out22 = JSON.parse(value);
-      if (isArray(out22)) {
-        return out22.map((v) => cast(v, type));
+      const out2 = JSON.parse(value);
+      if (isArray(out2)) {
+        return out2.map((v) => cast(v, type));
       } else {
-        return out22;
+        return out2;
       }
     } catch (e) {
       return null;
@@ -3009,17 +2951,17 @@ function chop(x, threshold) {
 var vchop = vectorize(chop);
 function int(x) {
   if (isDataFrame(x) || isSeries(x)) {
-    const out22 = x.copy();
-    out22.values = int(out22.values);
-    return out22;
+    const out2 = x.copy();
+    out2.values = int(out2.values);
+    return out2;
   }
   if (isArray(x)) {
     return x.map((v) => int(v));
   } else {
     try {
-      const out22 = JSON.parse(x);
-      if (isNumber(out22)) {
-        return typeof out22 === "bigint" ? Number(out22) : out22 >= 0 ? Math.floor(out22) : Math.ceil(out22);
+      const out2 = JSON.parse(x);
+      if (isNumber(out2)) {
+        return typeof out2 === "bigint" ? Number(out2) : out2 >= 0 ? Math.floor(out2) : Math.ceil(out2);
       }
       return NaN;
     } catch (e) {
@@ -3080,11 +3022,11 @@ function combinationsIterator(x, r) {
   return helper5(flatten(x), r);
 }
 function combinations(x, r) {
-  const out22 = [];
+  const out2 = [];
   for (const combo of combinationsIterator(x, r)) {
-    out22.push(combo.slice());
+    out2.push(combo.slice());
   }
-  return out22;
+  return out2;
 }
 function intersect() {
   const arrays = Object.values(arguments).map((x) => {
@@ -3130,7 +3072,7 @@ var _IndexMatcher = class {
   }
   transform() {
     assert(!!this.index, "The IndexMatcher hasn't been fitted yet! Please call the `fit` method before calling the `transform` method.");
-    const out22 = Object.values(arguments).map((x) => {
+    const out2 = Object.values(arguments).map((x) => {
       if (isArray(x)) {
         const xshape = shape(x);
         if (xshape.length === 1) {
@@ -3144,7 +3086,7 @@ var _IndexMatcher = class {
       assert(isDataFrame(x) || isSeries(x), "The `IndexMatcher.fit` method only works on arrays, Series, and DataFrames!");
       return x.get(this.index, null);
     });
-    return out22.length === 1 ? out22[0] : out22;
+    return out2.length === 1 ? out2[0] : out2;
   }
   fitAndTransform() {
     return this.fit(...arguments).transform(...arguments);
@@ -3174,7 +3116,7 @@ function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
       return NaN;
     }
     const n = Math.max(x.length, y.length);
-    let out22 = 0;
+    let out2 = 0;
     for (let i = 0; i < n; i++) {
       let vx = x[i];
       let vy = y[i];
@@ -3188,12 +3130,12 @@ function covariance(x, y, shouldDropNaNs, shouldAlsoReturnStatsObjects) {
       if (typeof vy === "bigint") {
         vy = Number(vy);
       }
-      out22 += (vx - mx) * (vy - my);
+      out2 += (vx - mx) * (vy - my);
     }
     if (shouldAlsoReturnStatsObjects) {
-      return [out22 / x.length, xstats, ystats];
+      return [out2 / x.length, xstats, ystats];
     } else {
-      return out22 / x.length;
+      return out2 / x.length;
     }
   } catch (e) {
     return NaN;
@@ -3248,13 +3190,13 @@ function diff(a, b) {
   assert(isArray(a) && isArray(b), "The `diff` function only works on arrays, Series, and DataFrames!");
   const aTemp = set(a);
   const bTemp = set(b);
-  const out22 = [];
+  const out2 = [];
   aTemp.forEach((item) => {
     if (bTemp.findIndex((other) => isEqual(other, item)) < 0) {
-      out22.push(item);
+      out2.push(item);
     }
   });
-  return out22;
+  return out2;
 }
 function pow(x, p) {
   try {
@@ -3263,11 +3205,11 @@ function pow(x, p) {
     if (!isNumber(p))
       return NaN;
     if (typeof x === "bigint" || typeof p === "bigint") {
-      const out22 = pow(Number(x), Number(p));
+      const out2 = pow(Number(x), Number(p));
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
-        return out22;
+        return out2;
       }
     }
     return Math.pow(x, p);
@@ -3281,11 +3223,11 @@ function sqrt(x) {
     if (!isNumber(x))
       return NaN;
     if (typeof x === "bigint") {
-      const out22 = sqrt(Number(x));
+      const out2 = sqrt(Number(x));
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
-        return out22;
+        return out2;
       }
     }
     return Math.sqrt(x);
@@ -3300,7 +3242,7 @@ function multiply() {
     if (x.length === 0)
       return NaN;
     let resultShouldBeABigInt = false;
-    let out22 = 1;
+    let out2 = 1;
     for (let v of x) {
       if (!isNumber(v))
         return NaN;
@@ -3308,15 +3250,15 @@ function multiply() {
         resultShouldBeABigInt = true;
         v = Number(v);
       }
-      out22 *= v;
+      out2 *= v;
     }
     if (resultShouldBeABigInt) {
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
       }
     }
-    return out22;
+    return out2;
   } catch (e) {
     return NaN;
   }
@@ -3357,30 +3299,30 @@ function dot(a, b) {
   if (isDataFrame(a)) {
     const temp = dot(a.values, b);
     if (shape(temp).length === 1) {
-      const out22 = new Series(temp);
-      out22.name = isSeries(b) ? b.name : out22.name;
-      out22.index = a.index.slice();
-      return out22;
+      const out2 = new Series(temp);
+      out2.name = isSeries(b) ? b.name : out2.name;
+      out2.index = a.index.slice();
+      return out2;
     } else {
-      const out22 = new DataFrame(temp);
-      out22.index = a.index.slice();
+      const out2 = new DataFrame(temp);
+      out2.index = a.index.slice();
       if (isDataFrame(b)) {
-        out22.columns = b.columns.slice();
+        out2.columns = b.columns.slice();
       }
-      return out22;
+      return out2;
     }
   }
   if (isDataFrame(b)) {
     const temp = dot(a, b.values);
     if (shape(temp).length === 1) {
-      const out22 = new Series(temp);
-      out22.name = isSeries(a) ? a.name : out22.name;
-      out22.index = b.columns.slice();
-      return out22;
+      const out2 = new Series(temp);
+      out2.name = isSeries(a) ? a.name : out2.name;
+      out2.index = b.columns.slice();
+      return out2;
     } else {
-      const out22 = new DataFrame(temp);
-      out22.columns = b.columns.slice();
-      return out22;
+      const out2 = new DataFrame(temp);
+      out2.columns = b.columns.slice();
+      return out2;
     }
   }
   if (isSeries(a)) {
@@ -3402,15 +3344,15 @@ function dot(a, b) {
     return a.map((row) => dot(row, b));
   } else if (aShape.length === 2 && bShape.length === 2) {
     const bTranspose = transpose(b);
-    const out22 = [];
+    const out2 = [];
     for (let i = 0; i < a.length; i++) {
       const row = [];
       for (let j = 0; j < bTranspose.length; j++) {
         row.push(dot(a[i], bTranspose[j]));
       }
-      out22.push(row);
+      out2.push(row);
     }
-    return out22;
+    return out2;
   }
 }
 function dropMissing(x) {
@@ -3418,17 +3360,17 @@ function dropMissing(x) {
     return x.dropMissing(...Object.values(arguments).slice(1));
   }
   assert(isArray(x), "The `dropMissing` function only works on arrays, Series, and DataFrames!");
-  const out22 = [];
+  const out2 = [];
   x.forEach((v) => {
     try {
-      return out22.push(dropMissing(v));
+      return out2.push(dropMissing(v));
     } catch (e) {
       if (!isUndefined(v)) {
-        out22.push(v);
+        out2.push(v);
       }
     }
   });
-  return out22;
+  return out2;
 }
 function dropMissingPairwise(a, b) {
   if (isDataFrame(a) || isSeries(a)) {
@@ -3613,37 +3555,37 @@ function findAll(x, fn) {
     if (isObject(x2)) {
       checked.push(x2);
       const keys = Object.keys(x2).concat(Object.getOwnPropertySymbols(x2));
-      const out22 = [];
+      const out2 = [];
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i];
         const value = x2[key];
         let alreadyStoredThisValue = false;
         if (fn2(value)) {
-          out22.push(value);
+          out2.push(value);
           alreadyStoredThisValue = true;
         }
         const results2 = helper5(value, fn2, checked);
         if (results2 && results2.length > 0) {
-          results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out22.push(r));
+          results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out2.push(r));
         }
       }
-      return out22;
+      return out2;
     } else if (isArray(x2)) {
       checked.push(x2);
-      const out22 = [];
+      const out2 = [];
       for (let i = 0; i < x2.length; i++) {
         const value = x2[i];
         let alreadyStoredThisValue = false;
         if (fn2(value)) {
-          out22.push(value);
+          out2.push(value);
           alreadyStoredThisValue = true;
         }
         const results2 = helper5(value, fn2, checked);
         if (results2 && results2.length > 0) {
-          results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out22.push(r));
+          results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out2.push(r));
         }
       }
-      return out22;
+      return out2;
     } else {
       if (fn2(x2)) {
         return [x2];
@@ -3673,9 +3615,9 @@ function float(x) {
     if (x === "-Infinity") {
       return -Infinity;
     }
-    const out22 = JSON.parse(x);
-    if (isNumber(out22))
-      return out22;
+    const out2 = JSON.parse(x);
+    if (isNumber(out2))
+      return out2;
     return NaN;
   } catch (e) {
     return NaN;
@@ -3698,11 +3640,11 @@ var vfloor = vectorize(floor);
 function zeros(shape2) {
   if (isNumber(shape2))
     shape2 = [shape2];
-  const out22 = [];
+  const out2 = [];
   const n = product(shape2);
   for (let i = 0; i < n; i++)
-    out22.push(0);
-  return reshape(out22, shape2);
+    out2.push(0);
+  return reshape(out2, shape2);
 }
 function identity(size) {
   if (typeof size === "bigint") {
@@ -3712,10 +3654,10 @@ function identity(size) {
   assert(isNumber(size), "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
   assert(vint(size) === size, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
   assert(size > 0, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
-  const out22 = zeros([size, size]);
+  const out2 = zeros([size, size]);
   for (let i = 0; i < size; i++)
-    out22[i][i] = 1;
-  return out22;
+    out2[i][i] = 1;
+  return out2;
 }
 var booleanValues = ["true", "false", "yes", "no"];
 var nullValues = ["null", "none", "nan", "na", "n/a", "", "undefined"];
@@ -3731,22 +3673,22 @@ function checkIfInteger(results) {
 }
 function inferType(arr) {
   if (isDataFrame(arr)) {
-    const out22 = arr.copy();
+    const out2 = arr.copy();
     const results = inferType(arr.values);
-    out22.values = results.values;
-    return checkIfInteger({ type: results.type, values: out22 });
+    out2.values = results.values;
+    return checkIfInteger({ type: results.type, values: out2 });
   }
   if (isSeries(arr)) {
-    const out22 = arr.copy();
+    const out2 = arr.copy();
     const results = inferType(arr.values);
-    out22.values = results.values;
-    return checkIfInteger({ type: results.type, values: out22 });
+    out2.values = results.values;
+    return checkIfInteger({ type: results.type, values: out2 });
   }
   if (!isArray(arr)) {
-    const out22 = inferType([arr]);
-    out22.value = out22.values[0];
-    delete out22.values;
-    return checkIfInteger(out22);
+    const out2 = inferType([arr]);
+    out2.value = out2.values[0];
+    delete out2.values;
+    return checkIfInteger(out2);
   }
   assert(isArray(arr), "The `inferType` function only works on arrays, Series, and DataFrames!");
   const types = flatten(arr).map((v) => {
@@ -3808,9 +3750,9 @@ function inferType(arr) {
 }
 function inverse(x) {
   if (isDataFrame(x)) {
-    const out22 = x.copy();
-    out22.values = inverse(out22.values);
-    return out22;
+    const out2 = x.copy();
+    out2.values = inverse(out2.values);
+    return out2;
   }
   assert(isArray(x), "The `inverse` function only works on square 2-dimensional arrays or DataFrames!");
   const xShape = shape(x);
@@ -3840,11 +3782,11 @@ function inverse(x) {
       d = Number(d);
     const det = a * d - b * c;
     assert(det !== 0, "This matrix cannot be inverted!");
-    const out22 = [
+    const out2 = [
       [d, -b],
       [-c, a]
     ];
-    return scale(out22, 1 / det);
+    return scale(out2, 1 / det);
   } else if (xShape[0] > 1) {
     const times = (a, b) => isNumber(a) || isNumber(b) ? scale(a, b) : dot(a, b);
     for (let divider = 1; divider < xShape[0] - 1; divider++) {
@@ -3859,8 +3801,8 @@ function inverse(x) {
         const topRight = times(-1, times(times(AInv, B), CompInv));
         const bottomLeft = times(-1, times(times(CompInv, C), AInv));
         const bottomRight = CompInv;
-        const out22 = topLeft.map((row, i) => row.concat(topRight[i])).concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])));
-        return out22;
+        const out2 = topLeft.map((row, i) => row.concat(topRight[i])).concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])));
+        return out2;
       } catch (e) {
       }
     }
@@ -3887,11 +3829,11 @@ function lerp(a, b, f) {
     if (!isNumber(f))
       return NaN;
     if (typeof a === "bigint" || typeof b === "bigint") {
-      const out22 = lerp(Number(a), Number(b), f);
+      const out2 = lerp(Number(a), Number(b), f);
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
-        return out22;
+        return out2;
       }
     }
     return f * (b - a) + a;
@@ -3908,11 +3850,11 @@ function log(x, base) {
     if (!isNumber(base))
       return NaN;
     if (typeof x === "bigint" || typeof base === "bigint") {
-      const out22 = log(Number(x), Number(base));
+      const out2 = log(Number(x), Number(base));
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
-        return out22;
+        return out2;
       }
     }
     return Math.log(x) / Math.log(base);
@@ -3934,11 +3876,11 @@ function mod(a, b) {
     if (!isNumber(b))
       return NaN;
     if (typeof a === "bigint" || typeof b === "bigint") {
-      const out22 = mod(Number(a), Number(b));
+      const out2 = mod(Number(a), Number(b));
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
-        return out22;
+        return out2;
       }
     }
     return a % b;
@@ -4008,11 +3950,11 @@ function permutationsIterator(x, r) {
   return helper5(flatten(x), r);
 }
 function permutations(x, r) {
-  const out22 = [];
+  const out2 = [];
   for (const perm of permutationsIterator(x, r)) {
-    out22.push(perm.slice());
+    out2.push(perm.slice());
   }
-  return out22;
+  return out2;
 }
 function print() {
   Object.keys(arguments).forEach((key) => {
@@ -4059,14 +4001,14 @@ var helper4 = vectorize((x, a, b, c, d) => {
     const den = b - a;
     if (den === 0)
       return NaN;
-    const out22 = num / den + c;
+    const out2 = num / den + c;
     if (resultShouldBeABigInt) {
       try {
-        return BigInt(out22);
+        return BigInt(out2);
       } catch (e) {
       }
     }
-    return out22;
+    return out2;
   } catch (e) {
     return NaN;
   }
@@ -4195,7 +4137,7 @@ function variance(arr, shouldDropNaNs) {
   return stats(arr, { shouldDropNaNs, variance: true }).variance;
 }
 function zip() {
-  const out22 = [];
+  const out2 = [];
   const arrays = Object.values(arguments).map((arr) => {
     if (isDataFrame(arr) || isSeries(arr)) {
       arr = arr.values;
@@ -4209,9 +4151,9 @@ function zip() {
       const value = arr[i];
       row.push(isUndefined(value) ? void 0 : value);
     });
-    out22.push(row);
+    out2.push(row);
   });
-  return out22;
+  return out2;
 }
 var out = {
   abs: vabs,
@@ -4390,15 +4332,15 @@ function convertTypedArrayToObject(x) {
     if (isDate(x)) {
       return new Date(x.getTime());
     }
-    const out3 = {};
+    const out2 = {};
     Object.keys(x).forEach((key) => {
       try {
-        out3[key] = convertTypedArrayToObject(x[key]);
+        out2[key] = convertTypedArrayToObject(x[key]);
       } catch (e) {
-        out3[key] = x[key];
+        out2[key] = x[key];
       }
     });
-    return out3;
+    return out2;
   }
   throw new Error("The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray.");
 }
@@ -4407,6 +4349,70 @@ function convertTypedArrayToObject(x) {
 function isANumberString(x) {
   x = x.trim();
   return !!(x.match(/^-?\d+(\.\d+)?$/g) || x.match(/^-?\d+(\.\d+)?e-?\d+(\.\d+)?$/g) || x.match(/^-?\.\d+$/g) || x === "NaN");
+}
+
+// src/helpers/punctuation.mjs
+var punctuation = "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65";
+
+// src/helpers/replace-all.mjs
+function replaceAll(text, a, b) {
+  if (typeof text !== "string") {
+    throw new Error("`text` must be a string!");
+  }
+  if (typeof a !== "string") {
+    throw new Error("`a` must be a string!");
+  }
+  if (typeof b !== "string") {
+    throw new Error("`b` must be a string!");
+  }
+  return text.split(a).join(b);
+}
+
+// src/helpers/strip.mjs
+var doubleSpace = "  ";
+var singleSpace = " ";
+function strip(text) {
+  if (typeof text !== "string") {
+    throw new Error("`text` must be a string!");
+  }
+  let out2 = "";
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i].toLowerCase();
+    if (punctuation.includes(char)) {
+      out2 += singleSpace;
+    } else {
+      out2 += char;
+    }
+  }
+  while (out2.includes(doubleSpace)) {
+    out2 = replaceAll(out2, doubleSpace, singleSpace);
+  }
+  return out2.trim();
+}
+
+// src/indent.mjs
+function indent(text, chars) {
+  chars = chars || "";
+  return text.split("\n").map((line) => {
+    if (line.trim().length > 0) {
+      return chars + line;
+    } else {
+      return line;
+    }
+  }).join("\n");
+}
+
+// src/kebabify.mjs
+function kebabify(text) {
+  if (typeof text !== "string") {
+    throw new Error("`text` must be a string!");
+  }
+  const words = strip(text).split(" ");
+  if (words.length === 0)
+    return "";
+  if (words.length === 1)
+    return words[0];
+  return words.join("-");
 }
 
 // src/parse.mjs
@@ -4477,16 +4483,16 @@ function parseAsString(x) {
   const replacement = "@jrc03c/js-text-tools/newline-replacer";
   x = x.replaceAll("\n", replacement);
   if (x.trim().match(/^("|')?Symbol\(@String\):.*?("|')?$/g)) {
-    let out3 = x.replace("Symbol(@String):", "");
-    if (out3.match(/^".*?"$/g)) {
+    let out2 = x.replace("Symbol(@String):", "");
+    if (out2.match(/^".*?"$/g)) {
       try {
-        return JSON.parse(out3);
+        return JSON.parse(out2);
       } catch (e) {
-        out3 = out3.substring(1, out3.length - 1);
+        out2 = out2.substring(1, out2.length - 1);
       }
     }
-    out3 = out3.replaceAll(replacement, "\n");
-    return out3;
+    out2 = out2.replaceAll(replacement, "\n");
+    return out2;
   }
 }
 function parseAsSymbol(x) {
@@ -4532,18 +4538,18 @@ function parseWithJSONParse(x) {
     }
   }
   try {
-    let out3 = JSON.parse(x, (key, value) => {
+    let out2 = JSON.parse(x, (key, value) => {
       try {
-        const out4 = parse(value);
-        return typeof out4 === "undefined" ? "Symbol(@undefined)" : out4;
+        const out3 = parse(value);
+        return typeof out3 === "undefined" ? "Symbol(@undefined)" : out3;
       } catch (e) {
         return typeof value === "undefined" ? "Symbol(@undefined)" : value;
       }
     });
-    if (isArray(out3)) {
-      out3 = fixUndefineds(out3);
+    if (isArray(out2)) {
+      out2 = fixUndefineds(out2);
     }
-    return out3;
+    return out2;
   } catch (e) {
     return x;
   }
@@ -4590,37 +4596,37 @@ function parseObjectKeysAndValues(x) {
 function parse(x) {
   function helper5(x2) {
     if (typeof x2 === "string") {
-      let out3 = parseAsString(x2);
-      if (typeof out3 === "string") {
-        return out3;
+      let out2 = parseAsString(x2);
+      if (typeof out2 === "string") {
+        return out2;
       }
       const results = parseAsSymbol(x2);
-      out3 = results ? results.out : void 0;
+      out2 = results ? results.out : void 0;
       if (results && results.isASymbol) {
-        return out3;
+        return out2;
       }
-      out3 = parseAsRegex(x2);
-      if (out3 instanceof RegExp) {
-        return out3;
+      out2 = parseAsRegex(x2);
+      if (out2 instanceof RegExp) {
+        return out2;
       }
-      out3 = parseAsBigInt(x2);
-      if (typeof out3 === "bigint") {
-        return out3;
+      out2 = parseAsBigInt(x2);
+      if (typeof out2 === "bigint") {
+        return out2;
       }
-      out3 = parseAsNumber(x2);
-      if (typeof out3 === "number") {
-        return out3;
+      out2 = parseAsNumber(x2);
+      if (typeof out2 === "number") {
+        return out2;
       }
-      out3 = parseAsDate(x2);
-      if (out3 instanceof Date) {
-        return out3;
+      out2 = parseAsDate(x2);
+      if (out2 instanceof Date) {
+        return out2;
       }
-      out3 = parseWithJSONParse(x2);
-      if (typeof out3 !== "undefined") {
-        if (out3 === "Symbol(@undefined)") {
+      out2 = parseWithJSONParse(x2);
+      if (typeof out2 !== "undefined") {
+        if (out2 === "Symbol(@undefined)") {
           return void 0;
         } else {
-          return out3;
+          return out2;
         }
       }
       return x2;
@@ -4629,19 +4635,19 @@ function parse(x) {
       if (x2 === null) {
         return null;
       }
-      let out3;
+      let out2;
       try {
-        out3 = convertObjectToTypedArray(x2);
-        if (isArray(out3))
-          return out3;
+        out2 = convertObjectToTypedArray(x2);
+        if (isArray(out2))
+          return out2;
       } catch (e) {
       }
-      out3 = parseObjectKeysAndValues(x2);
-      if (out3) {
+      out2 = parseObjectKeysAndValues(x2);
+      if (out2) {
         try {
-          return convertObjectToTypedArray(out3);
+          return convertObjectToTypedArray(out2);
         } catch (e) {
-          return out3;
+          return out2;
         }
       }
       return x2;
@@ -4653,8 +4659,8 @@ function parse(x) {
 
 // src/pascalify.mjs
 function pascalify(text) {
-  const out3 = camelify(text);
-  return out3[0].toUpperCase() + out3.slice(1);
+  const out2 = camelify(text);
+  return out2[0].toUpperCase() + out2.slice(1);
 }
 
 // src/snakeify.mjs
@@ -4786,10 +4792,10 @@ function wrap(raw, maxLineLength) {
   if (isNaN(maxLineLength) || typeof maxLineLength !== "number") {
     throw new Error("The second argument to the `wrap` function must be undefined, null, or an integer!");
   }
-  const out3 = [];
+  const out2 = [];
   raw.split("\n").forEach((line) => {
     if (line.trim().length === 0) {
-      return out3.push("");
+      return out2.push("");
     }
     const indentation = line.split(/[^\s]/g)[0];
     const words = line.replace(indentation, "").split(" ");
@@ -4797,61 +4803,54 @@ function wrap(raw, maxLineLength) {
     words.forEach((word) => {
       const newLine = temp + (temp.trim().length > 0 ? " " : "") + word;
       if (newLine.length > maxLineLength) {
-        out3.push(temp);
+        out2.push(temp);
         temp = indentation + word;
       } else {
         temp = newLine;
       }
     });
     if (temp.length > 0) {
-      out3.push(temp);
+      out2.push(temp);
     }
   });
-  return out3.join("\n");
+  return out2.join("\n");
 }
 
 // src/index.mjs
-var out2 = {
-  camelify,
-  indent,
-  kebabify,
-  parse,
-  pascalify,
-  snakeify,
-  stringify,
-  unindent,
-  wrap,
-  dump() {
-    const context2 = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : void 0;
-    if (!context2) {
-      throw new out2.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");
-    }
-    Object.keys(out2).forEach((key) => {
-      try {
-        Object.defineProperty(context2, key, {
-          configurable: false,
-          enumerable: true,
-          writable: false,
-          value: out2[key]
-        });
-      } catch (e) {
-        context2[key] = out2[key];
-      }
-    });
-  }
-};
 if (typeof window !== "undefined") {
-  window.JSTextTools = out2;
+  window.JSTextTools = {
+    camelify,
+    convertObjectToTypedArray,
+    convertTypedArrayToObject,
+    indent,
+    isANumberString,
+    kebabify,
+    parse,
+    pascalify,
+    punctuation,
+    replaceAll,
+    snakeify,
+    stringify,
+    strip,
+    unindent,
+    wrap
+  };
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   camelify,
+  convertObjectToTypedArray,
+  convertTypedArrayToObject,
   indent,
+  isANumberString,
   kebabify,
   parse,
   pascalify,
+  punctuation,
+  replaceAll,
   snakeify,
   stringify,
+  strip,
   unindent,
   wrap
 });
