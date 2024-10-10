@@ -9,10 +9,10 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/progress.import.mjs",
     "require": "./dist/progress.require.cjs"
   },
-  "main": "src/index.mjs",
+  "main": "./dist/progress.require.cjs",
   "name": "@jrc03c/progress",
   "type": "module",
   "version": "0.0.4"
