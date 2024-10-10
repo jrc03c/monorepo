@@ -10,6 +10,7 @@ function rebuild() {
     const commands = [
       `${baseCommand} --platform=node --outfile=dist/pause.require.cjs`,
       `${baseCommand} --outfile=dist/pause.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/pause.import.mjs`,
     ]
 
     commands.forEach(command => {

@@ -9,7 +9,7 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/pause.import.mjs",
     "require": "./dist/pause.require.cjs"
   },
   "keywords": [
@@ -18,7 +18,7 @@
     "settimeout"
   ],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/pause.require.cjs",
   "name": "@jrc03c/pause",
   "type": "module",
   "version": "0.0.5"

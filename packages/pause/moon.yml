@@ -22,3 +22,8 @@ tasks:
       - --force
     local: true
     platform: node
+  test:
+    command:
+      - node
+      - src/index.test.mjs
+    platform: node

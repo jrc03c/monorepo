@@ -19,9 +19,11 @@ let syncTestsAreRunning = true
       )
     }
 
-    if (elapsed < t) {
+    // there should be less than 10ms difference between the given time and the
+    // actual elapsed time
+    if (Math.abs(elapsed - t) > 10) {
       throw new Error(
-        `The function was supposed to wait for ${t}ms, but instead it only waited for ${elapsed}ms!`,
+        `The function was supposed to wait for ${t}ms, but instead it waited for ${elapsed}ms!`,
       )
     }
   }
