@@ -3,4 +3,4 @@ tests.js
 tests.html
 *.csv
 coverage
-bin.js
+bin.[cm]?js
