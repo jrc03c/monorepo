@@ -5,7 +5,7 @@ class EncryptionError extends Error {}
 class HashingError extends Error {}
 class RandomStringGenerationError extends Error {}
 
-module.exports = {
+export {
   Base64DecodingError,
   Base64EncodingError,
   DecryptionError,

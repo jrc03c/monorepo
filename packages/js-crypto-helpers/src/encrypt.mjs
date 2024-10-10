@@ -2,11 +2,11 @@
 // - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-gcm_2
 // - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#pbkdf2_2
 
-const { EncryptionError } = require("./errors")
-const { isString } = require("@jrc03c/js-math-tools")
-const { stringify } = require("@jrc03c/js-text-tools")
-const base64Encode = require("./base-64-encode")
-const isNaturalNumber = require("./helpers/is-natural-number")
+import { base64Encode } from "./base-64-encode.mjs"
+import { EncryptionError } from "./errors.mjs"
+import { isNaturalNumber } from "./helpers/is-natural-number.mjs"
+import { isString } from "@jrc03c/js-math-tools"
+import { stringify } from "@jrc03c/js-text-tools"
 
 async function encrypt(data, password, options) {
   options = options || {}
@@ -16,25 +16,25 @@ async function encrypt(data, password, options) {
 
   if (!isString(password) && password.length > 0) {
     throw new Error(
-      "The second argument passed into the `encrypt` function must be a string representing the password with which the data will be encrypted!"
+      "The second argument passed into the `encrypt` function must be a string representing the password with which the data will be encrypted!",
     )
   }
 
   if (!isNaturalNumber(saltLength)) {
     throw new Error(
-      "The 'saltLength' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the length of the new salt to be generated."
+      "The 'saltLength' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the length of the new salt to be generated.",
     )
   }
 
   if (!isNaturalNumber(ivLength)) {
     throw new Error(
-      "The 'ivLength' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the length of the initialization vector to be generated."
+      "The 'ivLength' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the length of the initialization vector to be generated.",
     )
   }
 
   if (!isNaturalNumber(keyIterations)) {
     throw new Error(
-      "The 'keyIterations' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the number of iterations used during the key derivation."
+      "The 'keyIterations' option passed into the `encrypt` function must be undefined or a natural number (i.e., a positive integer) representing the number of iterations used during the key derivation.",
     )
   }
 
@@ -48,7 +48,7 @@ async function encrypt(data, password, options) {
       new TextEncoder().encode(password),
       "PBKDF2",
       false,
-      ["deriveBits", "deriveKey"]
+      ["deriveBits", "deriveKey"],
     )
 
     const key = await crypto.subtle.deriveKey(
@@ -61,7 +61,7 @@ async function encrypt(data, password, options) {
       keyMaterial,
       { name: "AES-GCM", length: 256 },
       true,
-      ["encrypt", "decrypt"]
+      ["encrypt", "decrypt"],
     )
 
     iv = crypto.getRandomValues(new Uint8Array(ivLength))
@@ -69,7 +69,7 @@ async function encrypt(data, password, options) {
     out = await crypto.subtle.encrypt(
       { name: "AES-GCM", iv },
       key,
-      new TextEncoder().encode(stringify(data))
+      new TextEncoder().encode(stringify(data)),
     )
   } catch (e) {
     throw new EncryptionError(e.toString())
@@ -80,8 +80,8 @@ async function encrypt(data, password, options) {
       salt: salt,
       iv: iv,
       value: out,
-    })
+    }),
   )
 }
 
-module.exports = encrypt
+export { encrypt }

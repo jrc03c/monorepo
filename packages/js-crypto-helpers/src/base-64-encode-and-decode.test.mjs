@@ -1,9 +1,8 @@
-const { isEqual } = require("@jrc03c/js-math-tools")
-const { parse, stringify } = require("@jrc03c/js-text-tools")
-const base64Decode = require("./base-64-decode")
-const base64Encode = require("./base-64-encode")
-const randomString = require("./random-string")
-jest.setTimeout(10000)
+import { base64Decode } from "./base-64-decode.mjs"
+import { base64Encode } from "./base-64-encode.mjs"
+import { isEqual } from "@jrc03c/js-math-tools"
+import { parse, stringify } from "@jrc03c/js-text-tools"
+import { randomString } from "./random-string.mjs"
 
 test("tests that the `base64Decode` and `base64Encode` functions work as expected", () => {
   const charsetString =
@@ -65,6 +64,6 @@ test("tests that the `base64Decode` and `base64Encode` functions work as expecte
   const dubble = x => x * 2
 
   expect(
-    isEqual(dubble, parse(base64Decode(base64Encode(stringify(dubble)))))
+    isEqual(dubble, parse(base64Decode(base64Encode(stringify(dubble))))),
   ).not.toBe(true)
 })

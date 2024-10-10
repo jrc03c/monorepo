@@ -1,4 +1,4 @@
-const Argument = require("./argument")
+import { Argument } from "./argument.mjs"
 
 test("tests that the Argument class works as expected", () => {
   const fakeArgs = [

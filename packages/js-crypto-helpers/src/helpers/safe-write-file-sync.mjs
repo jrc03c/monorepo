@@ -1,5 +1,5 @@
-const fs = require("fs")
-const path = require("path")
+import fs from "node:fs"
+import path from "node:path"
 
 function safeWriteFileSync(filename, content, encoding) {
   filename = path.resolve(filename)
@@ -12,4 +12,4 @@ function safeWriteFileSync(filename, content, encoding) {
   return fs.writeFileSync(filename, content, encoding)
 }
 
-module.exports = safeWriteFileSync
+export { safeWriteFileSync }

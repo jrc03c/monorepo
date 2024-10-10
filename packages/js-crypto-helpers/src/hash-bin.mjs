@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const { execSync } = require("node:child_process")
-const { fg, fx } = require("@jrc03c/bash-colors")
-const Argument = require("./helpers/argument")
-const fs = require("node:fs")
-const hash = require("./hash")
-const safeWriteFileSync = require("./helpers/safe-write-file-sync")
-const showHelpText = require("./helpers/show-help-text")
+import { Argument } from "./helpers/argument.mjs"
+import { execSync } from "node:child_process"
+import { fg, fx } from "@jrc03c/bash-colors"
+import { hash } from "./hash.mjs"
+import { safeWriteFileSync } from "./helpers/safe-write-file-sync.mjs"
+import { showHelpText } from "./helpers/show-help-text.mjs"
+import fs from "node:fs"
 
 const { bright, dim } = fx
 const { magenta, yellow } = fg
@@ -26,11 +26,11 @@ if (process.argv.length < 3 || helpArg.getValue()) {
       ${yellow("--help, -h")} = show this help text again
 
       ${yellow(
-        "--outfile, -o"
+        "--outfile, -o",
       )} = (optional) an output file to which to write the hashed data; if not provided, then the hashed data is just printed to stdout
 
       ${yellow(
-        "--salt, -s"
+        "--salt, -s",
       )} = (optional) a salt string to be appended to the item before hashing
 
       ${yellow("[item]")} = a file or some text

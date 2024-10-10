@@ -1,5 +1,5 @@
-const { assert } = require("@jrc03c/js-math-tools")
-const { parse } = require("@jrc03c/js-text-tools")
+import { assert } from "@jrc03c/js-math-tools"
+import { parse } from "@jrc03c/js-text-tools"
 
 class Argument {
   short = ""
@@ -21,13 +21,13 @@ class Argument {
 
     assert(
       rawArgs instanceof Array,
-      "The first argument passed into the `getValueOfArg` method must be an array of strings!"
+      "The first argument passed into the `getValueOfArg` method must be an array of strings!",
     )
 
     rawArgs.forEach(v => {
       assert(
         typeof v === "string",
-        "The first argument passed into the `getValueOfArg` method must be an array of strings!"
+        "The first argument passed into the `getValueOfArg` method must be an array of strings!",
       )
     })
 
@@ -40,7 +40,7 @@ class Argument {
           if (this.takesAnArgument) {
             assert(
               raw.includes("="),
-              `The --${this.long} parameter requires a value! For example: --${this.long}=whatever`
+              `The --${this.long} parameter requires a value! For example: --${this.long}=whatever`,
             )
 
             const out = raw.split("=").slice(1).join("=")
@@ -61,7 +61,7 @@ class Argument {
           if (this.takesAnArgument) {
             assert(
               i < rawArgs.length - 1,
-              `The -${this.short} parameter requires a value! For example: -${this.short} whatever`
+              `The -${this.short} parameter requires a value! For example: -${this.short} whatever`,
             )
 
             const out = rawArgs[i + 1]
@@ -86,4 +86,4 @@ class Argument {
   }
 }
 
-module.exports = Argument
+export { Argument }

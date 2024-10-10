@@ -1,9 +1,9 @@
 // NOTE: This function was adapted from:
 // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
 
-const { HashingError } = require("./errors")
-const { isString, isUndefined } = require("@jrc03c/js-math-tools")
-const { stringify } = require("@jrc03c/js-text-tools")
+import { HashingError } from "./errors.mjs"
+import { isString, isUndefined } from "@jrc03c/js-math-tools"
+import { stringify } from "@jrc03c/js-text-tools"
 
 async function hash(x, salt) {
   if (isUndefined(salt)) {
@@ -11,7 +11,7 @@ async function hash(x, salt) {
   } else {
     if (!isString(salt)) {
       throw new Error(
-        "The second value passed into the `hash` function must be undefined or a string representing a salt to be added to the first value before hashing!"
+        "The second value passed into the `hash` function must be undefined or a string representing a salt to be added to the first value before hashing!",
       )
     }
   }
@@ -25,9 +25,9 @@ async function hash(x, salt) {
       new Uint8Array(
         await crypto.subtle.digest(
           "SHA-512",
-          new TextEncoder().encode(x + salt)
-        )
-      )
+          new TextEncoder().encode(x + salt),
+        ),
+      ),
     )
       .map(b => b.toString(16).padStart(2, "0"))
       .join("")
@@ -36,4 +36,4 @@ async function hash(x, salt) {
   }
 }
 
-module.exports = hash
+export { hash }

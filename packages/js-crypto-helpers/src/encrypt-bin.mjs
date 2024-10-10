@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-const { execSync } = require("node:child_process")
-const { stringify } = require("@jrc03c/js-text-tools")
-const { fg, fx } = require("@jrc03c/bash-colors")
-const Argument = require("./helpers/argument")
-const encrypt = require("./encrypt")
-const fs = require("node:fs")
-const prompt = require("@jrc03c/prompt")
-const safeWriteFileSync = require("./helpers/safe-write-file-sync")
-const showHelpText = require("./helpers/show-help-text")
+import { Argument } from "./helpers/argument.mjs"
+import { encrypt } from "./encrypt.mjs"
+import { execSync } from "node:child_process"
+import { fg, fx } from "@jrc03c/bash-colors"
+import { prompt } from "@jrc03c/prompt"
+import { safeWriteFileSync } from "./helpers/safe-write-file-sync.mjs"
+import { showHelpText } from "./helpers/show-help-text.mjs"
+import { stringify } from "@jrc03c/js-text-tools"
+import fs from "node:fs"
 
 const { bright, dim } = fx
 const { magenta, yellow } = fg
@@ -27,11 +27,11 @@ const helpText = `
     ${yellow("--help, -h")} = show this help text again
 
     ${yellow(
-      "--outfile, -o"
+      "--outfile, -o",
     )} = (optional) an output file to which to write the encrypted data; if not provided, then the encrypted data is just printed to stdout
 
     ${yellow(
-      "--password, -p"
+      "--password, -p",
     )} = (optional) the password with which to encrypt the item; if not used, then the user will be prompted to input a password (hidden with asterisks)
 
     ${yellow("[item]")} = a file or some text
@@ -42,7 +42,7 @@ const helpText = `
     encrypt path/to/myfile.txt
 
     ${dim(
-      "# encrypt the contents of a file and save the result into another file"
+      "# encrypt the contents of a file and save the result into another file",
     )}
     encrypt -o path/to/encrypted.txt path/to/myfile.txt
 

@@ -1,7 +1,6 @@
-const decrypt = require("./decrypt")
-const encrypt = require("./encrypt")
-const randomString = require("./random-string")
-jest.setTimeout(999999999)
+import { decrypt } from "./decrypt.mjs"
+import { encrypt } from "./encrypt.mjs"
+import { randomString } from "./random-string.mjs"
 
 test("tests that data can be encrypted and decrypted correctly", async () => {
   const text = "Hello, world!"

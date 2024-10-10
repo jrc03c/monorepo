@@ -1,11 +1,11 @@
-const { Base64DecodingError } = require("./errors")
-const { isEqual, isString } = require("@jrc03c/js-math-tools")
-const { parse } = require("@jrc03c/js-text-tools")
+import { Base64DecodingError } from "./errors.mjs"
+import { isEqual, isString } from "@jrc03c/js-math-tools"
+import { parse } from "@jrc03c/js-text-tools"
 
 function base64Decode(x) {
   if (!isString(x)) {
     throw new Error(
-      "The value passed into the `base64Decode` must be a string!"
+      "The value passed into the `base64Decode` must be a string!",
     )
   }
 
@@ -34,4 +34,4 @@ function base64Decode(x) {
   }
 }
 
-module.exports = base64Decode
+export { base64Decode }

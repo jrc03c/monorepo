@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const { execSync } = require("node:child_process")
-const { fg, fx } = require("@jrc03c/bash-colors")
-const Argument = require("./helpers/argument")
-const randomString = require("./random-string")
-const safeWriteFileSync = require("./helpers/safe-write-file-sync")
-const showHelpText = require("./helpers/show-help-text")
+import { Argument } from "./helpers/argument.mjs"
+import { execSync } from "node:child_process"
+import { fg, fx } from "@jrc03c/bash-colors"
+import { randomString } from "./random-string.mjs"
+import { safeWriteFileSync } from "./helpers/safe-write-file-sync.mjs"
+import { showHelpText } from "./helpers/show-help-text.mjs"
 
 const { bright, dim } = fx
 const { magenta, yellow } = fg
@@ -26,15 +26,15 @@ if (helpArg.getValue()) {
       ${yellow("--help, -h")} = show this help text again
 
       ${yellow(
-        "--outfile, -o"
+        "--outfile, -o",
       )} = (optional) an output file to which to write the randomStringed data; if not provided, then the randomStringed data is just printed to stdout
 
       ${yellow(
-        "--charset, -c"
+        "--charset, -c",
       )} = (optional) a character set from which to construct the random string
 
       ${yellow(
-        "--length, -l"
+        "--length, -l",
       )} = (optional) the length of the generated string; the default is 256
 
     Examples:

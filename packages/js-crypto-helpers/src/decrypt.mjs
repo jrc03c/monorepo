@@ -2,11 +2,11 @@
 // - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-gcm_2
 // - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#pbkdf2_2
 
-const { DecryptionError } = require("./errors")
-const { isString } = require("@jrc03c/js-math-tools")
-const { parse } = require("@jrc03c/js-text-tools")
-const base64Decode = require("./base-64-decode")
-const isNaturalNumber = require("./helpers/is-natural-number")
+import { base64Decode } from "./base-64-decode.mjs"
+import { DecryptionError } from "./errors.mjs"
+import { isNaturalNumber } from "./helpers/is-natural-number.mjs"
+import { isString } from "@jrc03c/js-math-tools"
+import { parse } from "@jrc03c/js-text-tools"
 
 async function decrypt(data, password, options) {
   options = options || {}
@@ -14,19 +14,19 @@ async function decrypt(data, password, options) {
 
   if (!isString(data)) {
     throw new Error(
-      "The first argument passed into the `decrypt` function must be a string (i.e., the same string returned from the `encrypt` function)!"
+      "The first argument passed into the `decrypt` function must be a string (i.e., the same string returned from the `encrypt` function)!",
     )
   }
 
   if (!isString(password) || password.length === 0) {
     throw new Error(
-      "The second argument passed into the `decrypt` function must be a string representing the password with which to decrypt the encrypted data."
+      "The second argument passed into the `decrypt` function must be a string representing the password with which to decrypt the encrypted data.",
     )
   }
 
   if (!isNaturalNumber(keyIterations)) {
     throw new Error(
-      "The 'keyIterations' option passed into the `decrypt` function must be undefined or a natural number (i.e., a positive integer) representing the number of iterations used during the key derivation. NOTE: For decryption to be successful, this number must match the number of iterations that was used during the encryption of the data."
+      "The 'keyIterations' option passed into the `decrypt` function must be undefined or a natural number (i.e., a positive integer) representing the number of iterations used during the key derivation. NOTE: For decryption to be successful, this number must match the number of iterations that was used during the encryption of the data.",
     )
   }
 
@@ -36,7 +36,7 @@ async function decrypt(data, password, options) {
 
   if (!iv || !salt || !value) {
     throw new Error(
-      "The first argument passed into the `decrypt` function must be an object with properties 'iv', 'salt', and 'value' (i.e., the same object returned from the `encrypt` function)!"
+      "The first argument passed into the `decrypt` function must be an object with properties 'iv', 'salt', and 'value' (i.e., the same object returned from the `encrypt` function)!",
     )
   }
 
@@ -48,7 +48,7 @@ async function decrypt(data, password, options) {
       new TextEncoder().encode(password),
       "PBKDF2",
       false,
-      ["deriveBits", "deriveKey"]
+      ["deriveBits", "deriveKey"],
     )
 
     key = await crypto.subtle.deriveKey(
@@ -61,7 +61,7 @@ async function decrypt(data, password, options) {
       keyMaterial,
       { name: "AES-GCM", length: 256 },
       true,
-      ["encrypt", "decrypt"]
+      ["encrypt", "decrypt"],
     )
   } catch (e) {
     throw new DecryptionError(e.toString())
@@ -69,7 +69,7 @@ async function decrypt(data, password, options) {
 
   try {
     out = new TextDecoder().decode(
-      await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, value)
+      await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, value),
     )
   } catch (e) {
     throw new DecryptionError("Invalid password!")
@@ -82,4 +82,4 @@ async function decrypt(data, password, options) {
   }
 }
 
-module.exports = decrypt
+export { decrypt }

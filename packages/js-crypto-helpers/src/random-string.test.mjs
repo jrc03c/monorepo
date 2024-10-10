@@ -1,13 +1,13 @@
-const {
+import {
   isEqual,
   isNumber,
   isString,
   isUndefined,
   set,
   sort,
-} = require("@jrc03c/js-math-tools")
+} from "@jrc03c/js-math-tools"
 
-const randomString = require("./random-string")
+import { randomString } from "./random-string.mjs"
 
 test("tests that random strings can be generated correctly", () => {
   const a = randomString(123)
