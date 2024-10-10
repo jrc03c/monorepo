@@ -3,6 +3,11 @@ dependsOn:
   - make-key
 language: javascript
 tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
   pub:
     command:
       - npm

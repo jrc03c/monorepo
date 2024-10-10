@@ -1,7 +1,7 @@
+import { FileDB } from "./index.mjs"
 import { isEqual, random, range } from "@jrc03c/js-math-tools"
-import FileDB from "./index.js"
+import { makeKey } from "@jrc03c/make-key"
 import fs from "node:fs"
-import makeKey from "@jrc03c/make-key"
 import path from "node:path"
 
 const TEST_DIRECTORY = path.join(import.meta.dirname, makeKey(8))

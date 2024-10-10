@@ -265,4 +265,4 @@ class FileDB {
   }
 }
 
-export default FileDB
+export { FileDB }
