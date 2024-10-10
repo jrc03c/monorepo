@@ -20,5 +20,5 @@
   "main": "./dist/prompt.require.cjs",
   "name": "@jrc03c/prompt",
   "type": "module",
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
