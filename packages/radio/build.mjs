@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/radio.require.cjs`,
       `${baseCommand} --outfile=dist/radio.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/radio.import.mjs`,
     ]
 
     commands.forEach(command => {

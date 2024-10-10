@@ -10,12 +10,12 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/radio.import.mjs",
     "require": "./dist/radio.require.cjs"
   },
   "keywords": [],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/radio.require.cjs",
   "name": "@jrc03c/radio",
   "type": "module",
   "version": "0.0.7"
