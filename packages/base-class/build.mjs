@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/base-class.require.cjs`,
       `${baseCommand} --outfile=dist/base-class.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/base-class.import.mjs`,
     ]
 
     commands.forEach(command => {

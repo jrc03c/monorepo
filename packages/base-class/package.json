@@ -9,11 +9,11 @@
     "prettier": "^3.2.5"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/base-class.import.mjs",
     "require": "./dist/base-class.require.cjs"
   },
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/base-class.require.cjs",
   "name": "@jrc03c/base-class",
   "type": "module",
   "version": "0.0.5"
