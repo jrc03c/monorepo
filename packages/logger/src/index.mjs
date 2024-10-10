@@ -1,7 +1,7 @@
-const { fg, fx } = require("@jrc03c/bash-colors")
-const fs = require("node:fs")
-const makeKey = require("@jrc03c/make-key")
-const path = require("node:path")
+import { fg, fx } from "@jrc03c/bash-colors"
+import { makeKey } from "@jrc03c/make-key"
+import fs from "node:fs"
+import path from "node:path"
 
 const COLORS = {
   ERROR: fg.red,
@@ -241,4 +241,4 @@ class Logger {
   }
 }
 
-module.exports = Logger
+export { Logger }

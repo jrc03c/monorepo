@@ -1,8 +1,8 @@
-const { copy, isEqual, isUndefined, normal } = require("@jrc03c/js-math-tools")
-const fs = require("node:fs")
-const Logger = require(".")
-const makeKey = require("@jrc03c/make-key")
-const pause = require("@jrc03c/pause")
+import { copy, isEqual, isUndefined, normal } from "@jrc03c/js-math-tools"
+import { Logger } from "./index.mjs"
+import { makeKey } from "@jrc03c/make-key"
+import { pause } from "@jrc03c/pause"
+import fs from "node:fs"
 
 const dirs = []
 const files = []
@@ -128,7 +128,7 @@ test("tests that the `Logger` class works as expected", async () => {
 
   for (let i = 0; i < 100; i++) {
     logger.logInfo(makeKey(8))
-    expect(logger.logs.length).toBeLessThanOrEqual(maxEntries)
+    expect(logger.logs.length).toBeLessThanOrEqualTo(maxEntries)
   }
 
   // loading
