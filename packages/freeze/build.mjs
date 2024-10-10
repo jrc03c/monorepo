@@ -12,6 +12,7 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/freeze.require.cjs`,
       `${baseCommand} --outfile=dist/freeze.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/freeze.import.mjs`,
     ]
 
     commands.forEach(command => {

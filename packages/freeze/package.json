@@ -10,12 +10,12 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/freeze.import.mjs",
     "require": "./dist/freeze.require.cjs"
   },
   "keywords": [],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/freeze.require.cjs",
   "name": "@jrc03c/freeze",
   "type": "module",
   "version": "0.0.3"
