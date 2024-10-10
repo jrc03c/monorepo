@@ -1,5 +1,5 @@
-import makeKey from "@jrc03c/make-key"
-import pause from "@jrc03c/pause"
+import { makeKey } from "@jrc03c/make-key"
+import { pause } from "@jrc03c/pause"
 
 class Queue {
   interval = null
@@ -88,4 +88,4 @@ if (typeof window !== "undefined") {
   window.Queue = Queue
 }
 
-export default Queue
+export { Queue }

@@ -5,12 +5,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/queue.js
-      - --minify
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -33,15 +29,4 @@ tasks:
     command:
       - npx
       - fake-jest
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --format=esm
-      - --outfile=dist/queue.js
-      - --minify
-      - --watch
-    local: true
     platform: node

@@ -1,5 +1,5 @@
-import Queue from "./index.js"
-import pause from "@jrc03c/pause"
+import { pause } from "@jrc03c/pause"
+import { Queue } from "./index.mjs"
 
 test("tests that queues work when no time is specified", async () => {
   const queue = new Queue()
