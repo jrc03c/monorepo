@@ -8,14 +8,14 @@
     "globals": "^15.10.0"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/color.import.mjs",
     "require": "./dist/color.require.cjs"
   },
   "keywords": [
     "color"
   ],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/color.require.cjs",
   "name": "@jrc03c/color",
   "type": "module",
   "version": "0.0.10"
