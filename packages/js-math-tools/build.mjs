@@ -14,6 +14,8 @@ function rebuild() {
       `${baseCommand} --platform=node --outfile=dist/js-math-tools.require.min.cjs --minify`,
       `${baseCommand} --outfile=dist/js-math-tools.standalone.cjs`,
       `${baseCommand} --outfile=dist/js-math-tools.standalone.min.cjs --minify`,
+      `${baseCommand} --format=esm --outfile=dist/js-math-tools.import.mjs`,
+      `${baseCommand} --format=esm --outfile=dist/js-math-tools.import.min.mjs --minify`,
     ]
 
     commands.forEach(command => {

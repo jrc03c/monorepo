@@ -14,7 +14,7 @@
     "madge": "^5.0.1"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/js-math-tools.import.mjs",
     "require": "./dist/js-math-tools.require.cjs"
   },
   "homepage": "https://github.com/jrc03c/js-math-tools#readme",
@@ -23,7 +23,7 @@
     "math"
   ],
   "license": "ISC",
-  "main": "src/index.mjs",
+  "main": "./dist/js-math-tools.require.cjs",
   "name": "@jrc03c/js-math-tools",
   "repository": {
     "type": "git",
