@@ -20,5 +20,5 @@
   "main": "./dist/queue.require.cjs",
   "name": "@jrc03c/queue",
   "type": "module",
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
