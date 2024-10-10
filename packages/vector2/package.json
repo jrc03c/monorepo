@@ -18,5 +18,5 @@
   "main": "./dist/vector2.require.cjs",
   "name": "@jrc03c/vector2",
   "type": "module",
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
