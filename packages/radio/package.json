@@ -18,5 +18,5 @@
   "main": "./dist/radio.require.cjs",
   "name": "@jrc03c/radio",
   "type": "module",
-  "version": "0.0.7"
+  "version": "0.0.8"
 }
