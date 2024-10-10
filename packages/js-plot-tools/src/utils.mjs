@@ -1,4 +1,4 @@
-const { range } = require("@jrc03c/js-math-tools")
+import { range } from "@jrc03c/js-math-tools"
 
 function linspace(a, b, n) {
   const step = (b - a) / (n - 1)

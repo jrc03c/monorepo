@@ -1,5 +1,4 @@
 import { AbstractPlotter } from "./abstract-plotter.mjs"
-import { exec } from "node:child_process"
 import { makeKey } from "@jrc03c/make-key"
 
 class NodePlotter extends AbstractPlotter {
@@ -9,8 +8,10 @@ class NodePlotter extends AbstractPlotter {
   }
 
   async show() {
+    const { exec } = await import("node:child_process")
     const fs = await import("node:fs")
     const path = await import("node:path")
+
     let cwd
 
     if (typeof __dirname !== "undefined") {
@@ -36,18 +37,34 @@ class NodePlotter extends AbstractPlotter {
     } catch (e) {}
 
     const template = fs.readFileSync(
-      path.join(cwd, "public/index.html"),
+      path.join(cwd, "..", "src/public/index.html"),
       "utf8",
     )
 
     const minifiedScript = fs.readFileSync(
-      path.join(cwd, "../dist/js-plot-tools.js"),
+      path.join(cwd, "../dist/js-plot-tools.standalone.min.cjs"),
       "utf8",
     )
 
-    const out = template
-      .replace("<% minified-script %>", minifiedScript)
-      .replace("<% obj %>", this.dehydrate())
+    let out = template
+    const minifiedScriptPattern = `"<% minified-script %>"`
+    const objPattern = `"<% obj %>"`
+
+    if (out.includes(minifiedScriptPattern)) {
+      out =
+        out.substring(0, out.lastIndexOf(minifiedScriptPattern)) +
+        minifiedScript +
+        out.substring(
+          out.lastIndexOf(minifiedScriptPattern) + minifiedScriptPattern.length,
+        )
+    }
+
+    if (out.includes(objPattern)) {
+      out =
+        out.substring(0, out.lastIndexOf(objPattern)) +
+        this.dehydrate() +
+        out.substring(out.lastIndexOf(objPattern) + objPattern.length)
+    }
 
     const key = makeKey(8)
     const outfile = path.join(tempDir, `${key}.html`)

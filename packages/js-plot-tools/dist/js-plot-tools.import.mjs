@@ -4573,9 +4573,6 @@ if (typeof window !== "undefined") {
   window.Plotter = BrowserPlotter;
 }
 
-// src/node-plotter.mjs
-import { exec } from "node:child_process";
-
 // node_modules/@jrc03c/make-key/dist/make-key.import.mjs
 var __defProp2 = Object.defineProperty;
 var __defNormalProp2 = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -8840,6 +8837,7 @@ var NodePlotter = class extends AbstractPlotter {
     this.browserCommand = "xdg-open $FILE";
   }
   async show() {
+    const { exec } = await import("node:child_process");
     const fs = await import("node:fs");
     const path = await import("node:path");
     let cwd;
@@ -8862,14 +8860,24 @@ var NodePlotter = class extends AbstractPlotter {
     } catch (e) {
     }
     const template = fs.readFileSync(
-      path.join(cwd, "public/index.html"),
+      path.join(cwd, "..", "src/public/index.html"),
       "utf8"
     );
     const minifiedScript = fs.readFileSync(
-      path.join(cwd, "../dist/js-plot-tools.js"),
+      path.join(cwd, "../dist/js-plot-tools.standalone.min.cjs"),
       "utf8"
     );
-    const out3 = template.replace("<% minified-script %>", minifiedScript).replace("<% obj %>", this.dehydrate());
+    let out3 = template;
+    const minifiedScriptPattern = `"<% minified-script %>"`;
+    const objPattern = `"<% obj %>"`;
+    if (out3.includes(minifiedScriptPattern)) {
+      out3 = out3.substring(0, out3.lastIndexOf(minifiedScriptPattern)) + minifiedScript + out3.substring(
+        out3.lastIndexOf(minifiedScriptPattern) + minifiedScriptPattern.length
+      );
+    }
+    if (out3.includes(objPattern)) {
+      out3 = out3.substring(0, out3.lastIndexOf(objPattern)) + this.dehydrate() + out3.substring(out3.lastIndexOf(objPattern) + objPattern.length);
+    }
     const key = makeKey42(8);
     const outfile = path.join(tempDir, `${key}.html`);
     fs.writeFileSync(outfile, out3, "utf8");
