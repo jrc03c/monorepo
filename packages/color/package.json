@@ -18,5 +18,5 @@
   "main": "./dist/color.require.cjs",
   "name": "@jrc03c/color",
   "type": "module",
-  "version": "0.0.10"
+  "version": "0.0.11"
 }
