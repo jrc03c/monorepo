@@ -1,7 +1,7 @@
-const { isUndefined } = require("@jrc03c/js-math-tools")
-const papa = require("papaparse")
+import { isUndefined } from "@jrc03c/js-math-tools"
+import papa from "papaparse"
 
-module.exports = function unparse(df, config) {
+function unparse(df, config) {
   const defaults = {
     columns: null,
     delimiter: ",",
@@ -67,3 +67,5 @@ module.exports = function unparse(df, config) {
   const values = config.header ? [df.columns].concat(df.values) : df.values
   return papa.unparse(values, config).trim()
 }
+
+export { unparse }

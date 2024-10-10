@@ -1,5 +1,5 @@
-const { DataFrame, inferType, max, range } = require("@jrc03c/js-math-tools")
-const papa = require("papaparse")
+import { DataFrame, inferType, max, range } from "@jrc03c/js-math-tools"
+import papa from "papaparse"
 
 function leftPad(x, n) {
   x = x.toString()
@@ -7,7 +7,7 @@ function leftPad(x, n) {
   return x
 }
 
-module.exports = function parse(raw, config) {
+function parse(raw, config) {
   const defaults = {
     beforeFirstChunk: undefined,
     chunk: undefined,
@@ -75,7 +75,7 @@ module.exports = function parse(raw, config) {
     const maxRowLength = max(results.data.map(row => row.length))
 
     columns = range(0, maxRowLength).map(
-      i => `col${leftPad(i, maxRowLength.toString().length)}`
+      i => `col${leftPad(i, maxRowLength.toString().length)}`,
     )
 
     data = results.data.map(row => {
@@ -100,3 +100,5 @@ module.exports = function parse(raw, config) {
     ? out.apply(col => inferType(col).values)
     : out
 }
+
+export { parse }

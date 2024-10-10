@@ -1,7 +1,7 @@
-const { DataFrame, inferType, isEqual } = require("@jrc03c/js-math-tools")
-const fs = require("fs")
-const parse = require("../src/parse")
-const path = require("path")
+import { DataFrame, inferType, isEqual } from "@jrc03c/js-math-tools"
+import { parse } from "../src/parse.mjs"
+import fs from "node:fs"
+import path from "node:path"
 
 test("tests that the test CSV string can be parsed correctly", () => {
   // NOTE: The way I constructed this test was:
@@ -21,7 +21,9 @@ test("tests that the test CSV string can be parsed correctly", () => {
   // inferred, they were identical.
 
   const dataTrue = new DataFrame(
-    JSON.parse(fs.readFileSync(path.join(__dirname, "test.json"), "utf8"))
+    JSON.parse(
+      fs.readFileSync(path.join(import.meta.dirname, "test.json"), "utf8"),
+    ),
   ).apply(col => {
     const results = inferType(col.values).values
 
@@ -33,10 +35,10 @@ test("tests that the test CSV string can be parsed correctly", () => {
   })
 
   const dataPred = parse(
-    fs.readFileSync(path.join(__dirname, "test.csv"), "utf8"),
+    fs.readFileSync(path.join(import.meta.dirname, "test.csv"), "utf8"),
     {
       header: true,
-    }
+    },
   ).apply(col => {
     const results = inferType(col.values).values
 

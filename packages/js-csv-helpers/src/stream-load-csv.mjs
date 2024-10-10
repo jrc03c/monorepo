@@ -1,16 +1,16 @@
-const { isBrowser, range } = require("@jrc03c/js-math-tools")
-
-const fsx = (() => {
-  try {
-    return require("@jrc03c/fs-extras")
-  } catch (e) {
-    return null
-  }
-})()
-
-const parse = require("./parse", Infinity)
+import { isBrowser, range } from "@jrc03c/js-math-tools"
+import { parse } from "./parse.mjs"
 
 async function* streamLoadCSVFromDisk(path, config) {
+  let fsx
+
+  try {
+    fsx = await import("@jrc03c/fs-extras")
+  } catch (e) {
+    console.error(e)
+    return
+  }
+
   const rowsPerChunk = config.rowsPerChunk || 100
   const stream = fsx.createFileStreamReader(path)
   let columns
@@ -58,4 +58,4 @@ function streamLoadCSV(path, config) {
   }
 }
 
-module.exports = streamLoadCSV
+export { streamLoadCSV }
