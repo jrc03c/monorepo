@@ -1,16 +1,22 @@
 {
-  "name": "@jrc03c/vue-component-with-css",
-  "version": "0.0.5",
+  "author": "jrc03c",
   "description": "",
-  "main": "src/index.js",
   "devDependencies": {
-    "@jrc03c/watch": "^0.0.15",
-    "esbuild": "^0.19.2",
-    "eslint": "^8.49.0",
-    "eslint-plugin-vue": "^9.17.0",
+    "@jrc03c/watch": "^0.0.17",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-vue": "^9.29.0",
     "prettier": "^3.3.3"
   },
+  "exports": {
+    "import": "./dist/vue-component-with-css.import.mjs",
+    "require": "./dist/vue-component-with-css.require.cjs"
+  },
   "keywords": [],
-  "author": "jrc03c",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "./dist/vue-component-with-css.require.cjs",
+  "name": "@jrc03c/vue-component-with-css",
+  "type": "module",
+  "version": "0.0.5"
 }

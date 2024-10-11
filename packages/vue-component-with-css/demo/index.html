@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -37,8 +37,9 @@
 
     <div id="app"></div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="vue-component-with-css.js"></script>
-    <script>
+    <script type="module">
+      import { createVueComponentWithCSS } from "../dist/vue-component-with-css.import.min.mjs"
+
       function makeKey(n) {
         const alpha = "abcdefg1234567890"
         let out = ""
@@ -183,7 +184,7 @@
             const self = this
             self.sayHi()
           },
-        })
+        }),
       )
 
       const container = document.querySelector("#app")
