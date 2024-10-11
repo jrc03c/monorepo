@@ -9,7 +9,7 @@ tasks:
   build:
     command:
       - node
-      - build.js
+      - build.mjs
     platform: node
   pub:
     command:
@@ -26,12 +26,5 @@ tasks:
       - version
       - patch
       - --force
-    local: true
-    platform: node
-  watch:
-    command:
-      - node
-      - build.js
-      - --watch
     local: true
     platform: node

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-const { isEqual } = JSMathTools
+import { isEqual } from "../node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.min.mjs"
 
 async function test(desc, fn) {
   const container = document.getElementById("container")
@@ -26,7 +26,7 @@ function expect(v1) {
     toBe(v2) {
       if (!isEqual(v1, v2)) {
         throw new Error(
-          `Expected ${v2} (${typeof v2}) but received ${v1} (${typeof v1})!`
+          `Expected ${v2} (${typeof v2}) but received ${v1} (${typeof v1})!`,
         )
       }
     },
@@ -34,7 +34,7 @@ function expect(v1) {
     toBeLessThan(v2) {
       if (v1 >= v2) {
         throw new Error(
-          `${v1} is supposed to be less than ${v2}, but it's not!`
+          `${v1} is supposed to be less than ${v2}, but it's not!`,
         )
       }
     },
@@ -42,7 +42,7 @@ function expect(v1) {
     toBeGreaterThan(v2) {
       if (v1 <= v2) {
         throw new Error(
-          `${v1} is supposed to be greater than ${v2}, but it's not!`
+          `${v1} is supposed to be greater than ${v2}, but it's not!`,
         )
       }
     },
@@ -58,7 +58,7 @@ function expect(v1) {
 
       if (!threw) {
         throw new Error(
-          "The function should've thrown an error, but it didn't!"
+          "The function should've thrown an error, but it didn't!",
         )
       }
     },
@@ -74,7 +74,7 @@ function expect(v1) {
 
       if (!threw) {
         throw new Error(
-          "The function should've thrown an error, but it didn't!"
+          "The function should've thrown an error, but it didn't!",
         )
       }
     },

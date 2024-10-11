@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-importScripts("../dist/bee.min.js")
+importScripts("../dist/bee.standalone.min.js")
+
 const drone = new Bee.Drone()
 
 drone.on("double", (request, response) => {

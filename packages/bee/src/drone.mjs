@@ -1,4 +1,4 @@
-const SubscriptionService = require("./subscription-service")
+import { SubscriptionService } from "./subscription-service.mjs"
 
 class Drone extends SubscriptionService {
   constructor(path) {
@@ -7,7 +7,7 @@ class Drone extends SubscriptionService {
     if (typeof window === "undefined") {
       if (typeof path !== "undefined") {
         throw new Error(
-          "You must not pass a `path` to a `Drone` created in a web worker context! (Passing a `path` only makes sense when creating a `Drone` in a window context.)"
+          "You must not pass a `path` to a `Drone` created in a web worker context! (Passing a `path` only makes sense when creating a `Drone` in a window context.)",
         )
       }
     } else if (typeof path === "undefined") {
@@ -25,7 +25,7 @@ class Drone extends SubscriptionService {
 
   set isDead(value) {
     throw new Error(
-      `The \`isDead\` property of this Drone instance is read-only! To destroy this Drone instance, invoke its \`destroy\` method.`
+      `The \`isDead\` property of this Drone instance is read-only! To destroy this Drone instance, invoke its \`destroy\` method.`,
     )
   }
 
@@ -42,4 +42,4 @@ class Drone extends SubscriptionService {
   }
 }
 
-module.exports = Drone
+export { Drone }

@@ -1,5 +1,5 @@
-const Drone = require("./drone")
-const SubscriptionService = require("./subscription-service")
+import { Drone } from "./drone.mjs"
+import { SubscriptionService } from "./subscription-service.mjs"
 
 class Queen extends SubscriptionService {
   hive = []
@@ -19,7 +19,7 @@ class Queen extends SubscriptionService {
 
   set isDead(value) {
     throw new Error(
-      `The \`isDead\` property of this Queen instance is read-only! To destroy this Queen instance, invoke her \`destroy\` method.`
+      `The \`isDead\` property of this Queen instance is read-only! To destroy this Queen instance, invoke her \`destroy\` method.`,
     )
   }
 
@@ -91,7 +91,7 @@ class Queen extends SubscriptionService {
 
     if (drones.length === 0) {
       throw new Error(
-        `The queen issued a "${signal}" command, but there are no drones in the hive!`
+        `The queen issued a "${signal}" command, but there are no drones in the hive!`,
       )
     }
 
@@ -164,4 +164,4 @@ class Queen extends SubscriptionService {
   }
 }
 
-module.exports = Queen
+export { Queen }

@@ -1,6 +1,16 @@
-const { parse, stringify } = require("@jrc03c/js-text-tools")
-const makeKey = require("@jrc03c/make-key")
-require("./array-prototype-remove")
+import { makeKey } from "@jrc03c/make-key"
+import { parse, stringify } from "@jrc03c/js-text-tools"
+
+Array.prototype.remove = function (x) {
+  let index = this.indexOf(x)
+
+  while (index > -1) {
+    this.splice(index, 1)
+    index = this.indexOf(x)
+  }
+
+  return this
+}
 
 const alive = {}
 
@@ -21,7 +31,7 @@ class SubscriptionService {
 
       set() {
         throw new Error(
-          `The \`id\` property of this SubscriptionService instance is read-only!`
+          `The \`id\` property of this SubscriptionService instance is read-only!`,
         )
       },
     })
@@ -35,14 +45,14 @@ class SubscriptionService {
 
   set hasBeenDestroyed(value) {
     throw new Error(
-      `The \`hasBeenDestroyed\` property of this SubscriptionService instance is read-only! To destroy this SubscriptionService instance, invoke its \`destroy\` method.`
+      `The \`hasBeenDestroyed\` property of this SubscriptionService instance is read-only! To destroy this SubscriptionService instance, invoke its \`destroy\` method.`,
     )
   }
 
   destroy(error) {
     if (this.hasBeenDestroyed) {
       throw new Error(
-        `This SubscriptionService instance has already been destroyed!`
+        `This SubscriptionService instance has already been destroyed!`,
       )
     }
 
@@ -64,7 +74,7 @@ class SubscriptionService {
   emit(signal, payload) {
     if (this.hasBeenDestroyed) {
       throw new Error(
-        `This SubscriptionService instance has already been destroyed!`
+        `This SubscriptionService instance has already been destroyed!`,
       )
     }
 
@@ -116,7 +126,7 @@ class SubscriptionService {
   on(signal, callback) {
     if (this.hasBeenDestroyed) {
       throw new Error(
-        `This SubscriptionService instance has already been destroyed!`
+        `This SubscriptionService instance has already been destroyed!`,
       )
     }
 
@@ -165,4 +175,4 @@ class SubscriptionService {
   }
 }
 
-module.exports = SubscriptionService
+export { SubscriptionService }
