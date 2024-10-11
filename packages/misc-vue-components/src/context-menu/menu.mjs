@@ -14,9 +14,9 @@ const template = /* html */ ``
 // JS
 // -----------------------------------------------------------------------------
 
-const createVueComponentWithCSS = require("@jrc03c/vue-component-with-css")
+import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
 
-module.exports = createVueComponentWithCSS({
+const MenuComponent = createVueComponentWithCSS({
   name: "x-menu",
   template,
 
@@ -26,3 +26,5 @@ module.exports = createVueComponentWithCSS({
     }
   },
 })
+
+export { MenuComponent }

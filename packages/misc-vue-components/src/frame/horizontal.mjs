@@ -72,7 +72,7 @@ const template = /* html */ `
 // JS
 // -----------------------------------------------------------------------------
 
-const createVueComponentWithCSS = require("@jrc03c/vue-component-with-css")
+import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
 
 function sum(x) {
   let s = 0
@@ -80,7 +80,7 @@ function sum(x) {
   return s
 }
 
-module.exports = createVueComponentWithCSS({
+const FrameHorizontalComponent = createVueComponentWithCSS({
   name: "x-frame-horizontal",
   template,
   emits: ["resize", "resize-end", "resize-start"],
@@ -294,3 +294,5 @@ module.exports = createVueComponentWithCSS({
     window.removeEventListener("mouseup", this.onMouseUp)
   },
 })
+
+export { FrameHorizontalComponent }

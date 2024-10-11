@@ -111,10 +111,10 @@ const template = /* html */ `
 // JS
 // -----------------------------------------------------------------------------
 
-const createVueComponentWithCSS = require("@jrc03c/vue-component-with-css")
-const pause = require("@jrc03c/pause")
+import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
+import { pause } from "@jrc03c/pause"
 
-module.exports = createVueComponentWithCSS({
+const ContextMenuComponent = createVueComponentWithCSS({
   name: "x-context-menu",
   template,
   emits: ["cancel", "close", "open", "select"],
@@ -331,3 +331,5 @@ module.exports = createVueComponentWithCSS({
     this.removeListeners()
   },
 })
+
+export { ContextMenuComponent }

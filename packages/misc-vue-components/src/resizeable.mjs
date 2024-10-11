@@ -33,10 +33,10 @@ const template = /* html */ `
 // JS
 // -----------------------------------------------------------------------------
 
-const createVueComponentWithCSS = require("@jrc03c/vue-component-with-css")
-const DraggableComponent = require("./draggable")
+import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
+import { DraggableComponent } from "./draggable.mjs"
 
-module.exports = createVueComponentWithCSS({
+const ResizeableComponent = createVueComponentWithCSS({
   name: "x-resizeable",
   template,
 
@@ -565,3 +565,5 @@ module.exports = createVueComponentWithCSS({
     window.removeEventListener("mouseup", this.onMouseUp)
   },
 })
+
+export { ResizeableComponent }

@@ -36,18 +36,18 @@ const template = /* html */ `
 // JS
 // -----------------------------------------------------------------------------
 
-const createVueComponentWithCSS = require("@jrc03c/vue-component-with-css")
-const HorizontalFrameComponent = require("./horizontal")
-const VerticalFrameComponent = require("./vertical")
+import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
+import { FrameHorizontalComponent } from "./horizontal.mjs"
+import { FrameVerticalComponent } from "./vertical.mjs"
 
-module.exports = createVueComponentWithCSS({
+const FrameComponent = createVueComponentWithCSS({
   name: "x-frame",
   template,
   emits: ["resize", "resize-end", "resize-start"],
 
   components: {
-    "x-frame-horizontal": HorizontalFrameComponent,
-    "x-frame-vertical": VerticalFrameComponent,
+    "x-frame-horizontal": FrameHorizontalComponent,
+    "x-frame-vertical": FrameVerticalComponent,
   },
 
   props: {
@@ -82,3 +82,5 @@ module.exports = createVueComponentWithCSS({
     }
   },
 })
+
+export { FrameComponent }
