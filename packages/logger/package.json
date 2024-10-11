@@ -23,5 +23,5 @@
   "main": "./dist/logger.require.cjs",
   "name": "@jrc03c/logger",
   "type": "module",
-  "version": "0.0.16"
+  "version": "0.0.17"
 }
