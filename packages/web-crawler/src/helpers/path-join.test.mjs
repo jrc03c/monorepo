@@ -1,4 +1,4 @@
-const pathJoin = require("./path-join")
+import { pathJoin } from "./path-join.mjs"
 
 test("tests that the `pathJoin` function works as expected", () => {
   expect(pathJoin("/foo", "/bar")).toBe("/foo/bar")

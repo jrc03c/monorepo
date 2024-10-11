@@ -1,7 +1,7 @@
-const { set, sort } = require("@jrc03c/js-math-tools")
-const extractUrlsFromCss = require("./extract-urls-from-css")
-const getAllElements = require("./get-all-elements")
-const getAttributeUrls = require("./get-attribute-urls")
+import { extractUrlsFromCss } from "./extract-urls-from-css.mjs"
+import { getAllElements } from "./get-all-elements.mjs"
+import { getAttributeUrls } from "./get-attribute-urls.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
 
 function getAllUrls(url, dom, validAttributes) {
   return sort(
@@ -17,4 +17,4 @@ function getAllUrls(url, dom, validAttributes) {
   )
 }
 
-module.exports = getAllUrls
+export { getAllUrls }

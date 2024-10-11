@@ -1,5 +1,5 @@
-const { isUndefined, set, sort } = require("@jrc03c/js-math-tools")
-const absolutifyUrl = require("./absolutify-url")
+import { absolutifyUrl } from "./absolutify-url.mjs"
+import { isUndefined, set, sort } from "@jrc03c/js-math-tools"
 
 function getAttributeUrls(url, el, included) {
   if (!isUndefined(included) && !(included instanceof Array)) {
@@ -34,4 +34,4 @@ function getAttributeUrls(url, el, included) {
   )
 }
 
-module.exports = getAttributeUrls
+export { getAttributeUrls }

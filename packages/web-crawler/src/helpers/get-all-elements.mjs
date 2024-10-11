@@ -1,4 +1,4 @@
-const { flatten } = require("@jrc03c/js-math-tools")
+import { flatten } from "@jrc03c/js-math-tools"
 
 function getAllElements(dom, root) {
   if (!root) {
@@ -18,4 +18,4 @@ function getAllElements(dom, root) {
   return flatten(out)
 }
 
-module.exports = getAllElements
+export { getAllElements }

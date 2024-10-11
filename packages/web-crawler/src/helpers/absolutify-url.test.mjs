@@ -1,4 +1,4 @@
-const absolutifyUrl = require("./absolutify-url")
+import { absolutifyUrl } from "./absolutify-url.mjs"
 
 test("tests that the `absolutifyUrl` function works as expected", () => {
   const checks = [

@@ -1,7 +1,7 @@
 // NOTE: The `sitemapUrls` property of this class refers to URLs at which
 // sitemaps are located, not URLs contained within sitemaps!
 
-const { stringify } = require("@jrc03c/js-text-tools")
+import { stringify } from "@jrc03c/js-text-tools"
 
 class RobotsConfig {
   botRules = {}
@@ -112,4 +112,4 @@ class RobotsConfig {
   }
 }
 
-module.exports = RobotsConfig
+export { RobotsConfig }

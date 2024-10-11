@@ -1,5 +1,5 @@
-const { set, sort } = require("@jrc03c/js-math-tools")
-const absolutifyUrl = require("./absolutify-url")
+import { absolutifyUrl } from "./absolutify-url.mjs"
+import { set, sort } from "@jrc03c/js-math-tools"
 
 function extractUrlsFromCss(url, css) {
   return sort(
@@ -18,4 +18,4 @@ function extractUrlsFromCss(url, css) {
   )
 }
 
-module.exports = extractUrlsFromCss
+export { extractUrlsFromCss }

@@ -1,10 +1,10 @@
-const { JSDOM, VirtualConsole } = require("jsdom")
-const extractUrlsFromCss = require("./helpers/extract-urls-from-css")
-const fetchWithTimeout = require("./helpers/fetch-with-timeout")
-const getAllUrls = require("./helpers/get-all-urls")
-const pathJoin = require("./helpers/path-join")
-const pause = require("@jrc03c/pause")
-const RobotsConfig = require("./helpers/robots-config")
+import { extractUrlsFromCss } from "./helpers/extract-urls-from-css.mjs"
+import { fetchWithTimeout } from "./helpers/fetch-with-timeout.mjs"
+import { getAllUrls } from "./helpers/get-all-urls.mjs"
+import { JSDOM, VirtualConsole } from "jsdom"
+import { pathJoin } from "./helpers/path-join.mjs"
+import { pause } from "@jrc03c/pause"
+import { RobotsConfig } from "./helpers/robots-config/index.mjs"
 
 const virtualConsole = new VirtualConsole()
 virtualConsole.on("error", () => {})
@@ -418,4 +418,4 @@ class WebCrawler {
   }
 }
 
-module.exports = WebCrawler
+export { WebCrawler }

@@ -1,5 +1,5 @@
-const { isEqual } = require("@jrc03c/js-math-tools")
-const RobotsConfig = require(".")
+import { isEqual } from "@jrc03c/js-math-tools"
+import { RobotsConfig } from "./index.mjs"
 
 test("test that the `RobotsConfig` class works as expected", () => {
   const robots = `

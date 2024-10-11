@@ -61,4 +61,4 @@ function pathJoin() {
   return (startsWithForwardSlash && !out.startsWith("..") ? "/" : "") + out
 }
 
-module.exports = pathJoin
+export { pathJoin }

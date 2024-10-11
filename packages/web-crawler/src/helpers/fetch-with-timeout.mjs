@@ -7,4 +7,4 @@ async function fetchWithTimeout(url, options, ms) {
   return response
 }
 
-module.exports = fetchWithTimeout
+export { fetchWithTimeout }
