@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/js-text-tools": "^0.0.54"
+    "@jrc03c/js-text-tools": "^0.0.55"
   },
   "description": "just simple wrappers around core js crypto functions",
   "devDependencies": {
