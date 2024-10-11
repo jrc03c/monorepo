@@ -2,7 +2,7 @@
   "author": "jrc03c",
   "dependencies": {
     "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/js-text-tools": "^0.0.54",
+    "@jrc03c/js-text-tools": "^0.0.55",
     "@jrc03c/make-key": "^0.0.31"
   },
   "description": "some data science functions and classes to complement @jrc03c/js-math-tools",
