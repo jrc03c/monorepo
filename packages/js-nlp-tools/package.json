@@ -23,5 +23,5 @@
   "main": "./dist/js-nlp-tools.require.cjs",
   "name": "@jrc03c/js-nlp-tools",
   "type": "module",
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
