@@ -18,5 +18,5 @@
   "main": "./dist/misc-vue-components.require.cjs",
   "name": "@jrc03c/misc-vue-components",
   "type": "module",
-  "version": "0.0.13"
+  "version": "0.0.14"
 }
