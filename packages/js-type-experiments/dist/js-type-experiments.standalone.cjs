@@ -34,78 +34,24 @@
       throw new Error("`text` must be a string!");
     }
     text = text.trim();
-    let out32 = "";
+    let out22 = "";
     let shouldCapitalizeNextCharacter = false;
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
       if (char.match(/[A-Za-z0-9]/g)) {
-        if (out32.length === 0) {
-          out32 += char.toLowerCase();
+        if (out22.length === 0) {
+          out22 += char.toLowerCase();
         } else if (shouldCapitalizeNextCharacter) {
-          out32 += char.toUpperCase();
+          out22 += char.toUpperCase();
         } else {
-          out32 += char;
+          out22 += char;
         }
         shouldCapitalizeNextCharacter = false;
       } else if (!char.includes("'") && !char.includes("\u2019") && !char.includes("\u275C")) {
         shouldCapitalizeNextCharacter = true;
       }
     }
-    return out32;
-  }
-  function indent(text, chars) {
-    chars = chars || "";
-    return text.split("\n").map((line) => {
-      if (line.trim().length > 0) {
-        return chars + line;
-      } else {
-        return line;
-      }
-    }).join("\n");
-  }
-  var punctuation = "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65";
-  function replaceAll(text, a, b) {
-    if (typeof text !== "string") {
-      throw new Error("`text` must be a string!");
-    }
-    if (typeof a !== "string") {
-      throw new Error("`a` must be a string!");
-    }
-    if (typeof b !== "string") {
-      throw new Error("`b` must be a string!");
-    }
-    return text.split(a).join(b);
-  }
-  var doubleSpace = "  ";
-  var singleSpace = " ";
-  function strip(text) {
-    if (typeof text !== "string") {
-      throw new Error("`text` must be a string!");
-    }
-    let out32 = "";
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i].toLowerCase();
-      if (punctuation.includes(char)) {
-        out32 += singleSpace;
-      } else {
-        out32 += char;
-      }
-    }
-    while (out32.includes(doubleSpace)) {
-      out32 = replaceAll(out32, doubleSpace, singleSpace);
-    }
-    return out32.trim();
-  }
-  function kebabify(text) {
-    if (typeof text !== "string") {
-      throw new Error("`text` must be a string!");
-    }
-    const words = strip(text).split(" ");
-    if (words.length === 0)
-      return "";
-    if (words.length === 1)
-      return words[0];
-    return words.join("-");
+    return out22;
   }
   var __defProp2 = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -280,14 +226,14 @@
           return x2.map((v) => copy(v));
         }
         if (isSeries(x2)) {
-          const out32 = x2.copy();
-          out32.values = copy(out32.values);
-          return out32;
+          const out3 = x2.copy();
+          out3.values = copy(out3.values);
+          return out3;
         }
         if (isDataFrame(x2)) {
-          const out32 = x2.copy();
-          out32.values = copy(x2.values);
-          return out32;
+          const out3 = x2.copy();
+          out3.values = copy(x2.values);
+          return out3;
         }
         if (x2 instanceof Date) {
           return new Date(x2.getTime());
@@ -720,10 +666,10 @@
   }
   function reverse(arr) {
     if (isDataFrame(arr) || isSeries(arr)) {
-      const out32 = arr.copy();
-      out32.values = reverse(out32.values);
-      out32.index = reverse(out32.index);
-      return out32;
+      const out3 = arr.copy();
+      out3.values = reverse(out3.values);
+      out3.index = reverse(out3.index);
+      return out3;
     }
     assert(isArray(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
     const out22 = [];
@@ -1472,16 +1418,16 @@
       return values[0][0];
     }
     if (rows.length === 1) {
-      const out32 = new Series22(values[0]);
-      out32.name = rows[0];
-      out32.index = cols;
-      return out32;
+      const out3 = new Series22(values[0]);
+      out3.name = rows[0];
+      out3.index = cols;
+      return out3;
     }
     if (cols.length === 1) {
-      const out32 = new Series22(values.map((v) => v[0]));
-      out32.name = cols[0];
-      out32.index = rows;
-      return out32;
+      const out3 = new Series22(values.map((v) => v[0]));
+      out3.name = cols[0];
+      out3.index = rows;
+      return out3;
     }
     const out22 = new DataFrame22(values);
     out22.columns = cols;
@@ -4368,21 +4314,75 @@
       if (isDate(x)) {
         return new Date(x.getTime());
       }
-      const out32 = {};
+      const out22 = {};
       Object.keys(x).forEach((key) => {
         try {
-          out32[key] = convertTypedArrayToObject(x[key]);
+          out22[key] = convertTypedArrayToObject(x[key]);
         } catch (e) {
-          out32[key] = x[key];
+          out22[key] = x[key];
         }
       });
-      return out32;
+      return out22;
     }
     throw new Error("The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray.");
   }
   function isANumberString(x) {
     x = x.trim();
     return !!(x.match(/^-?\d+(\.\d+)?$/g) || x.match(/^-?\d+(\.\d+)?e-?\d+(\.\d+)?$/g) || x.match(/^-?\.\d+$/g) || x === "NaN");
+  }
+  var punctuation = "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65";
+  function replaceAll(text, a, b) {
+    if (typeof text !== "string") {
+      throw new Error("`text` must be a string!");
+    }
+    if (typeof a !== "string") {
+      throw new Error("`a` must be a string!");
+    }
+    if (typeof b !== "string") {
+      throw new Error("`b` must be a string!");
+    }
+    return text.split(a).join(b);
+  }
+  var doubleSpace = "  ";
+  var singleSpace = " ";
+  function strip(text) {
+    if (typeof text !== "string") {
+      throw new Error("`text` must be a string!");
+    }
+    let out22 = "";
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i].toLowerCase();
+      if (punctuation.includes(char)) {
+        out22 += singleSpace;
+      } else {
+        out22 += char;
+      }
+    }
+    while (out22.includes(doubleSpace)) {
+      out22 = replaceAll(out22, doubleSpace, singleSpace);
+    }
+    return out22.trim();
+  }
+  function indent(text, chars) {
+    chars = chars || "";
+    return text.split("\n").map((line) => {
+      if (line.trim().length > 0) {
+        return chars + line;
+      } else {
+        return line;
+      }
+    }).join("\n");
+  }
+  function kebabify(text) {
+    if (typeof text !== "string") {
+      throw new Error("`text` must be a string!");
+    }
+    const words = strip(text).split(" ");
+    if (words.length === 0)
+      return "";
+    if (words.length === 1)
+      return words[0];
+    return words.join("-");
   }
   var specials = {
     "@Infinity": Infinity,
@@ -4451,16 +4451,16 @@
     const replacement = "@jrc03c/js-text-tools/newline-replacer";
     x = x.replaceAll("\n", replacement);
     if (x.trim().match(/^("|')?Symbol\(@String\):.*?("|')?$/g)) {
-      let out32 = x.replace("Symbol(@String):", "");
-      if (out32.match(/^".*?"$/g)) {
+      let out22 = x.replace("Symbol(@String):", "");
+      if (out22.match(/^".*?"$/g)) {
         try {
-          return JSON.parse(out32);
+          return JSON.parse(out22);
         } catch (e) {
-          out32 = out32.substring(1, out32.length - 1);
+          out22 = out22.substring(1, out22.length - 1);
         }
       }
-      out32 = out32.replaceAll(replacement, "\n");
-      return out32;
+      out22 = out22.replaceAll(replacement, "\n");
+      return out22;
     }
   }
   function parseAsSymbol(x) {
@@ -4506,18 +4506,18 @@
       }
     }
     try {
-      let out32 = JSON.parse(x, (key, value) => {
+      let out22 = JSON.parse(x, (key, value) => {
         try {
-          const out4 = parse(value);
-          return typeof out4 === "undefined" ? "Symbol(@undefined)" : out4;
+          const out3 = parse(value);
+          return typeof out3 === "undefined" ? "Symbol(@undefined)" : out3;
         } catch (e) {
           return typeof value === "undefined" ? "Symbol(@undefined)" : value;
         }
       });
-      if (isArray(out32)) {
-        out32 = fixUndefineds(out32);
+      if (isArray(out22)) {
+        out22 = fixUndefineds(out22);
       }
-      return out32;
+      return out22;
     } catch (e) {
       return x;
     }
@@ -4564,37 +4564,37 @@
   function parse(x) {
     function helper52(x2) {
       if (typeof x2 === "string") {
-        let out32 = parseAsString(x2);
-        if (typeof out32 === "string") {
-          return out32;
+        let out22 = parseAsString(x2);
+        if (typeof out22 === "string") {
+          return out22;
         }
         const results = parseAsSymbol(x2);
-        out32 = results ? results.out : void 0;
+        out22 = results ? results.out : void 0;
         if (results && results.isASymbol) {
-          return out32;
+          return out22;
         }
-        out32 = parseAsRegex(x2);
-        if (out32 instanceof RegExp) {
-          return out32;
+        out22 = parseAsRegex(x2);
+        if (out22 instanceof RegExp) {
+          return out22;
         }
-        out32 = parseAsBigInt(x2);
-        if (typeof out32 === "bigint") {
-          return out32;
+        out22 = parseAsBigInt(x2);
+        if (typeof out22 === "bigint") {
+          return out22;
         }
-        out32 = parseAsNumber(x2);
-        if (typeof out32 === "number") {
-          return out32;
+        out22 = parseAsNumber(x2);
+        if (typeof out22 === "number") {
+          return out22;
         }
-        out32 = parseAsDate(x2);
-        if (out32 instanceof Date) {
-          return out32;
+        out22 = parseAsDate(x2);
+        if (out22 instanceof Date) {
+          return out22;
         }
-        out32 = parseWithJSONParse(x2);
-        if (typeof out32 !== "undefined") {
-          if (out32 === "Symbol(@undefined)") {
+        out22 = parseWithJSONParse(x2);
+        if (typeof out22 !== "undefined") {
+          if (out22 === "Symbol(@undefined)") {
             return void 0;
           } else {
-            return out32;
+            return out22;
           }
         }
         return x2;
@@ -4603,19 +4603,19 @@
         if (x2 === null) {
           return null;
         }
-        let out32;
+        let out22;
         try {
-          out32 = convertObjectToTypedArray(x2);
-          if (isArray(out32))
-            return out32;
+          out22 = convertObjectToTypedArray(x2);
+          if (isArray(out22))
+            return out22;
         } catch (e) {
         }
-        out32 = parseObjectKeysAndValues(x2);
-        if (out32) {
+        out22 = parseObjectKeysAndValues(x2);
+        if (out22) {
           try {
-            return convertObjectToTypedArray(out32);
+            return convertObjectToTypedArray(out22);
           } catch (e) {
-            return out32;
+            return out22;
           }
         }
         return x2;
@@ -4625,8 +4625,8 @@
     return helper52(x);
   }
   function pascalify(text) {
-    const out32 = camelify(text);
-    return out32[0].toUpperCase() + out32.slice(1);
+    const out22 = camelify(text);
+    return out22[0].toUpperCase() + out22.slice(1);
   }
   function snakeify(text) {
     if (typeof text !== "string") {
@@ -4750,10 +4750,10 @@
     if (isNaN(maxLineLength) || typeof maxLineLength !== "number") {
       throw new Error("The second argument to the `wrap` function must be undefined, null, or an integer!");
     }
-    const out32 = [];
+    const out22 = [];
     raw.split("\n").forEach((line) => {
       if (line.trim().length === 0) {
-        return out32.push("");
+        return out22.push("");
       }
       const indentation = line.split(/[^\s]/g)[0];
       const words = line.replace(indentation, "").split(" ");
@@ -4761,49 +4761,36 @@
       words.forEach((word) => {
         const newLine = temp + (temp.trim().length > 0 ? " " : "") + word;
         if (newLine.length > maxLineLength) {
-          out32.push(temp);
+          out22.push(temp);
           temp = indentation + word;
         } else {
           temp = newLine;
         }
       });
       if (temp.length > 0) {
-        out32.push(temp);
+        out22.push(temp);
       }
     });
-    return out32.join("\n");
+    return out22.join("\n");
   }
-  var out2 = {
-    camelify,
-    indent,
-    kebabify,
-    parse,
-    pascalify,
-    snakeify,
-    stringify,
-    unindent,
-    wrap,
-    dump() {
-      const context2 = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : void 0;
-      if (!context2) {
-        throw new out2.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");
-      }
-      Object.keys(out2).forEach((key) => {
-        try {
-          Object.defineProperty(context2, key, {
-            configurable: false,
-            enumerable: true,
-            writable: false,
-            value: out2[key]
-          });
-        } catch (e) {
-          context2[key] = out2[key];
-        }
-      });
-    }
-  };
   if (typeof window !== "undefined") {
-    window.JSTextTools = out2;
+    window.JSTextTools = {
+      camelify,
+      convertObjectToTypedArray,
+      convertTypedArrayToObject,
+      indent,
+      isANumberString,
+      kebabify,
+      parse,
+      pascalify,
+      punctuation,
+      replaceAll,
+      snakeify,
+      stringify,
+      strip,
+      unindent,
+      wrap
+    };
   }
 
   // src/create-type.mjs
@@ -4818,7 +4805,7 @@
         "The second argument passed into the `createType` function must be a function that tests a single value and returns true or false depending on whether or not the value 'matches' the type!"
       );
     }
-    const out4 = class {
+    const out3 = class {
       constructor() {
         throw new Error(
           "This class is not meant to be instantiated or subclassed! Its only purpose is type checking."
@@ -4836,13 +4823,13 @@
         }
       }
     };
-    Object.defineProperty(out4, "name", {
+    Object.defineProperty(out3, "name", {
       configurable: false,
       enumerable: false,
       writable: false,
       value: pascalify(name)
     });
-    return out4;
+    return out3;
   }
 
   // node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.mjs
@@ -5019,14 +5006,14 @@
           return x2.map((v) => copy2(v));
         }
         if (isSeries2(x2)) {
-          const out32 = x2.copy();
-          out32.values = copy2(out32.values);
-          return out32;
+          const out3 = x2.copy();
+          out3.values = copy2(out3.values);
+          return out3;
         }
         if (isDataFrame2(x2)) {
-          const out32 = x2.copy();
-          out32.values = copy2(x2.values);
-          return out32;
+          const out3 = x2.copy();
+          out3.values = copy2(x2.values);
+          return out3;
         }
         if (x2 instanceof Date) {
           return new Date(x2.getTime());
@@ -5459,10 +5446,10 @@
   }
   function reverse2(arr) {
     if (isDataFrame2(arr) || isSeries2(arr)) {
-      const out32 = arr.copy();
-      out32.values = reverse2(out32.values);
-      out32.index = reverse2(out32.index);
-      return out32;
+      const out3 = arr.copy();
+      out3.values = reverse2(out3.values);
+      out3.index = reverse2(out3.index);
+      return out3;
     }
     assert2(isArray2(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
     const out22 = [];
@@ -6211,16 +6198,16 @@
       return values[0][0];
     }
     if (rows.length === 1) {
-      const out32 = new Series22(values[0]);
-      out32.name = rows[0];
-      out32.index = cols;
-      return out32;
+      const out3 = new Series22(values[0]);
+      out3.name = rows[0];
+      out3.index = cols;
+      return out3;
     }
     if (cols.length === 1) {
-      const out32 = new Series22(values.map((v) => v[0]));
-      out32.name = cols[0];
-      out32.index = rows;
-      return out32;
+      const out3 = new Series22(values.map((v) => v[0]));
+      out3.name = cols[0];
+      out3.index = rows;
+      return out3;
     }
     const out22 = new DataFrame22(values);
     out22.columns = cols;
@@ -8934,7 +8921,7 @@
     });
     return out22;
   }
-  var out3 = {
+  var out2 = {
     abs: vabs2,
     add: vadd2,
     apply: vapply2,
@@ -9049,24 +9036,24 @@
     dump() {
       const context2 = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : void 0;
       if (!context2) {
-        throw new out3.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");
+        throw new out2.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");
       }
-      Object.keys(out3).forEach((key) => {
+      Object.keys(out2).forEach((key) => {
         try {
           Object.defineProperty(context2, key, {
             configurable: false,
             enumerable: true,
             writable: false,
-            value: out3[key]
+            value: out2[key]
           });
         } catch (e) {
-          context2[key] = out3[key];
+          context2[key] = out2[key];
         }
       });
     }
   };
   if (typeof window !== "undefined") {
-    window.JSMathTools = out3;
+    window.JSMathTools = out2;
   }
 
   // src/is-of-type.mjs
@@ -9109,9 +9096,9 @@
         );
       }
       const key = this.allowsSubclassInstances ? "allowsSubclassInstances" : "doesNotAllowSubclassInstances";
-      const out4 = createTypedArray(_TypedArray.registry[key][this.name]);
+      const out3 = createTypedArray(_TypedArray.registry[key][this.name]);
       if (arguments.length === 0) {
-        return out4;
+        return out3;
       }
       arr.forEach((value) => {
         if (this.isArray(value)) {
@@ -9120,12 +9107,12 @@
           const temp = new this();
           canUseNewKeyword[key2][this.type] = false;
           value.forEach((v) => temp.push(v));
-          out4.push(this.proxify(temp));
+          out3.push(this.proxify(temp));
         } else {
-          out4.push(value);
+          out3.push(value);
         }
       });
-      return out4;
+      return out3;
     }
     static proxify(x) {
       return new Proxy(x, {
@@ -9197,14 +9184,14 @@
       }
     }
     concat() {
-      const out4 = this.constructor.from(this);
+      const out3 = this.constructor.from(this);
       Array.from(arguments).forEach((arr) => {
         arr.forEach((value) => {
           this.challenge(value);
-          out4.push(value);
+          out3.push(value);
         });
       });
-      return out4;
+      return out3;
     }
     fill(value, start, end) {
       this.challenge(value);
@@ -9216,11 +9203,11 @@
       } else {
         fn = fn.bind(this);
       }
-      const out4 = Array.from(this).filter(fn);
+      const out3 = Array.from(this).filter(fn);
       try {
-        return this.constructor.from(out4);
+        return this.constructor.from(out3);
       } catch (e) {
-        return Array.from(out4);
+        return Array.from(out3);
       }
     }
     from() {
@@ -9232,11 +9219,11 @@
       } else {
         fn = fn.bind(this);
       }
-      const out4 = Array.from(this).map(fn);
+      const out3 = Array.from(this).map(fn);
       try {
-        return this.constructor.from(out4);
+        return this.constructor.from(out3);
       } catch (e) {
-        return Array.from(out4);
+        return Array.from(out3);
       }
     }
     push() {
@@ -9252,11 +9239,11 @@
       if (!end) {
         end = this.length;
       }
-      const out4 = this.constructor.from([]);
+      const out3 = this.constructor.from([]);
       for (let i = start; i < end; i++) {
-        out4.push(this[i]);
+        out3.push(this[i]);
       }
-      return out4;
+      return out3;
     }
     splice() {
       const newValues = Array.from(arguments).slice(2).filter((v) => {
@@ -9275,11 +9262,11 @@
       return removed;
     }
     toReversed() {
-      const out4 = this.constructor.from([]);
+      const out3 = this.constructor.from([]);
       for (let i = this.length - 1; i >= 0; i--) {
-        out4.push(this[i]);
+        out3.push(this[i]);
       }
-      return out4;
+      return out3;
     }
     toSorted() {
       const temp = Array.from(this);
@@ -9298,9 +9285,9 @@
       return super.unshift(...arguments);
     }
     with(index, value) {
-      const out4 = this.slice();
-      out4[index] = value;
-      return out4;
+      const out3 = this.slice();
+      out3[index] = value;
+      return out3;
     }
   };
   function createTypedArray(type, allowsSubclassInstances) {
@@ -9325,9 +9312,9 @@
       }
     })();
     canUseNewKeyword[key][type] = true;
-    const out4 = new TempClass(true);
+    const out3 = new TempClass(true);
     canUseNewKeyword[key][type] = false;
-    Object.defineProperty(out4.constructor, "name", {
+    Object.defineProperty(out3.constructor, "name", {
       configurable: false,
       enumerable: false,
       writable: false,
@@ -9345,8 +9332,8 @@
       writable: false,
       value: type
     });
-    TypedArray.registry[key][out4.constructor.name] = type;
-    return TypedArray.proxify(out4);
+    TypedArray.registry[key][out3.constructor.name] = type;
+    return TypedArray.proxify(out3);
   }
 
   // src/define-typed-property.mjs
