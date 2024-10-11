@@ -12,12 +12,12 @@
   </head>
   <body>
     <script>
-      <% minified-script %>
+      "<% minified-script %>"
     </script>
     <script>
-      window.onload = async function () {
+      window.onload = async () => {
         try {
-          const obj = <% obj %>
+          const obj = "<% obj %>"
           const plot = Plotter.hydrate(obj)
           plot.show()
         } catch (e) {}

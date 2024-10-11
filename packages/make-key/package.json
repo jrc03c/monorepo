@@ -1,21 +1,25 @@
 {
-  "name": "@jrc03c/make-key",
-  "version": "0.0.28",
-  "description": "",
-  "main": "src/index.js",
-  "devDependencies": {
-    "esbuild": "^0.17.11",
-    "eslint": "^8.36.0",
-    "jest": "^29.5.0"
-  },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
   "bin": {
-    "makeKey": "./bin.js",
-    "key": "./bin.js"
+    "key": "./bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.81"
-  }
+    "@jrc03c/js-math-tools": "^0.0.86"
+  },
+  "description": "",
+  "devDependencies": {
+    "@jrc03c/fake-jest": "^0.0.11",
+    "esbuild": "^0.17.11",
+    "eslint": "^8.36.0"
+  },
+  "exports": {
+    "import": "./dist/make-key.import.mjs",
+    "require": "./dist/make-key.require.cjs"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "./dist/make-key.require.cjs",
+  "name": "@jrc03c/make-key",
+  "type": "module",
+  "version": "0.0.31"
 }

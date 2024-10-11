@@ -1,22 +1,27 @@
 {
-  "name": "@jrc03c/js-nlp-tools",
-  "version": "0.0.5",
-  "main": "src/index.js",
-  "devDependencies": {
-    "esbuild": "^0.19.2",
-    "eslint": "^8.49.0",
-    "jest": "^29.7.0",
-    "jsdom": "^22.1.0",
-    "prettier": "^3.0.3"
-  },
   "dependencies": {
-    "@jrc03c/base-class": "^0.0.3",
-    "@jrc03c/filedb": "^0.0.21",
-    "@jrc03c/fs-extras": "^0.0.18",
-    "@jrc03c/js-crypto-helpers": "^0.0.15",
-    "@jrc03c/js-math-tools": "^0.0.81",
-    "@jrc03c/js-text-tools": "^0.0.53",
-    "@jrc03c/js-type-experiments": "^0.0.16",
-    "@jrc03c/make-key": "^0.0.28"
-  }
+    "@jrc03c/base-class": "^0.0.6",
+    "@jrc03c/filedb": "^0.0.23",
+    "@jrc03c/fs-extras": "^0.0.20",
+    "@jrc03c/js-crypto-helpers": "^0.0.17",
+    "@jrc03c/js-math-tools": "^0.0.86",
+    "@jrc03c/js-text-tools": "^0.0.55",
+    "@jrc03c/js-type-experiments": "^0.0.18",
+    "@jrc03c/make-key": "^0.0.31"
+  },
+  "devDependencies": {
+    "@jrc03c/fake-jest": "^0.0.11",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.3.3"
+  },
+  "exports": {
+    "import": "./dist/js-nlp-tools.import.mjs",
+    "require": "./dist/js-nlp-tools.require.cjs"
+  },
+  "main": "./dist/js-nlp-tools.require.cjs",
+  "name": "@jrc03c/js-nlp-tools",
+  "type": "module",
+  "version": "0.0.6"
 }

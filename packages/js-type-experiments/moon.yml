@@ -5,11 +5,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-type-experiments.js
-      - --minify
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -31,15 +28,5 @@ tasks:
   test:
     command:
       - npx
-      - jest
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-type-experiments.js
-      - --minify
-      - --watch
-    local: true
+      - fake-jest
     platform: node

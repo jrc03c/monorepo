@@ -4,16 +4,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/make-key.js
-      - --minify
-    inputs:
-      - "package.json"
-      - "src/**/*"
-    outputs:
-      - "dist/make-key.js"
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -33,20 +25,7 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
-    platform: node
-  watch:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/make-key.js
-      - --minify
-      - --watch
-    inputs:
-      - "package.json"
-      - "src/**/*"
-    local: true
-    outputs:
-      - "dist/make-key.js"
+      - npx
+      - fake-jest
     platform: node

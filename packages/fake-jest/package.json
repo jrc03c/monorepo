@@ -1,0 +1,24 @@
+{
+  "author": "jrc03c",
+  "bin": {
+    "fake-jest": "src/bin.mjs"
+  },
+  "dependencies": {
+    "@jrc03c/bash-colors": "^0.0.6"
+  },
+  "description": "a temporary jest stand-in for esm",
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  },
+  "main": "src/index.mjs",
+  "name": "@jrc03c/fake-jest",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jrc03c/fake-jest.git"
+  },
+  "type": "module",
+  "version": "0.0.11"
+}

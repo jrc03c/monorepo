@@ -1,15 +1,29 @@
 {
-  "author": "jrc03c",
-  "description": "creates a <canvas> element with the correct specs for high-dpi screens",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/jrc03c/create-high-dpi-canvas/issues"
+  },
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.11.0",
+    "prettier": "^3.3.3"
+  },
+  "exports": {
+    "import": "./dist/create-high-dpi-canvas.import.mjs",
+    "require": "./dist/create-high-dpi-canvas.require.cjs"
+  },
+  "homepage": "https://github.com/jrc03c/create-high-dpi-canvas#readme",
+  "keywords": [],
   "license": "ISC",
-  "main": "create-high-dpi-canvas.js",
+  "main": "./dist/create-high-dpi-canvas.require.cjs",
   "name": "@jrc03c/create-high-dpi-canvas",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jrc03c/create-high-dpi-canvas.git"
   },
-  "scripts": {
-    "pub": "npm version patch --force && npm publish --access=public"
-  },
-  "version": "1.0.0"
+  "type": "module",
+  "version": "1.0.8"
 }

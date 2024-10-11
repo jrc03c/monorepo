@@ -1,14 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
   </head>
   <body>
-    <script src="dist/js-convex-hull.js"></script>
-    <script src="src/point-is-in-triangle.js"></script>
-    <script src="https://unpkg.com/@jrc03c/js-math-tools@latest/dist/js-math-tools.js"></script>
-    <script>
-      const { combinations, remap } = JSMathTools
+    <script type="module">
+      import {
+        combinations,
+        remap,
+      } from "./node_modules/@jrc03c/js-math-tools/src/index.mjs"
+
+      import {
+        pointIsInTriangle,
+        getConvexHull,
+      } from "./dist/js-convex-hull.import.mjs"
 
       CanvasRenderingContext2D.prototype.drawLine = function (x1, y1, x2, y2) {
         const self = this
@@ -84,7 +89,7 @@
           // check whether or not mouse is inside hull
           const triangles = combinations(
             hull.map(h => JSON.stringify(h)),
-            3
+            3,
           ).map(tri => tri.map(p => JSON.parse(p)))
 
           const mouseIsInHull = triangles.some(tri => {

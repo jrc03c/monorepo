@@ -320,15 +320,21 @@
     </div>
 
     <script src="node_modules/vue/dist/vue.global.prod.js"></script>
-    <script src="dist/misc-vue-components.js"></script>
-    <script>
+    <script type="module">
+      import {
+        ContextMenuComponent,
+        DraggableComponent,
+        FrameComponent,
+        ResizeableComponent,
+      } from "./dist/misc-vue-components.import.min.mjs"
+
       window.addEventListener("load", () => {
         const app = Vue.createApp({
           components: {
-            "x-context-menu": MiscVueComponents.ContextMenu,
-            "x-draggable": MiscVueComponents.Draggable,
-            "x-frame": MiscVueComponents.Frame,
-            "x-resizeable": MiscVueComponents.Resizeable,
+            "x-context-menu": ContextMenuComponent,
+            "x-draggable": DraggableComponent,
+            "x-frame": FrameComponent,
+            "x-resizeable": ResizeableComponent,
           },
 
           data() {

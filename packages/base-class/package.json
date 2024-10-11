@@ -1,13 +1,20 @@
 {
+  "author": "jrc03c",
   "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@jrc03c/fake-jest": "^0.0.11",
     "esbuild": "^0.20.0",
-    "eslint": "^8.56.0",
-    "jest": "^29.7.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.10.0",
     "prettier": "^3.2.5"
   },
-  "name": "@jrc03c/base-class",
-  "version": "0.0.3",
-  "main": "src/index.js",
+  "exports": {
+    "import": "./dist/base-class.import.mjs",
+    "require": "./dist/base-class.require.cjs"
+  },
   "license": "ISC",
-  "author": "jrc03c"
+  "main": "./dist/base-class.require.cjs",
+  "name": "@jrc03c/base-class",
+  "type": "module",
+  "version": "0.0.6"
 }

@@ -7,11 +7,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-crypto-helpers.js
-      - --minify
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -31,15 +28,7 @@ tasks:
     local: true
     platform: node
   test:
-    command: jest
-    platform: node
-  watch:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/js-crypto-helpers.js
-      - --minify
-      - --watch
-    local: true
+      - npx
+      - fake-jest
     platform: node

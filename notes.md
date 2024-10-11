@@ -1,3 +1,13 @@
+# Bundling
+
+## What to bundle
+
+**All libraries should be bundled!** See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for more info.
+
+## Bundling rules & conventions
+
+1. Libraries that are bundled should output a production file with the same name as the library. For example, the `js-math-tools` library's bundle file should be called `js-math-tools.js`. Libraries that are _not_ bundled but that are still intended for use in the browser should have a main file (as defined by the "main" property in the library's `package.json` file) with the same name as the library. For example, the
+
 # Moon cheat sheet
 
 Moon's own cheat sheet can be found [here](https://moonrepo.dev/docs/cheat-sheet).

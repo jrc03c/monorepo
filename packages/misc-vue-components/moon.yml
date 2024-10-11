@@ -4,10 +4,8 @@ language: javascript
 tasks:
   build:
     command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/misc-vue-components.js
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
@@ -24,14 +22,5 @@ tasks:
       - version
       - patch
       - --force
-    local: true
-    platform: node
-  watch:
-    command:
-      - esbuild
-      - src/index.js
-      - --bundle
-      - --outfile=dist/misc-vue-components.js
-      - --watch
     local: true
     platform: node

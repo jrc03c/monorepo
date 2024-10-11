@@ -1,0 +1,21 @@
+tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
+  pub:
+    command:
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+      - npm
+      - version
+      - patch
+      - --force
+    platform: node

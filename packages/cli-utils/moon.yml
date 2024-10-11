@@ -1,10 +1,16 @@
 dependsOn:
-- id: js-math-tools
-  scope: development
-- id: js-text-tools
-  scope: development
-- id: js-type-experiments
-  scope: development
-- id: prompt
-  scope: development
+  - id: js-math-tools
+    scope: development
+  - id: js-text-tools
+    scope: development
+  - id: js-type-experiments
+    scope: development
+  - id: prompt
+    scope: development
 language: javascript
+tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node

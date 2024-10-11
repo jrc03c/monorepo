@@ -8,6 +8,11 @@ dependsOn:
     scope: development
 language: javascript
 tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
   pub:
     command:
       - npm
@@ -27,6 +32,6 @@ tasks:
     platform: node
   test:
     command:
-      - jest
-      - --coverage=true
+      - npx
+      - fake-jest
     platform: node
