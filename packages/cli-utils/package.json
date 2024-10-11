@@ -2,8 +2,8 @@
   "devDependencies": {
     "@jrc03c/bash-colors": "^0.0.6",
     "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/js-text-tools": "^0.0.54",
-    "@jrc03c/js-type-experiments": "^0.0.17",
+    "@jrc03c/js-text-tools": "^0.0.55",
+    "@jrc03c/js-type-experiments": "^0.0.18",
     "@jrc03c/prompt": "^0.0.9",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
