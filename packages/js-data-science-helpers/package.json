@@ -25,5 +25,5 @@
   "main": "./dist/js-data-science-helpers.require.cjs",
   "name": "@jrc03c/js-data-science-helpers",
   "type": "module",
-  "version": "0.0.79"
+  "version": "0.0.80"
 }
