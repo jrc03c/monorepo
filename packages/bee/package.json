@@ -25,5 +25,5 @@
   "main": "./dist/bee.require.cjs",
   "name": "@jrc03c/bee",
   "type": "module",
-  "version": "0.0.46"
+  "version": "0.0.48"
 }
