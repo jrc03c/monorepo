@@ -1,7 +1,7 @@
 import { SubscriptionService } from "./subscription-service.mjs"
 
 class Drone extends SubscriptionService {
-  constructor(path) {
+  constructor(path, options) {
     super()
 
     if (typeof window === "undefined") {
@@ -15,7 +15,7 @@ class Drone extends SubscriptionService {
     }
 
     if (path) {
-      this.context = new Worker(path)
+      this.context = new Worker(path, options)
     }
   }
 

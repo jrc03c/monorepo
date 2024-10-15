@@ -9191,7 +9191,7 @@
 
   // src/drone.mjs
   var Drone = class extends SubscriptionService {
-    constructor(path) {
+    constructor(path, options) {
       super();
       if (typeof window === "undefined") {
         if (typeof path !== "undefined") {
@@ -9203,7 +9203,7 @@
         throw new Error("You must pass a `path` into the `Drone` constructor!");
       }
       if (path) {
-        this.context = new Worker(path);
+        this.context = new Worker(path, options);
       }
     }
     get isDead() {
@@ -9243,18 +9243,18 @@
         `The \`isDead\` property of this Queen instance is read-only! To destroy this Queen instance, invoke her \`destroy\` method.`
       );
     }
-    addDrone(path) {
+    addDrone(path, options) {
       if (this.isDead) {
         throw new Error("The queen is dead!");
       }
-      const drone = new Drone(path);
+      const drone = new Drone(path, options);
       this.hive.push(drone);
       return drone;
     }
-    addDrones(path, n) {
+    addDrones(path, n, options) {
       const out3 = [];
       for (let i = 0; i < n; i++) {
-        out3.push(this.addDrone(path));
+        out3.push(this.addDrone(path, options));
       }
       return out3;
     }

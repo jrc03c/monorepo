@@ -464,6 +464,18 @@
           queen.destroy()
         })
 
+        await test("that drones can be run as modules and use `import`", async () => {
+          const queen = new Bee.Queen()
+          queen.addDrone("worker3.js", { type: "module" })
+
+          const result = await queen.command("add-some-numbers", {
+            a: 234,
+            b: 567,
+          })
+
+          expect(result).toBe(234 + 567)
+        })
+
         const done = document.createElement("div")
         done.classList.add("result")
         done.classList.add("info")

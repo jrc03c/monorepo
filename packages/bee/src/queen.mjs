@@ -23,21 +23,21 @@ class Queen extends SubscriptionService {
     )
   }
 
-  addDrone(path) {
+  addDrone(path, options) {
     if (this.isDead) {
       throw new Error("The queen is dead!")
     }
 
-    const drone = new Drone(path)
+    const drone = new Drone(path, options)
     this.hive.push(drone)
     return drone
   }
 
-  addDrones(path, n) {
+  addDrones(path, n, options) {
     const out = []
 
     for (let i = 0; i < n; i++) {
-      out.push(this.addDrone(path))
+      out.push(this.addDrone(path, options))
     }
 
     return out
