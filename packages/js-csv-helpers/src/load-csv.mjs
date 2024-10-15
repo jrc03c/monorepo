@@ -11,7 +11,7 @@ async function loadCSV(path, config) {
         const fs = await import("node:fs/promises")
         return await fs.readFile(path, { encoding: "utf8" })
       } catch (e) {
-        console.error(e)
+        // console.error(e)
       }
     }
   })()

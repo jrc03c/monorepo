@@ -9316,7 +9316,6 @@
           const fs5 = await import("node:fs/promises");
           return await fs5.readFile(path3, { encoding: "utf8" });
         } catch (e) {
-          console.error(e);
         }
       }
     })();
@@ -9401,7 +9400,6 @@
         }
         await fs5.writeFile(path3, raw, { encoding: "utf8" });
       } catch (e) {
-        console.error(e);
       }
     }
   }
@@ -9412,7 +9410,6 @@
     try {
       fsx = await Promise.resolve().then(() => (init_fs_extras_import(), fs_extras_import_exports));
     } catch (e) {
-      console.error(e);
       return;
     }
     const rowsPerChunk = config.rowsPerChunk || 100;

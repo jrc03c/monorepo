@@ -25,7 +25,7 @@ async function saveCSV(path, df, config) {
 
       await fs.writeFile(path, raw, { encoding: "utf8" })
     } catch (e) {
-      console.error(e)
+      // console.error(e)
     }
   }
 }

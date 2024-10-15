@@ -7,7 +7,7 @@ async function* streamLoadCSVFromDisk(path, config) {
   try {
     fsx = await import("@jrc03c/fs-extras")
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 
