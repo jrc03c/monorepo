@@ -1,14 +1,14 @@
 import { fg, fx } from "./packages/bash-colors/src/index.mjs"
+import { getFilesDeepSync } from "./packages/fs-extras/dist/fs-extras.import.mjs"
 import { progress } from "./packages/progress/src/index.mjs"
 import fs from "node:fs"
-import fsx from "./packages/fs-extras/index.js"
 
 !(async () => {
   const libraries = fs.readdirSync("packages")
 
-  const packageJsons = fsx
-    .getFilesDeepSync(".")
-    .filter(f => f.endsWith("package.json") && !f.includes("node_modules"))
+  const packageJsons = getFilesDeepSync(".").filter(
+    f => f.endsWith("package.json") && !f.includes("node_modules"),
+  )
 
   const deps = []
   const versions = {}
