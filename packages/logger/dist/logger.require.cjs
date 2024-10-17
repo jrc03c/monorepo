@@ -33,7 +33,7 @@ __export(src_exports, {
 });
 module.exports = __toCommonJS(src_exports);
 
-// node_modules/@jrc03c/bash-colors/src/index.mjs
+// node_modules/@jrc03c/bash-colors/dist/bash-colors.import.mjs
 var reset = "\x1B[0m";
 var fg = {
   black: (x) => "\x1B[30m" + x + reset,

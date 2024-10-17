@@ -1,15 +1,15 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/bash-colors": "^0.0.6",
-    "@jrc03c/js-text-tools": "^0.0.55",
-    "@jrc03c/make-key": "^0.0.31"
+    "@jrc03c/bash-colors": "^0.0.7",
+    "@jrc03c/js-text-tools": "^0.0.56",
+    "@jrc03c/make-key": "^0.0.32"
   },
   "description": "a simple logger for node",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.11",
-    "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/pause": "^0.0.6",
+    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/pause": "^0.0.7",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
@@ -21,6 +21,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/logger.require.cjs",
+  "module": "./dist/logger.import.mjs",
   "name": "@jrc03c/logger",
   "type": "module",
   "version": "0.0.17"
