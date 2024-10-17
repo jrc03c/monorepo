@@ -9,7 +9,7 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./src/index.mjs",
+    "import": "./dist/bash-colors.import.mjs",
     "require": "./dist/bash-colors.require.cjs"
   },
   "keywords": [
@@ -21,7 +21,8 @@
     "print"
   ],
   "license": "ISC",
-  "main": "index.js",
+  "main": "./dist/bash-colors.require.cjs",
+  "module": "./dist/bash-colors.import.mjs",
   "name": "@jrc03c/bash-colors",
   "type": "module",
   "version": "0.0.6"

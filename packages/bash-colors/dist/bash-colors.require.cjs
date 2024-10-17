@@ -1,1 +1,62 @@
-var r=Object.defineProperty;var c=Object.getOwnPropertyDescriptor;var l=Object.getOwnPropertyNames;var a=Object.prototype.hasOwnProperty;var o=(b,e)=>{for(var n in e)r(b,n,{get:e[n],enumerable:!0})},s=(b,e,n,t)=>{if(e&&typeof e=="object"||typeof e=="function")for(let x of l(e))!a.call(b,x)&&x!==n&&r(b,x,{get:()=>e[x],enumerable:!(t=c(e,x))||t.enumerable});return b};var g=b=>s(r({},"__esModule",{value:!0}),b);var w={};o(w,{bg:()=>d,fg:()=>i,fx:()=>h});module.exports=g(w);var m="\x1B[0m",d={black:b=>"\x1B[40m"+b+m,red:b=>"\x1B[41m"+b+m,green:b=>"\x1B[42m"+b+m,yellow:b=>"\x1B[43m"+b+m,blue:b=>"\x1B[44m"+b+m,magenta:b=>"\x1B[45m"+b+m,cyan:b=>"\x1B[46m"+b+m,white:b=>"\x1B[47m"+b+m},i={black:b=>"\x1B[30m"+b+m,red:b=>"\x1B[31m"+b+m,green:b=>"\x1B[32m"+b+m,yellow:b=>"\x1B[33m"+b+m,blue:b=>"\x1B[34m"+b+m,magenta:b=>"\x1B[35m"+b+m,cyan:b=>"\x1B[36m"+b+m,white:b=>"\x1B[37m"+b+m},h={reset:b=>m+b+m,bright:b=>"\x1B[1m"+b+m,dim:b=>"\x1B[2m"+b+m,underscore:b=>"\x1B[4m"+b+m,blink:b=>"\x1B[5m"+b+m,reverse:b=>"\x1B[7m"+b+m,hidden:b=>"\x1B[8m"+b+m};0&&(module.exports={bg,fg,fx});
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/index.mjs
+var src_exports = {};
+__export(src_exports, {
+  bg: () => bg,
+  fg: () => fg,
+  fx: () => fx
+});
+module.exports = __toCommonJS(src_exports);
+var reset = "\x1B[0m";
+var bg = {
+  black: (x) => "\x1B[40m" + x + reset,
+  red: (x) => "\x1B[41m" + x + reset,
+  green: (x) => "\x1B[42m" + x + reset,
+  yellow: (x) => "\x1B[43m" + x + reset,
+  blue: (x) => "\x1B[44m" + x + reset,
+  magenta: (x) => "\x1B[45m" + x + reset,
+  cyan: (x) => "\x1B[46m" + x + reset,
+  white: (x) => "\x1B[47m" + x + reset
+};
+var fg = {
+  black: (x) => "\x1B[30m" + x + reset,
+  red: (x) => "\x1B[31m" + x + reset,
+  green: (x) => "\x1B[32m" + x + reset,
+  yellow: (x) => "\x1B[33m" + x + reset,
+  blue: (x) => "\x1B[34m" + x + reset,
+  magenta: (x) => "\x1B[35m" + x + reset,
+  cyan: (x) => "\x1B[36m" + x + reset,
+  white: (x) => "\x1B[37m" + x + reset
+};
+var fx = {
+  reset: (x) => reset + x + reset,
+  bright: (x) => "\x1B[1m" + x + reset,
+  dim: (x) => "\x1B[2m" + x + reset,
+  underscore: (x) => "\x1B[4m" + x + reset,
+  blink: (x) => "\x1B[5m" + x + reset,
+  reverse: (x) => "\x1B[7m" + x + reset,
+  hidden: (x) => "\x1B[8m" + x + reset
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  bg,
+  fg,
+  fx
+});

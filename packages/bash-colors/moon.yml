@@ -1,13 +1,8 @@
 tasks:
   build:
     command:
-      - npx
-      - esbuild
-      - src/index.mjs
-      - --bundle
-      - --minify
-      - --outfile=dist/bash-colors.require.cjs
-      - --platform=node
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
