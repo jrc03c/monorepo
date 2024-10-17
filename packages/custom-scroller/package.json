@@ -15,5 +15,5 @@
   "module": "./dist/custom-scroller.import.mjs",
   "name": "@jrc03c/custom-scroller",
   "type": "module",
-  "version": "0.0.7"
+  "version": "0.0.8"
 }
