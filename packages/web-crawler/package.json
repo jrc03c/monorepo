@@ -25,5 +25,5 @@
   "module": "./dist/web-crawler.import.mjs",
   "name": "@jrc03c/web-crawler",
   "type": "module",
-  "version": "0.0.12"
+  "version": "0.0.13"
 }
