@@ -33,5 +33,5 @@
   "main": "./dist/js-text-tools.require.cjs",
   "module": "./dist/js-text-tools.import.mjs",
   "name": "@jrc03c/js-text-tools",
-  "version": "0.0.55"
+  "version": "0.0.56"
 }
