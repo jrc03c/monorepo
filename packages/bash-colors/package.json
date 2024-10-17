@@ -25,5 +25,5 @@
   "module": "./dist/bash-colors.import.mjs",
   "name": "@jrc03c/bash-colors",
   "type": "module",
-  "version": "0.0.6"
+  "version": "0.0.7"
 }
