@@ -14,13 +14,13 @@
     "wrap": "src/wrap-bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/bash-colors": "^0.0.6",
-    "@jrc03c/js-math-tools": "^0.0.86"
+    "@jrc03c/bash-colors": "^0.0.7",
+    "@jrc03c/js-math-tools": "^0.0.87"
   },
   "description": "a few small tools for working with text in js",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.11",
-    "@jrc03c/make-key": "^0.0.31",
+    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/make-key": "^0.0.32",
     "esbuild": "^0.14.43",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
@@ -31,6 +31,7 @@
   },
   "license": "ISC",
   "main": "./dist/js-text-tools.require.cjs",
+  "module": "./dist/js-text-tools.import.mjs",
   "name": "@jrc03c/js-text-tools",
   "version": "0.0.55"
 }
