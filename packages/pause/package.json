@@ -19,6 +19,7 @@
   ],
   "license": "ISC",
   "main": "./dist/pause.require.cjs",
+  "module": "./dist/pause.import.mjs",
   "name": "@jrc03c/pause",
   "type": "module",
   "version": "0.0.6"
