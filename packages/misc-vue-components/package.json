@@ -19,5 +19,5 @@
   "module": "./dist/misc-vue-components.import.mjs",
   "name": "@jrc03c/misc-vue-components",
   "type": "module",
-  "version": "0.0.14"
+  "version": "0.0.15"
 }
