@@ -13,6 +13,7 @@
     "require": "./dist/progress.require.cjs"
   },
   "main": "./dist/progress.require.cjs",
+  "module": "./dist/progress.import.mjs",
   "name": "@jrc03c/progress",
   "type": "module",
   "version": "0.0.5"
