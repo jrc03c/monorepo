@@ -1,13 +1,13 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/js-text-tools": "^0.0.55"
+    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/js-text-tools": "^0.0.56"
   },
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.11",
+    "@jrc03c/fake-jest": "^0.0.12",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "globals": "^15.11.0",
@@ -20,6 +20,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/js-type-experiments.require.cjs",
+  "module": "./dist/js-type-experiments.import.mjs",
   "name": "@jrc03c/js-type-experiments",
   "version": "0.0.18"
 }
