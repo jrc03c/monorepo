@@ -18,6 +18,7 @@
   ],
   "license": "ISC",
   "main": "./dist/prompt.require.cjs",
+  "module": "./dist/prompt.import.mjs",
   "name": "@jrc03c/prompt",
   "type": "module",
   "version": "0.0.9"

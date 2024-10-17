@@ -8,8 +8,8 @@ function rebuild() {
     const baseCommand = "npx esbuild src/index.mjs --bundle"
 
     const commands = [
-      `${baseCommand} --external:readline --platform=node --outfile=dist/prompt.require.cjs`,
-      `${baseCommand} --external:readline --platform=node --format=esm --outfile=dist/prompt.import.mjs`,
+      `${baseCommand} --platform=node --outfile=dist/prompt.require.cjs`,
+      `${baseCommand} --platform=node --format=esm --outfile=dist/prompt.import.mjs`,
     ]
 
     commands.forEach(command => {
