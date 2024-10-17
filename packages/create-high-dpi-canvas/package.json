@@ -19,6 +19,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/create-high-dpi-canvas.require.cjs",
+  "module": "./dist/create-high-dpi-canvas.import.mjs",
   "name": "@jrc03c/create-high-dpi-canvas",
   "repository": {
     "type": "git",
