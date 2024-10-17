@@ -1,8 +1,8 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/make-key": "^0.0.31"
+    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/make-key": "^0.0.32"
   },
   "description": "",
   "devDependencies": {
@@ -19,6 +19,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/js-plot-tools.require.cjs",
+  "module": "./dist/js-plot-tools.import.mjs",
   "name": "@jrc03c/js-plot-tools",
   "type": "module",
   "version": "0.0.12"
