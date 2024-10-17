@@ -22,5 +22,5 @@
   "module": "./dist/js-plot-tools.import.mjs",
   "name": "@jrc03c/js-plot-tools",
   "type": "module",
-  "version": "0.0.12"
+  "version": "0.0.13"
 }
