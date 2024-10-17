@@ -17,5 +17,5 @@
   "module": "./dist/base-class.import.mjs",
   "name": "@jrc03c/base-class",
   "type": "module",
-  "version": "0.0.6"
+  "version": "0.0.7"
 }
