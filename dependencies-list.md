@@ -1,84 +1,84 @@
-# bash-colors (0.0.6)
-# create-high-dpi-canvas (1.0.8)
-# custom-scroller (0.0.7)
-# pause (0.0.6)
-# progress (0.0.5)
-# prompt (0.0.9)
-# vue-component-with-css (0.0.8)
-# fake-jest (0.0.11)
+# bash-colors (0.0.7)
+# create-high-dpi-canvas (1.0.9)
+# custom-scroller (0.0.8)
+# pause (0.0.7)
+# progress (0.0.6)
+# prompt (0.0.11)
+# vue-component-with-css (0.0.10)
+# fake-jest (0.0.12)
   - bash-colors
-# misc-vue-components (0.0.14)
+# misc-vue-components (0.0.15)
   - pause
   - vue-component-with-css
-# base-class (0.0.6)
+# base-class (0.0.7)
   - fake-jest
-# color (0.0.11)
+# color (0.0.12)
   - fake-jest
-# freeze (0.0.4)
+# freeze (0.0.5)
   - fake-jest
-# radio (0.0.8)
+# radio (0.0.9)
   - fake-jest
-# vector2 (0.0.5)
+# vector2 (0.0.6)
   - fake-jest
-# js-math-tools (0.0.86)
+# js-math-tools (0.0.87)
   - fake-jest
   - freeze
-# js-convex-hull (0.0.19)
+# js-convex-hull (0.0.20)
   - fake-jest
   - js-math-tools
-# make-key (0.0.31)
+# make-key (0.0.32)
   - fake-jest
   - js-math-tools
-# js-plot-tools (0.0.12)
+# js-plot-tools (0.0.13)
   - js-math-tools
   - make-key
-# filedb (0.0.23)
+# filedb (0.0.24)
   - fake-jest
   - js-math-tools
   - make-key
-# queue (0.0.9)
+# queue (0.0.10)
   - fake-jest
   - make-key
   - pause
-# js-text-tools (0.0.55)
+# js-text-tools (0.0.56)
   - bash-colors
   - fake-jest
   - js-math-tools
   - make-key
-# js-type-experiments (0.0.18)
+# js-type-experiments (0.0.19)
   - fake-jest
   - js-math-tools
   - js-text-tools
-# js-data-science-helpers (0.0.80)
+# js-data-science-helpers (0.0.81)
   - fake-jest
   - js-math-tools
   - js-text-tools
   - make-key
-# fs-extras (0.0.20)
+# fs-extras (0.0.21)
   - fake-jest
   - filedb
   - js-math-tools
   - make-key
   - progress
-# js-crypto-helpers (0.0.17)
+# js-crypto-helpers (0.0.18)
   - bash-colors
   - fake-jest
   - js-math-tools
   - js-text-tools
   - prompt
-# logger (0.0.17)
+# logger (0.0.18)
   - bash-colors
   - fake-jest
   - js-math-tools
   - js-text-tools
   - make-key
   - pause
-# js-csv-helpers (0.0.30)
+# js-csv-helpers (0.0.31)
   - fake-jest
   - fs-extras
   - js-math-tools
   - make-key
-# watch (0.0.17)
+# watch (0.0.18)
   - fake-jest
   - fs-extras
   - make-key
@@ -99,7 +99,7 @@
   - js-text-tools
   - js-type-experiments
   - make-key
-# web-crawler (0.0.12)
+# web-crawler (0.0.13)
   - fake-jest
   - filedb
   - js-crypto-helpers
@@ -109,7 +109,7 @@
   - logger
   - make-key
   - pause
-# bee (0.0.48)
+# bee (0.0.49)
   - js-math-tools
   - js-text-tools
   - make-key
