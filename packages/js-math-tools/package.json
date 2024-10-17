@@ -6,8 +6,8 @@
   "description": "some math tools for JS",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
-    "@jrc03c/fake-jest": "^0.0.11",
-    "@jrc03c/freeze": "^0.0.4",
+    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/freeze": "^0.0.5",
     "esbuild": "^0.14.21",
     "eslint": "^9.11.1",
     "globals": "^15.9.0",
@@ -24,6 +24,7 @@
   ],
   "license": "ISC",
   "main": "./dist/js-math-tools.require.cjs",
+  "module": "./dist/js-math-tools.import.mjs",
   "name": "@jrc03c/js-math-tools",
   "repository": {
     "type": "git",
