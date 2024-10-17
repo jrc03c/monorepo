@@ -1,14 +1,14 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.86",
-    "@jrc03c/js-text-tools": "^0.0.55",
-    "@jrc03c/make-key": "^0.0.31"
+    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/js-text-tools": "^0.0.56",
+    "@jrc03c/make-key": "^0.0.32"
   },
   "description": "makes web workers easier to use",
   "devDependencies": {
-    "@jrc03c/pause": "^0.0.6",
-    "@jrc03c/watch": "^0.0.17",
+    "@jrc03c/pause": "^0.0.7",
+    "@jrc03c/watch": "^0.0.18",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
@@ -23,6 +23,7 @@
   ],
   "license": "ISC",
   "main": "./dist/bee.require.cjs",
+  "module": "./dist/bee.import.mjs",
   "name": "@jrc03c/bee",
   "type": "module",
   "version": "0.0.48"
