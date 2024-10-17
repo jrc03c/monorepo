@@ -15,6 +15,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/vue-component-with-css.require.cjs",
+  "module": "./dist/vue-component-with-css.import.mjs",
   "name": "@jrc03c/vue-component-with-css",
   "type": "module",
   "version": "0.0.8"
