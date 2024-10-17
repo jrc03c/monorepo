@@ -19,5 +19,5 @@
   "module": "./dist/vector2.import.mjs",
   "name": "@jrc03c/vector2",
   "type": "module",
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
