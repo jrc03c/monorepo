@@ -4,7 +4,7 @@
     "fake-jest": "src/bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/bash-colors": "^0.0.6"
+    "@jrc03c/bash-colors": "^0.0.7"
   },
   "description": "a temporary jest stand-in for esm",
   "devDependencies": {
