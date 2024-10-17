@@ -1,12 +1,12 @@
 {
   "author": "",
   "dependencies": {
-    "@jrc03c/make-key": "^0.0.31",
-    "@jrc03c/pause": "^0.0.6"
+    "@jrc03c/make-key": "^0.0.32",
+    "@jrc03c/pause": "^0.0.7"
   },
   "description": "",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.11",
+    "@jrc03c/fake-jest": "^0.0.12",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
@@ -18,6 +18,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/queue.require.cjs",
+  "module": "./dist/queue.import.mjs",
   "name": "@jrc03c/queue",
   "type": "module",
   "version": "0.0.9"
