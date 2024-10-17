@@ -73,7 +73,7 @@
   - js-text-tools
   - make-key
   - pause
-# js-csv-helpers (0.0.29)
+# js-csv-helpers (0.0.30)
   - fake-jest
   - fs-extras
   - js-math-tools
@@ -109,7 +109,7 @@
   - logger
   - make-key
   - pause
-# bee (0.0.46)
+# bee (0.0.48)
   - js-math-tools
   - js-text-tools
   - make-key
