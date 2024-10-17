@@ -4,11 +4,11 @@
     "key": "./bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.86"
+    "@jrc03c/js-math-tools": "^0.0.87"
   },
   "description": "",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.11",
+    "@jrc03c/fake-jest": "^0.0.12",
     "esbuild": "^0.17.11",
     "eslint": "^8.36.0"
   },
@@ -19,6 +19,7 @@
   "keywords": [],
   "license": "ISC",
   "main": "./dist/make-key.require.cjs",
+  "module": "./dist/make-key.import.mjs",
   "name": "@jrc03c/make-key",
   "type": "module",
   "version": "0.0.31"
