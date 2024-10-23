@@ -18,76 +18,6 @@
   <body>
     <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
     <script>
-      class Boid {
-        constructor(width, height) {
-          this.x = Math.random() * width
-          this.y = Math.random() * height
-          this.heading = Math.random() * Math.PI * 2
-          const speed = Math.random() * 3 + 1
-          this.vx = speed * Math.cos(this.heading)
-          this.vy = speed * Math.sin(this.heading)
-        }
-
-        update(boids, bounds) {
-          this.x += this.vx
-          this.y += this.vy
-
-          if (this.x < bounds.left) {
-            this.x = bounds.right - bounds.left + this.x
-          }
-
-          if (this.x > bounds.right) {
-            this.x = bounds.left + this.x - bounds.right
-          }
-
-          if (this.y < bounds.top) {
-            this.y = bounds.bottom - bounds.top + this.y
-          }
-
-          if (this.y > bounds.bottom) {
-            this.y = bounds.top + this.y - bounds.bottom
-          }
-        }
-
-        render(context, bounds) {
-          const distance = Math.min(
-            this.x - bounds.left,
-            bounds.right - this.x,
-            this.y - bounds.top,
-            bounds.bottom - this.y,
-          )
-
-          const maxDistance =
-            Math.max(bounds.right - bounds.left, bounds.bottom - bounds.top) / 4
-
-          const alpha = clamp(remap(distance, 0, maxDistance, 0, 1), 0, 1)
-
-          context.save()
-          context.translate(this.x, this.y)
-          context.rotate(this.heading)
-
-          context.beginPath()
-          context.moveTo(0, 0)
-          context.lineTo(-5, 5)
-          context.lineTo(10, 0)
-          context.lineTo(-5, -5)
-          context.lineTo(0, 0)
-          context.closePath()
-          context.globalAlpha = alpha
-          context.fillStyle = "black"
-          context.fill()
-
-          context.globalAlpha = 1
-          context.restore()
-        }
-      }
-
-      function clamp(x, a, b) {
-        if (x < a) return a
-        if (x > b) return b
-        return x
-      }
-
       function remap(x, a, b, c, d) {
         return c + ((d - c) * (x - a)) / (b - a)
       }
@@ -96,46 +26,53 @@
       let height = window.innerHeight
       const canvas = createHighDPICanvas(width, height)
       document.body.appendChild(canvas)
-      canvas.width = width
-      canvas.height = height
 
-      const padding = 64
-
-      const bounds = {
-        left: padding,
-        right: width - padding,
-        top: padding,
-        bottom: height - padding,
-      }
-
-      const boids = []
-
-      for (let i = 0; i < 250; i++) {
-        boids.push(new Boid(width, height))
-      }
+      let frame = 0
 
       function loop() {
         const context = canvas.getContext("2d")
         context.fillStyle = "rgb(235, 235, 235)"
         context.fillRect(0, 0, width, height)
 
+        const blockSize = 32
+        const padding = blockSize * 4
+
+        const rectWidth =
+          Math.round((width - padding * 2) / blockSize) * blockSize
+
+        const rectHeight =
+          Math.round((height - padding * 2) / blockSize) * blockSize
+
+        const xPadding = (width - rectWidth) / 2
+        const yPadding = (height - rectHeight) / 2
+
         context.strokeStyle = "black"
         context.lineWidth = 2
+        context.strokeRect(xPadding, yPadding, rectWidth, rectHeight)
 
-        context.strokeRect(
-          bounds.left,
-          bounds.top,
-          bounds.right - bounds.left,
-          bounds.bottom - bounds.top,
-        )
+        for (let x = xPadding; x < width - xPadding; x += blockSize) {
+          for (let y = yPadding; y < height - yPadding; y += blockSize) {
+            const hue =
+              360 *
+              ((x - xPadding) / 1024 + (y - yPadding) / 1024 + frame / 600)
 
-        boids.forEach(boid => {
-          boid.render(context, bounds)
-        })
+            context.fillStyle = `hsl(${hue}deg, 100%, 50%)`
+            context.fillRect(Math.round(x), Math.round(y), blockSize, blockSize)
 
-        boids.forEach(boid => {
-          boid.update(boids, bounds)
-        })
+            context.strokeRect(
+              Math.round(x),
+              Math.round(y),
+              blockSize,
+              blockSize,
+            )
+          }
+        }
+
+        frame++
+
+        if (frame > 600) {
+          frame = 0
+        }
 
         window.requestAnimationFrame(loop)
       }
@@ -145,10 +82,6 @@
         height = window.innerHeight
         canvas.width = width
         canvas.height = height
-        bounds.left = padding
-        bounds.right = width - padding
-        bounds.top = padding
-        bounds.bottom = height - padding
       })
 
       loop()
