@@ -1,4 +1,6 @@
 import { execSync } from "node:child_process"
+import { watch } from "@jrc03c/watch"
+import process from "node:process"
 
 function rebuild() {
   console.log("-----")
@@ -23,6 +25,16 @@ function rebuild() {
   } catch (e) {
     console.error(e)
   }
+}
+
+if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
+  watch({
+    target: "src",
+    exclude: ["dist", "node_modules"],
+    created: rebuild,
+    modified: rebuild,
+    deleted: rebuild,
+  })
 }
 
 rebuild()
