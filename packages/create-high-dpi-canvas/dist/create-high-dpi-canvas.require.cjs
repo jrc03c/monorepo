@@ -19,6 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.mjs
 var src_exports = {};
 __export(src_exports, {
+  HighDPICanvasElement: () => HighDPICanvasElement,
   createHighDPICanvas: () => createHighDPICanvas
 });
 module.exports = __toCommonJS(src_exports);
@@ -35,8 +36,9 @@ var HighDPICanvasElement = class extends HTMLElement {
     /* css */
     `
     canvas {
-      width: 100%;
-      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
     }
   `
   );
@@ -65,6 +67,16 @@ var HighDPICanvasElement = class extends HTMLElement {
 
       ${this.constructor.template}
     `;
+  }
+  get dimensions() {
+    return [this.width, this.height];
+  }
+  set dimensions(value) {
+    const dpi = window.devicePixelRatio || 1;
+    const canvas = this.shadowRoot.querySelector("canvas");
+    canvas.width = Math.floor(value[0] * dpi);
+    canvas.height = Math.floor(value[1] * dpi);
+    this.onResizeCallback();
   }
   get height() {
     return this.shadowRoot.querySelector("canvas").height;
@@ -104,6 +116,8 @@ var HighDPICanvasElement = class extends HTMLElement {
     return this.shadowRoot.querySelector("canvas").captureStream(...arguments);
   }
   connectedCallback() {
+    this.style.display = "block";
+    this.style.overflow = "hidden";
     this.eventListenerRemovers = [];
     this.constructor.forwardedEvents.forEach((eventName) => {
       this.on(this.shadowRoot.querySelector("canvas"), eventName, (event) => {
@@ -198,5 +212,6 @@ if (typeof window !== "undefined") {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  HighDPICanvasElement,
   createHighDPICanvas
 });

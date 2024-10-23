@@ -10,8 +10,9 @@ class HighDPICanvasElementResizeEvent extends Event {
 class HighDPICanvasElement extends HTMLElement {
   static css = /* css */ `
     canvas {
-      width: 100%;
-      height: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
     }
   `
 
@@ -42,6 +43,18 @@ class HighDPICanvasElement extends HTMLElement {
 
       ${this.constructor.template}
     `
+  }
+
+  get dimensions() {
+    return [this.width, this.height]
+  }
+
+  set dimensions(value) {
+    const dpi = window.devicePixelRatio || 1
+    const canvas = this.shadowRoot.querySelector("canvas")
+    canvas.width = Math.floor(value[0] * dpi)
+    canvas.height = Math.floor(value[1] * dpi)
+    this.onResizeCallback()
   }
 
   get height() {
@@ -89,6 +102,9 @@ class HighDPICanvasElement extends HTMLElement {
   }
 
   connectedCallback() {
+    this.style.display = "block"
+    this.style.overflow = "hidden"
+
     this.eventListenerRemovers = []
 
     this.constructor.forwardedEvents.forEach(eventName => {
@@ -206,4 +222,4 @@ if (typeof window !== "undefined") {
   )
 }
 
-export { createHighDPICanvas }
+export { createHighDPICanvas, HighDPICanvasElement }
