@@ -1,11 +1,10 @@
 (() => {
   // src/index.mjs
   var HighDPICanvasElementResizeEvent = class extends Event {
-    constructor(name, options) {
-      super(name, options);
-      options = options || {};
-      this.height = options.height;
-      this.width = options.width;
+    constructor(width, height, options) {
+      super("resize", options);
+      this.width = width;
+      this.height = height;
     }
   };
   var HighDPICanvasElement = class extends HTMLElement {
@@ -29,8 +28,8 @@
     static observedAttributes = ["height", "width"];
     static tagName = "high-dpi-canvas";
     static template = "<canvas></canvas>";
-    constructor() {
-      super(...arguments);
+    constructor(width, height) {
+      super();
       const shadow = this.attachShadow({ mode: "open" });
       shadow.innerHTML = `
       <style>
@@ -39,8 +38,8 @@
 
       ${this.constructor.template}
     `;
-      this._height = 0;
-      this._width = 0;
+      this.dimensions = [width, height];
+      this.onResizeCallback(false);
     }
     get dimensions() {
       return [this._width, this._height];
@@ -108,7 +107,12 @@
           );
         });
       });
+      let first = true;
       this.resizeObserver = new ResizeObserver(() => {
+        if (first) {
+          first = false;
+          return;
+        }
         const { width, height } = this.getBoundingClientRect();
         this._width = width;
         this._height = height;
@@ -155,7 +159,7 @@
       object.addEventListener(event, callback);
       return remove;
     }
-    onResizeCallback() {
+    onResizeCallback(shouldEmitEvent) {
       const { element } = this;
       const dpi = window.devicePixelRatio || 1;
       element.width = Math.floor(this._width * dpi);
@@ -165,12 +169,13 @@
       const context = element.getContext("2d");
       context.resetTransform();
       context.scale(dpi, dpi);
-      this.dispatchEvent(
-        new HighDPICanvasElementResizeEvent("resize", {
-          width: this._width,
-          height: this._height
-        })
-      );
+      if (shouldEmitEvent || typeof shouldEmitEvent === "undefined") {
+        window.requestAnimationFrame(
+          () => this.dispatchEvent(
+            new HighDPICanvasElementResizeEvent(this._width, this._height)
+          )
+        );
+      }
     }
     toBlob() {
       return this.element.toBlob(...arguments);
@@ -183,12 +188,7 @@
     }
   };
   function createHighDPICanvas(width, height) {
-    width = Math.floor(width);
-    height = Math.floor(height);
-    const canvas = document.createElement(HighDPICanvasElement.tagName);
-    canvas.width = width;
-    canvas.height = height;
-    return canvas;
+    return new HighDPICanvasElement(width, height);
   }
   if (typeof window !== "undefined") {
     window.createHighDPICanvas = createHighDPICanvas;

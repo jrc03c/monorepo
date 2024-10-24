@@ -3,11 +3,10 @@
 // don't actually provide any novel functionality.
 
 class HighDPICanvasElementResizeEvent extends Event {
-  constructor(name, options) {
-    super(name, options)
-    options = options || {}
-    this.height = options.height
-    this.width = options.width
+  constructor(width, height, options) {
+    super("resize", options)
+    this.width = width
+    this.height = height
   }
 }
 
@@ -32,8 +31,8 @@ class HighDPICanvasElement extends HTMLElement {
   static tagName = "high-dpi-canvas"
   static template = "<canvas></canvas>"
 
-  constructor() {
-    super(...arguments)
+  constructor(width, height) {
+    super()
 
     const shadow = this.attachShadow({ mode: "open" })
 
@@ -45,8 +44,8 @@ class HighDPICanvasElement extends HTMLElement {
       ${this.constructor.template}
     `
 
-    this._height = 0
-    this._width = 0
+    this.dimensions = [width, height]
+    this.onResizeCallback(false)
   }
 
   get dimensions() {
@@ -128,7 +127,16 @@ class HighDPICanvasElement extends HTMLElement {
       })
     })
 
+    // Ignore the very first resize event because (I think) it's emitted
+    // immediately after the observer is added, even if the size hasn't changed.
+    let first = true
+
     this.resizeObserver = new ResizeObserver(() => {
+      if (first) {
+        first = false
+        return
+      }
+
       const { width, height } = this.getBoundingClientRect()
       this._width = width
       this._height = height
@@ -187,7 +195,7 @@ class HighDPICanvasElement extends HTMLElement {
     return remove
   }
 
-  onResizeCallback() {
+  onResizeCallback(shouldEmitEvent) {
     const { element } = this
     const dpi = window.devicePixelRatio || 1
     element.width = Math.floor(this._width * dpi)
@@ -199,12 +207,13 @@ class HighDPICanvasElement extends HTMLElement {
     context.resetTransform()
     context.scale(dpi, dpi)
 
-    this.dispatchEvent(
-      new HighDPICanvasElementResizeEvent("resize", {
-        width: this._width,
-        height: this._height,
-      }),
-    )
+    if (shouldEmitEvent || typeof shouldEmitEvent === "undefined") {
+      window.requestAnimationFrame(() =>
+        this.dispatchEvent(
+          new HighDPICanvasElementResizeEvent(this._width, this._height),
+        ),
+      )
+    }
   }
 
   toBlob() {
@@ -221,14 +230,7 @@ class HighDPICanvasElement extends HTMLElement {
 }
 
 function createHighDPICanvas(width, height) {
-  width = Math.floor(width)
-  height = Math.floor(height)
-
-  const canvas = document.createElement(HighDPICanvasElement.tagName)
-  canvas.width = width
-  canvas.height = height
-
-  return canvas
+  return new HighDPICanvasElement(width, height)
 }
 
 if (typeof window !== "undefined") {
