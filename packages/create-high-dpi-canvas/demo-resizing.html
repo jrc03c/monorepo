@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      body {
+        font-family: monospace;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      p {
+        margin: 0 0 1em 0;
+      }
+
+      hr {
+        width: 100%;
+        height: 2px;
+        margin: 3em 0;
+        padding: 0;
+        border: 0;
+        background-color: black;
+      }
+
+      #css-automatic-container {
+        width: 128px;
+        height: 128px;
+        animation-name: pulsing;
+        animation-duration: 6s;
+        animation-timing-function: linear;
+        animation-delay: 0;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
+      }
+
+      #css-automatic-container custom-high-dpi-canvas {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        height: 100%;
+        min-height: 100%;
+        max-height: 100%;
+      }
+
+      @keyframes pulsing {
+        0% {
+          width: 128px;
+          height: 128px;
+        }
+
+        25% {
+          width: 192px;
+          height: 192px;
+        }
+
+        50% {
+          width: 128px;
+          height: 128px;
+        }
+
+        75% {
+          width: 64px;
+          height: 64px;
+        }
+
+        100% {
+          width: 128px;
+          height: 128px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Programmatic resizing:</h1>
+
+    <p>
+      (i.e., setting the size via instance properties or element attributes)
+    </p>
+
+    <div id="programmatic-container">
+      <custom-high-dpi-canvas id="programmatic"></custom-high-dpi-canvas>
+    </div>
+
+    <hr />
+
+    <h1>CSS automatic resizing:</h1>
+
+    <p>(i.e., setting the size indirectly by modifying the container size)</p>
+
+    <div id="css-automatic-container">
+      <custom-high-dpi-canvas id="css-automatic"></custom-high-dpi-canvas>
+    </div>
+
+    <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
+    <script>
+      class CustomHighDPICanvasElement extends HighDPICanvasElement {}
+
+      customElements.define(
+        "custom-high-dpi-canvas",
+        CustomHighDPICanvasElement,
+      )
+
+      !(() => {
+        const canvas = document.querySelector("#programmatic")
+        canvas.width = 128
+        canvas.height = 128
+
+        const context = canvas.getContext("2d")
+        let frame = 0
+
+        function loop(shouldRequestAnimationFrame) {
+          context.fillStyle = "rgb(235, 235, 235)"
+          context.fillRect(0, 0, canvas.width, canvas.height)
+
+          const x = canvas.width / 2
+          const y = canvas.height / 2
+
+          const r =
+            ((Math.sin((Math.PI * 2 * frame) / 360) * 0.5 + 0.5) *
+              canvas.width) /
+            2
+
+          const hue = frame
+          context.fillStyle = `hsl(${hue}deg, 100%, 50%)`
+          context.beginPath()
+          context.arc(x, y, r, 0, Math.PI * 2)
+          context.fill()
+
+          frame++
+
+          if (frame > 360) {
+            frame = 0
+          }
+
+          if (
+            shouldRequestAnimationFrame ||
+            typeof shouldRequestAnimationFrame === "undefined"
+          ) {
+            window.requestAnimationFrame(loop)
+          }
+        }
+
+        loop()
+
+        let counter = 180
+
+        setInterval(() => {
+          const newWidth =
+            (counter < 180
+              ? -Math.abs(counter - 90) / 360 + 0.75
+              : Math.abs(counter - 270) / 360 + 0.25) * 256
+
+          const newHeight = newWidth
+          canvas.dimensions = [newWidth, newHeight]
+
+          // alternatively, you can set the "width" and "height" attributes:
+          // canvas.setAttribute("width", newWidth)
+          // canvas.setAttribute("height", newHeight)
+
+          counter++
+
+          if (counter >= 360) {
+            counter = 0
+          }
+        }, 1000 / 60)
+
+        canvas.addEventListener("resize", () => {
+          loop(false)
+        })
+      })()
+
+      !(() => {
+        const container = document.querySelector("#css-automatic-container")
+        const canvas = document.querySelector("#css-automatic")
+        canvas.width = 128
+        canvas.height = 128
+
+        const context = canvas.getContext("2d")
+        let frame = 0
+
+        function loop(shouldRequestAnimationFrame) {
+          context.fillStyle = "rgb(235, 235, 235)"
+          context.fillRect(0, 0, canvas.width, canvas.height)
+
+          const x = canvas.width / 2
+          const y = canvas.height / 2
+
+          const r =
+            ((Math.sin((Math.PI * 2 * frame) / 360) * 0.5 + 0.5) *
+              canvas.width) /
+            2
+
+          const hue = frame
+          context.fillStyle = `hsl(${hue}deg, 100%, 50%)`
+          context.beginPath()
+          context.arc(x, y, r, 0, Math.PI * 2)
+          context.fill()
+
+          frame++
+
+          if (frame > 360) {
+            frame = 0
+          }
+
+          if (
+            shouldRequestAnimationFrame ||
+            typeof shouldRequestAnimationFrame === "undefined"
+          ) {
+            window.requestAnimationFrame(loop)
+          }
+        }
+
+        loop()
+
+        canvas.addEventListener("resize", () => {
+          loop(false)
+        })
+
+        // let counter = 0
+
+        // setInterval(() => {
+        //   const newWidth = Math.floor(
+        //     (Math.sin((Math.PI * 2 * counter) / 100) * 0.25 + 0.5) * 256,
+        //   )
+
+        //   const newHeight = newWidth
+        //   container.style.width = `${newWidth}px`
+        //   container.style.height = `${newHeight}px`
+        //   counter++
+
+        //   if (counter >= 100) {
+        //     counter = 0
+        //   }
+        // }, 250)
+      })()
+    </script>
+  </body>
+</html>
