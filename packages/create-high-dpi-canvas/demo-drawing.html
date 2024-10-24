@@ -18,8 +18,23 @@
   <body>
     <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
     <script>
+      function clamp(x, a, b) {
+        if (x < a) return a
+        if (x > b) return b
+        return x
+      }
+
       function remap(x, a, b, c, d) {
         return c + ((d - c) * (x - a)) / (b - a)
+      }
+
+      function getRandomUnitVector() {
+        const angle = Math.random() * 2 * Math.PI
+        return [Math.cos(angle), Math.sin(angle)]
+      }
+
+      function getMagnitude(v) {
+        return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2))
       }
 
       let width = window.innerWidth
@@ -28,6 +43,12 @@
       document.body.appendChild(canvas)
 
       let frame = 0
+      const mousePositions = []
+      const maxMousePositionsLength = 100
+      const mouse = { x: 0, y: 0, buttonIsDown: false }
+      const velocities = []
+      const maxSpeed = 2
+      const accelStrength = 0.25
 
       function loop(shouldRequestAnimationFrame) {
         const context = canvas.getContext("2d")
@@ -68,6 +89,50 @@
           }
         }
 
+        if (mouse.buttonIsDown) {
+          mousePositions.push([mouse.x, mouse.y])
+          velocities.push(getRandomUnitVector())
+
+          while (mousePositions.length > maxMousePositionsLength) {
+            mousePositions.shift()
+            velocities.shift()
+          }
+        } else {
+          mousePositions.shift()
+          velocities.shift()
+          context.beginPath()
+          context.arc(mouse.x, mouse.y, 32, 0, Math.PI * 2)
+          context.fillStyle = `rgba(0, 0, 0, 0.5)`
+          context.fill()
+        }
+
+        if (mousePositions.length > 0) {
+          for (let i = mousePositions.length - 1; i >= 0; i--) {
+            const accel = getRandomUnitVector()
+            const vel = velocities[i]
+            vel[0] += accel[0] * accelStrength
+            vel[1] += accel[1] * accelStrength
+
+            const mag = getMagnitude(vel)
+
+            if (mag > maxSpeed) {
+              vel[0] = (maxSpeed * vel[0]) / mag
+              vel[1] = (maxSpeed * vel[1]) / mag
+            }
+
+            const pos = mousePositions[i]
+            pos[0] += vel[0]
+            pos[1] += vel[1]
+
+            const alpha = (0.5 * i) / mousePositions.length
+            const [x, y] = mousePositions[i]
+            context.beginPath()
+            context.arc(x, y, (32 * i) / mousePositions.length, 0, Math.PI * 2)
+            context.fillStyle = `rgba(0, 0, 0, ${alpha})`
+            context.fill()
+          }
+        }
+
         frame++
 
         if (frame > 600) {
@@ -82,14 +147,28 @@
         }
       }
 
-      window.addEventListener("resize", () => {
+      canvas.on(canvas, "mousedown", () => (mouse.buttonIsDown = true))
+      canvas.on(window, "mouseup", () => (mouse.buttonIsDown = false))
+
+      canvas.on(canvas, "mousemove", event => {
+        mouse.x = event.offsetX
+        mouse.y = event.offsetY
+      })
+
+      canvas.on(window, "keydown", event => {
+        if (event.key === "Escape" && canvas && canvas.parentElement) {
+          canvas.parentElement.removeChild(canvas)
+        }
+      })
+
+      canvas.on(window, "resize", () => {
         width = window.innerWidth
         height = window.innerHeight
         canvas.width = width
         canvas.height = height
       })
 
-      canvas.addEventListener("resize", () => loop(false))
+      canvas.on(canvas, "resize", () => loop(false))
 
       loop()
     </script>

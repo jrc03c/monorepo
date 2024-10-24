@@ -65,9 +65,6 @@ var HighDPICanvasElement = class extends HTMLElement {
     this._height = 0;
     this._width = 0;
   }
-  get canvas() {
-    return this.shadowRoot.querySelector("canvas");
-  }
   get dimensions() {
     return [this._width, this._height];
   }
@@ -76,6 +73,9 @@ var HighDPICanvasElement = class extends HTMLElement {
     this._height = value[1];
     this.style.width = `${this._width}px`;
     this.style.height = `${this._height}px`;
+  }
+  get element() {
+    return this.shadowRoot.querySelector("canvas");
   }
   get height() {
     return this._height;
@@ -108,7 +108,7 @@ var HighDPICanvasElement = class extends HTMLElement {
     }
   }
   captureStream() {
-    return this.canvas.captureStream(...arguments);
+    return this.element.captureStream(...arguments);
   }
   connectedCallback() {
     this.style.overflow = "hidden";
@@ -118,10 +118,10 @@ var HighDPICanvasElement = class extends HTMLElement {
     this.style.justifyContent = "center";
     this.style.alignContent = "center";
     this.style.alignItems = "center";
-    const { canvas } = this;
+    const { element } = this;
     this.eventListenerRemovers = [];
     this.constructor.forwardedEvents.forEach((eventName) => {
-      this.on(canvas, eventName, (event) => {
+      this.on(element, eventName, (event) => {
         this.dispatchEvent(
           new Event(eventName, {
             bubbles: true,
@@ -148,7 +148,7 @@ var HighDPICanvasElement = class extends HTMLElement {
     });
   }
   getContext() {
-    return this.canvas.getContext(...arguments);
+    return this.element.getContext(...arguments);
   }
   off(object, event, callback) {
     const removers = this.eventListenerRemovers.filter(
@@ -175,16 +175,17 @@ var HighDPICanvasElement = class extends HTMLElement {
       remove
     };
     this.eventListenerRemovers.push(remover);
+    object.addEventListener(event, callback);
     return remove;
   }
   onResizeCallback() {
-    const { canvas } = this;
+    const { element } = this;
     const dpi = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(this._width * dpi);
-    canvas.height = Math.floor(this._height * dpi);
-    canvas.style.width = `${this._width}px`;
-    canvas.style.height = `${this._height}px`;
-    const context = canvas.getContext("2d");
+    element.width = Math.floor(this._width * dpi);
+    element.height = Math.floor(this._height * dpi);
+    element.style.width = `${this._width}px`;
+    element.style.height = `${this._height}px`;
+    const context = element.getContext("2d");
     context.resetTransform();
     context.scale(dpi, dpi);
     this.dispatchEvent(
@@ -195,13 +196,13 @@ var HighDPICanvasElement = class extends HTMLElement {
     );
   }
   toBlob() {
-    return this.canvas.toBlob(...arguments);
+    return this.element.toBlob(...arguments);
   }
   toDataURL() {
-    return this.canvas.toDataURL(...arguments);
+    return this.element.toDataURL(...arguments);
   }
   transferControlToOffscreen() {
-    return this.canvas.transferControlToOffscreen(...arguments);
+    return this.element.transferControlToOffscreen(...arguments);
   }
 };
 function createHighDPICanvas(width, height) {
