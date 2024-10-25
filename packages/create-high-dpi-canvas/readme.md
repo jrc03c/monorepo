@@ -174,4 +174,4 @@ Returns a `HighDPICanvasElement` instance.
 
 # Notes, Caveats, Known Issues, etc.
 
-1. It's not currently possible to call _another_ canvas's `drawImage` method and pass a high-DPI canvas as the first argument. I'll try to fix that sometime. In the meantime, you can use the `.element` instance property to directly reference the canvas element that lives inside the `<high-dpi-canvas>` shadow DOM.
+1. It's not currently possible to call _another_ canvas's `drawImage` method and pass a high-DPI canvas as the first argument. I'll try to fix that sometime. In the meantime, you can use the `element` instance property to directly reference the canvas element that lives inside the `<high-dpi-canvas>` shadow DOM.
