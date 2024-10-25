@@ -10,12 +10,12 @@ function rebuild() {
     const commands = [
       "mkdir -p dist",
       "rm -rf dist/*",
-      `${baseCommand} --platform=node --outfile=dist/misc-vue-components.require.cjs`,
-      `${baseCommand} --platform=node --outfile=dist/misc-vue-components.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/misc-vue-components.standalone.cjs`,
-      `${baseCommand} --outfile=dist/misc-vue-components.standalone.min.cjs --minify`,
-      `${baseCommand} --format=esm --outfile=dist/misc-vue-components.import.mjs`,
-      `${baseCommand} --format=esm --outfile=dist/misc-vue-components.import.min.mjs --minify`,
+      `${baseCommand} --platform=node --outfile=dist/misc-web-components.require.cjs`,
+      `${baseCommand} --platform=node --outfile=dist/misc-web-components.require.min.cjs --minify`,
+      `${baseCommand} --outfile=dist/misc-web-components.standalone.cjs`,
+      `${baseCommand} --outfile=dist/misc-web-components.standalone.min.cjs --minify`,
+      `${baseCommand} --format=esm --outfile=dist/misc-web-components.import.mjs`,
+      `${baseCommand} --format=esm --outfile=dist/misc-web-components.import.min.mjs --minify`,
     ]
 
     commands.forEach(command => {

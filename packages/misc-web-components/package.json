@@ -1,23 +1,20 @@
 {
   "dependencies": {
-    "@jrc03c/pause": "^0.0.7",
-    "@jrc03c/vue-component-with-css": "^0.0.10"
+    "@jrc03c/pause": "^0.0.7"
   },
   "devDependencies": {
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
-    "eslint-plugin-vue": "^9.29.0",
-    "prettier": "^3.3.3",
-    "vue": "^3.5.12"
+    "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./dist/misc-vue-components.import.mjs",
-    "require": "./dist/misc-vue-components.require.cjs"
+    "import": "./dist/misc-web-components.import.mjs",
+    "require": "./dist/misc-web-components.require.cjs"
   },
-  "main": "./dist/misc-vue-components.require.cjs",
-  "module": "./dist/misc-vue-components.import.mjs",
-  "name": "@jrc03c/misc-vue-components",
+  "main": "./dist/misc-web-components.require.cjs",
+  "module": "./dist/misc-web-components.import.mjs",
+  "name": "@jrc03c/misc-web-components",
   "type": "module",
   "version": "0.0.15"
 }
