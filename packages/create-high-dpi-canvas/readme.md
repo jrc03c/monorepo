@@ -66,17 +66,7 @@ This class inherits from [`HTMLElement`](https://developer.mozilla.org/en-US/doc
 
 #### (static) `css`
 
-A **string** representing CSS rules to be applied inside the element's shadow DOM. Its default value is:
-
-```js
-HighDPICanvasElement.css = `
-  canvas {
-    margin: 0,
-    padding: 0,
-    border: 0
-  }
-`
-```
+A **string** representing CSS rules to be applied inside the element's shadow DOM. Its default value is `canvas { margin: 0; padding: 0; border: 0; }`.
 
 #### (static) `forwardedEvents`
 
