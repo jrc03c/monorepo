@@ -51,6 +51,16 @@ class BaseComponent extends HTMLElement {
       } catch (e) {}
     })
   }
+
+  getAttribute() {
+    const value = super.getAttribute(...arguments)
+
+    try {
+      return JSON.parse(value)
+    } catch (e) {
+      return value
+    }
+  }
 }
 
 export { BaseComponent }
