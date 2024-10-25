@@ -71,9 +71,9 @@ A **string** representing CSS rules to be applied inside the element's shadow DO
 ```json
 "
   canvas {
-    margin: 0;
-    padding: 0;
-    border: 0;
+    margin: 0,
+    padding: 0,
+    border: 0
   }
 "
 ```
