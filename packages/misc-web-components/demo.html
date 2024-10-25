@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 0.9rem;
+        margin: 3rem;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+      }
+
+      #app {
+        display: none;
+        width: 768px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        margin: 1rem 0 2rem 0;
+      }
+
+      section {
+        margin: 1rem 0 2rem 0;
+        padding: 1rem 0 0 0;
+        border-top: 2px solid black;
+      }
+
+      h2 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      button.expand-button {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.5rem;
+        background-color: white;
+        color: gray;
+        cursor: pointer;
+        transform: rotate(90deg);
+      }
+
+      button.expand-button:hover {
+        background-color: rgb(245, 245, 245);
+      }
+
+      button.expand-button:active {
+        background-color: rgb(215, 215, 215);
+      }
+
+      button.expand-button.is-expanded {
+        transform: rotate(-90deg);
+      }
+
+      .demo {
+        border: 2px solid gray;
+        position: relative;
+        width: 100%;
+        height: 256px;
+        box-sizing: border-box;
+        overflow: hidden;
+        background-color: rgb(235, 235, 235);
+        box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .x-frame > *:not(.x-frame-divider) {
+        margin: 1rem;
+        padding: 1rem;
+        background-color: purple;
+        color: white;
+      }
+
+      .demo:has(.x-frame.x-frame-vertical) {
+        height: 512px;
+      }
+
+      .x-draggable {
+        padding: 1rem;
+        background-color: green;
+        color: white;
+      }
+
+      .x-draggable-floating {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        transform: translateY(-2px) scale(1.05);
+      }
+
+      .x-resizeable {
+        padding: 1rem;
+        border: 2px solid blue;
+        background-color: blue;
+        color: white;
+        overflow: hidden;
+      }
+
+      .x-resizeable-resizing {
+        background-color: rgba(0, 0, 255, 0.25);
+        border: 2px dashed blue;
+        color: blue;
+      }
+
+      @media (max-width: calc(768px + 6rem)) {
+        body {
+          margin: 1rem;
+        }
+
+        #app {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Miscellaneous Vue Components</h1>
+
+      <section>
+        <h2>
+          <span>Context Menu</span>
+
+          <button
+            :class="{ 'is-expanded': contextMenuSectionIsExpanded }"
+            @click="
+              contextMenuSectionIsExpanded = !contextMenuSectionIsExpanded
+            "
+            class="expand-button">
+            ❯
+          </button>
+        </h2>
+
+        <p>(HINT: Right-click in the box below.)</p>
+
+        <div
+          :style="'background-color: ' +  contextMenuDemoBackgroundColor"
+          @contextmenu.stop.prevent="showContextMenu"
+          class="demo">
+          <x-context-menu
+            :is-visible="contextMenuIsVisible"
+            :items="contextMenuItems"
+            :x="contextMenuX"
+            :y="contextMenuY"
+            @cancel="contextMenuIsVisible = false"
+            @close="() => {}"
+            @open="() => {}"
+            @select="contextMenuIsVisible = false">
+          </x-context-menu>
+        </div>
+      </section>
+
+      <section>
+        <h2>
+          <span>Frame</span>
+
+          <button
+            :class="{ 'is-expanded': frameSectionIsExpanded }"
+            @click="frameSectionIsExpanded = !frameSectionIsExpanded"
+            class="expand-button">
+            ❯
+          </button>
+        </h2>
+
+        <div v-if="frameSectionIsExpanded">
+          <p>
+            Locked:
+            <input type="checkbox" v-model="frameIsLocked" />
+          </p>
+
+          <p>
+            Orientation:
+
+            <input
+              id="orientation-input-horizontal"
+              name="frameOrientation"
+              type="radio"
+              value="horizontal"
+              v-model="frameOrientation" />
+
+            <label for="orientation-input-horizontal">Horizontal</label>
+
+            <input
+              id="orientation-input-vertical"
+              name="frameOrientation"
+              type="radio"
+              value="vertical"
+              v-model="frameOrientation" />
+
+            <label for="orientation-input-vertical">Vertical</label>
+          </p>
+
+          <div class="demo">
+            <x-frame
+              :is-locked="frameIsLocked"
+              :orientation="frameOrientation"
+              @resize-end="frameIsBeingResized = false"
+              @resize-start="frameIsBeingResized = true">
+              <div>I'm one pane in a frame.</div>
+              <div>I'm another pane in a frame.</div>
+              <div>Here's another pane!</div>
+            </x-frame>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>
+          <span>Draggable</span>
+
+          <button
+            :class="{ 'is-expanded': draggableSectionIsExpanded }"
+            @click="draggableSectionIsExpanded = !draggableSectionIsExpanded"
+            class="expand-button">
+            ❯
+          </button>
+        </h2>
+
+        <div v-if="draggableSectionIsExpanded">
+          <p>
+            Locked horizontally:
+            <input type="checkbox" v-model="draggableIsHorizontallyLocked" />
+          </p>
+
+          <p>
+            Locked vertically:
+            <input type="checkbox" v-model="draggableIsVerticallyLocked" />
+          </p>
+
+          <div class="demo">
+            <x-draggable
+              :class="{ 'x-draggable-floating': draggableIsBeingDragged }"
+              :is-h-locked="draggableIsHorizontallyLocked"
+              :is-v-locked="draggableIsVerticallyLocked"
+              :x="draggableX"
+              :y="draggableY"
+              @drag-end="draggableIsBeingDragged = false"
+              @drag-start="draggableIsBeingDragged = true">
+              I'm draggable! Drag me!
+            </x-draggable>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>
+          <span>Resizeable</span>
+
+          <button
+            :class="{ 'is-expanded': resizeableSectionIsExpanded }"
+            @click="resizeableSectionIsExpanded = !resizeableSectionIsExpanded"
+            class="expand-button">
+            ❯
+          </button>
+        </h2>
+
+        <div v-if="resizeableSectionIsExpanded">
+          <p>
+            Drag locked horizontally:
+            <input type="checkbox" v-model="resizeableIsHorizontalDragLocked" />
+          </p>
+
+          <p>
+            Drag locked vertically:
+            <input type="checkbox" v-model="resizeableIsVerticalDragLocked" />
+          </p>
+
+          <p>
+            Resize locked left:
+            <input type="checkbox" v-model="resizeableIsResizeLockedLeft" />
+          </p>
+
+          <p>
+            Resize locked right:
+            <input type="checkbox" v-model="resizeableIsResizeLockedRight" />
+          </p>
+
+          <p>
+            Resize locked top:
+            <input type="checkbox" v-model="resizeableIsResizeLockedTop" />
+          </p>
+
+          <p>
+            Resize locked bottom:
+            <input type="checkbox" v-model="resizeableIsResizeLockedBottom" />
+          </p>
+
+          <div class="demo">
+            <x-resizeable
+              :class="{ 'x-resizeable-resizing': resizeableIsBeingResized }"
+              :is-drag-h-locked="resizeableIsHorizontalDragLocked"
+              :is-drag-v-locked="resizeableIsVerticalDragLocked"
+              :is-resize-bottom-locked="resizeableIsResizeLockedBottom"
+              :is-resize-left-locked="resizeableIsResizeLockedLeft"
+              :is-resize-right-locked="resizeableIsResizeLockedRight"
+              :is-resize-top-locked="resizeableIsResizeLockedTop"
+              :min-height="32"
+              :min-width="32"
+              :x="resizeableX"
+              :y="resizeableY"
+              @resize-end="resizeableIsBeingResized = false"
+              @resize-start="resizeableIsBeingResized = true">
+              I'm resizeable! Resize me!
+            </x-resizeable>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="node_modules/vue/dist/vue.global.prod.js"></script>
+    <script type="module">
+      import {
+        ContextMenuComponent,
+        DraggableComponent,
+        FrameComponent,
+        ResizeableComponent,
+      } from "./dist/misc-vue-components.import.min.mjs"
+
+      window.addEventListener("load", () => {
+        const app = Vue.createApp({
+          components: {
+            "x-context-menu": ContextMenuComponent,
+            "x-draggable": DraggableComponent,
+            "x-frame": FrameComponent,
+            "x-resizeable": ResizeableComponent,
+          },
+
+          data() {
+            return {
+              contextMenuDemoBackgroundColor: "hsl(225deg, 100%, 85%)",
+              contextMenuIsVisible: false,
+              contextMenuItems: [
+                {
+                  label: "Show an alert",
+                  action: () => alert("You have been alerted!"),
+                },
+                {
+                  label: "Change background color",
+                  action: () => {
+                    this.contextMenuDemoBackgroundColor = `hsl(${Math.random() * 360}deg, 100%, 85%)`
+                  },
+                },
+                {
+                  label: "Hover for submenu",
+                  children: [
+                    {
+                      label: "More children",
+                      children: [
+                        {
+                          label: "Even MORE children",
+                          children: [
+                            { label: "Okay, that's all!" },
+                            { label: "Goodbye!" },
+                          ],
+                        },
+                      ],
+                    },
+                    { label: "Nope." },
+                    {
+                      label: "Click here for another alert...",
+                      action: () => alert("You've been alerted AGAIN!"),
+                    },
+                  ],
+                },
+                {
+                  label: "Hover for ANOTHER submenu",
+                  children: [{ label: "A, B, C" }, { label: "1, 2, 3" }],
+                },
+              ],
+              contextMenuSectionIsExpanded: true,
+              contextMenuX: 0,
+              contextMenuY: 0,
+              draggableIsBeingDragged: false,
+              draggableIsHorizontallyLocked: false,
+              draggableIsVerticallyLocked: false,
+              draggableSectionIsExpanded: true,
+              draggableX: 32,
+              draggableY: 32,
+              frameIsBeingResized: false,
+              frameIsLocked: false,
+              frameOrientation: "horizontal",
+              frameSectionIsExpanded: true,
+              resizeableIsBeingResized: false,
+              resizeableIsHorizontalDragLocked: false,
+              resizeableIsResizeLockedBottom: false,
+              resizeableIsResizeLockedLeft: false,
+              resizeableIsResizeLockedRight: false,
+              resizeableIsResizeLockedTop: false,
+              resizeableIsVerticalDragLocked: false,
+              resizeableSectionIsExpanded: true,
+              resizeableX: 32,
+              resizeableY: 32,
+            }
+          },
+
+          methods: {
+            range(a, b) {
+              const out = []
+
+              for (let i = a; i < b; i++) {
+                out.push(i)
+              }
+
+              return out
+            },
+
+            showContextMenu(event) {
+              this.contextMenuIsVisible = true
+              this.contextMenuX = event.clientX
+              this.contextMenuY = event.clientY
+            },
+          },
+
+          mounted() {
+            document.querySelector("#app").style.display = "block"
+          },
+        })
+
+        app.mount("#app")
+      })
+    </script>
+  </body>
+</html>
