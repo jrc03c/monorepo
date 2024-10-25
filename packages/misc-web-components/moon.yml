@@ -24,3 +24,9 @@ tasks:
       - --force
     local: true
     platform: node
+  watch:
+    command:
+      - node
+      - build.mjs
+      - --watch
+    platform: node
