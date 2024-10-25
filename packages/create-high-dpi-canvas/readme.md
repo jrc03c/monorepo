@@ -64,23 +64,23 @@ This class inherits from [`HTMLElement`](https://developer.mozilla.org/en-US/doc
 
 ### Properties
 
-#### (static) `css`
+#### `css` (static)
 
 A string representing CSS rules to be applied inside the element's shadow DOM. Its default value is `canvas { margin: 0; padding: 0; border: 0; }`.
 
-#### (static) `forwardedEvents`
+#### `forwardedEvents` (static)
 
 An array of strings representing event names that are forwarded up from the canvas element inside the shadow DOM. For example, if the canvas inside the shadow DOM emits a `"contextlost"` event, then the `HighDPICanvasElement` will re-emit it. The default events that are forwarded are: `"contextlost"`, `"contextrestored"`, `"webglcontextcreationerror"`, `"webglcontextlost"`, and `"webglcontextrestored"`.
 
-#### (static) `observedAttributes`
+#### `observedAttributes` (static)
 
 An array of strings representing HTML attribute names that the class will watch for changes. This property is part of the Web Components API. Read more about it [here](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#responding_to_attribute_changes).
 
-#### (static) `tagName`
+#### `tagName` (static)
 
 A string representing the name of the HTML element. Its value is `high-dpi-canvas`.
 
-#### (static) `template`
+#### `template` (static)
 
 A string representing the inner HTML of the shadow DOM. Its default value is simply `"<canvas></canvas>"`.
 
@@ -92,19 +92,19 @@ A number representing the height of the element. Setting the value of this prope
 
 A number representing the width of the element. Setting the value of this property will not trigger any resizing events, so only assign a value to this property if it's your intention to circumvent the event process.
 
-#### (getter & setter) `dimensions`
+#### `dimensions` (getter & setter)
 
 An array containing two numbers representing, respectively, the width and height of the element.
 
-#### (getter) `element`
+#### `element` (getter only)
 
 The canvas element that lives in the shadow DOM. Generally, you shouldn't interact with this property unless you know what you're doing. However, there's a caveat down in the notes section of the bottom of this document that mentions this property.
 
-#### (getter & setter) `height`
+#### `height` (getter & setter)
 
 A number representing the height of the element. Note that this value can accessed as an attribute using the `getAttribute` and `setAttribute` methods.
 
-#### (getter & setter) `width`
+#### `width` (getter & setter)
 
 A number representing the width of the element. Note that this value can accessed as an attribute using the `getAttribute` and `setAttribute` methods.
 
