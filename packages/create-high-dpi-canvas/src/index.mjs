@@ -113,7 +113,7 @@ class HighDPICanvasElement extends HTMLElement {
     this.style.alignItems = "center"
 
     const { element } = this
-    this.eventListenerRemovers = []
+    this.eventListeners = []
 
     this.constructor.forwardedEvents.forEach(eventName => {
       this.on(element, eventName, event => {
@@ -147,9 +147,9 @@ class HighDPICanvasElement extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.eventListenerRemovers.forEach(remover => {
+    this.eventListeners.forEach(listener => {
       try {
-        remover.remove()
+        listener.remove()
       } catch (e) {}
     })
   }
@@ -158,40 +158,40 @@ class HighDPICanvasElement extends HTMLElement {
     return this.element.getContext(...arguments)
   }
 
-  off(object, event, callback) {
-    const removers = this.eventListenerRemovers.filter(
-      remover =>
-        remover.object === object &&
-        remover.event === event &&
-        remover.callback === callback,
+  off(target, event, callback) {
+    const listeners = this.eventListeners.filter(
+      listener =>
+        listener.target === target &&
+        listener.event === event &&
+        listener.callback === callback,
     )
 
-    if (removers.length > 0) {
-      removers.forEach(remover => remover.remove())
+    if (listeners.length > 0) {
+      listeners.forEach(listener => listener.remove())
     } else {
-      object.removeEventListener(event, callback)
+      target.removeEventListener(event, callback)
     }
   }
 
-  on(object, event, callback) {
+  on(target, event, callback) {
     const remove = () => {
-      object.removeEventListener(event, callback)
-      const index = this.eventListenerRemovers.indexOf(remover)
+      target.removeEventListener(event, callback)
+      const index = this.eventListeners.indexOf(listener)
 
       if (index > -1) {
-        this.eventListenerRemovers.splice(index, 1)
+        this.eventListeners.splice(index, 1)
       }
     }
 
-    const remover = {
-      object,
-      event,
+    const listener = {
       callback,
+      event,
       remove,
+      target,
     }
 
-    this.eventListenerRemovers.push(remover)
-    object.addEventListener(event, callback)
+    this.eventListeners.push(listener)
+    target.addEventListener(event, callback)
     return remove
   }
 
