@@ -131,11 +131,11 @@ A [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObse
 
 ### Methods
 
-#### `off(target : EventTarget), event : string, callback : function)`
+#### `off(target : EventTarget, event : string, callback : function)`
 
 Removes an event listener that was previously added to `target` that listened for the `event` event and called the `callback` function. This method is somewhat similar to calling the [`EventTarget.removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener) method except that the corresponding event listener info object is removed from the `eventListeners` array.
 
-#### `on(target : EventTarget), event : string, callback : function, shouldRecordEventListenerInfo : boolean) : function`
+#### `on(target : EventTarget, event : string, callback : function, shouldRecordEventListenerInfo : boolean) : function`
 
 Adds an event listener to `target` that listens for the `event` event and calls the `callback` function. This method provides roughly the same functionality as the [`EventTarget.addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) method, but with two exceptions. First, it returns a function that can be used to remove the event listener. Second, it creates an event listener info object and stores it in the `eventListeners` array (unless `shouldRecordEventListenerInfo` is `false`). When the `HighDPICanvasElement` is later removed from the DOM, all listeners in the `eventListeners` array are automatically removed.
 
