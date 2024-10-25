@@ -38,7 +38,7 @@ context.fillRect(0, 0, width, height)
 
 The thing that's actually returned from the `createHighDPICanvas` function is a [Web Component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) that implements the [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) interface. That means that, although it's not technically an `HTMLCanvasElement`, it can generally be used as one. There's at least one little place where treating it as an `HTMLCanvasElement` _doesn't_ work, and it's mentioned in the notes at the bottom of this document.
 
-Since the returned element is a Web Component, it can be used in the page as any other element! For example, instead of creating a high-DPI canvas programmatically using the function as in the example above, you could insert a `<high-dpi-canvas>` element into your web page:
+Since the returned element is a Web Component, it can be used in the page just like any other element! For example, instead of creating a high-DPI canvas programmatically using the function as in the example above, you could insert a `<high-dpi-canvas>` element into your web page:
 
 ```html
 <high-dpi-canvas></high-dpi-canvas>
