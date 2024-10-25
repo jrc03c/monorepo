@@ -4,7 +4,7 @@
 
 # Installation
 
-`npm install --save https://github.com/jrc03c/create-high-dpi-canvas`
+`npm install --save @jrc03c/create-high-dpi-canvas`
 
 # Usage
 
