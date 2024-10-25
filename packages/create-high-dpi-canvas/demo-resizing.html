@@ -28,17 +28,17 @@
       #css-automatic-container {
         width: 128px;
         height: 128px;
-        /* animation-name: pulsing;
+        animation-name: pulsing;
         animation-duration: 6s;
         animation-timing-function: linear;
         animation-delay: 0;
         animation-iteration-count: infinite;
         animation-direction: normal;
         animation-fill-mode: forwards;
-        animation-play-state: running; */
+        animation-play-state: running;
       }
 
-      #css-automatic-container high-dpi-canvas {
+      #css-automatic-container custom-high-dpi-canvas {
         width: 100%;
         min-width: 100%;
         max-width: 100%;
@@ -83,10 +83,7 @@
     </p>
 
     <div id="programmatic-container">
-      <high-dpi-canvas
-        id="programmatic"
-        width="128"
-        height="128"></high-dpi-canvas>
+      <custom-high-dpi-canvas id="programmatic"></custom-high-dpi-canvas>
     </div>
 
     <hr />
@@ -96,22 +93,27 @@
     <p>(i.e., setting the size indirectly by modifying the container size)</p>
 
     <div id="css-automatic-container">
-      <high-dpi-canvas
-        id="css-automatic"
-        width="128"
-        height="128"></high-dpi-canvas>
+      <custom-high-dpi-canvas id="css-automatic"></custom-high-dpi-canvas>
     </div>
 
     <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
     <script>
+      class CustomHighDPICanvasElement extends HighDPICanvasElement {}
+
+      customElements.define(
+        "custom-high-dpi-canvas",
+        CustomHighDPICanvasElement,
+      )
+
       !(() => {
         const canvas = document.querySelector("#programmatic")
-        // canvas.dimensions = [128, 128]
+        canvas.width = 128
+        canvas.height = 128
 
         const context = canvas.getContext("2d")
         let frame = 0
 
-        function draw() {
+        function loop(shouldRequestAnimationFrame) {
           context.fillStyle = "rgb(235, 235, 235)"
           context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -134,11 +136,13 @@
           if (frame > 360) {
             frame = 0
           }
-        }
 
-        function loop(shouldRequestAnimationFrame) {
-          draw()
-          window.requestAnimationFrame(loop)
+          if (
+            shouldRequestAnimationFrame ||
+            typeof shouldRequestAnimationFrame === "undefined"
+          ) {
+            window.requestAnimationFrame(loop)
+          }
         }
 
         loop()
@@ -165,18 +169,21 @@
           }
         }, 1000 / 60)
 
-        canvas.addEventListener("resize", () => draw())
+        canvas.addEventListener("resize", () => {
+          loop(false)
+        })
       })()
 
       !(() => {
         const container = document.querySelector("#css-automatic-container")
         const canvas = document.querySelector("#css-automatic")
-        // canvas.dimensions = [128, 128]
+        canvas.width = 128
+        canvas.height = 128
 
         const context = canvas.getContext("2d")
         let frame = 0
 
-        function draw() {
+        function loop(shouldRequestAnimationFrame) {
           context.fillStyle = "rgb(235, 235, 235)"
           context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -199,16 +206,20 @@
           if (frame > 360) {
             frame = 0
           }
-        }
 
-        function loop() {
-          draw()
-          window.requestAnimationFrame(loop)
+          if (
+            shouldRequestAnimationFrame ||
+            typeof shouldRequestAnimationFrame === "undefined"
+          ) {
+            window.requestAnimationFrame(loop)
+          }
         }
 
         loop()
 
-        canvas.addEventListener("resize", () => draw())
+        canvas.addEventListener("resize", () => {
+          loop(false)
+        })
       })()
     </script>
   </body>
