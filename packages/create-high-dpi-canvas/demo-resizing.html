@@ -28,17 +28,17 @@
       #css-automatic-container {
         width: 128px;
         height: 128px;
-        animation-name: pulsing;
+        /* animation-name: pulsing;
         animation-duration: 6s;
         animation-timing-function: linear;
         animation-delay: 0;
         animation-iteration-count: infinite;
         animation-direction: normal;
         animation-fill-mode: forwards;
-        animation-play-state: running;
+        animation-play-state: running; */
       }
 
-      #css-automatic-container custom-high-dpi-canvas {
+      #css-automatic-container high-dpi-canvas {
         width: 100%;
         min-width: 100%;
         max-width: 100%;
@@ -83,7 +83,10 @@
     </p>
 
     <div id="programmatic-container">
-      <custom-high-dpi-canvas id="programmatic"></custom-high-dpi-canvas>
+      <high-dpi-canvas
+        id="programmatic"
+        width="128"
+        height="128"></high-dpi-canvas>
     </div>
 
     <hr />
@@ -93,27 +96,22 @@
     <p>(i.e., setting the size indirectly by modifying the container size)</p>
 
     <div id="css-automatic-container">
-      <custom-high-dpi-canvas id="css-automatic"></custom-high-dpi-canvas>
+      <high-dpi-canvas
+        id="css-automatic"
+        width="128"
+        height="128"></high-dpi-canvas>
     </div>
 
     <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
     <script>
-      class CustomHighDPICanvasElement extends HighDPICanvasElement {}
-
-      customElements.define(
-        "custom-high-dpi-canvas",
-        CustomHighDPICanvasElement,
-      )
-
       !(() => {
         const canvas = document.querySelector("#programmatic")
-        canvas.width = 128
-        canvas.height = 128
+        // canvas.dimensions = [128, 128]
 
         const context = canvas.getContext("2d")
         let frame = 0
 
-        function loop(shouldRequestAnimationFrame) {
+        function draw() {
           context.fillStyle = "rgb(235, 235, 235)"
           context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -136,13 +134,11 @@
           if (frame > 360) {
             frame = 0
           }
+        }
 
-          if (
-            shouldRequestAnimationFrame ||
-            typeof shouldRequestAnimationFrame === "undefined"
-          ) {
-            window.requestAnimationFrame(loop)
-          }
+        function loop(shouldRequestAnimationFrame) {
+          draw()
+          window.requestAnimationFrame(loop)
         }
 
         loop()
@@ -169,21 +165,18 @@
           }
         }, 1000 / 60)
 
-        canvas.addEventListener("resize", () => {
-          loop(false)
-        })
+        canvas.addEventListener("resize", () => draw())
       })()
 
       !(() => {
         const container = document.querySelector("#css-automatic-container")
         const canvas = document.querySelector("#css-automatic")
-        canvas.width = 128
-        canvas.height = 128
+        // canvas.dimensions = [128, 128]
 
         const context = canvas.getContext("2d")
         let frame = 0
 
-        function loop(shouldRequestAnimationFrame) {
+        function draw() {
           context.fillStyle = "rgb(235, 235, 235)"
           context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -206,37 +199,16 @@
           if (frame > 360) {
             frame = 0
           }
+        }
 
-          if (
-            shouldRequestAnimationFrame ||
-            typeof shouldRequestAnimationFrame === "undefined"
-          ) {
-            window.requestAnimationFrame(loop)
-          }
+        function loop() {
+          draw()
+          window.requestAnimationFrame(loop)
         }
 
         loop()
 
-        canvas.addEventListener("resize", () => {
-          loop(false)
-        })
-
-        // let counter = 0
-
-        // setInterval(() => {
-        //   const newWidth = Math.floor(
-        //     (Math.sin((Math.PI * 2 * counter) / 100) * 0.25 + 0.5) * 256,
-        //   )
-
-        //   const newHeight = newWidth
-        //   container.style.width = `${newWidth}px`
-        //   container.style.height = `${newHeight}px`
-        //   counter++
-
-        //   if (counter >= 100) {
-        //     counter = 0
-        //   }
-        // }, 250)
+        canvas.addEventListener("resize", () => draw())
       })()
     </script>
   </body>

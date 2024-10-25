@@ -62,7 +62,7 @@ var HighDPICanvasElement = class extends HTMLElement {
       ${this.constructor.template}
     `;
     this.dimensions = [width, height];
-    this.onResizeCallback(false);
+    this.onOuterResize(false);
   }
   get dimensions() {
     return [this._width, this._height];
@@ -139,7 +139,7 @@ var HighDPICanvasElement = class extends HTMLElement {
       const { width, height } = this.getBoundingClientRect();
       this._width = width;
       this._height = height;
-      this.onResizeCallback();
+      this.onOuterResize();
     });
     this.resizeObserver.observe(this);
   }
@@ -164,7 +164,8 @@ var HighDPICanvasElement = class extends HTMLElement {
       target.removeEventListener(event, callback);
     }
   }
-  on(target, event, callback) {
+  on(target, event, callback, shouldRecordEventListenerInfo) {
+    let listener;
     const remove = () => {
       target.removeEventListener(event, callback);
       const index = this.eventListeners.indexOf(listener);
@@ -172,17 +173,19 @@ var HighDPICanvasElement = class extends HTMLElement {
         this.eventListeners.splice(index, 1);
       }
     };
-    const listener = {
-      callback,
-      event,
-      remove,
-      target
-    };
-    this.eventListeners.push(listener);
+    if (shouldRecordEventListenerInfo || typeof shouldRecordEventListenerInfo === "undefined") {
+      listener = {
+        callback,
+        event,
+        remove,
+        target
+      };
+      this.eventListeners.push(listener);
+    }
     target.addEventListener(event, callback);
     return remove;
   }
-  onResizeCallback(shouldEmitEvent) {
+  onOuterResize(shouldEmitEvent) {
     const { element } = this;
     const dpi = window.devicePixelRatio || 1;
     element.width = Math.floor(this._width * dpi);
@@ -193,10 +196,8 @@ var HighDPICanvasElement = class extends HTMLElement {
     context.resetTransform();
     context.scale(dpi, dpi);
     if (shouldEmitEvent || typeof shouldEmitEvent === "undefined") {
-      window.requestAnimationFrame(
-        () => this.dispatchEvent(
-          new HighDPICanvasElementResizeEvent(this._width, this._height)
-        )
+      this.dispatchEvent(
+        new HighDPICanvasElementResizeEvent(this._width, this._height)
       );
     }
   }

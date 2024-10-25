@@ -50,7 +50,7 @@
       const maxSpeed = 2
       const accelStrength = 0.25
 
-      function loop(shouldRequestAnimationFrame) {
+      function draw() {
         const context = canvas.getContext("2d")
         context.fillStyle = "rgb(235, 235, 235)"
         context.fillRect(0, 0, width, height)
@@ -138,13 +138,11 @@
         if (frame > 600) {
           frame = 0
         }
+      }
 
-        if (
-          shouldRequestAnimationFrame ||
-          typeof shouldRequestAnimationFrame === "undefined"
-        ) {
-          window.requestAnimationFrame(loop)
-        }
+      function loop() {
+        draw()
+        window.requestAnimationFrame(loop)
       }
 
       canvas.on(canvas, "mousedown", () => (mouse.buttonIsDown = true))
@@ -166,9 +164,9 @@
         height = window.innerHeight
         canvas.width = width
         canvas.height = height
+        console.log("window resize!")
+        draw()
       })
-
-      canvas.on(canvas, "resize", () => loop(false))
 
       loop()
     </script>
