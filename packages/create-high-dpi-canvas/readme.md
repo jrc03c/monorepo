@@ -68,29 +68,19 @@ This class inherits from [`HTMLElement`](https://developer.mozilla.org/en-US/doc
 
 A **string** representing CSS rules to be applied inside the element's shadow DOM. Its default value is:
 
-```json
-"
+```js
+HighDPICanvasElement.css = `
   canvas {
     margin: 0,
     padding: 0,
     border: 0
   }
-"
+`
 ```
 
 #### (static) `forwardedEvents`
 
-An array of strings representing event names that are forwarded up from the canvas element inside the shadow DOM. For example, if the canvas inside the shadow DOM emits a `"contextlost"` event, then the `HighDPICanvasElement` will re-emit it. Its default value is:
-
-```json
-[
-  "contextlost",
-  "contextrestored",
-  "webglcontextcreationerror",
-  "webglcontextlost",
-  "webglcontextrestored"
-]
-```
+An array of strings representing event names that are forwarded up from the canvas element inside the shadow DOM. For example, if the canvas inside the shadow DOM emits a `"contextlost"` event, then the `HighDPICanvasElement` will re-emit it. The default events that are forwarded are: `"contextlost"`, `"contextrestored"`, `"webglcontextcreationerror"`, `"webglcontextlost"`, and `"webglcontextrestored"`.
 
 #### (static) `observedAttributes`
 
