@@ -19,12 +19,12 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.mjs
 var src_exports = {};
 __export(src_exports, {
-  BaseWebComponent: () => BaseWebComponent
+  BaseComponent: () => BaseComponent
 });
 module.exports = __toCommonJS(src_exports);
 
 // src/base.mjs
-var BaseWebComponent = class extends HTMLElement {
+var BaseComponent = class extends HTMLElement {
   static $css = ``;
   static $template = ``;
   static observedAttributes = [];
@@ -73,7 +73,7 @@ var BaseWebComponent = class extends HTMLElement {
 // src/index.mjs
 if (typeof window !== "undefined") {
   window.MiscVueComponents = {
-    BaseWebComponent
+    BaseComponent
     // ContextMenuComponent,
     // DraggableComponent,
     // FrameComponent,
@@ -83,5 +83,5 @@ if (typeof window !== "undefined") {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  BaseWebComponent
+  BaseComponent
 });

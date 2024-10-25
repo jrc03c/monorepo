@@ -1,4 +1,4 @@
-class BaseWebComponent extends HTMLElement {
+class BaseComponent extends HTMLElement {
   static $css = ``
   static $template = ``
   static observedAttributes = []
@@ -53,4 +53,4 @@ class BaseWebComponent extends HTMLElement {
   }
 }
 
-export { BaseWebComponent }
+export { BaseComponent }

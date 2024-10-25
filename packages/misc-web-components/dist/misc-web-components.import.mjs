@@ -1,5 +1,5 @@
 // src/base.mjs
-var BaseWebComponent = class extends HTMLElement {
+var BaseComponent = class extends HTMLElement {
   static $css = ``;
   static $template = ``;
   static observedAttributes = [];
@@ -48,7 +48,7 @@ var BaseWebComponent = class extends HTMLElement {
 // src/index.mjs
 if (typeof window !== "undefined") {
   window.MiscVueComponents = {
-    BaseWebComponent
+    BaseComponent
     // ContextMenuComponent,
     // DraggableComponent,
     // FrameComponent,
@@ -57,5 +57,5 @@ if (typeof window !== "undefined") {
   };
 }
 export {
-  BaseWebComponent
+  BaseComponent
 };

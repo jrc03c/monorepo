@@ -4,11 +4,11 @@
 // import { MenuComponent } from "./context-menu/menu.mjs"
 // import { ResizeableComponent } from "./resizeable.mjs"
 
-import { BaseWebComponent } from "./base.mjs"
+import { BaseComponent } from "./base.mjs"
 
 if (typeof window !== "undefined") {
   window.MiscVueComponents = {
-    BaseWebComponent,
+    BaseComponent,
     // ContextMenuComponent,
     // DraggableComponent,
     // FrameComponent,
@@ -18,7 +18,7 @@ if (typeof window !== "undefined") {
 }
 
 export {
-  BaseWebComponent,
+  BaseComponent,
   // ContextMenuComponent,
   // DraggableComponent,
   // FrameComponent,
