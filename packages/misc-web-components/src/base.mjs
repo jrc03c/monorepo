@@ -1,9 +1,9 @@
 class BaseComponent extends HTMLElement {
-  static $css = ``
-  static $template = ``
+  static css = ``
   static observedAttributes = []
+  static template = ``
 
-  $eventListeners = []
+  eventListeners = []
 
   constructor() {
     super(...arguments)
@@ -12,32 +12,13 @@ class BaseComponent extends HTMLElement {
 
     shadow.innerHTML = `
       <style>
-        ${this.constructor.$css}
+        ${this.constructor.css}
       </style>
 
-      ${this.constructor.$template}
+      ${this.constructor.template}
     `
 
-    this.$eventListeners = []
-  }
-
-  $off(target, event, callback) {
-    target.removeEventListener(event, callback)
-  }
-
-  $on(target, event, callback) {
-    target.addEventListener(event, callback)
-    const remove = () => target.removeEventListener(event, callback)
-
-    const listener = {
-      target,
-      event,
-      callback,
-      remove,
-    }
-
-    this.$eventListeners.push(listener)
-    return remove
+    this.eventListeners = []
   }
 
   attributeChangedCallback() {}
@@ -45,7 +26,7 @@ class BaseComponent extends HTMLElement {
   connectedCallback() {}
 
   disconnectedCallback() {
-    this.$eventListeners.forEach(listener => {
+    this.eventListeners.forEach(listener => {
       try {
         listener.remove()
       } catch (e) {}
@@ -60,6 +41,25 @@ class BaseComponent extends HTMLElement {
     } catch (e) {
       return value
     }
+  }
+
+  off(target, event, callback) {
+    target.removeEventListener(event, callback)
+  }
+
+  on(target, event, callback) {
+    target.addEventListener(event, callback)
+    const remove = () => target.removeEventListener(event, callback)
+
+    const listener = {
+      target,
+      event,
+      callback,
+      remove,
+    }
+
+    this.eventListeners.push(listener)
+    return remove
   }
 }
 

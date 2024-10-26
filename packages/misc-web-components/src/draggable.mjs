@@ -74,8 +74,7 @@ class DraggableDragEndEvent extends DraggableEvent {
 }
 
 class DraggableComponent extends BaseComponent {
-  static $css = css
-  static $template = template
+  static css = css
 
   static observedAttributes = BaseComponent.observedAttributes.concat([
     "is-h-locked",
@@ -84,123 +83,39 @@ class DraggableComponent extends BaseComponent {
     "y",
   ])
 
-  $isBeingDragged = false
-  $mouse = { x: 0, y: 0 }
-  $x_ = 0
-  $y_ = 0
+  static template = template
 
-  get $isHLocked() {
+  isBeingDragged = false
+  mouse = { x: 0, y: 0 }
+  x_ = 0
+  y_ = 0
+
+  get isHLocked() {
     return this.getAttribute("is-h-locked")
   }
 
-  get $isVLocked() {
+  get isVLocked() {
     return this.getAttribute("is-v-locked")
   }
 
-  get $root() {
+  get root() {
     return this.shadowRoot.querySelector(".x-draggable")
-  }
-
-  $onMouseDown(event) {
-    event.preventDefault()
-    event.stopPropagation()
-
-    const isHLocked = this.$isHLocked
-    const isVLocked = this.$isVLocked
-
-    if (isHLocked && isVLocked) {
-      return
-    }
-
-    if (!isHLocked) {
-      this.$mouse.x = event.screenX
-    }
-
-    if (!isVLocked) {
-      this.$mouse.y = event.screenY
-    }
-
-    this.$isBeingDragged = true
-    this.$root.style.cursor = "grabbing"
-
-    this.dispatchEvent(
-      new DraggableDragStartEvent(this.$root.getBoundingClientRect()),
-    )
-  }
-
-  $onMouseMove(event) {
-    const isHLocked = this.$isHLocked
-    const isVLocked = this.$isVLocked
-
-    if (isHLocked && isVLocked) {
-      return
-    }
-
-    if (this.$isBeingDragged) {
-      const dx = event.screenX - this.$mouse.x
-      const dy = event.screenY - this.$mouse.y
-
-      if (!isHLocked) {
-        this.$x_ += dx
-        this.$mouse.x = event.screenX
-      }
-
-      if (!isVLocked) {
-        this.$y_ += dy
-        this.$mouse.y = event.screenY
-      }
-
-      this.$updateComputedStyle()
-
-      this.dispatchEvent(
-        new DraggableDragEvent(this.$root.getBoundingClientRect()),
-      )
-    }
-  }
-
-  $onMouseUp() {
-    const isHLocked = this.$isHLocked
-    const isVLocked = this.$isVLocked
-
-    if (isHLocked && isVLocked) {
-      return
-    }
-
-    const wasBeingDragged = this.$isBeingDragged
-    this.$isBeingDragged = false
-    this.$root.style.cursor = ""
-
-    if (wasBeingDragged) {
-      this.dispatchEvent(
-        new DraggableDragEndEvent(this.$root.getBoundingClientRect()),
-      )
-    }
-  }
-
-  $updateComputedStyle(shouldForceUpdate) {
-    if (shouldForceUpdate || !this.$isHLocked) {
-      this.$root.style.left = this.$x_ + "px"
-    }
-
-    if (shouldForceUpdate || !this.$isVLocked) {
-      this.$root.style.top = this.$y_ + "px"
-    }
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "is-h-locked") {
       if (newValue) {
-        this.$root.classList.add("is-h-locked")
+        this.root.classList.add("is-h-locked")
       } else {
-        this.$root.classList.remove("is-h-locked")
+        this.root.classList.remove("is-h-locked")
       }
     }
 
     if (name === "is-v-locked") {
       if (newValue) {
-        this.$root.classList.add("is-v-locked")
+        this.root.classList.add("is-v-locked")
       } else {
-        this.$root.classList.remove("is-v-locked")
+        this.root.classList.remove("is-v-locked")
       }
     }
 
@@ -209,8 +124,8 @@ class DraggableComponent extends BaseComponent {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.$x_ = newValue
-      this.$updateComputedStyle()
+      this.x_ = newValue
+      this.updateComputedStyle()
     }
 
     if (name === "y") {
@@ -218,14 +133,14 @@ class DraggableComponent extends BaseComponent {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.$y_ = newValue
-      this.$updateComputedStyle()
+      this.y_ = newValue
+      this.updateComputedStyle()
     }
   }
 
   connectedCallback() {
     const interval = setInterval(() => {
-      const root = this.$root
+      const root = this.root
 
       if (!root) {
         return
@@ -233,16 +148,102 @@ class DraggableComponent extends BaseComponent {
 
       clearInterval(interval)
 
-      this.$on(root, "mousedown", this.$onMouseDown.bind(this))
-      this.$on(window, "mousemove", this.$onMouseMove.bind(this))
-      this.$on(window, "mouseup", this.$onMouseUp.bind(this))
+      this.on(root, "mousedown", this.onMouseDown.bind(this))
+      this.on(window, "mousemove", this.onMouseMove.bind(this))
+      this.on(window, "mouseup", this.onMouseUp.bind(this))
 
-      this.$x_ = this.getAttribute("x")
-      this.$y_ = this.getAttribute("y")
-      this.$updateComputedStyle(true)
+      this.x_ = this.getAttribute("x")
+      this.y_ = this.getAttribute("y")
+      this.updateComputedStyle(true)
     }, 10)
 
     return super.connectedCallback(...arguments)
+  }
+
+  onMouseDown(event) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const isHLocked = this.isHLocked
+    const isVLocked = this.isVLocked
+
+    if (isHLocked && isVLocked) {
+      return
+    }
+
+    if (!isHLocked) {
+      this.mouse.x = event.screenX
+    }
+
+    if (!isVLocked) {
+      this.mouse.y = event.screenY
+    }
+
+    this.isBeingDragged = true
+    this.root.style.cursor = "grabbing"
+
+    this.dispatchEvent(
+      new DraggableDragStartEvent(this.root.getBoundingClientRect()),
+    )
+  }
+
+  onMouseMove(event) {
+    const isHLocked = this.isHLocked
+    const isVLocked = this.isVLocked
+
+    if (isHLocked && isVLocked) {
+      return
+    }
+
+    if (this.isBeingDragged) {
+      const dx = event.screenX - this.mouse.x
+      const dy = event.screenY - this.mouse.y
+
+      if (!isHLocked) {
+        this.x_ += dx
+        this.mouse.x = event.screenX
+      }
+
+      if (!isVLocked) {
+        this.y_ += dy
+        this.mouse.y = event.screenY
+      }
+
+      this.updateComputedStyle()
+
+      this.dispatchEvent(
+        new DraggableDragEvent(this.root.getBoundingClientRect()),
+      )
+    }
+  }
+
+  onMouseUp() {
+    const isHLocked = this.isHLocked
+    const isVLocked = this.isVLocked
+
+    if (isHLocked && isVLocked) {
+      return
+    }
+
+    const wasBeingDragged = this.isBeingDragged
+    this.isBeingDragged = false
+    this.root.style.cursor = ""
+
+    if (wasBeingDragged) {
+      this.dispatchEvent(
+        new DraggableDragEndEvent(this.root.getBoundingClientRect()),
+      )
+    }
+  }
+
+  updateComputedStyle(shouldForceUpdate) {
+    if (shouldForceUpdate || !this.isHLocked) {
+      this.root.style.left = this.x_ + "px"
+    }
+
+    if (shouldForceUpdate || !this.isVLocked) {
+      this.root.style.top = this.y_ + "px"
+    }
   }
 }
 
