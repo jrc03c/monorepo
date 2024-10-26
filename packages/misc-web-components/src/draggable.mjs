@@ -85,18 +85,10 @@ class DraggableComponent extends BaseComponent {
 
   static template = template
 
+  _x = 0
+  _y = 0
   isBeingDragged = false
   mouse = { x: 0, y: 0 }
-  x_ = 0
-  y_ = 0
-
-  get isHLocked() {
-    return this.getAttribute("is-h-locked")
-  }
-
-  get isVLocked() {
-    return this.getAttribute("is-v-locked")
-  }
 
   get root() {
     return this.shadowRoot.querySelector(".x-draggable")
@@ -124,7 +116,7 @@ class DraggableComponent extends BaseComponent {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.x_ = newValue
+      this._x = newValue
       this.updateComputedStyle()
     }
 
@@ -133,7 +125,7 @@ class DraggableComponent extends BaseComponent {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.y_ = newValue
+      this._y = newValue
       this.updateComputedStyle()
     }
   }
@@ -152,8 +144,8 @@ class DraggableComponent extends BaseComponent {
       this.on(window, "mousemove", this.onMouseMove.bind(this))
       this.on(window, "mouseup", this.onMouseUp.bind(this))
 
-      this.x_ = this.getAttribute("x")
-      this.y_ = this.getAttribute("y")
+      this._x = this.x
+      this._y = this.y
       this.updateComputedStyle(true)
     }, 10)
 
@@ -200,12 +192,12 @@ class DraggableComponent extends BaseComponent {
       const dy = event.screenY - this.mouse.y
 
       if (!isHLocked) {
-        this.x_ += dx
+        this._x += dx
         this.mouse.x = event.screenX
       }
 
       if (!isVLocked) {
-        this.y_ += dy
+        this._y += dy
         this.mouse.y = event.screenY
       }
 
@@ -238,11 +230,11 @@ class DraggableComponent extends BaseComponent {
 
   updateComputedStyle(shouldForceUpdate) {
     if (shouldForceUpdate || !this.isHLocked) {
-      this.root.style.left = this.x_ + "px"
+      this.root.style.left = this._x + "px"
     }
 
     if (shouldForceUpdate || !this.isVLocked) {
-      this.root.style.top = this.y_ + "px"
+      this.root.style.top = this._y + "px"
     }
   }
 }

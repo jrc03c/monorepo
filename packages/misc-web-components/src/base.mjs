@@ -1,3 +1,5 @@
+import { camelify } from "@jrc03c/js-text-tools"
+
 class BaseComponent extends HTMLElement {
   static css = ``
   static observedAttributes = []
@@ -19,6 +21,25 @@ class BaseComponent extends HTMLElement {
     `
 
     this.eventListeners = []
+
+    this.constructor.observedAttributes.forEach(attr => {
+      Object.defineProperty(this, camelify(attr), {
+        configurable: true,
+        enumerable: true,
+
+        get: () => {
+          return this.getAttribute(attr)
+        },
+
+        set: value => {
+          console.warn(
+            `You directly set the value of the "${attr}" attribute on a(n) ${this.constructor.name} element! While this isn't strictly prohibited, it's much better to follow the design principle of "attributes go down, events go up" by emitting an event indicating that you'd prefer to change the attribute value rather than changing it directly.`,
+          )
+
+          this.setAttribute(attr, value)
+        },
+      })
+    })
   }
 
   attributeChangedCallback() {}
