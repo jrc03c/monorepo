@@ -65,10 +65,6 @@
     cursor: grab;
   }
 
-  .x-draggable:active {
-    cursor: grabbing;
-  }
-
   .x-draggable:active,
   .x-draggable:active * {
     user-select: none;
@@ -143,6 +139,8 @@
       return this.shadowRoot.querySelector(".x-draggable");
     }
     $onMouseDown(event) {
+      event.preventDefault();
+      event.stopPropagation();
       const isHLocked = this.$isHLocked;
       const isVLocked = this.$isVLocked;
       if (isHLocked && isVLocked) {
@@ -155,6 +153,7 @@
         this.$mouse.y = event.screenY;
       }
       this.$isBeingDragged = true;
+      this.$root.style.cursor = "grabbing";
       this.dispatchEvent(
         new DraggableDragStartEvent(this.$root.getBoundingClientRect())
       );
@@ -190,6 +189,7 @@
       }
       const wasBeingDragged = this.$isBeingDragged;
       this.$isBeingDragged = false;
+      this.$root.style.cursor = "";
       if (wasBeingDragged) {
         this.dispatchEvent(
           new DraggableDragEndEvent(this.$root.getBoundingClientRect())

@@ -10,10 +10,6 @@ const css = /* css */ `
     cursor: grab;
   }
 
-  .x-draggable:active {
-    cursor: grabbing;
-  }
-
   .x-draggable:active,
   .x-draggable:active * {
     user-select: none;
@@ -106,8 +102,8 @@ class DraggableComponent extends BaseComponent {
   }
 
   $onMouseDown(event) {
-    // event.preventDefault()
-    // event.stopPropagation()
+    event.preventDefault()
+    event.stopPropagation()
 
     const isHLocked = this.$isHLocked
     const isVLocked = this.$isVLocked
@@ -125,6 +121,7 @@ class DraggableComponent extends BaseComponent {
     }
 
     this.$isBeingDragged = true
+    this.$root.style.cursor = "grabbing"
 
     this.dispatchEvent(
       new DraggableDragStartEvent(this.$root.getBoundingClientRect()),
@@ -171,6 +168,7 @@ class DraggableComponent extends BaseComponent {
 
     const wasBeingDragged = this.$isBeingDragged
     this.$isBeingDragged = false
+    this.$root.style.cursor = ""
 
     if (wasBeingDragged) {
       this.dispatchEvent(
