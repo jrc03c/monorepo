@@ -5223,6 +5223,15 @@ var ResizeableComponent = class extends DraggableComponent {
     this.on(window, "keydown", this.onKeyDown.bind(this));
     this.on(window, "keyup", this.onKeyUp.bind(this));
     setTimeout(() => {
+      let shouldUpdateComputedStyles = false;
+      if (!this.minWidth) {
+        this.setAttribute("min-width", 32);
+        shouldUpdateComputedStyles = true;
+      }
+      if (!this.minHeight) {
+        this.setAttribute("min-height", 32);
+        shouldUpdateComputedStyles = true;
+      }
       if (!this.width || !this.height) {
         const { width, height } = this.root.getBoundingClientRect();
         const style = getComputedStyle(this.root);
@@ -5246,6 +5255,9 @@ var ResizeableComponent = class extends DraggableComponent {
         );
         this._width = width - paddingLeft - paddingRight - borderLeft - borderRight;
         this._height = height - paddingTop - paddingBottom - borderTop - borderBottom;
+        shouldUpdateComputedStyles = true;
+      }
+      if (shouldUpdateComputedStyles) {
         this.updateComputedStyle();
       }
     }, 100);
@@ -5498,6 +5510,12 @@ var ResizeableComponent = class extends DraggableComponent {
     }
   }
   async updateComputedStyle() {
+    if (this._width < this.minWidth) {
+      this._width = this.minWidth;
+    }
+    if (this._height < this.minHeight) {
+      this._height = this.minHeight;
+    }
     const shouldResizeLeft = this.isHoveringOverLeftBorder && !this.isResizeLeftLocked;
     const shouldResizeRight = this.isHoveringOverRightBorder && !this.isResizeRightLocked;
     const shouldResizeTop = this.isHoveringOverTopBorder && !this.isResizeTopLocked;

@@ -168,6 +168,18 @@ class ResizeableComponent extends DraggableComponent {
     this.on(window, "keyup", this.onKeyUp.bind(this))
 
     setTimeout(() => {
+      let shouldUpdateComputedStyles = false
+
+      if (!this.minWidth) {
+        this.setAttribute("min-width", 32)
+        shouldUpdateComputedStyles = true
+      }
+
+      if (!this.minHeight) {
+        this.setAttribute("min-height", 32)
+        shouldUpdateComputedStyles = true
+      }
+
       if (!this.width || !this.height) {
         const { width, height } = this.root.getBoundingClientRect()
         const style = getComputedStyle(this.root)
@@ -202,6 +214,10 @@ class ResizeableComponent extends DraggableComponent {
         this._height =
           height - paddingTop - paddingBottom - borderTop - borderBottom
 
+        shouldUpdateComputedStyles = true
+      }
+
+      if (shouldUpdateComputedStyles) {
         this.updateComputedStyle()
       }
     }, 100)
@@ -522,6 +538,14 @@ class ResizeableComponent extends DraggableComponent {
   }
 
   async updateComputedStyle() {
+    if (this._width < this.minWidth) {
+      this._width = this.minWidth
+    }
+
+    if (this._height < this.minHeight) {
+      this._height = this.minHeight
+    }
+
     const shouldResizeLeft =
       this.isHoveringOverLeftBorder && !this.isResizeLeftLocked
 
