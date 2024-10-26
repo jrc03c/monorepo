@@ -4810,7 +4810,7 @@
       ${this.constructor.template}
     `;
       this.eventListeners = [];
-      this.constructor.observedAttributes.forEach((attr) => {
+      Array.from(new Set(this.constructor.observedAttributes)).forEach((attr) => {
         Object.defineProperty(this, camelify(attr), {
           configurable: true,
           enumerable: true,
