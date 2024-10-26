@@ -4796,11 +4796,11 @@ var BaseComponent = class extends HTMLElement {
       });
     });
   }
-  attributeChangedCallback() {
+  async attributeChangedCallback() {
   }
-  connectedCallback() {
+  async connectedCallback() {
   }
-  disconnectedCallback() {
+  async disconnectedCallback() {
     this.eventListeners.forEach((listener) => {
       try {
         listener.remove();
@@ -4832,6 +4832,31 @@ var BaseComponent = class extends HTMLElement {
     return remove;
   }
 };
+
+// node_modules/@jrc03c/pause/dist/pause.import.mjs
+function pauseAsync(ms) {
+  return new Promise((resolve, reject) => {
+    try {
+      const start = /* @__PURE__ */ new Date();
+      return setTimeout(() => resolve(/* @__PURE__ */ new Date() - start), ms);
+    } catch (e) {
+      return reject(e);
+    }
+  });
+}
+function pauseSync(ms) {
+  const start = /* @__PURE__ */ new Date();
+  let now = /* @__PURE__ */ new Date();
+  while (now - start < ms) {
+    now = /* @__PURE__ */ new Date();
+  }
+  return /* @__PURE__ */ new Date() - start;
+}
+if (typeof window !== "undefined") {
+  window.pause = pauseAsync;
+  window.pauseAsync = pauseAsync;
+  window.pauseSync = pauseSync;
+}
 
 // src/draggable.mjs
 var css = (
@@ -4911,7 +4936,7 @@ var DraggableComponent = class extends BaseComponent {
   get root() {
     return this.shadowRoot.querySelector(".x-draggable");
   }
-  attributeChangedCallback(name, oldValue, newValue) {
+  async attributeChangedCallback(name, oldValue, newValue) {
     if (name === "is-h-locked") {
       if (newValue) {
         this.root.classList.add("is-h-locked");
@@ -4942,24 +4967,21 @@ var DraggableComponent = class extends BaseComponent {
       this._y = newValue;
       this.updateComputedStyle();
     }
+    return await super.attributeChangedCallback(name, oldValue, newValue);
   }
-  connectedCallback() {
-    const interval = setInterval(() => {
-      const root = this.root;
-      if (!root) {
-        return;
-      }
-      clearInterval(interval);
-      this.on(root, "mousedown", this.onMouseDown.bind(this));
-      this.on(window, "mousemove", this.onMouseMove.bind(this));
-      this.on(window, "mouseup", this.onMouseUp.bind(this));
-      this._x = this.x;
-      this._y = this.y;
-      this.updateComputedStyle(true);
-    }, 10);
-    return super.connectedCallback(...arguments);
+  async connectedCallback() {
+    while (!this.root) {
+      await pauseAsync(10);
+    }
+    this.on(this.root, "mousedown", this.onMouseDown.bind(this));
+    this.on(window, "mousemove", this.onMouseMove.bind(this));
+    this.on(window, "mouseup", this.onMouseUp.bind(this));
+    this._x = this.x;
+    this._y = this.y;
+    this.updateComputedStyle(true);
+    return await super.connectedCallback(...arguments);
   }
-  onMouseDown(event) {
+  async onMouseDown(event) {
     event.preventDefault();
     event.stopPropagation();
     const isHLocked = this.isHLocked;
@@ -4979,7 +5001,7 @@ var DraggableComponent = class extends BaseComponent {
       new DraggableDragStartEvent(this.root.getBoundingClientRect())
     );
   }
-  onMouseMove(event) {
+  async onMouseMove(event) {
     const isHLocked = this.isHLocked;
     const isVLocked = this.isVLocked;
     if (isHLocked && isVLocked) {
@@ -5002,7 +5024,7 @@ var DraggableComponent = class extends BaseComponent {
       );
     }
   }
-  onMouseUp() {
+  async onMouseUp() {
     const isHLocked = this.isHLocked;
     const isVLocked = this.isVLocked;
     if (isHLocked && isVLocked) {
@@ -5017,7 +5039,7 @@ var DraggableComponent = class extends BaseComponent {
       );
     }
   }
-  updateComputedStyle(shouldForceUpdate) {
+  async updateComputedStyle(shouldForceUpdate) {
     if (shouldForceUpdate || !this.isHLocked) {
       this.root.style.left = this._x + "px";
     }

@@ -35,6 +35,7 @@ const template = /* html */ `
 // -----------------------------------------------------------------------------
 
 import { BaseComponent } from "./base.mjs"
+import { pause } from "@jrc03c/pause"
 
 class DraggableEvent extends Event {
   x = 0
@@ -94,7 +95,7 @@ class DraggableComponent extends BaseComponent {
     return this.shadowRoot.querySelector(".x-draggable")
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  async attributeChangedCallback(name, oldValue, newValue) {
     if (name === "is-h-locked") {
       if (newValue) {
         this.root.classList.add("is-h-locked")
@@ -128,31 +129,27 @@ class DraggableComponent extends BaseComponent {
       this._y = newValue
       this.updateComputedStyle()
     }
+
+    return await super.attributeChangedCallback(name, oldValue, newValue)
   }
 
-  connectedCallback() {
-    const interval = setInterval(() => {
-      const root = this.root
+  async connectedCallback() {
+    while (!this.root) {
+      await pause(10)
+    }
 
-      if (!root) {
-        return
-      }
+    this.on(this.root, "mousedown", this.onMouseDown.bind(this))
+    this.on(window, "mousemove", this.onMouseMove.bind(this))
+    this.on(window, "mouseup", this.onMouseUp.bind(this))
 
-      clearInterval(interval)
+    this._x = this.x
+    this._y = this.y
+    this.updateComputedStyle(true)
 
-      this.on(root, "mousedown", this.onMouseDown.bind(this))
-      this.on(window, "mousemove", this.onMouseMove.bind(this))
-      this.on(window, "mouseup", this.onMouseUp.bind(this))
-
-      this._x = this.x
-      this._y = this.y
-      this.updateComputedStyle(true)
-    }, 10)
-
-    return super.connectedCallback(...arguments)
+    return await super.connectedCallback(...arguments)
   }
 
-  onMouseDown(event) {
+  async onMouseDown(event) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -179,7 +176,7 @@ class DraggableComponent extends BaseComponent {
     )
   }
 
-  onMouseMove(event) {
+  async onMouseMove(event) {
     const isHLocked = this.isHLocked
     const isVLocked = this.isVLocked
 
@@ -209,7 +206,7 @@ class DraggableComponent extends BaseComponent {
     }
   }
 
-  onMouseUp() {
+  async onMouseUp() {
     const isHLocked = this.isHLocked
     const isVLocked = this.isVLocked
 
@@ -228,7 +225,7 @@ class DraggableComponent extends BaseComponent {
     }
   }
 
-  updateComputedStyle(shouldForceUpdate) {
+  async updateComputedStyle(shouldForceUpdate) {
     if (shouldForceUpdate || !this.isHLocked) {
       this.root.style.left = this._x + "px"
     }
