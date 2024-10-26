@@ -3,9 +3,27 @@
 // -----------------------------------------------------------------------------
 
 const css = /* css */ `
-  .no-pointer-events,
-  .no-pointer-events * {
-    pointer-events: none;
+  /*
+    .no-pointer-events,
+    .no-pointer-events * {
+      pointer-events: none;
+    }
+  */
+
+  .ew-resize {
+    cursor: ew-resize !important;
+  }
+  
+  .ns-resize {
+    cursor: ns-resize !important;
+  }
+
+  .nwse-resize {
+    cursor: nwse-resize !important;
+  }
+  
+  .nesw-resize {
+    cursor: nesw-resize !important;
   }
 `
 
@@ -13,242 +31,462 @@ const css = /* css */ `
 // HTML
 // -----------------------------------------------------------------------------
 
-const template = /* html */ `
-  <x-draggable
-    :class="{ 'no-pointer-events': shouldPreventInternalPointerEvents }"
-    :is-h-locked="isDragHLocked"
-    :is-v-locked="isDragVLocked"
-    :x="x_"
-    :y="y_"
-    @drag-end="onDragEnd"
-    @drag-start="$emit('drag-start', $event)"
-    @drag="$emit('drag', $event)"
-    class="x-resizeable"
-    ref="root">
-    <slot></slot>
-  </x-draggable>
-`
+const template = /* html */ ``
 
 // -----------------------------------------------------------------------------
 // JS
 // -----------------------------------------------------------------------------
 
-import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
 import { DraggableComponent } from "./draggable.mjs"
 
-const ResizeableComponent = createVueComponentWithCSS({
-  name: "x-resizeable",
-  template,
+class ResizeableEvent extends Event {
+  x = 0
+  y = 0
+  width = 0
+  height = 0
 
-  emits: [
-    "drag-end",
-    "drag-start",
-    "drag",
-    "resize-end",
-    "resize-start",
-    "resize",
-  ],
+  constructor(name, rect, options) {
+    super(name, options)
+    this.x = rect.x
+    this.y = rect.y
+    this.width = rect.width
+    this.height = rect.height
+  }
+}
 
-  components: {
-    "x-draggable": DraggableComponent,
-  },
+class ResizeableResizeStartEvent extends ResizeableEvent {
+  constructor(rect, options) {
+    super("resize-start", rect, options)
+  }
+}
 
-  props: {
-    height: {
-      type: Number,
-      required: false,
-      default: () => 256,
-    },
+class ResizeableResizeEvent extends ResizeableEvent {
+  constructor(rect, options) {
+    super("resize", rect, options)
+  }
+}
 
-    "is-drag-h-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+class ResizeableResizeEndEvent extends ResizeableEvent {
+  constructor(rect, options) {
+    super("resize-end", rect, options)
+  }
+}
 
-    "is-drag-v-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+class ResizeableComponent extends DraggableComponent {
+  static css = DraggableComponent.css + css
 
-    "is-resize-bottom-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+  static observedAttributes = DraggableComponent.observedAttributes.concat([
+    "height",
+    "is-drag-h-locked",
+    "is-drag-v-locked",
+    "is-resize-bottom-locked",
+    "is-resize-left-locked",
+    "is-resize-right-locked",
+    "is-resize-top-locked",
+    "min-height",
+    "min-width",
+    "width",
+    "x",
+    "y",
+  ])
 
-    "is-resize-left-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+  static template = DraggableComponent.template + template
 
-    "is-resize-right-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+  _height = 0
+  _width = 0
+  _x = 0
+  _y = 0
+  anchoredLeftRightBorder = null
+  anchoredTopBottomBorder = null
+  borderWidth = 10
+  isBeingResizedHorizontally = false
+  isBeingResizedVertically = false
+  isHoveringOverBottomBorder = false
+  isHoveringOverLeftBorder = false
+  isHoveringOverRightBorder = false
+  isHoveringOverTopBorder = false
+  mouse = { x: 0, y: 0 }
+  shouldPreventInternalPointerEvents = false
+  shouldScaleProportionally = false
 
-    "is-resize-top-locked": {
-      type: Boolean,
-      required: false,
-      default: () => false,
-    },
+  constructor() {
+    super(...arguments)
+    this.shadowRoot.querySelector(".x-draggable").classList.add("x-resizeable")
+  }
 
-    "min-height": {
-      type: Number,
-      required: false,
-      default: () => 8,
-    },
+  get isCompletelyLocked() {
+    return (
+      this.isResizeLeftLocked &&
+      this.isResizeRightLocked &&
+      this.isResizeTopLocked &&
+      this.isResizeBottomLocked
+    )
+  }
 
-    "min-width": {
-      type: Number,
-      required: false,
-      default: () => 8,
-    },
+  async attributeChangedCallback(name, oldValue, newValue) {
+    try {
+      newValue = JSON.parse(newValue)
+    } catch (e) {}
 
-    width: {
-      type: Number,
-      required: false,
-      default: () => 256,
-    },
-
-    x: {
-      type: Number,
-      required: false,
-      default: () => 0,
-    },
-
-    y: {
-      type: Number,
-      required: false,
-      default: () => 0,
-    },
-  },
-
-  data() {
-    return {
-      anchoredLeftRightBorder: null,
-      anchoredTopBottomBorder: null,
-      borderWidth: 10,
-      css,
-      height_: 0,
-      isBeingResizedHorizontally: false,
-      isBeingResizedVertically: false,
-      isHoveringOverBottomBorder: false,
-      isHoveringOverLeftBorder: false,
-      isHoveringOverRightBorder: false,
-      isHoveringOverTopBorder: false,
-      mouse: { x: 0, y: 0 },
-      shouldPreventInternalPointerEvents: false,
-      shouldScaleProportionally: false,
-      width_: 0,
-      x_: 0,
-      y_: 0,
+    if (name === "width") {
+      this._width = newValue
+      await this.updateComputedStyle()
     }
-  },
 
-  computed: {
-    isCompletelyLocked() {
-      return (
-        this.isResizeLeftLocked &&
-        this.isResizeRightLocked &&
-        this.isResizeTopLocked &&
-        this.isResizeBottomLocked
+    if (name === "height") {
+      this._height = newValue
+      await this.updateComputedStyle()
+    }
+
+    if (name === "is-drag-h-locked") {
+      this.setAttribute("is-h-locked", newValue)
+    }
+
+    if (name === "is-drag-v-locked") {
+      this.setAttribute("is-v-locked", newValue)
+    }
+
+    return await super.attributeChangedCallback(name, oldValue, newValue)
+  }
+
+  async connectedCallback() {
+    if (typeof this.isDragHLocked === "undefined") {
+      this.isDragHLocked = false
+    }
+
+    if (typeof this.isDragVLocked === "undefined") {
+      this.isDragVLocked = false
+    }
+
+    this._x = this.x
+    this._y = this.y
+    this._width = this.width
+    this._height = this.height
+    this.updateComputedStyle()
+
+    this.on(window, "keydown", this.onKeyDown.bind(this))
+    this.on(window, "keyup", this.onKeyUp.bind(this))
+
+    setTimeout(() => {
+      if (!this.width || !this.height) {
+        const { width, height } = this.root.getBoundingClientRect()
+        const style = getComputedStyle(this.root)
+
+        const paddingLeft = parseFloat(style.getPropertyValue("padding-left"))
+        const paddingRight = parseFloat(style.getPropertyValue("padding-right"))
+        const paddingTop = parseFloat(style.getPropertyValue("padding-top"))
+
+        const paddingBottom = parseFloat(
+          style.getPropertyValue("padding-bottom"),
+        )
+
+        const borderLeft = parseFloat(
+          style.getPropertyValue("border-left").split("px")[0],
+        )
+
+        const borderRight = parseFloat(
+          style.getPropertyValue("border-right").split("px")[0],
+        )
+
+        const borderTop = parseFloat(
+          style.getPropertyValue("border-top").split("px")[0],
+        )
+
+        const borderBottom = parseFloat(
+          style.getPropertyValue("border-bottom").split("px")[0],
+        )
+
+        this._width =
+          width - paddingLeft - paddingRight - borderLeft - borderRight
+
+        this._height =
+          height - paddingTop - paddingBottom - borderTop - borderBottom
+
+        this.updateComputedStyle()
+      }
+    }, 100)
+
+    return await super.connectedCallback()
+  }
+
+  async onKeyDown(event) {
+    if (this.isCompletelyLocked) {
+      return
+    }
+
+    if (event.key === "Shift") {
+      this.shouldScaleProportionally = true
+    }
+  }
+
+  async onKeyUp(event) {
+    if (this.isCompletelyLocked) {
+      return
+    }
+
+    if (event.key === "Shift") {
+      this.shouldScaleProportionally = false
+    }
+  }
+
+  async onMouseDown(event) {
+    if (this.isCompletelyLocked) {
+      return
+    }
+
+    let shouldCancelEvent = false
+
+    if (this.isHoveringOverLeftBorder && !this.isResizeLeftLocked) {
+      this.isBeingResizedHorizontally = true
+      this.anchoredLeftRightBorder = "right"
+      shouldCancelEvent = true
+    }
+
+    if (this.isHoveringOverRightBorder && !this.isResizeRightLocked) {
+      this.isBeingResizedHorizontally = true
+      this.anchoredLeftRightBorder = "left"
+      shouldCancelEvent = true
+    }
+
+    if (this.isHoveringOverTopBorder && !this.isResizeTopLocked) {
+      this.isBeingResizedVertically = true
+      this.anchoredTopBottomBorder = "bottom"
+      shouldCancelEvent = true
+    }
+
+    if (this.isHoveringOverBottomBorder && !this.isResizeBottomLocked) {
+      this.isBeingResizedVertically = true
+      this.anchoredTopBottomBorder = "top"
+      shouldCancelEvent = true
+    }
+
+    if (shouldCancelEvent) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+
+    if (this.isBeingResizedHorizontally || this.isBeingResizedVertically) {
+      this.dispatchEvent(
+        new ResizeableResizeStartEvent(this.root.getBoundingClientRect()),
       )
-    },
-  },
+    } else {
+      await super.onMouseDown(event)
+    }
+  }
 
-  watch: {
-    height() {
-      this.height_ = this.height
-      this.updateComputedStyle()
-    },
+  async onMouseMove(event) {
+    if (this.isCompletelyLocked) {
+      return
+    }
 
-    width() {
-      this.width_ = this.width
-      this.updateComputedStyle()
-    },
+    if (this.isBeingResizedHorizontally || this.isBeingResizedVertically) {
+      const aspect = this._width / this._height
+      let mx = event.movementX
+      let my = event.movementY
 
-    x() {
-      this.x_ = this.x
-    },
+      if (
+        this.shouldScaleProportionally &&
+        this.isBeingResizedHorizontally &&
+        this.isBeingResizedVertically
+      ) {
+        const isPrimarilyHorizontal = Math.abs(mx) > Math.abs(my)
 
-    y() {
-      this.y_ = this.y
-    },
-  },
+        if (this.anchoredLeftRightBorder === "left") {
+          if (this.anchoredTopBottomBorder === "top") {
+            if (isPrimarilyHorizontal) {
+              this._width += mx
+              this._height = this._width / aspect
+            } else {
+              this._height += my
+              this._width = this._height * aspect
+            }
 
-  methods: {
-    onDragEnd(rect) {
-      const parentRect = this.$el.parentElement.getBoundingClientRect()
+            if (this._width < this.minWidth) {
+              this._width = this.minWidth
+              this._height = this._width / aspect
+            }
 
-      const leftBorderWidth = parseFloat(
-        getComputedStyle(this.$el.parentElement)
-          .getPropertyValue("border-left")
-          .split("px")[0],
+            if (this._height < this.minHeight) {
+              this._height = this.minHeight
+              this._width = this._height * aspect
+            }
+          } else {
+            if (isPrimarilyHorizontal) {
+              this._width += mx
+              this._height = this._width / aspect
+              this._y -= mx / aspect
+            } else {
+              this._height -= my
+              this._y += my
+              this._width = this._height * aspect
+            }
+
+            if (this._width < this.minWidth) {
+              const dx = this.minWidth - this._width
+              this._width = this.minWidth
+              this._height = this._width / aspect
+              this._y -= dx / aspect
+            }
+
+            if (this._height < this.minHeight) {
+              const dy = this.minHeight - this._height
+              this._height = this.minHeight
+              this._y -= dy
+              this._width = this._height * aspect
+            }
+          }
+        } else {
+          if (this.anchoredTopBottomBorder === "top") {
+            if (isPrimarilyHorizontal) {
+              this._width -= mx
+              this._x += mx
+              this._height = this._width / aspect
+            } else {
+              this._height += my
+              this._width = this._height * aspect
+              this._x -= my * aspect
+            }
+
+            if (this._width < this.minWidth) {
+              const dx = this.minWidth - this._width
+              this._width = this.minWidth
+              this._x -= dx
+              this._height = this._width / aspect
+            }
+
+            if (this._height < this.minHeight) {
+              const dy = this.minHeight - this._height
+              this._height = this.minHeight
+              this._width = this._height * aspect
+              this._x -= dy * aspect
+            }
+          } else {
+            if (isPrimarilyHorizontal) {
+              this._width -= mx
+              this._x += mx
+              this._height = this._width / aspect
+              this._y += mx / aspect
+            } else {
+              this._height -= my
+              this._y += my
+              this._width = this._height * aspect
+              this._x += my * aspect
+            }
+
+            if (this._width < this.minWidth) {
+              const dx = this.minWidth - this._width
+              this._width = this.minWidth
+              this._x -= dx
+              this._height = this._width / aspect
+              this._y -= dx / aspect
+            }
+
+            if (this._height < this.minHeight) {
+              const dy = this.minHeight - this._height
+              this._height = this.minHeight
+              this._y -= dy
+              this._width = this._height * aspect
+              this._x -= dy * aspect
+            }
+          }
+        }
+      } else {
+        if (this.isBeingResizedHorizontally) {
+          if (this.anchoredLeftRightBorder === "left") {
+            this._width += mx
+            this._width = Math.max(this._width, this.minWidth)
+          } else {
+            this._width -= mx
+            this._x += mx
+
+            if (this._width < this.minWidth) {
+              const dx = this.minWidth - this._width
+              this._width += dx
+              this._x -= dx
+            }
+          }
+        }
+
+        if (this.isBeingResizedVertically) {
+          if (this.anchoredTopBottomBorder === "top") {
+            this._height += my
+            this._height = Math.max(this._height, this.minHeight)
+          } else {
+            this._height -= my
+            this._y += my
+
+            if (this._height < this.minHeight) {
+              const dy = this.minHeight - this._height
+              this._height += dy
+              this._y -= dy
+            }
+          }
+        }
+      }
+
+      await this.updateComputedStyle()
+      event.preventDefault()
+      event.stopPropagation()
+
+      this.dispatchEvent(
+        new ResizeableResizeEvent(this.root.getBoundingClientRect()),
       )
+    } else {
+      this.isHoveringOverLeftBorder = false
+      this.isHoveringOverRightBorder = false
+      this.isHoveringOverTopBorder = false
+      this.isHoveringOverBottomBorder = false
+      this.shouldPreventInternalPointerEvents = false
+      // this.root.classList.remove("no-pointer-events")
 
-      const topBorderWidth = parseFloat(
-        getComputedStyle(this.$el.parentElement)
-          .getPropertyValue("border-top")
-          .split("px")[0],
-      )
-
-      this.x_ = rect.x - parentRect.x - leftBorderWidth
-      this.y_ = rect.y - parentRect.y - topBorderWidth
-      this.$emit("drag-end", rect)
-    },
-
-    onKeyDown(event) {
-      if (this.isCompletelyLocked) {
-        return
-      }
-
-      if (event.key === "Shift") {
-        this.shouldScaleProportionally = true
-      }
-    },
-
-    onKeyUp(event) {
-      if (this.isCompletelyLocked) {
-        return
-      }
-
-      if (event.key === "Shift") {
-        this.shouldScaleProportionally = false
-      }
-    },
-
-    onMouseDown(event) {
-      if (this.isCompletelyLocked) {
-        return
-      }
-
+      const rect = this.root.getBoundingClientRect()
+      const left = rect.x
+      const right = rect.x + rect.width
+      const top = rect.y
+      const bottom = rect.y + rect.height
       let shouldCancelEvent = false
 
-      if (this.isHoveringOverLeftBorder && !this.isResizeLeftLocked) {
-        this.isBeingResizedHorizontally = true
-        this.anchoredLeftRightBorder = "right"
+      if (
+        Math.abs(event.clientX - left) < this.borderWidth &&
+        event.clientY >= top - this.borderWidth &&
+        event.clientY <= bottom + this.borderWidth
+      ) {
+        this.isHoveringOverLeftBorder = true
+        this.shouldPreventInternalPointerEvents = true
+        // this.root.classList.add("no-pointer-events")
         shouldCancelEvent = true
       }
 
-      if (this.isHoveringOverRightBorder && !this.isResizeRightLocked) {
-        this.isBeingResizedHorizontally = true
-        this.anchoredLeftRightBorder = "left"
+      if (
+        Math.abs(event.clientX - right) < this.borderWidth &&
+        event.clientY >= top - this.borderWidth &&
+        event.clientY <= bottom + this.borderWidth
+      ) {
+        this.isHoveringOverRightBorder = true
+        this.shouldPreventInternalPointerEvents = true
+        // this.root.classList.add("no-pointer-events")
         shouldCancelEvent = true
       }
 
-      if (this.isHoveringOverTopBorder && !this.isResizeTopLocked) {
-        this.isBeingResizedVertically = true
-        this.anchoredTopBottomBorder = "bottom"
+      if (
+        Math.abs(event.clientY - top) < this.borderWidth &&
+        event.clientX >= left - this.borderWidth &&
+        event.clientX <= right + this.borderWidth
+      ) {
+        this.isHoveringOverTopBorder = true
+        this.shouldPreventInternalPointerEvents = true
+        // this.root.classList.add("no-pointer-events")
         shouldCancelEvent = true
       }
 
-      if (this.isHoveringOverBottomBorder && !this.isResizeBottomLocked) {
-        this.isBeingResizedVertically = true
-        this.anchoredTopBottomBorder = "top"
+      if (
+        Math.abs(event.clientY - bottom) < this.borderWidth &&
+        event.clientX >= left - this.borderWidth &&
+        event.clientX <= right + this.borderWidth
+      ) {
+        this.isHoveringOverBottomBorder = true
+        this.shouldPreventInternalPointerEvents = true
+        // this.root.classList.add("no-pointer-events")
         shouldCancelEvent = true
       }
 
@@ -257,313 +495,85 @@ const ResizeableComponent = createVueComponentWithCSS({
         event.stopPropagation()
       }
 
-      if (this.isBeingResizedHorizontally || this.isBeingResizedVertically) {
-        this.$emit("resize-start", this.$el.getBoundingClientRect())
-      }
-    },
+      await this.updateComputedStyle()
+      await super.onMouseMove(event)
+    }
+  }
 
-    onMouseMove(event) {
-      if (this.isCompletelyLocked) {
-        return
-      }
+  async onMouseUp(event) {
+    if (this.isCompletelyLocked) {
+      return
+    }
 
-      if (this.isBeingResizedHorizontally || this.isBeingResizedVertically) {
-        const aspect = this.width_ / this.height_
-        let mx = event.movementX
-        let my = event.movementY
+    const wasBeingResized =
+      this.isBeingResizedHorizontally || this.isBeingResizedVertically
 
-        if (
-          this.shouldScaleProportionally &&
-          this.isBeingResizedHorizontally &&
-          this.isBeingResizedVertically
-        ) {
-          const isPrimarilyHorizontal = Math.abs(mx) > Math.abs(my)
+    this.isBeingResizedHorizontally = false
+    this.isBeingResizedVertically = false
+    this.isHoveringOverBorder = false
 
-          if (this.anchoredLeftRightBorder === "left") {
-            if (this.anchoredTopBottomBorder === "top") {
-              if (isPrimarilyHorizontal) {
-                this.width_ += mx
-                this.height_ = this.width_ / aspect
-              } else {
-                this.height_ += my
-                this.width_ = this.height_ * aspect
-              }
+    if (wasBeingResized) {
+      this.dispatchEvent(
+        new ResizeableResizeEndEvent(this.root.getBoundingClientRect()),
+      )
+    } else {
+      await super.onMouseUp(event)
+    }
+  }
 
-              if (this.width_ < this.minWidth) {
-                this.width_ = this.minWidth
-                this.height_ = this.width_ / aspect
-              }
+  async updateComputedStyle() {
+    const shouldResizeLeft =
+      this.isHoveringOverLeftBorder && !this.isResizeLeftLocked
 
-              if (this.height_ < this.minHeight) {
-                this.height_ = this.minHeight
-                this.width_ = this.height_ * aspect
-              }
-            } else {
-              if (isPrimarilyHorizontal) {
-                this.width_ += mx
-                this.height_ = this.width_ / aspect
-                this.y_ -= mx / aspect
-              } else {
-                this.height_ -= my
-                this.y_ += my
-                this.width_ = this.height_ * aspect
-              }
+    const shouldResizeRight =
+      this.isHoveringOverRightBorder && !this.isResizeRightLocked
 
-              if (this.width_ < this.minWidth) {
-                const dx = this.minWidth - this.width_
-                this.width_ = this.minWidth
-                this.height_ = this.width_ / aspect
-                this.y_ -= dx / aspect
-              }
+    const shouldResizeTop =
+      this.isHoveringOverTopBorder && !this.isResizeTopLocked
 
-              if (this.height_ < this.minHeight) {
-                const dy = this.minHeight - this.height_
-                this.height_ = this.minHeight
-                this.y_ -= dy
-                this.width_ = this.height_ * aspect
-              }
-            }
-          } else {
-            if (this.anchoredTopBottomBorder === "top") {
-              if (isPrimarilyHorizontal) {
-                this.width_ -= mx
-                this.x_ += mx
-                this.height_ = this.width_ / aspect
-              } else {
-                this.height_ += my
-                this.width_ = this.height_ * aspect
-                this.x_ -= my * aspect
-              }
+    const shouldResizeBottom =
+      this.isHoveringOverBottomBorder && !this.isResizeBottomLocked
 
-              if (this.width_ < this.minWidth) {
-                const dx = this.minWidth - this.width_
-                this.width_ = this.minWidth
-                this.x_ -= dx
-                this.height_ = this.width_ / aspect
-              }
+    const resizeClasses = ["ew", "ns", "nwse", "nesw"]
 
-              if (this.height_ < this.minHeight) {
-                const dy = this.minHeight - this.height_
-                this.height_ = this.minHeight
-                this.width_ = this.height_ * aspect
-                this.x_ -= dy * aspect
-              }
-            } else {
-              if (isPrimarilyHorizontal) {
-                this.width_ -= mx
-                this.x_ += mx
-                this.height_ = this.width_ / aspect
-                this.y_ += mx / aspect
-              } else {
-                this.height_ -= my
-                this.y_ += my
-                this.width_ = this.height_ * aspect
-                this.x_ += my * aspect
-              }
+    resizeClasses.forEach(c => {
+      this.root.classList.remove(c + "-resize")
+    })
 
-              if (this.width_ < this.minWidth) {
-                const dx = this.minWidth - this.width_
-                this.width_ = this.minWidth
-                this.x_ -= dx
-                this.height_ = this.width_ / aspect
-                this.y_ -= dx / aspect
-              }
+    if (shouldResizeLeft || shouldResizeRight) {
+      this.root.classList.add("ew-resize")
+    }
 
-              if (this.height_ < this.minHeight) {
-                const dy = this.minHeight - this.height_
-                this.height_ = this.minHeight
-                this.y_ -= dy
-                this.width_ = this.height_ * aspect
-                this.x_ -= dy * aspect
-              }
-            }
-          }
-        } else {
-          if (this.isBeingResizedHorizontally) {
-            if (this.anchoredLeftRightBorder === "left") {
-              this.width_ += mx
-              this.width_ = Math.max(this.width_, this.minWidth)
-            } else {
-              this.width_ -= mx
-              this.x_ += mx
+    if (shouldResizeTop || shouldResizeBottom) {
+      this.root.classList.add("ns-resize")
+    }
 
-              if (this.width_ < this.minWidth) {
-                const dx = this.minWidth - this.width_
-                this.width_ += dx
-                this.x_ -= dx
-              }
-            }
-          }
+    if (shouldResizeLeft && shouldResizeTop) {
+      this.root.classList.add("nwse-resize")
+    }
 
-          if (this.isBeingResizedVertically) {
-            if (this.anchoredTopBottomBorder === "top") {
-              this.height_ += my
-              this.height_ = Math.max(this.height_, this.minHeight)
-            } else {
-              this.height_ -= my
-              this.y_ += my
+    if (shouldResizeLeft && shouldResizeBottom) {
+      this.root.classList.add("nesw-resize")
+    }
 
-              if (this.height_ < this.minHeight) {
-                const dy = this.minHeight - this.height_
-                this.height_ += dy
-                this.y_ -= dy
-              }
-            }
-          }
-        }
+    if (shouldResizeRight && shouldResizeTop) {
+      this.root.classList.add("nesw-resize")
+    }
 
-        this.updateComputedStyle()
-        event.preventDefault()
-        event.stopPropagation()
-        this.$emit("resize", this.$el.getBoundingClientRect())
-      } else {
-        this.isHoveringOverLeftBorder = false
-        this.isHoveringOverRightBorder = false
-        this.isHoveringOverTopBorder = false
-        this.isHoveringOverBottomBorder = false
-        this.shouldPreventInternalPointerEvents = false
+    if (shouldResizeRight && shouldResizeBottom) {
+      this.root.classList.add("nwse-resize")
+    }
 
-        const rect = this.$el.getBoundingClientRect()
-        const left = rect.x
-        const right = rect.x + rect.width
-        const top = rect.y
-        const bottom = rect.y + rect.height
-        let shouldCancelEvent = false
+    this.root.style.width = this._width + "px"
+    this.root.style.minWidth = this._width + "px"
+    this.root.style.maxWidth = this._width + "px"
+    this.root.style.height = this._height + "px"
+    this.root.style.minHeight = this._height + "px"
+    this.root.style.maxHeight = this._height + "px"
 
-        if (
-          Math.abs(event.clientX - left) < this.borderWidth &&
-          event.clientY >= top - this.borderWidth &&
-          event.clientY <= bottom + this.borderWidth
-        ) {
-          this.isHoveringOverLeftBorder = true
-          this.shouldPreventInternalPointerEvents = true
-          shouldCancelEvent = true
-        }
+    return await super.updateComputedStyle()
+  }
+}
 
-        if (
-          Math.abs(event.clientX - right) < this.borderWidth &&
-          event.clientY >= top - this.borderWidth &&
-          event.clientY <= bottom + this.borderWidth
-        ) {
-          this.isHoveringOverRightBorder = true
-          this.shouldPreventInternalPointerEvents = true
-          shouldCancelEvent = true
-        }
-
-        if (
-          Math.abs(event.clientY - top) < this.borderWidth &&
-          event.clientX >= left - this.borderWidth &&
-          event.clientX <= right + this.borderWidth
-        ) {
-          this.isHoveringOverTopBorder = true
-          this.shouldPreventInternalPointerEvents = true
-          shouldCancelEvent = true
-        }
-
-        if (
-          Math.abs(event.clientY - bottom) < this.borderWidth &&
-          event.clientX >= left - this.borderWidth &&
-          event.clientX <= right + this.borderWidth
-        ) {
-          this.isHoveringOverBottomBorder = true
-          this.shouldPreventInternalPointerEvents = true
-          shouldCancelEvent = true
-        }
-
-        if (shouldCancelEvent) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-
-        this.updateComputedStyle()
-      }
-    },
-
-    onMouseUp() {
-      if (this.isCompletelyLocked) {
-        return
-      }
-
-      const wasBeingResized =
-        this.isBeingResizedHorizontally || this.isBeingResizedVertically
-
-      this.isBeingResizedHorizontally = false
-      this.isBeingResizedVertically = false
-      this.isHoveringOverBorder = false
-
-      if (wasBeingResized) {
-        this.$emit("resize-end", this.$el.getBoundingClientRect())
-      }
-    },
-
-    updateComputedStyle() {
-      const shouldResizeLeft =
-        this.isHoveringOverLeftBorder && !this.isResizeLeftLocked
-
-      const shouldResizeRight =
-        this.isHoveringOverRightBorder && !this.isResizeRightLocked
-
-      const shouldResizeTop =
-        this.isHoveringOverTopBorder && !this.isResizeTopLocked
-
-      const shouldResizeBottom =
-        this.isHoveringOverBottomBorder && !this.isResizeBottomLocked
-
-      document.body.style.cursor = "unset"
-
-      if (shouldResizeLeft || shouldResizeRight) {
-        document.body.style.cursor = "ew-resize"
-      }
-
-      if (shouldResizeTop || shouldResizeBottom) {
-        document.body.style.cursor = "ns-resize"
-      }
-
-      if (shouldResizeLeft && shouldResizeTop) {
-        document.body.style.cursor = "nwse-resize"
-      }
-
-      if (shouldResizeLeft && shouldResizeBottom) {
-        document.body.style.cursor = "nesw-resize"
-      }
-
-      if (shouldResizeRight && shouldResizeTop) {
-        document.body.style.cursor = "nesw-resize"
-      }
-
-      if (shouldResizeRight && shouldResizeBottom) {
-        document.body.style.cursor = "nwse-resize"
-      }
-
-      this.$el.style.width = this.width_ + "px"
-      this.$el.style.minWidth = this.width_ + "px"
-      this.$el.style.maxWidth = this.width_ + "px"
-      this.$el.style.height = this.height_ + "px"
-      this.$el.style.minHeight = this.height_ + "px"
-      this.$el.style.maxHeight = this.height_ + "px"
-    },
-  },
-
-  mounted() {
-    this.x_ = this.x
-    this.y_ = this.y
-    this.width_ = this.width
-    this.height_ = this.height
-    this.updateComputedStyle()
-    window.addEventListener("keydown", this.onKeyDown)
-    window.addEventListener("keyup", this.onKeyUp)
-    window.addEventListener("mousedown", this.onMouseDown)
-    window.addEventListener("mousemove", this.onMouseMove)
-    window.addEventListener("mouseup", this.onMouseUp)
-  },
-
-  unmounted() {
-    window.removeEventListener("keydown", this.onKeyDown)
-    window.removeEventListener("keyup", this.onKeyUp)
-    window.removeEventListener("mousedown", this.onMouseDown)
-    window.removeEventListener("mousemove", this.onMouseMove)
-    window.removeEventListener("mouseup", this.onMouseUp)
-  },
-})
-
+customElements.define("x-resizeable", ResizeableComponent)
 export { ResizeableComponent }

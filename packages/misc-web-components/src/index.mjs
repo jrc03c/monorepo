@@ -1,10 +1,10 @@
 // import { ContextMenuComponent } from "./context-menu/index.mjs"
 // import { FrameComponent } from "./frame/index.mjs"
 // import { MenuComponent } from "./context-menu/menu.mjs"
-// import { ResizeableComponent } from "./resizeable.mjs"
 
 import { BaseComponent } from "./base.mjs"
 import { DraggableComponent } from "./draggable.mjs"
+import { ResizeableComponent } from "./resizeable.mjs"
 
 if (typeof window !== "undefined") {
   window.MiscVueComponents = {
@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
     DraggableComponent,
     // FrameComponent,
     // MenuComponent,
-    // ResizeableComponent,
+    ResizeableComponent,
   }
 }
 
@@ -23,5 +23,5 @@ export {
   DraggableComponent,
   // FrameComponent,
   // MenuComponent,
-  // ResizeableComponent,
+  ResizeableComponent,
 }

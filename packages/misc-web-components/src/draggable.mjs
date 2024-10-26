@@ -237,4 +237,11 @@ class DraggableComponent extends BaseComponent {
 }
 
 customElements.define("x-draggable", DraggableComponent)
-export { DraggableComponent }
+
+export {
+  DraggableComponent,
+  DraggableDragEndEvent,
+  DraggableDragEvent,
+  DraggableDragStartEvent,
+  DraggableEvent,
+}
