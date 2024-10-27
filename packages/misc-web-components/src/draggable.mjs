@@ -35,7 +35,6 @@ const template = /* html */ `
 // -----------------------------------------------------------------------------
 
 import { BaseComponent } from "./base.mjs"
-import { pause } from "@jrc03c/pause"
 
 class DraggableEvent extends Event {
   x = 0
@@ -95,7 +94,7 @@ class DraggableComponent extends BaseComponent {
     return this.shadowRoot.querySelector(".x-draggable")
   }
 
-  async attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     if (name === "is-h-locked") {
       if (newValue) {
         this.root.classList.add("is-h-locked")
@@ -130,15 +129,10 @@ class DraggableComponent extends BaseComponent {
       this.updateComputedStyle()
     }
 
-    return await super.attributeChangedCallback(name, oldValue, newValue)
+    return super.attributeChangedCallback(name, oldValue, newValue)
   }
 
-  async connectedCallback() {
-    while (!this.root) {
-      await pause(10)
-    }
-
-    this.on(this.root, "mousedown", this.onMouseDown.bind(this))
+  connectedCallback() {
     this.on(window, "mousemove", this.onMouseMove.bind(this))
     this.on(window, "mouseup", this.onMouseUp.bind(this))
 
@@ -146,10 +140,37 @@ class DraggableComponent extends BaseComponent {
     this._y = this.y
     this.updateComputedStyle(true)
 
-    return await super.connectedCallback(...arguments)
+    const interval = setInterval(() => {
+      if (!this.root) {
+        return
+      }
+
+      clearInterval(interval)
+      this.on(this.root, "mousedown", this.onMouseDown.bind(this))
+    }, 10)
+
+    return super.connectedCallback(...arguments)
   }
 
-  async onMouseDown(event) {
+  onDrag() {
+    this.dispatchEvent(
+      new DraggableDragEvent(this.root.getBoundingClientRect()),
+    )
+  }
+
+  onDragEnd() {
+    this.dispatchEvent(
+      new DraggableDragEndEvent(this.root.getBoundingClientRect()),
+    )
+  }
+
+  onDragStart() {
+    this.dispatchEvent(
+      new DraggableDragStartEvent(this.root.getBoundingClientRect()),
+    )
+  }
+
+  onMouseDown(event) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -171,12 +192,10 @@ class DraggableComponent extends BaseComponent {
     this.isBeingDragged = true
     this.root.style.cursor = "grabbing"
 
-    this.dispatchEvent(
-      new DraggableDragStartEvent(this.root.getBoundingClientRect()),
-    )
+    this.onDragStart()
   }
 
-  async onMouseMove(event) {
+  onMouseMove(event) {
     const isHLocked = this.isHLocked
     const isVLocked = this.isVLocked
 
@@ -199,14 +218,11 @@ class DraggableComponent extends BaseComponent {
       }
 
       this.updateComputedStyle()
-
-      this.dispatchEvent(
-        new DraggableDragEvent(this.root.getBoundingClientRect()),
-      )
+      this.onDrag()
     }
   }
 
-  async onMouseUp() {
+  onMouseUp() {
     const isHLocked = this.isHLocked
     const isVLocked = this.isVLocked
 
@@ -219,13 +235,11 @@ class DraggableComponent extends BaseComponent {
     this.root.style.cursor = ""
 
     if (wasBeingDragged) {
-      this.dispatchEvent(
-        new DraggableDragEndEvent(this.root.getBoundingClientRect()),
-      )
+      this.onDragEnd()
     }
   }
 
-  async updateComputedStyle(shouldForceUpdate) {
+  updateComputedStyle(shouldForceUpdate) {
     if (shouldForceUpdate || !this.isHLocked) {
       this.root.style.left = this._x + "px"
     }

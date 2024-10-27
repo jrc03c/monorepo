@@ -42,11 +42,11 @@ class BaseComponent extends HTMLElement {
     })
   }
 
-  async attributeChangedCallback() {}
+  attributeChangedCallback() {}
 
-  async connectedCallback() {}
+  connectedCallback() {}
 
-  async disconnectedCallback() {
+  disconnectedCallback() {
     this.eventListeners.forEach(listener => {
       try {
         listener.remove()

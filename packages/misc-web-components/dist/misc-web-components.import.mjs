@@ -4796,11 +4796,11 @@ var BaseComponent = class extends HTMLElement {
       });
     });
   }
-  async attributeChangedCallback() {
+  attributeChangedCallback() {
   }
-  async connectedCallback() {
+  connectedCallback() {
   }
-  async disconnectedCallback() {
+  disconnectedCallback() {
     this.eventListeners.forEach((listener) => {
       try {
         listener.remove();
@@ -4832,31 +4832,6 @@ var BaseComponent = class extends HTMLElement {
     return remove;
   }
 };
-
-// node_modules/@jrc03c/pause/dist/pause.import.mjs
-function pauseAsync(ms) {
-  return new Promise((resolve, reject) => {
-    try {
-      const start = /* @__PURE__ */ new Date();
-      return setTimeout(() => resolve(/* @__PURE__ */ new Date() - start), ms);
-    } catch (e) {
-      return reject(e);
-    }
-  });
-}
-function pauseSync(ms) {
-  const start = /* @__PURE__ */ new Date();
-  let now = /* @__PURE__ */ new Date();
-  while (now - start < ms) {
-    now = /* @__PURE__ */ new Date();
-  }
-  return /* @__PURE__ */ new Date() - start;
-}
-if (typeof window !== "undefined") {
-  window.pause = pauseAsync;
-  window.pauseAsync = pauseAsync;
-  window.pauseSync = pauseSync;
-}
 
 // src/draggable.mjs
 var css = (
@@ -4936,7 +4911,7 @@ var DraggableComponent = class extends BaseComponent {
   get root() {
     return this.shadowRoot.querySelector(".x-draggable");
   }
-  async attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     if (name === "is-h-locked") {
       if (newValue) {
         this.root.classList.add("is-h-locked");
@@ -4967,21 +4942,39 @@ var DraggableComponent = class extends BaseComponent {
       this._y = newValue;
       this.updateComputedStyle();
     }
-    return await super.attributeChangedCallback(name, oldValue, newValue);
+    return super.attributeChangedCallback(name, oldValue, newValue);
   }
-  async connectedCallback() {
-    while (!this.root) {
-      await pauseAsync(10);
-    }
-    this.on(this.root, "mousedown", this.onMouseDown.bind(this));
+  connectedCallback() {
     this.on(window, "mousemove", this.onMouseMove.bind(this));
     this.on(window, "mouseup", this.onMouseUp.bind(this));
     this._x = this.x;
     this._y = this.y;
     this.updateComputedStyle(true);
-    return await super.connectedCallback(...arguments);
+    const interval = setInterval(() => {
+      if (!this.root) {
+        return;
+      }
+      clearInterval(interval);
+      this.on(this.root, "mousedown", this.onMouseDown.bind(this));
+    }, 10);
+    return super.connectedCallback(...arguments);
   }
-  async onMouseDown(event) {
+  onDrag() {
+    this.dispatchEvent(
+      new DraggableDragEvent(this.root.getBoundingClientRect())
+    );
+  }
+  onDragEnd() {
+    this.dispatchEvent(
+      new DraggableDragEndEvent(this.root.getBoundingClientRect())
+    );
+  }
+  onDragStart() {
+    this.dispatchEvent(
+      new DraggableDragStartEvent(this.root.getBoundingClientRect())
+    );
+  }
+  onMouseDown(event) {
     event.preventDefault();
     event.stopPropagation();
     const isHLocked = this.isHLocked;
@@ -4997,11 +4990,9 @@ var DraggableComponent = class extends BaseComponent {
     }
     this.isBeingDragged = true;
     this.root.style.cursor = "grabbing";
-    this.dispatchEvent(
-      new DraggableDragStartEvent(this.root.getBoundingClientRect())
-    );
+    this.onDragStart();
   }
-  async onMouseMove(event) {
+  onMouseMove(event) {
     const isHLocked = this.isHLocked;
     const isVLocked = this.isVLocked;
     if (isHLocked && isVLocked) {
@@ -5019,12 +5010,10 @@ var DraggableComponent = class extends BaseComponent {
         this.mouse.y = event.screenY;
       }
       this.updateComputedStyle();
-      this.dispatchEvent(
-        new DraggableDragEvent(this.root.getBoundingClientRect())
-      );
+      this.onDrag();
     }
   }
-  async onMouseUp() {
+  onMouseUp() {
     const isHLocked = this.isHLocked;
     const isVLocked = this.isVLocked;
     if (isHLocked && isVLocked) {
@@ -5034,12 +5023,10 @@ var DraggableComponent = class extends BaseComponent {
     this.isBeingDragged = false;
     this.root.style.cursor = "";
     if (wasBeingDragged) {
-      this.dispatchEvent(
-        new DraggableDragEndEvent(this.root.getBoundingClientRect())
-      );
+      this.onDragEnd();
     }
   }
-  async updateComputedStyle(shouldForceUpdate) {
+  updateComputedStyle(shouldForceUpdate) {
     if (shouldForceUpdate || !this.isHLocked) {
       this.root.style.left = this._x + "px";
     }
@@ -5150,18 +5137,18 @@ var ResizeableComponent = class extends DraggableComponent {
   get isCompletelyLocked() {
     return this.isResizeLeftLocked && this.isResizeRightLocked && this.isResizeTopLocked && this.isResizeBottomLocked;
   }
-  async attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     try {
       newValue = JSON.parse(newValue);
     } catch (e) {
     }
     if (name === "width") {
       this._width = newValue;
-      await this.updateComputedStyle();
+      this.updateComputedStyle();
     }
     if (name === "height") {
       this._height = newValue;
-      await this.updateComputedStyle();
+      this.updateComputedStyle();
     }
     if (name === "is-drag-h-locked") {
       this.setAttribute("is-h-locked", newValue);
@@ -5169,9 +5156,9 @@ var ResizeableComponent = class extends DraggableComponent {
     if (name === "is-drag-v-locked") {
       this.setAttribute("is-v-locked", newValue);
     }
-    return await super.attributeChangedCallback(name, oldValue, newValue);
+    return super.attributeChangedCallback(name, oldValue, newValue);
   }
-  async connectedCallback() {
+  connectedCallback() {
     if (typeof this.isDragHLocked === "undefined") {
       this.isDragHLocked = false;
     }
@@ -5224,9 +5211,9 @@ var ResizeableComponent = class extends DraggableComponent {
         this.updateComputedStyle();
       }
     }, 100);
-    return await super.connectedCallback();
+    return super.connectedCallback();
   }
-  async onKeyDown(event) {
+  onKeyDown(event) {
     if (this.isCompletelyLocked) {
       return;
     }
@@ -5234,7 +5221,7 @@ var ResizeableComponent = class extends DraggableComponent {
       this.shouldScaleProportionally = true;
     }
   }
-  async onKeyUp(event) {
+  onKeyUp(event) {
     if (this.isCompletelyLocked) {
       return;
     }
@@ -5242,7 +5229,7 @@ var ResizeableComponent = class extends DraggableComponent {
       this.shouldScaleProportionally = false;
     }
   }
-  async onMouseDown(event) {
+  onMouseDown(event) {
     if (this.isCompletelyLocked) {
       return;
     }
@@ -5276,10 +5263,10 @@ var ResizeableComponent = class extends DraggableComponent {
         new ResizeableResizeStartEvent(this.root.getBoundingClientRect())
       );
     } else {
-      await super.onMouseDown(event);
+      super.onMouseDown(event);
     }
   }
-  async onMouseMove(event) {
+  onMouseMove(event) {
     if (this.isCompletelyLocked) {
       return;
     }
@@ -5410,7 +5397,7 @@ var ResizeableComponent = class extends DraggableComponent {
           }
         }
       }
-      await this.updateComputedStyle();
+      this.updateComputedStyle();
       event.preventDefault();
       event.stopPropagation();
       this.dispatchEvent(
@@ -5452,11 +5439,11 @@ var ResizeableComponent = class extends DraggableComponent {
         event.preventDefault();
         event.stopPropagation();
       }
-      await this.updateComputedStyle();
-      await super.onMouseMove(event);
+      this.updateComputedStyle();
+      super.onMouseMove(event);
     }
   }
-  async onMouseUp(event) {
+  onMouseUp(event) {
     if (this.isCompletelyLocked) {
       return;
     }
@@ -5469,10 +5456,10 @@ var ResizeableComponent = class extends DraggableComponent {
         new ResizeableResizeEndEvent(this.root.getBoundingClientRect())
       );
     } else {
-      await super.onMouseUp(event);
+      super.onMouseUp(event);
     }
   }
-  async updateComputedStyle() {
+  updateComputedStyle() {
     if (this._width < this.minWidth) {
       this._width = this.minWidth;
     }
@@ -5511,7 +5498,7 @@ var ResizeableComponent = class extends DraggableComponent {
     this.root.style.height = this._height + "px";
     this.root.style.minHeight = this._height + "px";
     this.root.style.maxHeight = this._height + "px";
-    return await super.updateComputedStyle();
+    return super.updateComputedStyle();
   }
 };
 customElements.define("x-resizeable", ResizeableComponent);

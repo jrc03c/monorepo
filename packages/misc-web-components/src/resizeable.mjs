@@ -123,19 +123,19 @@ class ResizeableComponent extends DraggableComponent {
     )
   }
 
-  async attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name, oldValue, newValue) {
     try {
       newValue = JSON.parse(newValue)
     } catch (e) {}
 
     if (name === "width") {
       this._width = newValue
-      await this.updateComputedStyle()
+      this.updateComputedStyle()
     }
 
     if (name === "height") {
       this._height = newValue
-      await this.updateComputedStyle()
+      this.updateComputedStyle()
     }
 
     if (name === "is-drag-h-locked") {
@@ -146,10 +146,10 @@ class ResizeableComponent extends DraggableComponent {
       this.setAttribute("is-v-locked", newValue)
     }
 
-    return await super.attributeChangedCallback(name, oldValue, newValue)
+    return super.attributeChangedCallback(name, oldValue, newValue)
   }
 
-  async connectedCallback() {
+  connectedCallback() {
     if (typeof this.isDragHLocked === "undefined") {
       this.isDragHLocked = false
     }
@@ -222,10 +222,10 @@ class ResizeableComponent extends DraggableComponent {
       }
     }, 100)
 
-    return await super.connectedCallback()
+    return super.connectedCallback()
   }
 
-  async onKeyDown(event) {
+  onKeyDown(event) {
     if (this.isCompletelyLocked) {
       return
     }
@@ -235,7 +235,7 @@ class ResizeableComponent extends DraggableComponent {
     }
   }
 
-  async onKeyUp(event) {
+  onKeyUp(event) {
     if (this.isCompletelyLocked) {
       return
     }
@@ -245,7 +245,7 @@ class ResizeableComponent extends DraggableComponent {
     }
   }
 
-  async onMouseDown(event) {
+  onMouseDown(event) {
     if (this.isCompletelyLocked) {
       return
     }
@@ -286,11 +286,11 @@ class ResizeableComponent extends DraggableComponent {
         new ResizeableResizeStartEvent(this.root.getBoundingClientRect()),
       )
     } else {
-      await super.onMouseDown(event)
+      super.onMouseDown(event)
     }
   }
 
-  async onMouseMove(event) {
+  onMouseMove(event) {
     if (this.isCompletelyLocked) {
       return
     }
@@ -440,7 +440,7 @@ class ResizeableComponent extends DraggableComponent {
         }
       }
 
-      await this.updateComputedStyle()
+      this.updateComputedStyle()
       event.preventDefault()
       event.stopPropagation()
 
@@ -511,12 +511,12 @@ class ResizeableComponent extends DraggableComponent {
         event.stopPropagation()
       }
 
-      await this.updateComputedStyle()
-      await super.onMouseMove(event)
+      this.updateComputedStyle()
+      super.onMouseMove(event)
     }
   }
 
-  async onMouseUp(event) {
+  onMouseUp(event) {
     if (this.isCompletelyLocked) {
       return
     }
@@ -533,11 +533,11 @@ class ResizeableComponent extends DraggableComponent {
         new ResizeableResizeEndEvent(this.root.getBoundingClientRect()),
       )
     } else {
-      await super.onMouseUp(event)
+      super.onMouseUp(event)
     }
   }
 
-  async updateComputedStyle() {
+  updateComputedStyle() {
     if (this._width < this.minWidth) {
       this._width = this.minWidth
     }
@@ -595,7 +595,7 @@ class ResizeableComponent extends DraggableComponent {
     this.root.style.minHeight = this._height + "px"
     this.root.style.maxHeight = this._height + "px"
 
-    return await super.updateComputedStyle()
+    return super.updateComputedStyle()
   }
 }
 
