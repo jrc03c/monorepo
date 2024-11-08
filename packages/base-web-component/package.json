@@ -1,4 +1,8 @@
 {
+  "dependencies": {
+    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/js-text-tools": "^0.0.56"
+  },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "@jrc03c/watch": "^0.0.18",
@@ -8,14 +12,12 @@
     "globals": "^15.11.0",
     "prettier": "^3.1.0"
   },
+  "name": "@jrc03c/base-web-component",
   "scripts": {
     "build": "node build.mjs",
     "serve": "python3 -m http.server",
     "watch": "node build.mjs --watch"
   },
   "type": "module",
-  "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.87",
-    "@jrc03c/js-text-tools": "^0.0.56"
-  }
+  "version": "0.0.1"
 }
