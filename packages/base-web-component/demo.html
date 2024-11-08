@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      body {
+        margin: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <x-base>This is a base component!</x-base>
+
+    <x-mouse-coords></x-mouse-coords>
+
+    <script type="module">
+      import { BaseComponent } from "./dist/base-web-component.import.mjs"
+
+      class MouseCoordsComponent extends BaseComponent {
+        static css =
+          BaseComponent.css +
+          `
+            .x-base {
+              margin-top: 1.5em;
+              padding: 1.5em;
+              background-color: hsl(225deg, 100%, 90%);
+              color: hsl(225deg, 100%, 25%);
+              font-family: monospace;
+              font-size: 1em;
+            }
+          `
+
+        mount(el) {
+          const out = super.mount(el)
+          const root = this.shadowRoot.querySelector(".x-base")
+
+          this.on(window, "mousemove", event => {
+            const x = event.clientX.toFixed(2)
+            const y = event.clientY.toFixed(2)
+            root.innerHTML = `Mouse coordinates: [${x}, ${y}]`
+          })
+
+          root.innerHTML = `Mouse coordinates: [0.00, 0.00]`
+          return out
+        }
+      }
+
+      class SelfDestructorComponent extends BaseComponent {
+        static css =
+          BaseComponent.css +
+          `
+            .x-base {
+              margin-top: 1.5em;
+              padding: 1.5em;
+              background-color: hsl(0deg, 100%, 90%);
+              color: hsl(0deg, 100%, 25%);
+              font-family: monospace;
+              font-size: 1em;
+              animation: 0.5s glow step-end infinite;              
+            }
+
+            @keyframes glow {
+              0% { border: 2px solid hsl(0deg, 100%, 50%) }
+              50% { border: 2px solid hsl(0deg, 100%, 25%) }
+            }
+          `
+
+        ttl = 0
+
+        constructor(options) {
+          super(options)
+          options = options || {}
+          this.ttl = options.ttl
+        }
+
+        mount() {
+          const out = super.mount(...arguments)
+          const start = new Date()
+          const root = this.shadowRoot.querySelector(".x-base")
+
+          const loop = () => {
+            const elapsed = new Date() - start
+
+            root.innerHTML = `This element will self-destruct in ${(
+              (this.ttl - elapsed) /
+              1000
+            ).toFixed(2)} seconds!`
+
+            if (elapsed >= this.ttl) {
+              this.unmount()
+              return
+            }
+
+            window.requestAnimationFrame(loop)
+          }
+
+          loop()
+
+          return out
+        }
+      }
+
+      customElements.define("x-mouse-coords", MouseCoordsComponent)
+      customElements.define("x-self-destructor", SelfDestructorComponent)
+
+      new SelfDestructorComponent({ el: document.body, ttl: 30000 })
+    </script>
+  </body>
+</html>

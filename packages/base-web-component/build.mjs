@@ -3,16 +3,23 @@ import { watch } from "@jrc03c/watch"
 import process from "node:process"
 
 function rebuild() {
-  console.log("\n-----\n")
-  console.log(`Rebuilding... (${new Date().toLocaleString()})`)
+  console.log("-----")
+  console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    execSync(
-      `npx esbuild res/js/src/main.mjs --bundle --outfile=res/js/bundle.js`,
-      {
-        encoding: "utf8",
-      },
-    )
+    const baseCommand = "npx esbuild src/index.mjs --bundle"
+
+    const commands = [
+      "mkdir -p dist",
+      "rm -rf dist/*",
+      `${baseCommand} --platform=node --outfile=dist/base-web-component.require.cjs`,
+      `${baseCommand} --outfile=dist/base-web-component.standalone.cjs`,
+      `${baseCommand} --format=esm --outfile=dist/base-web-component.import.mjs`,
+    ]
+
+    commands.forEach(command => {
+      execSync(command, { encoding: "utf8" })
+    })
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
@@ -20,10 +27,10 @@ function rebuild() {
   }
 }
 
-if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
+if (process.argv.includes("--watch") || process.argv.includes("-w")) {
   watch({
-    target: ".",
-    exclude: ["bundle.js", "node_modules"],
+    target: "src",
+    exclude: ["dist", "node_modules"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,
