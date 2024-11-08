@@ -13,6 +13,12 @@
     "globals": "^15.11.0",
     "prettier": "^3.1.0"
   },
+  "exports": {
+    "import": "./dist/base-web-component.import.mjs",
+    "require": "./dist/base-web-component.require.cjs"
+  },
+  "main": "./dist/base-web-component.require.cjs",
+  "module": "./dist/base-web-component.import.mjs",
   "name": "@jrc03c/base-web-component",
   "type": "module",
   "version": "0.0.2"
