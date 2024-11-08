@@ -13,11 +13,6 @@
     "prettier": "^3.1.0"
   },
   "name": "@jrc03c/base-web-component",
-  "scripts": {
-    "build": "node build.mjs",
-    "serve": "python3 -m http.server",
-    "watch": "node build.mjs --watch"
-  },
   "type": "module",
   "version": "0.0.1"
 }
