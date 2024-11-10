@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <high-dpi-canvas></high-dpi-canvas>
+
+    <script src="dist/create-high-dpi-canvas.standalone.cjs"></script>
+    <script>
+      setTimeout(() => {
+        const width = window.innerWidth
+        const height = window.innerHeight
+        const canvas = document.querySelector("high-dpi-canvas")
+        canvas.dimensions = [width, height]
+
+        const context = canvas.getContext("2d")
+        const speed = 5
+
+        const balls = []
+
+        for (let i = 0; i < 100; i++) {
+          const angle = Math.random() * 2 * Math.PI
+
+          balls.push({
+            x: (Math.random() * width) / 2 + width / 4,
+            y: (Math.random() * height) / 2 + height / 4,
+            r: (Math.random() * 2 - 1) * 16 + 32,
+            vx: speed * Math.cos(angle),
+            vy: speed * Math.sin(angle),
+            hue: Math.random() * 360,
+          })
+        }
+
+        const loop = shouldSkipAnimationFrameRequest => {
+          const { width, height } = canvas
+          context.fillStyle = `rgb(235, 235, 235)`
+          context.fillRect(0, 0, width, height)
+
+          balls.forEach(ball => {
+            context.fillStyle = `hsl(${ball.hue}deg, 100%, 50%)`
+            context.beginPath()
+            context.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2)
+            context.fill()
+
+            ball.x += ball.vx
+            ball.y += ball.vy
+
+            if (ball.x < ball.r) {
+              ball.vx *= -1
+              ball.x = ball.r
+            }
+
+            if (ball.x > width - ball.r) {
+              ball.vx *= -1
+              ball.x = width - ball.r
+            }
+
+            if (ball.y < ball.r) {
+              ball.vy *= -1
+              ball.y = ball.r
+            }
+
+            if (ball.y > height - ball.r) {
+              ball.vy *= -1
+              ball.y = height - ball.r
+            }
+          })
+
+          if (!shouldSkipAnimationFrameRequest) {
+            window.requestAnimationFrame(() => loop(false))
+          }
+        }
+
+        loop(false)
+
+        window.addEventListener("resize", () => {
+          canvas.width = window.innerWidth
+          canvas.height = window.innerHeight
+        })
+
+        canvas.on(canvas, "resize", () => loop(true))
+      }, 100)
+    </script>
+  </body>
+</html>
