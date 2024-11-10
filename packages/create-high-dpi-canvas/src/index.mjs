@@ -2,6 +2,8 @@
 // `toBlob`, etc.) are required as part of the HTMLCanvasElement interface but
 // don't actually provide any novel functionality.
 
+import { BaseComponent } from "@jrc03c/base-web-component"
+
 class HighDPICanvasElementResizeEvent extends Event {
   constructor(width, height, options) {
     super("resize", options)
@@ -10,14 +12,16 @@ class HighDPICanvasElementResizeEvent extends Event {
   }
 }
 
-class HighDPICanvasElement extends HTMLElement {
-  static css = /* css */ `
-    canvas {
-      margin: 0;
-      padding: 0;
-      border: 0;
-    }
-  `
+class HighDPICanvasElement extends BaseComponent {
+  static css =
+    BaseComponent.css +
+    `
+      canvas {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+    `
 
   static forwardedEvents = [
     "contextlost",
@@ -27,67 +31,42 @@ class HighDPICanvasElement extends HTMLElement {
     "webglcontextrestored",
   ]
 
-  static observedAttributes = ["height", "width"]
+  static observedAttributes = BaseComponent.observedAttributes.concat([
+    "height",
+    "width",
+  ])
+
   static tagName = "high-dpi-canvas"
   static template = "<canvas></canvas>"
 
   constructor(width, height) {
     super()
-
-    const shadow = this.attachShadow({ mode: "open" })
-
-    shadow.innerHTML = `
-      <style>
-        ${this.constructor.css}
-      </style>
-
-      ${this.constructor.template}
-    `
-
     this.dimensions = [width, height]
     this.onOuterResize(false)
   }
 
   get dimensions() {
-    return [this._width, this._height]
+    return [this.width, this.height]
   }
 
   set dimensions(value) {
-    this._width = value[0]
-    this._height = value[1]
-    this.style.width = `${this._width}px`
-    this.style.height = `${this._height}px`
+    this.width = value[0]
+    this.height = value[1]
   }
 
   get element() {
     return this.shadowRoot.querySelector("canvas")
   }
 
-  get height() {
-    return this._height
-  }
-
-  set height(value) {
-    this._height = value
-    this.style.height = `${value}px`
-  }
-
-  get width() {
-    return this._width
-  }
-
-  set width(value) {
-    this._width = value
-    this.style.width = `${value}px`
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
+    const out = super.attributeChangedCallback(...arguments)
+
     if (name === "height") {
       try {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.height = newValue
+      this.style.height = `${newValue}px`
     }
 
     if (name === "width") {
@@ -95,8 +74,10 @@ class HighDPICanvasElement extends HTMLElement {
         newValue = JSON.parse(newValue)
       } catch (e) {}
 
-      this.width = newValue
+      this.style.width = `${newValue}px`
     }
+
+    return out
   }
 
   captureStream() {
@@ -104,6 +85,8 @@ class HighDPICanvasElement extends HTMLElement {
   }
 
   connectedCallback() {
+    const out = super.connectedCallback(...arguments)
+
     this.style.overflow = "hidden"
     this.style.display = "flex"
     this.style.flexDirection = "row"
@@ -138,78 +121,38 @@ class HighDPICanvasElement extends HTMLElement {
       }
 
       const { width, height } = this.getBoundingClientRect()
-      this._width = width
-      this._height = height
-      this.onOuterResize()
+      this.width = width
+      this.height = height
+      this.onOuterResize(true)
     })
 
     this.resizeObserver.observe(this)
+    return out
   }
 
   disconnectedCallback() {
+    const out = super.disconnectedCallback(...arguments)
+
     this.eventListeners.forEach(listener => {
       try {
         listener.remove()
       } catch (e) {}
     })
+
+    return out
   }
 
   getContext() {
     return this.element.getContext(...arguments)
   }
 
-  off(target, event, callback) {
-    const listeners = this.eventListeners.filter(
-      listener =>
-        listener.target === target &&
-        listener.event === event &&
-        listener.callback === callback,
-    )
-
-    if (listeners.length > 0) {
-      listeners.forEach(listener => listener.remove())
-    } else {
-      target.removeEventListener(event, callback)
-    }
-  }
-
-  on(target, event, callback, shouldRecordEventListenerInfo) {
-    let listener
-
-    const remove = () => {
-      target.removeEventListener(event, callback)
-      const index = this.eventListeners.indexOf(listener)
-
-      if (index > -1) {
-        this.eventListeners.splice(index, 1)
-      }
-    }
-
-    if (
-      shouldRecordEventListenerInfo ||
-      typeof shouldRecordEventListenerInfo === "undefined"
-    ) {
-      listener = {
-        callback,
-        event,
-        remove,
-        target,
-      }
-
-      this.eventListeners.push(listener)
-    }
-
-    target.addEventListener(event, callback)
-    return remove
-  }
-
   onOuterResize(shouldEmitEvent) {
     const { element } = this
     const dpi = window.devicePixelRatio || 1
-    element.width = Math.floor(this._width * dpi)
-    element.height = Math.floor(this._height * dpi)
-    element.style.width = `${this._width}px`
-    element.style.height = `${this._height}px`
+    element.width = Math.floor(this.width * dpi)
+    element.height = Math.floor(this.height * dpi)
+    element.style.width = `${this.width}px`
+    element.style.height = `${this.height}px`
 
     const context = element.getContext("2d")
     context.resetTransform()
@@ -217,7 +160,7 @@ class HighDPICanvasElement extends HTMLElement {
 
     if (shouldEmitEvent || typeof shouldEmitEvent === "undefined") {
       this.dispatchEvent(
-        new HighDPICanvasElementResizeEvent(this._width, this._height),
+        new HighDPICanvasElementResizeEvent(this.width, this.height),
       )
     }
   }
