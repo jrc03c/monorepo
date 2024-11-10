@@ -37,9 +37,7 @@
         return Math.sqrt(Math.pow(v[0], 2) + Math.pow(v[1], 2))
       }
 
-      let width = window.innerWidth
-      let height = window.innerHeight
-      const canvas = createHighDPICanvas(width, height)
+      const canvas = createHighDPICanvas(window.innerWidth, window.innerHeight)
       document.body.appendChild(canvas)
 
       let frame = 0
@@ -51,6 +49,7 @@
       const accelStrength = 0.25
 
       function loop(shouldRequestAnimationFrame) {
+        const { width, height } = canvas
         const context = canvas.getContext("2d")
         context.fillStyle = "rgb(235, 235, 235)"
         context.fillRect(0, 0, width, height)
@@ -162,15 +161,14 @@
       })
 
       canvas.on(window, "resize", () => {
-        width = window.innerWidth
-        height = window.innerHeight
-        canvas.width = width
-        canvas.height = height
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
       })
 
       canvas.on(canvas, "resize", () => loop(false))
 
       loop()
+      window.canvas = canvas
     </script>
   </body>
 </html>
