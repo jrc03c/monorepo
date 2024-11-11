@@ -9150,8 +9150,9 @@ var BaseComponent = class extends HTMLElement {
     this.isMounted = false;
   }
 };
-customElements.define("x-base", BaseComponent);
-window.BaseComponent = BaseComponent;
+if (typeof window !== "undefined") {
+  window.BaseComponent = BaseComponent;
+}
 
 // src/index.mjs
 var HighDPICanvasElementResizeEvent = class extends Event {
