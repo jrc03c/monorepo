@@ -30,5 +30,5 @@
     "url": "git+https://github.com/jrc03c/create-high-dpi-canvas.git"
   },
   "type": "module",
-  "version": "1.0.20"
+  "version": "1.0.21"
 }
