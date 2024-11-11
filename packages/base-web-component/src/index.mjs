@@ -169,12 +169,12 @@ class BaseComponent extends HTMLElement {
   }
 }
 
-try {
-  customElements.define("x-base", BaseComponent)
-} catch (e) {}
-
 if (typeof window !== "undefined") {
   window.BaseComponent = BaseComponent
+
+  try {
+    window.customElements.define("x-base", BaseComponent)
+  } catch (e) {}
 }
 
 export { BaseComponent }
