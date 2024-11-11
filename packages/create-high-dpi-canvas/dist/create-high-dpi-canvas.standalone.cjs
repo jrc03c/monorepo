@@ -9293,9 +9293,12 @@
   if (typeof window !== "undefined") {
     window.createHighDPICanvas = createHighDPICanvas;
     window.HighDPICanvasElement = HighDPICanvasElement;
-    window.customElements.define(
-      HighDPICanvasElement.tagName,
-      HighDPICanvasElement
-    );
+    try {
+      window.customElements.define(
+        HighDPICanvasElement.tagName,
+        HighDPICanvasElement
+      );
+    } catch (e) {
+    }
   }
 })();
