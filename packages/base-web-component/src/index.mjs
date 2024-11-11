@@ -172,9 +172,9 @@ class BaseComponent extends HTMLElement {
 if (typeof window !== "undefined") {
   window.BaseComponent = BaseComponent
 
-  try {
+  if (!window.customElements.get("x-base")) {
     window.customElements.define("x-base", BaseComponent)
-  } catch (e) {}
+  }
 }
 
 export { BaseComponent }
