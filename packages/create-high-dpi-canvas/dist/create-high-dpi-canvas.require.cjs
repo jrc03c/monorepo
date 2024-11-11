@@ -9299,12 +9299,11 @@ function createHighDPICanvas(width, height) {
 if (typeof window !== "undefined") {
   window.createHighDPICanvas = createHighDPICanvas;
   window.HighDPICanvasElement = HighDPICanvasElement;
-  try {
+  if (!window.customElements.get(HighDPICanvasElement.tagName)) {
     window.customElements.define(
       HighDPICanvasElement.tagName,
       HighDPICanvasElement
     );
-  } catch (e) {
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
