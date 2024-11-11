@@ -9153,8 +9153,13 @@ var BaseComponent = class extends HTMLElement {
     this.isMounted = false;
   }
 };
-customElements.define("x-base", BaseComponent);
-window.BaseComponent = BaseComponent;
+try {
+  customElements.define("x-base", BaseComponent);
+} catch (e) {
+}
+if (typeof window !== "undefined") {
+  window.BaseComponent = BaseComponent;
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BaseComponent
