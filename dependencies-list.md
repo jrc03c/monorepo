@@ -1,5 +1,4 @@
 # bash-colors (0.0.7)
-# create-high-dpi-canvas (1.0.9)
 # custom-scroller (0.0.8)
 # pause (0.0.7)
 # progress (0.0.6)
@@ -109,9 +108,21 @@
   - logger
   - make-key
   - pause
+# misc-web-components (0.0.15)
+  - js-text-tools
+  - pause
+  - watch
+# base-web-component (0.0.7)
+  - js-math-tools
+  - js-text-tools
+  - pause
+  - watch
 # bee (0.0.49)
   - js-math-tools
   - js-text-tools
   - make-key
   - pause
+  - watch
+# create-high-dpi-canvas (1.0.21)
+  - base-web-component
   - watch
