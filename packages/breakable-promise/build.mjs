@@ -27,8 +27,8 @@ function rebuild() {
 
 if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
   watch({
-    target: ".",
-    exclude: ["bundle.js", "node_modules"],
+    target: "src",
+    exclude: ["dist", "node_modules"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,
