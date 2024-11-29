@@ -1,60 +1,77 @@
 import { AbortablePromise } from "./index.mjs"
+import { pause } from "@jrc03c/pause"
 import express from "express"
 
-test("tests that `AbortablePromise` works well with `AbortController`", async () => {
-  const abortableFetch = (url, options) => {
-    return new AbortablePromise((resolve, reject, abort, onAbort) => {
-      try {
-        const controller = new AbortController()
+let server, isReady, port
+const serverResponseTime = 500
+const servedValue = "Hello, world!"
+const abortValue = "Goodbye, world!"
 
-        fetch(url, { ...options, signal: controller.signal })
-          .then(response => resolve(response))
-          .catch(() => {})
+function abortableFetch(url, options) {
+  return new AbortablePromise((resolve, reject, abort, onAbort) => {
+    try {
+      const controller = new AbortController()
 
-        onAbort(() => controller.abort())
-      } catch (e) {
-        return reject(e)
-      }
-    })
-  }
+      fetch(url, { ...options, signal: controller.signal })
+        .then(response => resolve(response))
+        .catch(() => {})
 
+      onAbort(() => controller.abort())
+    } catch (e) {
+      return reject(e)
+    }
+  })
+}
+
+beforeAll(() => {
   const app = express()
-  const returnTime = 500
 
   app.get("/", (request, response) => {
-    setTimeout(() => response.send("Hello, world!"), returnTime)
+    setTimeout(() => response.send(servedValue), serverResponseTime)
   })
 
-  const server = app.listen(0, () => {
-    for (let i = 0; i < 100; i++) {
-      let timeout, value
-
-      const promise = abortableFetch(
-        "http://localhost:" + server.address().port,
-      )
-
-      promise.then(response => {
-        clearTimeout(timeout)
-        response.text().then(v => (value = v))
-      })
-
-      promise.onAbort(v => {
-        clearTimeout(timeout)
-        value = v
-      })
-
-      const ms = Math.random() < 0.5 ? returnTime * 0.5 : returnTime * 1.5
-      timeout = setTimeout(() => promise.abort("Goodbye, world!"), ms)
-
-      setTimeout(() => {
-        expect(value).toBe(
-          ms < returnTime ? "Goodbye, world!" : "Hello, world!",
-        )
-      }, 1000)
-    }
-
-    setTimeout(() => server.close(), 1000)
+  server = app.listen(0, () => {
+    port = server.address().port
+    isReady = true
   })
+})
+
+afterAll(() => {
+  setTimeout(() => server.close(), 1000)
+})
+
+test("tests that `AbortablePromise` works well with `AbortController`", async () => {
+  while (!isReady) {
+    await pause(10)
+  }
+
+  for (let i = 0; i < 100; i++) {
+    let timeout, value
+
+    const ms =
+      Math.random() < 0.5 ? 0.5 * serverResponseTime : 1.5 * serverResponseTime
+
+    const promise = abortableFetch("http://localhost:" + port)
+
+    promise.then(response => {
+      clearTimeout(timeout)
+      response.text().then(v => (value = v))
+    })
+
+    promise.onAbort(v => {
+      clearTimeout(timeout)
+      value = v
+    })
+
+    timeout = setTimeout(() => promise.abort(abortValue), ms)
+
+    setTimeout(
+      () => {
+        expect(value).toBe(ms < serverResponseTime ? abortValue : servedValue)
+      },
+      1.5 * serverResponseTime + 250,
+    )
+  }
 })
 
 test("tests that `AbortablePromise` works well by itself", () => {
