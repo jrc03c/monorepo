@@ -17,10 +17,10 @@ function abortableFetch(url, options) {
           if (response.status === 200) {
             resolve(response)
           } else {
-            reject("Response had a non-200 status!")
+            reject("Non-200 response status!")
           }
         })
-        .catch(() => {})
+        .catch(e => reject(e))
 
       onAbort(() => controller.abort())
     } catch (e) {
@@ -166,34 +166,6 @@ test("tests that the members of `AbortablePromise` work as expected", async () =
       expect(promiseToAbort.wasResolved).toBe(false)
     }, 200)
   })()
-
-  // !(() => {
-  //   let value
-  //   const promiseToReject = abortableFetch(`http://localhost:${port}/nope`)
-
-  //   expect(promiseToReject.wasAborted).toBe(false)
-  //   expect(promiseToReject.wasRejected).toBe(false)
-  //   expect(promiseToReject.wasResolved).toBe(false)
-
-  //   promiseToReject.then(() => {
-  //     value = "Uh-oh! (Resolved)"
-  //   })
-
-  //   promiseToReject.onAbort(() => {
-  //     value = "Uh-oh! (Aborted)"
-  //   })
-
-  //   promiseToReject.catch(() => {
-  //     value = "Rejected!"
-  //   })
-
-  //   setTimeout(() => {
-  //     expect(value).toBe("Rejected!")
-  //     expect(promiseToReject.wasAborted).toBe(false)
-  //     expect(promiseToReject.wasRejected).toBe(true)
-  //     expect(promiseToReject.wasResolved).toBe(false)
-  //   }, serverResponseTime + 250)
-  // })()
 
   !(() => {
     let value
