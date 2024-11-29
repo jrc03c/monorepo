@@ -194,4 +194,28 @@ test("tests that the members of `AbortablePromise` work as expected", async () =
       expect(promiseToResolve.wasResolved).toBe(true)
     }, serverResponseTime + 250)
   })()
+
+  !(() => {
+    let value
+    const promiseToReject = abortableFetch(`http://localhost:${port}/nope`)
+
+    expect(promiseToReject.wasAborted).toBe(false)
+    expect(promiseToReject.wasRejected).toBe(false)
+    expect(promiseToReject.wasResolved).toBe(false)
+
+    promiseToReject
+      .then(() => {
+        value = "Resolved. :("
+      })
+      .catch(() => {
+        value = "Rejected! :)"
+      })
+
+    setTimeout(() => {
+      expect(value).toBe("Rejected! :)")
+      expect(promiseToReject.wasAborted).toBe(false)
+      expect(promiseToReject.wasRejected).toBe(true)
+      expect(promiseToReject.wasResolved).toBe(false)
+    }, serverResponseTime + 250)
+  })()
 })
