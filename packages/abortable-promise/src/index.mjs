@@ -15,6 +15,7 @@ class AbortablePromise extends Promise {
         return
       }
 
+      wasAborted = true
       onAbortCallbacks.forEach(callback => callback(...arguments))
     }
 
