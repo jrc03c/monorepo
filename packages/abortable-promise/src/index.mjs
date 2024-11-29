@@ -1,4 +1,8 @@
 class AbortablePromise extends Promise {
+  wasAborted = false
+  wasRejected = false
+  wasResolved = false
+
   constructor(fn) {
     let onAbortCallbacks = []
     let reject, resolve
@@ -80,6 +84,10 @@ class AbortablePromise extends Promise {
       set: () => {},
     })
   }
+
+  abort() {}
+
+  onAbort() {}
 }
 
 export { AbortablePromise }

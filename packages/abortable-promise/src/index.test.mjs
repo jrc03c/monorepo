@@ -13,7 +13,13 @@ function abortableFetch(url, options) {
       const controller = new AbortController()
 
       fetch(url, { ...options, signal: controller.signal })
-        .then(response => resolve(response))
+        .then(response => {
+          if (response.status === 200) {
+            resolve(response)
+          } else {
+            reject("Response had a non-200 status!")
+          }
+        })
         .catch(() => {})
 
       onAbort(() => controller.abort())
@@ -28,6 +34,10 @@ beforeAll(() => {
 
   app.get("/", (request, response) => {
     setTimeout(() => response.send(servedValue), serverResponseTime)
+  })
+
+  app.get("/nope", (request, response) => {
+    setTimeout(() => response.status(500).send(), serverResponseTime)
   })
 
   server = app.listen(0, () => {
@@ -121,4 +131,95 @@ test("tests that `AbortablePromise` works well by itself", () => {
       Math.max(n * 100, ms) + 100,
     )
   }
+})
+
+test("tests that the members of `AbortablePromise` work as expected", async () => {
+  while (!isReady) {
+    await pause(10)
+  }
+
+  !(() => {
+    let value
+    const promiseToAbort = abortableFetch(`http://localhost:${port}`)
+
+    expect(promiseToAbort.wasAborted).toBe(false)
+    expect(promiseToAbort.wasRejected).toBe(false)
+    expect(promiseToAbort.wasResolved).toBe(false)
+
+    promiseToAbort.then(() => {
+      clearTimeout(timeout)
+      value = "Uh-oh!"
+    })
+
+    promiseToAbort.onAbort(v => {
+      value = v
+    })
+
+    let timeout = setTimeout(() => promiseToAbort.abort(Math.random()), 100)
+
+    setTimeout(() => {
+      expect(typeof value).toBe("number")
+      expect(value).toBeGreaterThanOrEqualTo(0)
+      expect(value).toBeLessThanOrEqualTo(1)
+      expect(promiseToAbort.wasAborted).toBe(true)
+      expect(promiseToAbort.wasRejected).toBe(false)
+      expect(promiseToAbort.wasResolved).toBe(false)
+    }, 200)
+  })()
+
+  // !(() => {
+  //   let value
+  //   const promiseToReject = abortableFetch(`http://localhost:${port}/nope`)
+
+  //   expect(promiseToReject.wasAborted).toBe(false)
+  //   expect(promiseToReject.wasRejected).toBe(false)
+  //   expect(promiseToReject.wasResolved).toBe(false)
+
+  //   promiseToReject.then(() => {
+  //     value = "Uh-oh! (Resolved)"
+  //   })
+
+  //   promiseToReject.onAbort(() => {
+  //     value = "Uh-oh! (Aborted)"
+  //   })
+
+  //   promiseToReject.catch(() => {
+  //     value = "Rejected!"
+  //   })
+
+  //   setTimeout(() => {
+  //     expect(value).toBe("Rejected!")
+  //     expect(promiseToReject.wasAborted).toBe(false)
+  //     expect(promiseToReject.wasRejected).toBe(true)
+  //     expect(promiseToReject.wasResolved).toBe(false)
+  //   }, serverResponseTime + 250)
+  // })()
+
+  !(() => {
+    let value
+    const promiseToResolve = abortableFetch(`http://localhost:${port}`)
+
+    expect(promiseToResolve.wasAborted).toBe(false)
+    expect(promiseToResolve.wasRejected).toBe(false)
+    expect(promiseToResolve.wasResolved).toBe(false)
+
+    promiseToResolve.then(() => {
+      value = "Resolved!"
+    })
+
+    promiseToResolve.catch(() => {
+      value = "Uh-oh! (Rejected)"
+    })
+
+    promiseToResolve.onAbort(() => {
+      value = "Uh-oh! (Aborted)"
+    })
+
+    setTimeout(() => {
+      expect(value).toBe("Resolved!")
+      expect(promiseToResolve.wasAborted).toBe(false)
+      expect(promiseToResolve.wasRejected).toBe(false)
+      expect(promiseToResolve.wasResolved).toBe(true)
+    }, serverResponseTime + 250)
+  })()
 })
