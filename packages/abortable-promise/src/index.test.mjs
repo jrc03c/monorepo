@@ -79,22 +79,29 @@ test("tests that `AbortablePromise` works well by itself", () => {
     })
   }
 
-  const promise = countToNSlowly(5)
-  let value
+  for (let i = 0; i < 100; i++) {
+    const n = Math.round(Math.random() * 10) + 5
+    const promise = countToNSlowly(n)
+    let value
 
-  promise.then(() => {
-    clearTimeout(timeout)
-    value = "Completed!"
-  })
+    promise.then(() => {
+      clearTimeout(timeout)
+      value = "Completed!"
+    })
 
-  promise.onAbort(() => {
-    clearTimeout(timeout)
-    value = "Aborted!"
-  })
+    promise.onAbort(() => {
+      clearTimeout(timeout)
+      value = "Aborted!"
+    })
 
-  let timeout = setTimeout(() => promise.abort(), 300)
+    const ms = Math.random() < 0.5 ? n * 0.5 * 100 : n * 1.5 * 100
+    let timeout = setTimeout(() => promise.abort(), ms)
 
-  setTimeout(() => {
-    expect(value).toBe("Aborted!")
-  }, 750)
+    setTimeout(
+      () => {
+        expect(value).toBe(ms < n * 100 ? "Aborted!" : "Completed!")
+      },
+      Math.max(n * 100, ms) + 100,
+    )
+  }
 })
