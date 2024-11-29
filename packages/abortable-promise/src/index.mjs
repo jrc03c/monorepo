@@ -38,7 +38,7 @@ class AbortablePromise extends Promise {
       }
 
       try {
-        return fn(resolve, reject, onAbort, abort)
+        return fn(resolve, reject, abort, onAbort)
       } catch (e) {
         return reject(e)
       }
