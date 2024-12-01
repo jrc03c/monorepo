@@ -1,9 +1,12 @@
 class AbortablePromise extends Promise {
+  // These are just placeholders. They're useful for autocompletion purposes,
+  // but they'll be overwritten by the constructor.
   wasAborted = false
   wasRejected = false
   wasResolved = false
 
   constructor(fn) {
+    let abortArgs
     let onAbortCallbacks = []
     let reject, resolve
     let wasAborted = false
@@ -11,7 +14,11 @@ class AbortablePromise extends Promise {
     let wasResolved = false
 
     const onAbort = callback => {
-      onAbortCallbacks.push(callback)
+      if (wasAborted) {
+        callback(...(abortArgs || {}))
+      } else {
+        onAbortCallbacks.push(callback)
+      }
     }
 
     const abort = function () {
@@ -19,6 +26,7 @@ class AbortablePromise extends Promise {
         return
       }
 
+      abortArgs = arguments
       wasAborted = true
       onAbortCallbacks.forEach(callback => callback(...arguments))
     }
@@ -85,8 +93,9 @@ class AbortablePromise extends Promise {
     })
   }
 
+  // These are just placeholders. They're useful for autocompletion purposes,
+  // but they'll be overwritten by the constructor.
   abort() {}
-
   onAbort() {}
 }
 

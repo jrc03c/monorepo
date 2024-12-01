@@ -133,6 +133,32 @@ test("tests that `AbortablePromise` works well by itself", () => {
   }
 })
 
+test("tests that the standalone `abort` and `onAbort` functions work as expected", () => {
+  function abortPrettySoon(value, abortValue) {
+    return new AbortablePromise((resolve, reject, abort, onAbort) => {
+      try {
+        onAbort(v => (innerValue = v))
+        abort(abortValue)
+        resolve(value)
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
+
+  let innerValue, outerValue
+  const promise = abortPrettySoon(12345, 54321)
+
+  promise.then(v => (outerValue = v))
+  promise.onAbort(v => (outerValue = v))
+
+  setTimeout(() => {
+    expect(outerValue).toBe(54321)
+    expect(innerValue).toBe(54321)
+    expect(promise.wasAborted).toBe(true)
+  }, 1000)
+})
+
 test("tests that the members of `AbortablePromise` work as expected", async () => {
   while (!isReady) {
     await pause(10)
