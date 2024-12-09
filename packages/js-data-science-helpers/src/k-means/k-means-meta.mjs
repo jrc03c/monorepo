@@ -9,7 +9,7 @@ import {
   shape,
 } from "@jrc03c/js-math-tools"
 
-import { isMatrix } from "./helpers.mjs"
+import { isMatrix, silhouette } from "./helpers.mjs"
 import { isWholeNumber } from "../is-whole-number.mjs"
 import { KMeansPlusPlus } from "./k-means-plus-plus.mjs"
 
@@ -25,7 +25,7 @@ class KMeansMeta {
     )
 
     if (isUndefined(config.ks)) {
-      config.ks = range(1, 16)
+      config.ks = range(2, 16)
     }
 
     assert(isArray(config.ks), "`ks` must be an array of whole numbers!")
@@ -44,38 +44,31 @@ class KMeansMeta {
       "`maxRestarts` must be a whole number or undefined!",
     )
 
-    assert(
-      typeof config.tolerance === "number" || isUndefined(config.tolerance),
-      "`tolerance` must be a number or undefined!",
-    )
-
-    this.ks = config.ks
-    this.maxRestarts = config.maxRestarts || 25
-    this.maxIterations = config.maxIterations || 100
-    this.tolerance = config.tolerance || 1e-4
-    this.scoreStopRatio = config.scoreStopRatio || 0.85
-    this.modelClass = config.modelClass || KMeansPlusPlus
+    this.finalMaxIterations = config.finalMaxIterations || 100
+    this.finalMaxRestarts = config.finalMaxRestarts || 25
     this.fittedModel = null
+    this.ks = config.ks
+    this.maxIterations = config.maxIterations || 10
+    this.maxRestarts = config.maxRestarts || 5
+    this.modelClass = config.modelClass || KMeansPlusPlus
+    this.tolerance = config.tolerance || 1e-4
   }
 
   getFitStepFunction(x, progress) {
-    // currently, this method uses the "elbow" method of determining when to
-    // stop; but we should probably consider the "silhouette" method as well!
-
-    assert(isMatrix(x), "`x` must be a matrix!")
-
     if (isDataFrame(x)) {
       x = x.values
     }
+
+    assert(isMatrix(x), "`x` must be a matrix!")
 
     if (!isUndefined(progress)) {
       assert(isFunction(progress), "If defined, `progress` must be a function!")
     }
 
     const state = {
-      isFinished: false,
-      lastScore: -Infinity,
       currentIndex: 0,
+      isFinished: false,
+      scores: [],
     }
 
     return () => {
@@ -93,13 +86,13 @@ class KMeansMeta {
           : null,
       )
 
-      const score = model.score(x)
+      const labels = model.predict(x)
+      const score = silhouette(x, labels)
 
-      if (score / state.lastScore > this.scoreStopRatio) {
+      if (state.scores.length >= this.ks.length || score > 1 - this.tolerance) {
         state.isFinished = true
-        state.currentIndex--
       } else {
-        state.lastScore = score
+        state.scores.push({ k, score })
 
         if (state.currentIndex + 1 >= this.ks.length) {
           state.isFinished = true
@@ -109,10 +102,20 @@ class KMeansMeta {
       }
 
       if (state.isFinished) {
+        let bestK = 1
+        let bestScore = -1
+
+        state.scores.forEach(s => {
+          if (!isNaN(s.score) && s.score > bestScore) {
+            bestScore = s.score
+            bestK = s.k
+          }
+        })
+
         this.fittedModel = new this.modelClass({
-          k: this.ks[state.currentIndex],
-          maxRestarts: this.maxRestarts,
-          maxIterations: this.maxIterations,
+          k: bestK,
+          maxRestarts: this.finalMaxRestarts,
+          maxIterations: this.finalMaxIterations,
         })
 
         this.fittedModel.fit(x, p =>

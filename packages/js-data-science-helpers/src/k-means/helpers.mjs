@@ -6,6 +6,8 @@ import {
   isDataFrame,
   isEqual,
   isSeries,
+  max,
+  mean,
   pow,
   shape,
   subtract,
@@ -47,9 +49,54 @@ function orderCentroids(ctrue, cpred) {
   })
 }
 
+function silhouette(points, labels) {
+  // convert values to floats (to remove any non-numerical or BigInt values)
+  points = points.map(row => row.map(v => Number(v)))
+
+  // Group points into clusters
+  const clusters = {}
+  const labelSet = new Set()
+
+  labels.forEach((label, i) => {
+    if (!clusters[label]) {
+      clusters[label] = []
+    }
+
+    clusters[label].push(points[i])
+    labelSet.add(label)
+  })
+
+  // if (labelSet.size < 2) {
+  //   return -1
+  // }
+
+  // For each point, compute its silhouette score, and then return the sum of
+  // those scores.
+  return mean(
+    points.map((p, i) => {
+      const label = labels[i]
+      let a = Infinity
+      let b = Infinity
+
+      labelSet.forEach(otherLabel => {
+        const cluster = clusters[otherLabel]
+        const score = cluster.length < 2 ? 0 : sum(cluster.map(q => sse(p, q)))
+
+        if (otherLabel === label) {
+          a = score
+        } else if (score < b) {
+          b = score
+        }
+      })
+
+      return (b - a) / max([a, b])
+    }),
+  )
+}
+
 function sse(xtrue, xpred) {
   const shouldIgnoreNaNs = true
   return sum(pow(subtract(xtrue, xpred), 2), shouldIgnoreNaNs)
 }
 
-export { accuracy, isMatrix, orderCentroids, sse }
+export { accuracy, isMatrix, orderCentroids, silhouette, sse }

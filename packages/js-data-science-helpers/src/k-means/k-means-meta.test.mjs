@@ -79,6 +79,7 @@ test(`tests that the KMeansMeta model works correctly`, () => {
     expect(modelForNaNs.centroids.some(c => c.some(v => isNumber(v)))).toBe(
       true,
     )
+
     expect(labelsForNaNs.every(v => isNumber(v))).toBe(true)
   })()
 })
