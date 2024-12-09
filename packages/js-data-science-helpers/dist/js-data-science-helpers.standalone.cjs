@@ -10028,6 +10028,35 @@
       return cpred[argmin(cpred.map((c2) => sse(c1, c2)))];
     });
   }
+  function silhouette(points, labels) {
+    points = points.map((row) => row.map((v) => Number(v)));
+    const clusters = {};
+    const labelSet = /* @__PURE__ */ new Set();
+    labels.forEach((label, i) => {
+      if (!clusters[label]) {
+        clusters[label] = [];
+      }
+      clusters[label].push(points[i]);
+      labelSet.add(label);
+    });
+    return mean(
+      points.map((p, i) => {
+        const label = labels[i];
+        let a = Infinity;
+        let b = Infinity;
+        labelSet.forEach((otherLabel) => {
+          const cluster = clusters[otherLabel];
+          const score = cluster.length < 2 ? 0 : sum(cluster.map((q) => sse(p, q)));
+          if (otherLabel === label) {
+            a = score;
+          } else if (score < b) {
+            b = score;
+          }
+        });
+        return (b - a) / max([a, b]);
+      })
+    );
+  }
   function sse(xtrue, xpred) {
     const shouldIgnoreNaNs = true;
     return sum(vpow(subtract(xtrue, xpred), 2), shouldIgnoreNaNs);
@@ -10198,7 +10227,7 @@
         "`config` must be an object! See the documentation for more information about the properties that the `config` object can contain."
       );
       if (isUndefined(config.ks)) {
-        config.ks = range(1, 16);
+        config.ks = range(2, 16);
       }
       assert(isArray(config.ks), "`ks` must be an array of whole numbers!");
       config.ks.forEach((k) => {
@@ -10212,30 +10241,27 @@
         isWholeNumber2(config.maxRestarts) || isUndefined(config.maxRestarts),
         "`maxRestarts` must be a whole number or undefined!"
       );
-      assert(
-        typeof config.tolerance === "number" || isUndefined(config.tolerance),
-        "`tolerance` must be a number or undefined!"
-      );
-      this.ks = config.ks;
-      this.maxRestarts = config.maxRestarts || 25;
-      this.maxIterations = config.maxIterations || 100;
-      this.tolerance = config.tolerance || 1e-4;
-      this.scoreStopRatio = config.scoreStopRatio || 0.85;
-      this.modelClass = config.modelClass || KMeansPlusPlus;
+      this.finalMaxIterations = config.finalMaxIterations || 100;
+      this.finalMaxRestarts = config.finalMaxRestarts || 25;
       this.fittedModel = null;
+      this.ks = config.ks;
+      this.maxIterations = config.maxIterations || 10;
+      this.maxRestarts = config.maxRestarts || 5;
+      this.modelClass = config.modelClass || KMeansPlusPlus;
+      this.tolerance = config.tolerance || 1e-4;
     }
     getFitStepFunction(x, progress) {
-      assert(isMatrix(x), "`x` must be a matrix!");
       if (isDataFrame(x)) {
         x = x.values;
       }
+      assert(isMatrix(x), "`x` must be a matrix!");
       if (!isUndefined(progress)) {
         assert(isFunction(progress), "If defined, `progress` must be a function!");
       }
       const state = {
+        currentIndex: 0,
         isFinished: false,
-        lastScore: -Infinity,
-        currentIndex: 0
+        scores: []
       };
       return () => {
         const k = this.ks[state.currentIndex];
@@ -10248,12 +10274,12 @@
           x,
           (p) => progress ? progress((state.currentIndex + p) / (this.ks.length + 1)) : null
         );
-        const score = model.score(x);
-        if (score / state.lastScore > this.scoreStopRatio) {
+        const labels = model.predict(x);
+        const score = silhouette(x, labels);
+        if (state.scores.length >= this.ks.length || score > 1 - this.tolerance) {
           state.isFinished = true;
-          state.currentIndex--;
         } else {
-          state.lastScore = score;
+          state.scores.push({ k, score });
           if (state.currentIndex + 1 >= this.ks.length) {
             state.isFinished = true;
           } else {
@@ -10261,10 +10287,18 @@
           }
         }
         if (state.isFinished) {
+          let bestK = 1;
+          let bestScore = -1;
+          state.scores.forEach((s3) => {
+            if (!isNaN(s3.score) && s3.score > bestScore) {
+              bestScore = s3.score;
+              bestK = s3.k;
+            }
+          });
           this.fittedModel = new this.modelClass({
-            k: this.ks[state.currentIndex],
-            maxRestarts: this.maxRestarts,
-            maxIterations: this.maxIterations
+            k: bestK,
+            maxRestarts: this.finalMaxRestarts,
+            maxIterations: this.finalMaxIterations
           });
           this.fittedModel.fit(
             x,
