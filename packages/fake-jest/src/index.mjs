@@ -32,8 +32,9 @@ class Expecter {
     }
   }
 
-  toBeCloseTo(other) {
-    const valuesAreClose = Math.abs(this.value - other) <= 1e-5
+  toBeCloseTo(other, threshold) {
+    threshold = threshold || 1e-5
+    const valuesAreClose = Math.abs(this.value - other) <= threshold
 
     if (this.valenceIsPositive) {
       if (!valuesAreClose) {
