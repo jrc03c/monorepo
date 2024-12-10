@@ -12,6 +12,7 @@ test("tests the `toBeCloseTo` method", () => {
   expect(5).toBeCloseTo(5.0000000001)
   expect(5).not.toBeCloseTo(6)
   expect(5).toBeCloseTo(6, 10)
+  expect(5).not.toBeCloseTo(5, -10)
 })
 
 test("tests the `toBeGreaterThan` method", () => {
