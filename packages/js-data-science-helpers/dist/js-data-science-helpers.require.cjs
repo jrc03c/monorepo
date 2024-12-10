@@ -10376,7 +10376,7 @@ var KMeansMeta = class {
 };
 
 // src/k-means/index.mjs
-var helpers = { accuracy, isMatrix, orderCentroids, sse };
+var helpers = { accuracy, isMatrix, orderCentroids, silhouette, sse };
 var KMeans = { helpers, KMeansMeta, KMeansNaive, KMeansPlusPlus };
 
 // src/normalize.mjs
