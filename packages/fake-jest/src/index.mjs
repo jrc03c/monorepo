@@ -171,29 +171,11 @@ class Expecter {
     }
   }
 
-  toThrow() {
+  async toThrow() {
     let threwAnError = false
 
     try {
-      const returned = this.value()
-
-      if (returned instanceof Promise) {
-        return returned
-          .then(() => {
-            if (this.valenceIsPositive) {
-              throw new Error(
-                "The function was supposed to throw an error, but it didn't!",
-              )
-            }
-          })
-          .catch(() => {
-            if (!this.valenceIsPositive) {
-              throw new Error(
-                "The function was not supposed to throw an error, but it did!",
-              )
-            }
-          })
-      }
+      await this.value()
     } catch (e) {
       threwAnError = true
     }
