@@ -1,7 +1,8 @@
 import { Drone } from "./drone.mjs"
+import { isInWebWorker } from "./is-in-web-worker.mjs"
 import { Queen } from "./queen.mjs"
 
-const Bee = { Drone, Queen }
+const Bee = { Drone, isInWebWorker, Queen }
 
 if (typeof globalThis !== "undefined") {
   globalThis.Bee = Bee
