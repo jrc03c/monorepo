@@ -26,5 +26,5 @@
   "module": "./dist/bee.import.mjs",
   "name": "@jrc03c/bee",
   "type": "module",
-  "version": "0.0.49"
+  "version": "0.0.50"
 }
