@@ -9230,6 +9230,12 @@ var Drone = class extends SubscriptionService {
   }
 };
 
+// src/is-in-web-worker.mjs
+function isInWebWorker() {
+  return typeof self !== "undefined" && typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
+  self instanceof WorkerGlobalScope;
+}
+
 // src/queen.mjs
 var Queen = class extends SubscriptionService {
   hive = [];
@@ -9359,7 +9365,7 @@ var Queen = class extends SubscriptionService {
 };
 
 // src/index.mjs
-var Bee = { Drone, Queen };
+var Bee = { Drone, isInWebWorker, Queen };
 if (typeof globalThis !== "undefined") {
   globalThis.Bee = Bee;
 }
