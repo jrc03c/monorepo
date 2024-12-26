@@ -13,5 +13,9 @@
     "serve": "python3 -m http.server",
     "watch": "node build.mjs --watch"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@jrc03c/base-web-component": "^0.0.9",
+    "bulma": "^1.0.2"
+  }
 }

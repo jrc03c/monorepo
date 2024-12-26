@@ -7,12 +7,9 @@ function rebuild() {
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    execSync(
-      `npx esbuild res/js/src/main.mjs --bundle --outfile=res/js/bundle.js`,
-      {
-        encoding: "utf8",
-      },
-    )
+    execSync(`npx esbuild src/main.mjs --bundle --outfile=dist/bundle.js`, {
+      encoding: "utf8",
+    })
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
@@ -22,8 +19,8 @@ function rebuild() {
 
 if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
   watch({
-    target: ".",
-    exclude: ["bundle.js", "node_modules"],
+    target: "src",
+    exclude: ["bundle.css", "bundle.js", "node_modules"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,
