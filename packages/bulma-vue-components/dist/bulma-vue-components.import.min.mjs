@@ -1,13 +1,28 @@
-function n(t){let u=0,o;t=t||{};let a=t.data?t.data:function(){},i=t.mounted?t.mounted:function(){},l=t.unmounted?t.unmounted:function(){};return a.css||(a.css=""),t.data=function(){return a.bind(this)()},t.mounted=function(){i.bind(this)(),u++;let e=this.$root.$el.getRootNode();e===document&&(e=e.body),o||(o=document.createElement("style"),e.appendChild(o),o.innerHTML=this.css)},t.unmounted=function(){l.bind(this)(),u--;let e=this.$root.$el.getRootNode();if(e===document&&(e=e.body),u<1){if(o)try{e.removeChild(o)}catch{try{o.parentElement.removeChild(o)}catch{}}o=null}},t}typeof window<"u"&&(window.createVueComponentWithCSS=n);var s="",r=`
+function a(e){let l=0,t;e=e||{};let s=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},i=e.unmounted?e.unmounted:function(){};return s.css||(s.css=""),e.data=function(){return s.bind(this)()},e.mounted=function(){n.bind(this)(),l++;let o=this.$root.$el.getRootNode();o===document&&(o=o.body),t||(t=document.createElement("style"),o.appendChild(t),t.innerHTML=this.css)},e.unmounted=function(){i.bind(this)(),l--;let o=this.$root.$el.getRootNode();if(o===document&&(o=o.body),l<1){if(t)try{o.removeChild(t)}catch{try{t.parentElement.removeChild(t)}catch{}}t=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=a);var r="",u=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
-`,m=n({name:"bulma-block",template:r,data(){return{css:s}}});var d="",c=`
+`,d=a({name:"bulma-block",template:u,data(){return{css:r}}});var f="",c=`
   <div class="box bulma-box">
     <slot></slot>
   </div>
-`,b=n({name:"bulma-box",template:c,data(){return{css:d}}});var f="",h=`
-  <button class="bulma-button button">
+`,m=a({name:"bulma-box",template:c,data(){return{css:f}}});var p="",b=`
+  <button
+    :class="{
+      'is-black': black,
+      'is-danger': danger,
+      'is-dark': dark,
+      'is-ghost': ghost,
+      'is-info': info,
+      'is-light': light,
+      'is-link': link,
+      'is-primary': primary,
+      'is-success': success,
+      'is-text': text,
+      'is-warning': warning,
+      'white': white,
+    }"
+    class="bulma-button button">
     <slot></slot>
   </button>
-`,C=n({name:"bulma-button",template:h,data(){return{css:f}}});export{m as BulmaBlock,b as BulmaBox,C as BulmaButton};
+`,h=a({name:"bulma-button",template:b,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:p}}});export{d as BulmaBlock,m as BulmaBox,h as BulmaButton};
