@@ -99,7 +99,31 @@ var BulmaBox = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/button.mjs
+var css3 = (
+  /* css */
+  ``
+);
+var template3 = (
+  /* html */
+  `
+  <button class="bulma-button button">
+    <slot></slot>
+  </button>
+`
+);
+var BulmaButton = createVueComponentWithCSS({
+  name: "bulma-button",
+  template: template3,
+  data() {
+    return {
+      css: css3
+    };
+  }
+});
 export {
   BulmaBlock,
-  BulmaBox
+  BulmaBox,
+  BulmaButton
 };

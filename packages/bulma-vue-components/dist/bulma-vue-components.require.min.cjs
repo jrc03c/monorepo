@@ -1,9 +1,13 @@
-var d=Object.defineProperty;var c=Object.getOwnPropertyDescriptor;var m=Object.getOwnPropertyNames;var f=Object.prototype.hasOwnProperty;var b=(t,o)=>{for(var e in o)d(t,e,{get:o[e],enumerable:!0})},h=(t,o,e,u)=>{if(o&&typeof o=="object"||typeof o=="function")for(let i of m(o))!f.call(t,i)&&i!==e&&d(t,i,{get:()=>o[i],enumerable:!(u=c(o,i))||u.enumerable});return t};var C=t=>h(d({},"__esModule",{value:!0}),t);var y={};b(y,{BulmaBlock:()=>a,BulmaBox:()=>r});module.exports=C(y);function l(t){let o=0,e;t=t||{};let u=t.data?t.data:function(){},i=t.mounted?t.mounted:function(){},s=t.unmounted?t.unmounted:function(){};return u.css||(u.css=""),t.data=function(){return u.bind(this)()},t.mounted=function(){i.bind(this)(),o++;let n=this.$root.$el.getRootNode();n===document&&(n=n.body),e||(e=document.createElement("style"),n.appendChild(e),e.innerHTML=this.css)},t.unmounted=function(){s.bind(this)(),o--;let n=this.$root.$el.getRootNode();if(n===document&&(n=n.body),o<1){if(e)try{n.removeChild(e)}catch{try{e.parentElement.removeChild(e)}catch{}}e=null}},t}typeof window<"u"&&(window.createVueComponentWithCSS=l);var x="",B=`
+var l=Object.defineProperty;var c=Object.getOwnPropertyDescriptor;var b=Object.getOwnPropertyNames;var f=Object.prototype.hasOwnProperty;var h=(t,e)=>{for(var o in e)l(t,o,{get:e[o],enumerable:!0})},C=(t,e,o,i)=>{if(e&&typeof e=="object"||typeof e=="function")for(let u of b(e))!f.call(t,u)&&u!==o&&l(t,u,{get:()=>e[u],enumerable:!(i=c(e,u))||i.enumerable});return t};var p=t=>C(l({},"__esModule",{value:!0}),t);var V={};h(V,{BulmaBlock:()=>s,BulmaBox:()=>r,BulmaButton:()=>m});module.exports=p(V);function a(t){let e=0,o;t=t||{};let i=t.data?t.data:function(){},u=t.mounted?t.mounted:function(){},d=t.unmounted?t.unmounted:function(){};return i.css||(i.css=""),t.data=function(){return i.bind(this)()},t.mounted=function(){u.bind(this)(),e++;let n=this.$root.$el.getRootNode();n===document&&(n=n.body),o||(o=document.createElement("style"),n.appendChild(o),o.innerHTML=this.css)},t.unmounted=function(){d.bind(this)(),e--;let n=this.$root.$el.getRootNode();if(n===document&&(n=n.body),e<1){if(o)try{n.removeChild(o)}catch{try{o.parentElement.removeChild(o)}catch{}}o=null}},t}typeof window<"u"&&(window.createVueComponentWithCSS=a);var B="",x=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
-`,a=l({name:"bulma-block",template:B,data(){return{css:x}}});var S="",p=`
+`,s=a({name:"bulma-block",template:x,data(){return{css:B}}});var S="",y=`
   <div class="box bulma-box">
     <slot></slot>
   </div>
-`,r=l({name:"bulma-box",template:p,data(){return{css:S}}});0&&(module.exports={BulmaBlock,BulmaBox});
+`,r=a({name:"bulma-box",template:y,data(){return{css:S}}});var v="",k=`
+  <button class="bulma-button button">
+    <slot></slot>
+  </button>
+`,m=a({name:"bulma-button",template:k,data(){return{css:v}}});0&&(module.exports={BulmaBlock,BulmaBox,BulmaButton});

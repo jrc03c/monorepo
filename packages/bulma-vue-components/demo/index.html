@@ -34,6 +34,16 @@
       a.is-external-anchor-tag:active {
         opacity: 1;
       }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        gap: 0.5em;
+      }
     </style>
   </head>
   <body>
@@ -110,6 +120,39 @@
           </h4>
 
           <bulma-box>This is a Bulma box!</bulma-box>
+
+          <h4
+            class="block has-text-grey has-text-weight-bold is-size-4"
+            id="box">
+            Button
+
+            <a class="is-local-anchor-tag" href="#button"></a>
+
+            <a
+              class="is-external-anchor-tag"
+              href="https://bulma.io/documentation/elements/button/"
+              rel="noreferrer,noopener"
+              target="_blank"
+              title="Go to Bulma docs"></a>
+          </h4>
+
+          <bulma-block>
+            <div class="row">
+              <bulma-button>Default</bulma-button>
+              <bulma-button class="is-primary">Primary</bulma-button>
+              <bulma-button class="is-link">Link</bulma-button>
+              <bulma-button class="is-info">Info</bulma-button>
+              <bulma-button class="is-success">Success</bulma-button>
+              <bulma-button class="is-warning">Warning</bulma-button>
+              <bulma-button class="is-danger">Danger</bulma-button>
+              <bulma-button class="is-white">White</bulma-button>
+              <bulma-button class="is-light">Light</bulma-button>
+              <bulma-button class="is-dark">Dark</bulma-button>
+              <bulma-button class="is-black">Black</bulma-button>
+              <bulma-button class="is-text">Text</bulma-button>
+              <bulma-button class="is-ghost">Ghost</bulma-button>
+            </div>
+          </bulma-block>
         </div>
       </div>
     </section>

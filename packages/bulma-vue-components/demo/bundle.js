@@ -102,6 +102,27 @@
       };
     }
   });
+  var css3 = (
+    /* css */
+    ``
+  );
+  var template3 = (
+    /* html */
+    `
+  <button class="bulma-button button">
+    <slot></slot>
+  </button>
+`
+  );
+  var BulmaButton = createVueComponentWithCSS({
+    name: "bulma-button",
+    template: template3,
+    data() {
+      return {
+        css: css3
+      };
+    }
+  });
 
   // node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
   var runtime_dom_esm_bundler_exports = {};
@@ -10476,8 +10497,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template3 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template3) {
+        const template4 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template4) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10493,7 +10514,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template3, finalCompilerOptions);
+          Component.render = compile(template4, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -10966,15 +10987,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template3 = templateContainer.content;
+        const template4 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template3.firstChild;
+          const wrapper = template4.firstChild;
           while (wrapper.firstChild) {
-            template3.appendChild(wrapper.firstChild);
+            template4.appendChild(wrapper.firstChild);
           }
-          template3.removeChild(wrapper);
+          template4.removeChild(wrapper);
         }
-        parent.insertBefore(template3, anchor);
+        parent.insertBefore(template4, anchor);
       }
       return [
         // first
@@ -18708,26 +18729,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template3, options) {
-    if (!isString(template3)) {
-      if (template3.nodeType) {
-        template3 = template3.innerHTML;
+  function compileToFunction(template4, options) {
+    if (!isString(template4)) {
+      if (template4.nodeType) {
+        template4 = template4.innerHTML;
       } else {
-        warn2(`invalid template option: `, template3);
+        warn2(`invalid template option: `, template4);
         return NOOP;
       }
     }
-    const key = genCacheKey(template3, options);
+    const key = genCacheKey(template4, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template3[0] === "#") {
-      const el = document.querySelector(template3);
+    if (template4[0] === "#") {
+      const el = document.querySelector(template4);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template3}`);
+        warn2(`Template element not found or is empty: ${template4}`);
       }
-      template3 = el ? el.innerHTML : ``;
+      template4 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18740,11 +18761,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template3, opts);
+    const { code } = compile2(template4, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template3,
+        template4,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18761,7 +18782,8 @@ ${codeFrame}` : message);
   var app = createApp({
     components: {
       "bulma-block": BulmaBlock,
-      "bulma-box": BulmaBox
+      "bulma-box": BulmaBox,
+      "bulma-button": BulmaButton
     }
   });
   app.mount("#app");

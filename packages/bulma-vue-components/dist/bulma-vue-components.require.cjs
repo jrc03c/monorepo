@@ -20,7 +20,8 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var src_exports = {};
 __export(src_exports, {
   BulmaBlock: () => BulmaBlock,
-  BulmaBox: () => BulmaBox
+  BulmaBox: () => BulmaBox,
+  BulmaButton: () => BulmaButton
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -125,8 +126,32 @@ var BulmaBox = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/button.mjs
+var css3 = (
+  /* css */
+  ``
+);
+var template3 = (
+  /* html */
+  `
+  <button class="bulma-button button">
+    <slot></slot>
+  </button>
+`
+);
+var BulmaButton = createVueComponentWithCSS({
+  name: "bulma-button",
+  template: template3,
+  data() {
+    return {
+      css: css3
+    };
+  }
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BulmaBlock,
-  BulmaBox
+  BulmaBox,
+  BulmaButton
 });
