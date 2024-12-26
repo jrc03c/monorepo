@@ -64,6 +64,20 @@ class BaseComponent extends HTMLElement {
     }
   }
 
+  destroy() {
+    if (this.isMounted) {
+      this.unmount()
+    }
+
+    this.eventListeners.forEach(listener => {
+      try {
+        listener.remove()
+      } catch (e) {}
+    })
+
+    this.eventListeners = []
+  }
+
   disconnectedCallback() {
     if (this.isMounted) {
       this.unmount()
@@ -154,14 +168,6 @@ class BaseComponent extends HTMLElement {
         this.parentElement.removeChild(this)
       } catch (e) {}
     }
-
-    this.eventListeners.forEach(listener => {
-      try {
-        listener.remove()
-      } catch (e) {}
-    })
-
-    this.eventListeners = []
 
     window.requestAnimationFrame(() => this.dispatchEvent(new Event("unmount")))
     window.requestAnimationFrame(() => this.onUnmounted())
