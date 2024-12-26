@@ -4,11 +4,115 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="bulma.min.css" rel="stylesheet" type="text/css" />
+    <style>
+      a.is-local-anchor-tag::before {
+        content: "#";
+        transform: rotate(180deg);
+        display: inline-block;
+        font-weight: normal;
+        margin-left: 0.25em;
+      }
+
+      a.is-external-anchor-tag::before {
+        content: "⇥";
+        display: inline-block;
+        font-weight: normal;
+        margin-left: 0.25em;
+      }
+
+      a.is-local-anchor-tag,
+      a.is-external-anchor-tag {
+        opacity: 0.15;
+      }
+
+      a.is-local-anchor-tag:hover,
+      a.is-external-anchor-tag:hover {
+        opacity: 1;
+      }
+
+      a.is-local-anchor-tag:active,
+      a.is-external-anchor-tag:active {
+        opacity: 1;
+      }
+    </style>
   </head>
   <body>
-    <div id="app">
-      <bulma-box>This is a Bulma box!</bulma-box>
-    </div>
+    <section class="section">
+      <div class="container">
+        <div id="app">
+          <h1 class="is-size-1 title">Bulma Vue Components</h1>
+
+          <h2 class="is-size-3 subtitle">
+            Components for
+            <a href="https://vuejs.org">Vue</a>
+            with built-in
+            <a href="https://bulma.io">Bulma</a>
+            classes
+          </h2>
+
+          <hr />
+
+          <h3 class="block has-text-weight-bold is-size-3" id="elements">
+            Elements
+
+            <a class="is-local-anchor-tag" href="#elements"></a>
+
+            <a
+              class="is-external-anchor-tag"
+              href="https://bulma.io/documentation/elements/"
+              rel="noreferrer,noopener"
+              target="_blank"
+              title="Go to Bulma docs"></a>
+          </h3>
+
+          <h4
+            class="block has-text-grey has-text-weight-bold is-size-4"
+            id="block">
+            Block
+
+            <a class="is-local-anchor-tag" href="#block"></a>
+
+            <a
+              class="is-external-anchor-tag"
+              href="https://bulma.io/documentation/elements/block/"
+              rel="noreferrer,noopener"
+              target="_blank"
+              title="Go to Bulma docs"></a>
+          </h4>
+
+          <!-- prettier-ignore -->
+          <bulma-block>
+            This is a Bulma block!
+          </bulma-block>
+
+          <!-- prettier-ignore -->
+          <bulma-block>
+            Here's another Bulma block!
+          </bulma-block>
+
+          <bulma-block>
+            And here's one more Bulma block just for good measure!
+          </bulma-block>
+
+          <h4
+            class="block has-text-grey has-text-weight-bold is-size-4"
+            id="box">
+            Box
+
+            <a class="is-local-anchor-tag" href="#box"></a>
+
+            <a
+              class="is-external-anchor-tag"
+              href="https://bulma.io/documentation/elements/box/"
+              rel="noreferrer,noopener"
+              target="_blank"
+              title="Go to Bulma docs"></a>
+          </h4>
+
+          <bulma-box>This is a Bulma box!</bulma-box>
+        </div>
+      </div>
+    </section>
 
     <script src="bundle.js"></script>
   </body>

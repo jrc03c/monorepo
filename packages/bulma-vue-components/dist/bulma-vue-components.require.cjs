@@ -19,6 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.mjs
 var src_exports = {};
 __export(src_exports, {
+  BulmaBlock: () => BulmaBlock,
   BulmaBox: () => BulmaBox
 });
 module.exports = __toCommonJS(src_exports);
@@ -79,12 +80,35 @@ if (typeof window !== "undefined") {
   window.createVueComponentWithCSS = createVueComponentWithCSS;
 }
 
-// src/elements/box.mjs
+// src/elements/block.mjs
 var css = (
   /* css */
   ``
 );
 var template = (
+  /* html */
+  `
+  <div class="block bulma-block">
+    <slot></slot>
+  </div>
+`
+);
+var BulmaBlock = createVueComponentWithCSS({
+  name: "bulma-block",
+  template,
+  data() {
+    return {
+      css
+    };
+  }
+});
+
+// src/elements/box.mjs
+var css2 = (
+  /* css */
+  ``
+);
+var template2 = (
   /* html */
   `
   <div class="box bulma-box">
@@ -94,14 +118,15 @@ var template = (
 );
 var BulmaBox = createVueComponentWithCSS({
   name: "bulma-box",
-  template,
+  template: template2,
   data() {
     return {
-      css
+      css: css2
     };
   }
 });
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  BulmaBlock,
   BulmaBox
 });

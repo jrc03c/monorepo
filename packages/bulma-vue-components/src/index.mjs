@@ -1,3 +1,4 @@
+import { BulmaBlock } from "./elements/block.mjs"
 import { BulmaBox } from "./elements/box.mjs"
 
-export { BulmaBox }
+export { BulmaBlock, BulmaBox }

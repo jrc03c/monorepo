@@ -55,12 +55,35 @@
     window.createVueComponentWithCSS = createVueComponentWithCSS;
   }
 
-  // src/elements/box.mjs
+  // src/elements/block.mjs
   var css = (
     /* css */
     ``
   );
   var template = (
+    /* html */
+    `
+  <div class="block bulma-block">
+    <slot></slot>
+  </div>
+`
+  );
+  var BulmaBlock = createVueComponentWithCSS({
+    name: "bulma-block",
+    template,
+    data() {
+      return {
+        css
+      };
+    }
+  });
+
+  // src/elements/box.mjs
+  var css2 = (
+    /* css */
+    ``
+  );
+  var template2 = (
     /* html */
     `
   <div class="box bulma-box">
@@ -70,10 +93,10 @@
   );
   var BulmaBox = createVueComponentWithCSS({
     name: "bulma-box",
-    template,
+    template: template2,
     data() {
       return {
-        css
+        css: css2
       };
     }
   });
