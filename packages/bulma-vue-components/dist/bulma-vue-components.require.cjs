@@ -22,7 +22,8 @@ __export(src_exports, {
   BulmaBlock: () => BulmaBlock,
   BulmaBox: () => BulmaBox,
   BulmaButton: () => BulmaButton,
-  BulmaDelete: () => BulmaDelete
+  BulmaDelete: () => BulmaDelete,
+  BulmaIcon: () => BulmaIcon
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -200,10 +201,78 @@ var BulmaDelete = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/icon.mjs
+var css5 = (
+  /* css */
+  ``
+);
+var template5 = (
+  /* html */
+  `
+  <span class="icon">
+    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
+  </span>
+`
+);
+var BulmaIcon = createVueComponentWithCSS({
+  name: "bulma-icon",
+  template: template5,
+  props: {
+    name: {
+      type: String,
+      required: true,
+      default: () => "exclamation-circle"
+    }
+  },
+  data() {
+    return {
+      css: css5,
+      observer: null
+    };
+  },
+  methods: {
+    updateInnerClasses() {
+      const classes = Array.from(this.$el.classList);
+      if (classes.includes("is-medium")) {
+        this.$refs.inner.classList.add("la-lg");
+      } else {
+        this.$refs.inner.classList.remove("la-lg");
+      }
+      if (classes.includes("is-large")) {
+        this.$refs.inner.classList.add("la-2x");
+      } else {
+        this.$refs.inner.classList.remove("la-2x");
+      }
+    }
+  },
+  mounted() {
+    this.observer = new MutationObserver((mutations) => {
+      if (!this.$refs.inner) {
+        return;
+      }
+      for (const mutation of mutations) {
+        if (mutation.attributeName === "class") {
+          this.updateInnerClasses();
+          return;
+        }
+      }
+    });
+    this.observer.observe(this.$el, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+    this.$nextTick(() => this.updateInnerClasses());
+  },
+  unmounted() {
+    this.observer.disconnect();
+  }
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BulmaBlock,
   BulmaBox,
   BulmaButton,
-  BulmaDelete
+  BulmaDelete,
+  BulmaIcon
 });
