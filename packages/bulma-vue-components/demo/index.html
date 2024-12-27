@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="bulma.min.css" rel="stylesheet" type="text/css" />
+    <link
+      href="line-awesome/css/line-awesome.min.css"
+      rel="stylesheet"
+      type="text/css" />
     <style>
       a.is-local-anchor-tag::before {
         content: "#";
@@ -182,6 +186,40 @@
               <bulma-delete class="is-medium"></bulma-delete>
               <bulma-delete></bulma-delete>
               <bulma-delete class="is-small"></bulma-delete>
+            </div>
+          </bulma-block>
+
+          <h4
+            class="block has-text-grey has-text-weight-bold is-size-4"
+            id="box">
+            Icon
+
+            <a class="is-local-anchor-tag" href="#button"></a>
+
+            <a
+              class="is-external-anchor-tag"
+              href="https://bulma.io/documentation/elements/icon/"
+              rel="noreferrer,noopener"
+              target="_blank"
+              title="Go to Bulma docs"></a>
+          </h4>
+
+          <div class="block notification">
+            <b>NOTE:</b>
+            The icons below have the
+            <code>is-large</code>
+            class for better visibility. These are
+            <i>not</i>
+            the default sizes of the icons.
+          </div>
+
+          <bulma-block>
+            <div class="row">
+              <bulma-icon class="is-large" name="question-circle"></bulma-icon>
+              <bulma-icon class="is-large" name="bell"></bulma-icon>
+              <bulma-icon class="is-large" name="dove"></bulma-icon>
+              <bulma-icon class="is-large" name="sync"></bulma-icon>
+              <bulma-icon class="is-large" name="volume-up"></bulma-icon>
             </div>
           </bulma-block>
         </div>

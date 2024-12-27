@@ -171,6 +171,71 @@
       };
     }
   });
+  var css5 = (
+    /* css */
+    ``
+  );
+  var template5 = (
+    /* html */
+    `
+  <span class="icon">
+    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
+  </span>
+`
+  );
+  var BulmaIcon = createVueComponentWithCSS({
+    name: "bulma-icon",
+    template: template5,
+    props: {
+      name: {
+        type: String,
+        required: true,
+        default: () => "exclamation-circle"
+      }
+    },
+    data() {
+      return {
+        css: css5,
+        observer: null
+      };
+    },
+    methods: {
+      updateInnerClasses() {
+        const classes = Array.from(this.$el.classList);
+        if (classes.includes("is-medium")) {
+          this.$refs.inner.classList.add("la-lg");
+        } else {
+          this.$refs.inner.classList.remove("la-lg");
+        }
+        if (classes.includes("is-large")) {
+          this.$refs.inner.classList.add("la-2x");
+        } else {
+          this.$refs.inner.classList.remove("la-2x");
+        }
+      }
+    },
+    mounted() {
+      this.observer = new MutationObserver((mutations) => {
+        if (!this.$refs.inner) {
+          return;
+        }
+        for (const mutation of mutations) {
+          if (mutation.attributeName === "class") {
+            this.updateInnerClasses();
+            return;
+          }
+        }
+      });
+      this.observer.observe(this.$el, {
+        attributes: true,
+        attributeFilter: ["class"]
+      });
+      this.$nextTick(() => this.updateInnerClasses());
+    },
+    unmounted() {
+      this.observer.disconnect();
+    }
+  });
 
   // node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
   var runtime_dom_esm_bundler_exports = {};
@@ -10545,8 +10610,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template5 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template5) {
+        const template6 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template6) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10562,7 +10627,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template5, finalCompilerOptions);
+          Component.render = compile(template6, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11035,15 +11100,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template5 = templateContainer.content;
+        const template6 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template5.firstChild;
+          const wrapper = template6.firstChild;
           while (wrapper.firstChild) {
-            template5.appendChild(wrapper.firstChild);
+            template6.appendChild(wrapper.firstChild);
           }
-          template5.removeChild(wrapper);
+          template6.removeChild(wrapper);
         }
-        parent.insertBefore(template5, anchor);
+        parent.insertBefore(template6, anchor);
       }
       return [
         // first
@@ -18777,26 +18842,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template5, options) {
-    if (!isString(template5)) {
-      if (template5.nodeType) {
-        template5 = template5.innerHTML;
+  function compileToFunction(template6, options) {
+    if (!isString(template6)) {
+      if (template6.nodeType) {
+        template6 = template6.innerHTML;
       } else {
-        warn2(`invalid template option: `, template5);
+        warn2(`invalid template option: `, template6);
         return NOOP;
       }
     }
-    const key = genCacheKey(template5, options);
+    const key = genCacheKey(template6, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template5[0] === "#") {
-      const el = document.querySelector(template5);
+    if (template6[0] === "#") {
+      const el = document.querySelector(template6);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template5}`);
+        warn2(`Template element not found or is empty: ${template6}`);
       }
-      template5 = el ? el.innerHTML : ``;
+      template6 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18809,11 +18874,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template5, opts);
+    const { code } = compile2(template6, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template5,
+        template6,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18832,7 +18897,8 @@ ${codeFrame}` : message);
       "bulma-block": BulmaBlock,
       "bulma-box": BulmaBox,
       "bulma-button": BulmaButton,
-      "bulma-delete": BulmaDelete
+      "bulma-delete": BulmaDelete,
+      "bulma-icon": BulmaIcon
     }
   });
   app.mount("#app");
