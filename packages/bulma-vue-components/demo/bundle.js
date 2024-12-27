@@ -152,6 +152,25 @@
       };
     }
   });
+  var css4 = (
+    /* css */
+    ``
+  );
+  var template4 = (
+    /* html */
+    `
+  <button class="delete"></button>
+`
+  );
+  var BulmaDelete = createVueComponentWithCSS({
+    name: "bulma-delete",
+    template: template4,
+    data() {
+      return {
+        css: css4
+      };
+    }
+  });
 
   // node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
   var runtime_dom_esm_bundler_exports = {};
@@ -10526,8 +10545,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template4 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template4) {
+        const template5 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template5) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10543,7 +10562,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template4, finalCompilerOptions);
+          Component.render = compile(template5, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11016,15 +11035,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template4 = templateContainer.content;
+        const template5 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template4.firstChild;
+          const wrapper = template5.firstChild;
           while (wrapper.firstChild) {
-            template4.appendChild(wrapper.firstChild);
+            template5.appendChild(wrapper.firstChild);
           }
-          template4.removeChild(wrapper);
+          template5.removeChild(wrapper);
         }
-        parent.insertBefore(template4, anchor);
+        parent.insertBefore(template5, anchor);
       }
       return [
         // first
@@ -18758,26 +18777,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template4, options) {
-    if (!isString(template4)) {
-      if (template4.nodeType) {
-        template4 = template4.innerHTML;
+  function compileToFunction(template5, options) {
+    if (!isString(template5)) {
+      if (template5.nodeType) {
+        template5 = template5.innerHTML;
       } else {
-        warn2(`invalid template option: `, template4);
+        warn2(`invalid template option: `, template5);
         return NOOP;
       }
     }
-    const key = genCacheKey(template4, options);
+    const key = genCacheKey(template5, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template4[0] === "#") {
-      const el = document.querySelector(template4);
+    if (template5[0] === "#") {
+      const el = document.querySelector(template5);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template4}`);
+        warn2(`Template element not found or is empty: ${template5}`);
       }
-      template4 = el ? el.innerHTML : ``;
+      template5 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18790,11 +18809,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template4, opts);
+    const { code } = compile2(template5, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template4,
+        template5,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18812,7 +18831,8 @@ ${codeFrame}` : message);
     components: {
       "bulma-block": BulmaBlock,
       "bulma-box": BulmaBox,
-      "bulma-button": BulmaButton
+      "bulma-button": BulmaButton,
+      "bulma-delete": BulmaDelete
     }
   });
   app.mount("#app");

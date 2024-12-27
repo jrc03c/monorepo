@@ -21,7 +21,8 @@ var src_exports = {};
 __export(src_exports, {
   BulmaBlock: () => BulmaBlock,
   BulmaBox: () => BulmaBox,
-  BulmaButton: () => BulmaButton
+  BulmaButton: () => BulmaButton,
+  BulmaDelete: () => BulmaDelete
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -178,9 +179,31 @@ var BulmaButton = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/delete.mjs
+var css4 = (
+  /* css */
+  ``
+);
+var template4 = (
+  /* html */
+  `
+  <button class="delete"></button>
+`
+);
+var BulmaDelete = createVueComponentWithCSS({
+  name: "bulma-delete",
+  template: template4,
+  data() {
+    return {
+      css: css4
+    };
+  }
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BulmaBlock,
   BulmaBox,
-  BulmaButton
+  BulmaButton,
+  BulmaDelete
 });

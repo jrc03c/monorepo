@@ -151,8 +151,30 @@ var BulmaButton = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/delete.mjs
+var css4 = (
+  /* css */
+  ``
+);
+var template4 = (
+  /* html */
+  `
+  <button class="delete"></button>
+`
+);
+var BulmaDelete = createVueComponentWithCSS({
+  name: "bulma-delete",
+  template: template4,
+  data() {
+    return {
+      css: css4
+    };
+  }
+});
 export {
   BulmaBlock,
   BulmaBox,
-  BulmaButton
+  BulmaButton,
+  BulmaDelete
 };

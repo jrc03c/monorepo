@@ -2,6 +2,7 @@ import {
   BulmaBlock,
   BulmaBox,
   BulmaButton,
+  BulmaDelete,
 } from "../dist/bulma-vue-components.import.mjs"
 
 import { createApp } from "vue/dist/vue.esm-bundler.js"
@@ -11,6 +12,7 @@ const app = createApp({
     "bulma-block": BulmaBlock,
     "bulma-box": BulmaBox,
     "bulma-button": BulmaButton,
+    "bulma-delete": BulmaDelete,
   },
 })
 
