@@ -22,9 +22,8 @@ async function rebuild() {
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.min.mjs --minify`,
       `rm -rf demo/bundle*`,
       `npx esbuild demo/res/js/src/main.mjs --bundle --outfile=demo/res/js/bundle.js`,
-      () => {
-        const docs = fsx
-          .findSync("src", f => f.endsWith(".html"))
+      async () => {
+        const docs = (await fsx.findAsync("src", f => f.endsWith(".html")))
           .toSorted()
           .map(f => `<article>${fs.readFileSync(f, "utf8")}</article>`)
 
