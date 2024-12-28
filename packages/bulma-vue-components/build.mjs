@@ -1,8 +1,10 @@
 import { execSync } from "node:child_process"
 import { watch } from "@jrc03c/watch"
+import * as fsx from "@jrc03c/fs-extras"
+import fs from "node:fs"
 import process from "node:process"
 
-function rebuild() {
+async function rebuild() {
   console.log("\n-----\n")
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
@@ -20,11 +22,25 @@ function rebuild() {
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.min.mjs --minify`,
       `rm -rf demo/bundle*`,
       `npx esbuild demo/res/js/src/main.mjs --bundle --outfile=demo/res/js/bundle.js`,
+      () => {
+        const docs = fsx
+          .findSync("src", f => f.endsWith(".html"))
+          .toSorted()
+          .map(f => `<article>${fs.readFileSync(f, "utf8")}</article>`)
+
+        const template = fs.readFileSync("demo/index-template.html", "utf8")
+        const out = template.replace("{{ content }}", docs.join("\n\n"))
+        fs.writeFileSync("demo/index.html", out, "utf8")
+      },
     ]
 
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    for (const command of commands) {
+      if (typeof command === "function") {
+        await command()
+      } else {
+        execSync(command, { encoding: "utf8" })
+      }
+    }
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
@@ -35,7 +51,7 @@ function rebuild() {
 if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
   watch({
     target: ".",
-    exclude: ["bundle.css", "bundle.js", "dist", "node_modules"],
+    exclude: ["build.mjs", "bundle.css", "bundle.js", "dist", "node_modules"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,
