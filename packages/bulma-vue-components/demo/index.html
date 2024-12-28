@@ -257,15 +257,6 @@
                 title="Go to Bulma docs"></a>
             </h4>
 
-            <div class="block notification">
-              <b>NOTE:</b>
-              The icons below have the
-              <code>is-large</code>
-              class for better visibility. These are
-              <i>not</i>
-              the default sizes of the icons.
-            </div>
-
             <bulma-block>
               <div class="row">
                 <bulma-icon
@@ -276,6 +267,43 @@
                 <bulma-icon class="is-large" name="sync"></bulma-icon>
                 <bulma-icon class="is-large" name="volume-up"></bulma-icon>
               </div>
+            </bulma-block>
+
+            <bulma-block>
+              Note that the icons above have the
+              <code>is-large</code>
+              class for better visibility. Those are
+              <i>not</i>
+              the default sizes of the icons.
+            </bulma-block>
+
+            <bulma-block>
+              <bulma-block>
+                Unlike Bulma, which recommends Font Awesome icons, this library
+                uses
+                <a
+                  href="https://icons8.com/line-awesome"
+                  rel="noopener, noreferrer"
+                  target="_blank">
+                  Line Awesome
+                </a>
+                icons. Use the
+                <code>name</code>
+                attribute to select a Line Awesome icon (without including the
+                <code>la-</code>
+                prefix in the name). For example, this:
+              </bulma-block>
+
+              <bulma-block class="code-block notification">
+                <code>
+                  &lt;bulma-icon class="is-large"
+                  name="question-circle"&gt;&lt;/bulma-icon&gt;
+                </code>
+              </bulma-block>
+
+              <bulma-block>
+                ...produces the first of the five icons shown above.
+              </bulma-block>
             </bulma-block>
           </article>
         </div>
