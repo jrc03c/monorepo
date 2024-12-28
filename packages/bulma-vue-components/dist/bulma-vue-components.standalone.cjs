@@ -55,7 +55,7 @@
     window.createVueComponentWithCSS = createVueComponentWithCSS;
   }
 
-  // src/elements/block.mjs
+  // src/elements/block/block.mjs
   var css = (
     /* css */
     ``
@@ -78,7 +78,7 @@
     }
   });
 
-  // src/elements/box.mjs
+  // src/elements/box/box.mjs
   var css2 = (
     /* css */
     ``
@@ -101,7 +101,7 @@
     }
   });
 
-  // src/elements/button.mjs
+  // src/elements/button/button.mjs
   var css3 = (
     /* css */
     ``
@@ -153,7 +153,7 @@
     }
   });
 
-  // src/elements/delete.mjs
+  // src/elements/delete/delete.mjs
   var css4 = (
     /* css */
     ``
@@ -174,7 +174,7 @@
     }
   });
 
-  // src/elements/icon.mjs
+  // src/elements/icon/icon.mjs
   var css5 = (
     /* css */
     ``
@@ -241,7 +241,7 @@
     }
   });
 
-  // src/elements/image.mjs
+  // src/elements/image/image.mjs
   var css6 = (
     /* css */
     ``
@@ -272,7 +272,7 @@
     }
   });
 
-  // src/elements/notification.mjs
+  // src/elements/notification/notification.mjs
   var css7 = (
     /* css */
     ``

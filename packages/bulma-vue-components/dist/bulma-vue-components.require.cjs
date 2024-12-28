@@ -85,7 +85,7 @@ if (typeof window !== "undefined") {
   window.createVueComponentWithCSS = createVueComponentWithCSS;
 }
 
-// src/elements/block.mjs
+// src/elements/block/block.mjs
 var css = (
   /* css */
   ``
@@ -108,7 +108,7 @@ var BulmaBlock = createVueComponentWithCSS({
   }
 });
 
-// src/elements/box.mjs
+// src/elements/box/box.mjs
 var css2 = (
   /* css */
   ``
@@ -131,7 +131,7 @@ var BulmaBox = createVueComponentWithCSS({
   }
 });
 
-// src/elements/button.mjs
+// src/elements/button/button.mjs
 var css3 = (
   /* css */
   ``
@@ -183,7 +183,7 @@ var BulmaButton = createVueComponentWithCSS({
   }
 });
 
-// src/elements/delete.mjs
+// src/elements/delete/delete.mjs
 var css4 = (
   /* css */
   ``
@@ -204,7 +204,7 @@ var BulmaDelete = createVueComponentWithCSS({
   }
 });
 
-// src/elements/icon.mjs
+// src/elements/icon/icon.mjs
 var css5 = (
   /* css */
   ``
@@ -271,7 +271,7 @@ var BulmaIcon = createVueComponentWithCSS({
   }
 });
 
-// src/elements/image.mjs
+// src/elements/image/image.mjs
 var css6 = (
   /* css */
   ``
@@ -302,7 +302,7 @@ var BulmaImage = createVueComponentWithCSS({
   }
 });
 
-// src/elements/notification.mjs
+// src/elements/notification/notification.mjs
 var css7 = (
   /* css */
   ``

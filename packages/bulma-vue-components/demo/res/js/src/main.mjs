@@ -6,7 +6,7 @@ import {
   BulmaIcon,
   BulmaImage,
   BulmaNotification,
-} from "../dist/bulma-vue-components.import.mjs"
+} from "../../../../dist/bulma-vue-components.import.mjs"
 
 import { createApp } from "vue/dist/vue.esm-bundler.js"
 

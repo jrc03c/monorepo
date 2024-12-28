@@ -18957,7 +18957,7 @@ ${codeFrame}` : message);
   }
   registerRuntimeCompiler(compileToFunction);
 
-  // demo/main.mjs
+  // demo/res/js/src/main.mjs
   var app = createApp({
     components: {
       "bulma-block": BulmaBlock,

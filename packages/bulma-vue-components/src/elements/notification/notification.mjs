@@ -23,7 +23,7 @@ const template = /* html */ `
 // JS
 // -----------------------------------------------------------------------------
 
-import { BulmaDelete } from "./delete.mjs"
+import { BulmaDelete } from "../delete/delete.mjs"
 import { createVueComponentWithCSS } from "@jrc03c/vue-component-with-css"
 
 const BulmaNotification = createVueComponentWithCSS({

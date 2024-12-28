@@ -2,7 +2,7 @@ import { execSync } from "node:child_process"
 import { watch } from "@jrc03c/watch"
 import process from "node:process"
 
-function rebuild(file) {
+function rebuild() {
   console.log("\n-----\n")
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
@@ -19,7 +19,7 @@ function rebuild(file) {
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.mjs`,
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.min.mjs --minify`,
       `rm -rf demo/bundle*`,
-      `npx esbuild demo/main.mjs --bundle --outfile=demo/bundle.js`,
+      `npx esbuild demo/res/js/src/main.mjs --bundle --outfile=demo/res/js/bundle.js`,
     ]
 
     commands.forEach(command => {
