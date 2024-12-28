@@ -23,7 +23,8 @@ __export(src_exports, {
   BulmaBox: () => BulmaBox,
   BulmaButton: () => BulmaButton,
   BulmaDelete: () => BulmaDelete,
-  BulmaIcon: () => BulmaIcon
+  BulmaIcon: () => BulmaIcon,
+  BulmaImage: () => BulmaImage
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -268,11 +269,43 @@ var BulmaIcon = createVueComponentWithCSS({
     this.observer.disconnect();
   }
 });
+
+// src/elements/image.mjs
+var css6 = (
+  /* css */
+  ``
+);
+var template6 = (
+  /* html */
+  `
+  <figure class="image">
+    <img :src="src" v-if="src">
+    <slot v-else></slot>
+  </figure>
+`
+);
+var BulmaImage = createVueComponentWithCSS({
+  name: "bulma-image",
+  template: template6,
+  props: {
+    src: {
+      type: String,
+      required: false,
+      default: () => ""
+    }
+  },
+  data() {
+    return {
+      css: css6
+    };
+  }
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BulmaBlock,
   BulmaBox,
   BulmaButton,
   BulmaDelete,
-  BulmaIcon
+  BulmaIcon,
+  BulmaImage
 });

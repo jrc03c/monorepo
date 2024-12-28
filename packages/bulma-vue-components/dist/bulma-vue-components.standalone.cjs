@@ -240,4 +240,35 @@
       this.observer.disconnect();
     }
   });
+
+  // src/elements/image.mjs
+  var css6 = (
+    /* css */
+    ``
+  );
+  var template6 = (
+    /* html */
+    `
+  <figure class="image">
+    <img :src="src" v-if="src">
+    <slot v-else></slot>
+  </figure>
+`
+  );
+  var BulmaImage = createVueComponentWithCSS({
+    name: "bulma-image",
+    template: template6,
+    props: {
+      src: {
+        type: String,
+        required: false,
+        default: () => ""
+      }
+    },
+    data() {
+      return {
+        css: css6
+      };
+    }
+  });
 })();

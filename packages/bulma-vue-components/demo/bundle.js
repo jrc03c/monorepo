@@ -236,6 +236,35 @@
       this.observer.disconnect();
     }
   });
+  var css6 = (
+    /* css */
+    ``
+  );
+  var template6 = (
+    /* html */
+    `
+  <figure class="image">
+    <img :src="src" v-if="src">
+    <slot v-else></slot>
+  </figure>
+`
+  );
+  var BulmaImage = createVueComponentWithCSS({
+    name: "bulma-image",
+    template: template6,
+    props: {
+      src: {
+        type: String,
+        required: false,
+        default: () => ""
+      }
+    },
+    data() {
+      return {
+        css: css6
+      };
+    }
+  });
 
   // node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js
   var runtime_dom_esm_bundler_exports = {};
@@ -10610,8 +10639,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template6 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template6) {
+        const template7 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template7) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10627,7 +10656,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template6, finalCompilerOptions);
+          Component.render = compile(template7, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11100,15 +11129,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template6 = templateContainer.content;
+        const template7 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template6.firstChild;
+          const wrapper = template7.firstChild;
           while (wrapper.firstChild) {
-            template6.appendChild(wrapper.firstChild);
+            template7.appendChild(wrapper.firstChild);
           }
-          template6.removeChild(wrapper);
+          template7.removeChild(wrapper);
         }
-        parent.insertBefore(template6, anchor);
+        parent.insertBefore(template7, anchor);
       }
       return [
         // first
@@ -18842,26 +18871,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template6, options) {
-    if (!isString(template6)) {
-      if (template6.nodeType) {
-        template6 = template6.innerHTML;
+  function compileToFunction(template7, options) {
+    if (!isString(template7)) {
+      if (template7.nodeType) {
+        template7 = template7.innerHTML;
       } else {
-        warn2(`invalid template option: `, template6);
+        warn2(`invalid template option: `, template7);
         return NOOP;
       }
     }
-    const key = genCacheKey(template6, options);
+    const key = genCacheKey(template7, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template6[0] === "#") {
-      const el = document.querySelector(template6);
+    if (template7[0] === "#") {
+      const el = document.querySelector(template7);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template6}`);
+        warn2(`Template element not found or is empty: ${template7}`);
       }
-      template6 = el ? el.innerHTML : ``;
+      template7 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18874,11 +18903,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template6, opts);
+    const { code } = compile2(template7, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template6,
+        template7,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18898,7 +18927,8 @@ ${codeFrame}` : message);
       "bulma-box": BulmaBox,
       "bulma-button": BulmaButton,
       "bulma-delete": BulmaDelete,
-      "bulma-icon": BulmaIcon
+      "bulma-icon": BulmaIcon,
+      "bulma-image": BulmaImage
     }
   });
   app.mount("#app");

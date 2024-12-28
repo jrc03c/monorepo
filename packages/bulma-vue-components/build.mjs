@@ -2,7 +2,7 @@ import { execSync } from "node:child_process"
 import { watch } from "@jrc03c/watch"
 import process from "node:process"
 
-function rebuild() {
+function rebuild(file) {
   console.log("\n-----\n")
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
@@ -34,8 +34,8 @@ function rebuild() {
 
 if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
   watch({
-    target: "src",
-    exclude: ["bundle.css", "bundle.js", "node_modules"],
+    target: ".",
+    exclude: ["bundle.css", "bundle.js", "dist", "node_modules"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,

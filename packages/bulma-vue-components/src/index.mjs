@@ -3,5 +3,6 @@ import { BulmaBox } from "./elements/box.mjs"
 import { BulmaButton } from "./elements/button.mjs"
 import { BulmaDelete } from "./elements/delete.mjs"
 import { BulmaIcon } from "./elements/icon.mjs"
+import { BulmaImage } from "./elements/image.mjs"
 
-export { BulmaBlock, BulmaBox, BulmaButton, BulmaDelete, BulmaIcon }
+export { BulmaBlock, BulmaBox, BulmaButton, BulmaDelete, BulmaIcon, BulmaImage }
