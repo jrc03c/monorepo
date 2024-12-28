@@ -4,5 +4,14 @@ import { BulmaButton } from "./elements/button.mjs"
 import { BulmaDelete } from "./elements/delete.mjs"
 import { BulmaIcon } from "./elements/icon.mjs"
 import { BulmaImage } from "./elements/image.mjs"
+import { BulmaNotification } from "./elements/notification.mjs"
 
-export { BulmaBlock, BulmaBox, BulmaButton, BulmaDelete, BulmaIcon, BulmaImage }
+export {
+  BulmaBlock,
+  BulmaBox,
+  BulmaButton,
+  BulmaDelete,
+  BulmaIcon,
+  BulmaImage,
+  BulmaNotification,
+}

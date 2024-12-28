@@ -270,11 +270,51 @@ var BulmaImage = createVueComponentWithCSS({
     };
   }
 });
+
+// src/elements/notification.mjs
+var css7 = (
+  /* css */
+  ``
+);
+var template7 = (
+  /* html */
+  `
+  <div class="notification">
+    <bulma-delete
+      @click="$emit('close', $event)"
+      v-if="!permanent">
+    </bulma-delete>
+    
+    <slot></slot>
+  </div>
+`
+);
+var BulmaNotification = createVueComponentWithCSS({
+  name: "bulma-notification",
+  emits: ["close"],
+  components: {
+    "bulma-delete": BulmaDelete
+  },
+  template: template7,
+  props: {
+    permanent: {
+      type: Boolean,
+      required: false,
+      default: () => false
+    }
+  },
+  data() {
+    return {
+      css: css7
+    };
+  }
+});
 export {
   BulmaBlock,
   BulmaBox,
   BulmaButton,
   BulmaDelete,
   BulmaIcon,
-  BulmaImage
+  BulmaImage,
+  BulmaNotification
 };
