@@ -38,7 +38,7 @@ const template = /* html */ `
       <hr />
 
       <div class="columns">
-        <div class="column is-3">
+        <div class="column is-2">
           <aside class="menu">
             <div class="menu-label">Elements</div>
 
@@ -88,7 +88,7 @@ const template = /* html */ `
           </aside>
         </div>
 
-        <div class="column is-9">
+        <div class="column is-10">
           <router-view></router-view>
         </div>
       </div>

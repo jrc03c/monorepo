@@ -18,32 +18,14 @@ p {
   color: white;
 }
 
-a.is-local-anchor-tag::before {
-  content: "#";
-  transform: rotate(180deg);
-  display: inline-block;
-  font-weight: normal;
-  margin-left: 0.25em;
-}
-
-a.is-external-anchor-tag::before {
-  content: "⇥";
-  display: inline-block;
-  font-weight: normal;
-  margin-left: 0.25em;
-}
-
-a.is-local-anchor-tag,
 a.is-external-anchor-tag {
   opacity: 0.15;
 }
 
-a.is-local-anchor-tag:hover,
 a.is-external-anchor-tag:hover {
   opacity: 1;
 }
 
-a.is-local-anchor-tag:active,
 a.is-external-anchor-tag:active {
   opacity: 1;
 }

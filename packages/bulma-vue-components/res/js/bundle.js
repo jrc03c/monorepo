@@ -98,7 +98,7 @@
       <hr />
 
       <div class="columns">
-        <div class="column is-3">
+        <div class="column is-2">
           <aside class="menu">
             <div class="menu-label">Elements</div>
 
@@ -148,7 +148,7 @@
           </aside>
         </div>
 
-        <div class="column is-9">
+        <div class="column is-10">
           <router-view></router-view>
         </div>
       </div>
@@ -10539,8 +10539,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template9 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template9) {
+        const template16 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template16) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10556,7 +10556,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template9, finalCompilerOptions);
+          Component.render = compile(template16, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11029,15 +11029,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template9 = templateContainer.content;
+        const template16 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template9.firstChild;
+          const wrapper = template16.firstChild;
           while (wrapper.firstChild) {
-            template9.appendChild(wrapper.firstChild);
+            template16.appendChild(wrapper.firstChild);
           }
-          template9.removeChild(wrapper);
+          template16.removeChild(wrapper);
         }
-        parent.insertBefore(template9, anchor);
+        parent.insertBefore(template16, anchor);
       }
       return [
         // first
@@ -18771,26 +18771,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template9, options) {
-    if (!isString(template9)) {
-      if (template9.nodeType) {
-        template9 = template9.innerHTML;
+  function compileToFunction(template16, options) {
+    if (!isString(template16)) {
+      if (template16.nodeType) {
+        template16 = template16.innerHTML;
       } else {
-        warn2(`invalid template option: `, template9);
+        warn2(`invalid template option: `, template16);
         return NOOP;
       }
     }
-    const key = genCacheKey(template9, options);
+    const key = genCacheKey(template16, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template9[0] === "#") {
-      const el = document.querySelector(template9);
+    if (template16[0] === "#") {
+      const el = document.querySelector(template16);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template9}`);
+        warn2(`Template element not found or is empty: ${template16}`);
       }
-      template9 = el ? el.innerHTML : ``;
+      template16 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18803,11 +18803,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template9, opts);
+    const { code } = compile2(template16, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template9,
+        template16,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18820,7 +18820,7 @@ ${codeFrame}` : message);
   }
   registerRuntimeCompiler(compileToFunction);
 
-  // res/js/src/views/elements/block.mjs
+  // res/js/src/lib/elements/block.mjs
   var css2 = (
     /* css */
     ``
@@ -18828,11 +18828,13 @@ ${codeFrame}` : message);
   var template2 = (
     /* html */
     `
-  This is the element block view.
+  <div class="block bulma-block">
+    <slot></slot>
+  </div>
 `
   );
-  var BlockView = createVueComponentWithCSS({
-    name: "x-block-view",
+  var BulmaBlock = createVueComponentWithCSS({
+    name: "bulma-block",
     template: template2,
     data() {
       return {
@@ -18841,7 +18843,7 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/views/elements/box.mjs
+  // res/js/src/lib/elements/box.mjs
   var css3 = (
     /* css */
     ``
@@ -18849,11 +18851,13 @@ ${codeFrame}` : message);
   var template3 = (
     /* html */
     `
-  This is the element box view.
+  <div class="box bulma-box">
+    <slot></slot>
+  </div>
 `
   );
-  var BoxView = createVueComponentWithCSS({
-    name: "x-box-view",
+  var BulmaBox = createVueComponentWithCSS({
+    name: "bulma-box",
     template: template3,
     data() {
       return {
@@ -18862,7 +18866,7 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/views/elements/button.mjs
+  // res/js/src/lib/elements/button.mjs
   var css4 = (
     /* css */
     ``
@@ -18870,15 +18874,375 @@ ${codeFrame}` : message);
   var template4 = (
     /* html */
     `
-  This is the element button view.
+  <button
+    :class="{
+      'is-black': black,
+      'is-danger': danger,
+      'is-dark': dark,
+      'is-ghost': ghost,
+      'is-info': info,
+      'is-light': light,
+      'is-link': link,
+      'is-primary': primary,
+      'is-success': success,
+      'is-text': text,
+      'is-warning': warning,
+      'white': white,
+    }"
+    class="bulma-button button">
+    <slot></slot>
+  </button>
+`
+  );
+  var BulmaButton = createVueComponentWithCSS({
+    name: "bulma-button",
+    template: template4,
+    props: {
+      black: { type: Boolean, required: false, default: () => false },
+      danger: { type: Boolean, required: false, default: () => false },
+      dark: { type: Boolean, required: false, default: () => false },
+      ghost: { type: Boolean, required: false, default: () => false },
+      info: { type: Boolean, required: false, default: () => false },
+      light: { type: Boolean, required: false, default: () => false },
+      link: { type: Boolean, required: false, default: () => false },
+      primary: { type: Boolean, required: false, default: () => false },
+      success: { type: Boolean, required: false, default: () => false },
+      text: { type: Boolean, required: false, default: () => false },
+      warning: { type: Boolean, required: false, default: () => false },
+      white: { type: Boolean, required: false, default: () => false }
+    },
+    data() {
+      return {
+        css: css4
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/delete.mjs
+  var css5 = (
+    /* css */
+    ``
+  );
+  var template5 = (
+    /* html */
+    `
+  <button class="delete"></button>
+`
+  );
+  var BulmaDelete = createVueComponentWithCSS({
+    name: "bulma-delete",
+    template: template5,
+    data() {
+      return {
+        css: css5
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/icon.mjs
+  var css6 = (
+    /* css */
+    ``
+  );
+  var template6 = (
+    /* html */
+    `
+  <span class="icon">
+    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
+  </span>
+`
+  );
+  var BulmaIcon = createVueComponentWithCSS({
+    name: "bulma-icon",
+    template: template6,
+    props: {
+      name: {
+        type: String,
+        required: true,
+        default: () => "exclamation-circle"
+      }
+    },
+    data() {
+      return {
+        css: css6,
+        observer: null
+      };
+    },
+    methods: {
+      updateInnerClasses() {
+        const classes = Array.from(this.$el.classList);
+        if (classes.includes("is-medium")) {
+          this.$refs.inner.classList.add("la-lg");
+        } else {
+          this.$refs.inner.classList.remove("la-lg");
+        }
+        if (classes.includes("is-large")) {
+          this.$refs.inner.classList.add("la-2x");
+        } else {
+          this.$refs.inner.classList.remove("la-2x");
+        }
+      }
+    },
+    mounted() {
+      this.observer = new MutationObserver((mutations) => {
+        if (!this.$refs.inner) {
+          return;
+        }
+        for (const mutation of mutations) {
+          if (mutation.attributeName === "class") {
+            this.updateInnerClasses();
+            return;
+          }
+        }
+      });
+      this.observer.observe(this.$el, {
+        attributes: true,
+        attributeFilter: ["class"]
+      });
+      this.$nextTick(() => this.updateInnerClasses());
+    },
+    unmounted() {
+      this.observer.disconnect();
+    }
+  });
+
+  // res/js/src/lib/elements/image.mjs
+  var css7 = (
+    /* css */
+    ``
+  );
+  var template7 = (
+    /* html */
+    `
+  <figure class="image">
+    <img :src="src" v-if="src">
+    <slot v-else></slot>
+  </figure>
+`
+  );
+  var BulmaImage = createVueComponentWithCSS({
+    name: "bulma-image",
+    template: template7,
+    props: {
+      src: {
+        type: String,
+        required: false,
+        default: () => ""
+      }
+    },
+    data() {
+      return {
+        css: css7
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/notification.mjs
+  var css8 = (
+    /* css */
+    ``
+  );
+  var template8 = (
+    /* html */
+    `
+  <div class="notification">
+    <bulma-delete
+      @click="$emit('close', $event)"
+      v-if="!permanent">
+    </bulma-delete>
+    
+    <slot></slot>
+  </div>
+`
+  );
+  var BulmaNotification = createVueComponentWithCSS({
+    name: "bulma-notification",
+    emits: ["close"],
+    components: {
+      "bulma-delete": BulmaDelete
+    },
+    template: template8,
+    props: {
+      permanent: {
+        type: Boolean,
+        required: false,
+        default: () => false
+      }
+    },
+    data() {
+      return {
+        css: css8
+      };
+    }
+  });
+
+  // res/js/src/views/elements/block.mjs
+  var css9 = (
+    /* css */
+    ``
+  );
+  var template9 = (
+    /* html */
+    `
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="block">
+    Block
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/block/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    This is a Bulma block! It has a bottom margin, which gives it more vertical
+    space than a typical <code>div</code>.
+  </bulma-block>
+
+`
+  );
+  var BlockView = createVueComponentWithCSS({
+    name: "x-block-view",
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon
+    },
+    template: template9,
+    data() {
+      return {
+        css: css9
+      };
+    }
+  });
+
+  // res/js/src/views/elements/box.mjs
+  var css10 = (
+    /* css */
+    ``
+  );
+  var template10 = (
+    /* html */
+    `
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="box">
+    Box
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/box/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-box>
+    This is a Bulma box!
+  </bulma-box>
+`
+  );
+  var BoxView = createVueComponentWithCSS({
+    name: "x-box-view",
+    components: {
+      "bulma-box": BulmaBox,
+      "bulma-icon": BulmaIcon
+    },
+    template: template10,
+    data() {
+      return {
+        css: css10
+      };
+    }
+  });
+
+  // res/js/src/views/elements/button.mjs
+  var css11 = (
+    /* css */
+    ``
+  );
+  var template11 = (
+    /* html */
+    `
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="button">
+    Button
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/button/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <div class="row">
+      <bulma-button>Default</bulma-button>
+      <bulma-button primary>Primary</bulma-button>
+      <bulma-button link>Link</bulma-button>
+      <bulma-button info>Info</bulma-button>
+      <bulma-button success>Success</bulma-button>
+      <bulma-button warning>Warning</bulma-button>
+      <bulma-button danger>Danger</bulma-button>
+      <bulma-button white>White</bulma-button>
+      <bulma-button light>Light</bulma-button>
+      <bulma-button dark>Dark</bulma-button>
+      <bulma-button black>Black</bulma-button>
+      <bulma-button text>Text</bulma-button>
+      <bulma-button ghost>Ghost</bulma-button>
+    </div>
+  </bulma-block>
+
+  <bulma-block>
+    <bulma-block>
+      To apply colors, use the adjective word from the
+      <code>is-</code>
+      class name (e.g., use "danger" from the
+      <code>is-danger</code>
+      class name) as an empty attribute. For example, this:
+    </bulma-block>
+
+    <bulma-block class="code-block notification">
+      <!-- prettier-ignore -->
+      <code>
+          &lt;bulma-button
+          <span class="has-text-warning">danger</span>&gt;
+          <br />
+          &nbsp;&nbsp;Watch out!
+          <br />
+          &lt;/bulma-button&gt;
+        </code>
+    </bulma-block>
+
+    <bulma-block>...is equivalent to:</bulma-block>
+
+    <bulma-block class="code-block notification">
+      <code>
+        &lt;button class="button is-danger"&gt;
+        <br />
+        &nbsp;&nbsp;Watch out!
+        <br />
+        &lt;/button&gt;
+      </code>
+    </bulma-block>
+  </bulma-block>
 `
   );
   var ButtonView = createVueComponentWithCSS({
     name: "x-button-view",
-    template: template4,
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-button": BulmaButton,
+      "bulma-icon": BulmaIcon
+    },
+    template: template11,
     data() {
       return {
-        css: css4
+        css: css11
       };
     }
   });
@@ -21633,85 +21997,275 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   }
 
   // res/js/src/views/elements/delete.mjs
-  var css5 = (
+  var css12 = (
     /* css */
     ``
   );
-  var template5 = (
+  var template12 = (
     /* html */
     `
-  This is the element delete view.
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="delete">
+    Delete
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/delete/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <div class="row">
+      <bulma-delete class="is-large"></bulma-delete>
+      <bulma-delete class="is-medium"></bulma-delete>
+      <bulma-delete></bulma-delete>
+      <bulma-delete class="is-small"></bulma-delete>
+    </div>
+  </bulma-block>
+
 `
   );
   var DeleteView = createVueComponentWithCSS({
     name: "x-delete-view",
-    template: template5,
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-delete": BulmaDelete,
+      "bulma-icon": BulmaIcon
+    },
+    template: template12,
     data() {
       return {
-        css: css5
+        css: css12
       };
     }
   });
 
   // res/js/src/views/elements/icon.mjs
-  var css6 = (
+  var css13 = (
     /* css */
     ``
   );
-  var template6 = (
+  var template13 = (
     /* html */
     `
-  This is the element icon view.
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="icon">
+    Icon
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/icon/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <div class="row">
+      <bulma-icon class="is-large" name="question-circle"></bulma-icon>
+      <bulma-icon class="is-large" name="bell"></bulma-icon>
+      <bulma-icon class="is-large" name="dove"></bulma-icon>
+      <bulma-icon class="is-large" name="sync"></bulma-icon>
+      <bulma-icon class="is-large" name="volume-up"></bulma-icon>
+    </div>
+  </bulma-block>
+
+  <bulma-block>
+    Note that the icons above have the
+    <code>is-large</code>
+    class for better visibility. Those are
+    <i>not</i>
+    the default sizes of the icons.
+  </bulma-block>
+
+  <bulma-block>
+    <bulma-block>
+      Unlike Bulma, which recommends Font Awesome icons, this library uses
+      <a
+        href="https://icons8.com/line-awesome"
+        rel="noopener, noreferrer"
+        target="_blank">
+        Line Awesome
+      </a>
+      icons. Use the
+      <code>name</code>
+      attribute to select a Line Awesome icon (without including the
+      <code>la-</code>
+      prefix in the name). For example, this:
+    </bulma-block>
+
+    <bulma-block class="code-block notification">
+      <!-- prettier-ignore -->
+      <code>
+        &lt;bulma-icon class="is-large"
+        <span class="has-text-warning">name="question-circle"</span>&gt;&lt;/bulma-icon&gt;
+      </code>
+    </bulma-block>
+
+    <bulma-block>
+      ...produces the first of the five icons shown above.
+    </bulma-block>
+  </bulma-block>
 `
   );
   var IconView = createVueComponentWithCSS({
     name: "x-icon-view",
-    template: template6,
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon
+    },
+    template: template13,
     data() {
       return {
-        css: css6
+        css: css13
       };
     }
   });
 
   // res/js/src/views/elements/image.mjs
-  var css7 = (
+  var css14 = (
     /* css */
     ``
   );
-  var template7 = (
+  var template14 = (
     /* html */
     `
-  This is the element image view.
+  <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="image">
+    Image
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/image/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block style="width: 512px; max-width: 100%">
+    <bulma-image
+      class="is-16by9"
+      src="https://i.ibb.co/CvGJ3SV/paul-hanaoka-Lc-AZc-VWs-CIo-unsplash-2-min.jpg">
+    </bulma-image>
+  </bulma-block>
+
+  <bulma-block>
+    This component accepts an
+    <code>src</code>
+    attribute. If the attribute is defined, then the inner element becomes an
+    <code>&lt;img&gt;</code>
+    element, and the value of the
+    <code>src</code>
+    attribute is applied to it. Otherwise, the inner element is a
+    <code>&lt;slot&gt;</code>
+    .
+  </bulma-block>
 `
   );
   var ImageView = createVueComponentWithCSS({
     name: "x-image-view",
-    template: template7,
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon,
+      "bulma-image": BulmaImage
+    },
+    template: template14,
     data() {
       return {
-        css: css7
+        css: css14
       };
     }
   });
 
   // res/js/src/views/elements/notification.mjs
-  var css8 = (
+  var css15 = (
     /* css */
     ``
   );
-  var template8 = (
+  var template15 = (
     /* html */
     `
-  This is the element notification view.
+  <h4
+    class="block has-text-grey has-text-weight-bold is-size-4"
+    id="notification">
+    Notification
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/notification/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <bulma-notification
+      @close="event => event.target.parentElement.parentElement.removeChild(event.target.parentElement)">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id est lorem.
+      Praesent erat dui, malesuada in massa eu, ultricies pellentesque odio. Etiam
+      iaculis euismod condimentum.
+    </bulma-notification>
+
+    <bulma-notification
+      @close="event => event.target.parentElement.parentElement.removeChild(event.target.parentElement)"
+      class="is-light is-info">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id est lorem.
+      Praesent erat dui, malesuada in massa eu, ultricies pellentesque odio. Etiam
+      iaculis euismod condimentum.
+    </bulma-notification>
+
+    <bulma-notification
+      @close="event => event.target.parentElement.parentElement.removeChild(event.target.parentElement)"
+      class="is-info">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id est lorem.
+      Praesent erat dui, malesuada in massa eu, ultricies pellentesque odio. Etiam
+      iaculis euismod condimentum.
+    </bulma-notification>
+  </bulma-block>
+
+  <bulma-block>
+    By default, notification components are dismissable. To make them
+    non-dismissable, add an empty
+    <code>permanent</code>
+    attribute, like this:
+  </bulma-block>
+
+  <bulma-block class="code-block notification">
+    <!-- prettier-ignore -->
+    <code>
+      &lt;bulma-notification class="is-warning is-light" <span class="has-text-warning">permanent</span>&gt;
+      <br />
+      &nbsp;&nbsp;This can't be dismissed!
+      <br />
+      &lt;/bulma-notification&gt;
+    </code>
+  </bulma-block>
+
+  <bulma-block>...which yields:</bulma-block>
+
+  <bulma-notification class="is-warning is-light" permanent>
+    This can't be dismissed!
+  </bulma-notification>
 `
   );
   var NotificationView = createVueComponentWithCSS({
     name: "x-notification-view",
-    template: template8,
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon,
+      "bulma-notification": BulmaNotification
+    },
+    template: template15,
     data() {
       return {
-        css: css8
+        css: css15
       };
     }
   });
