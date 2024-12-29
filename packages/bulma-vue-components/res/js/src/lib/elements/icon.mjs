@@ -9,7 +9,7 @@ const css = /* css */ ``
 // -----------------------------------------------------------------------------
 
 const template = /* html */ `
-  <span class="icon">
+  <span class="bulma-icon icon">
     <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
   </span>
 `

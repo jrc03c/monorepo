@@ -7,6 +7,7 @@ import { BulmaImage } from "./elements/image.mjs"
 import { BulmaNotification } from "./elements/notification.mjs"
 import { BulmaProgress } from "./elements/progress.mjs"
 import { BulmaTable } from "./elements/table.mjs"
+import { BulmaTags } from "./elements/tags.mjs"
 
 export {
   BulmaBlock,
@@ -18,4 +19,5 @@ export {
   BulmaNotification,
   BulmaProgress,
   BulmaTable,
+  BulmaTags,
 }

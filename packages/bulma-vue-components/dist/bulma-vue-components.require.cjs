@@ -27,7 +27,8 @@ __export(lib_exports, {
   BulmaImage: () => BulmaImage,
   BulmaNotification: () => BulmaNotification,
   BulmaProgress: () => BulmaProgress,
-  BulmaTable: () => BulmaTable
+  BulmaTable: () => BulmaTable,
+  BulmaTags: () => BulmaTags
 });
 module.exports = __toCommonJS(lib_exports);
 
@@ -193,7 +194,7 @@ var css4 = (
 var template4 = (
   /* html */
   `
-  <button class="delete"></button>
+  <button class="bulma-delete delete"></button>
 `
 );
 var BulmaDelete = createVueComponentWithCSS({
@@ -214,7 +215,7 @@ var css5 = (
 var template5 = (
   /* html */
   `
-  <span class="icon">
+  <span class="bulma-icon icon">
     <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
   </span>
 `
@@ -281,7 +282,7 @@ var css6 = (
 var template6 = (
   /* html */
   `
-  <figure class="image">
+  <figure class="bulma-image image">
     <img :src="src" v-if="src">
     <slot v-else></slot>
   </figure>
@@ -312,7 +313,7 @@ var css7 = (
 var template7 = (
   /* html */
   `
-  <div class="notification">
+  <div class="bulma-notification notification">
     <bulma-delete
       @click="$emit('close', $event)"
       v-if="!permanent">
@@ -351,7 +352,7 @@ var css8 = (
 var template8 = (
   /* html */
   `
-  <progress :value="value" class="progress" max="1">
+  <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
 `
@@ -390,7 +391,7 @@ var css9 = (
 var template9 = (
   /* html */
   `
-  <table class="table" v-if="values && values.length > 0">
+  <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
         <th v-if="index && index.length > 0"></th>
@@ -448,6 +449,163 @@ var BulmaTable = createVueComponentWithCSS({
     range
   }
 });
+
+// res/js/src/lib/elements/tags.mjs
+var css10 = (
+  /* css */
+  `
+  .bulma-tag .bulma-icon {
+    padding-right: 8px;
+  }
+`
+);
+var template10 = (
+  /* html */
+  `
+  <div class="bulma-tags field is-grouped is-grouped-multiline">
+    <div :key="i" class="control" v-for="i in range(0, tags.length)">
+      <div class="tags has-addons">
+        <!-- string tag, clickable -->
+        <a
+          @click="$emit('click', tags[i])"
+          class="bulma-tag tag"
+          v-if="typeof tags[i] === 'string' && !!tags[i].click">
+          {{ tags[i] }}
+        </a>
+
+        <!-- string tag, not clickable -->
+        <span
+          class="bulma-tag tag"
+          v-if="typeof tags[i] === 'string' && !tags[i].click">
+          {{ tags[i] }}
+        </span>
+
+        <!-- object tag with classes, clickable -->
+        <a
+          :class="
+            (tags[i].classes || [])
+              .reduce(
+                (a, b) => { a[b] = true; return a },
+                {}
+              )
+          "
+          @click="$emit('click', tags[i])"
+          class="bulma-tag tag"
+          v-if="!!tags[i].name && !!tags[i].click">
+          <bulma-icon
+            :name="tags[i].icon"
+            v-if="tags[i].icon">
+          </bulma-icon>
+
+          {{ tags[i].name }}
+        </a>
+
+        <!-- object tag with classes, not clickable -->
+        <span
+          :class="
+            (tags[i].classes || [])
+              .reduce(
+                (a, b) => { a[b] = true; return a },
+                {}
+              )
+          "
+          class="bulma-tag tag"
+          v-if="!!tags[i].name && !tags[i].click">
+          <bulma-icon
+            :name="tags[i].icon"
+            v-if="tags[i].icon">
+          </bulma-icon>
+
+          {{ tags[i].name }}
+        </span>
+
+        <!-- object tag with multiple names and classes, clickable -->
+        <a
+          :class="{ [tags[i].classes[j]]: true }"
+          :key="j"
+          @click="$emit('click', tags[i])"
+          class="bulma-tag tag"
+          v-for="j in range(0, tags[i].names.length)"
+          v-if="!!tags[i].names && !!tags[i].click">
+          <bulma-icon
+            :name="tags[i].icons[j]"
+            v-if="tags[i].icons && tags[i].icons.length > 0">
+          </bulma-icon>
+
+          {{ tags[i].names[j] }}
+        </a>
+
+        <!-- object tag with multiple names and classes, not clickable -->
+        <span
+          :class="{ [tags[i].classes[j]]: true }"
+          :key="j"
+          class="bulma-tag tag"
+          v-for="j in range(0, tags[i].names.length)"
+          v-if="!!tags[i].names && !tags[i].click">
+          <bulma-icon
+            :name="tags[i].icons[j]"
+            v-if="tags[i].icons && tags[i].icons.length > 0">
+          </bulma-icon>
+
+          {{ tags[i].names[j] }}
+        </span>
+
+        <a
+          :class="getDeleteClass(tags[i])"
+          @click="$emit('delete', tags[i])"
+          class="bulma-tag is-delete tag"
+          v-if="!!tags[i].delete">
+        </a>
+      </div>
+    </div>
+  </div>
+`
+);
+var BulmaTags = createVueComponentWithCSS({
+  name: "bulma-tags",
+  emits: ["click", "delete"],
+  components: {
+    "bulma-icon": BulmaIcon
+  },
+  template: template10,
+  props: {
+    tags: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      css: css10
+    };
+  },
+  methods: {
+    getDeleteClass(tag) {
+      if (tag.classes && tag.classes.length > 0) {
+        const colorClasses = [
+          "is-danger",
+          "is-warning",
+          "is-success",
+          "is-primary",
+          "is-info",
+          "is-link",
+          "is-dark"
+        ];
+        const classes = tag.classes.filter((c) => colorClasses.includes(c));
+        if (classes.length > 0) {
+          const lastColorClass = classes.at(-1);
+          return { [lastColorClass]: true, "is-light": true };
+        } else {
+          return {};
+        }
+      } else {
+        return {};
+      }
+    },
+    range
+  }
+});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   BulmaBlock,
@@ -458,5 +616,6 @@ var BulmaTable = createVueComponentWithCSS({
   BulmaImage,
   BulmaNotification,
   BulmaProgress,
-  BulmaTable
+  BulmaTable,
+  BulmaTags
 });

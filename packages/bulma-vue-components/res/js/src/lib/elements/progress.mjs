@@ -9,7 +9,7 @@ const css = /* css */ ``
 // -----------------------------------------------------------------------------
 
 const template = /* html */ `
-  <progress :value="value" class="progress" max="1">
+  <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
 `

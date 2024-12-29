@@ -9,7 +9,7 @@ const css = /* css */ ``
 // -----------------------------------------------------------------------------
 
 const template = /* html */ `
-  <table class="table" v-if="values && values.length > 0">
+  <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
         <th v-if="index && index.length > 0"></th>

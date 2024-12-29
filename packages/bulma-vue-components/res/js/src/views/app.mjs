@@ -84,6 +84,7 @@ const AppView = createVueComponentWithCSS({
           { label: "Notification", url: "/elements/notification" },
           { label: "Progress", url: "/elements/progress" },
           { label: "Table", url: "/elements/table" },
+          { label: "Tags", url: "/elements/tags" },
         ],
       },
     }

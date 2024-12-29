@@ -9,7 +9,7 @@ const css = /* css */ ``
 // -----------------------------------------------------------------------------
 
 const template = /* html */ `
-  <figure class="image">
+  <figure class="bulma-image image">
     <img :src="src" v-if="src">
     <slot v-else></slot>
   </figure>

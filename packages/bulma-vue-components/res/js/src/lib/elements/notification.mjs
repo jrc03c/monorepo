@@ -9,7 +9,7 @@ const css = /* css */ ``
 // -----------------------------------------------------------------------------
 
 const template = /* html */ `
-  <div class="notification">
+  <div class="bulma-notification notification">
     <bulma-delete
       @click="$emit('close', $event)"
       v-if="!permanent">

@@ -8,6 +8,7 @@ import { ImageView } from "./views/elements/image.mjs"
 import { NotificationView } from "./views/elements/notification.mjs"
 import { ProgressView } from "./views/elements/progress.mjs"
 import { TableView } from "./views/elements/table.mjs"
+import { TagsView } from "./views/elements/tags.mjs"
 
 const RouterViewComponent = {
   template: "<router-view></router-view>",
@@ -30,6 +31,7 @@ const router = createRouter({
         { path: "notification", component: NotificationView },
         { path: "progress", component: ProgressView },
         { path: "table", component: TableView },
+        { path: "tags", component: TagsView },
       ],
     },
   ],
