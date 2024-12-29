@@ -113,7 +113,9 @@
         </div>
 
         <div class="column is-10">
-          <router-view></router-view>
+          <article>
+            <router-view></router-view>
+          </article>
         </div>
       </div>
     </div>
@@ -22698,6 +22700,27 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     v-if="message">
     {{ message }}
   </bulma-notification>
+
+  <bulma-block>
+    <p>
+      The <code>&lt;bulma-tags&gt;</code> component accepts an array of tags
+      via a <code>tags</code> attribute. Each tag can be one of:
+    </p>
+
+    <ul>
+      <li>
+        A string
+      </li>
+
+      <li>
+        An object with a <code>name</code> property (and optional <code>classes</code> and <code>icons</code> properties)
+      </li>
+
+      <li>
+      An object with a <code>names</code> property (and optional <code>classes</code> and <code>icons</code> properties)
+      </li>
+    </ul>
+  </bulma-block>
 `
   );
   var TagsView = createVueComponentWithCSS({

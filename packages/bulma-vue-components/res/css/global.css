@@ -2,11 +2,6 @@ p {
   margin: 0 0 1.5em 0;
 }
 
-.container article {
-  padding: 3em 0;
-  border-top: 2px solid rgb(235, 235, 235);
-}
-
 .code-block {
   background-color: hsl(0, 0%, 14%);
 }
@@ -38,4 +33,14 @@ a.is-external-anchor-tag:active {
   align-content: center;
   align-items: center;
   gap: 0.5em;
+}
+
+article ol,
+article li {
+  margin-left: 2em;
+}
+
+article ul li,
+article ul li {
+  list-style-type: disc;
 }

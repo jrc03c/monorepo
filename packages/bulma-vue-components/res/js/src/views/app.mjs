@@ -53,7 +53,9 @@ const template = /* html */ `
         </div>
 
         <div class="column is-10">
-          <router-view></router-view>
+          <article>
+            <router-view></router-view>
+          </article>
         </div>
       </div>
     </div>
