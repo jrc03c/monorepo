@@ -5,6 +5,7 @@ import { BulmaDelete } from "./elements/delete.mjs"
 import { BulmaIcon } from "./elements/icon.mjs"
 import { BulmaImage } from "./elements/image.mjs"
 import { BulmaNotification } from "./elements/notification.mjs"
+import { BulmaProgress } from "./elements/progress.mjs"
 
 export {
   BulmaBlock,
@@ -14,4 +15,5 @@ export {
   BulmaIcon,
   BulmaImage,
   BulmaNotification,
+  BulmaProgress,
 }

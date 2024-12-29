@@ -6,6 +6,7 @@ import { DeleteView } from "./views/elements/delete.mjs"
 import { IconView } from "./views/elements/icon.mjs"
 import { ImageView } from "./views/elements/image.mjs"
 import { NotificationView } from "./views/elements/notification.mjs"
+import { ProgressView } from "./views/elements/progress.mjs"
 
 const RouterViewComponent = {
   template: "<router-view></router-view>",
@@ -26,6 +27,7 @@ const router = createRouter({
         { path: "icon", component: IconView },
         { path: "image", component: ImageView },
         { path: "notification", component: NotificationView },
+        { path: "progress", component: ProgressView },
       ],
     },
   ],

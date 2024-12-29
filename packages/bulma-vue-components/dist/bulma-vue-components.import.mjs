@@ -309,6 +309,36 @@ var BulmaNotification = createVueComponentWithCSS({
     };
   }
 });
+
+// res/js/src/lib/elements/progress.mjs
+var css8 = (
+  /* css */
+  ``
+);
+var template8 = (
+  /* html */
+  `
+  <progress :value="value" class="progress" max="1">
+    {{ value * 100 }}%
+  </progress>
+`
+);
+var BulmaProgress = createVueComponentWithCSS({
+  name: "bulma-progress",
+  template: template8,
+  props: {
+    value: {
+      type: Number,
+      required: false,
+      default: () => 0
+    }
+  },
+  data() {
+    return {
+      css: css8
+    };
+  }
+});
 export {
   BulmaBlock,
   BulmaBox,
@@ -316,5 +346,6 @@ export {
   BulmaDelete,
   BulmaIcon,
   BulmaImage,
-  BulmaNotification
+  BulmaNotification,
+  BulmaProgress
 };

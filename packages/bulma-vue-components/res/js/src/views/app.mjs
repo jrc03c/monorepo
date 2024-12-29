@@ -84,6 +84,12 @@ const template = /* html */ `
                   Notification
                 </router-link>
               </li>
+
+              <li>
+                <router-link to="/elements/progress">
+                  Progress
+                </router-link>
+              </li>
             </ul>
           </aside>
         </div>

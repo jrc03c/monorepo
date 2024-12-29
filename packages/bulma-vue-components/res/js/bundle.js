@@ -144,6 +144,12 @@
                   Notification
                 </router-link>
               </li>
+
+              <li>
+                <router-link to="/elements/progress">
+                  Progress
+                </router-link>
+              </li>
             </ul>
           </aside>
         </div>
@@ -10539,8 +10545,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template16 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template16) {
+        const template18 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template18) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10556,7 +10562,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template16, finalCompilerOptions);
+          Component.render = compile(template18, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11029,15 +11035,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template16 = templateContainer.content;
+        const template18 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template16.firstChild;
+          const wrapper = template18.firstChild;
           while (wrapper.firstChild) {
-            template16.appendChild(wrapper.firstChild);
+            template18.appendChild(wrapper.firstChild);
           }
-          template16.removeChild(wrapper);
+          template18.removeChild(wrapper);
         }
-        parent.insertBefore(template16, anchor);
+        parent.insertBefore(template18, anchor);
       }
       return [
         // first
@@ -18771,26 +18777,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template16, options) {
-    if (!isString(template16)) {
-      if (template16.nodeType) {
-        template16 = template16.innerHTML;
+  function compileToFunction(template18, options) {
+    if (!isString(template18)) {
+      if (template18.nodeType) {
+        template18 = template18.innerHTML;
       } else {
-        warn2(`invalid template option: `, template16);
+        warn2(`invalid template option: `, template18);
         return NOOP;
       }
     }
-    const key = genCacheKey(template16, options);
+    const key = genCacheKey(template18, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template16[0] === "#") {
-      const el = document.querySelector(template16);
+    if (template18[0] === "#") {
+      const el = document.querySelector(template18);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template16}`);
+        warn2(`Template element not found or is empty: ${template18}`);
       }
-      template16 = el ? el.innerHTML : ``;
+      template18 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18803,11 +18809,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template16, opts);
+    const { code } = compile2(template18, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template16,
+        template18,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -19076,12 +19082,42 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/views/elements/block.mjs
+  // res/js/src/lib/elements/progress.mjs
   var css9 = (
     /* css */
     ``
   );
   var template9 = (
+    /* html */
+    `
+  <progress :value="value" class="progress" max="1">
+    {{ value * 100 }}%
+  </progress>
+`
+  );
+  var BulmaProgress = createVueComponentWithCSS({
+    name: "bulma-progress",
+    template: template9,
+    props: {
+      value: {
+        type: Number,
+        required: false,
+        default: () => 0
+      }
+    },
+    data() {
+      return {
+        css: css9
+      };
+    }
+  });
+
+  // res/js/src/views/elements/block.mjs
+  var css10 = (
+    /* css */
+    ``
+  );
+  var template10 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="block">
@@ -19110,20 +19146,20 @@ ${codeFrame}` : message);
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template9,
+    template: template10,
     data() {
       return {
-        css: css9
+        css: css10
       };
     }
   });
 
   // res/js/src/views/elements/box.mjs
-  var css10 = (
+  var css11 = (
     /* css */
     ``
   );
-  var template10 = (
+  var template11 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="box">
@@ -19150,20 +19186,20 @@ ${codeFrame}` : message);
       "bulma-box": BulmaBox,
       "bulma-icon": BulmaIcon
     },
-    template: template10,
+    template: template11,
     data() {
       return {
-        css: css10
+        css: css11
       };
     }
   });
 
   // res/js/src/views/elements/button.mjs
-  var css11 = (
+  var css12 = (
     /* css */
     ``
   );
-  var template11 = (
+  var template12 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="button">
@@ -19239,10 +19275,10 @@ ${codeFrame}` : message);
       "bulma-button": BulmaButton,
       "bulma-icon": BulmaIcon
     },
-    template: template11,
+    template: template12,
     data() {
       return {
-        css: css11
+        css: css12
       };
     }
   });
@@ -21997,11 +22033,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   }
 
   // res/js/src/views/elements/delete.mjs
-  var css12 = (
+  var css13 = (
     /* css */
     ``
   );
-  var template12 = (
+  var template13 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="delete">
@@ -22035,20 +22071,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-delete": BulmaDelete,
       "bulma-icon": BulmaIcon
     },
-    template: template12,
+    template: template13,
     data() {
       return {
-        css: css12
+        css: css13
       };
     }
   });
 
   // res/js/src/views/elements/icon.mjs
-  var css13 = (
+  var css14 = (
     /* css */
     ``
   );
-  var template13 = (
+  var template14 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="icon">
@@ -22118,20 +22154,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template13,
+    template: template14,
     data() {
       return {
-        css: css13
+        css: css14
       };
     }
   });
 
   // res/js/src/views/elements/image.mjs
-  var css14 = (
+  var css15 = (
     /* css */
     ``
   );
-  var template14 = (
+  var template15 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="image">
@@ -22174,20 +22210,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-image": BulmaImage
     },
-    template: template14,
+    template: template15,
     data() {
       return {
-        css: css14
+        css: css15
       };
     }
   });
 
   // res/js/src/views/elements/notification.mjs
-  var css15 = (
+  var css16 = (
     /* css */
     ``
   );
-  var template15 = (
+  var template16 = (
     /* html */
     `
   <h4
@@ -22262,11 +22298,88 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-notification": BulmaNotification
     },
-    template: template15,
+    template: template16,
     data() {
       return {
-        css: css15
+        css: css16
       };
+    }
+  });
+
+  // res/js/src/views/elements/progress.mjs
+  var css17 = (
+    /* css */
+    ``
+  );
+  var template17 = (
+    /* html */
+    `
+  <h4
+    class="block has-text-grey has-text-weight-bold is-size-4"
+    id="progress">
+    Progress
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/progress/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <bulma-progress
+      :class="{ [which.color]: true }"
+      :key="which.value"
+      :value="which.value"
+      v-for="which in colors">
+      {{ which.value * 100 }}%
+    </bulma-progress>
+  </bulma-block>
+`
+  );
+  var ProgressView = createVueComponentWithCSS({
+    name: "x-progress-view",
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon,
+      "bulma-progress": BulmaProgress
+    },
+    template: template17,
+    data() {
+      return {
+        colors: [
+          { color: "is-danger", value: 1 / 8 },
+          { color: "is-warning", value: 2 / 8 },
+          { color: "is-success", value: 3 / 8 },
+          { color: "is-primary", value: 4 / 8 },
+          { color: "is-info", value: 5 / 8 },
+          { color: "is-link", value: 6 / 8 },
+          { color: "", value: 7 / 8 }
+        ],
+        css: css17,
+        isAnimating: false
+      };
+    },
+    mounted() {
+      this.isAnimating = true;
+      let x = 0;
+      const loop = () => {
+        if (!this.isAnimating) {
+          return;
+        }
+        this.colors.forEach((which, i) => {
+          which.value = Math.sin(2 * i / this.colors.length + x) * 0.5 + 0.5;
+        });
+        x += 0.02;
+        window.requestAnimationFrame(loop);
+      };
+      loop();
+    },
+    unmounted() {
+      this.isAnimating = false;
     }
   });
 
@@ -22287,7 +22400,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { path: "delete", component: DeleteView },
           { path: "icon", component: IconView },
           { path: "image", component: ImageView },
-          { path: "notification", component: NotificationView }
+          { path: "notification", component: NotificationView },
+          { path: "progress", component: ProgressView }
         ]
       }
     ]
