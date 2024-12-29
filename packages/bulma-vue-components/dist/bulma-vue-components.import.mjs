@@ -339,6 +339,82 @@ var BulmaProgress = createVueComponentWithCSS({
     };
   }
 });
+
+// res/js/src/lib/helpers.mjs
+function range(a, b) {
+  const out = [];
+  for (let i = a; i < b; i++) {
+    out.push(i);
+  }
+  return out;
+}
+
+// res/js/src/lib/elements/table.mjs
+var css9 = (
+  /* css */
+  ``
+);
+var template9 = (
+  /* html */
+  `
+  <table class="table" v-if="values && values.length > 0">
+    <thead v-if="columns && columns.length > 0">
+      <tr>
+        <th v-if="index && index.length > 0"></th>
+
+        <th :key="j" v-for="j in range(0, columns.length)">
+          <b>{{ columns[j] }}</b>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr :key="i" v-for="i in range(0, values.length)">
+        <td v-if="index && index.length > 0">
+          <b>{{ index[i] }}</b>
+        </td>
+
+        <td :key="j" v-for="j in range(0, values[i].length)">
+          {{ values[i][j] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table" v-else>
+    <slot></slot>
+  </table>
+`
+);
+var BulmaTable = createVueComponentWithCSS({
+  name: "bulma-table",
+  template: template9,
+  props: {
+    columns: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    index: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+    values: {
+      type: Array,
+      required: false,
+      default: () => []
+    }
+  },
+  data() {
+    return {
+      css: css9
+    };
+  },
+  methods: {
+    range
+  }
+});
 export {
   BulmaBlock,
   BulmaBox,
@@ -347,5 +423,6 @@ export {
   BulmaIcon,
   BulmaImage,
   BulmaNotification,
-  BulmaProgress
+  BulmaProgress,
+  BulmaTable
 };

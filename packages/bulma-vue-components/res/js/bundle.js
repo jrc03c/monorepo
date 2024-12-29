@@ -103,51 +103,9 @@
             <div class="menu-label">Elements</div>
 
             <ul>
-              <li>
-                <router-link to="/elements/block">
-                  Block
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/box">
-                  Box
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/button">
-                  Button
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/delete">
-                  Delete
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/icon">
-                  Icon
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/image">
-                  Image
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/notification">
-                  Notification
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/progress">
-                  Progress
+              <li :key="item.label" v-for="item in menuItems.elements">
+                <router-link :to="item.url">
+                  {{ item.label }}
                 </router-link>
               </li>
             </ul>
@@ -167,7 +125,20 @@
     template,
     data() {
       return {
-        css
+        css,
+        menuItems: {
+          elements: [
+            { label: "Block", url: "/elements/block" },
+            { label: "Box", url: "/elements/box" },
+            { label: "Button", url: "/elements/button" },
+            { label: "Delete", url: "/elements/delete" },
+            { label: "Icon", url: "/elements/icon" },
+            { label: "Image", url: "/elements/image" },
+            { label: "Notification", url: "/elements/notification" },
+            { label: "Progress", url: "/elements/progress" },
+            { label: "Table", url: "/elements/table" }
+          ]
+        }
       };
     }
   });
@@ -10545,8 +10516,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template18 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template18) {
+        const template20 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template20) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10562,7 +10533,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template18, finalCompilerOptions);
+          Component.render = compile(template20, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11035,15 +11006,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template18 = templateContainer.content;
+        const template20 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template18.firstChild;
+          const wrapper = template20.firstChild;
           while (wrapper.firstChild) {
-            template18.appendChild(wrapper.firstChild);
+            template20.appendChild(wrapper.firstChild);
           }
-          template18.removeChild(wrapper);
+          template20.removeChild(wrapper);
         }
-        parent.insertBefore(template18, anchor);
+        parent.insertBefore(template20, anchor);
       }
       return [
         // first
@@ -18777,26 +18748,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template18, options) {
-    if (!isString(template18)) {
-      if (template18.nodeType) {
-        template18 = template18.innerHTML;
+  function compileToFunction(template20, options) {
+    if (!isString(template20)) {
+      if (template20.nodeType) {
+        template20 = template20.innerHTML;
       } else {
-        warn2(`invalid template option: `, template18);
+        warn2(`invalid template option: `, template20);
         return NOOP;
       }
     }
-    const key = genCacheKey(template18, options);
+    const key = genCacheKey(template20, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template18[0] === "#") {
-      const el = document.querySelector(template18);
+    if (template20[0] === "#") {
+      const el = document.querySelector(template20);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template18}`);
+        warn2(`Template element not found or is empty: ${template20}`);
       }
-      template18 = el ? el.innerHTML : ``;
+      template20 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18809,11 +18780,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template18, opts);
+    const { code } = compile2(template20, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template18,
+        template20,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -19112,12 +19083,88 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/views/elements/block.mjs
+  // res/js/src/lib/helpers.mjs
+  function range2(a, b) {
+    const out = [];
+    for (let i = a; i < b; i++) {
+      out.push(i);
+    }
+    return out;
+  }
+
+  // res/js/src/lib/elements/table.mjs
   var css10 = (
     /* css */
     ``
   );
   var template10 = (
+    /* html */
+    `
+  <table class="table" v-if="values && values.length > 0">
+    <thead v-if="columns && columns.length > 0">
+      <tr>
+        <th v-if="index && index.length > 0"></th>
+
+        <th :key="j" v-for="j in range(0, columns.length)">
+          <b>{{ columns[j] }}</b>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr :key="i" v-for="i in range(0, values.length)">
+        <td v-if="index && index.length > 0">
+          <b>{{ index[i] }}</b>
+        </td>
+
+        <td :key="j" v-for="j in range(0, values[i].length)">
+          {{ values[i][j] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table" v-else>
+    <slot></slot>
+  </table>
+`
+  );
+  var BulmaTable = createVueComponentWithCSS({
+    name: "bulma-table",
+    template: template10,
+    props: {
+      columns: {
+        type: Array,
+        required: false,
+        default: () => []
+      },
+      index: {
+        type: Array,
+        required: false,
+        default: () => []
+      },
+      values: {
+        type: Array,
+        required: false,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        css: css10
+      };
+    },
+    methods: {
+      range: range2
+    }
+  });
+
+  // res/js/src/views/elements/block.mjs
+  var css11 = (
+    /* css */
+    ``
+  );
+  var template11 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="block">
@@ -19146,20 +19193,20 @@ ${codeFrame}` : message);
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template10,
+    template: template11,
     data() {
       return {
-        css: css10
+        css: css11
       };
     }
   });
 
   // res/js/src/views/elements/box.mjs
-  var css11 = (
+  var css12 = (
     /* css */
     ``
   );
-  var template11 = (
+  var template12 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="box">
@@ -19186,20 +19233,20 @@ ${codeFrame}` : message);
       "bulma-box": BulmaBox,
       "bulma-icon": BulmaIcon
     },
-    template: template11,
+    template: template12,
     data() {
       return {
-        css: css11
+        css: css12
       };
     }
   });
 
   // res/js/src/views/elements/button.mjs
-  var css12 = (
+  var css13 = (
     /* css */
     ``
   );
-  var template12 = (
+  var template13 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="button">
@@ -19275,10 +19322,10 @@ ${codeFrame}` : message);
       "bulma-button": BulmaButton,
       "bulma-icon": BulmaIcon
     },
-    template: template12,
+    template: template13,
     data() {
       return {
-        css: css12
+        css: css13
       };
     }
   });
@@ -22033,11 +22080,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   }
 
   // res/js/src/views/elements/delete.mjs
-  var css13 = (
+  var css14 = (
     /* css */
     ``
   );
-  var template13 = (
+  var template14 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="delete">
@@ -22071,20 +22118,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-delete": BulmaDelete,
       "bulma-icon": BulmaIcon
     },
-    template: template13,
+    template: template14,
     data() {
       return {
-        css: css13
+        css: css14
       };
     }
   });
 
   // res/js/src/views/elements/icon.mjs
-  var css14 = (
+  var css15 = (
     /* css */
     ``
   );
-  var template14 = (
+  var template15 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="icon">
@@ -22154,20 +22201,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template14,
+    template: template15,
     data() {
       return {
-        css: css14
+        css: css15
       };
     }
   });
 
   // res/js/src/views/elements/image.mjs
-  var css15 = (
+  var css16 = (
     /* css */
     ``
   );
-  var template15 = (
+  var template16 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="image">
@@ -22210,20 +22257,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-image": BulmaImage
     },
-    template: template15,
+    template: template16,
     data() {
       return {
-        css: css15
+        css: css16
       };
     }
   });
 
   // res/js/src/views/elements/notification.mjs
-  var css16 = (
+  var css17 = (
     /* css */
     ``
   );
-  var template16 = (
+  var template17 = (
     /* html */
     `
   <h4
@@ -22298,20 +22345,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-notification": BulmaNotification
     },
-    template: template16,
+    template: template17,
     data() {
       return {
-        css: css16
+        css: css17
       };
     }
   });
 
   // res/js/src/views/elements/progress.mjs
-  var css17 = (
+  var css18 = (
     /* css */
     ``
   );
-  var template17 = (
+  var template18 = (
     /* html */
     `
   <h4
@@ -22347,7 +22394,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-progress": BulmaProgress
     },
-    template: template17,
+    template: template18,
     data() {
       return {
         colors: [
@@ -22359,7 +22406,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { color: "is-link", value: 6 / 8 },
           { color: "", value: 7 / 8 }
         ],
-        css: css17,
+        css: css18,
         isAnimating: false
       };
     },
@@ -22383,6 +22430,83 @@ ${JSON.stringify(newTargetLocation, null, 2)}
     }
   });
 
+  // res/js/src/views/elements/table.mjs
+  var css19 = (
+    /* css */
+    ``
+  );
+  var template19 = (
+    /* html */
+    `
+  <h4
+    class="block has-text-grey has-text-weight-bold is-size-4"
+    id="table">
+    Table
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/elements/table/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <bulma-table
+      :columns="sampleData.columns"
+      :values="sampleData.values"
+      class="is-fullwidth is-striped">
+    </bulma-table>
+  </bulma-block>
+
+  <bulma-block>
+    The <code>&lt;bulma-table&gt;</code> element can either be filled with slotted content or passed a two-dimensional array of values via a <code>values</code> attribute. If the <code>values</code> attribute is used, then attributes called <code>columns</code> and <code>index</code> may also be used. They both represent, respectively, the column and row names of the data in <code>values</code>. In the example above, both the <code>values</code> and <code>columns</code> attributes were used, but the <code>index</code> attribute was not.
+  </bulma-block>
+`
+  );
+  var TableView = createVueComponentWithCSS({
+    name: "x-table-view",
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-icon": BulmaIcon,
+      "bulma-table": BulmaTable
+    },
+    template: template19,
+    data() {
+      return {
+        css: css19,
+        sampleData: {
+          columns: ["Pos", "Team", "Pld", "W", "D", "L", "GF", "GA", "GD", "Pts"],
+          index: [],
+          values: [
+            [1, "Leicester City (C) ", 38, 23, 12, 3, 68, 36, 32, 81],
+            [2, "Arsenal ", 38, 20, 11, 7, 65, 36, 29, 71],
+            [3, "Tottenham Hotspur ", 38, 19, 13, 6, 69, 35, 34, 70],
+            [4, "Manchester City ", 38, 19, 9, 10, 71, 41, 30, 66],
+            [5, "Manchester United ", 38, 19, 9, 10, 49, 35, 14, 66],
+            [6, "Southampton ", 38, 18, 9, 11, 59, 41, 18, 63],
+            [7, "West Ham United ", 38, 16, 14, 8, 65, 51, 14, 62],
+            [8, "Liverpool ", 38, 16, 12, 10, 63, 50, 13, 60],
+            [9, "Stoke City ", 38, 14, 9, 15, 41, 55, NaN, 51],
+            [10, "Chelsea ", 38, 12, 14, 12, 59, 53, 6, 50],
+            [11, "Everton ", 38, 11, 14, 13, 59, 55, 4, 47],
+            [12, "Swansea City ", 38, 12, 11, 15, 42, 52, NaN, 47],
+            [13, "Watford ", 38, 12, 9, 17, 40, 50, NaN, 45],
+            [14, "West Bromwich Albion ", 38, 10, 13, 15, 34, 48, NaN, 43],
+            [15, "Crystal Palace ", 38, 11, 9, 18, 39, 51, NaN, 42],
+            [16, "AFC Bournemouth ", 38, 11, 9, 18, 45, 67, NaN, 42],
+            [17, "Sunderland ", 38, 9, 12, 17, 48, 62, NaN, 39],
+            [18, "Newcastle United (R) ", 38, 9, 10, 19, 44, 65, NaN, 37],
+            [19, "Norwich City (R) ", 38, 9, 7, 22, 39, 67, NaN, 34],
+            [20, "Aston Villa (R) ", 38, 3, 8, 27, 27, 76, NaN, 17]
+          ]
+        }
+      };
+    }
+  });
+
   // res/js/src/router.mjs
   var RouterViewComponent = {
     template: "<router-view></router-view>"
@@ -22401,7 +22525,8 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { path: "icon", component: IconView },
           { path: "image", component: ImageView },
           { path: "notification", component: NotificationView },
-          { path: "progress", component: ProgressView }
+          { path: "progress", component: ProgressView },
+          { path: "table", component: TableView }
         ]
       }
     ]

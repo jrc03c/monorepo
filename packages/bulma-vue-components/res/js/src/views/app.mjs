@@ -43,51 +43,9 @@ const template = /* html */ `
             <div class="menu-label">Elements</div>
 
             <ul>
-              <li>
-                <router-link to="/elements/block">
-                  Block
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/box">
-                  Box
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/button">
-                  Button
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/delete">
-                  Delete
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/icon">
-                  Icon
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/image">
-                  Image
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/notification">
-                  Notification
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/elements/progress">
-                  Progress
+              <li :key="item.label" v-for="item in menuItems.elements">
+                <router-link :to="item.url">
+                  {{ item.label }}
                 </router-link>
               </li>
             </ul>
@@ -115,6 +73,19 @@ const AppView = createVueComponentWithCSS({
   data() {
     return {
       css,
+      menuItems: {
+        elements: [
+          { label: "Block", url: "/elements/block" },
+          { label: "Box", url: "/elements/box" },
+          { label: "Button", url: "/elements/button" },
+          { label: "Delete", url: "/elements/delete" },
+          { label: "Icon", url: "/elements/icon" },
+          { label: "Image", url: "/elements/image" },
+          { label: "Notification", url: "/elements/notification" },
+          { label: "Progress", url: "/elements/progress" },
+          { label: "Table", url: "/elements/table" },
+        ],
+      },
     }
   },
 })
