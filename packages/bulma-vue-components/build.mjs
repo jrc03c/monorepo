@@ -1,7 +1,5 @@
 import { execSync } from "node:child_process"
 import { watch } from "@jrc03c/watch"
-import * as fsx from "@jrc03c/fs-extras"
-import fs from "node:fs"
 import process from "node:process"
 
 async function rebuild() {
@@ -9,7 +7,7 @@ async function rebuild() {
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const esbuildCommand = "npx esbuild src/index.mjs --bundle"
+    const esbuildCommand = "npx esbuild res/js/src/lib/index.mjs --bundle"
 
     const commands = [
       "mkdir -p dist",
@@ -20,17 +18,7 @@ async function rebuild() {
       `${esbuildCommand} --outfile=dist/bulma-vue-components.standalone.min.cjs --minify`,
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.mjs`,
       `${esbuildCommand} --format=esm --outfile=dist/bulma-vue-components.import.min.mjs --minify`,
-      `rm -rf demo/bundle*`,
-      `npx esbuild demo/res/js/src/main.mjs --bundle --outfile=demo/res/js/bundle.js`,
-      async () => {
-        const docs = (await fsx.findAsync("src", f => f.endsWith(".html")))
-          .toSorted()
-          .map(f => `<article>${fs.readFileSync(f, "utf8")}</article>`)
-
-        const template = fs.readFileSync("demo/index-template.html", "utf8")
-        const out = template.replace("{{ content }}", docs.join("\n\n"))
-        fs.writeFileSync("demo/index.html", out, "utf8")
-      },
+      `npx esbuild res/js/src/main.mjs --bundle --outfile=res/js/bundle.js`,
     ]
 
     for (const command of commands) {

@@ -16,9 +16,9 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/index.mjs
-var src_exports = {};
-__export(src_exports, {
+// res/js/src/lib/index.mjs
+var lib_exports = {};
+__export(lib_exports, {
   BulmaBlock: () => BulmaBlock,
   BulmaBox: () => BulmaBox,
   BulmaButton: () => BulmaButton,
@@ -27,7 +27,7 @@ __export(src_exports, {
   BulmaImage: () => BulmaImage,
   BulmaNotification: () => BulmaNotification
 });
-module.exports = __toCommonJS(src_exports);
+module.exports = __toCommonJS(lib_exports);
 
 // node_modules/@jrc03c/vue-component-with-css/dist/vue-component-with-css.import.mjs
 function createVueComponentWithCSS(component) {
@@ -85,7 +85,7 @@ if (typeof window !== "undefined") {
   window.createVueComponentWithCSS = createVueComponentWithCSS;
 }
 
-// src/elements/block/block.mjs
+// res/js/src/lib/elements/block/block.mjs
 var css = (
   /* css */
   ``
@@ -108,7 +108,7 @@ var BulmaBlock = createVueComponentWithCSS({
   }
 });
 
-// src/elements/box/box.mjs
+// res/js/src/lib/elements/box/box.mjs
 var css2 = (
   /* css */
   ``
@@ -131,7 +131,7 @@ var BulmaBox = createVueComponentWithCSS({
   }
 });
 
-// src/elements/button/button.mjs
+// res/js/src/lib/elements/button/button.mjs
 var css3 = (
   /* css */
   ``
@@ -183,7 +183,7 @@ var BulmaButton = createVueComponentWithCSS({
   }
 });
 
-// src/elements/delete/delete.mjs
+// res/js/src/lib/elements/delete/delete.mjs
 var css4 = (
   /* css */
   ``
@@ -204,7 +204,7 @@ var BulmaDelete = createVueComponentWithCSS({
   }
 });
 
-// src/elements/icon/icon.mjs
+// res/js/src/lib/elements/icon/icon.mjs
 var css5 = (
   /* css */
   ``
@@ -271,7 +271,7 @@ var BulmaIcon = createVueComponentWithCSS({
   }
 });
 
-// src/elements/image/image.mjs
+// res/js/src/lib/elements/image/image.mjs
 var css6 = (
   /* css */
   ``
@@ -302,7 +302,7 @@ var BulmaImage = createVueComponentWithCSS({
   }
 });
 
-// src/elements/notification/notification.mjs
+// res/js/src/lib/elements/notification/notification.mjs
 var css7 = (
   /* css */
   ``
