@@ -1,12 +1,102 @@
-var u=Object.defineProperty;var k=Object.getOwnPropertyDescriptor;var B=Object.getOwnPropertyNames;var C=Object.prototype.hasOwnProperty;var x=(e,s)=>{for(var a in s)u(e,a,{get:s[a],enumerable:!0})},S=(e,s,a,l)=>{if(s&&typeof s=="object"||typeof s=="function")for(let o of B(s))!C.call(e,o)&&o!==a&&u(e,o,{get:()=>s[o],enumerable:!(l=k(s,o))||l.enumerable});return e};var j=e=>S(u({},"__esModule",{value:!0}),e);var J={};x(J,{BulmaBlock:()=>m,BulmaBox:()=>d,BulmaButton:()=>f,BulmaDelete:()=>n,BulmaIcon:()=>r,BulmaImage:()=>g,BulmaNotification:()=>p,BulmaProgress:()=>b,BulmaTable:()=>h,BulmaTags:()=>v});module.exports=j(J);function t(e){let s=0,a;e=e||{};let l=e.data?e.data:function(){},o=e.mounted?e.mounted:function(){},y=e.unmounted?e.unmounted:function(){};return l.css||(l.css=""),e.data=function(){return l.bind(this)()},e.mounted=function(){o.bind(this)(),s++;let i=this.$root.$el.getRootNode();i===document&&(i=i.body),a||(a=document.createElement("style"),i.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){y.bind(this)(),s--;let i=this.$root.$el.getRootNode();if(i===document&&(i=i.body),s<1){if(a)try{i.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var q="",$=`
+var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var C=Object.prototype.hasOwnProperty;var S=(e,s)=>{for(var a in s)u(e,a,{get:s[a],enumerable:!0})},q=(e,s,a,i)=>{if(s&&typeof s=="object"||typeof s=="function")for(let n of x(s))!C.call(e,n)&&n!==a&&u(e,n,{get:()=>s[n],enumerable:!(i=B(s,n))||i.enumerable});return e};var j=e=>q(u({},"__esModule",{value:!0}),e);var U={};S(U,{BulmaBlock:()=>m,BulmaBox:()=>d,BulmaBreadcrumbs:()=>f,BulmaButton:()=>g,BulmaDelete:()=>c,BulmaIcon:()=>r,BulmaImage:()=>p,BulmaNotification:()=>b,BulmaProgress:()=>k,BulmaTable:()=>h,BulmaTags:()=>v});module.exports=j(U);function t(e){let s=0,a;e=e||{};let i=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},y=e.unmounted?e.unmounted:function(){};return i.css||(i.css=""),e.data=function(){return i.bind(this)()},e.mounted=function(){n.bind(this)(),s++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){y.bind(this)(),s--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),s<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var $="",w=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
-`,m=t({name:"bulma-block",template:$,data(){return{css:q}}});var w="",V=`
+`,m=t({name:"bulma-block",template:w,data(){return{css:$}}});var I="",V=`
   <div class="box bulma-box">
     <slot></slot>
   </div>
-`,d=t({name:"bulma-box",template:V,data(){return{css:w}}});var W="",I=`
+`,d=t({name:"bulma-box",template:V,data(){return{css:I}}});var W="",A=`
+  <span class="bulma-icon icon">
+    <i
+      :class="{
+        ['la-' + name]: true,
+        lab: brand,
+        lar: regular,
+        las: solid,
+      }"
+      ref="inner">
+    </i>
+  </span>
+`,r=t({name:"bulma-icon",template:A,props:{brand:{type:Boolean,required:!1,default:()=>!1},name:{type:String,required:!0,default:()=>"exclamation-circle"},regular:{type:Boolean,required:!1,default:()=>!1},solid:{type:Boolean,required:!1,default:()=>!0}},data(){return{css:W,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let s of e)if(s.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});function o(e,s){let a=[];for(let i=e;i<s;i++)a.push(i);return a}var L=`
+  nav.breadcrumb ul li.is-excess a {
+    color: hsl(0, 0%, 86%) ; /* grey-lighter */
+  }
+
+  nav.breadcrumb ul li a .bulma-icon {
+    margin-left: -0.25em !important;
+    margin-right: 0.25em !important;
+  }
+
+  nav.breadcrumb ul li.is-active a .bulma-icon {
+    border-bottom: 2px solid transparent;
+  }
+
+  nav.breadcrumb ul li.is-active a span:not(.bulma-icon) {
+    border-bottom: 2px solid var(--bulma-breadcrumb-item-active-color);
+  }
+`,N=`
+  <nav aria-label="breadcrumbs" class="breadcrumb">
+    <ul v-if="links && links.length > 0">
+      <li
+        :class="{
+          'is-active': links[i].isActive,
+          'is-excess': i > this.activeLinkIndex,
+        }"
+        :key="links[i].label"
+        v-for="i in range(0, links.length)">
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          aria-current="page"
+          v-if="links[i].isActive">
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+
+          <span>{{ links[i].label }}</span>
+        </router-link>
+
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          v-else>
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+          
+          <span>{{ links[i].label }}</span>
+        </router-link>
+      </li>
+    </ul>
+
+    <slot v-else></slot>
+  </nav>
+`,f=t({name:"bulma-breadcrumbs",emits:["click"],components:{"bulma-icon":r},template:N,props:{links:{type:Array,required:!1,default:()=>[]}},data(){return{css:L,activeLinkIndex:-1}},watch:{links:{deep:!0,handler(){this.activeLinkIndex=this.links.findIndex(e=>e.isActive)}}},methods:{range:o}});var T="",D=`
   <button
     :class="{
       'is-black': black,
@@ -25,18 +115,14 @@ var u=Object.defineProperty;var k=Object.getOwnPropertyDescriptor;var B=Object.g
     class="bulma-button button">
     <slot></slot>
   </button>
-`,f=t({name:"bulma-button",template:I,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:W}}});var L="",N=`
+`,g=t({name:"bulma-button",template:D,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:T}}});var E="",M=`
   <button class="bulma-delete delete"></button>
-`,n=t({name:"bulma-delete",template:N,data(){return{css:L}}});var T="",A=`
-  <span class="bulma-icon icon">
-    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
-  </span>
-`,r=t({name:"bulma-icon",template:A,props:{name:{type:String,required:!0,default:()=>"exclamation-circle"}},data(){return{css:T,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let s of e)if(s.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});var D="",E=`
+`,c=t({name:"bulma-delete",template:M,data(){return{css:E}}});var P="",R=`
   <figure class="bulma-image image">
     <img :src="src" v-if="src">
     <slot v-else></slot>
   </figure>
-`,g=t({name:"bulma-image",template:E,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:D}}});var M="",P=`
+`,p=t({name:"bulma-image",template:R,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:P}}});var F="",H=`
   <div class="bulma-notification notification">
     <bulma-delete
       @click="$emit('close', $event)"
@@ -45,11 +131,11 @@ var u=Object.defineProperty;var k=Object.getOwnPropertyDescriptor;var B=Object.g
     
     <slot></slot>
   </div>
-`,p=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":n},template:P,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:M}}});var R="",F=`
+`,b=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":c},template:H,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:F}}});var O="",z=`
   <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
-`,b=t({name:"bulma-progress",template:F,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:R}}});function c(e,s){let a=[];for(let l=e;l<s;l++)a.push(l);return a}var H="",O=`
+`,k=t({name:"bulma-progress",template:z,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:O}}});var G="",J=`
   <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
@@ -77,11 +163,11 @@ var u=Object.defineProperty;var k=Object.getOwnPropertyDescriptor;var B=Object.g
   <table class="table" v-else>
     <slot></slot>
   </table>
-`,h=t({name:"bulma-table",template:O,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:H}},methods:{range:c}});var z=`
+`,h=t({name:"bulma-table",template:J,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:G}},methods:{range:o}});var K=`
   .bulma-tag .bulma-icon {
     padding-right: 8px;
   }
-`,G=`
+`,Q=`
   <div class="bulma-tags field is-grouped is-grouped-multiline">
     <div :key="i" class="control" v-for="i in range(0, tags.length)">
       <div class="tags has-addons">
@@ -179,4 +265,4 @@ var u=Object.defineProperty;var k=Object.getOwnPropertyDescriptor;var B=Object.g
       </div>
     </div>
   </div>
-`,v=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:G,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:z}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let s=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(l=>s.includes(l));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:c}});0&&(module.exports={BulmaBlock,BulmaBox,BulmaButton,BulmaDelete,BulmaIcon,BulmaImage,BulmaNotification,BulmaProgress,BulmaTable,BulmaTags});
+`,v=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:Q,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:K}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let s=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(i=>s.includes(i));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:o}});0&&(module.exports={BulmaBlock,BulmaBox,BulmaBreadcrumbs,BulmaButton,BulmaDelete,BulmaIcon,BulmaImage,BulmaNotification,BulmaProgress,BulmaTable,BulmaTags});

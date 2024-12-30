@@ -35,12 +35,11 @@ a.is-external-anchor-tag:active {
   gap: 0.5em;
 }
 
-article ol,
-article li {
+ol.ol,
+ul.ul {
   margin-left: 2em;
 }
 
-article ul li,
-article ul li {
+ul.ul li {
   list-style-type: disc;
 }

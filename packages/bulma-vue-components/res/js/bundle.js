@@ -109,6 +109,16 @@
                 </router-link>
               </li>
             </ul>
+
+            <div class="menu-label">Components</div>
+
+            <ul>
+              <li :key="item.label" v-for="item in menuItems.components">
+                <router-link :to="item.url">
+                  {{ item.label }}
+                </router-link>
+              </li>
+            </ul>
           </aside>
         </div>
 
@@ -140,7 +150,8 @@
             { label: "Progress", url: "/elements/progress" },
             { label: "Table", url: "/elements/table" },
             { label: "Tags", url: "/elements/tags" }
-          ]
+          ],
+          components: [{ label: "Breadcrumbs", url: "/components/breadcrumbs" }]
         }
       };
     }
@@ -10519,8 +10530,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template22 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template22) {
+        const template24 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template24) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10536,7 +10547,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template22, finalCompilerOptions);
+          Component.render = compile(template24, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11009,15 +11020,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template22 = templateContainer.content;
+        const template24 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template22.firstChild;
+          const wrapper = template24.firstChild;
           while (wrapper.firstChild) {
-            template22.appendChild(wrapper.firstChild);
+            template24.appendChild(wrapper.firstChild);
           }
-          template22.removeChild(wrapper);
+          template24.removeChild(wrapper);
         }
-        parent.insertBefore(template22, anchor);
+        parent.insertBefore(template24, anchor);
       }
       return [
         // first
@@ -18751,26 +18762,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template22, options) {
-    if (!isString(template22)) {
-      if (template22.nodeType) {
-        template22 = template22.innerHTML;
+  function compileToFunction(template24, options) {
+    if (!isString(template24)) {
+      if (template24.nodeType) {
+        template24 = template24.innerHTML;
       } else {
-        warn2(`invalid template option: `, template22);
+        warn2(`invalid template option: `, template24);
         return NOOP;
       }
     }
-    const key = genCacheKey(template22, options);
+    const key = genCacheKey(template24, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template22[0] === "#") {
-      const el = document.querySelector(template22);
+    if (template24[0] === "#") {
+      const el = document.querySelector(template24);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template22}`);
+        warn2(`Template element not found or is empty: ${template24}`);
       }
-      template22 = el ? el.innerHTML : ``;
+      template24 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18783,11 +18794,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template22, opts);
+    const { code } = compile2(template24, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template22,
+        template24,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -18846,7 +18857,7 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/lib/elements/button.mjs
+  // res/js/src/lib/elements/icon.mjs
   var css4 = (
     /* css */
     ``
@@ -18854,97 +18865,47 @@ ${codeFrame}` : message);
   var template4 = (
     /* html */
     `
-  <button
-    :class="{
-      'is-black': black,
-      'is-danger': danger,
-      'is-dark': dark,
-      'is-ghost': ghost,
-      'is-info': info,
-      'is-light': light,
-      'is-link': link,
-      'is-primary': primary,
-      'is-success': success,
-      'is-text': text,
-      'is-warning': warning,
-      'white': white,
-    }"
-    class="bulma-button button">
-    <slot></slot>
-  </button>
-`
-  );
-  var BulmaButton = createVueComponentWithCSS({
-    name: "bulma-button",
-    template: template4,
-    props: {
-      black: { type: Boolean, required: false, default: () => false },
-      danger: { type: Boolean, required: false, default: () => false },
-      dark: { type: Boolean, required: false, default: () => false },
-      ghost: { type: Boolean, required: false, default: () => false },
-      info: { type: Boolean, required: false, default: () => false },
-      light: { type: Boolean, required: false, default: () => false },
-      link: { type: Boolean, required: false, default: () => false },
-      primary: { type: Boolean, required: false, default: () => false },
-      success: { type: Boolean, required: false, default: () => false },
-      text: { type: Boolean, required: false, default: () => false },
-      warning: { type: Boolean, required: false, default: () => false },
-      white: { type: Boolean, required: false, default: () => false }
-    },
-    data() {
-      return {
-        css: css4
-      };
-    }
-  });
-
-  // res/js/src/lib/elements/delete.mjs
-  var css5 = (
-    /* css */
-    ``
-  );
-  var template5 = (
-    /* html */
-    `
-  <button class="bulma-delete delete"></button>
-`
-  );
-  var BulmaDelete = createVueComponentWithCSS({
-    name: "bulma-delete",
-    template: template5,
-    data() {
-      return {
-        css: css5
-      };
-    }
-  });
-
-  // res/js/src/lib/elements/icon.mjs
-  var css6 = (
-    /* css */
-    ``
-  );
-  var template6 = (
-    /* html */
-    `
   <span class="bulma-icon icon">
-    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
+    <i
+      :class="{
+        ['la-' + name]: true,
+        lab: brand,
+        lar: regular,
+        las: solid,
+      }"
+      ref="inner">
+    </i>
   </span>
 `
   );
   var BulmaIcon = createVueComponentWithCSS({
     name: "bulma-icon",
-    template: template6,
+    template: template4,
     props: {
+      brand: {
+        type: Boolean,
+        required: false,
+        default: () => false
+      },
       name: {
         type: String,
         required: true,
         default: () => "exclamation-circle"
+      },
+      regular: {
+        type: Boolean,
+        required: false,
+        default: () => false
+      },
+      solid: {
+        type: Boolean,
+        required: false,
+        default: () => true
       }
     },
     data() {
       return {
-        css: css6,
+        css: css4,
         observer: null
       };
     },
@@ -18986,12 +18947,214 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/lib/elements/image.mjs
+  // res/js/src/lib/helpers.mjs
+  function range2(a, b) {
+    const out = [];
+    for (let i = a; i < b; i++) {
+      out.push(i);
+    }
+    return out;
+  }
+
+  // res/js/src/lib/components/breadcrumbs.mjs
+  var css5 = (
+    /* css */
+    `
+  nav.breadcrumb ul li.is-excess a {
+    color: hsl(0, 0%, 86%) ; /* grey-lighter */
+  }
+
+  nav.breadcrumb ul li a .bulma-icon {
+    margin-left: -0.25em !important;
+    margin-right: 0.25em !important;
+  }
+
+  nav.breadcrumb ul li.is-active a .bulma-icon {
+    border-bottom: 2px solid transparent;
+  }
+
+  nav.breadcrumb ul li.is-active a span:not(.bulma-icon) {
+    border-bottom: 2px solid var(--bulma-breadcrumb-item-active-color);
+  }
+`
+  );
+  var template5 = (
+    /* html */
+    `
+  <nav aria-label="breadcrumbs" class="breadcrumb">
+    <ul v-if="links && links.length > 0">
+      <li
+        :class="{
+          'is-active': links[i].isActive,
+          'is-excess': i > this.activeLinkIndex,
+        }"
+        :key="links[i].label"
+        v-for="i in range(0, links.length)">
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          aria-current="page"
+          v-if="links[i].isActive">
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+
+          <span>{{ links[i].label }}</span>
+        </router-link>
+
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          v-else>
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+          
+          <span>{{ links[i].label }}</span>
+        </router-link>
+      </li>
+    </ul>
+
+    <slot v-else></slot>
+  </nav>
+`
+  );
+  var BulmaBreadcrumbs = createVueComponentWithCSS({
+    name: "bulma-breadcrumbs",
+    emits: ["click"],
+    components: {
+      "bulma-icon": BulmaIcon
+    },
+    template: template5,
+    props: {
+      links: {
+        type: Array,
+        required: false,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        css: css5,
+        activeLinkIndex: -1
+      };
+    },
+    watch: {
+      links: {
+        deep: true,
+        handler() {
+          this.activeLinkIndex = this.links.findIndex((link) => link.isActive);
+        }
+      }
+    },
+    methods: {
+      range: range2
+    }
+  });
+
+  // res/js/src/lib/elements/button.mjs
+  var css6 = (
+    /* css */
+    ``
+  );
+  var template6 = (
+    /* html */
+    `
+  <button
+    :class="{
+      'is-black': black,
+      'is-danger': danger,
+      'is-dark': dark,
+      'is-ghost': ghost,
+      'is-info': info,
+      'is-light': light,
+      'is-link': link,
+      'is-primary': primary,
+      'is-success': success,
+      'is-text': text,
+      'is-warning': warning,
+      'white': white,
+    }"
+    class="bulma-button button">
+    <slot></slot>
+  </button>
+`
+  );
+  var BulmaButton = createVueComponentWithCSS({
+    name: "bulma-button",
+    template: template6,
+    props: {
+      black: { type: Boolean, required: false, default: () => false },
+      danger: { type: Boolean, required: false, default: () => false },
+      dark: { type: Boolean, required: false, default: () => false },
+      ghost: { type: Boolean, required: false, default: () => false },
+      info: { type: Boolean, required: false, default: () => false },
+      light: { type: Boolean, required: false, default: () => false },
+      link: { type: Boolean, required: false, default: () => false },
+      primary: { type: Boolean, required: false, default: () => false },
+      success: { type: Boolean, required: false, default: () => false },
+      text: { type: Boolean, required: false, default: () => false },
+      warning: { type: Boolean, required: false, default: () => false },
+      white: { type: Boolean, required: false, default: () => false }
+    },
+    data() {
+      return {
+        css: css6
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/delete.mjs
   var css7 = (
     /* css */
     ``
   );
   var template7 = (
+    /* html */
+    `
+  <button class="bulma-delete delete"></button>
+`
+  );
+  var BulmaDelete = createVueComponentWithCSS({
+    name: "bulma-delete",
+    template: template7,
+    data() {
+      return {
+        css: css7
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/image.mjs
+  var css8 = (
+    /* css */
+    ``
+  );
+  var template8 = (
     /* html */
     `
   <figure class="bulma-image image">
@@ -19002,7 +19165,7 @@ ${codeFrame}` : message);
   );
   var BulmaImage = createVueComponentWithCSS({
     name: "bulma-image",
-    template: template7,
+    template: template8,
     props: {
       src: {
         type: String,
@@ -19012,17 +19175,17 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css7
+        css: css8
       };
     }
   });
 
   // res/js/src/lib/elements/notification.mjs
-  var css8 = (
+  var css9 = (
     /* css */
     ``
   );
-  var template8 = (
+  var template9 = (
     /* html */
     `
   <div class="bulma-notification notification">
@@ -19041,7 +19204,7 @@ ${codeFrame}` : message);
     components: {
       "bulma-delete": BulmaDelete
     },
-    template: template8,
+    template: template9,
     props: {
       permanent: {
         type: Boolean,
@@ -19051,17 +19214,17 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css8
+        css: css9
       };
     }
   });
 
   // res/js/src/lib/elements/progress.mjs
-  var css9 = (
+  var css10 = (
     /* css */
     ``
   );
-  var template9 = (
+  var template10 = (
     /* html */
     `
   <progress :value="value" class="bulma-progress progress" max="1">
@@ -19071,7 +19234,7 @@ ${codeFrame}` : message);
   );
   var BulmaProgress = createVueComponentWithCSS({
     name: "bulma-progress",
-    template: template9,
+    template: template10,
     props: {
       value: {
         type: Number,
@@ -19081,26 +19244,17 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css9
+        css: css10
       };
     }
   });
 
-  // res/js/src/lib/helpers.mjs
-  function range2(a, b) {
-    const out = [];
-    for (let i = a; i < b; i++) {
-      out.push(i);
-    }
-    return out;
-  }
-
   // res/js/src/lib/elements/table.mjs
-  var css10 = (
+  var css11 = (
     /* css */
     ``
   );
-  var template10 = (
+  var template11 = (
     /* html */
     `
   <table class="bulma-table table" v-if="values && values.length > 0">
@@ -19134,7 +19288,7 @@ ${codeFrame}` : message);
   );
   var BulmaTable = createVueComponentWithCSS({
     name: "bulma-table",
-    template: template10,
+    template: template11,
     props: {
       columns: {
         type: Array,
@@ -19154,7 +19308,7 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css10
+        css: css11
       };
     },
     methods: {
@@ -19163,7 +19317,7 @@ ${codeFrame}` : message);
   });
 
   // res/js/src/lib/elements/tags.mjs
-  var css11 = (
+  var css12 = (
     /* css */
     `
   .bulma-tag .bulma-icon {
@@ -19171,7 +19325,7 @@ ${codeFrame}` : message);
   }
 `
   );
-  var template11 = (
+  var template12 = (
     /* html */
     `
   <div class="bulma-tags field is-grouped is-grouped-multiline">
@@ -19279,7 +19433,7 @@ ${codeFrame}` : message);
     components: {
       "bulma-icon": BulmaIcon
     },
-    template: template11,
+    template: template12,
     props: {
       tags: {
         type: Array,
@@ -19289,7 +19443,7 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css11
+        css: css12
       };
     },
     methods: {
@@ -19320,11 +19474,11 @@ ${codeFrame}` : message);
   });
 
   // res/js/src/views/elements/block.mjs
-  var css12 = (
+  var css13 = (
     /* css */
     ``
   );
-  var template12 = (
+  var template13 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="block">
@@ -19353,20 +19507,20 @@ ${codeFrame}` : message);
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template12,
+    template: template13,
     data() {
       return {
-        css: css12
+        css: css13
       };
     }
   });
 
   // res/js/src/views/elements/box.mjs
-  var css13 = (
+  var css14 = (
     /* css */
     ``
   );
-  var template13 = (
+  var template14 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="box">
@@ -19393,20 +19547,96 @@ ${codeFrame}` : message);
       "bulma-box": BulmaBox,
       "bulma-icon": BulmaIcon
     },
-    template: template13,
+    template: template14,
     data() {
       return {
-        css: css13
+        css: css14
       };
     }
   });
 
-  // res/js/src/views/elements/button.mjs
-  var css14 = (
+  // res/js/src/views/components/breadcrumbs.mjs
+  var css15 = (
     /* css */
     ``
   );
-  var template14 = (
+  var template15 = (
+    /* html */
+    `
+  <h4
+    class="block has-text-grey has-text-weight-bold is-size-4"
+    id="breadcrumbs">
+    Breadcrumbs
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/components/breadcrumb/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-breadcrumbs :links="links" @click="onClick"></bulma-breadcrumbs>
+
+  <bulma-notification permanent>
+    This is the <b>{{ activeLink.label }}</b> page!
+  </bulma-notification>
+`
+  );
+  var BreadcrumbsView = createVueComponentWithCSS({
+    name: "x-breadcrumbs-view",
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-breadcrumbs": BulmaBreadcrumbs,
+      "bulma-icon": BulmaIcon,
+      "bulma-notification": BulmaNotification
+    },
+    template: template15,
+    data() {
+      return {
+        css: css15,
+        links: [
+          { label: "Technology", icon: { name: "flask" }, path: "#" },
+          { label: "Computing", icon: { name: "laptop" }, path: "#" },
+          {
+            label: "Internet",
+            icon: { name: "globe" },
+            path: "#",
+            isActive: true
+          },
+          { label: "Web development", icon: { name: "code" }, path: "#" },
+          { label: "JavaScript", icon: { brand: true, name: "js" }, path: "#" }
+        ]
+      };
+    },
+    computed: {
+      activeLink() {
+        return this.links[this.activeLinkIndex];
+      },
+      activeLinkIndex() {
+        return this.links.findIndex((link) => link.isActive);
+      }
+    },
+    methods: {
+      onClick(link) {
+        this.links.forEach((link2) => link2.isActive = false);
+        link.isActive = true;
+      },
+      range: range2
+    },
+    mounted() {
+      this.onClick(this.activeLink);
+    }
+  });
+
+  // res/js/src/views/elements/button.mjs
+  var css16 = (
+    /* css */
+    ``
+  );
+  var template16 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="button">
@@ -19482,10 +19712,10 @@ ${codeFrame}` : message);
       "bulma-button": BulmaButton,
       "bulma-icon": BulmaIcon
     },
-    template: template14,
+    template: template16,
     data() {
       return {
-        css: css14
+        css: css16
       };
     }
   });
@@ -22240,11 +22470,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   }
 
   // res/js/src/views/elements/delete.mjs
-  var css15 = (
+  var css17 = (
     /* css */
     ``
   );
-  var template15 = (
+  var template17 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="delete">
@@ -22278,20 +22508,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-delete": BulmaDelete,
       "bulma-icon": BulmaIcon
     },
-    template: template15,
+    template: template17,
     data() {
       return {
-        css: css15
+        css: css17
       };
     }
   });
 
   // res/js/src/views/elements/icon.mjs
-  var css16 = (
+  var css18 = (
     /* css */
     ``
   );
-  var template16 = (
+  var template18 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="icon">
@@ -22361,20 +22591,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template16,
+    template: template18,
     data() {
       return {
-        css: css16
+        css: css18
       };
     }
   });
 
   // res/js/src/views/elements/image.mjs
-  var css17 = (
+  var css19 = (
     /* css */
     ``
   );
-  var template17 = (
+  var template19 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="image">
@@ -22417,20 +22647,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-image": BulmaImage
     },
-    template: template17,
+    template: template19,
     data() {
       return {
-        css: css17
+        css: css19
       };
     }
   });
 
   // res/js/src/views/elements/notification.mjs
-  var css18 = (
+  var css20 = (
     /* css */
     ``
   );
-  var template18 = (
+  var template20 = (
     /* html */
     `
   <h4
@@ -22505,20 +22735,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-notification": BulmaNotification
     },
-    template: template18,
+    template: template20,
     data() {
       return {
-        css: css18
+        css: css20
       };
     }
   });
 
   // res/js/src/views/elements/progress.mjs
-  var css19 = (
+  var css21 = (
     /* css */
     ``
   );
-  var template19 = (
+  var template21 = (
     /* html */
     `
   <h4
@@ -22554,7 +22784,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-progress": BulmaProgress
     },
-    template: template19,
+    template: template21,
     data() {
       return {
         colors: [
@@ -22566,7 +22796,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { color: "is-link", value: 6 / 8 },
           { color: "", value: 7 / 8 }
         ],
-        css: css19,
+        css: css21,
         isAnimating: false
       };
     },
@@ -22591,11 +22821,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   });
 
   // res/js/src/views/elements/table.mjs
-  var css20 = (
+  var css22 = (
     /* css */
     ``
   );
-  var template20 = (
+  var template22 = (
     /* html */
     `
   <h4
@@ -22633,10 +22863,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-table": BulmaTable
     },
-    template: template20,
+    template: template22,
     data() {
       return {
-        css: css20,
+        css: css22,
         sampleData: {
           columns: ["Pos", "Team", "Pld", "W", "D", "L", "GF", "GA", "GD", "Pts"],
           index: [],
@@ -22668,11 +22898,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   });
 
   // res/js/src/views/elements/tags.mjs
-  var css21 = (
+  var css23 = (
     /* css */
     ``
   );
-  var template21 = (
+  var template23 = (
     /* html */
     `
   <h4
@@ -22707,7 +22937,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       via a <code>tags</code> attribute. Each tag can be one of:
     </p>
 
-    <ul>
+    <ul class="ul">
       <li>
         A string
       </li>
@@ -22731,10 +22961,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-notification": BulmaNotification,
       "bulma-tags": BulmaTags
     },
-    template: template21,
+    template: template23,
     data() {
       return {
-        css: css21,
+        css: css23,
         message: "",
         tags: [
           "hello",
@@ -22797,6 +23027,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { path: "table", component: TableView },
           { path: "tags", component: TagsView }
         ]
+      },
+      {
+        path: "/components",
+        component: RouterViewComponent,
+        children: [{ path: "breadcrumbs", component: BreadcrumbsView }]
       }
     ]
   });

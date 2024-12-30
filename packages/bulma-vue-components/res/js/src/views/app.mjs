@@ -49,6 +49,16 @@ const template = /* html */ `
                 </router-link>
               </li>
             </ul>
+
+            <div class="menu-label">Components</div>
+
+            <ul>
+              <li :key="item.label" v-for="item in menuItems.components">
+                <router-link :to="item.url">
+                  {{ item.label }}
+                </router-link>
+              </li>
+            </ul>
           </aside>
         </div>
 
@@ -88,6 +98,7 @@ const AppView = createVueComponentWithCSS({
           { label: "Table", url: "/elements/table" },
           { label: "Tags", url: "/elements/tags" },
         ],
+        components: [{ label: "Breadcrumbs", url: "/components/breadcrumbs" }],
       },
     }
   },

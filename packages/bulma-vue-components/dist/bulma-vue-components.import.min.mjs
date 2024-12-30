@@ -1,4 +1,4 @@
-function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.mounted:function(){},u=e.unmounted?e.unmounted:function(){};return s.css||(s.css=""),e.data=function(){return s.bind(this)()},e.mounted=function(){c.bind(this)(),l++;let i=this.$root.$el.getRootNode();i===document&&(i=i.body),a||(a=document.createElement("style"),i.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){u.bind(this)(),l--;let i=this.$root.$el.getRootNode();if(i===document&&(i=i.body),l<1){if(a)try{i.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var m="",d=`
+function t(e){let i=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.mounted:function(){},u=e.unmounted?e.unmounted:function(){};return s.css||(s.css=""),e.data=function(){return s.bind(this)()},e.mounted=function(){c.bind(this)(),i++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){u.bind(this)(),i--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),i<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var m="",d=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
@@ -6,7 +6,97 @@ function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.m
   <div class="box bulma-box">
     <slot></slot>
   </div>
-`,b=t({name:"bulma-box",template:p,data(){return{css:g}}});var h="",v=`
+`,b=t({name:"bulma-box",template:p,data(){return{css:g}}});var k="",h=`
+  <span class="bulma-icon icon">
+    <i
+      :class="{
+        ['la-' + name]: true,
+        lab: brand,
+        lar: regular,
+        las: solid,
+      }"
+      ref="inner">
+    </i>
+  </span>
+`,r=t({name:"bulma-icon",template:h,props:{brand:{type:Boolean,required:!1,default:()=>!1},name:{type:String,required:!0,default:()=>"exclamation-circle"},regular:{type:Boolean,required:!1,default:()=>!1},solid:{type:Boolean,required:!1,default:()=>!0}},data(){return{css:k,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let i of e)if(i.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});function n(e,i){let a=[];for(let s=e;s<i;s++)a.push(s);return a}var v=`
+  nav.breadcrumb ul li.is-excess a {
+    color: hsl(0, 0%, 86%) ; /* grey-lighter */
+  }
+
+  nav.breadcrumb ul li a .bulma-icon {
+    margin-left: -0.25em !important;
+    margin-right: 0.25em !important;
+  }
+
+  nav.breadcrumb ul li.is-active a .bulma-icon {
+    border-bottom: 2px solid transparent;
+  }
+
+  nav.breadcrumb ul li.is-active a span:not(.bulma-icon) {
+    border-bottom: 2px solid var(--bulma-breadcrumb-item-active-color);
+  }
+`,y=`
+  <nav aria-label="breadcrumbs" class="breadcrumb">
+    <ul v-if="links && links.length > 0">
+      <li
+        :class="{
+          'is-active': links[i].isActive,
+          'is-excess': i > this.activeLinkIndex,
+        }"
+        :key="links[i].label"
+        v-for="i in range(0, links.length)">
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          aria-current="page"
+          v-if="links[i].isActive">
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+
+          <span>{{ links[i].label }}</span>
+        </router-link>
+
+        <router-link
+          :to="links[i].path"
+          @click="$emit('click', links[i])"
+          v-else>
+          <bulma-icon
+            :brand="links[i].icon.brand"
+            :name="
+              typeof links[i].icon === 'string'
+                ? links[i].icon
+                : links[i].icon.name
+            "
+            :regular="links[i].icon.regular"
+            :solid="
+              typeof links[i].icon.solid === 'undefined'
+                ? !links[i].icon.brand && !links[i].icon.regular
+                : links[i].solid
+            "
+            v-if="links[i].icon">
+          </bulma-icon>
+          
+          <span>{{ links[i].label }}</span>
+        </router-link>
+      </li>
+    </ul>
+
+    <slot v-else></slot>
+  </nav>
+`,B=t({name:"bulma-breadcrumbs",emits:["click"],components:{"bulma-icon":r},template:y,props:{links:{type:Array,required:!1,default:()=>[]}},data(){return{css:v,activeLinkIndex:-1}},watch:{links:{deep:!0,handler(){this.activeLinkIndex=this.links.findIndex(e=>e.isActive)}}},methods:{range:n}});var x="",C=`
   <button
     :class="{
       'is-black': black,
@@ -25,18 +115,14 @@ function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.m
     class="bulma-button button">
     <slot></slot>
   </button>
-`,y=t({name:"bulma-button",template:v,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:h}}});var k="",B=`
+`,S=t({name:"bulma-button",template:C,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:x}}});var q="",j=`
   <button class="bulma-delete delete"></button>
-`,n=t({name:"bulma-delete",template:B,data(){return{css:k}}});var C="",x=`
-  <span class="bulma-icon icon">
-    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
-  </span>
-`,r=t({name:"bulma-icon",template:x,props:{name:{type:String,required:!0,default:()=>"exclamation-circle"}},data(){return{css:C,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let l of e)if(l.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});var S="",j=`
+`,o=t({name:"bulma-delete",template:j,data(){return{css:q}}});var $="",w=`
   <figure class="bulma-image image">
     <img :src="src" v-if="src">
     <slot v-else></slot>
   </figure>
-`,q=t({name:"bulma-image",template:j,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:S}}});var $="",w=`
+`,I=t({name:"bulma-image",template:w,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:$}}});var V="",W=`
   <div class="bulma-notification notification">
     <bulma-delete
       @click="$emit('close', $event)"
@@ -45,11 +131,11 @@ function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.m
     
     <slot></slot>
   </div>
-`,V=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":n},template:w,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:$}}});var W="",I=`
+`,A=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":o},template:W,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:V}}});var L="",N=`
   <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
-`,L=t({name:"bulma-progress",template:I,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:W}}});function o(e,l){let a=[];for(let s=e;s<l;s++)a.push(s);return a}var N="",T=`
+`,T=t({name:"bulma-progress",template:N,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:L}}});var D="",E=`
   <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
@@ -77,11 +163,11 @@ function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.m
   <table class="table" v-else>
     <slot></slot>
   </table>
-`,A=t({name:"bulma-table",template:T,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:N}},methods:{range:o}});var D=`
+`,M=t({name:"bulma-table",template:E,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:D}},methods:{range:n}});var P=`
   .bulma-tag .bulma-icon {
     padding-right: 8px;
   }
-`,E=`
+`,R=`
   <div class="bulma-tags field is-grouped is-grouped-multiline">
     <div :key="i" class="control" v-for="i in range(0, tags.length)">
       <div class="tags has-addons">
@@ -179,4 +265,4 @@ function t(e){let l=0,a;e=e||{};let s=e.data?e.data:function(){},c=e.mounted?e.m
       </div>
     </div>
   </div>
-`,M=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:E,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:D}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let l=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(s=>l.includes(s));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:o}});export{f as BulmaBlock,b as BulmaBox,y as BulmaButton,n as BulmaDelete,r as BulmaIcon,q as BulmaImage,V as BulmaNotification,L as BulmaProgress,A as BulmaTable,M as BulmaTags};
+`,F=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:R,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:P}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let i=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(s=>i.includes(s));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:n}});export{f as BulmaBlock,b as BulmaBox,B as BulmaBreadcrumbs,S as BulmaButton,o as BulmaDelete,r as BulmaIcon,I as BulmaImage,A as BulmaNotification,T as BulmaProgress,M as BulmaTable,F as BulmaTags};

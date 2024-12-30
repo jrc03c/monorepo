@@ -41,7 +41,7 @@ const template = /* html */ `
       via a <code>tags</code> attribute. Each tag can be one of:
     </p>
 
-    <ul>
+    <ul class="ul">
       <li>
         A string
       </li>

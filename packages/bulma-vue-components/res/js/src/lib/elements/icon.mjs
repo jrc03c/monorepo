@@ -10,7 +10,15 @@ const css = /* css */ ``
 
 const template = /* html */ `
   <span class="bulma-icon icon">
-    <i :class="{ ['la-' + name]: true }" class="las" ref="inner"></i>
+    <i
+      :class="{
+        ['la-' + name]: true,
+        lab: brand,
+        lar: regular,
+        las: solid,
+      }"
+      ref="inner">
+    </i>
   </span>
 `
 
@@ -25,10 +33,28 @@ const BulmaIcon = createVueComponentWithCSS({
   template,
 
   props: {
+    brand: {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    },
+
     name: {
       type: String,
       required: true,
       default: () => "exclamation-circle",
+    },
+
+    regular: {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    },
+
+    solid: {
+      type: Boolean,
+      required: false,
+      default: () => true,
     },
   },
 
