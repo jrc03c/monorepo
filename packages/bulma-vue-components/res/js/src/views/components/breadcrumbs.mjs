@@ -29,6 +29,10 @@ const template = /* html */ `
   <bulma-notification permanent>
     This is the <b>{{ activeLink.label }}</b> page!
   </bulma-notification>
+
+  <bulma-block>
+    The <code>&lt;bulma-breadcrumbs&gt;</code> component optionally accepts an array of link objects via a <code>links</code> attribute. Each link object in the array must have a <code>label</code> property and a <code>path</code> property; and it can optionally have <code>isActive</code> and <code>icon</code> properties. If the <code>links</code> attribute is not used, then content can be slotted in.
+  </bulma-block>
 `
 
 // -----------------------------------------------------------------------------
