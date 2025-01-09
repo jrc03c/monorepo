@@ -24,3 +24,18 @@ helper.on("run-progress-callbacks", async (x, progress) => {
   progress(1)
   return
 })
+
+helper.on("do-thing-1", async () => {
+  await pause(Math.random() * 500 + 500)
+  return "Thing 1 is finished!"
+})
+
+helper.on("do-thing-2", async () => {
+  await pause(Math.random() * 500 + 500)
+  return "Thing 2 is finished!"
+})
+
+helper.on("do-thing-3", async () => {
+  await pause(Math.random() * 500 + 500)
+  return "Thing 3 is finished!"
+})

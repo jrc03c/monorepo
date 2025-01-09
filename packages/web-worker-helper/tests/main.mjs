@@ -150,4 +150,43 @@ function createResultElement(status, message) {
 
     resultElement.classList.remove("animated")
   })()
+
+  await (async () => {
+    const description =
+      "Tests that workers can do multiple things simultaneously."
+
+    const resultElement = createResultElement(null, description)
+    container.appendChild(resultElement)
+
+    try {
+      const helper = new WebWorkerHelper(
+        new URL("./worker.mjs", import.meta.url),
+        { type: "module" },
+      )
+
+      const promises = []
+      promises.push(helper.exec("do-thing-1"))
+      promises.push(helper.exec("do-thing-2"))
+      promises.push(helper.exec("do-thing-3"))
+      const results = await Promise.all(promises)
+
+      if (
+        results.length === 3 &&
+        results.includes("Thing 1 is finished!") &&
+        results.includes("Thing 2 is finished!") &&
+        results.includes("Thing 3 is finished!")
+      ) {
+        resultElement.classList.add("success")
+      } else {
+        resultElement.classList.add("danger")
+      }
+    } catch (e) {
+      resultElement.classList.add("danger")
+
+      resultElement.querySelector("#message").innerHTML =
+        `${description} (ERROR: ${e})`
+    }
+
+    resultElement.classList.remove("animated")
+  })()
 })()
