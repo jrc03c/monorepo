@@ -14,11 +14,5 @@
     "prettier": "^3.1.0",
     "process": "^0.11.10"
   },
-  "scripts": {
-    "build": "node build.mjs",
-    "serve-demo": "rm -rf .parcel-cache && PARCEL_WORKERS=0 npx parcel --dist-dir=dist-temp ./demo/index.html",
-    "serve-tests": "rm -rf .parcel-cache && PARCEL_WORKERS=0 npx parcel --dist-dir=dist-temp ./tests/index.html",
-    "watch": "node build.mjs --watch"
-  },
   "type": "module"
 }
