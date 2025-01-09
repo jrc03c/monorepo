@@ -1,4 +1,5 @@
 {
+  "author": "jrc03c",
   "dependencies": {
     "@jrc03c/make-key": "^0.0.32"
   },
@@ -14,5 +15,13 @@
     "prettier": "^3.1.0",
     "process": "^0.11.10"
   },
-  "type": "module"
+  "exports": {
+    "import": "./dist/web-worker-helper.import.mjs",
+    "require": "./dist/web-worker-helpers.require.cjs"
+  },
+  "main": "./dist/web-worker-helper.require.cjs",
+  "module": "./dist/web-worker-helper.import.mjs",
+  "name": "@jrc03c/web-worker-helper",
+  "type": "module",
+  "version": "0.0.1"
 }
