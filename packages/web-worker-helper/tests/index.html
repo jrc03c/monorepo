@@ -34,7 +34,19 @@
         min-height: 1em;
         max-height: 1em;
         background-color: rgb(200, 200, 200);
+        color: rgb(200, 200, 200);
         border-radius: 100%;
+      }
+
+      .result.animated {
+        animation-name: glow;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-play-state: running;
       }
 
       .result.success {
@@ -67,6 +79,20 @@
 
       .result.info .status {
         background-color: blue;
+      }
+
+      @keyframes glow {
+        0% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
       }
     </style>
   </head>
