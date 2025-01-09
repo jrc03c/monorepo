@@ -15,8 +15,12 @@ class WebWorkerHelper {
     IN_PROGRESS: "IN_PROGRESS",
   }
 
-  signals = []
+  // main thread only
+  rejects = []
   worker = null
+
+  // worker only
+  signals = []
 
   constructor(path, options) {
     if (path) {
@@ -39,6 +43,13 @@ class WebWorkerHelper {
   }
 
   destroy() {
+    this.rejects.forEach(reject =>
+      reject(
+        "The worker instance was terminated by the WebWorkerHelper instance.",
+      ),
+    )
+
+    this.rejects = []
     this.worker.terminate()
     this.worker = null
     return this
@@ -53,18 +64,27 @@ class WebWorkerHelper {
           if (event.data.signal === signal) {
             // If the work has been cancelled, then show a warning and return the result on the assumption that nothing has gone wrong.
             if (event.data.status === WebWorkerHelper.Status.CANCELLED) {
+              resolve(event.data.payload)
+
               console.warn(
                 `A WebWorkerHelper process with signal "${signal}" was cancelled!`,
               )
 
-              resolve(event.data.payload)
               this.worker.removeEventListener("message", callback)
+
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1)
+              }
             }
 
             // If the work has failed, then reject the results.
             else if (event.data.status === WebWorkerHelper.Status.FAILED) {
               reject(event.data.payload)
               this.worker.removeEventListener("message", callback)
+
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1)
+              }
             }
 
             // If the work is finished *or* if the event does not include a status, then return the results.
@@ -74,6 +94,10 @@ class WebWorkerHelper {
             ) {
               resolve(event.data.payload)
               this.worker.removeEventListener("message", callback)
+
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1)
+              }
             }
 
             // If the work is still in progress, then call the progress callback function (if it exists).
@@ -87,8 +111,13 @@ class WebWorkerHelper {
 
         this.worker.addEventListener("message", callback)
         this.worker.postMessage({ signal, payload })
+        this.rejects.push(reject)
       } catch (e) {
-        return reject(e)
+        reject(e)
+
+        if (this.rejects.includes(reject)) {
+          this.rejects.splice(this.rejects.indexOf(reject), 1)
+        }
       }
     })
   }

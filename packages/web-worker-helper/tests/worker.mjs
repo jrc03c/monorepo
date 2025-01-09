@@ -39,3 +39,7 @@ helper.on("do-thing-3", async () => {
   await pause(Math.random() * 500 + 500)
   return "Thing 3 is finished!"
 })
+
+helper.on("return-after-30-seconds", async () => {
+  await pause(30000)
+})

@@ -189,4 +189,29 @@ function createResultElement(status, message) {
 
     resultElement.classList.remove("animated")
   })()
+
+  await (async () => {
+    const description = "Tests that workers can be terminated mid-execution."
+    const resultElement = createResultElement(null, description)
+    container.appendChild(resultElement)
+
+    try {
+      const helper = new WebWorkerHelper(
+        new URL("./worker.mjs", import.meta.url),
+        { type: "module" },
+      )
+
+      setTimeout(() => helper.destroy(), 1000)
+      await helper.exec("return-after-30-seconds")
+
+      resultElement.classList.add("danger")
+
+      resultElement.querySelector("#message").innerHTML =
+        `${description} (The worker should've been terminated mid-execution, but it wasn't!)`
+    } catch (e) {
+      resultElement.classList.add("success")
+    }
+
+    resultElement.classList.remove("animated")
+  })()
 })()

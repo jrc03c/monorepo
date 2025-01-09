@@ -4301,8 +4301,11 @@ var WebWorkerHelper = class _WebWorkerHelper {
     FINISHED: "FINISHED",
     IN_PROGRESS: "IN_PROGRESS"
   };
-  signals = [];
+  // main thread only
+  rejects = [];
   worker = null;
+  // worker only
+  signals = [];
   constructor(path, options) {
     if (path) {
       this.worker = new Worker(path, options);
@@ -4321,6 +4324,12 @@ var WebWorkerHelper = class _WebWorkerHelper {
     }
   }
   destroy() {
+    this.rejects.forEach(
+      (reject) => reject(
+        "The worker instance was terminated by the WebWorkerHelper instance."
+      )
+    );
+    this.rejects = [];
     this.worker.terminate();
     this.worker = null;
     return this;
@@ -4332,17 +4341,26 @@ var WebWorkerHelper = class _WebWorkerHelper {
         const callback = (event) => {
           if (event.data.signal === signal) {
             if (event.data.status === _WebWorkerHelper.Status.CANCELLED) {
+              resolve(event.data.payload);
               console.warn(
                 `A WebWorkerHelper process with signal "${signal}" was cancelled!`
               );
-              resolve(event.data.payload);
               this.worker.removeEventListener("message", callback);
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1);
+              }
             } else if (event.data.status === _WebWorkerHelper.Status.FAILED) {
               reject(event.data.payload);
               this.worker.removeEventListener("message", callback);
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1);
+              }
             } else if (event.data.status === _WebWorkerHelper.Status.FINISHED || !event.data.status) {
               resolve(event.data.payload);
               this.worker.removeEventListener("message", callback);
+              if (this.rejects.includes(reject)) {
+                this.rejects.splice(this.rejects.indexOf(reject), 1);
+              }
             } else if (event.data.status === _WebWorkerHelper.Status.IN_PROGRESS) {
               if (progress) {
                 progress(event.data.payload);
@@ -4352,8 +4370,12 @@ var WebWorkerHelper = class _WebWorkerHelper {
         };
         this.worker.addEventListener("message", callback);
         this.worker.postMessage({ signal, payload });
+        this.rejects.push(reject);
       } catch (e) {
-        return reject(e);
+        reject(e);
+        if (this.rejects.includes(reject)) {
+          this.rejects.splice(this.rejects.indexOf(reject), 1);
+        }
       }
     });
   }
