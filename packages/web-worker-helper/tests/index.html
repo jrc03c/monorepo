@@ -3,8 +3,76 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      *,
+      button,
+      input,
+      optgroup,
+      option,
+      output,
+      select,
+      textarea {
+        font-family: monospace;
+      }
+
+      .result {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        gap: 1em;
+      }
+
+      .status {
+        display: inline-block;
+        width: 1em;
+        min-width: 1em;
+        max-width: 1em;
+        height: 1em;
+        min-height: 1em;
+        max-height: 1em;
+        background-color: rgb(200, 200, 200);
+        border-radius: 100%;
+      }
+
+      .result.success {
+        color: green;
+      }
+
+      .result.success .status {
+        background-color: green;
+      }
+
+      .result.warning {
+        color: orange;
+      }
+
+      .result.warning .status {
+        background-color: orange;
+      }
+
+      .result.danger {
+        color: red;
+      }
+
+      .result.danger .status {
+        background-color: red;
+      }
+
+      .result.info {
+        color: blue;
+      }
+
+      .result.info .status {
+        background-color: blue;
+      }
+    </style>
   </head>
   <body>
     <h1>Tests</h1>
+    <div id="results"></div>
+    <script src="main.mjs" type="module"></script>
   </body>
 </html>
