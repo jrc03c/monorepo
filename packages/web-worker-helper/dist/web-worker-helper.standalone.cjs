@@ -4297,10 +4297,23 @@
       FINISHED: "FINISHED",
       IN_PROGRESS: "IN_PROGRESS"
     };
+    signals = [];
     worker = null;
     constructor(path, options) {
       if (path) {
         this.worker = new Worker(path, options);
+      }
+      if (isInWorkerContext()) {
+        self.addEventListener("message", (event) => {
+          console.log("Signal received:", event.data.signal);
+          if (!this.signals.includes(event.data.signal)) {
+            return self.postMessage({
+              signal: event.data.signal,
+              status: _WebWorkerHelper.Status.FAILED,
+              payload: `You tried to send a message with the signal "${event.data.signal}" to a worker, but no workers are listening for that signal!`
+            });
+          }
+        });
       }
     }
     destroy() {
@@ -4347,7 +4360,7 @@
           "The `WebWorkerHelper.on` method should only be invoked inside a web worker context!"
         );
       }
-      self.addEventListener("message", async (event) => {
+      const listener = async (event) => {
         if (event.data.signal === signal) {
           try {
             const result = await callback(event.data.payload, (p) => {
@@ -4370,7 +4383,15 @@
             });
           }
         }
-      });
+      };
+      self.addEventListener("message", listener);
+      this.signals.push(signal);
+      return () => {
+        if (this.signals.includes(signal)) {
+          this.signals.splice(this.signals.indexOf(signal), 1);
+        }
+        self.removeEventListener("message", listener);
+      };
     }
   };
 })();

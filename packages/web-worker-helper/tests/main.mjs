@@ -128,4 +128,26 @@ function createResultElement(status, message) {
 
     resultElement.classList.remove("animated")
   })()
+
+  await (async () => {
+    const description =
+      "Tests that errors are thrown when unknown signals are used."
+
+    const resultElement = createResultElement(null, description)
+    container.appendChild(resultElement)
+
+    try {
+      const helper = new WebWorkerHelper(
+        new URL("./worker.mjs", import.meta.url),
+        { type: "module" },
+      )
+
+      await helper.exec("does-not-exist")
+      resultElement.classList.add("danger")
+    } catch (e) {
+      resultElement.classList.add("success")
+    }
+
+    resultElement.classList.remove("animated")
+  })()
 })()
