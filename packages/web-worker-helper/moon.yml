@@ -1,0 +1,32 @@
+dependsOn:
+  - id: freeze
+    scope: development
+language: javascript
+tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
+  pub:
+    command:
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    local: true
+    platform: node
+  pub-dep1:
+    command:
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
+    platform: node
+  test:
+    command:
+      - bash
+      - ./test.sh
+    platform: system

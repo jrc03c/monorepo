@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <style>
+      *,
+      button,
+      input,
+      optgroup,
+      option,
+      output,
+      select,
+      textarea {
+        font-family: monospace;
+      }
+
+      div,
+      p {
+        margin: 0 0 1em 0;
+      }
+
+      hr {
+        margin: 2em 0;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        height: 2px;
+        background-color: black;
+      }
+
+      #error {
+        padding: 1em;
+        background-color: rgba(255, 0, 0, 0.15);
+        border: 2px solid red;
+      }
+
+      #x-double,
+      #x-triple,
+      #some-long-operation,
+      #error {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Demo</h1>
+
+    <hr />
+
+    <h2>Given value</h2>
+
+    <p id="x">
+      x =
+      <span id="x-value"></span>
+    </p>
+
+    <hr />
+
+    <h2>Web worker results</h2>
+
+    <p id="x-double">
+      x * 2 =
+      <span id="x-double-result">?</span>
+    </p>
+
+    <p id="x-triple">
+      x * 3 =
+      <span id="x-triple-result">?</span>
+    </p>
+
+    <div id="some-long-operation">
+      <div>
+        <progress id="some-long-operation-progress-bar"></progress>
+      </div>
+
+      <div id="some-long-operation-result"></div>
+    </div>
+
+    <div id="error"></div>
+
+    <script src="main.mjs" type="module"></script>
+  </body>
+</html>

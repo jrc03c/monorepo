@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@jrc03c/make-key": "^0.0.32"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@jrc03c/watch": "^0.0.18",
+    "esbuild": "^0.19.8",
+    "eslint": "^9.12.0",
+    "eslint-plugin-html": "^7.1.0",
+    "globals": "^15.11.0",
+    "parcel": "^2.13.3",
+    "path-browserify": "^1.0.1",
+    "prettier": "^3.1.0",
+    "process": "^0.11.10"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "serve-demo": "rm -rf .parcel-cache && PARCEL_WORKERS=0 npx parcel --dist-dir=dist-temp ./demo/index.html",
+    "serve-tests": "rm -rf .parcel-cache && PARCEL_WORKERS=0 npx parcel --dist-dir=dist-temp ./tests/index.html",
+    "watch": "node build.mjs --watch"
+  },
+  "type": "module"
+}
