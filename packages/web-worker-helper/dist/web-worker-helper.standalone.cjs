@@ -4308,7 +4308,6 @@
       }
       if (isInWorkerContext()) {
         self.addEventListener("message", (event) => {
-          console.log("Signal received:", event.data.signal);
           if (!this.signals.includes(event.data.signal)) {
             return self.postMessage({
               signal: event.data.signal,
