@@ -25,5 +25,5 @@
   "module": "./dist/web-worker-helper.import.mjs",
   "name": "@jrc03c/web-worker-helper",
   "type": "module",
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
