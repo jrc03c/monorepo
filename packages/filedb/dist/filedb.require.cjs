@@ -27,11 +27,11 @@ var __toESM = (mod2, isNodeMode, target) => (target = mod2 != null ? __create(__
 var __toCommonJS = (mod2) => __copyProps(__defProp({}, "__esModule", { value: true }), mod2);
 
 // src/index.mjs
-var src_exports = {};
-__export(src_exports, {
+var index_exports = {};
+__export(index_exports, {
   FileDB: () => FileDB
 });
-module.exports = __toCommonJS(src_exports);
+module.exports = __toCommonJS(index_exports);
 
 // node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.mjs
 var __defProp2 = Object.defineProperty;

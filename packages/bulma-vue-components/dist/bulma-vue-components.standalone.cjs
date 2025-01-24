@@ -372,33 +372,12 @@
     }
   });
 
-  // res/js/src/lib/elements/delete.mjs
+  // res/js/src/lib/elements/image.mjs
   var css6 = (
     /* css */
     ``
   );
   var template6 = (
-    /* html */
-    `
-  <button class="bulma-delete delete"></button>
-`
-  );
-  var BulmaDelete = createVueComponentWithCSS({
-    name: "bulma-delete",
-    template: template6,
-    data() {
-      return {
-        css: css6
-      };
-    }
-  });
-
-  // res/js/src/lib/elements/image.mjs
-  var css7 = (
-    /* css */
-    ``
-  );
-  var template7 = (
     /* html */
     `
   <figure class="bulma-image image">
@@ -409,7 +388,7 @@
   );
   var BulmaImage = createVueComponentWithCSS({
     name: "bulma-image",
-    template: template7,
+    template: template6,
     props: {
       src: {
         type: String,
@@ -419,17 +398,89 @@
     },
     data() {
       return {
+        css: css6
+      };
+    }
+  });
+
+  // res/js/src/lib/components/card.mjs
+  var css7 = (
+    /* css */
+    ``
+  );
+  var template7 = (
+    /* html */
+    `
+  <div class="bulma-card card">
+    <div class="card-image" v-if="image">
+      <bulma-image
+        :class="{ [imageRatioClass]: true }"
+        :src="image">
+      </bulma-image>
+    </div>
+
+    <div class="card-content">
+      <slot name="content"></slot>
+    </div>
+
+    <div class="card-footer">
+      <slot name="footer"></slot>
+    </div>
+  </div>
+`
+  );
+  var BulmaCard = createVueComponentWithCSS({
+    name: "bulma-card",
+    components: {
+      "bulma-image": BulmaImage
+    },
+    template: template7,
+    props: {
+      image: {
+        type: String,
+        required: false,
+        default: () => ""
+      },
+      "image-ratio-class": {
+        type: String,
+        required: false,
+        default: () => "is-4by3"
+      }
+    },
+    data() {
+      return {
         css: css7
       };
     }
   });
 
-  // res/js/src/lib/elements/notification.mjs
+  // res/js/src/lib/elements/delete.mjs
   var css8 = (
     /* css */
     ``
   );
   var template8 = (
+    /* html */
+    `
+  <button class="bulma-delete delete"></button>
+`
+  );
+  var BulmaDelete = createVueComponentWithCSS({
+    name: "bulma-delete",
+    template: template8,
+    data() {
+      return {
+        css: css8
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/notification.mjs
+  var css9 = (
+    /* css */
+    ``
+  );
+  var template9 = (
     /* html */
     `
   <div class="bulma-notification notification">
@@ -448,7 +499,7 @@
     components: {
       "bulma-delete": BulmaDelete
     },
-    template: template8,
+    template: template9,
     props: {
       permanent: {
         type: Boolean,
@@ -458,17 +509,17 @@
     },
     data() {
       return {
-        css: css8
+        css: css9
       };
     }
   });
 
   // res/js/src/lib/elements/progress.mjs
-  var css9 = (
+  var css10 = (
     /* css */
     ``
   );
-  var template9 = (
+  var template10 = (
     /* html */
     `
   <progress :value="value" class="bulma-progress progress" max="1">
@@ -478,7 +529,7 @@
   );
   var BulmaProgress = createVueComponentWithCSS({
     name: "bulma-progress",
-    template: template9,
+    template: template10,
     props: {
       value: {
         type: Number,
@@ -488,17 +539,17 @@
     },
     data() {
       return {
-        css: css9
+        css: css10
       };
     }
   });
 
   // res/js/src/lib/elements/table.mjs
-  var css10 = (
+  var css11 = (
     /* css */
     ``
   );
-  var template10 = (
+  var template11 = (
     /* html */
     `
   <table class="bulma-table table" v-if="values && values.length > 0">
@@ -532,7 +583,7 @@
   );
   var BulmaTable = createVueComponentWithCSS({
     name: "bulma-table",
-    template: template10,
+    template: template11,
     props: {
       columns: {
         type: Array,
@@ -552,7 +603,7 @@
     },
     data() {
       return {
-        css: css10
+        css: css11
       };
     },
     methods: {
@@ -561,7 +612,7 @@
   });
 
   // res/js/src/lib/elements/tags.mjs
-  var css11 = (
+  var css12 = (
     /* css */
     `
   .bulma-tag .bulma-icon {
@@ -569,7 +620,7 @@
   }
 `
   );
-  var template11 = (
+  var template12 = (
     /* html */
     `
   <div class="bulma-tags field is-grouped is-grouped-multiline">
@@ -677,7 +728,7 @@
     components: {
       "bulma-icon": BulmaIcon
     },
-    template: template11,
+    template: template12,
     props: {
       tags: {
         type: Array,
@@ -687,7 +738,7 @@
     },
     data() {
       return {
-        css: css11
+        css: css12
       };
     },
     methods: {

@@ -2,6 +2,7 @@ import { BulmaBlock } from "./elements/block.mjs"
 import { BulmaBox } from "./elements/box.mjs"
 import { BulmaBreadcrumbs } from "./components/breadcrumbs.mjs"
 import { BulmaButton } from "./elements/button.mjs"
+import { BulmaCard } from "./components/card.mjs"
 import { BulmaDelete } from "./elements/delete.mjs"
 import { BulmaIcon } from "./elements/icon.mjs"
 import { BulmaImage } from "./elements/image.mjs"
@@ -15,6 +16,7 @@ export {
   BulmaBox,
   BulmaBreadcrumbs,
   BulmaButton,
+  BulmaCard,
   BulmaDelete,
   BulmaIcon,
   BulmaImage,

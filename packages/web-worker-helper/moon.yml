@@ -1,78 +1,73 @@
 dependsOn:
-- id: freeze
-  scope: development
-- make-key
-- id: watch
-  scope: development
+  - id: freeze
+    scope: development
+  - make-key
+  - id: watch
+    scope: development
 language: javascript
 tasks:
   build:
     command:
-    - node
-    - build.mjs
+      - node
+      - build.mjs
     platform: node
   pub:
     command:
-    - npm
-    - publish
-    - --access=public
+      - npm
+      - publish
+      - --access=public
     deps:
-    - ~:pub-dep1
+      - ~:pub-dep1
     local: true
     platform: node
   pub-dep1:
     command:
-    - npm
-    - version
-    - patch
-    - --force
+      - npm
+      - version
+      - patch
+      - --force
     local: true
     platform: node
   serve-demo:
     command:
-    - npx
-    - parcel
-    - --dist-dir=dist-temp
-    - ./demo/index.html
+      - npx
+      - parcel
+      - --dist-dir=dist-temp
+      - ./demo/index.html
     deps:
-    - ~:serve-demo-dep1
+      - ~:serve-demo-dep1
     env:
-      PARCEL_WORKERS: '0'
+      PARCEL_WORKERS: "0"
     local: true
     platform: node
   serve-demo-dep1:
     command:
-    - rm
-    - -rf
-    - .parcel-cache
+      - rm
+      - -rf
+      - .parcel-cache
     platform: system
   serve-tests:
     command:
-    - npx
-    - parcel
-    - --dist-dir=dist-temp
-    - ./tests/index.html
+      - npx
+      - parcel
+      - --dist-dir=dist-temp
+      - ./tests/index.html
     deps:
-    - ~:serve-tests-dep1
+      - ~:serve-tests-dep1
     env:
-      PARCEL_WORKERS: '0'
+      PARCEL_WORKERS: "0"
     local: true
     platform: node
   serve-tests-dep1:
     command:
-    - rm
-    - -rf
-    - .parcel-cache
-    platform: system
-  test:
-    command:
-    - bash
-    - ./test.sh
+      - rm
+      - -rf
+      - .parcel-cache
     platform: system
   watch:
     command:
-    - node
-    - build.mjs
-    - --watch
+      - node
+      - build.mjs
+      - --watch
     local: true
     platform: node

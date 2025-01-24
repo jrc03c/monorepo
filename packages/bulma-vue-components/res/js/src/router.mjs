@@ -2,6 +2,7 @@ import { BlockView } from "./views/elements/block.mjs"
 import { BoxView } from "./views/elements/box.mjs"
 import { BreadcrumbsView } from "./views/components/breadcrumbs.mjs"
 import { ButtonView } from "./views/elements/button.mjs"
+import { CardView } from "./views/components/card.mjs"
 import { createRouter, createWebHashHistory } from "vue-router"
 import { DeleteView } from "./views/elements/delete.mjs"
 import { IconView } from "./views/elements/icon.mjs"
@@ -39,7 +40,10 @@ const router = createRouter({
     {
       path: "/components",
       component: RouterViewComponent,
-      children: [{ path: "breadcrumbs", component: BreadcrumbsView }],
+      children: [
+        { path: "breadcrumbs", component: BreadcrumbsView },
+        { path: "card", component: CardView },
+      ],
     },
   ],
 })

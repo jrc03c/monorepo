@@ -98,7 +98,10 @@ const AppView = createVueComponentWithCSS({
           { label: "Table", url: "/elements/table" },
           { label: "Tags", url: "/elements/tags" },
         ],
-        components: [{ label: "Breadcrumbs", url: "/components/breadcrumbs" }],
+        components: [
+          { label: "Breadcrumbs", url: "/components/breadcrumbs" },
+          { label: "Card", url: "/components/card" },
+        ],
       },
     }
   },

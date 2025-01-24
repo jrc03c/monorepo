@@ -1,12 +1,12 @@
-var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var C=Object.prototype.hasOwnProperty;var S=(e,s)=>{for(var a in s)u(e,a,{get:s[a],enumerable:!0})},q=(e,s,a,i)=>{if(s&&typeof s=="object"||typeof s=="function")for(let n of x(s))!C.call(e,n)&&n!==a&&u(e,n,{get:()=>s[n],enumerable:!(i=B(s,n))||i.enumerable});return e};var j=e=>q(u({},"__esModule",{value:!0}),e);var U={};S(U,{BulmaBlock:()=>m,BulmaBox:()=>d,BulmaBreadcrumbs:()=>f,BulmaButton:()=>g,BulmaDelete:()=>c,BulmaIcon:()=>r,BulmaImage:()=>p,BulmaNotification:()=>b,BulmaProgress:()=>k,BulmaTable:()=>h,BulmaTags:()=>v});module.exports=j(U);function t(e){let s=0,a;e=e||{};let i=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},y=e.unmounted?e.unmounted:function(){};return i.css||(i.css=""),e.data=function(){return i.bind(this)()},e.mounted=function(){n.bind(this)(),s++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){y.bind(this)(),s--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),s<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var $="",w=`
+var m=Object.defineProperty;var C=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var S=Object.prototype.hasOwnProperty;var q=(e,s)=>{for(var a in s)m(e,a,{get:s[a],enumerable:!0})},j=(e,s,a,i)=>{if(s&&typeof s=="object"||typeof s=="function")for(let n of x(s))!S.call(e,n)&&n!==a&&m(e,n,{get:()=>s[n],enumerable:!(i=C(s,n))||i.enumerable});return e};var $=e=>j(m({},"__esModule",{value:!0}),e);var Z={};q(Z,{BulmaBlock:()=>d,BulmaBox:()=>f,BulmaBreadcrumbs:()=>g,BulmaButton:()=>p,BulmaCard:()=>b,BulmaDelete:()=>u,BulmaIcon:()=>r,BulmaImage:()=>c,BulmaNotification:()=>k,BulmaProgress:()=>h,BulmaTable:()=>v,BulmaTags:()=>y});module.exports=$(Z);function t(e){let s=0,a;e=e||{};let i=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},B=e.unmounted?e.unmounted:function(){};return i.css||(i.css=""),e.data=function(){return i.bind(this)()},e.mounted=function(){n.bind(this)(),s++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){B.bind(this)(),s--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),s<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var w="",I=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
-`,m=t({name:"bulma-block",template:w,data(){return{css:$}}});var I="",V=`
+`,d=t({name:"bulma-block",template:I,data(){return{css:w}}});var V="",W=`
   <div class="box bulma-box">
     <slot></slot>
   </div>
-`,d=t({name:"bulma-box",template:V,data(){return{css:I}}});var W="",A=`
+`,f=t({name:"bulma-box",template:W,data(){return{css:V}}});var A="",L=`
   <span class="bulma-icon icon">
     <i
       :class="{
@@ -18,7 +18,7 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
       ref="inner">
     </i>
   </span>
-`,r=t({name:"bulma-icon",template:A,props:{brand:{type:Boolean,required:!1,default:()=>!1},name:{type:String,required:!0,default:()=>"exclamation-circle"},regular:{type:Boolean,required:!1,default:()=>!1},solid:{type:Boolean,required:!1,default:()=>!0}},data(){return{css:W,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let s of e)if(s.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});function o(e,s){let a=[];for(let i=e;i<s;i++)a.push(i);return a}var L=`
+`,r=t({name:"bulma-icon",template:L,props:{brand:{type:Boolean,required:!1,default:()=>!1},name:{type:String,required:!0,default:()=>"exclamation-circle"},regular:{type:Boolean,required:!1,default:()=>!1},solid:{type:Boolean,required:!1,default:()=>!0}},data(){return{css:A,observer:null}},methods:{updateInnerClasses(){let e=Array.from(this.$el.classList);e.includes("is-medium")?this.$refs.inner.classList.add("la-lg"):this.$refs.inner.classList.remove("la-lg"),e.includes("is-large")?this.$refs.inner.classList.add("la-2x"):this.$refs.inner.classList.remove("la-2x")}},mounted(){this.observer=new MutationObserver(e=>{if(this.$refs.inner){for(let s of e)if(s.attributeName==="class"){this.updateInnerClasses();return}}}),this.observer.observe(this.$el,{attributes:!0,attributeFilter:["class"]}),this.$nextTick(()=>this.updateInnerClasses())},unmounted(){this.observer.disconnect()}});function o(e,s){let a=[];for(let i=e;i<s;i++)a.push(i);return a}var N=`
   nav.breadcrumb ul li.is-excess a {
     color: hsl(0, 0%, 86%) ; /* grey-lighter */
   }
@@ -35,7 +35,7 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
   nav.breadcrumb ul li.is-active a span:not(.bulma-icon) {
     border-bottom: 2px solid var(--bulma-breadcrumb-item-active-color);
   }
-`,N=`
+`,T=`
   <nav aria-label="breadcrumbs" class="breadcrumb">
     <ul v-if="links && links.length > 0">
       <li
@@ -96,7 +96,7 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
 
     <slot v-else></slot>
   </nav>
-`,f=t({name:"bulma-breadcrumbs",emits:["click"],components:{"bulma-icon":r},template:N,props:{links:{type:Array,required:!1,default:()=>[]}},data(){return{css:L,activeLinkIndex:-1}},watch:{links:{deep:!0,handler(){this.activeLinkIndex=this.links.findIndex(e=>e.isActive)}}},methods:{range:o}});var T="",D=`
+`,g=t({name:"bulma-breadcrumbs",emits:["click"],components:{"bulma-icon":r},template:T,props:{links:{type:Array,required:!1,default:()=>[]}},data(){return{css:N,activeLinkIndex:-1}},watch:{links:{deep:!0,handler(){this.activeLinkIndex=this.links.findIndex(e=>e.isActive)}}},methods:{range:o}});var D="",E=`
   <button
     :class="{
       'is-black': black,
@@ -115,14 +115,31 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
     class="bulma-button button">
     <slot></slot>
   </button>
-`,g=t({name:"bulma-button",template:D,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:T}}});var E="",M=`
-  <button class="bulma-delete delete"></button>
-`,c=t({name:"bulma-delete",template:M,data(){return{css:E}}});var P="",R=`
+`,p=t({name:"bulma-button",template:E,props:{black:{type:Boolean,required:!1,default:()=>!1},danger:{type:Boolean,required:!1,default:()=>!1},dark:{type:Boolean,required:!1,default:()=>!1},ghost:{type:Boolean,required:!1,default:()=>!1},info:{type:Boolean,required:!1,default:()=>!1},light:{type:Boolean,required:!1,default:()=>!1},link:{type:Boolean,required:!1,default:()=>!1},primary:{type:Boolean,required:!1,default:()=>!1},success:{type:Boolean,required:!1,default:()=>!1},text:{type:Boolean,required:!1,default:()=>!1},warning:{type:Boolean,required:!1,default:()=>!1},white:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:D}}});var R="",M=`
   <figure class="bulma-image image">
     <img :src="src" v-if="src">
     <slot v-else></slot>
   </figure>
-`,p=t({name:"bulma-image",template:R,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:P}}});var F="",H=`
+`,c=t({name:"bulma-image",template:M,props:{src:{type:String,required:!1,default:()=>""}},data(){return{css:R}}});var P="",F=`
+  <div class="bulma-card card">
+    <div class="card-image" v-if="image">
+      <bulma-image
+        :class="{ [imageRatioClass]: true }"
+        :src="image">
+      </bulma-image>
+    </div>
+
+    <div class="card-content">
+      <slot name="content"></slot>
+    </div>
+
+    <div class="card-footer">
+      <slot name="footer"></slot>
+    </div>
+  </div>
+`,b=t({name:"bulma-card",components:{"bulma-image":c},template:F,props:{image:{type:String,required:!1,default:()=>""},"image-ratio-class":{type:String,required:!1,default:()=>"is-4by3"}},data(){return{css:P}}});var H="",O=`
+  <button class="bulma-delete delete"></button>
+`,u=t({name:"bulma-delete",template:O,data(){return{css:H}}});var z="",G=`
   <div class="bulma-notification notification">
     <bulma-delete
       @click="$emit('close', $event)"
@@ -131,11 +148,11 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
     
     <slot></slot>
   </div>
-`,b=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":c},template:H,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:F}}});var O="",z=`
+`,k=t({name:"bulma-notification",emits:["close"],components:{"bulma-delete":u},template:G,props:{permanent:{type:Boolean,required:!1,default:()=>!1}},data(){return{css:z}}});var J="",K=`
   <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
-`,k=t({name:"bulma-progress",template:z,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:O}}});var G="",J=`
+`,h=t({name:"bulma-progress",template:K,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:J}}});var Q="",U=`
   <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
@@ -163,11 +180,11 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
   <table class="table" v-else>
     <slot></slot>
   </table>
-`,h=t({name:"bulma-table",template:J,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:G}},methods:{range:o}});var K=`
+`,v=t({name:"bulma-table",template:U,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:Q}},methods:{range:o}});var X=`
   .bulma-tag .bulma-icon {
     padding-right: 8px;
   }
-`,Q=`
+`,Y=`
   <div class="bulma-tags field is-grouped is-grouped-multiline">
     <div :key="i" class="control" v-for="i in range(0, tags.length)">
       <div class="tags has-addons">
@@ -265,4 +282,4 @@ var u=Object.defineProperty;var B=Object.getOwnPropertyDescriptor;var x=Object.g
       </div>
     </div>
   </div>
-`,v=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:Q,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:K}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let s=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(i=>s.includes(i));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:o}});0&&(module.exports={BulmaBlock,BulmaBox,BulmaBreadcrumbs,BulmaButton,BulmaDelete,BulmaIcon,BulmaImage,BulmaNotification,BulmaProgress,BulmaTable,BulmaTags});
+`,y=t({name:"bulma-tags",emits:["click","delete"],components:{"bulma-icon":r},template:Y,props:{tags:{type:Array,required:!0,default:()=>[]}},data(){return{css:X}},methods:{getDeleteClass(e){if(e.classes&&e.classes.length>0){let s=["is-danger","is-warning","is-success","is-primary","is-info","is-link","is-dark"],a=e.classes.filter(i=>s.includes(i));return a.length>0?{[a.at(-1)]:!0,"is-light":!0}:{}}else return{}},range:o}});0&&(module.exports={BulmaBlock,BulmaBox,BulmaBreadcrumbs,BulmaButton,BulmaCard,BulmaDelete,BulmaIcon,BulmaImage,BulmaNotification,BulmaProgress,BulmaTable,BulmaTags});

@@ -151,7 +151,10 @@
             { label: "Table", url: "/elements/table" },
             { label: "Tags", url: "/elements/tags" }
           ],
-          components: [{ label: "Breadcrumbs", url: "/components/breadcrumbs" }]
+          components: [
+            { label: "Breadcrumbs", url: "/components/breadcrumbs" },
+            { label: "Card", url: "/components/card" }
+          ]
         }
       };
     }
@@ -10530,8 +10533,8 @@ Component that was made reactive: `,
     const Component = instance.type;
     if (!instance.render) {
       if (!isSSR && compile && !Component.render) {
-        const template24 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
-        if (template24) {
+        const template26 = Component.template || __VUE_OPTIONS_API__ && resolveMergedOptions(instance).template;
+        if (template26) {
           if (true) {
             startMeasure(instance, `compile`);
           }
@@ -10547,7 +10550,7 @@ Component that was made reactive: `,
             ),
             componentCompilerOptions
           );
-          Component.render = compile(template24, finalCompilerOptions);
+          Component.render = compile(template26, finalCompilerOptions);
           if (true) {
             endMeasure(instance, `compile`);
           }
@@ -11020,15 +11023,15 @@ Component that was made reactive: `,
         templateContainer.innerHTML = unsafeToTrustedHTML(
           namespace === "svg" ? `<svg>${content}</svg>` : namespace === "mathml" ? `<math>${content}</math>` : content
         );
-        const template24 = templateContainer.content;
+        const template26 = templateContainer.content;
         if (namespace === "svg" || namespace === "mathml") {
-          const wrapper = template24.firstChild;
+          const wrapper = template26.firstChild;
           while (wrapper.firstChild) {
-            template24.appendChild(wrapper.firstChild);
+            template26.appendChild(wrapper.firstChild);
           }
-          template24.removeChild(wrapper);
+          template26.removeChild(wrapper);
         }
-        parent.insertBefore(template24, anchor);
+        parent.insertBefore(template26, anchor);
       }
       return [
         // first
@@ -18762,26 +18765,26 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     initDev();
   }
   var compileCache = /* @__PURE__ */ Object.create(null);
-  function compileToFunction(template24, options) {
-    if (!isString(template24)) {
-      if (template24.nodeType) {
-        template24 = template24.innerHTML;
+  function compileToFunction(template26, options) {
+    if (!isString(template26)) {
+      if (template26.nodeType) {
+        template26 = template26.innerHTML;
       } else {
-        warn2(`invalid template option: `, template24);
+        warn2(`invalid template option: `, template26);
         return NOOP;
       }
     }
-    const key = genCacheKey(template24, options);
+    const key = genCacheKey(template26, options);
     const cached = compileCache[key];
     if (cached) {
       return cached;
     }
-    if (template24[0] === "#") {
-      const el = document.querySelector(template24);
+    if (template26[0] === "#") {
+      const el = document.querySelector(template26);
       if (!el) {
-        warn2(`Template element not found or is empty: ${template24}`);
+        warn2(`Template element not found or is empty: ${template26}`);
       }
-      template24 = el ? el.innerHTML : ``;
+      template26 = el ? el.innerHTML : ``;
     }
     const opts = extend(
       {
@@ -18794,11 +18797,11 @@ Use a v-bind binding combined with a v-on listener that emits update:x event ins
     if (!opts.isCustomElement && typeof customElements !== "undefined") {
       opts.isCustomElement = (tag) => !!customElements.get(tag);
     }
-    const { code } = compile2(template24, opts);
+    const { code } = compile2(template26, opts);
     function onError(err, asWarning = false) {
       const message = asWarning ? err.message : `Template compilation error: ${err.message}`;
       const codeFrame = err.loc && generateCodeFrame(
-        template24,
+        template26,
         err.loc.start.offset,
         err.loc.end.offset
       );
@@ -19128,33 +19131,12 @@ ${codeFrame}` : message);
     }
   });
 
-  // res/js/src/lib/elements/delete.mjs
+  // res/js/src/lib/elements/image.mjs
   var css7 = (
     /* css */
     ``
   );
   var template7 = (
-    /* html */
-    `
-  <button class="bulma-delete delete"></button>
-`
-  );
-  var BulmaDelete = createVueComponentWithCSS({
-    name: "bulma-delete",
-    template: template7,
-    data() {
-      return {
-        css: css7
-      };
-    }
-  });
-
-  // res/js/src/lib/elements/image.mjs
-  var css8 = (
-    /* css */
-    ``
-  );
-  var template8 = (
     /* html */
     `
   <figure class="bulma-image image">
@@ -19165,7 +19147,7 @@ ${codeFrame}` : message);
   );
   var BulmaImage = createVueComponentWithCSS({
     name: "bulma-image",
-    template: template8,
+    template: template7,
     props: {
       src: {
         type: String,
@@ -19175,17 +19157,89 @@ ${codeFrame}` : message);
     },
     data() {
       return {
+        css: css7
+      };
+    }
+  });
+
+  // res/js/src/lib/components/card.mjs
+  var css8 = (
+    /* css */
+    ``
+  );
+  var template8 = (
+    /* html */
+    `
+  <div class="bulma-card card">
+    <div class="card-image" v-if="image">
+      <bulma-image
+        :class="{ [imageRatioClass]: true }"
+        :src="image">
+      </bulma-image>
+    </div>
+
+    <div class="card-content">
+      <slot name="content"></slot>
+    </div>
+
+    <div class="card-footer">
+      <slot name="footer"></slot>
+    </div>
+  </div>
+`
+  );
+  var BulmaCard = createVueComponentWithCSS({
+    name: "bulma-card",
+    components: {
+      "bulma-image": BulmaImage
+    },
+    template: template8,
+    props: {
+      image: {
+        type: String,
+        required: false,
+        default: () => ""
+      },
+      "image-ratio-class": {
+        type: String,
+        required: false,
+        default: () => "is-4by3"
+      }
+    },
+    data() {
+      return {
         css: css8
       };
     }
   });
 
-  // res/js/src/lib/elements/notification.mjs
+  // res/js/src/lib/elements/delete.mjs
   var css9 = (
     /* css */
     ``
   );
   var template9 = (
+    /* html */
+    `
+  <button class="bulma-delete delete"></button>
+`
+  );
+  var BulmaDelete = createVueComponentWithCSS({
+    name: "bulma-delete",
+    template: template9,
+    data() {
+      return {
+        css: css9
+      };
+    }
+  });
+
+  // res/js/src/lib/elements/notification.mjs
+  var css10 = (
+    /* css */
+    ``
+  );
+  var template10 = (
     /* html */
     `
   <div class="bulma-notification notification">
@@ -19204,7 +19258,7 @@ ${codeFrame}` : message);
     components: {
       "bulma-delete": BulmaDelete
     },
-    template: template9,
+    template: template10,
     props: {
       permanent: {
         type: Boolean,
@@ -19214,17 +19268,17 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css9
+        css: css10
       };
     }
   });
 
   // res/js/src/lib/elements/progress.mjs
-  var css10 = (
+  var css11 = (
     /* css */
     ``
   );
-  var template10 = (
+  var template11 = (
     /* html */
     `
   <progress :value="value" class="bulma-progress progress" max="1">
@@ -19234,7 +19288,7 @@ ${codeFrame}` : message);
   );
   var BulmaProgress = createVueComponentWithCSS({
     name: "bulma-progress",
-    template: template10,
+    template: template11,
     props: {
       value: {
         type: Number,
@@ -19244,17 +19298,17 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css10
+        css: css11
       };
     }
   });
 
   // res/js/src/lib/elements/table.mjs
-  var css11 = (
+  var css12 = (
     /* css */
     ``
   );
-  var template11 = (
+  var template12 = (
     /* html */
     `
   <table class="bulma-table table" v-if="values && values.length > 0">
@@ -19288,7 +19342,7 @@ ${codeFrame}` : message);
   );
   var BulmaTable = createVueComponentWithCSS({
     name: "bulma-table",
-    template: template11,
+    template: template12,
     props: {
       columns: {
         type: Array,
@@ -19308,7 +19362,7 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css11
+        css: css12
       };
     },
     methods: {
@@ -19317,7 +19371,7 @@ ${codeFrame}` : message);
   });
 
   // res/js/src/lib/elements/tags.mjs
-  var css12 = (
+  var css13 = (
     /* css */
     `
   .bulma-tag .bulma-icon {
@@ -19325,7 +19379,7 @@ ${codeFrame}` : message);
   }
 `
   );
-  var template12 = (
+  var template13 = (
     /* html */
     `
   <div class="bulma-tags field is-grouped is-grouped-multiline">
@@ -19433,7 +19487,7 @@ ${codeFrame}` : message);
     components: {
       "bulma-icon": BulmaIcon
     },
-    template: template12,
+    template: template13,
     props: {
       tags: {
         type: Array,
@@ -19443,7 +19497,7 @@ ${codeFrame}` : message);
     },
     data() {
       return {
-        css: css12
+        css: css13
       };
     },
     methods: {
@@ -19474,11 +19528,11 @@ ${codeFrame}` : message);
   });
 
   // res/js/src/views/elements/block.mjs
-  var css13 = (
+  var css14 = (
     /* css */
     ``
   );
-  var template13 = (
+  var template14 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="block">
@@ -19507,20 +19561,20 @@ ${codeFrame}` : message);
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template13,
+    template: template14,
     data() {
       return {
-        css: css13
+        css: css14
       };
     }
   });
 
   // res/js/src/views/elements/box.mjs
-  var css14 = (
+  var css15 = (
     /* css */
     ``
   );
-  var template14 = (
+  var template15 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="box">
@@ -19547,20 +19601,20 @@ ${codeFrame}` : message);
       "bulma-box": BulmaBox,
       "bulma-icon": BulmaIcon
     },
-    template: template14,
+    template: template15,
     data() {
       return {
-        css: css14
+        css: css15
       };
     }
   });
 
   // res/js/src/views/components/breadcrumbs.mjs
-  var css15 = (
+  var css16 = (
     /* css */
     ``
   );
-  var template15 = (
+  var template16 = (
     /* html */
     `
   <h4
@@ -19597,10 +19651,10 @@ ${codeFrame}` : message);
       "bulma-icon": BulmaIcon,
       "bulma-notification": BulmaNotification
     },
-    template: template15,
+    template: template16,
     data() {
       return {
-        css: css15,
+        css: css16,
         links: [
           { label: "Technology", icon: { name: "flask" }, path: "#" },
           { label: "Computing", icon: { name: "laptop" }, path: "#" },
@@ -19636,11 +19690,11 @@ ${codeFrame}` : message);
   });
 
   // res/js/src/views/elements/button.mjs
-  var css16 = (
+  var css17 = (
     /* css */
     ``
   );
-  var template16 = (
+  var template17 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="button">
@@ -19716,11 +19770,103 @@ ${codeFrame}` : message);
       "bulma-button": BulmaButton,
       "bulma-icon": BulmaIcon
     },
-    template: template16,
+    template: template17,
     data() {
       return {
-        css: css16
+        css: css17
       };
+    }
+  });
+
+  // res/js/src/views/components/card.mjs
+  var css18 = (
+    /* css */
+    `
+  .bulma-card {
+    max-width: 512px;
+  }
+`
+  );
+  var template18 = (
+    /* html */
+    `
+  <h4
+    class="block has-text-grey has-text-weight-bold is-size-4"
+    id="card">
+    Card
+
+    <a
+      class="is-external-anchor-tag"
+      href="https://bulma.io/documentation/components/card/"
+      rel="noreferrer,noopener"
+      target="_blank"
+      title="Go to Bulma docs">
+      <bulma-icon name="external-link-alt"></bulma-icon>
+    </a>
+  </h4>
+
+  <bulma-block>
+    <bulma-card :image="image" image-ratio-class="is-2by1">
+      <template v-slot:content>
+        <h1 class="title">Card</h1>
+        <h2 class="subtitle">Hey! This is a card!</h2>
+      </template>
+
+      <template v-slot:footer>
+        <a class="card-footer-item" href="#">
+          Cancel
+        </a>
+
+        <a class="card-footer-item" href="#">
+          Okay
+        </a>
+      </template>
+    </bulma-card>
+  </bulma-block>
+
+  <bulma-block>
+    ...
+  </bulma-block>
+`
+  );
+  var CardView = createVueComponentWithCSS({
+    name: "x-card-view",
+    components: {
+      "bulma-block": BulmaBlock,
+      "bulma-card": BulmaCard,
+      "bulma-icon": BulmaIcon
+    },
+    template: template18,
+    data() {
+      return {
+        css: css18,
+        image: ""
+      };
+    },
+    mounted() {
+      const width = 512;
+      const height = 256;
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext("2d");
+      context.fillStyle = "black";
+      context.fillRect(0, 0, width, height);
+      const steps = 20;
+      const xstep = width / steps;
+      const ystep = xstep;
+      context.lineWidth = 2;
+      for (let x = 0; x < width; x += xstep) {
+        for (let y = 0; y < height; y += ystep) {
+          const hue = Math.random() * 360;
+          const opacity = Math.random() * Math.random();
+          context.beginPath();
+          context.arc(x + xstep / 2, y + ystep / 2, xstep / 2, 0, Math.PI * 2);
+          context.fillStyle = `hsla(${hue}deg, 100%, 50%, ${opacity})`;
+          context.fill();
+        }
+      }
+      this.image = canvas.toDataURL();
     }
   });
 
@@ -22474,11 +22620,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   }
 
   // res/js/src/views/elements/delete.mjs
-  var css17 = (
+  var css19 = (
     /* css */
     ``
   );
-  var template17 = (
+  var template19 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="delete">
@@ -22512,20 +22658,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-delete": BulmaDelete,
       "bulma-icon": BulmaIcon
     },
-    template: template17,
+    template: template19,
     data() {
       return {
-        css: css17
+        css: css19
       };
     }
   });
 
   // res/js/src/views/elements/icon.mjs
-  var css18 = (
+  var css20 = (
     /* css */
     ``
   );
-  var template18 = (
+  var template20 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="icon">
@@ -22595,20 +22741,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-block": BulmaBlock,
       "bulma-icon": BulmaIcon
     },
-    template: template18,
+    template: template20,
     data() {
       return {
-        css: css18
+        css: css20
       };
     }
   });
 
   // res/js/src/views/elements/image.mjs
-  var css19 = (
+  var css21 = (
     /* css */
     ``
   );
-  var template19 = (
+  var template21 = (
     /* html */
     `
   <h4 class="block has-text-grey has-text-weight-bold is-size-4" id="image">
@@ -22651,20 +22797,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-image": BulmaImage
     },
-    template: template19,
+    template: template21,
     data() {
       return {
-        css: css19
+        css: css21
       };
     }
   });
 
   // res/js/src/views/elements/notification.mjs
-  var css20 = (
+  var css22 = (
     /* css */
     ``
   );
-  var template20 = (
+  var template22 = (
     /* html */
     `
   <h4
@@ -22739,20 +22885,20 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-notification": BulmaNotification
     },
-    template: template20,
+    template: template22,
     data() {
       return {
-        css: css20
+        css: css22
       };
     }
   });
 
   // res/js/src/views/elements/progress.mjs
-  var css21 = (
+  var css23 = (
     /* css */
     ``
   );
-  var template21 = (
+  var template23 = (
     /* html */
     `
   <h4
@@ -22788,7 +22934,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-progress": BulmaProgress
     },
-    template: template21,
+    template: template23,
     data() {
       return {
         colors: [
@@ -22800,7 +22946,7 @@ ${JSON.stringify(newTargetLocation, null, 2)}
           { color: "is-link", value: 6 / 8 },
           { color: "", value: 7 / 8 }
         ],
-        css: css21,
+        css: css23,
         isAnimating: false
       };
     },
@@ -22825,11 +22971,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   });
 
   // res/js/src/views/elements/table.mjs
-  var css22 = (
+  var css24 = (
     /* css */
     ``
   );
-  var template22 = (
+  var template24 = (
     /* html */
     `
   <h4
@@ -22867,10 +23013,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-icon": BulmaIcon,
       "bulma-table": BulmaTable
     },
-    template: template22,
+    template: template24,
     data() {
       return {
-        css: css22,
+        css: css24,
         sampleData: {
           columns: ["Pos", "Team", "Pld", "W", "D", "L", "GF", "GA", "GD", "Pts"],
           index: [],
@@ -22902,11 +23048,11 @@ ${JSON.stringify(newTargetLocation, null, 2)}
   });
 
   // res/js/src/views/elements/tags.mjs
-  var css23 = (
+  var css25 = (
     /* css */
     ``
   );
-  var template23 = (
+  var template25 = (
     /* html */
     `
   <h4
@@ -22965,10 +23111,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       "bulma-notification": BulmaNotification,
       "bulma-tags": BulmaTags
     },
-    template: template23,
+    template: template25,
     data() {
       return {
-        css: css23,
+        css: css25,
         message: "",
         tags: [
           "hello",
@@ -23035,7 +23181,10 @@ ${JSON.stringify(newTargetLocation, null, 2)}
       {
         path: "/components",
         component: RouterViewComponent,
-        children: [{ path: "breadcrumbs", component: BreadcrumbsView }]
+        children: [
+          { path: "breadcrumbs", component: BreadcrumbsView },
+          { path: "card", component: CardView }
+        ]
       }
     ]
   });
