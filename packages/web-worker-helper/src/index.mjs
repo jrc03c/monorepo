@@ -1,18 +1,18 @@
 import { makeKey } from "@jrc03c/make-key"
 
-function isInWorkerContext() {
-  return (
-    typeof WorkerGlobalScope !== "undefined" &&
-    self instanceof WorkerGlobalScope
-  )
-}
-
 class WebWorkerHelper {
   static Status = {
     CANCELLED: "CANCELLED",
     FAILED: "FAILED",
     FINISHED: "FINISHED",
     IN_PROGRESS: "IN_PROGRESS",
+  }
+
+  static isInWorkerContext() {
+    return (
+      typeof WorkerGlobalScope !== "undefined" &&
+      self instanceof WorkerGlobalScope
+    )
   }
 
   // main thread only
@@ -27,7 +27,7 @@ class WebWorkerHelper {
       this.worker = new Worker(path, options)
     }
 
-    if (isInWorkerContext()) {
+    if (WebWorkerHelper.isInWorkerContext()) {
       self.addEventListener("message", event => {
         if (!this.signals.includes(event.data.signal)) {
           return self.postMessage({
@@ -122,7 +122,7 @@ class WebWorkerHelper {
 
   // NOTE: This method should only be called in a web worker context (i.e., not in the main thread).
   on(signal, callback) {
-    if (!isInWorkerContext()) {
+    if (!WebWorkerHelper.isInWorkerContext()) {
       throw new Error(
         "The `WebWorkerHelper.on` method should only be invoked inside a web worker context!",
       )

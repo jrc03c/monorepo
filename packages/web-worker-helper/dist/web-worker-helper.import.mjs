@@ -4256,9 +4256,6 @@ if (typeof window !== "undefined") {
 }
 
 // src/index.mjs
-function isInWorkerContext() {
-  return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
-}
 var WebWorkerHelper = class _WebWorkerHelper {
   static Status = {
     CANCELLED: "CANCELLED",
@@ -4266,6 +4263,9 @@ var WebWorkerHelper = class _WebWorkerHelper {
     FINISHED: "FINISHED",
     IN_PROGRESS: "IN_PROGRESS"
   };
+  static isInWorkerContext() {
+    return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+  }
   // main thread only
   rejects = [];
   worker = null;
@@ -4275,7 +4275,7 @@ var WebWorkerHelper = class _WebWorkerHelper {
     if (path) {
       this.worker = new Worker(path, options);
     }
-    if (isInWorkerContext()) {
+    if (_WebWorkerHelper.isInWorkerContext()) {
       self.addEventListener("message", (event) => {
         if (!this.signals.includes(event.data.signal)) {
           return self.postMessage({
@@ -4345,7 +4345,7 @@ var WebWorkerHelper = class _WebWorkerHelper {
   }
   // NOTE: This method should only be called in a web worker context (i.e., not in the main thread).
   on(signal, callback) {
-    if (!isInWorkerContext()) {
+    if (!_WebWorkerHelper.isInWorkerContext()) {
       throw new Error(
         "The `WebWorkerHelper.on` method should only be invoked inside a web worker context!"
       );
