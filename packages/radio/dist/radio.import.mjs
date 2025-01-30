@@ -5,43 +5,36 @@ var Radio = class {
     return singleton;
   }
   subscribe(channel, callback) {
-    const self = this;
-    if (!self.subscriptions[channel]) {
-      self.subscriptions[channel] = [];
+    if (!this.subscriptions[channel]) {
+      this.subscriptions[channel] = [];
     }
-    self.subscriptions[channel].push(callback);
-    return self;
+    this.subscriptions[channel].push(callback);
+    return () => this.unsubscribe(channel, callback);
   }
   unsubscribe(channel, callback) {
-    const self = this;
-    if (!self.subscriptions[channel]) return self;
-    const index = self.subscriptions[channel].indexOf(callback);
-    self.subscriptions[channel].splice(index, 1);
-    return self;
+    if (!this.subscriptions[channel]) return this;
+    const index = this.subscriptions[channel].indexOf(callback);
+    this.subscriptions[channel].splice(index, 1);
+    return this;
   }
   on(channel, callback) {
-    const self = this;
-    return self.subscribe(channel, callback);
+    return this.subscribe(channel, callback);
   }
   off(channel, callback) {
-    const self = this;
-    return self.unsubscribe(channel, callback);
+    return this.unsubscribe(channel, callback);
   }
   broadcast(channel, payload) {
-    const self = this;
-    if (!self.subscriptions[channel]) return self;
-    self.subscriptions[channel].forEach((callback) => {
+    if (!this.subscriptions[channel]) return this;
+    this.subscriptions[channel].forEach((callback) => {
       callback(payload);
     });
-    return self;
+    return this;
   }
   emit(channel, payload) {
-    const self = this;
-    return self.broadcast(channel, payload);
+    return this.broadcast(channel, payload);
   }
   trigger(channel, payload) {
-    const self = this;
-    return self.broadcast(channel, payload);
+    return this.broadcast(channel, payload);
   }
 };
 var singleton = new Radio();
