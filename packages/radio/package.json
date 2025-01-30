@@ -19,5 +19,5 @@
   "module": "./dist/radio.import.mjs",
   "name": "@jrc03c/radio",
   "type": "module",
-  "version": "0.0.9"
+  "version": "0.0.10"
 }
