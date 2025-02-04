@@ -4736,7 +4736,7 @@ function unindent(text) {
 }
 
 // src/wrap.mjs
-function wrap(raw, maxLineLength) {
+function wrap(raw, maxLineLength, wrappedLinePrefix) {
   if (typeof raw !== "string") {
     throw new Error("The first argument to the `wrap` function must be a string!");
   }
@@ -4750,6 +4750,7 @@ function wrap(raw, maxLineLength) {
   if (isNaN(maxLineLength) || typeof maxLineLength !== "number") {
     throw new Error("The second argument to the `wrap` function must be undefined, null, or an integer!");
   }
+  wrappedLinePrefix = wrappedLinePrefix || "";
   const out2 = [];
   raw.split("\n").forEach((line) => {
     if (line.trim().length === 0) {
@@ -4757,14 +4758,14 @@ function wrap(raw, maxLineLength) {
     }
     const indentation = line.split(/[^\s]/g)[0];
     const words = line.replace(indentation, "").split(" ");
-    let temp = indentation;
+    let temp = (out2.length > 0 ? wrappedLinePrefix : "") + indentation;
     words.forEach((word) => {
-      const newLine = temp + (temp.trim().length > 0 ? " " : "") + word;
-      if (newLine.length > maxLineLength) {
+      const newTemp = temp + (temp.trim().length > 0 ? " " : "") + word;
+      if (newTemp.length > maxLineLength) {
         out2.push(temp);
-        temp = indentation + word;
+        temp = (out2.length > 0 ? wrappedLinePrefix : "") + indentation + word;
       } else {
-        temp = newLine;
+        temp = newTemp;
       }
     });
     if (temp.length > 0) {

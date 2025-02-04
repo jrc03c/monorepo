@@ -31,6 +31,41 @@ test("tests that wrapping preserves indentation", () => {
   })
 })
 
+test("tests that hanging indents / wrapped line prefixes work correctly", () => {
+  const prefix = ">> "
+  const maxLength = 80
+
+  const ytrue = range(0, 10)
+    .map(i => {
+      const line = ((i > 0 ? prefix : "") + makeKey(maxLength))
+        .slice(0, maxLength)
+        .split("")
+
+      for (let i = 0; i < 0.25 * line.length; i++) {
+        const index = Math.floor(Math.random() * line.length)
+
+        if (
+          index >= prefix.length &&
+          line[index - 1] !== " " &&
+          line[index + 1] !== " "
+        ) {
+          line[index] = " "
+        }
+      }
+
+      return line.join("")
+    })
+    .join("\n")
+
+  const x = ytrue
+    .split("\n")
+    .map(line => line.replace(prefix, ""))
+    .join(" ")
+
+  const ypred = wrap(x, maxLength, prefix)
+  expect(ypred).toBe(ytrue)
+})
+
 test("tests that errors are thrown at appropriate times", () => {
   const rights = [
     ["Hello, world!", null],

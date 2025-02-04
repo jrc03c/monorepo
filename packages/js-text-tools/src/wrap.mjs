@@ -1,4 +1,4 @@
-function wrap(raw, maxLineLength) {
+function wrap(raw, maxLineLength, wrappedLinePrefix) {
   if (typeof raw !== "string") {
     throw new Error(
       "The first argument to the `wrap` function must be a string!",
@@ -23,6 +23,8 @@ function wrap(raw, maxLineLength) {
     )
   }
 
+  wrappedLinePrefix = wrappedLinePrefix || ""
+
   const out = []
 
   raw.split("\n").forEach(line => {
@@ -33,16 +35,16 @@ function wrap(raw, maxLineLength) {
     const indentation = line.split(/[^\s]/g)[0]
 
     const words = line.replace(indentation, "").split(" ")
-    let temp = indentation
+    let temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation
 
     words.forEach(word => {
-      const newLine = temp + (temp.trim().length > 0 ? " " : "") + word
+      const newTemp = temp + (temp.trim().length > 0 ? " " : "") + word
 
-      if (newLine.length > maxLineLength) {
+      if (newTemp.length > maxLineLength) {
         out.push(temp)
-        temp = indentation + word
+        temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation + word
       } else {
-        temp = newLine
+        temp = newTemp
       }
     })
 
