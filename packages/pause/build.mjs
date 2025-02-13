@@ -9,7 +9,7 @@ function rebuild() {
 
     const commands = [
       `${baseCommand} --platform=node --outfile=dist/pause.require.cjs`,
-      `${baseCommand} --outfile=dist/pause.standalone.cjs`,
+      `${baseCommand} --outfile=dist/pause.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/pause.import.mjs`,
     ]
 
