@@ -10,7 +10,7 @@ function rebuild() {
     const commands = [
       "mkdir -p dist",
       "rm -rf dist/*",
-      "npx esbuild src/index.mjs --bundle --minify --outfile=dist/breakable-promise.standalone.cjs",
+      "npx esbuild src/index.mjs --bundle --minify --outfile=dist/breakable-promise.standalone.js",
       "npx esbuild src/index.mjs --bundle --minify --platform=node --outfile=dist/breakable-promise.require.cjs",
       "npx esbuild src/index.mjs --bundle --format=esm --minify --outfile=dist/breakable-promise.import.mjs",
     ]
