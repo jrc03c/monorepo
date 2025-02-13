@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-convex-hull.require.cjs`,
-      `${baseCommand} --outfile=dist/js-convex-hull.standalone.cjs`,
+      `${baseCommand} --outfile=dist/js-convex-hull.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/js-convex-hull.import.mjs`,
     ]
 
