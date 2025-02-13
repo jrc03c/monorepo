@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-csv-helpers.require.cjs`,
-      `${baseCommand} --external:node:fs --external:node:path --external:node:readline --outfile=dist/js-csv-helpers.standalone.cjs`,
+      `${baseCommand} --external:node:fs --external:node:path --external:node:readline --outfile=dist/js-csv-helpers.standalone.js`,
       `${baseCommand} --external:node:fs --external:node:path --external:node:readline --format=esm --outfile=dist/js-csv-helpers.import.mjs`,
     ]
 
