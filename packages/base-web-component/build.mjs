@@ -13,7 +13,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/base-web-component.require.cjs`,
-      `${baseCommand} --outfile=dist/base-web-component.standalone.cjs`,
+      `${baseCommand} --outfile=dist/base-web-component.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/base-web-component.import.mjs`,
     ]
 
