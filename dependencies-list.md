@@ -4,7 +4,7 @@
 # progress (0.0.6)
 # prompt (0.0.11)
 # vue-component-with-css (0.0.10)
-# fake-jest (0.0.12)
+# fake-jest (0.0.14)
   - bash-colors
 # misc-vue-components (0.0.15)
   - pause
@@ -15,7 +15,7 @@
   - fake-jest
 # freeze (0.0.5)
   - fake-jest
-# radio (0.0.9)
+# radio (0.0.10)
   - fake-jest
 # vector2 (0.0.6)
   - fake-jest
@@ -39,7 +39,7 @@
   - fake-jest
   - make-key
   - pause
-# js-text-tools (0.0.56)
+# js-text-tools (0.0.57)
   - bash-colors
   - fake-jest
   - js-math-tools
@@ -48,7 +48,7 @@
   - fake-jest
   - js-math-tools
   - js-text-tools
-# js-data-science-helpers (0.0.81)
+# js-data-science-helpers (0.0.83)
   - fake-jest
   - js-math-tools
   - js-text-tools
@@ -108,21 +108,31 @@
   - logger
   - make-key
   - pause
-# misc-web-components (0.0.15)
-  - js-text-tools
+# abortable-promise (0.0.4)
+  - fake-jest
   - pause
   - watch
-# base-web-component (0.0.7)
+# base-web-component (0.0.9)
   - js-math-tools
   - js-text-tools
   - pause
   - watch
-# bee (0.0.49)
+# web-worker-helper (0.0.4)
+  - freeze
+  - make-key
+  - pause
+  - watch
+# bee (0.0.50)
   - js-math-tools
   - js-text-tools
   - make-key
   - pause
   - watch
-# create-high-dpi-canvas (1.0.21)
+# create-high-dpi-canvas (1.0.22)
   - base-web-component
+  - watch
+# bulma-vue-components (???)
+  - base-web-component
+  - fs-extras
+  - vue-component-with-css
   - watch
