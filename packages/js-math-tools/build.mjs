@@ -12,8 +12,8 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-math-tools.require.cjs`,
       `${baseCommand} --platform=node --outfile=dist/js-math-tools.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/js-math-tools.standalone.cjs`,
-      `${baseCommand} --outfile=dist/js-math-tools.standalone.min.cjs --minify`,
+      `${baseCommand} --outfile=dist/js-math-tools.standalone.js`,
+      `${baseCommand} --outfile=dist/js-math-tools.standalone.min.js --minify`,
       `${baseCommand} --format=esm --outfile=dist/js-math-tools.import.mjs`,
       `${baseCommand} --format=esm --outfile=dist/js-math-tools.import.min.mjs --minify`,
     ]
