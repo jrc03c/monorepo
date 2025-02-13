@@ -22,5 +22,5 @@
   "main": "./dist/js-type-experiments.require.cjs",
   "module": "./dist/js-type-experiments.import.mjs",
   "name": "@jrc03c/js-type-experiments",
-  "version": "0.0.19"
+  "version": "0.0.20"
 }
