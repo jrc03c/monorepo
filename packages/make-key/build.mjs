@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/make-key.require.cjs`,
-      `${baseCommand} --outfile=dist/make-key.standalone.cjs`,
+      `${baseCommand} --outfile=dist/make-key.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/make-key.import.mjs`,
     ]
 
