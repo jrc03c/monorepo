@@ -26,5 +26,5 @@
   "module": "./dist/js-data-science-helpers.import.mjs",
   "name": "@jrc03c/js-data-science-helpers",
   "type": "module",
-  "version": "0.0.83"
+  "version": "0.0.84"
 }
