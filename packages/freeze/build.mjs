@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/freeze.require.cjs`,
-      `${baseCommand} --outfile=dist/freeze.standalone.cjs`,
+      `${baseCommand} --outfile=dist/freeze.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/freeze.import.mjs`,
     ]
 
