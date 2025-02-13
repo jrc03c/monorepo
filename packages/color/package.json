@@ -19,5 +19,5 @@
   "module": "./dist/color.import.mjs",
   "name": "@jrc03c/color",
   "type": "module",
-  "version": "0.0.12"
+  "version": "0.0.13"
 }
