@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/vector2.require.cjs`,
-      `${baseCommand} --outfile=dist/vector2.standalone.cjs`,
+      `${baseCommand} --outfile=dist/vector2.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/vector2.import.mjs`,
     ]
 
