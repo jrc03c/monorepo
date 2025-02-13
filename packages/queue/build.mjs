@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/queue.require.cjs`,
-      `${baseCommand} --outfile=dist/queue.standalone.cjs`,
+      `${baseCommand} --outfile=dist/queue.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/queue.import.mjs`,
     ]
 
