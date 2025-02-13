@@ -12,8 +12,8 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-crypto-helpers.require.cjs`,
       `${baseCommand} --platform=node --outfile=dist/js-crypto-helpers.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.cjs`,
-      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.min.cjs --minify`,
+      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.js`,
+      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.min.js --minify`,
       `${baseCommand} --format=esm --outfile=dist/js-crypto-helpers.import.mjs`,
       `${baseCommand} --format=esm --outfile=dist/js-crypto-helpers.import.min.mjs --minify`,
     ]
