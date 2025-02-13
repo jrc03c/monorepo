@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/radio.require.cjs`,
-      `${baseCommand} --outfile=dist/radio.standalone.cjs`,
+      `${baseCommand} --outfile=dist/radio.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/radio.import.mjs`,
     ]
 
