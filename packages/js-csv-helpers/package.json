@@ -25,5 +25,5 @@
   "module": "./dist/js-csv-helpers.import.mjs",
   "name": "@jrc03c/js-csv-helpers",
   "type": "module",
-  "version": "0.0.31"
+  "version": "0.0.32"
 }
