@@ -12,8 +12,8 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/js-data-science-helpers.require.cjs`,
       `${baseCommand} --platform=node --outfile=dist/js-data-science-helpers.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/js-data-science-helpers.standalone.cjs`,
-      `${baseCommand} --outfile=dist/js-data-science-helpers.standalone.min.cjs --minify`,
+      `${baseCommand} --outfile=dist/js-data-science-helpers.standalone.js`,
+      `${baseCommand} --outfile=dist/js-data-science-helpers.standalone.min.js --minify`,
       `${baseCommand} --format=esm --outfile=dist/js-data-science-helpers.import.mjs`,
       `${baseCommand} --format=esm --outfile=dist/js-data-science-helpers.import.min.mjs --minify`,
     ]
