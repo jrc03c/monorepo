@@ -22,5 +22,5 @@
   "module": "./dist/make-key.import.mjs",
   "name": "@jrc03c/make-key",
   "type": "module",
-  "version": "0.0.32"
+  "version": "0.0.33"
 }
