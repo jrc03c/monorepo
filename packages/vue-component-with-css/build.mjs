@@ -12,8 +12,8 @@ function rebuild() {
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/vue-component-with-css.require.cjs`,
       `${baseCommand} --platform=node --outfile=dist/vue-component-with-css.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/vue-component-with-css.standalone.cjs`,
-      `${baseCommand} --outfile=dist/vue-component-with-css.standalone.min.cjs --minify`,
+      `${baseCommand} --outfile=dist/vue-component-with-css.standalone.js`,
+      `${baseCommand} --outfile=dist/vue-component-with-css.standalone.min.js --minify`,
       `${baseCommand} --format=esm --outfile=dist/vue-component-with-css.import.mjs`,
       `${baseCommand} --format=esm --outfile=dist/vue-component-with-css.import.min.mjs --minify`,
     ]
