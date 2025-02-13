@@ -11,7 +11,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `${baseCommand} --platform=node --outfile=dist/base-class.require.cjs`,
-      `${baseCommand} --outfile=dist/base-class.standalone.cjs`,
+      `${baseCommand} --outfile=dist/base-class.standalone.js`,
       `${baseCommand} --format=esm --outfile=dist/base-class.import.mjs`,
     ]
 
