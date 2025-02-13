@@ -10,7 +10,7 @@ function rebuild() {
       "mkdir -p dist",
       "rm -rf dist/*",
       `npx esbuild src/index.mjs --bundle --platform=node --outfile=dist/web-worker-helper.require.cjs`,
-      `npx esbuild src/index.mjs --bundle --outfile=dist/web-worker-helper.standalone.cjs`,
+      `npx esbuild src/index.mjs --bundle --outfile=dist/web-worker-helper.standalone.js`,
       `npx esbuild src/index.mjs --bundle --format=esm --outfile=dist/web-worker-helper.import.mjs`,
     ]
 
