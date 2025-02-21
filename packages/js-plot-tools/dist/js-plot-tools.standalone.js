@@ -8895,7 +8895,7 @@
         "utf8"
       );
       const minifiedScript = fs.readFileSync(
-        path.join(cwd, "../dist/js-plot-tools.standalone.min.cjs"),
+        path.join(cwd, "../dist/js-plot-tools.standalone.min.js"),
         "utf8"
       );
       let out3 = template;
