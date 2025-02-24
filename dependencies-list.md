@@ -1,54 +1,54 @@
 # bash-colors (0.0.7)
 # custom-scroller (0.0.8)
-# pause (0.0.7)
+# pause (0.0.9)
 # progress (0.0.6)
 # prompt (0.0.11)
-# vue-component-with-css (0.0.10)
+# vue-component-with-css (0.0.15)
 # fake-jest (0.0.14)
   - bash-colors
-# misc-vue-components (0.0.15)
+# misc-vue-components (0.0.16)
   - pause
   - vue-component-with-css
-# base-class (0.0.7)
+# base-class (0.0.8)
   - fake-jest
-# color (0.0.12)
+# color (0.0.13)
   - fake-jest
-# freeze (0.0.5)
+# freeze (0.0.6)
   - fake-jest
-# radio (0.0.10)
+# radio (0.0.11)
   - fake-jest
-# vector2 (0.0.6)
+# vector2 (0.0.7)
   - fake-jest
-# js-math-tools (0.0.87)
+# js-math-tools (0.0.88)
   - fake-jest
   - freeze
-# js-convex-hull (0.0.20)
+# js-convex-hull (0.0.21)
   - fake-jest
   - js-math-tools
-# make-key (0.0.32)
+# make-key (0.0.33)
   - fake-jest
   - js-math-tools
-# js-plot-tools (0.0.13)
+# js-plot-tools (0.0.15)
   - js-math-tools
   - make-key
 # filedb (0.0.24)
   - fake-jest
   - js-math-tools
   - make-key
-# queue (0.0.10)
+# queue (0.0.11)
   - fake-jest
   - make-key
   - pause
-# js-text-tools (0.0.57)
+# js-text-tools (0.0.58)
   - bash-colors
   - fake-jest
   - js-math-tools
   - make-key
-# js-type-experiments (0.0.19)
+# js-type-experiments (0.0.20)
   - fake-jest
   - js-math-tools
   - js-text-tools
-# js-data-science-helpers (0.0.83)
+# js-data-science-helpers (0.0.84)
   - fake-jest
   - js-math-tools
   - js-text-tools
@@ -59,7 +59,7 @@
   - js-math-tools
   - make-key
   - progress
-# js-crypto-helpers (0.0.18)
+# js-crypto-helpers (0.0.19)
   - bash-colors
   - fake-jest
   - js-math-tools
@@ -72,7 +72,7 @@
   - js-text-tools
   - make-key
   - pause
-# js-csv-helpers (0.0.31)
+# js-csv-helpers (0.0.32)
   - fake-jest
   - fs-extras
   - js-math-tools
@@ -108,16 +108,16 @@
   - logger
   - make-key
   - pause
-# abortable-promise (0.0.4)
+# abortable-promise (0.0.5)
   - fake-jest
   - pause
   - watch
-# base-web-component (0.0.9)
+# base-web-component (0.0.10)
   - js-math-tools
   - js-text-tools
   - pause
   - watch
-# web-worker-helper (0.0.4)
+# web-worker-helper (0.0.5)
   - freeze
   - make-key
   - pause
@@ -128,7 +128,7 @@
   - make-key
   - pause
   - watch
-# create-high-dpi-canvas (1.0.22)
+# create-high-dpi-canvas (1.0.23)
   - base-web-component
   - watch
 # bulma-vue-components (???)
