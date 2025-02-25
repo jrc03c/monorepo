@@ -1,5 +1,5 @@
 # bash-colors (0.0.8)
-# pause (0.0.9)
+# pause (0.0.10)
 # progress (0.0.6)
 # prompt (0.0.11)
 # vue-component-with-css (0.0.15)
