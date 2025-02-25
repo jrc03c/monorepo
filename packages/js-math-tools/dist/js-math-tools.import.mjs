@@ -10,18 +10,20 @@ function isNumber(x) {
   return typeof x === "number" && !isNaN(x) || typeof x === "bigint";
 }
 
-// src/math-error.mjs
+// src/is-browser.mjs
 var isBrowser = new Function(`
-  try {
-    return this === window
-  } catch(e) {}
+    try {
+      return this === window
+    } catch(e) {}
 
-  try {
-    return typeof importScripts !== "undefined"
-  } catch(e) {}
+    try {
+      return !!importScripts
+    } catch(e){}
 
-  return false
-`);
+    return false
+  `);
+
+// src/math-error.mjs
 var MathError = class extends Error {
   constructor(message) {
     if (isBrowser()) {
@@ -1832,43 +1834,8 @@ function dfToJSONString(df, axis) {
 }
 
 // src/dataframe/df-to-json.mjs
-async function dfToJSON(df, filename, axis) {
-  const out2 = dfToJSONString(df, axis);
-  let downloadedInBrowser = false;
-  let wroteToDiskInNode = false;
-  let browserError, nodeError;
-  try {
-    let newFilename = filename;
-    if (filename.includes("/")) {
-      const parts = filename.split("/");
-      newFilename = parts[parts.length - 1];
-    }
-    const a = document.createElement("a");
-    a.href = `data:application/json;charset=utf-8,${encodeURIComponent(out2)}`;
-    a.download = newFilename;
-    a.dispatchEvent(new MouseEvent("click"));
-    downloadedInBrowser = true;
-  } catch (e) {
-    browserError = e;
-  }
-  try {
-    const fs = await import("node:fs");
-    const path = await import("node:path");
-    fs.writeFileSync(path.resolve(filename), out2, "utf8");
-    wroteToDiskInNode = true;
-  } catch (e) {
-    nodeError = e;
-  }
-  if (!downloadedInBrowser && !wroteToDiskInNode) {
-    if (typeof window !== "undefined") {
-      throw new MathError(browserError);
-    } else if (typeof module !== "undefined") {
-      throw new MathError(nodeError);
-    } else {
-      throw new MathError("I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!");
-    }
-  }
-  return df;
+async function dfToJSON(df, axis) {
+  return JSON.parse(dfToJSONString(df, axis));
 }
 
 // src/dataframe/df-to-object.mjs
@@ -3987,19 +3954,6 @@ function inverse(x) {
   }
 }
 
-// src/helpers/is-browser.mjs
-var isBrowser2 = new Function(`
-    try {
-      return this === window
-    } catch(e) {}
-
-    try {
-      return !!importScripts
-    } catch(e){}
-
-    return false
-  `);
-
 // src/lerp.mjs
 function lerp(a, b, f) {
   try {
@@ -4430,7 +4384,7 @@ var out = {
   inverse,
   isArray,
   isBoolean,
-  isBrowser: isBrowser2,
+  isBrowser,
   isDataFrame,
   isDate,
   isEqual,
@@ -4566,7 +4520,7 @@ export {
   inverse,
   isArray,
   isBoolean,
-  isBrowser2 as isBrowser,
+  isBrowser,
   isDataFrame,
   isDate,
   isEqual,

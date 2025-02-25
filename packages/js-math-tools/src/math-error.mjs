@@ -1,14 +1,4 @@
-const isBrowser = new Function(`
-  try {
-    return this === window
-  } catch(e) {}
-
-  try {
-    return typeof importScripts !== "undefined"
-  } catch(e) {}
-
-  return false
-`)
+import { isBrowser } from "./is-browser.mjs"
 
 class MathError extends Error {
   constructor(message) {

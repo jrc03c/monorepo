@@ -1,30 +1,6 @@
 (() => {
-  var __create = Object.create;
   var __defProp = Object.defineProperty;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-  var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getProtoOf = Object.getPrototypeOf;
-  var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-  var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-  var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
-    get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
-  }) : x)(function(x) {
-    if (typeof require !== "undefined")
-      return require.apply(this, arguments);
-    throw new Error('Dynamic require of "' + x + '" is not supported');
-  });
-  var __reExport = (target, module2, copyDefault, desc) => {
-    if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-      for (let key of __getOwnPropNames(module2))
-        if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-          __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
-    }
-    return target;
-  };
-  var __toESM = (module2, isNodeMode) => {
-    return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
-  };
   var __publicField = (obj, key, value) => {
     __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
     return value;
@@ -35,18 +11,20 @@
     return typeof x === "number" && !isNaN(x) || typeof x === "bigint";
   }
 
-  // src/math-error.mjs
+  // src/is-browser.mjs
   var isBrowser = new Function(`
-  try {
-    return this === window
-  } catch(e) {}
+    try {
+      return this === window
+    } catch(e) {}
 
-  try {
-    return typeof importScripts !== "undefined"
-  } catch(e) {}
+    try {
+      return !!importScripts
+    } catch(e){}
 
-  return false
-`);
+    return false
+  `);
+
+  // src/math-error.mjs
   var MathError = class extends Error {
     constructor(message) {
       if (isBrowser()) {
@@ -1857,43 +1835,8 @@
   }
 
   // src/dataframe/df-to-json.mjs
-  async function dfToJSON(df, filename, axis) {
-    const out2 = dfToJSONString(df, axis);
-    let downloadedInBrowser = false;
-    let wroteToDiskInNode = false;
-    let browserError, nodeError;
-    try {
-      let newFilename = filename;
-      if (filename.includes("/")) {
-        const parts = filename.split("/");
-        newFilename = parts[parts.length - 1];
-      }
-      const a = document.createElement("a");
-      a.href = `data:application/json;charset=utf-8,${encodeURIComponent(out2)}`;
-      a.download = newFilename;
-      a.dispatchEvent(new MouseEvent("click"));
-      downloadedInBrowser = true;
-    } catch (e) {
-      browserError = e;
-    }
-    try {
-      const fs = await import("node:fs");
-      const path = await import("node:path");
-      fs.writeFileSync(path.resolve(filename), out2, "utf8");
-      wroteToDiskInNode = true;
-    } catch (e) {
-      nodeError = e;
-    }
-    if (!downloadedInBrowser && !wroteToDiskInNode) {
-      if (typeof window !== "undefined") {
-        throw new MathError(browserError);
-      } else if (typeof module !== "undefined") {
-        throw new MathError(nodeError);
-      } else {
-        throw new MathError("I don't know what's going wrong, but it doesn't seem like you're in Node or the browser, and we couldn't download and/or write the file to disk!");
-      }
-    }
-    return df;
+  async function dfToJSON(df, axis) {
+    return JSON.parse(dfToJSONString(df, axis));
   }
 
   // src/dataframe/df-to-object.mjs
@@ -4012,19 +3955,6 @@
     }
   }
 
-  // src/helpers/is-browser.mjs
-  var isBrowser2 = new Function(`
-    try {
-      return this === window
-    } catch(e) {}
-
-    try {
-      return !!importScripts
-    } catch(e){}
-
-    return false
-  `);
-
   // src/lerp.mjs
   function lerp(a, b, f) {
     try {
@@ -4455,7 +4385,7 @@
     inverse,
     isArray,
     isBoolean,
-    isBrowser: isBrowser2,
+    isBrowser,
     isDataFrame,
     isDate,
     isEqual,
