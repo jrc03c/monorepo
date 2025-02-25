@@ -25,14 +25,15 @@ If the library is intended for use in the browser and should provide an IIFE scr
 ```
 {
   "scripts": {
-    "build": "npx esbuild path/to/src/entry.mjs --bundle --outfile=dist/iife.js",
-    "watch": "npx esbuild path/to/src/entry.mjs --bundle --outfile=dist/iife.js --watch",
+    "build": "npx esbuild path/to/src/iife-entry.mjs --bundle --outfile=dist/iife.js",
+    "watch": "npx esbuild path/to/src/iife-entry.mjs --bundle --outfile=dist/iife.js --watch",
   }
 }
 ```
 
 Notice that:
 
+- There's a separate file for IIFE entry (`path/to/src/iife-entry.mjs`). Having a separate IIFE entry file means that the primary source entry file no longer has to do the dirty work of dumping things into the global scope.
 - The bundled IIFE script is _not_ mentioned as one of the package's exports.
 - The IIFE script is the only thing produced by the bundler.
 
