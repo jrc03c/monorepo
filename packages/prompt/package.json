@@ -8,17 +8,13 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/prompt.import.mjs",
-    "require": "./dist/prompt.require.cjs"
-  },
   "keywords": [
     "node",
     "prompt"
   ],
   "license": "ISC",
-  "main": "./dist/prompt.require.cjs",
-  "module": "./dist/prompt.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/prompt",
   "type": "module",
   "version": "0.0.11"
