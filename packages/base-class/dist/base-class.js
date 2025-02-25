@@ -57,7 +57,9 @@
       return {};
     }
   };
-  if (typeof window !== "undefined") {
-    window.BaseClass = BaseClass;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.BaseClass = BaseClass;
   }
 })();

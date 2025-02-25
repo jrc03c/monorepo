@@ -71,8 +71,4 @@ class BaseClass {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.BaseClass = BaseClass
-}
-
 export { BaseClass }

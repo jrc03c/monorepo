@@ -1,4 +1,5 @@
 import { BaseClass } from "./index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that the `BaseClass` class works as expected", () => {
   const a = new BaseClass()
