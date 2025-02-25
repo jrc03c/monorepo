@@ -8,12 +8,8 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/progress.import.mjs",
-    "require": "./dist/progress.require.cjs"
-  },
-  "main": "./dist/progress.require.cjs",
-  "module": "./dist/progress.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/progress",
   "type": "module",
   "version": "0.0.6"
