@@ -1,4 +1,4 @@
-# bash-colors (0.0.7)
+# bash-colors (0.0.8)
 # custom-scroller (0.0.8)
 # pause (0.0.9)
 # progress (0.0.6)
@@ -19,7 +19,7 @@
   - fake-jest
 # vector2 (0.0.7)
   - fake-jest
-# js-math-tools (0.0.88)
+# js-math-tools (0.0.89)
   - fake-jest
   - freeze
 # js-convex-hull (0.0.21)
