@@ -2,12 +2,8 @@
 # pause (0.0.10)
 # progress (0.0.7)
 # prompt (0.0.12)
-# vue-component-with-css (0.0.15)
 # fake-jest (0.0.14)
   - bash-colors
-# misc-vue-components (0.0.16)
-  - pause
-  - vue-component-with-css
 # base-class (0.0.8)
   - fake-jest
 # color (0.0.13)
@@ -109,6 +105,8 @@
   - pause
 # custom-scroller (0.0.9)
   - watch
+# vue-component-with-css (0.0.16)
+  - watch
 # abortable-promise (0.0.5)
   - fake-jest
   - pause
@@ -132,6 +130,9 @@
 # create-high-dpi-canvas (1.0.23)
   - base-web-component
   - watch
+# misc-vue-components (0.0.16)
+  - pause
+  - vue-component-with-css
 # bulma-vue-components (???)
   - base-web-component
   - fs-extras
