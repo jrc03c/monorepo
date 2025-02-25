@@ -4,7 +4,7 @@
 # prompt (0.0.12)
 # fake-jest (0.0.16)
   - bash-colors
-# base-class (0.0.8)
+# base-class (0.0.10)
   - fake-jest
 # color (0.0.13)
   - fake-jest
