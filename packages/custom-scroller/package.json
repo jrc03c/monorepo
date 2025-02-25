@@ -2,17 +2,14 @@
   "author": "jrc03c",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "@jrc03c/watch": "^0.0.18",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/custom-scroller.import.mjs",
-    "require": "./dist/custom-scroller.require.cjs"
-  },
-  "main": "./dist/custom-scroller.require.cjs",
-  "module": "./dist/custom-scroller.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/custom-scroller",
   "type": "module",
   "version": "0.0.8"

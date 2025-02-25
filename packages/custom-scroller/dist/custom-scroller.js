@@ -64,7 +64,9 @@
       });
     }
   };
-  if (typeof window !== "undefined") {
-    window.CustomScroller = CustomScroller;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.CustomScroller = CustomScroller;
   }
 })();

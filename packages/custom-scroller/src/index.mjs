@@ -77,8 +77,4 @@ class CustomScroller {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.CustomScroller = CustomScroller
-}
-
 export { CustomScroller }
