@@ -1,3 +1,5 @@
+import { afterAll, beforeAll, expect, test } from "./index.mjs"
+
 test("tests that fake-jest works at all!", () => {
   expect(5).toBe(5)
 })
@@ -106,13 +108,13 @@ test("tests the use of async functions with all methods", async () => {
 
 beforeAll(() => {
   console.log("----------------------------------------------------")
-  console.log("This should be printed before anything else happens!")
+  console.log("This should be printed BEFORE anything else happens!")
   console.log("----------------------------------------------------")
 })
 
 afterAll(() => {
   console.log("-----------------------------------------------------")
-  console.log("This should be printed after everything else is done!")
+  console.log("This should be printed AFTER everything else is done!")
   console.log("-----------------------------------------------------")
 })
 

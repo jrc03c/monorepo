@@ -197,26 +197,36 @@ class Expecter {
 const afterAlls = []
 const beforeAlls = []
 const tests = []
+let delay = 250
+let timeout
 
 export function afterAll(fn) {
   afterAlls.push(fn)
+  clearTimeout(timeout)
+  timeout = setTimeout(run, delay)
 }
 
 export function beforeAll(fn) {
   beforeAlls.push(fn)
+  clearTimeout(timeout)
+  timeout = setTimeout(run, delay)
 }
 
 export function expect(value) {
   return new Expecter(value)
 }
 
-export async function test(description, fn) {
-  tests.push({ description, fn })
+export function setDelay(value) {
+  delay = value
 }
 
-// {{ content }}
+export async function test(description, fn) {
+  tests.push({ description, fn })
+  clearTimeout(timeout)
+  timeout = setTimeout(run, delay)
+}
 
-!(async () => {
+export async function run() {
   for (const fn of beforeAlls) {
     await fn()
   }
@@ -241,4 +251,4 @@ export async function test(description, fn) {
   for (const fn of afterAlls) {
     await fn()
   }
-})()
+}

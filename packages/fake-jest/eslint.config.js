@@ -7,10 +7,6 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        afterAll: "readonly",
-        beforeAll: "readonly",
-        expect: "readonly",
-        test: "readonly",
       },
     },
 
