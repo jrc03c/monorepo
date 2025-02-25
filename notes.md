@@ -2,11 +2,39 @@
 
 ## What to bundle
 
-**All libraries should be bundled!** See my notes [here](https://ameyama.com/wiki/#/doc/e2f71461022fb54dc7c939dc4bb16ceedf792fd1314cf4b1de20e32bee6240a1) for more info.
+**Not all of the packages in this repo should be bundled!** See the notes [here](https://ameyama.com/wiki/#/doc/16ec1097e73a5ca700f9933bbcd22fea581987a3c85a0c04ad3f168250c56073) for more info.
+
+The gist is that we _should_ bundle when the product is a website or callable script, but should _not_ bundle when the product is a library. Most of the tools in this repo are libraries, so most of them should not be bundled.
+
+There's one important exception to this rule, though: **IIFE scripts** that are used to dump items into the global scope _can and should be bundled_ since (1) they're intended for use in the browser and (2) they must necessarily include all of their dependencies since they'll be executed immediately. (Of course, packages that are only intended for use in Node need not worry about bundling IIFE scripts at all. Such packages may output an IIFE via the `"bin"` property of `package.json`, but those scripts generally don't need to be bundled.)
 
 ## Bundling rules & conventions
 
-1. Libraries that are bundled should output a production file with the same name as the library. For example, the `js-math-tools` library's bundle file should be called `js-math-tools.js`. Libraries that are _not_ bundled but that are still intended for use in the browser should have a main file (as defined by the "main" property in the library's `package.json` file) with the same name as the library. For example, the
+Unless specific project requirements call for another configuration, this is generally how a project's `package.json` file should be configured:
+
+```
+{
+  "main": "./path/to/src/entry.mjs",
+  "module": "./path/to/src/entry.mjs",
+  "name": "@jrc03c/whatever"
+}
+```
+
+If the library is intended for use in the browser and should provide an IIFE script, then add:
+
+```
+{
+  "scripts": {
+    "build": "npx esbuild path/to/src/entry.mjs --bundle --outfile=dist/iife.js",
+    "watch": "npx esbuild path/to/src/entry.mjs --bundle --outfile=dist/iife.js --watch",
+  }
+}
+```
+
+Notice that:
+
+- The bundled IIFE script is _not_ mentioned as one of the package's exports.
+- The IIFE script is the only thing produced by the bundler.
 
 # Moon cheat sheet
 
