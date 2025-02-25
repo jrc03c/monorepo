@@ -18,9 +18,11 @@
     }
     return /* @__PURE__ */ new Date() - start;
   }
-  if (typeof window !== "undefined") {
-    window.pause = pauseAsync;
-    window.pauseAsync = pauseAsync;
-    window.pauseSync = pauseSync;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.pause = pauseAsync;
+    globalThis.pauseAsync = pauseAsync;
+    globalThis.pauseSync = pauseSync;
   }
 })();

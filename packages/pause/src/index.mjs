@@ -20,10 +20,4 @@ function pauseSync(ms) {
   return new Date() - start
 }
 
-if (typeof window !== "undefined") {
-  window.pause = pauseAsync
-  window.pauseAsync = pauseAsync
-  window.pauseSync = pauseSync
-}
-
 export { pauseAsync as pause, pauseAsync, pauseSync }
