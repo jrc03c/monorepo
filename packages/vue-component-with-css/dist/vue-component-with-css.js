@@ -50,7 +50,9 @@
     };
     return component;
   }
-  if (typeof window !== "undefined") {
-    window.createVueComponentWithCSS = createVueComponentWithCSS;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.createVueComponentWithCSS = createVueComponentWithCSS;
   }
 })();

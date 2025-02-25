@@ -36,9 +36,9 @@
     </blockquote>
 
     <div id="app"></div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./node_modules/vue/dist/vue.global.js"></script>
     <script type="module">
-      import { createVueComponentWithCSS } from "../dist/vue-component-with-css.import.min.mjs"
+      import { createVueComponentWithCSS } from "./src/index.mjs"
 
       function makeKey(n) {
         const alpha = "abcdefg1234567890"
@@ -135,7 +135,7 @@
                   Add bar
                 </button>
               </p>
-              
+
               <x-foo
                 :key="id"
                 v-for="id in fooIds"

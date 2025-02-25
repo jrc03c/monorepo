@@ -19,3 +19,9 @@ tasks:
       - patch
       - --force
     platform: node
+  watch:
+    command:
+      - node
+      - build.mjs
+      - --watch
+    platform: node

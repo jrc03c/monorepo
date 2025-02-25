@@ -63,8 +63,4 @@ function createVueComponentWithCSS(component) {
   return component
 }
 
-if (typeof window !== "undefined") {
-  window.createVueComponentWithCSS = createVueComponentWithCSS
-}
-
 export { createVueComponentWithCSS }
