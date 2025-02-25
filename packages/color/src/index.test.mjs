@@ -1,4 +1,5 @@
 import { Color } from "./index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that the Color class works as expected", () => {
   const c = new Color()

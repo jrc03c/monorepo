@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { HSLToCMYK } from "./hsl-to-cmyk.mjs"
 
 test("tests that HSLToCMYK works as expected", () => {

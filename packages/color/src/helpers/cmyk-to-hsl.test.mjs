@@ -1,4 +1,5 @@
 import { CMYKToHSL } from "./cmyk-to-hsl.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that CMYKToHSL works as expected", () => {
   const pred = CMYKToHSL(0.5, 0, 1, 0.5)

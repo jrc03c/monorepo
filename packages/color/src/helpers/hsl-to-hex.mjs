@@ -1,4 +1,3 @@
-import { leftPad } from "./left-pad.mjs"
 import { HSLToRGB } from "./hsl-to-rgb.mjs"
 
 function HSLToHex(h, s, l) {
@@ -21,9 +20,9 @@ function HSLToHex(h, s, l) {
   }
 
   const { r, g, b } = HSLToRGB(h, s, l)
-  const rHex = leftPad(parseInt(r).toString(16), 2)
-  const gHex = leftPad(parseInt(g).toString(16), 2)
-  const bHex = leftPad(parseInt(b).toString(16), 2)
+  const rHex = parseInt(r).toString(16).padStart(2, "0")
+  const gHex = parseInt(g).toString(16).padStart(2, "0")
+  const bHex = parseInt(b).toString(16).padStart(2, "0")
   return { value: `${rHex}${gHex}${bHex}` }
 }
 

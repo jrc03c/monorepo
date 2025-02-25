@@ -1,5 +1,5 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { hexToHSL } from "./hex-to-hsl.mjs"
-import { leftPad } from "./left-pad.mjs"
 
 test("tests that hexToHSL works as expected", () => {
   const pred1 = hexToHSL("#ffd400")
@@ -19,9 +19,9 @@ test("tests that invalid values are never produced", () => {
   for (let r = 0; r < 255; r++) {
     for (let g = 0; g < 255; g++) {
       for (let b = 0; b < 255; b++) {
-        const rHex = leftPad(parseInt(r).toString(16), 2)
-        const gHex = leftPad(parseInt(g).toString(16), 2)
-        const bHex = leftPad(parseInt(b).toString(16), 2)
+        const rHex = parseInt(r).toString(16).padStart(2, "0")
+        const gHex = parseInt(g).toString(16).padStart(2, "0")
+        const bHex = parseInt(b).toString(16).padStart(2, "0")
         const hex = "#" + rHex + gHex + bHex
         const { h, s, l } = hexToHSL(hex)
 

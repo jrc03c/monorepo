@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { HSLToHSV } from "./hsl-to-hsv.mjs"
 
 test("tests that HSLToHSV works as expected", () => {

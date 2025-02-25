@@ -250,8 +250,4 @@ class Color {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.Color = Color
-}
-
 export { Color }

@@ -3,20 +3,16 @@
   "description": "a color class to help with converting from one notation to another (e.g., hex to rgb)",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/fake-jest": "^0.0.16",
     "eslint": "^9.12.0",
     "globals": "^15.10.0"
-  },
-  "exports": {
-    "import": "./dist/color.import.mjs",
-    "require": "./dist/color.require.cjs"
   },
   "keywords": [
     "color"
   ],
   "license": "ISC",
-  "main": "./dist/color.require.cjs",
-  "module": "./dist/color.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/color",
   "type": "module",
   "version": "0.0.13"

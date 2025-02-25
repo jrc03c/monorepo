@@ -110,13 +110,6 @@
     }
   }
 
-  // src/helpers/left-pad.mjs
-  function leftPad(s, n) {
-    let out = s.slice();
-    while (out.length < n) out = "0" + out;
-    return out;
-  }
-
   // src/helpers/hsl-to-hex.mjs
   function HSLToHex(h, s, l) {
     if (isNaN(h) || h < 0 || h >= 360) {
@@ -135,9 +128,9 @@
       );
     }
     const { r, g, b } = HSLToRGB(h, s, l);
-    const rHex = leftPad(parseInt(r).toString(16), 2);
-    const gHex = leftPad(parseInt(g).toString(16), 2);
-    const bHex = leftPad(parseInt(b).toString(16), 2);
+    const rHex = parseInt(r).toString(16).padStart(2, "0");
+    const gHex = parseInt(g).toString(16).padStart(2, "0");
+    const bHex = parseInt(b).toString(16).padStart(2, "0");
     return { value: `${rHex}${gHex}${bHex}` };
   }
 
@@ -376,7 +369,9 @@
       this._lightness = temp.l;
     }
   };
-  if (typeof window !== "undefined") {
-    window.Color = Color;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.Color = Color;
   }
 })();
