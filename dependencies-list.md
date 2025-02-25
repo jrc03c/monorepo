@@ -1,6 +1,6 @@
 # bash-colors (0.0.8)
 # pause (0.0.10)
-# progress (0.0.6)
+# progress (0.0.7)
 # prompt (0.0.11)
 # vue-component-with-css (0.0.15)
 # fake-jest (0.0.14)
