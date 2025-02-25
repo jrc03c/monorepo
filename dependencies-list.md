@@ -1,5 +1,4 @@
 # bash-colors (0.0.8)
-# custom-scroller (0.0.8)
 # pause (0.0.9)
 # progress (0.0.6)
 # prompt (0.0.11)
@@ -108,6 +107,8 @@
   - logger
   - make-key
   - pause
+# custom-scroller (0.0.9)
+  - watch
 # abortable-promise (0.0.5)
   - fake-jest
   - pause
