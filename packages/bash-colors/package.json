@@ -24,10 +24,6 @@
     "globals": "^15.10.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/bash-colors.import.mjs",
-    "require": "./dist/bash-colors.require.cjs"
-  },
   "keywords": [
     "bash",
     "color",
@@ -37,8 +33,8 @@
     "print"
   ],
   "license": "ISC",
-  "main": "./dist/bash-colors.require.cjs",
-  "module": "./dist/bash-colors.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/bash-colors",
   "type": "module",
   "version": "0.0.7"
