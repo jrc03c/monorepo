@@ -84,8 +84,4 @@ class Queue {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.Queue = Queue
-}
-
 export { Queue }

@@ -5,19 +5,15 @@ function rebuild() {
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const baseCommand = "npx esbuild src/index.mjs --bundle"
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --outfile=dist/queue.js`,
+      { encoding: "utf8" },
+    )
 
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      `${baseCommand} --platform=node --outfile=dist/queue.require.cjs`,
-      `${baseCommand} --outfile=dist/queue.standalone.js`,
-      `${baseCommand} --format=esm --outfile=dist/queue.import.mjs`,
-    ]
-
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/queue.min.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
