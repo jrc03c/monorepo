@@ -1,6 +1,7 @@
 // NOTE: The `hash` function intentionally does not handle functions. See the
 // note in `stringify-and-parse.test.js` for more info.
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { hash } from "./hash.mjs"
 import { randomString } from "./random-string.mjs"
 

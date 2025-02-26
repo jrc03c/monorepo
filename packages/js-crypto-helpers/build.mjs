@@ -5,22 +5,15 @@ function rebuild() {
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const baseCommand = "npx esbuild src/index.mjs --bundle"
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --outfile=dist/js-crypto-helpers.js`,
+      { encoding: "utf8" },
+    )
 
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      `${baseCommand} --platform=node --outfile=dist/js-crypto-helpers.require.cjs`,
-      `${baseCommand} --platform=node --outfile=dist/js-crypto-helpers.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.js`,
-      `${baseCommand} --outfile=dist/js-crypto-helpers.standalone.min.js --minify`,
-      `${baseCommand} --format=esm --outfile=dist/js-crypto-helpers.import.mjs`,
-      `${baseCommand} --format=esm --outfile=dist/js-crypto-helpers.import.min.mjs --minify`,
-    ]
-
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/js-crypto-helpers.min.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {

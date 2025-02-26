@@ -16,25 +16,6 @@ import { hash } from "./hash.mjs"
 import { parse, stringify } from "@jrc03c/js-text-tools"
 import { randomString } from "./random-string.mjs"
 
-if (typeof window !== "undefined") {
-  window.JSCryptoHelpers = {
-    base64Decode,
-    Base64DecodingError,
-    base64Encode,
-    Base64EncodingError,
-    decrypt,
-    DecryptionError,
-    encrypt,
-    EncryptionError,
-    hash,
-    HashingError,
-    parse,
-    randomString,
-    RandomStringGenerationError,
-    stringify,
-  }
-}
-
 export {
   base64Decode,
   Base64DecodingError,

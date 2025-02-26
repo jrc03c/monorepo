@@ -1,5 +1,6 @@
 import { decrypt } from "./decrypt.mjs"
 import { encrypt } from "./encrypt.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { randomString } from "./random-string.mjs"
 
 test("tests that data can be encrypted and decrypted correctly", async () => {

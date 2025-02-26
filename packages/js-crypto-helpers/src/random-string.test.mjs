@@ -1,3 +1,5 @@
+import { expect, test } from "@jrc03c/fake-jest"
+
 import {
   isEqual,
   isNumber,

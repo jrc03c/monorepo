@@ -7,29 +7,25 @@
     "random-string": "./src/random-string-bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.87",
-    "@jrc03c/js-text-tools": "^0.0.56"
+    "@jrc03c/js-math-tools": "^0.0.91",
+    "@jrc03c/js-text-tools": "^0.0.60"
   },
   "description": "just simple wrappers around core js crypto functions",
   "devDependencies": {
-    "@jrc03c/bash-colors": "^0.0.7",
-    "@jrc03c/fake-jest": "^0.0.12",
-    "@jrc03c/prompt": "^0.0.11",
+    "@jrc03c/bash-colors": "^0.0.8",
+    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/prompt": "^0.0.12",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
-  },
-  "exports": {
-    "import": "./dist/js-crypto-helpers.import.mjs",
-    "require": "./dist/js-crypto-helpers.require.cjs"
   },
   "keywords": [
     "crypto",
     "js"
   ],
   "license": "ISC",
-  "main": "./dist/js-crypto-helpers.require.cjs",
-  "module": "./dist/js-crypto-helpers.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/js-crypto-helpers",
   "type": "module",
   "version": "0.0.19"

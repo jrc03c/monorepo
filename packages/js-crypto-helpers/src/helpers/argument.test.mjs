@@ -1,4 +1,5 @@
 import { Argument } from "./argument.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that the Argument class works as expected", () => {
   const fakeArgs = [

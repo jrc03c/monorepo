@@ -1,5 +1,6 @@
 import { base64Decode } from "./base-64-decode.mjs"
 import { base64Encode } from "./base-64-encode.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "@jrc03c/js-math-tools"
 import { parse, stringify } from "@jrc03c/js-text-tools"
 import { randomString } from "./random-string.mjs"
