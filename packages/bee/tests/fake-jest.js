@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-undef
-import { isEqual } from "../node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.min.mjs"
+import { isEqual } from "@jrc03c/js-math-tools"
 
 async function test(desc, fn) {
   const container = document.getElementById("container")
@@ -81,5 +80,4 @@ function expect(v1) {
   }
 }
 
-window.test = test
-window.expect = expect
+export { expect, test }

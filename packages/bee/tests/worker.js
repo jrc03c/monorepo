@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-importScripts("../dist/bee.standalone.min.js")
+import * as Bee from "../src/index.mjs"
 
 const drone = new Bee.Drone()
 

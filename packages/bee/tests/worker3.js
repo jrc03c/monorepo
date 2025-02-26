@@ -1,5 +1,5 @@
+import * as Bee from "../src/index.mjs"
 import { add } from "./add.js"
-import { Bee } from "../dist/bee.import.min.mjs"
 
 const drone = new Bee.Drone()
 

@@ -6,22 +6,33 @@ function rebuild() {
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const baseCommand = "npx esbuild src/index.mjs --bundle"
-
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      `${baseCommand} --platform=node --outfile=dist/bee.require.cjs`,
-      `${baseCommand} --platform=node --outfile=dist/bee.require.min.cjs --minify`,
-      `${baseCommand} --outfile=dist/bee.standalone.js`,
-      `${baseCommand} --outfile=dist/bee.standalone.min.js --minify`,
-      `${baseCommand} --format=esm --outfile=dist/bee.import.mjs`,
-      `${baseCommand} --format=esm --outfile=dist/bee.import.min.mjs --minify`,
-    ]
-
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
+    execSync(`npx esbuild src/iife.mjs --bundle --outfile=dist/bee.js`, {
+      encoding: "utf8",
     })
+
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/bee.min.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(`npx esbuild tests/main.mjs --bundle --outfile=tests/bundle.js`, {
+      encoding: "utf8",
+    })
+
+    execSync(
+      `npx esbuild tests/worker.js --bundle --outfile=tests/worker-bundle.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild tests/worker2.js --bundle --outfile=tests/worker2-bundle.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild tests/worker3.js --bundle --outfile=tests/worker3-bundle.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
