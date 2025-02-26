@@ -1,14 +1,14 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.87",
-    "@jrc03c/js-text-tools": "^0.0.56",
-    "@jrc03c/make-key": "^0.0.32"
+    "@jrc03c/js-math-tools": "^0.0.91",
+    "@jrc03c/js-text-tools": "^0.0.60",
+    "@jrc03c/make-key": "^0.0.35"
   },
   "description": "some data science functions and classes to complement @jrc03c/js-math-tools",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/fake-jest": "^0.0.16",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
@@ -16,14 +16,10 @@
     "madge": "^8.0.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/js-data-science-helpers.import.mjs",
-    "require": "./dist/js-data-science-helpers.require.cjs"
-  },
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/js-data-science-helpers.require.cjs",
-  "module": "./dist/js-data-science-helpers.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/js-data-science-helpers",
   "type": "module",
   "version": "0.0.84"

@@ -1,5 +1,6 @@
-import { DataFrame, normal, Series } from "@jrc03c/js-math-tools"
 import { cohensd } from "./cohens-d.mjs"
+import { DataFrame, normal, Series } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that Cohen's D can be correctly calculated", () => {
   const a = normal(100)

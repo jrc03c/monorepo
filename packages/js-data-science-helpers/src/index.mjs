@@ -25,37 +25,6 @@ import { standardize } from "./standardize.mjs"
 import { StandardScaler } from "./standard-scaler.mjs"
 import { trainTestSplit } from "./train-test-split.mjs"
 
-if (typeof window !== "undefined") {
-  window.JSDataScienceHelpers = {
-    cohensd,
-    convertToNumerical,
-    diagonalize,
-    getCorrelationMatrix,
-    getHighlyCorrelatedColumns,
-    getMagnitude,
-    getOneHotEncodings,
-    getPercentages,
-    getPValueMatrix,
-    hunterChainSort,
-    IndexMatcher,
-    isBinary,
-    isCorrelationMatrix,
-    isWholeNumber,
-    KMeans,
-    MathError,
-    normalize,
-    orthonormalize,
-    OutlierMitigator,
-    project,
-    pValue,
-    rScore,
-    rSquared,
-    standardize,
-    StandardScaler,
-    trainTestSplit,
-  }
-}
-
 export {
   cohensd,
   convertToNumerical,

@@ -1,4 +1,5 @@
 import { DataFrame, normal, Series } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 import { pValue } from "./p-value.mjs"
 
 test("tests that p-values can be correctly computed", () => {

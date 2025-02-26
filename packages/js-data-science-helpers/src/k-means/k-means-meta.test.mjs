@@ -13,6 +13,7 @@ import {
   shape,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { KMeansMeta } from "./k-means-meta.mjs"
 import { rScore } from "../r-score.mjs"
 import { trainTestSplit } from "../train-test-split.mjs"

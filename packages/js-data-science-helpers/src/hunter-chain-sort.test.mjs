@@ -14,6 +14,7 @@ import {
   Series,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { getCorrelationMatrix } from "./get-correlation-matrix.mjs"
 import { hunterChainSort } from "./hunter-chain-sort.mjs"
 

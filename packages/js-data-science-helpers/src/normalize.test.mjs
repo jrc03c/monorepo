@@ -10,6 +10,7 @@ import {
   std,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { normalize } from "./normalize.mjs"
 
 test("tests that data can be normalized correctly", () => {

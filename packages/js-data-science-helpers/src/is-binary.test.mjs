@@ -8,6 +8,7 @@ import {
   zeros,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { isBinary } from "./is-binary.mjs"
 
 test("tests that arrays, Series, and DataFrames can be correctly identified as binary", () => {

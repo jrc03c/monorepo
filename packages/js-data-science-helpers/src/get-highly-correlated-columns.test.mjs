@@ -13,6 +13,7 @@ import {
   transpose,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { getHighlyCorrelatedColumns } from "./get-highly-correlated-columns.mjs"
 import { orthonormalize } from "./orthonormalize.mjs"
 

@@ -13,6 +13,7 @@ import {
   shape,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { KMeansPlusPlus } from "./k-means-plus-plus.mjs"
 import { orderCentroids } from "./helpers.mjs"
 import { rScore } from "../r-score.mjs"

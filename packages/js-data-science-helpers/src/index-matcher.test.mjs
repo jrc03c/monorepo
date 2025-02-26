@@ -7,6 +7,7 @@ import {
   Series,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { IndexMatcher } from "./index-matcher.mjs"
 
 test("tests that indices in Series and DataFrames can be correctly matched after dropping missing and/or NaN values", () => {

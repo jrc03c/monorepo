@@ -7,6 +7,7 @@ import {
   Series,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { project } from "./project.mjs"
 
 test("tests that vectors can be correctly projected onto other vectors", () => {

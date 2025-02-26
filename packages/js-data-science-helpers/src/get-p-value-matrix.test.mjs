@@ -14,6 +14,7 @@ import {
   transpose,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { getPValueMatrix } from "./get-p-value-matrix.mjs"
 
 function containsOnlyNumbers(x) {

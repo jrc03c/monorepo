@@ -1,4 +1,5 @@
 import { copy, DataFrame, normal, random, Series } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 import { getCorrelationMatrix } from "./get-correlation-matrix.mjs"
 import { isCorrelationMatrix } from "./is-correlation-matrix.mjs"
 

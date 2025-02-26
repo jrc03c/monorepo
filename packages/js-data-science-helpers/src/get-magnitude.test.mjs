@@ -1,4 +1,5 @@
 import { DataFrame, flatten, normal, Series } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 import { getMagnitude } from "./get-magnitude.mjs"
 
 test("tests that the magnitudes of various arrays, Series, and DataFrames can be correctly computed", () => {

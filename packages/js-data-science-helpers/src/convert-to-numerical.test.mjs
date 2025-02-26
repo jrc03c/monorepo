@@ -17,6 +17,7 @@ import {
 } from "@jrc03c/js-math-tools"
 
 import { convertToNumerical } from "./convert-to-numerical.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { makeKey } from "@jrc03c/make-key"
 
 // generate data with these types:

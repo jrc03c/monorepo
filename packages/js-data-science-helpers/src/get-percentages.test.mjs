@@ -9,6 +9,7 @@ import {
   sum,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { getPercentages } from "./get-percentages.mjs"
 
 test("tests that percentages of values in an array can be computed correctly", () => {

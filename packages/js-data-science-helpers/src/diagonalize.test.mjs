@@ -9,6 +9,7 @@ import {
 } from "@jrc03c/js-math-tools"
 
 import { diagonalize } from "./diagonalize.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that an array can be correctly diagonalized", () => {
   const a = [2, 3, 4]

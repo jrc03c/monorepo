@@ -14,6 +14,7 @@ import {
   zeros,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { OutlierMitigator } from "./outlier-mitigator.mjs"
 
 test("tests that outliers can be correctly clipped", () => {

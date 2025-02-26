@@ -11,6 +11,7 @@ import {
   stdev,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { rScore } from "./r-score.mjs"
 import { StandardScaler } from "./standard-scaler.mjs"
 

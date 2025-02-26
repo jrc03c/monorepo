@@ -9,6 +9,7 @@ import {
   transpose,
 } from "@jrc03c/js-math-tools"
 
+import { expect, test } from "@jrc03c/fake-jest"
 import { getOneHotEncodings } from "./get-one-hot-encodings.mjs"
 
 test("tests that values can be correctly one-hot-encoded", () => {

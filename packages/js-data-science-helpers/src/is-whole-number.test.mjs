@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isWholeNumber } from "./is-whole-number.mjs"
 
 test("tests that the `isWholeNumber` function works as expected", () => {
