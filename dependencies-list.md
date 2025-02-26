@@ -8,7 +8,7 @@
   - fake-jest
 # color (0.0.14)
   - fake-jest
-# freeze (0.0.6)
+# freeze (0.0.7)
   - fake-jest
 # radio (0.0.11)
   - fake-jest
