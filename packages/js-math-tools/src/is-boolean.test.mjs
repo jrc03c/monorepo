@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isBoolean } from "./is-boolean.mjs"
 
 test("tests that booleans can be identified correctly", () => {

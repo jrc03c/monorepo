@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { range } from "./range.mjs"
 
 test("tests that ranges of values can be generated correctly", () => {

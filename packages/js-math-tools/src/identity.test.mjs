@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { identity } from "./identity.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { set } from "./set.mjs"

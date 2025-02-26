@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isString } from "./is-string.mjs"
 
 test("checks to see if various things are strings", () => {

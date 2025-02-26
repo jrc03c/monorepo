@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropMissing } from "./drop-missing.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { isUndefined } from "./is-undefined.mjs"
 import { normal } from "./normal.mjs"

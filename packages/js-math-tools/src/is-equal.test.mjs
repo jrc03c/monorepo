@@ -1,5 +1,6 @@
 import { copy } from "./copy.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 
 test("tests equality of primitives", () => {

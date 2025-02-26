@@ -1,5 +1,6 @@
 import { abs } from "./abs.mjs"
 import { cast } from "./cast.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { int } from "./int.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { max } from "./max.mjs"

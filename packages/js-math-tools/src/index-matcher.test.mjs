@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
 import { IndexMatcher } from "./index-matcher.mjs"
 import { isEqual } from "./is-equal.mjs"

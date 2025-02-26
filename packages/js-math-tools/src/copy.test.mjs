@@ -1,6 +1,7 @@
 import { arrayTypes } from "./helpers/array-types.mjs"
 import { copy, decycle } from "./copy.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 

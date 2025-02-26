@@ -1,4 +1,5 @@
 import { Counter } from "./counter.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "../is-equal.mjs"
 import { set } from "../set.mjs"
 

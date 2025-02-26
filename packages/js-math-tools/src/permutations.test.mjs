@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { factorial } from "./factorial.mjs"
 import { isArray } from "./is-array.mjs"
 import { isEqual } from "./is-equal.mjs"

@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { normal } from "./normal.mjs"
 import { reshape } from "./reshape.mjs"
 import { shape } from "./shape.mjs"

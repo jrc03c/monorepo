@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { distance } from "./distance.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
 import { normal } from "./normal.mjs"
 import { pow } from "./pow.mjs"

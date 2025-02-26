@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropNaN } from "./drop-nan.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { isNumber } from "./is-number.mjs"
 import { normal } from "./normal.mjs"

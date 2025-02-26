@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { intersect } from "./intersect.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { range } from "./range.mjs"

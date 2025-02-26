@@ -1,10 +1,130 @@
 (() => {
   var __defProp = Object.defineProperty;
   var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
   var __publicField = (obj, key, value) => {
     __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
     return value;
   };
+
+  // src/index.mjs
+  var src_exports = {};
+  __export(src_exports, {
+    DataFrame: () => DataFrame,
+    IndexMatcher: () => IndexMatcher,
+    MathError: () => MathError,
+    Series: () => Series,
+    abs: () => vabs,
+    add: () => vadd,
+    apply: () => vapply,
+    arccos: () => varccos,
+    arcsin: () => varcsin,
+    arctan: () => varctan,
+    argmax: () => argmax,
+    argmin: () => argmin,
+    assert: () => assert,
+    cast: () => cast,
+    ceil: () => vceil,
+    chop: () => vchop,
+    clamp: () => vclamp,
+    combinations: () => combinations,
+    combinationsIterator: () => combinationsIterator,
+    copy: () => copy,
+    correl: () => correl,
+    cos: () => vcos,
+    count: () => count,
+    covariance: () => covariance,
+    dataTypes: () => dataTypes,
+    decycle: () => decycle,
+    diff: () => diff,
+    distance: () => distance,
+    divide: () => divide,
+    dot: () => dot,
+    dropMissing: () => dropMissing,
+    dropMissingPairwise: () => dropMissingPairwise,
+    dropNaN: () => dropNaN,
+    dropNaNPairwise: () => dropNaNPairwise,
+    dropUndefined: () => dropUndefined,
+    every: () => every,
+    exp: () => vexp,
+    factorial: () => vfactorial,
+    find: () => find,
+    findAll: () => findAll,
+    flatten: () => flatten,
+    float: () => vfloat,
+    floor: () => vfloor,
+    identity: () => identity,
+    indexOf: () => indexOf,
+    inferType: () => inferType,
+    int: () => vint,
+    intersect: () => intersect,
+    inverse: () => inverse,
+    isArray: () => isArray,
+    isBoolean: () => isBoolean,
+    isBrowser: () => isBrowser,
+    isDataFrame: () => isDataFrame,
+    isDate: () => isDate,
+    isEqual: () => isEqual,
+    isFunction: () => isFunction,
+    isJagged: () => isJagged,
+    isNested: () => isNested,
+    isNumber: () => isNumber,
+    isObject: () => isObject,
+    isSeries: () => isSeries,
+    isString: () => isString,
+    isUndefined: () => isUndefined,
+    lerp: () => vlerp,
+    log: () => vlog,
+    max: () => max,
+    mean: () => mean,
+    median: () => median,
+    min: () => min,
+    mod: () => vmod,
+    mode: () => mode,
+    multiply: () => vmultiply,
+    ndarray: () => ndarray,
+    normal: () => normal,
+    ones: () => ones,
+    permutations: () => permutations,
+    permutationsIterator: () => permutationsIterator,
+    pow: () => vpow,
+    print: () => print,
+    product: () => product,
+    random: () => random,
+    range: () => range,
+    remap: () => remap,
+    reshape: () => reshape,
+    reverse: () => reverse,
+    round: () => vround,
+    scale: () => scale,
+    seed: () => seed,
+    set: () => set,
+    shape: () => shape,
+    shuffle: () => shuffle,
+    sign: () => vsign,
+    sin: () => vsin,
+    some: () => some,
+    sort: () => sort,
+    sqrt: () => vsqrt,
+    stats: () => stats,
+    std: () => std,
+    stdev: () => stdev,
+    subtract: () => subtract,
+    sum: () => sum,
+    tan: () => vtan,
+    time: () => timeSync,
+    timeAsync: () => timeAsync,
+    timeSync: () => timeSync,
+    transpose: () => transpose,
+    union: () => union,
+    variance: () => variance,
+    vectorize: () => vectorize,
+    zeros: () => zeros,
+    zip: () => zip
+  });
 
   // src/is-number.mjs
   function isNumber(x) {
@@ -198,24 +318,24 @@
           return x2.map((v) => copy(v));
         }
         if (isSeries(x2)) {
-          const out3 = x2.copy();
-          out3.values = copy(out3.values);
-          return out3;
+          const out2 = x2.copy();
+          out2.values = copy(out2.values);
+          return out2;
         }
         if (isDataFrame(x2)) {
-          const out3 = x2.copy();
-          out3.values = copy(x2.values);
-          return out3;
+          const out2 = x2.copy();
+          out2.values = copy(x2.values);
+          return out2;
         }
         if (x2 instanceof Date) {
           return new Date(x2.getTime());
         }
         x2 = decycle(x2);
-        const out2 = {};
+        const out = {};
         Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).forEach((key) => {
-          out2[key] = copy(x2[key]);
+          out[key] = copy(x2[key]);
         });
-        return out2;
+        return out;
       } else {
         return x2;
       }
@@ -261,22 +381,22 @@
       }
     }
     const orig = x;
-    let out2 = helper5(orig);
+    let out = helper5(orig);
     if (isDataFrame(x)) {
       const temp = x.copy();
-      temp._values = out2.values;
-      temp._columns = out2.columns;
-      temp._index = out2.index;
-      out2 = temp;
+      temp._values = out.values;
+      temp._columns = out.columns;
+      temp._index = out.index;
+      out = temp;
     }
     if (isSeries(x)) {
       const temp = x.copy();
-      temp.name = out2.name;
-      temp._values = out2.values;
-      temp._index = out2.index;
-      out2 = temp;
+      temp.name = out.name;
+      temp._values = out.values;
+      temp._index = out.index;
+      out = temp;
     }
-    return out2;
+    return out;
   }
 
   // src/is-date.mjs
@@ -353,10 +473,10 @@
   // src/helpers/counter.mjs
   function makeKey(n) {
     const alpha = "abcdefg1234567890";
-    let out2 = "";
-    while (out2.length < n)
-      out2 += alpha[Math.floor(Math.random() * alpha.length)];
-    return out2;
+    let out = "";
+    while (out.length < n)
+      out += alpha[Math.floor(Math.random() * alpha.length)];
+    return out;
   }
   var NULL_KEY = makeKey(16);
   var UNDEFINED_KEY = makeKey(16);
@@ -416,11 +536,11 @@
       return this.values.map((v) => ({ value: v, count: this.get(v) }));
     }
     toObject() {
-      const out2 = {};
+      const out = {};
       this.values.forEach((value) => {
-        out2[value] = this.get(value);
+        out[value] = this.get(value);
       });
-      return out2;
+      return out;
     }
   };
 
@@ -431,15 +551,15 @@
     }
     assert(isArray(arr), "The `flatten` function only works on arrays, Series, and DataFrames!");
     function helper5(arr2) {
-      let out2 = [];
+      let out = [];
       arr2.forEach((child) => {
         if (isArray(child)) {
-          out2 = out2.concat(helper5(child));
+          out = out.concat(helper5(child));
         } else {
-          out2.push(child);
+          out.push(child);
         }
       });
-      return out2;
+      return out;
     }
     return helper5(arr);
   }
@@ -448,7 +568,7 @@
   function stats(x, options) {
     options = options || {};
     const counts = new Counter();
-    const out2 = {};
+    const out = {};
     const xflat = flatten(x);
     const xnums = [];
     let max2 = -Infinity;
@@ -478,18 +598,18 @@
       counts.increment(v);
     }
     const mean2 = sum2 / xnums.length;
-    out2.counts = counts;
-    out2.max = max2;
-    out2.mean = mean2;
-    out2.min = min2;
-    out2.n = xflat.length;
-    out2.sum = sum2;
-    if (isNaN(out2.mean)) {
-      out2.max = NaN;
-      out2.min = NaN;
+    out.counts = counts;
+    out.max = max2;
+    out.mean = mean2;
+    out.min = min2;
+    out.n = xflat.length;
+    out.sum = sum2;
+    if (isNaN(out.mean)) {
+      out.max = NaN;
+      out.min = NaN;
     }
     if (options.shouldDropNaNs) {
-      out2.nWithoutNaNs = xnums.length;
+      out.nWithoutNaNs = xnums.length;
     }
     if (options.mode) {
       const sortedCountPairs = Array.from(counts.values.map((v) => [v, counts.get(v)])).toSorted((a, b) => b[1] - a[1]);
@@ -502,26 +622,26 @@
           break;
         }
       }
-      out2.mode = mode2.toSorted();
+      out.mode = mode2.toSorted();
     }
     if (options.median) {
       if (isNaN(mean2)) {
-        out2.median = NaN;
+        out.median = NaN;
       } else {
         const xnumsSorted = xnums.toSorted((a, b) => Number(a) - Number(b));
         const middle = Math.floor(xnumsSorted.length / 2);
         if (xnumsSorted.length % 2 === 0) {
           const left = xnumsSorted[middle - 1];
           const right = xnumsSorted[middle];
-          out2.median = (Number(left) + Number(right)) / 2;
+          out.median = (Number(left) + Number(right)) / 2;
           if (resultsShouldIncludeBigInts && typeof left === "bigint" && typeof right === "bigint") {
             try {
-              out2.median = BigInt(out2.median);
+              out.median = BigInt(out.median);
             } catch (e) {
             }
           }
         } else {
-          out2.median = xnumsSorted[middle];
+          out.median = xnumsSorted[middle];
         }
       }
     }
@@ -532,20 +652,20 @@
       }
       variance2 /= xnums.length;
       const stdev2 = Math.sqrt(variance2);
-      out2.stdev = stdev2;
-      out2.variance = variance2;
+      out.stdev = stdev2;
+      out.variance = variance2;
     }
     if (resultsShouldIncludeBigInts) {
       try {
-        out2.sum = BigInt(out2.sum);
+        out.sum = BigInt(out.sum);
       } catch (e) {
       }
       try {
-        out2.mean = BigInt(out2.mean);
+        out.mean = BigInt(out.mean);
       } catch (e) {
       }
       if (options.mode) {
-        out2.mode = out2.mode.map((v) => {
+        out.mode = out.mode.map((v) => {
           try {
             return BigInt(v);
           } catch (e) {
@@ -554,7 +674,7 @@
         });
       }
     }
-    return out2;
+    return out;
   }
 
   // src/count.mjs
@@ -642,32 +762,32 @@
     assert(Math.floor(s2) === s2, error);
     assert(s2 !== Infinity, "We can't create an array containing an infinite number of values!");
     if (shape2.length === 1) {
-      const out2 = [];
+      const out = [];
       for (let i = 0; i < s2; i++)
-        out2.push(void 0);
-      return out2;
+        out.push(void 0);
+      return out;
     } else {
-      const out2 = [];
+      const out = [];
       for (let i = 0; i < s2; i++) {
-        out2.push(ndarray(shape2.slice(1)));
+        out.push(ndarray(shape2.slice(1)));
       }
-      return out2;
+      return out;
     }
   }
 
   // src/reverse.mjs
   function reverse(arr) {
     if (isDataFrame(arr) || isSeries(arr)) {
-      const out3 = arr.copy();
-      out3.values = reverse(out3.values);
-      out3.index = reverse(out3.index);
-      return out3;
+      const out2 = arr.copy();
+      out2.values = reverse(out2.values);
+      out2.index = reverse(out2.index);
+      return out2;
     }
     assert(isArray(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
-    const out2 = [];
+    const out = [];
     for (let i = arr.length - 1; i >= 0; i--)
-      out2.push(arr[i]);
-    return out2;
+      out.push(arr[i]);
+    return out;
   }
 
   // src/range.mjs
@@ -686,30 +806,30 @@
       a = b + step;
       b = buffer + step;
     }
-    let out2 = [];
+    let out = [];
     for (let i = a; i < b; i += step) {
       if (shouldIncludeBigInts) {
         try {
-          out2.push(BigInt(i));
+          out.push(BigInt(i));
         } catch (e) {
-          out2.push(i);
+          out.push(i);
         }
       } else {
-        out2.push(i);
+        out.push(i);
       }
     }
     if (shouldReverse)
-      out2 = reverse(out2);
-    return out2;
+      out = reverse(out);
+    return out;
   }
 
   // src/set.mjs
   function makeKey2(n) {
     const alpha = "abcdefg1234567890";
-    let out2 = "";
-    while (out2.length < n)
-      out2 += alpha[Math.floor(Math.random() * alpha.length)];
-    return out2;
+    let out = "";
+    while (out.length < n)
+      out += alpha[Math.floor(Math.random() * alpha.length)];
+    return out;
   }
   var NULL_KEY2 = makeKey2(256);
   var UNDEFINED_KEY2 = makeKey2(256);
@@ -721,15 +841,15 @@
       return set(arr.values);
     }
     assert(isArray(arr), "The `set` function only works on arrays, Series, and DataFrames!");
-    const out2 = [];
+    const out = [];
     const temp = {};
     flatten(arr).forEach((item) => {
       const key = typeof item === "object" && item === null ? NULL_KEY2 : isUndefined(item) ? UNDEFINED_KEY2 : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY2 : item === Infinity ? INFINITY_KEY2 : item === -Infinity ? MINUS_INFINITY_KEY2 : typeof item === "bigint" ? item.toString() : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
       if (!temp[key])
-        out2.push(item);
+        out.push(item);
       temp[key] = true;
     });
-    return out2;
+    return out;
   }
 
   // src/shape.mjs
@@ -760,92 +880,92 @@
       const xShape = shape(x);
       if (xShape.length === 1) {
         if (axis === 0) {
-          const out2 = df.copy();
-          out2._values.push(x);
+          const out = df.copy();
+          out._values.push(x);
           const maxRowLength = Math.max(df.shape[1], xShape[0]);
-          out2._values.forEach((row) => {
+          out._values.forEach((row) => {
             while (row.length < maxRowLength) {
               row.push(void 0);
             }
           });
-          while (out2._index.length < out2._values.length) {
-            out2._index.push("row" + out2._index.length);
+          while (out._index.length < out._values.length) {
+            out._index.push("row" + out._index.length);
           }
-          while (out2._columns.length < maxRowLength) {
-            out2._columns.push("col" + out2._columns.length);
+          while (out._columns.length < maxRowLength) {
+            out._columns.push("col" + out._columns.length);
           }
-          return out2;
+          return out;
         } else {
           const maxColLength = Math.max(df.shape[0], xShape[0]);
-          const out2 = df.copy();
+          const out = df.copy();
           range(0, maxColLength).forEach((i) => {
-            if (i >= out2._values.length) {
-              out2._values.push(ndarray(df.shape[1]));
+            if (i >= out._values.length) {
+              out._values.push(ndarray(df.shape[1]));
             }
-            out2._values[i].push(x[i]);
+            out._values[i].push(x[i]);
           });
-          while (out2._index.length < out2._values.length) {
-            out2._index.push("row" + out2._index.length);
+          while (out._index.length < out._values.length) {
+            out._index.push("row" + out._index.length);
           }
-          while (out2._columns.length < out2._values[0].length) {
-            out2._columns.push("col" + out2._columns.length);
+          while (out._columns.length < out._values[0].length) {
+            out._columns.push("col" + out._columns.length);
           }
-          return out2;
+          return out;
         }
       } else if (xShape.length === 2) {
         if (axis === 0) {
           const maxRowLength = Math.max(...x.map((row) => row.length).concat([df.shape[1]]));
-          const out2 = df.copy();
-          out2._values = out2._values.concat(x).map((row) => {
+          const out = df.copy();
+          out._values = out._values.concat(x).map((row) => {
             while (row.length < maxRowLength) {
               row.push(void 0);
             }
             return row;
           });
-          while (out2._index.length < out2._values.length) {
-            out2._index.push("row" + out2._index.length);
+          while (out._index.length < out._values.length) {
+            out._index.push("row" + out._index.length);
           }
-          while (out2._columns.length < maxRowLength) {
-            out2._columns.push("col" + out2._columns.length);
+          while (out._columns.length < maxRowLength) {
+            out._columns.push("col" + out._columns.length);
           }
-          return out2;
+          return out;
         } else {
           const maxRowLength = Math.max(...x.map((row) => row.length)) + df.shape[1];
           const maxColLength = Math.max(df.shape[0], xShape[0]);
-          const out2 = df.copy();
+          const out = df.copy();
           range(0, maxColLength).forEach((i) => {
-            if (i >= out2._values.length) {
-              out2._values.push(ndarray(df.shape[1]));
+            if (i >= out._values.length) {
+              out._values.push(ndarray(df.shape[1]));
             }
-            out2._values[i] = out2._values[i].concat(x[i]);
-            while (out2._values[i].length < maxRowLength) {
-              out2._values[i].push(void 0);
+            out._values[i] = out._values[i].concat(x[i]);
+            while (out._values[i].length < maxRowLength) {
+              out._values[i].push(void 0);
             }
           });
-          while (out2._index.length < out2._values.length) {
-            out2._index.push("row" + out2._index.length);
+          while (out._index.length < out._values.length) {
+            out._index.push("row" + out._index.length);
           }
-          while (out2._columns.length < maxRowLength) {
-            out2._columns.push("col" + out2._columns.length);
+          while (out._columns.length < maxRowLength) {
+            out._columns.push("col" + out._columns.length);
           }
-          return out2;
+          return out;
         }
       } else {
         throw new MathError("Only 1- and 2-dimensional arrays can be appended to a DataFrame!");
       }
     } else if (isSeries(x)) {
-      const out2 = dfAppend(df, x.values, axis);
+      const out = dfAppend(df, x.values, axis);
       if (axis === 0) {
-        out2.index[out2.index.length - 1] = out2.index.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+        out.index[out.index.length - 1] = out.index.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
       } else {
-        out2.columns[out2.columns.length - 1] = out2.columns.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
+        out.columns[out.columns.length - 1] = out.columns.indexOf(x.name) > -1 ? x.name + " (2)" : x.name;
       }
-      return out2;
+      return out;
     } else if (isDataFrame(x)) {
       if (axis === 0) {
-        const out2 = df.copy();
-        const maxRowLength = set(out2._columns.concat(x._columns)).length;
-        out2._values.forEach((row) => {
+        const out = df.copy();
+        const maxRowLength = set(out._columns.concat(x._columns)).length;
+        out._values.forEach((row) => {
           while (row.length < maxRowLength) {
             row.push(void 0);
           }
@@ -853,7 +973,7 @@
         x.apply((row) => {
           const rowCopy = row.copy();
           const temp = [];
-          out2._columns.forEach((col) => {
+          out._columns.forEach((col) => {
             const index = rowCopy._index.indexOf(col);
             if (index > -1) {
               temp.push(rowCopy._values[index]);
@@ -863,33 +983,33 @@
               temp.push(void 0);
             }
           });
-          out2._values.push(temp.concat(rowCopy._values));
+          out._values.push(temp.concat(rowCopy._values));
         }, 1);
-        out2._columns = out2._columns.concat(x._columns.filter((c) => out2._columns.indexOf(c) < 0));
-        while (out2._index.length < out2._values.length) {
-          const newRowName = "row" + out2._index.length;
-          out2._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
+        out._columns = out._columns.concat(x._columns.filter((c) => out._columns.indexOf(c) < 0));
+        while (out._index.length < out._values.length) {
+          const newRowName = "row" + out._index.length;
+          out._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
         }
-        return out2;
+        return out;
       } else {
-        const out2 = df.copy();
-        out2._index.forEach((rowName, i) => {
+        const out = df.copy();
+        out._index.forEach((rowName, i) => {
           const xIndex = x._index.indexOf(rowName);
           if (xIndex > -1) {
-            out2._values[i] = out2._values[i].concat(x._values[xIndex]);
+            out._values[i] = out._values[i].concat(x._values[xIndex]);
           } else {
-            out2._values[i] = out2._values[i].concat(ndarray(x.shape[1]));
+            out._values[i] = out._values[i].concat(ndarray(x.shape[1]));
           }
         });
         x._index.forEach((rowName, i) => {
-          const outIndex = out2._index.indexOf(rowName);
+          const outIndex = out._index.indexOf(rowName);
           if (outIndex < 0) {
-            out2._index.push(rowName);
-            out2._values.push(ndarray(out2._columns.length).concat(x._values[i]));
+            out._index.push(rowName);
+            out._values.push(ndarray(out._columns.length).concat(x._values[i]));
           }
         });
-        out2._columns = out2._columns.concat(x._columns.map((c) => c + (out2._columns.indexOf(c) > -1 ? " (2)" : "")));
-        return out2;
+        out._columns = out._columns.concat(x._columns.map((c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")));
+        return out;
       }
     } else {
       throw new MathError("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!");
@@ -919,13 +1039,13 @@
         }
       });
       if (shouldReturnADataFrame) {
-        const out2 = new DataFrame2(temp);
-        out2.index = df.index;
-        return out2;
+        const out = new DataFrame2(temp);
+        out.index = df.index;
+        return out;
       } else {
-        const out2 = new Series2(df.columns.map((colName) => temp[colName]));
-        out2.index = df.columns;
-        return out2;
+        const out = new Series2(df.columns.map((colName) => temp[colName]));
+        out.index = df.columns;
+        return out;
       }
     } else if (axis === 1) {
       let shouldReturnADataFrame;
@@ -944,14 +1064,14 @@
         }
       });
       if (shouldReturnADataFrame) {
-        const out2 = new DataFrame2(temp);
-        out2.index = df.index;
-        out2.columns = df.columns;
-        return out2;
+        const out = new DataFrame2(temp);
+        out.index = df.index;
+        out.columns = df.columns;
+        return out;
       } else {
-        const out2 = new Series2(temp);
-        out2.index = df.index;
-        return out2;
+        const out = new Series2(temp);
+        out.index = df.index;
+        return out;
       }
     }
   }
@@ -968,9 +1088,9 @@
     if (!isUndefined(p2)) {
       assert(isString(p1), "If passing two arguments into the `assign` method, then the first argument must be a string name!");
       assert(isArray(p2) && !isJagged(p2) && shape(p2).length === 1, "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");
-      const out2 = df.append(p2, 1);
-      out2.columns[out2.columns.length - 1] = p1;
-      return out2;
+      const out = df.append(p2, 1);
+      out.columns[out.columns.length - 1] = p1;
+      return out;
     } else {
       if (isDataFrame2(p1)) {
         return df.append(p1, 1);
@@ -994,10 +1114,10 @@
   function dfCopy(DataFrame2, df) {
     if (df.isEmpty)
       return new DataFrame2();
-    const out2 = new DataFrame2(copy(df.values));
-    out2.columns = df.columns.slice();
-    out2.index = df.index.slice();
-    return out2;
+    const out = new DataFrame2(copy(df.values));
+    out.columns = df.columns.slice();
+    out.index = df.index.slice();
+    return out;
   }
 
   // src/dataframe/df-drop.mjs
@@ -1029,15 +1149,15 @@
         outColumns.push(col);
       }
     });
-    let out2 = df.get(outIndex, outColumns);
-    if (out2 instanceof Series2) {
+    let out = df.get(outIndex, outColumns);
+    if (out instanceof Series2) {
       let temp = new DataFrame2();
-      temp = temp.assign(out2);
-      if (df.index.indexOf(out2.name) > -1)
+      temp = temp.assign(out);
+      if (df.index.indexOf(out.name) > -1)
         temp = temp.transpose();
-      out2 = temp;
+      out = temp;
     }
-    return out2;
+    return out;
   }
 
   // src/helpers/is-integer.mjs
@@ -1084,27 +1204,27 @@
       }
       return values;
     }
-    let out2 = df.copy();
+    let out = df.copy();
     const tempID = Math.random().toString();
     if (axis === 0) {
-      out2 = out2.assign(tempID, out2.index);
-      const newValues = out2.values.map(helper5).filter((row) => row.length > 0);
+      out = out.assign(tempID, out.index);
+      const newValues = out.values.map(helper5).filter((row) => row.length > 0);
       if (shape(newValues).length < 2)
         return new DataFrame2();
-      out2.values = newValues;
-      let newIndex = out2.get(null, tempID);
+      out.values = newValues;
+      let newIndex = out.get(null, tempID);
       if (isUndefined(newIndex))
         return new DataFrame2();
       if (isString(newIndex))
         newIndex = [newIndex];
       if (newIndex instanceof Series2)
         newIndex = newIndex.values;
-      out2.index = newIndex;
-      out2 = out2.drop(null, tempID);
+      out.index = newIndex;
+      out = out.drop(null, tempID);
     } else if (axis === 1) {
       const temp = {};
-      out2.columns.forEach((colName, i) => {
-        const values = out2.values.map((row) => row[i]);
+      out.columns.forEach((colName, i) => {
+        const values = out.values.map((row) => row[i]);
         const newValues = helper5(values);
         if (newValues.length > 0) {
           temp[colName] = newValues;
@@ -1114,10 +1234,10 @@
         return new DataFrame2();
       }
       const newOut = new DataFrame2(temp);
-      newOut.index = out2.index;
+      newOut.index = out.index;
       return newOut;
     }
-    return out2;
+    return out;
   }
 
   // src/drop-nan.mjs
@@ -1126,17 +1246,17 @@
       return x.dropNaN(...Object.values(arguments).slice(1));
     }
     assert(isArray(x), "The `dropNaN` function only works on arrays, Series, and DataFrames!");
-    const out2 = [];
+    const out = [];
     x.forEach((v) => {
       try {
-        return out2.push(dropNaN(v));
+        return out.push(dropNaN(v));
       } catch (e) {
         if (isNumber(v)) {
-          return out2.push(v);
+          return out.push(v);
         }
       }
     });
-    return out2;
+    return out;
   }
 
   // src/dataframe/df-drop-nan.mjs
@@ -1157,36 +1277,36 @@
         return numericalValues.length > 0;
       return true;
     }
-    const out2 = df.copy();
+    const out = df.copy();
     if (axis === 0) {
-      const rowsToKeep = out2.index.filter((row) => {
-        const values = out2.get(row, null).values;
+      const rowsToKeep = out.index.filter((row) => {
+        const values = out.get(row, null).values;
         return helper5(values);
       });
       if (rowsToKeep.length > 0)
-        return out2.get(rowsToKeep, null);
+        return out.get(rowsToKeep, null);
       else
         return new DataFrame2();
     } else if (axis === 1) {
-      const colsToKeep = out2.columns.filter((col) => {
-        const values = out2.get(null, col).values;
+      const colsToKeep = out.columns.filter((col) => {
+        const values = out.get(null, col).values;
         return helper5(values);
       });
       if (colsToKeep.length > 0)
-        return out2.get(null, colsToKeep);
+        return out.get(null, colsToKeep);
       else
         return new DataFrame2();
     }
-    return out2;
+    return out;
   }
 
   // src/dataframe/df-filter.mjs
   function arrayToObject(x) {
-    const out2 = {};
+    const out = {};
     flatten(x).forEach((value, i) => {
-      out2[value] = i;
+      out[value] = i;
     });
-    return out2;
+    return out;
   }
   function undoArrayToObject(obj) {
     return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)).sort((a, b) => obj[a] - obj[b]);
@@ -1196,14 +1316,14 @@
     if (isUndefined(axis))
       axis = 0;
     assert(axis === 0 || axis === 1, "The `axis` parameter to the `filter` method must be 0 or 1.");
-    let out2 = df.copy();
-    if (out2.isEmpty)
-      return out2;
-    const index = arrayToObject(out2.index);
-    const columns = arrayToObject(out2.columns);
+    let out = df.copy();
+    if (out.isEmpty)
+      return out;
+    const index = arrayToObject(out.index);
+    const columns = arrayToObject(out.columns);
     if (axis === 0) {
       let count2 = 0;
-      const newValues = out2.values.filter((row, i) => {
+      const newValues = out.values.filter((row, i) => {
         const series = new Series2(row);
         series.name = df.index[i];
         series.index = df.columns;
@@ -1211,7 +1331,7 @@
         if (shouldKeep) {
           count2++;
         } else {
-          delete index[out2.index[i]];
+          delete index[out.index[i]];
         }
         return shouldKeep;
       });
@@ -1224,12 +1344,12 @@
         temp.index = undoArrayToObject(columns);
         return temp;
       }
-      out2.values = newValues;
-      out2.index = undoArrayToObject(index);
+      out.values = newValues;
+      out.index = undoArrayToObject(index);
     } else if (axis === 1) {
-      out2 = out2.transpose();
+      out = out.transpose();
       let count2 = 0;
-      const newValues = out2.values.filter((row, i) => {
+      const newValues = out.values.filter((row, i) => {
         const series = new Series2(row);
         series.name = df.columns[i];
         series.index = df.index;
@@ -1237,7 +1357,7 @@
         if (shouldKeep) {
           count2++;
         } else {
-          delete columns[out2.index[i]];
+          delete columns[out.index[i]];
         }
         return shouldKeep;
       });
@@ -1250,11 +1370,11 @@
         temp.index = undoArrayToObject(index);
         return temp;
       }
-      out2.values = newValues;
-      out2.index = undoArrayToObject(columns);
-      out2 = out2.transpose();
+      out.values = newValues;
+      out.index = undoArrayToObject(columns);
+      out = out.transpose();
     }
-    return out2;
+    return out;
   }
 
   // src/dataframe/df-get.mjs
@@ -1339,24 +1459,24 @@
     }
     assert(isArray(arr), "The `sort` function only works on arrays, Series, and DataFrames!");
     assert(isFunction(fn), "The second parameter of the `sort` function must be a comparison function!");
-    const out2 = arr.slice();
-    out2.sort(fn);
-    return out2;
+    const out = arr.slice();
+    out.sort(fn);
+    return out;
   }
 
   // src/dataframe/df-get-dummies.mjs
   function camelify(text) {
     const temp = text.toLowerCase();
-    let out2 = "";
+    let out = "";
     for (let i = 0; i < temp.length; i++) {
       const char = temp[i];
       if (char.match(/[a-z0-9]/g)) {
-        out2 += char;
+        out += char;
       } else {
-        out2 += " ";
+        out += " ";
       }
     }
-    const words = out2.split(" ").filter((word) => word.length > 0);
+    const words = out.split(" ").filter((word) => word.length > 0);
     return words[0] + words.slice(1).map((word) => word[0].toUpperCase() + word.substring(1)).join("");
   }
   function dfGetDummies(DataFrame2, df, columns) {
@@ -1386,9 +1506,9 @@
         });
       });
     });
-    const out2 = new DataFrame2(temp);
-    out2.index = df.index;
-    return out2;
+    const out = new DataFrame2(temp);
+    out.index = df.index;
+    return out;
   }
 
   // src/dataframe/df-get-subset-by-indices.mjs
@@ -1450,21 +1570,21 @@
       return values[0][0];
     }
     if (rows.length === 1) {
-      const out3 = new Series2(values[0]);
-      out3.name = rows[0];
-      out3.index = cols;
-      return out3;
+      const out2 = new Series2(values[0]);
+      out2.name = rows[0];
+      out2.index = cols;
+      return out2;
     }
     if (cols.length === 1) {
-      const out3 = new Series2(values.map((v) => v[0]));
-      out3.name = cols[0];
-      out3.index = rows;
-      return out3;
+      const out2 = new Series2(values.map((v) => v[0]));
+      out2.name = cols[0];
+      out2.index = rows;
+      return out2;
     }
-    const out2 = new DataFrame2(values);
-    out2.columns = cols;
-    out2.index = rows;
-    return out2;
+    const out = new DataFrame2(values);
+    out.columns = cols;
+    out.index = rows;
+    return out;
   }
 
   // src/dataframe/df-print.mjs
@@ -1534,19 +1654,19 @@
   // src/helpers/left-pad.mjs
   function leftPad(x, maxLength) {
     assert(isNumber(x), "The `leftPad` function only works on numbers!");
-    let out2 = x.toString();
-    while (out2.length < maxLength)
-      out2 = "0" + out2;
-    return out2;
+    let out = x.toString();
+    while (out.length < maxLength)
+      out = "0" + out;
+    return out;
   }
 
   // src/dataframe/df-reset-index.mjs
   function dfResetIndex(df, shouldSkipCopying) {
-    const out2 = shouldSkipCopying ? df : df.copy();
-    out2.index = range(0, df.shape[0]).map((i) => {
-      return "row" + leftPad(i, (out2.index.length - 1).toString().length);
+    const out = shouldSkipCopying ? df : df.copy();
+    out.index = range(0, df.shape[0]).map((i) => {
+      return "row" + leftPad(i, (out.index.length - 1).toString().length);
     });
-    return out2;
+    return out;
   }
 
   // src/product.mjs
@@ -1560,7 +1680,7 @@
         return NaN;
       const temp = flatten(arr);
       let resultShouldBeABigInt = false;
-      let out2 = 1;
+      let out = 1;
       for (let v of temp) {
         if (!isNumber(v)) {
           if (shouldDropNaNs) {
@@ -1573,15 +1693,15 @@
           resultShouldBeABigInt = true;
           v = Number(v);
         }
-        out2 *= v;
+        out *= v;
       }
       if (resultShouldBeABigInt) {
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
         }
       }
-      return out2;
+      return out;
     } catch (e) {
       return NaN;
     }
@@ -1617,13 +1737,13 @@
       return temp;
     }
     assert(product(newShape) === temp.length, "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");
-    const out2 = [];
+    const out = [];
     const step = Math.floor(temp.length / newShape[0]);
     for (let i = 0; i < newShape[0]; i++) {
       const row = temp.slice(i * step, (i + 1) * step);
-      out2.push(reshape(row, newShape.slice(1)));
+      out.push(reshape(row, newShape.slice(1)));
     }
-    return out2;
+    return out;
   }
 
   // src/random.mjs
@@ -1639,10 +1759,10 @@
       z = (z ^ z >> BigInt(27)) * uint("0x94d049bb133111eb");
       return z ^ z >> BigInt(31);
     }
-    const out2 = [];
+    const out = [];
     for (let i = 0; i < n; i++)
-      out2.push(helper5());
-    return out2;
+      out.push(helper5());
+    return out;
   }
   function uint(x) {
     return BigInt.asUintN(64, BigInt(x));
@@ -1692,13 +1812,13 @@
       return arr.shuffle(...Object.values(arguments).slice(1));
     }
     assert(isArray(arr), "The `shuffle` function only works on arrays, Series, and DataFrames!");
-    const out2 = [];
+    const out = [];
     const temp = arr.slice();
     for (let i = 0; i < arr.length; i++) {
       const index = Math.floor(random() * temp.length);
-      out2.push(temp.splice(index, 1)[0]);
+      out.push(temp.splice(index, 1)[0]);
     }
-    return out2;
+    return out;
   }
 
   // src/dataframe/df-shuffle.mjs
@@ -1739,9 +1859,9 @@
     }
   }
   function dfSortByColumns(df, cols, directions) {
-    let out2 = df.copy();
+    let out = df.copy();
     const indexID = random().toString();
-    out2 = out2.assign(indexID, out2.index);
+    out = out.assign(indexID, out.index);
     if (isUndefined(cols)) {
       cols = [indexID];
       directions = [true];
@@ -1761,13 +1881,13 @@
     cols = cols.map((col) => {
       assert(isString(col) || isNumber(col), "Column references can either be column names (as strings) or column indices (as whole numbers).");
       if (isString(col)) {
-        const index = out2.columns.indexOf(col);
+        const index = out.columns.indexOf(col);
         assert(index > -1, `The column "${col}" does not exist!`);
         return index;
       }
       if (isNumber(col)) {
         assert(isWholeNumber(col), "Column indices must be whole numbers!");
-        assert(col < out2.columns.length, `The index ${col} is out of bounds!`);
+        assert(col < out.columns.length, `The index ${col} is out of bounds!`);
         return col;
       }
     });
@@ -1782,7 +1902,7 @@
         return dir;
       }
     });
-    out2.values = sort(out2.values, (a, b) => {
+    out.values = sort(out.values, (a, b) => {
       let counter = 0;
       while (a[cols[counter]] === b[cols[counter]] && counter < cols.length) {
         counter++;
@@ -1795,10 +1915,10 @@
       if (a[cols[counter]] > b[cols[counter]])
         return isAscending ? 1 : -1;
     });
-    const indexNumber = out2.columns.indexOf(indexID);
-    out2.index = out2.values.map((row) => row[indexNumber]);
-    out2 = out2.dropColumns(indexID);
-    return out2;
+    const indexNumber = out.columns.indexOf(indexID);
+    out.index = out.values.map((row) => row[indexNumber]);
+    out = out.dropColumns(indexID);
+    return out;
   }
 
   // src/dataframe/df-to-detailed-object.mjs
@@ -1808,14 +1928,14 @@
     } else {
       assert(axis === 0 || axis === 1, "The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");
     }
-    const out2 = {};
+    const out = {};
     if (axis === 0) {
       df.index.forEach((rowName, i) => {
         const temp = {};
         df.columns.forEach((colName, j) => {
           temp[colName] = df.values[i][j];
         });
-        out2[rowName] = temp;
+        out[rowName] = temp;
       });
     } else {
       df.columns.forEach((colName, j) => {
@@ -1823,10 +1943,10 @@
         df.index.forEach((rowName, i) => {
           temp[rowName] = df.values[i][j];
         });
-        out2[colName] = temp;
+        out[colName] = temp;
       });
     }
-    return out2;
+    return out;
   }
 
   // src/dataframe/df-to-json-string.mjs
@@ -1841,11 +1961,11 @@
 
   // src/dataframe/df-to-object.mjs
   function dfToObject(df) {
-    const out2 = {};
+    const out = {};
     df.columns.forEach((col) => {
-      out2[col] = df.get(col).values;
+      out[col] = df.get(col).values;
     });
-    return out2;
+    return out;
   }
 
   // src/transpose.mjs
@@ -1859,13 +1979,13 @@
     if (theShape.length === 1) {
       return reverse(arr);
     } else if (theShape.length === 2) {
-      const out2 = ndarray(reverse(theShape));
+      const out = ndarray(reverse(theShape));
       for (let row = 0; row < theShape[0]; row++) {
         for (let col = 0; col < theShape[1]; col++) {
-          out2[col][row] = arr[row][col];
+          out[col][row] = arr[row][col];
         }
       }
-      return out2;
+      return out;
     }
   }
 
@@ -1877,12 +1997,12 @@
     if (isArray(x)) {
       const xShape = shape(x);
       assert(xShape.length === 1 && !isNested(xShape), "Only vectors can be appended to Series!");
-      const out2 = series.copy();
+      const out = series.copy();
       x.forEach((v, i) => {
-        out2._values.push(v);
-        out2._index.push("item" + (series.values.length + i));
+        out._values.push(v);
+        out._index.push("item" + (series.values.length + i));
       });
-      return out2;
+      return out;
     }
     return seriesAppend(series, [x]);
   }
@@ -1890,25 +2010,25 @@
   // src/series/series-apply.mjs
   function seriesApply(series, fn) {
     assert(isFunction(fn), "The parameter to the `apply` method must be a function.");
-    const out2 = series.copy();
-    out2._values = out2._values.map((v, i) => fn(v, i));
-    return out2;
+    const out = series.copy();
+    out._values = out._values.map((v, i) => fn(v, i));
+    return out;
   }
 
   // src/series/series-drop-missing.mjs
   function seriesDropMissing(series) {
-    const out2 = series.copy();
+    const out = series.copy();
     const outIndex = [];
-    out2._values = out2.values.filter((v, i) => {
+    out._values = out.values.filter((v, i) => {
       if (isUndefined(v)) {
         return false;
       } else {
-        outIndex.push(out2.index[i]);
+        outIndex.push(out.index[i]);
         return true;
       }
     });
-    out2._index = outIndex;
-    return out2;
+    out._index = outIndex;
+    return out;
   }
 
   // src/series/series-drop-nan.mjs
@@ -1921,34 +2041,34 @@
         index.push(series.index[i]);
       }
     });
-    const out2 = new Series2(values);
-    out2.name = series.name;
-    out2.index = index;
-    return out2;
+    const out = new Series2(values);
+    out.name = series.name;
+    out.index = index;
+    return out;
   }
 
   // src/series/series-filter.mjs
   function seriesFilter(Series2, series, fn) {
-    let out2 = series.copy();
-    const index = copy(out2.index);
+    let out = series.copy();
+    const index = copy(out.index);
     const indicesToRemove = [];
-    const newValues = out2.values.filter((value, i) => {
-      const shouldKeep = fn(value, i, out2.values);
+    const newValues = out.values.filter((value, i) => {
+      const shouldKeep = fn(value, i, out.values);
       if (!shouldKeep)
-        indicesToRemove.push(out2.index[i]);
+        indicesToRemove.push(out.index[i]);
       return shouldKeep;
     });
     indicesToRemove.forEach((i) => {
       index.splice(index.indexOf(i), 1);
     });
     if (newValues.length === 0) {
-      out2 = new Series2();
-      out2.name = series.name;
-      return out2;
+      out = new Series2();
+      out.name = series.name;
+      return out;
     }
-    out2.values = newValues;
-    out2.index = index;
-    return out2;
+    out.values = newValues;
+    out.index = index;
+    return out;
   }
 
   // src/series/series-get.mjs
@@ -2018,10 +2138,10 @@
     });
     if (values.length === 1)
       return values[0];
-    const out2 = new Series2(values);
-    out2.index = indices;
-    out2.name = series.name;
-    return out2;
+    const out = new Series2(values);
+    out.index = indices;
+    out.name = series.name;
+    return out;
   }
 
   // src/series/series-print.mjs
@@ -2036,21 +2156,21 @@
       temp.index.push("...");
       temp = temp.get(tempIndex);
     }
-    const out2 = {};
+    const out = {};
     temp.values.forEach((value, i) => {
       const obj = {};
       obj[temp.name] = value;
-      out2[temp.index[i]] = obj;
+      out[temp.index[i]] = obj;
     });
-    console.table(out2);
+    console.table(out);
     console.log("Shape:", series.shape, "\n");
     return series;
   }
 
   // src/series/series-shuffle.mjs
   function seriesShuffle(series) {
-    const out2 = series.copy();
-    return out2.get(shuffle(out2.index));
+    const out = series.copy();
+    return out.get(shuffle(out.index));
   }
 
   // src/series/series-sort.mjs
@@ -2067,11 +2187,11 @@
       newValues.push(pair[0]);
       newIndex.push(pair[1]);
     });
-    const out2 = new Series2();
-    out2._values = newValues;
-    out2._index = newIndex;
-    out2.name = series.name;
-    return out2;
+    const out = new Series2();
+    out._values = newValues;
+    out._index = newIndex;
+    out.name = series.name;
+    return out;
   }
 
   // src/series/series-sort-by-index.mjs
@@ -2085,20 +2205,20 @@
       if (a[1] > b[1])
         return 1;
     }));
-    const out2 = new Series2(temp[0]);
-    out2.index = temp[1];
-    out2.name = series.name;
-    return out2;
+    const out = new Series2(temp[0]);
+    out.index = temp[1];
+    out.name = series.name;
+    return out;
   }
 
   // src/series/series-to-object.mjs
   function seriesToObject(series) {
-    const out2 = {};
-    out2[series.name] = {};
+    const out = {};
+    out[series.name] = {};
     series.index.forEach((index, i) => {
-      out2[series.name][index] = series.values[i];
+      out[series.name][index] = series.values[i];
     });
-    return out2;
+    return out;
   }
 
   // src/series/index.mjs
@@ -2198,11 +2318,11 @@
         return this.values.filter((v) => !isUndefined(v)).length === 0;
       }
       clear() {
-        const out2 = this.copy();
-        out2.values.forEach((v, i) => {
-          out2.values[i] = void 0;
+        const out = this.copy();
+        out.values.forEach((v, i) => {
+          out.values[i] = void 0;
         });
-        return out2;
+        return out;
       }
       get(indices) {
         return seriesGet(this, indices);
@@ -2220,24 +2340,24 @@
         return this.getSubsetByIndices(indices);
       }
       reverse() {
-        const out2 = new Series2(reverse(this.values));
-        out2.index = reverse(this.index);
-        out2.name = this.name;
-        return out2;
+        const out = new Series2(reverse(this.values));
+        out.index = reverse(this.index);
+        out.name = this.name;
+        return out;
       }
       resetIndex() {
-        const out2 = this.copy();
-        out2.index = range(0, this.shape[0]).map((i) => {
-          return "item" + leftPad(i, (out2.index.length - 1).toString().length);
+        const out = this.copy();
+        out.index = range(0, this.shape[0]).map((i) => {
+          return "item" + leftPad(i, (out.index.length - 1).toString().length);
         });
-        return out2;
+        return out;
       }
       copy() {
-        const out2 = new Series2();
-        out2._values = copy(this.values);
-        out2._index = copy(this.index);
-        out2.name = this.name;
-        return out2;
+        const out = new Series2();
+        out._values = copy(this.values);
+        out._index = copy(this.index);
+        out.name = this.name;
+        return out;
       }
       append(x) {
         return seriesAppend(Series2, this, x);
@@ -2273,16 +2393,16 @@
         return seriesFilter(Series2, this, fn);
       }
       toDataFrame() {
-        const out2 = new DataFrame2(transpose([this.values]));
-        out2.columns = [this.name];
-        out2.index = this.index;
-        return out2;
+        const out = new DataFrame2(transpose([this.values]));
+        out.columns = [this.name];
+        out.index = this.index;
+        return out;
       }
       transpose() {
-        const out2 = this.copy();
-        out2.values = reverse(out2.values);
-        out2.index = reverse(out2.index);
-        return out2;
+        const out = this.copy();
+        out.values = reverse(out.values);
+        out.index = reverse(out.index);
+        return out;
       }
       getDummies() {
         return this.toDataFrame().getDummies();
@@ -2298,10 +2418,10 @@
   var DATAFRAME_SYMBOL = Symbol.for("@jrc03c/js-math-tools/dataframe");
   function makeKey3(n) {
     const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
-    let out2 = "";
+    let out = "";
     for (let i = 0; i < n; i++)
-      out2 += alpha[Math.floor(random() * alpha.length)];
-    return out2;
+      out += alpha[Math.floor(random() * alpha.length)];
+    return out;
   }
   var DataFrame = class {
     static [Symbol.hasInstance](x) {
@@ -2381,11 +2501,11 @@
           });
           const counts = (() => {
             const temp = count(x);
-            const out2 = {};
+            const out = {};
             temp.values.forEach((v) => {
-              out2[v] = temp.get(v);
+              out[v] = temp.get(v);
             });
-            return out2;
+            return out;
           })();
           x = x.map((v) => {
             if (counts[v] > 1) {
@@ -2423,11 +2543,11 @@
           });
           const counts = (() => {
             const temp = count(x);
-            const out2 = {};
+            const out = {};
             temp.values.forEach((v) => {
-              out2[v] = temp.get(v);
+              out[v] = temp.get(v);
             });
-            return out2;
+            return out;
           })();
           x = x.map((v) => {
             if (counts[v] > 1) {
@@ -2491,10 +2611,10 @@
       return this.values.length === 0 || this.values.every((row) => row.length === 0);
     }
     clear() {
-      const out2 = new DataFrame(ndarray(this.shape));
-      out2.columns = this.columns.slice();
-      out2.index = this.index.slice();
-      return out2;
+      const out = new DataFrame(ndarray(this.shape));
+      out.columns = this.columns.slice();
+      out.index = this.index.slice();
+      return out;
     }
     get(rows, cols) {
       if (arguments.length === 0) {
@@ -2522,10 +2642,10 @@
       return dfGetDummies(DataFrame, this, columns);
     }
     transpose() {
-      const out2 = new DataFrame(transpose(this.values));
-      out2.columns = this.index.slice();
-      out2.index = this.columns.slice();
-      return out2;
+      const out = new DataFrame(transpose(this.values));
+      out.columns = this.index.slice();
+      out.index = this.columns.slice();
+      return out;
     }
     get T() {
       return this.transpose();
@@ -2632,7 +2752,7 @@
       });
       if (childArrays.length > 0) {
         const maxLength = max(childArrays.map((a) => a.length ? a.length : a.values.length));
-        const out2 = range(0, maxLength).map((i) => {
+        const out = range(0, maxLength).map((i) => {
           const args = Object.keys(arguments).map((key) => {
             if (isArray(arguments[key])) {
               return arguments[key][i];
@@ -2648,33 +2768,33 @@
         });
         if (hasDataFrames) {
           try {
-            if (dataframes.length === 1 && isEqual(shape(dataframes[0]), shape(out2))) {
-              const temp = new DataFrame(out2);
+            if (dataframes.length === 1 && isEqual(shape(dataframes[0]), shape(out))) {
+              const temp = new DataFrame(out);
               temp.index = dataframes[0].index.slice();
               temp.columns = dataframes[0].columns.slice();
               return temp;
             } else {
-              return new DataFrame(out2);
+              return new DataFrame(out);
             }
           } catch (e) {
-            return out2;
+            return out;
           }
         }
         if (hasSeries) {
           try {
-            if (series.length === 1 && series[0].length === out2.length) {
-              const temp = new Series(out2);
+            if (series.length === 1 && series[0].length === out.length) {
+              const temp = new Series(out);
               temp.name = series[0].name;
               temp.index = series[0].index.slice();
               return temp;
             } else {
-              return new Series(out2);
+              return new Series(out);
             }
           } catch (e) {
-            return out2;
+            return out;
           }
         }
-        return out2;
+        return out;
       } else {
         return fn(...arguments);
       }
@@ -2700,7 +2820,7 @@
   // src/add.mjs
   function add() {
     try {
-      let out2 = 0;
+      let out = 0;
       let resultShouldBeABigInt = false;
       const x = Object.values(arguments);
       for (let v of x) {
@@ -2710,15 +2830,15 @@
           resultShouldBeABigInt = true;
           v = Number(v);
         }
-        out2 += v;
+        out += v;
       }
       if (resultShouldBeABigInt) {
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
         }
       }
-      return out2;
+      return out;
     } catch (e) {
       return NaN;
     }
@@ -2792,14 +2912,14 @@
     }
     assert(isArray(x), "The `argmax` function only works on arrays, Series, and DataFrames!");
     try {
-      const out2 = indexOf(x, max(x, shouldDropNaNs));
-      if (out2) {
-        if (out2.length === 0) {
+      const out = indexOf(x, max(x, shouldDropNaNs));
+      if (out) {
+        if (out.length === 0) {
           return void 0;
-        } else if (out2.length === 1) {
-          return out2[0];
+        } else if (out.length === 1) {
+          return out[0];
         } else {
-          return out2;
+          return out;
         }
       } else {
         return void 0;
@@ -2826,14 +2946,14 @@
     }
     assert(isArray(x), "The `argmin` function only works on arrays, Series, and DataFrames!");
     try {
-      const out2 = indexOf(x, min(x, shouldDropNaNs));
-      if (out2) {
-        if (out2.length === 0) {
+      const out = indexOf(x, min(x, shouldDropNaNs));
+      if (out) {
+        if (out.length === 0) {
           return void 0;
-        } else if (out2.length === 1) {
-          return out2[0];
+        } else if (out.length === 1) {
+          return out[0];
         } else {
-          return out2;
+          return out;
         }
       } else {
         return void 0;
@@ -2870,14 +2990,14 @@
           return dateValue.getTime();
         }
       }
-      const out2 = parseFloat(value);
-      if (isNaN(out2))
+      const out = parseFloat(value);
+      if (isNaN(out))
         return NaN;
-      return out2;
+      return out;
     }
     if (type === "int") {
-      const out2 = cast(value, "number");
-      return out2 >= 0 ? Math.floor(out2) : Math.ceil(out2);
+      const out = cast(value, "number");
+      return out >= 0 ? Math.floor(out) : Math.ceil(out);
     }
     if (type === "float") {
       return cast(value, "number");
@@ -2923,10 +3043,10 @@
       }
       const valueFloat = parseFloat(value);
       if (!isNaN(valueFloat)) {
-        const out2 = new Date(value);
-        if (!isDate(out2))
+        const out = new Date(value);
+        if (!isDate(out))
           return null;
-        return out2;
+        return out;
       }
       const valueDate = Date.parse(value);
       if (!isNaN(valueDate)) {
@@ -2955,11 +3075,11 @@
         return dateValue;
       }
       try {
-        const out2 = JSON.parse(value);
-        if (isArray(out2)) {
-          return out2.map((v) => cast(v, type));
+        const out = JSON.parse(value);
+        if (isArray(out)) {
+          return out.map((v) => cast(v, type));
         } else {
-          return out2;
+          return out;
         }
       } catch (e) {
         return null;
@@ -3026,17 +3146,17 @@
   // src/int.mjs
   function int(x) {
     if (isDataFrame(x) || isSeries(x)) {
-      const out2 = x.copy();
-      out2.values = int(out2.values);
-      return out2;
+      const out = x.copy();
+      out.values = int(out.values);
+      return out;
     }
     if (isArray(x)) {
       return x.map((v) => int(v));
     } else {
       try {
-        const out2 = JSON.parse(x);
-        if (isNumber(out2)) {
-          return typeof out2 === "bigint" ? Number(out2) : out2 >= 0 ? Math.floor(out2) : Math.ceil(out2);
+        const out = JSON.parse(x);
+        if (isNumber(out)) {
+          return typeof out === "bigint" ? Number(out) : out >= 0 ? Math.floor(out) : Math.ceil(out);
         }
         return NaN;
       } catch (e) {
@@ -3101,11 +3221,11 @@
     return helper5(flatten(x), r);
   }
   function combinations(x, r) {
-    const out2 = [];
+    const out = [];
     for (const combo of combinationsIterator(x, r)) {
-      out2.push(combo.slice());
+      out.push(combo.slice());
     }
-    return out2;
+    return out;
   }
 
   // src/intersect.mjs
@@ -3155,7 +3275,7 @@
     }
     transform() {
       assert(!!this.index, "The IndexMatcher hasn't been fitted yet! Please call the `fit` method before calling the `transform` method.");
-      const out2 = Object.values(arguments).map((x) => {
+      const out = Object.values(arguments).map((x) => {
         if (isArray(x)) {
           const xshape = shape(x);
           if (xshape.length === 1) {
@@ -3169,7 +3289,7 @@
         assert(isDataFrame(x) || isSeries(x), "The `IndexMatcher.fit` method only works on arrays, Series, and DataFrames!");
         return x.get(this.index, null);
       });
-      return out2.length === 1 ? out2[0] : out2;
+      return out.length === 1 ? out[0] : out;
     }
     fitAndTransform() {
       return this.fit(...arguments).transform(...arguments);
@@ -3201,7 +3321,7 @@
         return NaN;
       }
       const n = Math.max(x.length, y.length);
-      let out2 = 0;
+      let out = 0;
       for (let i = 0; i < n; i++) {
         let vx = x[i];
         let vy = y[i];
@@ -3215,12 +3335,12 @@
         if (typeof vy === "bigint") {
           vy = Number(vy);
         }
-        out2 += (vx - mx) * (vy - my);
+        out += (vx - mx) * (vy - my);
       }
       if (shouldAlsoReturnStatsObjects) {
-        return [out2 / x.length, xstats, ystats];
+        return [out / x.length, xstats, ystats];
       } else {
-        return out2 / x.length;
+        return out / x.length;
       }
     } catch (e) {
       return NaN;
@@ -3283,13 +3403,13 @@
     assert(isArray(a) && isArray(b), "The `diff` function only works on arrays, Series, and DataFrames!");
     const aTemp = set(a);
     const bTemp = set(b);
-    const out2 = [];
+    const out = [];
     aTemp.forEach((item) => {
       if (bTemp.findIndex((other) => isEqual(other, item)) < 0) {
-        out2.push(item);
+        out.push(item);
       }
     });
-    return out2;
+    return out;
   }
 
   // src/pow.mjs
@@ -3300,11 +3420,11 @@
       if (!isNumber(p))
         return NaN;
       if (typeof x === "bigint" || typeof p === "bigint") {
-        const out2 = pow(Number(x), Number(p));
+        const out = pow(Number(x), Number(p));
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
-          return out2;
+          return out;
         }
       }
       return Math.pow(x, p);
@@ -3320,11 +3440,11 @@
       if (!isNumber(x))
         return NaN;
       if (typeof x === "bigint") {
-        const out2 = sqrt(Number(x));
+        const out = sqrt(Number(x));
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
-          return out2;
+          return out;
         }
       }
       return Math.sqrt(x);
@@ -3341,7 +3461,7 @@
       if (x.length === 0)
         return NaN;
       let resultShouldBeABigInt = false;
-      let out2 = 1;
+      let out = 1;
       for (let v of x) {
         if (!isNumber(v))
           return NaN;
@@ -3349,15 +3469,15 @@
           resultShouldBeABigInt = true;
           v = Number(v);
         }
-        out2 *= v;
+        out *= v;
       }
       if (resultShouldBeABigInt) {
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
         }
       }
-      return out2;
+      return out;
     } catch (e) {
       return NaN;
     }
@@ -3410,30 +3530,30 @@
     if (isDataFrame(a)) {
       const temp = dot(a.values, b);
       if (shape(temp).length === 1) {
-        const out2 = new Series(temp);
-        out2.name = isSeries(b) ? b.name : out2.name;
-        out2.index = a.index.slice();
-        return out2;
+        const out = new Series(temp);
+        out.name = isSeries(b) ? b.name : out.name;
+        out.index = a.index.slice();
+        return out;
       } else {
-        const out2 = new DataFrame(temp);
-        out2.index = a.index.slice();
+        const out = new DataFrame(temp);
+        out.index = a.index.slice();
         if (isDataFrame(b)) {
-          out2.columns = b.columns.slice();
+          out.columns = b.columns.slice();
         }
-        return out2;
+        return out;
       }
     }
     if (isDataFrame(b)) {
       const temp = dot(a, b.values);
       if (shape(temp).length === 1) {
-        const out2 = new Series(temp);
-        out2.name = isSeries(a) ? a.name : out2.name;
-        out2.index = b.columns.slice();
-        return out2;
+        const out = new Series(temp);
+        out.name = isSeries(a) ? a.name : out.name;
+        out.index = b.columns.slice();
+        return out;
       } else {
-        const out2 = new DataFrame(temp);
-        out2.columns = b.columns.slice();
-        return out2;
+        const out = new DataFrame(temp);
+        out.columns = b.columns.slice();
+        return out;
       }
     }
     if (isSeries(a)) {
@@ -3455,15 +3575,15 @@
       return a.map((row) => dot(row, b));
     } else if (aShape.length === 2 && bShape.length === 2) {
       const bTranspose = transpose(b);
-      const out2 = [];
+      const out = [];
       for (let i = 0; i < a.length; i++) {
         const row = [];
         for (let j = 0; j < bTranspose.length; j++) {
           row.push(dot(a[i], bTranspose[j]));
         }
-        out2.push(row);
+        out.push(row);
       }
-      return out2;
+      return out;
     }
   }
 
@@ -3473,17 +3593,17 @@
       return x.dropMissing(...Object.values(arguments).slice(1));
     }
     assert(isArray(x), "The `dropMissing` function only works on arrays, Series, and DataFrames!");
-    const out2 = [];
+    const out = [];
     x.forEach((v) => {
       try {
-        return out2.push(dropMissing(v));
+        return out.push(dropMissing(v));
       } catch (e) {
         if (!isUndefined(v)) {
-          out2.push(v);
+          out.push(v);
         }
       }
     });
-    return out2;
+    return out;
   }
 
   // src/drop-missing-pairwise.mjs
@@ -3684,37 +3804,37 @@
       if (isObject(x2)) {
         checked.push(x2);
         const keys = Object.keys(x2).concat(Object.getOwnPropertySymbols(x2));
-        const out2 = [];
+        const out = [];
         for (let i = 0; i < keys.length; i++) {
           const key = keys[i];
           const value = x2[key];
           let alreadyStoredThisValue = false;
           if (fn2(value)) {
-            out2.push(value);
+            out.push(value);
             alreadyStoredThisValue = true;
           }
           const results2 = helper5(value, fn2, checked);
           if (results2 && results2.length > 0) {
-            results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out2.push(r));
+            results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out.push(r));
           }
         }
-        return out2;
+        return out;
       } else if (isArray(x2)) {
         checked.push(x2);
-        const out2 = [];
+        const out = [];
         for (let i = 0; i < x2.length; i++) {
           const value = x2[i];
           let alreadyStoredThisValue = false;
           if (fn2(value)) {
-            out2.push(value);
+            out.push(value);
             alreadyStoredThisValue = true;
           }
           const results2 = helper5(value, fn2, checked);
           if (results2 && results2.length > 0) {
-            results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out2.push(r));
+            results2.slice(alreadyStoredThisValue ? 1 : 0).forEach((r) => out.push(r));
           }
         }
-        return out2;
+        return out;
       } else {
         if (fn2(x2)) {
           return [x2];
@@ -3746,9 +3866,9 @@
       if (x === "-Infinity") {
         return -Infinity;
       }
-      const out2 = JSON.parse(x);
-      if (isNumber(out2))
-        return out2;
+      const out = JSON.parse(x);
+      if (isNumber(out))
+        return out;
       return NaN;
     } catch (e) {
       return NaN;
@@ -3775,11 +3895,11 @@
   function zeros(shape2) {
     if (isNumber(shape2))
       shape2 = [shape2];
-    const out2 = [];
+    const out = [];
     const n = product(shape2);
     for (let i = 0; i < n; i++)
-      out2.push(0);
-    return reshape(out2, shape2);
+      out.push(0);
+    return reshape(out, shape2);
   }
 
   // src/identity.mjs
@@ -3791,10 +3911,10 @@
     assert(isNumber(size), "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
     assert(vint(size) === size, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
     assert(size > 0, "You must pass an integer greater than 0 (representing the size) into the `identity` function!");
-    const out2 = zeros([size, size]);
+    const out = zeros([size, size]);
     for (let i = 0; i < size; i++)
-      out2[i][i] = 1;
-    return out2;
+      out[i][i] = 1;
+    return out;
   }
 
   // src/helpers/boolean-values.mjs
@@ -3816,22 +3936,22 @@
   }
   function inferType(arr) {
     if (isDataFrame(arr)) {
-      const out2 = arr.copy();
+      const out = arr.copy();
       const results = inferType(arr.values);
-      out2.values = results.values;
-      return checkIfInteger({ type: results.type, values: out2 });
+      out.values = results.values;
+      return checkIfInteger({ type: results.type, values: out });
     }
     if (isSeries(arr)) {
-      const out2 = arr.copy();
+      const out = arr.copy();
       const results = inferType(arr.values);
-      out2.values = results.values;
-      return checkIfInteger({ type: results.type, values: out2 });
+      out.values = results.values;
+      return checkIfInteger({ type: results.type, values: out });
     }
     if (!isArray(arr)) {
-      const out2 = inferType([arr]);
-      out2.value = out2.values[0];
-      delete out2.values;
-      return checkIfInteger(out2);
+      const out = inferType([arr]);
+      out.value = out.values[0];
+      delete out.values;
+      return checkIfInteger(out);
     }
     assert(isArray(arr), "The `inferType` function only works on arrays, Series, and DataFrames!");
     const types = flatten(arr).map((v) => {
@@ -3895,9 +4015,9 @@
   // src/inverse.mjs
   function inverse(x) {
     if (isDataFrame(x)) {
-      const out2 = x.copy();
-      out2.values = inverse(out2.values);
-      return out2;
+      const out = x.copy();
+      out.values = inverse(out.values);
+      return out;
     }
     assert(isArray(x), "The `inverse` function only works on square 2-dimensional arrays or DataFrames!");
     const xShape = shape(x);
@@ -3927,11 +4047,11 @@
         d = Number(d);
       const det = a * d - b * c;
       assert(det !== 0, "This matrix cannot be inverted!");
-      const out2 = [
+      const out = [
         [d, -b],
         [-c, a]
       ];
-      return scale(out2, 1 / det);
+      return scale(out, 1 / det);
     } else if (xShape[0] > 1) {
       const times = (a, b) => isNumber(a) || isNumber(b) ? scale(a, b) : dot(a, b);
       for (let divider = 1; divider < xShape[0] - 1; divider++) {
@@ -3946,8 +4066,8 @@
           const topRight = times(-1, times(times(AInv, B), CompInv));
           const bottomLeft = times(-1, times(times(CompInv, C), AInv));
           const bottomRight = CompInv;
-          const out2 = topLeft.map((row, i) => row.concat(topRight[i])).concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])));
-          return out2;
+          const out = topLeft.map((row, i) => row.concat(topRight[i])).concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])));
+          return out;
         } catch (e) {
         }
       }
@@ -3965,11 +4085,11 @@
       if (!isNumber(f))
         return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
-        const out2 = lerp(Number(a), Number(b), f);
+        const out = lerp(Number(a), Number(b), f);
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
-          return out2;
+          return out;
         }
       }
       return f * (b - a) + a;
@@ -3988,11 +4108,11 @@
       if (!isNumber(base))
         return NaN;
       if (typeof x === "bigint" || typeof base === "bigint") {
-        const out2 = log(Number(x), Number(base));
+        const out = log(Number(x), Number(base));
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
-          return out2;
+          return out;
         }
       }
       return Math.log(x) / Math.log(base);
@@ -4020,11 +4140,11 @@
       if (!isNumber(b))
         return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
-        const out2 = mod(Number(a), Number(b));
+        const out = mod(Number(a), Number(b));
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
-          return out2;
+          return out;
         }
       }
       return a % b;
@@ -4102,11 +4222,11 @@
     return helper5(flatten(x), r);
   }
   function permutations(x, r) {
-    const out2 = [];
+    const out = [];
     for (const perm of permutationsIterator(x, r)) {
-      out2.push(perm.slice());
+      out.push(perm.slice());
     }
-    return out2;
+    return out;
   }
 
   // src/print.mjs
@@ -4157,14 +4277,14 @@
       const den = b - a;
       if (den === 0)
         return NaN;
-      const out2 = num / den + c;
+      const out = num / den + c;
       if (resultShouldBeABigInt) {
         try {
-          return BigInt(out2);
+          return BigInt(out);
         } catch (e) {
         }
       }
-      return out2;
+      return out;
     } catch (e) {
       return NaN;
     }
@@ -4315,7 +4435,7 @@
 
   // src/zip.mjs
   function zip() {
-    const out2 = [];
+    const out = [];
     const arrays = Object.values(arguments).map((arr) => {
       if (isDataFrame(arr) || isSeries(arr)) {
         arr = arr.values;
@@ -4329,144 +4449,13 @@
         const value = arr[i];
         row.push(isUndefined(value) ? void 0 : value);
       });
-      out2.push(row);
+      out.push(row);
     });
-    return out2;
+    return out;
   }
 
-  // src/index.mjs
-  var out = {
-    abs: vabs,
-    add: vadd,
-    apply: vapply,
-    arccos: varccos,
-    arcsin: varcsin,
-    arctan: varctan,
-    argmax,
-    argmin,
-    assert,
-    cast,
-    ceil: vceil,
-    chop: vchop,
-    clamp: vclamp,
-    combinations,
-    combinationsIterator,
-    copy,
-    correl,
-    cos: vcos,
-    count,
-    covariance,
-    DataFrame,
-    dataTypes,
-    decycle,
-    diff,
-    distance,
-    divide,
-    dot,
-    dropMissing,
-    dropMissingPairwise,
-    dropNaN,
-    dropNaNPairwise,
-    dropUndefined,
-    every,
-    exp: vexp,
-    factorial: vfactorial,
-    find,
-    findAll,
-    flatten,
-    float: vfloat,
-    floor: vfloor,
-    identity,
-    IndexMatcher,
-    indexOf,
-    inferType,
-    int: vint,
-    intersect,
-    inverse,
-    isArray,
-    isBoolean,
-    isBrowser,
-    isDataFrame,
-    isDate,
-    isEqual,
-    isFunction,
-    isJagged,
-    isNested,
-    isNumber,
-    isObject,
-    isSeries,
-    isString,
-    isUndefined,
-    lerp: vlerp,
-    log: vlog,
-    MathError,
-    max,
-    mean,
-    median,
-    min,
-    mod: vmod,
-    mode,
-    multiply: vmultiply,
-    ndarray,
-    normal,
-    ones,
-    permutations,
-    permutationsIterator,
-    pow: vpow,
-    print,
-    product,
-    random,
-    range,
-    remap,
-    reshape,
-    reverse,
-    round: vround,
-    scale,
-    seed,
-    Series,
-    set,
-    shape,
-    shuffle,
-    sign: vsign,
-    sin: vsin,
-    some,
-    sort,
-    sqrt: vsqrt,
-    stats,
-    std,
-    stdev,
-    subtract,
-    sum,
-    tan: vtan,
-    timeAsync,
-    timeSync,
-    time: timeSync,
-    transpose,
-    union,
-    variance,
-    vectorize,
-    zeros,
-    zip,
-    dump() {
-      const context = typeof globalThis !== "undefined" ? globalThis : typeof global !== "undefined" ? global : typeof window !== "undefined" ? window : typeof self !== "undefined" ? self : void 0;
-      if (!context) {
-        throw new out.MathError("Cannot dump functions into global scope because none of `globalThis`, `global`, `window`, or `self` exist in the current context!");
-      }
-      Object.keys(out).forEach((key) => {
-        try {
-          Object.defineProperty(context, key, {
-            configurable: false,
-            enumerable: true,
-            writable: false,
-            value: out[key]
-          });
-        } catch (e) {
-          context[key] = out[key];
-        }
-      });
-    }
-  };
-  if (typeof window !== "undefined") {
-    window.JSMathTools = out;
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.JSMathTools = src_exports;
   }
 })();

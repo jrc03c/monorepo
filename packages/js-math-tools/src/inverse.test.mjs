@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { distance } from "./distance.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { inverse } from "./inverse.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"

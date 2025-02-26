@@ -1,5 +1,6 @@
 import { abs } from "./abs.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 

@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropMissingPairwise } from "./drop-missing-pairwise.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { isJagged } from "./is-jagged.mjs"
 import { normal } from "./normal.mjs"

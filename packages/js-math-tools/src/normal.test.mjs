@@ -1,5 +1,6 @@
 import { abs } from "./abs.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { mean } from "./mean.mjs"
 import { normal } from "./normal.mjs"
 import { seed } from "./random.mjs"

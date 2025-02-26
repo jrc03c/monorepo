@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isSymbol } from "./is-symbol.mjs"
 
 test("tests that symbols can be identified correctly", () => {

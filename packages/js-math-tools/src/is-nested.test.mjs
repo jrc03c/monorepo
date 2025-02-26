@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isNested } from "./is-nested.mjs"
 import { normal } from "./normal.mjs"
 

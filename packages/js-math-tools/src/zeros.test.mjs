@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { set } from "./set.mjs"
 import { shape } from "./shape.mjs"
 import { zeros } from "./zeros.mjs"

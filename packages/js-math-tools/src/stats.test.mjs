@@ -1,4 +1,5 @@
 import { count } from "./count.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "./is-equal.mjs"
 import { max } from "./max.mjs"
 import { mean } from "./mean.mjs"

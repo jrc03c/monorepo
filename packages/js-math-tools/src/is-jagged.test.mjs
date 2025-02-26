@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isJagged } from "./is-jagged.mjs"
 import { normal } from "./normal.mjs"
 

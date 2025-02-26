@@ -1,6 +1,7 @@
 import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dot } from "./dot.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { float } from "./float.mjs"
 import { int } from "./int.mjs"
 import { isEqual } from "./is-equal.mjs"

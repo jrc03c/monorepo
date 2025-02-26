@@ -1,4 +1,5 @@
 import { argmin } from "./argmin.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
