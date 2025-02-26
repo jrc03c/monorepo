@@ -175,8 +175,4 @@ class BaseComponent extends HTMLElement {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.BaseComponent = BaseComponent
-}
-
 export { BaseComponent }
