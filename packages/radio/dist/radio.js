@@ -39,7 +39,9 @@
     }
   };
   var singleton = new Radio();
-  if (typeof window !== "undefined") {
-    window.Radio = Radio;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.Radio = Radio;
   }
 })();

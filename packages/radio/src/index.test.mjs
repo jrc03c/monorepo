@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { Radio } from "./index.mjs"
 
 test("subscribes and unsubscribes callbacks", () => {

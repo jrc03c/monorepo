@@ -51,8 +51,4 @@ class Radio {
 
 const singleton = new Radio()
 
-if (typeof window !== "undefined") {
-  window.Radio = Radio
-}
-
 export { Radio }
