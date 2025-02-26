@@ -60,7 +60,7 @@
   - js-math-tools
   - js-text-tools
   - prompt
-# logger (0.0.18)
+# logger (0.0.19)
   - bash-colors
   - fake-jest
   - js-math-tools
