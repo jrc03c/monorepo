@@ -1,3 +1,4 @@
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
 import { copy, isEqual, isUndefined, normal } from "@jrc03c/js-math-tools"
 import { Logger } from "./index.mjs"
 import { makeKey } from "@jrc03c/make-key"
