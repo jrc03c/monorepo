@@ -20,7 +20,7 @@
 # js-convex-hull (0.0.22)
   - fake-jest
   - js-math-tools
-# make-key (0.0.33)
+# make-key (0.0.34)
   - fake-jest
   - js-math-tools
 # js-plot-tools (0.0.15)
