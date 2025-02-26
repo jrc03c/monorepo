@@ -1,5 +1,5 @@
 import { pause } from "@jrc03c/pause"
-import { WebWorkerHelper } from "../dist/web-worker-helper.import.mjs"
+import { WebWorkerHelper } from "../src/index.mjs"
 
 const helper = new WebWorkerHelper()
 

@@ -28,42 +28,6 @@ tasks:
       - --force
     local: true
     platform: node
-  serve-demo:
-    command:
-      - npx
-      - parcel
-      - --dist-dir=dist-temp
-      - ./demo/index.html
-    deps:
-      - ~:serve-demo-dep1
-    env:
-      PARCEL_WORKERS: "0"
-    local: true
-    platform: node
-  serve-demo-dep1:
-    command:
-      - rm
-      - -rf
-      - .parcel-cache
-    platform: system
-  serve-tests:
-    command:
-      - npx
-      - parcel
-      - --dist-dir=dist-temp
-      - ./tests/index.html
-    deps:
-      - ~:serve-tests-dep1
-    env:
-      PARCEL_WORKERS: "0"
-    local: true
-    platform: node
-  serve-tests-dep1:
-    command:
-      - rm
-      - -rf
-      - .parcel-cache
-    platform: system
   watch:
     command:
       - node

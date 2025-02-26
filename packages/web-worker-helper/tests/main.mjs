@@ -1,4 +1,4 @@
-import { WebWorkerHelper } from "../dist/web-worker-helper.import.mjs"
+import { WebWorkerHelper } from "../src/index.mjs"
 
 function createResultElement(status, message) {
   const out = document.createElement("div")
@@ -28,7 +28,7 @@ function createResultElement(status, message) {
 
     try {
       const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+        "worker-bundle.js",
         { type: "module" },
       )
 
@@ -63,7 +63,7 @@ function createResultElement(status, message) {
 
     try {
       const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+        "worker-bundle.js",
         { type: "module" },
       )
 
@@ -95,8 +95,8 @@ function createResultElement(status, message) {
     container.appendChild(resultElement)
 
     try {
-      const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+     const helper = new WebWorkerHelper(
+        "worker-bundle.js",
         { type: "module" },
       )
 
@@ -138,7 +138,7 @@ function createResultElement(status, message) {
 
     try {
       const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+        "worker-bundle.js",
         { type: "module" },
       )
 
@@ -160,7 +160,7 @@ function createResultElement(status, message) {
 
     try {
       const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+        "worker-bundle.js",
         { type: "module" },
       )
 
@@ -197,7 +197,7 @@ function createResultElement(status, message) {
 
     try {
       const helper = new WebWorkerHelper(
-        new URL("./worker.mjs", import.meta.url),
+        "worker-bundle.js",
         { type: "module" },
       )
 

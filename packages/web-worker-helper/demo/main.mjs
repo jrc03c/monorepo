@@ -1,10 +1,7 @@
-import { WebWorkerHelper } from "../dist/web-worker-helper.import.mjs"
+import { WebWorkerHelper } from "../src/index.mjs"
 
 !(async () => {
-  const helper = new WebWorkerHelper(new URL("./worker.mjs", import.meta.url), {
-    type: "module",
-  })
-
+  const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
   const x = Math.random()
   document.querySelector("#x-value").innerHTML = x
 

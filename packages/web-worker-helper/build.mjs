@@ -6,17 +6,35 @@ function rebuild() {
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      `npx esbuild src/index.mjs --bundle --platform=node --outfile=dist/web-worker-helper.require.cjs`,
-      `npx esbuild src/index.mjs --bundle --outfile=dist/web-worker-helper.standalone.js`,
-      `npx esbuild src/index.mjs --bundle --format=esm --outfile=dist/web-worker-helper.import.mjs`,
-    ]
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --outfile=dist/web-worker-helper.js`,
+      { encoding: "utf8" },
+    )
 
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/web-worker-helper.min.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild demo/main.mjs --bundle --outfile=demo/bundle.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild demo/worker.mjs --bundle --outfile=demo/worker-bundle.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild tests/main.mjs --bundle --outfile=tests/bundle.js`,
+      { encoding: "utf8" },
+    )
+
+    execSync(
+      `npx esbuild tests/worker.mjs --bundle --outfile=tests/worker-bundle.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {

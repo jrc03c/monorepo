@@ -1,14 +1,5 @@
-import { WebWorkerHelper } from "../dist/web-worker-helper.import.mjs"
-
-function pause(ms) {
-  return new Promise((resolve, reject) => {
-    try {
-      return setTimeout(() => resolve(), ms)
-    } catch (e) {
-      return reject(e)
-    }
-  })
-}
+import { pause } from "@jrc03c/pause"
+import { WebWorkerHelper } from "../src/index.mjs"
 
 const helper = new WebWorkerHelper()
 
