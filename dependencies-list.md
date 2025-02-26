@@ -67,7 +67,7 @@
   - js-text-tools
   - make-key
   - pause
-# js-csv-helpers (0.0.32)
+# js-csv-helpers (0.0.33)
   - fake-jest
   - fs-extras
   - js-math-tools
