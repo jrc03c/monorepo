@@ -30,7 +30,7 @@
   - fake-jest
   - js-math-tools
   - make-key
-# queue (0.0.11)
+# queue (0.0.12)
   - fake-jest
   - make-key
   - pause
