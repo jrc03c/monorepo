@@ -10,7 +10,7 @@
   - fake-jest
 # freeze (0.0.7)
   - fake-jest
-# radio (0.0.11)
+# radio (0.0.12)
   - fake-jest
 # vector2 (0.0.7)
   - fake-jest
