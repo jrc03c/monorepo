@@ -101,146 +101,152 @@ test("tests that indentation can be applied when stringifying", () => {
 
   const xTrue = unindent(`
 {
-  "26": -2.3,
-  "66": -2.3,
-  "126": "function dubble(x) {\\n    return x * 2\\n  }",
-  "6583": "x => x",
+  "2": [],
+  "14": "-234n",
+  "34": "Symbol(@NaN)",
   "33d0": [
+    "function dubble(x) {\\n    return x * 2\\n  }",
     {
-      "8": [
-        -2.3,
-        -2.3,
-        [],
-        {
-          "eg": -2.3,
-          "6gg1": {
-            "d5af0": "234n"
-          },
-          "24beb": {}
+      "7": {
+        "43": {
+          "c": "Symbol(@undefined)",
+          "08": {}
         },
-        [
-          2.3
-        ]
-      ],
-      "6128": [],
-      "b9": {
-        "22": "2365-02-16T23:47:32.955Z",
-        "91": {
-          "78": [
-            "234n"
-          ],
-          "4c413": {
-            "c": -2.3
-          }
-        },
-        "gb5a": {
-          "7": 2.3,
-          "10": "function dubble(x) {\\n    return x * 2\\n  }",
-          "65g9": [
-            []
-          ],
-          "aa3g": 0,
-          "e1": "-234n",
-          "g": "Symbol(Hello, world!)"
-        },
-        "5e": 1,
-        "af": true,
-        "f5d": [
-          [],
-          {}
-        ],
-        "50f53": {}
+        "g": {
+          "11f7e": "Symbol(@NaN)"
+        }
       },
-      "g23": 2.3,
-      "1b1": "234n",
-      "d3aa": 1,
-      "9e": [
-        [
+      "967": "Symbol(@Infinity)",
+      "2f06": {
+        "eb1g1": 2.3,
+        "ae15c": [
           {
-            "4": [
-              [
-                [
-                  {}
-                ]
-              ],
-              1,
-              {
-                "8dc8d": {
-                  "7edbc": 1
-                },
-                "f1d1d": [
-                  0
-                ],
-                "ddf7c": [
-                  [
-                    []
-                  ],
-                  false
-                ],
-                "a78": [
-                  1
-                ]
-              }
-            ]
+            "7594": null
           },
-          "Symbol(Hello, world!)",
-          [
-            2.3,
+          "x => x"
+        ],
+        "7787a": 1,
+        "72b9c": {
+          "5": [
+            "-234n"
+          ],
+          "25": []
+        },
+        "ag31": [
+          true
+        ]
+      },
+      "ce": "x => x"
+    },
+    {
+      "983": [],
+      "b10": 1,
+      "3442g": {
+        "5": [
+          "Symbol(@undefined)",
+          [],
+          false,
+          -2.3
+        ],
+        "9": {
+          "8": "2365-02-16T23:47:32.955Z",
+          "2c9": [
+            "Symbol(@String):foo",
+            "Symbol(@String):foo",
             0
           ],
-          [
-            {}
-          ]
-        ],
-        {}
-      ],
-      "5c2": {
-        "b5": [
-          null,
-          "Symbol(@NaN)"
+          "c4": [
+            [],
+            [
+              "Symbol(Hello, world!)",
+              [
+                null,
+                {
+                  "fae": true
+                }
+              ],
+              "function dubble(x) {\\n    return x * 2\\n  }",
+              []
+            ]
+          ],
+          "c3d": "2365-02-16T23:47:32.955Z",
+          "g": "Symbol(Hello, world!)"
+        },
+        "1bf": {
+          "2ee9": [
+            -2.3,
+            true,
+            []
+          ],
+          "93bgb": {}
+        },
+        "d440": "Symbol(@String):foo",
+        "d5f": [
+          -2.3,
+          -2.3
         ]
       },
-      "f8858": [
-        "Symbol(@String):foo",
-        "Symbol(@undefined)"
+      "6e": [
+        [
+          null,
+          false,
+          -2.3
+        ],
+        [
+          null,
+          "function dubble(x) {\\n    return x * 2\\n  }"
+        ],
+        true
       ],
-      "b9a0": "-234n",
-      "47d": "Symbol(@Infinity)"
+      "g": {
+        "63a0": {
+          "ac7f": []
+        }
+      }
     },
-    "function dubble(x) {\\n    return x * 2\\n  }",
-    "x => x",
-    null,
+    "2365-02-16T23:47:32.955Z",
+    "2365-02-16T23:47:32.955Z",
     [
-      [
-        "x => x"
-      ],
-      false
-    ],
-    false,
-    -2.3,
-    [
-      [],
-      "Symbol(Hello, world!)"
-    ],
-    []
+      0,
+      "Symbol(@undefined)",
+      2.3
+    ]
   ],
-  "c69": "Symbol(Hello, world!)",
-  "cg7e9": "Symbol(@Infinity)",
-  "b13": false,
-  "a8e": [
+  "0fg6": "234n",
+  "33e": {
+    "4": "-234n",
+    "700a9": "x => x",
+    "15b": {},
+    "1f93": {
+      "e67": [
+        1,
+        []
+      ],
+      "45g49": "Symbol(@NegativeInfinity)",
+      "b0801": [
+        []
+      ]
+    }
+  },
+  "df736": [
     {
-      "f": 2.3
-    },
-    []
+      "53960": "Symbol(@Infinity)"
+    }
   ],
-  "897ee": [
-    true,
-    []
+  "e05": [
+    {},
+    "Symbol(@Infinity)"
   ]
 }
   `).trim()
 
-  expect(xPred).toBe(xTrue)
+  for (let i = 0; i < Math.max(xPred.length, xTrue.length); i++) {
+    if (xPred[i] !== xTrue[i]) {
+      throw new Error(
+        `The values at index ${i} should be identical, but they're not! ("${xTrue[i]}" vs. "${xPred[i]}")`,
+      )
+    }
+  }
 })
 
 test("tests that values can be stringified and parsed back to their original value", () => {
