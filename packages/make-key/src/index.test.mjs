@@ -1,4 +1,5 @@
 import { makeKey } from "./index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that random strings can be generated correctly", () => {
   const a = makeKey(123)

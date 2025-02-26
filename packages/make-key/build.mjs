@@ -5,19 +5,15 @@ function rebuild() {
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const baseCommand = "npx esbuild src/index.mjs --bundle"
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --outfile=dist/make-key.js`,
+      { encoding: "utf8" },
+    )
 
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      `${baseCommand} --platform=node --outfile=dist/make-key.require.cjs`,
-      `${baseCommand} --outfile=dist/make-key.standalone.js`,
-      `${baseCommand} --format=esm --outfile=dist/make-key.import.mjs`,
-    ]
-
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/make-key.min.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {

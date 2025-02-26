@@ -45,8 +45,4 @@ function makeKey(keyLength, keySeed, charset) {
   return out
 }
 
-if (typeof window !== "undefined") {
-  window.makeKey = makeKey
-}
-
 export { makeKey }

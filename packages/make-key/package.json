@@ -8,18 +8,14 @@
   },
   "description": "",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/fake-jest": "^0.0.16",
     "esbuild": "^0.17.11",
     "eslint": "^8.36.0"
   },
-  "exports": {
-    "import": "./dist/make-key.import.mjs",
-    "require": "./dist/make-key.require.cjs"
-  },
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/make-key.require.cjs",
-  "module": "./dist/make-key.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/make-key",
   "type": "module",
   "version": "0.0.33"

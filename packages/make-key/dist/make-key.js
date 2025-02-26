@@ -4284,7 +4284,9 @@
     }
     return out2;
   }
-  if (typeof window !== "undefined") {
-    window.makeKey = makeKey4;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.makeKey = makeKey4;
   }
 })();
