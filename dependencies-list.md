@@ -77,12 +77,6 @@
   - fs-extras
   - make-key
   - pause
-# cli-utils (0.0.1)
-  - bash-colors
-  - js-math-tools
-  - js-text-tools
-  - js-type-experiments
-  - prompt
 # js-nlp-tools (0.0.6)
   - base-class
   - fake-jest
