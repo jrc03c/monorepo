@@ -48,7 +48,7 @@
   - js-math-tools
   - js-text-tools
   - make-key
-# fs-extras (0.0.21)
+# fs-extras (0.0.22)
   - fake-jest
   - filedb
   - js-math-tools

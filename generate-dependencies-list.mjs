@@ -1,5 +1,5 @@
 import { fg, fx } from "./packages/bash-colors/src/index.mjs"
-import { getFilesDeepSync } from "./packages/fs-extras/dist/fs-extras.import.mjs"
+import { getFilesDeepSync } from "./packages/fs-extras/src/index.mjs"
 import { progress } from "./packages/progress/src/index.mjs"
 import fs from "node:fs"
 
