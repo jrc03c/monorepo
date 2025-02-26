@@ -1,4 +1,5 @@
 import { config } from "./setup-and-teardown.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { getDirsDeepSync } from "../src/get-dirs-deep-sync.mjs"
 import { set, sort } from "@jrc03c/js-math-tools"
 

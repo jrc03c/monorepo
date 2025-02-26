@@ -1,4 +1,5 @@
 import { config } from "./setup-and-teardown.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { findAsync } from "../src/find-async.mjs"
 import { set, sort } from "@jrc03c/js-math-tools"
 import fs from "node:fs"

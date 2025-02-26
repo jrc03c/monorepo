@@ -4,27 +4,23 @@
     "url": "https://github.com/jrc03c/fs-extras.js/issues"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.87"
+    "@jrc03c/js-math-tools": "^0.0.91"
   },
   "description": "**fs-extras** is a little package of extra tools to supplement Node's `fs` module.",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.12",
-    "@jrc03c/filedb": "^0.0.24",
-    "@jrc03c/make-key": "^0.0.32",
-    "@jrc03c/progress": "^0.0.6",
+    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/filedb": "^0.0.25",
+    "@jrc03c/make-key": "^0.0.35",
+    "@jrc03c/progress": "^0.0.7",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/fs-extras.import.mjs",
-    "require": "./dist/fs-extras.require.cjs"
-  },
   "homepage": "https://github.com/jrc03c/fs-extras.js#readme",
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/fs-extras.require.cjs",
-  "module": "./dist/fs-extras.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/fs-extras",
   "repository": {
     "type": "git",

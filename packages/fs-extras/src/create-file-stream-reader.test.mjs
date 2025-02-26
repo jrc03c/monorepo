@@ -1,3 +1,4 @@
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
 import { createFileStreamReader } from "./create-file-stream-reader.mjs"
 import { makeKey } from "@jrc03c/make-key"
 import { random } from "@jrc03c/js-math-tools"
