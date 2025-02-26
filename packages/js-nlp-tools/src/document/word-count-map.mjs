@@ -1,4 +1,4 @@
-import { isWholeNumber } from "../utils/index.mjs"
+import { isWholeNumber } from "../utils/is-whole-number.mjs"
 
 class WordCountMap extends Map {
   constructor(data) {

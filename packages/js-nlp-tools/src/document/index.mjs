@@ -1,8 +1,10 @@
-import { clean, isWholeNumber, StringSet } from "../utils/index.mjs"
+import { clean } from "../utils/clean.mjs"
 import { createType, defineTypedProperty } from "@jrc03c/js-type-experiments"
 import { hash } from "@jrc03c/js-crypto-helpers"
+import { isWholeNumber } from "../utils/is-whole-number.mjs"
 import { makeKey } from "@jrc03c/make-key"
 import { set } from "@jrc03c/js-math-tools"
+import { StringSet } from "../utils/string-set.mjs"
 import { WordCountMap } from "./word-count-map.mjs"
 
 const WholeNumberType = createType("WholeNumber", isWholeNumber)

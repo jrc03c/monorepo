@@ -1,27 +1,31 @@
 {
   "dependencies": {
-    "@jrc03c/base-class": "^0.0.7",
-    "@jrc03c/filedb": "^0.0.24",
-    "@jrc03c/fs-extras": "^0.0.21",
-    "@jrc03c/js-crypto-helpers": "^0.0.18",
-    "@jrc03c/js-math-tools": "^0.0.87",
-    "@jrc03c/js-text-tools": "^0.0.56",
-    "@jrc03c/js-type-experiments": "^0.0.19",
-    "@jrc03c/make-key": "^0.0.32"
+    "@jrc03c/base-class": "^0.0.10",
+    "@jrc03c/filedb": "^0.0.25",
+    "@jrc03c/fs-extras": "^0.0.22",
+    "@jrc03c/js-crypto-helpers": "^0.0.20",
+    "@jrc03c/js-math-tools": "^0.0.91",
+    "@jrc03c/js-text-tools": "^0.0.60",
+    "@jrc03c/js-type-experiments": "^0.0.21",
+    "@jrc03c/make-key": "^0.0.35"
   },
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.12",
+    "@jrc03c/fake-jest": "^0.0.16",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./dist/js-nlp-tools.import.mjs",
-    "require": "./dist/js-nlp-tools.require.cjs"
+    "./browser": {
+      "import": "./src/index-browser.mjs",
+      "require": "./src/index-browser.mjs"
+    },
+    "./node": {
+      "import": "./src/index-node.mjs",
+      "require": "./src/index-node.mjs"
+    }
   },
-  "main": "./dist/js-nlp-tools.require.cjs",
-  "module": "./dist/js-nlp-tools.import.mjs",
   "name": "@jrc03c/js-nlp-tools",
   "type": "module",
   "version": "0.0.6"

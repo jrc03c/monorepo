@@ -1,4 +1,4 @@
-import { cosineSimilarity, isWholeNumber, StringSet } from "../utils/index.mjs"
+import { cosineSimilarity } from "../utils/cosine-similarity.mjs"
 
 import {
   createType,
@@ -7,6 +7,8 @@ import {
 } from "@jrc03c/js-type-experiments"
 
 import { Document } from "../document/index.mjs"
+import { isWholeNumber } from "../utils/is-whole-number.mjs"
+import { StringSet } from "../utils/string-set.mjs"
 
 const WholeNumberType = createType("WholeNumber", isWholeNumber)
 
