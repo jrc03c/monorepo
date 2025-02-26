@@ -1,4 +1,5 @@
 import { combinations, isEqual, normal, range } from "@jrc03c/js-math-tools"
+import { expect, test } from "@jrc03c/fake-jest"
 import { getConvexHull, pointIsInTriangle } from "./index.mjs"
 
 test("tests that the hull can be found correctly", () => {

@@ -6,6 +6,8 @@ import {
   pointIsInTriangle,
 } from "./point-is-in-triangle.mjs"
 
+import { expect, test } from "@jrc03c/fake-jest"
+
 test("tests that the `getPointRelationToLine` function works as expected", () => {
   // y = 0.5x - 3
   const pair = [

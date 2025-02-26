@@ -11,6 +11,10 @@
     if (typeof require !== "undefined") return require.apply(this, arguments);
     throw Error('Dynamic require of "' + x + '" is not supported');
   });
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -27,6 +31,17 @@
     isNodeMode || !mod2 || !mod2.__esModule ? __defProp(target, "default", { value: mod2, enumerable: true }) : target,
     mod2
   ));
+
+  // src/index.mjs
+  var src_exports = {};
+  __export(src_exports, {
+    ABOVE: () => ABOVE,
+    BELOW: () => BELOW,
+    EXACTLY_ON: () => EXACTLY_ON,
+    getConvexHull: () => getConvexHull,
+    getPointRelationToLine: () => getPointRelationToLine,
+    pointIsInTriangle: () => pointIsInTriangle
+  });
 
   // src/point-is-in-triangle.mjs
   var ABOVE = 1;
@@ -71,13 +86,6 @@
       return false;
     }
     return true;
-  }
-  if (typeof window !== "undefined") {
-    window.ABOVE = ABOVE;
-    window.BELOW = BELOW;
-    window.EXACTLY_ON = EXACTLY_ON;
-    window.getPointRelationToLine = getPointRelationToLine;
-    window.pointIsInTriangle = pointIsInTriangle;
   }
 
   // node_modules/@jrc03c/js-math-tools/dist/js-math-tools.import.mjs
@@ -4341,7 +4349,9 @@
     if (point[0] < 0) theta += Math.PI;
     return [radius * Math.cos(theta + angle), radius * Math.sin(theta + angle)];
   }
-  if (typeof window !== "undefined") {
-    window.getConvexHull = getConvexHull;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.JSConvexHull = src_exports;
   }
 })();

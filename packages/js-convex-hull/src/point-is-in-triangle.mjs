@@ -64,12 +64,4 @@ function pointIsInTriangle(point, vertices) {
   return true
 }
 
-if (typeof window !== "undefined") {
-  window.ABOVE = ABOVE
-  window.BELOW = BELOW
-  window.EXACTLY_ON = EXACTLY_ON
-  window.getPointRelationToLine = getPointRelationToLine
-  window.pointIsInTriangle = pointIsInTriangle
-}
-
 export { ABOVE, BELOW, EXACTLY_ON, getPointRelationToLine, pointIsInTriangle }

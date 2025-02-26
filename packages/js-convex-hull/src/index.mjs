@@ -57,10 +57,6 @@ function rotatePointAroundZero(point, angle) {
   return [radius * Math.cos(theta + angle), radius * Math.sin(theta + angle)]
 }
 
-if (typeof window !== "undefined") {
-  window.getConvexHull = getConvexHull
-}
-
 export {
   ABOVE,
   BELOW,
