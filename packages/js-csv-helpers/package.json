@@ -1,14 +1,14 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/fs-extras": "^0.0.21",
-    "@jrc03c/js-math-tools": "^0.0.87",
+    "@jrc03c/fs-extras": "^0.0.22",
+    "@jrc03c/js-math-tools": "^0.0.91",
     "papaparse": "^5.4.1"
   },
   "description": "",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.12",
-    "@jrc03c/make-key": "^0.0.32",
+    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/make-key": "^0.0.35",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3",
@@ -16,13 +16,17 @@
     "webpack-cli": "^5.1.4"
   },
   "exports": {
-    "import": "./dist/js-csv-helpers.import.mjs",
-    "require": "./dist/js-csv-helpers.require.cjs"
+    "./browser": {
+      "import": "./src/index-browser.mjs",
+      "require": "./src/index-browser.mjs"
+    },
+    "./node": {
+      "import": "./src/index-node.mjs",
+      "require": "./src/index-node.mjs"
+    }
   },
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/js-csv-helpers.require.cjs",
-  "module": "./dist/js-csv-helpers.import.mjs",
   "name": "@jrc03c/js-csv-helpers",
   "type": "module",
   "version": "0.0.32"

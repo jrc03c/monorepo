@@ -1,16 +1,8 @@
-import { isBrowser, range } from "@jrc03c/js-math-tools"
+import { range } from "@jrc03c/js-math-tools"
 import { parse } from "./parse.mjs"
+import * as fsx from "@jrc03c/fs-extras"
 
-async function* streamLoadCSVFromDisk(path, config) {
-  let fsx
-
-  try {
-    fsx = await import("@jrc03c/fs-extras")
-  } catch (e) {
-    // console.error(e)
-    return
-  }
-
+async function* streamLoadCSV(path, config) {
   const rowsPerChunk = config.rowsPerChunk || 100
   const stream = fsx.createFileStreamReader(path)
   let columns
@@ -47,14 +39,6 @@ async function* streamLoadCSVFromDisk(path, config) {
     }
 
     yield df
-  }
-}
-
-function streamLoadCSV(path, config) {
-  if (isBrowser()) {
-    // ...
-  } else {
-    return streamLoadCSVFromDisk(path, config)
   }
 }
 

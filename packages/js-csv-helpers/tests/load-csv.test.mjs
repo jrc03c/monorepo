@@ -1,5 +1,6 @@
 import { DataFrame, inferType, isEqual } from "@jrc03c/js-math-tools"
-import { loadCSV } from "../src/load-csv.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { loadCSV } from "../src/index-node.mjs"
 import fs from "node:fs"
 import path from "node:path"
 

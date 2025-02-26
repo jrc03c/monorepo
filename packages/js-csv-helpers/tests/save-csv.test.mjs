@@ -1,5 +1,6 @@
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
 import { DataFrame } from "@jrc03c/js-math-tools"
-import { saveCSV } from "../src/save-csv.mjs"
+import { saveCSV } from "../src/index-node.mjs"
 import fs from "node:fs"
 import path from "node:path"
 

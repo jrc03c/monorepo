@@ -1,5 +1,6 @@
 import { DataFrame, inferType, isEqual } from "@jrc03c/js-math-tools"
-import { parse } from "../src/parse.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { parse } from "../src/index-node.mjs"
 import fs from "node:fs"
 import path from "node:path"
 

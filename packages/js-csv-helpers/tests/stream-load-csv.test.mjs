@@ -1,8 +1,7 @@
 import { DataFrame, isEqual, isNumber, normal } from "@jrc03c/js-math-tools"
-import { loadCSV } from "../src/load-csv.mjs"
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
+import { loadCSV, saveCSV, streamLoadCSV } from "../src/index-node.mjs"
 import { makeKey } from "@jrc03c/make-key"
-import { saveCSV } from "../src/save-csv.mjs"
-import { streamLoadCSV } from "../src/stream-load-csv.mjs"
 import fs from "node:fs"
 
 const files = []

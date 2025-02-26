@@ -1,5 +1,6 @@
 import { DataFrame } from "@jrc03c/js-math-tools"
-import { unparse } from "../src/unparse.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { unparse } from "../src/index-node.mjs"
 import fs from "node:fs"
 import path from "node:path"
 
