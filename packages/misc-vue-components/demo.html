@@ -319,14 +319,15 @@
       </section>
     </div>
 
-    <script src="node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="./node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="./dist/misc-vue-components.js"></script>
     <script type="module">
-      import {
+      const {
         ContextMenuComponent,
         DraggableComponent,
         FrameComponent,
         ResizeableComponent,
-      } from "./dist/misc-vue-components.import.min.mjs"
+      } = MiscVueComponents
 
       window.addEventListener("load", () => {
         const app = Vue.createApp({

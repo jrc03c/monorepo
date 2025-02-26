@@ -1,5 +1,21 @@
 (() => {
-  // node_modules/@jrc03c/vue-component-with-css/dist/vue-component-with-css.import.mjs
+  var __defProp = Object.defineProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
+
+  // src/index.mjs
+  var src_exports = {};
+  __export(src_exports, {
+    ContextMenuComponent: () => ContextMenuComponent,
+    DraggableComponent: () => DraggableComponent,
+    FrameComponent: () => FrameComponent,
+    MenuComponent: () => MenuComponent,
+    ResizeableComponent: () => ResizeableComponent
+  });
+
+  // node_modules/@jrc03c/vue-component-with-css/src/index.mjs
   function createVueComponentWithCSS(component) {
     let count = 0;
     let styleElement;
@@ -50,11 +66,8 @@
     };
     return component;
   }
-  if (typeof window !== "undefined") {
-    window.createVueComponentWithCSS = createVueComponentWithCSS;
-  }
 
-  // node_modules/@jrc03c/pause/dist/pause.import.mjs
+  // node_modules/@jrc03c/pause/src/index.mjs
   function pauseAsync(ms) {
     return new Promise((resolve, reject) => {
       try {
@@ -64,19 +77,6 @@
         return reject(e);
       }
     });
-  }
-  function pauseSync(ms) {
-    const start = /* @__PURE__ */ new Date();
-    let now = /* @__PURE__ */ new Date();
-    while (now - start < ms) {
-      now = /* @__PURE__ */ new Date();
-    }
-    return /* @__PURE__ */ new Date() - start;
-  }
-  if (typeof window !== "undefined") {
-    window.pause = pauseAsync;
-    window.pauseAsync = pauseAsync;
-    window.pauseSync = pauseSync;
   }
 
   // src/context-menu/index.mjs
@@ -1523,14 +1523,8 @@
     }
   });
 
-  // src/index.mjs
-  if (typeof window !== "undefined") {
-    window.MiscVueComponents = {
-      ContextMenuComponent,
-      DraggableComponent,
-      FrameComponent,
-      MenuComponent,
-      ResizeableComponent
-    };
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.MiscVueComponents = src_exports;
   }
 })();
