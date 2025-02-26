@@ -182,16 +182,4 @@ function createHighDPICanvas(width, height) {
   return new HighDPICanvasElement(width, height)
 }
 
-if (typeof window !== "undefined") {
-  window.createHighDPICanvas = createHighDPICanvas
-  window.HighDPICanvasElement = HighDPICanvasElement
-
-  if (!window.customElements.get(HighDPICanvasElement.tagName)) {
-    window.customElements.define(
-      HighDPICanvasElement.tagName,
-      HighDPICanvasElement,
-    )
-  }
-}
-
 export { createHighDPICanvas, HighDPICanvasElement }
