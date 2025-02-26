@@ -77,7 +77,7 @@
   - fs-extras
   - make-key
   - pause
-# js-nlp-tools (0.0.6)
+# js-nlp-tools (0.0.7)
   - base-class
   - fake-jest
   - filedb
