@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { Vector2 } from "./index.mjs"
 
 test("adds vectors", () => {

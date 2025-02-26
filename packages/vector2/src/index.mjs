@@ -119,8 +119,4 @@ class Vector2 {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.Vector2 = Vector2
-}
-
 export { Vector2 }

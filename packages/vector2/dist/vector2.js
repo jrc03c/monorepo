@@ -97,7 +97,9 @@
       return v.copy();
     }
   };
-  if (typeof window !== "undefined") {
-    window.Vector2 = Vector2;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.Vector2 = Vector2;
   }
 })();
