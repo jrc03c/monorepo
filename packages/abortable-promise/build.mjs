@@ -7,17 +7,15 @@ function rebuild() {
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const commands = [
-      "mkdir -p dist",
-      "rm -rf dist/*",
-      "npx esbuild src/index.mjs --bundle --minify --outfile=dist/breakable-promise.standalone.js",
-      "npx esbuild src/index.mjs --bundle --minify --platform=node --outfile=dist/breakable-promise.require.cjs",
-      "npx esbuild src/index.mjs --bundle --format=esm --minify --outfile=dist/breakable-promise.import.mjs",
-    ]
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --outfile=dist/abortable-promise.js`,
+      { encoding: "utf8" },
+    )
 
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
-    })
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/abortable-promise.min.js`,
+      { encoding: "utf8" },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
