@@ -110,7 +110,7 @@
   - js-text-tools
   - pause
   - watch
-# web-worker-helper (0.0.5)
+# web-worker-helper (0.0.6)
   - freeze
   - make-key
   - pause
