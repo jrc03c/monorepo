@@ -1,4 +1,5 @@
 import { createTypedArray } from "./create-typed-array.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual, range } from "@jrc03c/js-math-tools"
 import { isOfType } from "./is-of-type.mjs"
 

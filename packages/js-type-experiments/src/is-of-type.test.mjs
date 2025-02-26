@@ -1,5 +1,6 @@
 import { createType } from "./create-type.mjs"
 import { createTypedArray } from "./create-typed-array.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 import { isOfType } from "./is-of-type.mjs"
 
 test("tests that the `isOfType` function works as expected", () => {

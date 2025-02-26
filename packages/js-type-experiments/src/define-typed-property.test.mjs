@@ -1,6 +1,7 @@
 import { createType } from "./create-type.mjs"
 import { createTypedArray } from "./create-typed-array.mjs"
 import { defineTypedProperty } from "./define-typed-property.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("test that the `defineTypedProperty` function works as expected", () => {
   // primitive types

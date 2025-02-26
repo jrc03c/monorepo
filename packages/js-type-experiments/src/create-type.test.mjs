@@ -1,4 +1,5 @@
 import { createType } from "./create-type.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("test that the `createType` function works as expected", () => {
   const variables = [
