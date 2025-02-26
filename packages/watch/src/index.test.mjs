@@ -1,3 +1,4 @@
+import { afterAll, beforeAll, expect, test } from "@jrc03c/fake-jest"
 import { exec } from "node:child_process"
 import { makeKey } from "@jrc03c/make-key"
 import { pause } from "@jrc03c/pause"

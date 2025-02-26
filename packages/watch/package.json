@@ -1,25 +1,21 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/fs-extras": "^0.0.21"
+    "@jrc03c/fs-extras": "^0.0.22"
   },
   "description": "",
   "devDependencies": {
-    "@jrc03c/fake-jest": "^0.0.12",
-    "@jrc03c/make-key": "^0.0.32",
-    "@jrc03c/pause": "^0.0.7",
+    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/make-key": "^0.0.35",
+    "@jrc03c/pause": "^0.0.10",
     "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "import": "./dist/watch.import.mjs",
-    "require": "./dist/watch.require.cjs"
-  },
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/watch.require.cjs",
-  "module": "./dist/watch.import.mjs",
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/watch",
   "type": "module",
   "version": "0.0.18"

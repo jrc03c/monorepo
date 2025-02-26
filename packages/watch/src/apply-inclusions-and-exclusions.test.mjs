@@ -1,4 +1,5 @@
 import { applyInclusionsAndExclusions } from "./apply-inclusions-and-exclusions.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests the application of inclusions", () => {
   const items = [
