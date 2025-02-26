@@ -39,7 +39,7 @@
   - fake-jest
   - js-math-tools
   - make-key
-# js-type-experiments (0.0.20)
+# js-type-experiments (0.0.21)
   - fake-jest
   - js-math-tools
   - js-text-tools
