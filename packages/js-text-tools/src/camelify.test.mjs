@@ -1,4 +1,5 @@
 import { camelify } from "./camelify.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests `camelify`", () => {
   expect(camelify("foobarbaz")).toBe("foobarbaz")

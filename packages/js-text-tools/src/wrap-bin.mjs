@@ -13,15 +13,15 @@ const helpMessage = wrap(
   indent(
     unindent(`
         The syntax is:
-  
+
           ${bright(magenta("wrap [options] <file>"))}
-  
+
         Options include:
 
           ${yellow(
             "--output-file, -o",
           )} = the file in which to save the wrapped text; does not work with the --save option; if not used, output is printed to stdout
-  
+
           ${yellow(
             "--save, -s",
           )} = overwrite the contents of <file> with the wrapped text; overrides the --output-file option
@@ -29,19 +29,19 @@ const helpMessage = wrap(
           ${yellow(
             "--max-line-length, -m",
           )} = the maximum length of each line; defaults to 80 if unspecified
-  
+
         Examples:
-  
+
           ${dim(
             "# overwrite the contents of the file with its own content wrapped at 40 characters",
           )}
           ${cyan("wrap -m 40 -s somefile.txt")}
-          
+
           ${dim(
             "# write the wrapped contents of a file out to another file (wrapped at the default of 80 characters)",
           )}
           ${cyan("wrap -o wrapped.txt somefile.txt")}
-  
+
         The maximum line length is optional and defaults to the minimum of 80 characters. Use \`wrap --help\` to show this message again.
       `),
     "  ",

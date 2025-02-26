@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { makeKey } from "@jrc03c/make-key"
 import { range } from "@jrc03c/js-math-tools"
 import { wrap } from "./wrap.mjs"

@@ -18,26 +18,6 @@ import { stringify } from "./stringify.mjs"
 import { unindent } from "./unindent.mjs"
 import { wrap } from "./wrap.mjs"
 
-if (typeof window !== "undefined") {
-  window.JSTextTools = {
-    camelify,
-    convertObjectToTypedArray,
-    convertTypedArrayToObject,
-    indent,
-    isANumberString,
-    kebabify,
-    parse,
-    pascalify,
-    punctuation,
-    replaceAll,
-    snakeify,
-    stringify,
-    strip,
-    unindent,
-    wrap,
-  }
-}
-
 export {
   camelify,
   convertObjectToTypedArray,

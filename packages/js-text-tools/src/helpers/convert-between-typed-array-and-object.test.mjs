@@ -1,6 +1,7 @@
 import { abs, isEqual, normal, round } from "@jrc03c/js-math-tools"
 import { convertObjectToTypedArray } from "./convert-object-to-typed-array.mjs"
 import { convertTypedArrayToObject } from "./convert-typed-array-to-object.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that the `convertTypedArrayToObject` works correctly", () => {
   const types = {

@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { indent } from "./indent.mjs"
 
 test("tests that indentation works as expected", () => {

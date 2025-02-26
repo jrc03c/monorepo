@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { strip } from "./strip.mjs"
 
 test("tests `strip`", () => {

@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { kebabify } from "./kebabify.mjs"
 
 test("tests `kebabify`", () => {

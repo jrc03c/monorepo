@@ -8,6 +8,7 @@ import {
   Series,
 } from "@jrc03c/js-math-tools"
 
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
 import { makeKey } from "@jrc03c/make-key"
 import { parse } from "./parse.mjs"
 import { stringify } from "./stringify.mjs"

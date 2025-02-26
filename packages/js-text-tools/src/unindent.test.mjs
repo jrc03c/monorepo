@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { unindent } from "./unindent.mjs"
 
 test("tests that unindentation works as expected", () => {

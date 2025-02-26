@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { pascalify } from "./pascalify.mjs"
 
 test("tests `pascalify`", () => {
