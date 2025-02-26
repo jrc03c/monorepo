@@ -366,9 +366,4 @@ class BrowserPlotter extends AbstractPlotter {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.plot = new BrowserPlotter()
-  window.Plotter = BrowserPlotter
-}
-
 export { BrowserPlotter }

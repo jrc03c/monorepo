@@ -42,7 +42,7 @@ class NodePlotter extends AbstractPlotter {
     )
 
     const minifiedScript = fs.readFileSync(
-      path.join(cwd, "../dist/js-plot-tools.standalone.min.js"),
+      path.join(cwd, "../dist/js-plot-tools.min.js"),
       "utf8",
     )
 

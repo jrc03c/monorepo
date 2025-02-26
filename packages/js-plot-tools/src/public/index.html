@@ -18,7 +18,7 @@
       window.onload = async () => {
         try {
           const obj = "<% obj %>"
-          const plot = Plotter.hydrate(obj)
+          const plot = JSPlotTools.Plotter.hydrate(obj)
           plot.show()
         } catch (e) {}
       }

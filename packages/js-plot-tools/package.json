@@ -13,13 +13,17 @@
     "prettier": "^3.3.3"
   },
   "exports": {
-    "import": "./dist/js-plot-tools.import.mjs",
-    "require": "./dist/js-plot-tools.require.cjs"
+    "./browser": {
+      "import": "./src/index-browser.mjs",
+      "require": "./src/index-browser.mjs"
+    },
+    "./node": {
+      "import": "./src/index-node.mjs",
+      "require": "./src/index-node.mjs"
+    }
   },
   "keywords": [],
   "license": "ISC",
-  "main": "./dist/js-plot-tools.require.cjs",
-  "module": "./dist/js-plot-tools.import.mjs",
   "name": "@jrc03c/js-plot-tools",
   "type": "module",
   "version": "0.0.15"
