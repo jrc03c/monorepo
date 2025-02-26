@@ -1,4 +1,5 @@
 import { FileDB } from "./index.mjs"
+import { afterAll, expect, test } from "@jrc03c/fake-jest"
 import { isEqual, random, range } from "@jrc03c/js-math-tools"
 import { makeKey } from "@jrc03c/make-key"
 import fs from "node:fs"
