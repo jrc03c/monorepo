@@ -58,8 +58,4 @@ function freeze(x, shouldThrowErrors) {
   }
 }
 
-if (typeof window !== "undefined") {
-  window.freeze = freeze
-}
-
 export { freeze }

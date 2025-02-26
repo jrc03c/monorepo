@@ -49,7 +49,9 @@
       return x;
     }
   }
-  if (typeof window !== "undefined") {
-    window.freeze = freeze;
+
+  // src/iife.mjs
+  if (typeof globalThis !== "undefined") {
+    globalThis.freeze = freeze;
   }
 })();

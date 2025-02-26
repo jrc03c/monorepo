@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { freeze } from "./index.mjs"
 
 test("tests that one-dimensional arrays are correctly frozen", () => {
