@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+  </head>
+  <body>
+    <div>
+      <form>
+        <input type="text" />
+        <input type="submit" value="Fetch timer data from URL" />
+      </form>
+    </div>
+
+    <hr />
+
+    <div>
+      <button>Download timer data</button>
+    </div>
+
+    <script src="../dist/timer.min.js"></script>
+    <script src="../node_modules/@jrc03c/pause/dist/pause.min.js"></script>
+    <script src="../node_modules/@jrc03c/js-math-tools/dist/js-math-tools.min.js"></script>
+    <script>
+      const { isEqual } = JSMathTools
+
+      !(async () => {
+        // confirm that the timer saves to localStorage
+        await (async () => {
+          const timer = new Timer({
+            localStorageKey: "timer-" + Math.random().toString().split(".")[1],
+            shouldLogToConsole: false,
+          })
+
+          for (let i = 0; i < 10; i++) {
+            timer.start("Event" + i)
+            await pause(10)
+          }
+
+          timer.stopAll()
+
+          const cachedTimer = Timer.fromLocalStorage(timer.localStorageKey)
+
+          if (!isEqual(timer, cachedTimer)) {
+            throw new Error("The timer didn't save to localStorage correctly!")
+          }
+
+          console.log(
+            "🟢 tests that the timer saves to `localStorage` correctly",
+          )
+        })()
+
+        // confirm that localStorage saving can be turned off
+        await (async () => {
+          localStorage.clear()
+
+          const timer = new Timer({
+            localStorageKey: "timer-" + Math.random().toString().split(".")[1],
+            shouldLogToConsole: false,
+            shouldSaveToLocalStorage: false,
+          })
+
+          for (let i = 0; i < 10; i++) {
+            timer.start("Event" + i)
+            await pause(10)
+          }
+
+          timer.stopAll()
+
+          if (
+            localStorage.getItem(timer.localStorageKey) ||
+            Object.keys(localStorage).length > 0
+          ) {
+            throw new Error(
+              "The timer wasn't supposed to write to `localStorage`, but it did!",
+            )
+          }
+
+          console.log("🟢 tests that `localStorage` saving can be turned off")
+        })()
+
+        // confirm that timer data can be downloaded
+        await (async () => {
+          const timer = new Timer({
+            shouldLogToConsole: false,
+          })
+
+          for (let i = 0; i < 10; i++) {
+            timer.start("Event" + i)
+            await pause(10)
+          }
+
+          const downloadButton = document.querySelector("button")
+
+          downloadButton.addEventListener("click", () => {
+            timer.download("my-cool-timer-events.json")
+          })
+
+          console.log(
+            "🟡 tests that timer data can be downloaded (please confirm manually by clicking the download button in the page)",
+          )
+        })()
+
+        // confirm that timers can be rehydrated from localStorage
+        await (async () => {
+          localStorage.clear()
+
+          const timer1 = new Timer({
+            localStorageKey: "timer-" + Math.random().toString().split(".")[1],
+            shouldLogToConsole: false,
+          })
+
+          for (let i = 0; i < 10; i++) {
+            timer1.start(Math.random().toString())
+            await pause(10)
+          }
+
+          timer1.stopAll()
+
+          const timer2 = Timer.fromLocalStorage(timer1.localStorageKey)
+
+          if (!isEqual(timer1, timer2)) {
+            throw new Error(
+              "The timer wasn't rehydrated from `localStorage` correctly!",
+            )
+          }
+
+          console.log("🟢 tests timers can be rehydrated from `localStorage`")
+        })()
+
+        // confirm that timers can be rehydrated from URL
+        await (async () => {
+          const form = document.querySelector("form")
+
+          form.addEventListener("submit", async event => {
+            event.preventDefault()
+            event.stopImmediatePropagation()
+
+            const input = form.querySelector("input[type='text']")
+            const url = input.value.trim()
+            const timer = await Timer.fromURL(url)
+            console.log(timer)
+          })
+
+          console.log(
+            "🟡 tests that timers can be rehydrated from URLs (please confirm manually by using the form in the page; the uploaded timer will be logged here in the console)",
+          )
+        })()
+      })()
+    </script>
+  </body>
+</html>
