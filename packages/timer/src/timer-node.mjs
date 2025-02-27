@@ -1,4 +1,4 @@
-import { Timer } from "./index.mjs"
+import { Timer } from "./timer.mjs"
 import fs from "node:fs"
 import path from "node:path"
 

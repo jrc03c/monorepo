@@ -11,12 +11,12 @@
   },
   "exports": {
     "./browser": {
-      "import": "./src/index-browser.mjs",
-      "require": "./src/index-browser.mjs"
+      "import": "./src/timer-browser.mjs",
+      "require": "./src/timer-browser.mjs"
     },
     "./node": {
-      "import": "./src/index-node.mjs",
-      "require": "./src/index-node.mjs"
+      "import": "./src/timer-node.mjs",
+      "require": "./src/timer-node.mjs"
     }
   },
   "name": "@jrc03c/timer",

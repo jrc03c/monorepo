@@ -31,7 +31,7 @@
     }
   };
 
-  // src/index.mjs
+  // src/timer.mjs
   var Timer = class {
     events = [];
     shouldLogToConsole = true;

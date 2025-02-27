@@ -1,4 +1,4 @@
-import { Timer } from "./index.mjs"
+import { Timer } from "./timer.mjs"
 
 class BrowserTimer extends Timer {
   localStorageKey = "LOGS"
