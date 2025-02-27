@@ -7,16 +7,16 @@ function rebuild() {
   console.log(`Rebuilding... (${new Date().toLocaleString()})`)
 
   try {
-    const baseCommand = "npx esbuild src/index.mjs --bundle --platform=node"
-
-    const commands = [
-      `${baseCommand} --outfile=dist/bundle.require.cjs`,
-      `${baseCommand} --outfile=dist/bundle.import.mjs --format=esm`,
-    ]
-
-    commands.forEach(command => {
-      execSync(command, { encoding: "utf8" })
+    execSync(`npx esbuild src/iife.mjs --bundle --outfile=dist/timer.js`, {
+      encoding: "utf8",
     })
+
+    execSync(
+      `npx esbuild src/iife.mjs --bundle --minify --outfile=dist/timer.min.js`,
+      {
+        encoding: "utf8",
+      },
+    )
 
     console.log("\nDone! 🎉\n")
   } catch (e) {
@@ -26,8 +26,7 @@ function rebuild() {
 
 if (process.argv.indexOf("-w") > -1 || process.argv.indexOf("--watch") > -1) {
   watch({
-    target: ".",
-    exclude: ["bundle.js", "node_modules"],
+    target: "src",
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,

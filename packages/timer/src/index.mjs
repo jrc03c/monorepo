@@ -1,7 +1,8 @@
+import { TimerEvent } from "./timer-event.mjs"
+
 class Timer {
-  lastTime = new Date()
+  events = []
   shouldLogToConsole = true
-  splits = []
 
   constructor(options) {
     options = options || {}
@@ -13,36 +14,68 @@ class Timer {
   }
 
   get totalTime() {
-    if (this.splits.length > 0) {
-      const last = this.splits.at(-1)
-      const first = this.splits[0]
-      return last.start.getTime() + last.duration - first.start.getTime()
-    } else {
-      return 0
-    }
+    let firstEvent = this.events[0]
+    let lastEvent = this.events[0]
+
+    this.events.forEach(event => {
+      if (event.start < firstEvent.start) {
+        firstEvent = event
+      }
+
+      if (event.start + event.duration > lastEvent.start + lastEvent.duration) {
+        lastEvent = event
+      }
+    })
+
+    return lastEvent.start + lastEvent.duration - firstEvent.start
   }
 
-  mark(message) {
+  start(name) {
     const now = new Date()
-    const duration = now - this.lastTime
-    const split = { message, start: this.lastTime, duration }
-    this.splits.push(split)
-    this.lastTime = now
+
+    const event = new TimerEvent({
+      name,
+      start: now,
+      timer: this,
+    })
 
     if (this.shouldLogToConsole) {
-      console.log(now, "|", duration, "ms", "|", message)
+      console.log(`${now.toLocaleString()} | START: ${name}`)
     }
 
-    return this
+    this.events.push(event)
+    return event
   }
 
-  start() {
-    this.lastTime = new Date()
+  stop(event) {
+    event =
+      event instanceof TimerEvent
+        ? event
+        : this.events.find(e => e.name === event && e.timer === this)
+
+    if (!event) {
+      throw new Error(`No running event with name "${event}" could be found!`)
+    }
+
+    event.timer = null
+    event.stop()
+
+    if (this.shouldLogToConsole) {
+      console.log(
+        `${new Date().toLocaleString()} | STOP: ${event.name} (duration: ${
+          event.duration
+        } ms)`,
+      )
+    }
+
     return this
   }
 
   toObject() {
-    return { ...this }
+    return {
+      events: this.events.map(e => e.toObject()),
+      shouldLogToConsole: this.shouldLogToConsole,
+    }
   }
 }
 
