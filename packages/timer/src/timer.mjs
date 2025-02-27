@@ -18,20 +18,27 @@ class Timer {
   }
 
   get totalTime() {
-    let firstEvent = this.events[0]
-    let lastEvent = this.events[0]
+    let firstTime = Infinity
+    let lastTime = -Infinity
 
     this.events.forEach(event => {
-      if (event.start < firstEvent.start) {
-        firstEvent = event
+      if (event.timer === this) {
+        return
       }
 
-      if (event.start + event.duration > lastEvent.start + lastEvent.duration) {
-        lastEvent = event
+      const start = event.start.getTime()
+      const stop = start + event.duration
+
+      if (start < firstTime) {
+        firstTime = start
+      }
+
+      if (stop > lastTime) {
+        lastTime = stop
       }
     })
 
-    return lastEvent.start + lastEvent.duration - firstEvent.start
+    return lastTime - firstTime
   }
 
   start(name) {
