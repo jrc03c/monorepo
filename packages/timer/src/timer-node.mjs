@@ -3,12 +3,24 @@ import fs from "node:fs"
 import path from "node:path"
 
 class NodeTimer extends Timer {
+  static fromFile(file) {
+    const raw = fs.readFileSync(file, "utf8")
+    const options = JSON.parse(raw)
+    return new NodeTimer(options)
+  }
+
   path = null
+  shouldAutoSave = false
 
   constructor(options) {
     options = options || {}
     super(options)
     this.path = options.path || this.path
+
+    this.shouldAutoSave =
+      typeof options.shouldAutoSave === "undefined"
+        ? !!this.path
+        : options.shouldAutoSave
   }
 
   save(p) {
@@ -28,6 +40,26 @@ class NodeTimer extends Timer {
 
     fs.writeFileSync(p, JSON.stringify(this.toObject(), null, 2), "utf8")
     return this
+  }
+
+  start() {
+    const out = super.start(...arguments)
+
+    if (this.shouldAutoSave) {
+      this.save()
+    }
+
+    return out
+  }
+
+  stop() {
+    const out = super.stop(...arguments)
+
+    if (this.shouldAutoSave) {
+      this.save()
+    }
+
+    return out
   }
 }
 

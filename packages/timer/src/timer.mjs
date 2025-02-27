@@ -7,6 +7,10 @@ class Timer {
   constructor(options) {
     options = options || {}
 
+    this.events = options.events
+      ? options.events.map(e => new TimerEvent(e))
+      : this.events
+
     this.shouldLogToConsole =
       typeof options.shouldLogToConsole === "undefined"
         ? this.shouldLogToConsole
@@ -66,6 +70,16 @@ class Timer {
           event.duration
         } ms)`,
       )
+    }
+
+    return this
+  }
+
+  stopAll() {
+    for (const event of this.events) {
+      if (event.timer === this) {
+        this.stop(event)
+      }
     }
 
     return this

@@ -10,6 +10,10 @@ class TimerEvent {
     this.name = options.name || this.name
     this.start = options.start || this.start
     this.timer = options.timer || this.timer
+
+    if (typeof this.start === "number") {
+      this.start = new Date(this.start)
+    }
   }
 
   stop() {
