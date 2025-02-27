@@ -24,6 +24,7 @@
   "scripts": {
     "build": "node build.mjs",
     "serve": "python3 -m http.server",
+    "test": "npx fake-jest",
     "watch": "node build.mjs --watch"
   },
   "type": "module"
