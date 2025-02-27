@@ -1,34 +1,51 @@
 dependsOn:
-- id: fake-jest
-  scope: development
-- id: js-math-tools
-  scope: development
-- id: pause
-  scope: development
-- id: watch
-  scope: development
+  - id: fake-jest
+    scope: development
+  - id: js-math-tools
+    scope: development
+  - id: pause
+    scope: development
+  - id: watch
+    scope: development
 tasks:
   build:
     command:
-    - node
-    - build.mjs
+      - node
+      - build.mjs
+    platform: node
+  pub:
+    command:
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    local: true
+    platform: node
+  pub-dep1:
+    command:
+      - npm
+      - version
+      - patch
+      - --force
+    local: true
     platform: node
   serve:
     command:
-    - python3
-    - -m
-    - http.server
+      - python3
+      - -m
+      - http.server
     local: true
     platform: node
   test:
     command:
-    - npx
-    - fake-jest
+      - npx
+      - fake-jest
     platform: node
   watch:
     command:
-    - node
-    - build.mjs
-    - --watch
+      - node
+      - build.mjs
+      - --watch
     local: true
     platform: node
