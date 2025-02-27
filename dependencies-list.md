@@ -110,6 +110,11 @@
   - js-text-tools
   - pause
   - watch
+# timer (0.0.1)
+  - fake-jest
+  - js-math-tools
+  - pause
+  - watch
 # web-worker-helper (0.0.6)
   - freeze
   - make-key
