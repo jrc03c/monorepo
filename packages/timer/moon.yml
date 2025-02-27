@@ -1,0 +1,34 @@
+dependsOn:
+- id: fake-jest
+  scope: development
+- id: js-math-tools
+  scope: development
+- id: pause
+  scope: development
+- id: watch
+  scope: development
+tasks:
+  build:
+    command:
+    - node
+    - build.mjs
+    platform: node
+  serve:
+    command:
+    - python3
+    - -m
+    - http.server
+    local: true
+    platform: node
+  test:
+    command:
+    - npx
+    - fake-jest
+    platform: node
+  watch:
+    command:
+    - node
+    - build.mjs
+    - --watch
+    local: true
+    platform: node
