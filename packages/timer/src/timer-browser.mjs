@@ -79,6 +79,14 @@ class BrowserTimer extends Timer {
     this.save()
     return out
   }
+
+  toObject() {
+    return {
+      ...super.toObject(),
+      localStorageKey: this.localStorageKey,
+      shouldSaveToLocalStorage: this.shouldSaveToLocalStorage,
+    }
+  }
 }
 
 export { BrowserTimer }

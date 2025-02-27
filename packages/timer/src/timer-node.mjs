@@ -61,6 +61,14 @@ class NodeTimer extends Timer {
 
     return out
   }
+
+  toObject() {
+    return {
+      ...super.toObject(),
+      path: this.path,
+      shouldAutoSave: this.shouldAutoSave,
+    }
+  }
 }
 
 export { NodeTimer }

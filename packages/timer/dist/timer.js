@@ -163,6 +163,13 @@
       this.save();
       return out;
     }
+    toObject() {
+      return {
+        ...super.toObject(),
+        localStorageKey: this.localStorageKey,
+        shouldSaveToLocalStorage: this.shouldSaveToLocalStorage
+      };
+    }
   };
 
   // src/iife.mjs
