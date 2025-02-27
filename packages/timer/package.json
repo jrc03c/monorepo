@@ -21,5 +21,6 @@
     }
   },
   "name": "@jrc03c/timer",
-  "type": "module"
+  "type": "module",
+  "version": "0.0.1"
 }
