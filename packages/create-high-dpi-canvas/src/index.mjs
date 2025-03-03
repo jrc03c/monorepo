@@ -193,4 +193,16 @@ function createHighDPICanvas(width, height) {
   return canvas
 }
 
+try {
+  if (
+    globalThis.customElements &&
+    !globalThis.customElements.get(HighDPICanvasElement.tagName)
+  ) {
+    globalThis.customElements.define(
+      HighDPICanvasElement.tagName,
+      HighDPICanvasElement,
+    )
+  }
+} catch (e) {}
+
 export { createHighDPICanvas, HighDPICanvasElement }
