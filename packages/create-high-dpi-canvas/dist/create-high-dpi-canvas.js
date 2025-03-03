@@ -3639,11 +3639,19 @@
     ]);
     static tagName = "high-dpi-canvas";
     static template = "<canvas></canvas>";
-    constructor(width, height) {
-      super();
-      this.dimensions = [width, height];
-      this.onOuterResize(false);
-    }
+    // NOTE: CONSTRUCTORS CAN'T BE USED WITH WEB COMPONENTS! Or, at the very
+    // least, they're stupid and complicated, and I can't figure out when and why
+    // they work or don't work. So, for now, they SHOULD NOT BE USED! Instead,
+    // create new high-DPI canvases using `document.createElement` (*after* this
+    // component has been registered as a custom element, of course). Finally,
+    // anything you'd normally do in the constructor should be done in the
+    // `connectedCallback` method instead.
+    //
+    // constructor(width, height) {
+    //   super()
+    //   this.dimensions = [width, height]
+    //   this.onOuterResize(false)
+    // }
     get dimensions() {
       return [this.width, this.height];
     }
@@ -3708,6 +3716,7 @@
         this.height = height;
         this.onOuterResize(true);
       });
+      this.onOuterResize(false);
       this.resizeObserver.observe(this);
       return out;
     }
@@ -3751,7 +3760,9 @@
     }
   };
   function createHighDPICanvas(width, height) {
-    return new HighDPICanvasElement(width, height);
+    const canvas = document.createElement(HighDPICanvasElement.tagName);
+    canvas.dimensions = [width, height];
+    return canvas;
   }
 
   // src/iife.mjs
