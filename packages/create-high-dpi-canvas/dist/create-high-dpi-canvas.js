@@ -3652,6 +3652,7 @@
     //   this.dimensions = [width, height]
     //   this.onOuterResize(false)
     // }
+    isMounted = false;
     get dimensions() {
       return [this.width, this.height];
     }
@@ -3677,6 +3678,9 @@
         } catch (e) {
         }
         this.style.width = `${newValue}px`;
+      }
+      if (!this.isMounted) {
+        this.onOuterResize(true);
       }
       return out;
     }
@@ -3718,6 +3722,7 @@
       });
       this.onOuterResize(false);
       this.resizeObserver.observe(this);
+      this.isMounted = true;
       return out;
     }
     disconnectedCallback() {
@@ -3728,6 +3733,7 @@
         } catch (e) {
         }
       });
+      this.isMounted = false;
       return out;
     }
     getContext() {

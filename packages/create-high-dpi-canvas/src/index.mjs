@@ -53,6 +53,8 @@ class HighDPICanvasElement extends BaseComponent {
   //   this.onOuterResize(false)
   // }
 
+  isMounted = false
+
   get dimensions() {
     return [this.width, this.height]
   }
@@ -83,6 +85,25 @@ class HighDPICanvasElement extends BaseComponent {
       } catch (e) {}
 
       this.style.width = `${newValue}px`
+    }
+
+    // NOTE: When the element isn't mounted, the resize observer doesn't work
+    // as expected: instead of reporting *all* resize events, it merely reports
+    // a single, initial resize event — and then stops reporting any further
+    // resize events. Since the `onOuterResize` method is usually called as part
+    // of the resize observer's callback function, the `onOuterResize` method
+    // isn't called often enough (i.e., it's only called once) when the element
+    // isn't mounted. Therefore, when it's not mounted, we must call the method
+    // manually if we want the unmounted element to resize the same way as a
+    // mounted element. This is especially important when, for example, we draw
+    // to an offscreen canvas with the intent of then drawing the offscreen
+    // canvas onto an onscreen canvas. If the offscreen (unmounted) canvas
+    // changes size but does *not* call the `onOuterResize` method, then it
+    // becomes stretched and blurry when drawn to the onscreen canvas. Also, we
+    // also want to emit "resize" events so that any event listeners can be
+    // notified; and that can only happen if we call the `onOuterResize` method.
+    if (!this.isMounted) {
+      this.onOuterResize(true)
     }
 
     return out
@@ -136,6 +157,8 @@ class HighDPICanvasElement extends BaseComponent {
 
     this.onOuterResize(false)
     this.resizeObserver.observe(this)
+
+    this.isMounted = true
     return out
   }
 
@@ -148,6 +171,7 @@ class HighDPICanvasElement extends BaseComponent {
       } catch (e) {}
     })
 
+    this.isMounted = false
     return out
   }
 
