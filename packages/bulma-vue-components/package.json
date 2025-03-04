@@ -1,4 +1,10 @@
 {
+  "dependencies": {
+    "@jrc03c/base-web-component": "^0.0.9",
+    "@jrc03c/vue-component-with-css": "^0.0.10",
+    "bulma": "^1.0.2",
+    "vue": "^3.5.13"
+  },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
     "@jrc03c/fs-extras": "^0.0.23",
@@ -12,16 +18,12 @@
     "prettier": "^3.1.0",
     "vue-router": "^4.5.0"
   },
+  "name": "@jrc03c/bulma-vue-components",
   "scripts": {
     "build": "node build.mjs",
     "serve": "python3 -m http.server",
     "watch": "node build.mjs --watch"
   },
   "type": "module",
-  "dependencies": {
-    "@jrc03c/base-web-component": "^0.0.9",
-    "@jrc03c/vue-component-with-css": "^0.0.10",
-    "bulma": "^1.0.2",
-    "vue": "^3.5.13"
-  }
+  "version": "0.0.2"
 }
