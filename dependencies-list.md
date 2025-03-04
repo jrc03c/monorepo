@@ -34,7 +34,7 @@
   - fake-jest
   - make-key
   - pause
-# js-text-tools (0.0.60)
+# js-text-tools (0.0.61)
   - bash-colors
   - fake-jest
   - js-math-tools
