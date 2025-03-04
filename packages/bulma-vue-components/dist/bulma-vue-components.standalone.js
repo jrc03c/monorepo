@@ -10,8 +10,7 @@
     };
     const unmounted = component.unmounted ? component.unmounted : function() {
     };
-    if (!data.css)
-      data.css = "";
+    if (!data.css) data.css = "";
     component.data = function() {
       return data.bind(this)();
     };

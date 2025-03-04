@@ -17,8 +17,8 @@ var __copyProps = (to, from, except, desc) => {
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // res/js/src/lib/index.mjs
-var lib_exports = {};
-__export(lib_exports, {
+var index_exports = {};
+__export(index_exports, {
   BulmaBlock: () => BulmaBlock,
   BulmaBox: () => BulmaBox,
   BulmaBreadcrumbs: () => BulmaBreadcrumbs,
@@ -32,7 +32,7 @@ __export(lib_exports, {
   BulmaTable: () => BulmaTable,
   BulmaTags: () => BulmaTags
 });
-module.exports = __toCommonJS(lib_exports);
+module.exports = __toCommonJS(index_exports);
 
 // node_modules/@jrc03c/vue-component-with-css/dist/vue-component-with-css.import.mjs
 function createVueComponentWithCSS(component) {
@@ -45,8 +45,7 @@ function createVueComponentWithCSS(component) {
   };
   const unmounted = component.unmounted ? component.unmounted : function() {
   };
-  if (!data.css)
-    data.css = "";
+  if (!data.css) data.css = "";
   component.data = function() {
     return data.bind(this)();
   };
