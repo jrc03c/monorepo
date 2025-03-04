@@ -32,8 +32,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/assert.mjs
   function assert(isTrue, message) {
-    if (!isTrue)
-      throw new MathError(message);
+    if (!isTrue) throw new MathError(message);
   }
 
   // node_modules/@jrc03c/js-math-tools/src/helpers/array-types.mjs
@@ -240,8 +239,7 @@
         }
       }
       if (typeof x2 === "object") {
-        if (x2 === null)
-          return null;
+        if (x2 === null) return null;
         checked.push(x2);
         if (isArray(x2)) {
           if (typeof x2.constructor !== "undefined" && x2.constructor.name !== "Array") {
@@ -290,12 +288,9 @@
       const bType = typeof b2;
       if (aType !== bType && !numberTypes.includes(aType) && !numberTypes.includes(bType))
         return false;
-      if (aType === "undefined" && bType === "undefined")
-        return true;
-      if (aType === "boolean")
-        return a2 === b2;
-      if (aType === "symbol")
-        return a2 === b2;
+      if (aType === "undefined" && bType === "undefined") return true;
+      if (aType === "boolean") return a2 === b2;
+      if (aType === "symbol") return a2 === b2;
       if (aType === "number" || aType === "bigint") {
         try {
           const aString = a2.toString();
@@ -305,10 +300,8 @@
           return false;
         }
       }
-      if (aType === "string")
-        return a2 === b2;
-      if (aType === "function")
-        return a2 === b2;
+      if (aType === "string") return a2 === b2;
+      if (aType === "function") return a2 === b2;
       if (aType === "object") {
         if (a2 === null || b2 === null) {
           return a2 === null && b2 === null;
@@ -330,12 +323,10 @@
           }
           const aKeys = Object.keys(a2).concat(Object.getOwnPropertySymbols(a2));
           const bKeys = Object.keys(b2).concat(Object.getOwnPropertySymbols(b2));
-          if (aKeys.length !== bKeys.length)
-            return false;
+          if (aKeys.length !== bKeys.length) return false;
           for (let i = 0; i < aKeys.length; i++) {
             const key = aKeys[i];
-            if (!helper4(a2[key], b2[key]))
-              return false;
+            if (!helper4(a2[key], b2[key])) return false;
           }
           return true;
         }
@@ -352,8 +343,7 @@
   function makeKey(n) {
     const alpha = "abcdefg1234567890";
     let out = "";
-    while (out.length < n)
-      out += alpha[Math.floor(Math.random() * alpha.length)];
+    while (out.length < n) out += alpha[Math.floor(Math.random() * alpha.length)];
     return out;
   }
   var NULL_KEY = makeKey(16);
@@ -636,13 +626,11 @@
   var error = "You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!";
   function ndarray(shape2) {
     assert(!isUndefined(shape2), error);
-    if (!isArray(shape2))
-      shape2 = [shape2];
+    if (!isArray(shape2)) shape2 = [shape2];
     assert(!isNested(shape2), error);
     assert(shape2.length > 0, error);
     let s2 = shape2[0];
-    if (typeof s2 === "bigint")
-      s2 = Number(s2);
+    if (typeof s2 === "bigint") s2 = Number(s2);
     assert(isNumber(s2), error);
     assert(s2 >= 0, error);
     assert(Math.floor(s2) === s2, error);
@@ -652,8 +640,7 @@
     );
     if (shape2.length === 1) {
       const out = [];
-      for (let i = 0; i < s2; i++)
-        out.push(void 0);
+      for (let i = 0; i < s2; i++) out.push(void 0);
       return out;
     } else {
       const out = [];
@@ -677,8 +664,7 @@
       "The `reverse` function only works on arrays, Series, and DataFrames!"
     );
     const out = [];
-    for (let i = arr.length - 1; i >= 0; i--)
-      out.push(arr[i]);
+    for (let i = arr.length - 1; i >= 0; i--) out.push(arr[i]);
     return out;
   }
 
@@ -719,8 +705,7 @@
         out.push(i);
       }
     }
-    if (shouldReverse)
-      out = reverse(out);
+    if (shouldReverse) out = reverse(out);
     return out;
   }
 
@@ -728,8 +713,7 @@
   function makeKey2(n) {
     const alpha = "abcdefg1234567890";
     let out = "";
-    while (out.length < n)
-      out += alpha[Math.floor(Math.random() * alpha.length)];
+    while (out.length < n) out += alpha[Math.floor(Math.random() * alpha.length)];
     return out;
   }
   var NULL_KEY2 = makeKey2(256);
@@ -749,8 +733,7 @@
     const temp = {};
     flatten(arr).forEach((item) => {
       const key = typeof item === "object" && item === null ? NULL_KEY2 : isUndefined(item) ? UNDEFINED_KEY2 : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY2 : item === Infinity ? INFINITY_KEY2 : item === -Infinity ? MINUS_INFINITY_KEY2 : typeof item === "bigint" ? item.toString() : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
-      if (!temp[key])
-        out.push(item);
+      if (!temp[key]) out.push(item);
       temp[key] = true;
     });
     return out;
@@ -1053,8 +1036,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-copy.mjs
   function dfCopy(DataFrame2, df) {
-    if (df.isEmpty)
-      return new DataFrame2();
+    if (df.isEmpty) return new DataFrame2();
     const out = new DataFrame2(copy(df.values));
     out.columns = df.columns.slice();
     out.index = df.index.slice();
@@ -1063,14 +1045,10 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-drop.mjs
   function dfDrop(DataFrame2, Series2, df, rows, cols) {
-    if (isUndefined(rows))
-      rows = [];
-    if (isUndefined(cols))
-      cols = [];
-    if (isString(rows) || isNumber(rows))
-      rows = [rows];
-    if (isString(cols) || isNumber(cols))
-      cols = [cols];
+    if (isUndefined(rows)) rows = [];
+    if (isUndefined(cols)) cols = [];
+    if (isString(rows) || isNumber(rows)) rows = [rows];
+    if (isString(cols) || isNumber(cols)) cols = [cols];
     assert(
       isArray(rows),
       "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
@@ -1090,15 +1068,13 @@
     let outIndex, outColumns;
     df.index.forEach((row, i) => {
       if (rows.indexOf(row) < 0 && rows.indexOf(i) < 0) {
-        if (!outIndex)
-          outIndex = [];
+        if (!outIndex) outIndex = [];
         outIndex.push(row);
       }
     });
     df.columns.forEach((col, i) => {
       if (cols.indexOf(col) < 0 && cols.indexOf(i) < 0) {
-        if (!outColumns)
-          outColumns = [];
+        if (!outColumns) outColumns = [];
         outColumns.push(col);
       }
     });
@@ -1106,8 +1082,7 @@
     if (out instanceof Series2) {
       let temp = new DataFrame2();
       temp = temp.assign(out);
-      if (df.index.indexOf(out.name) > -1)
-        temp = temp.transpose();
+      if (df.index.indexOf(out.name) > -1) temp = temp.transpose();
       out = temp;
     }
     return out;
@@ -1145,22 +1120,18 @@
         let count2 = 0;
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (isUndefined(value))
-            count2++;
-          if (count2 >= threshold)
-            return [];
+          if (isUndefined(value)) count2++;
+          if (count2 >= threshold) return [];
         }
       } else if (condition === "any") {
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (isUndefined(value))
-            return [];
+          if (isUndefined(value)) return [];
         }
       } else if (condition === "all") {
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (!isUndefined(value))
-            return values;
+          if (!isUndefined(value)) return values;
         }
         return [];
       }
@@ -1171,16 +1142,12 @@
     if (axis === 0) {
       out = out.assign(tempID, out.index);
       const newValues = out.values.map(helper4).filter((row) => row.length > 0);
-      if (shape(newValues).length < 2)
-        return new DataFrame2();
+      if (shape(newValues).length < 2) return new DataFrame2();
       out.values = newValues;
       let newIndex = out.get(null, tempID);
-      if (isUndefined(newIndex))
-        return new DataFrame2();
-      if (isString(newIndex))
-        newIndex = [newIndex];
-      if (newIndex instanceof Series2)
-        newIndex = newIndex.values;
+      if (isUndefined(newIndex)) return new DataFrame2();
+      if (isString(newIndex)) newIndex = [newIndex];
+      if (newIndex instanceof Series2) newIndex = newIndex.values;
       out.index = newIndex;
       out = out.drop(null, tempID);
     } else if (axis === 1) {
@@ -1243,12 +1210,9 @@
     );
     function helper4(values) {
       const numericalValues = dropNaN(values);
-      if (threshold > 0)
-        return values.length - numericalValues.length < threshold;
-      if (condition === "any")
-        return numericalValues.length === values.length;
-      if (condition === "all")
-        return numericalValues.length > 0;
+      if (threshold > 0) return values.length - numericalValues.length < threshold;
+      if (condition === "any") return numericalValues.length === values.length;
+      if (condition === "all") return numericalValues.length > 0;
       return true;
     }
     const out = df.copy();
@@ -1257,19 +1221,15 @@
         const values = out.get(row, null).values;
         return helper4(values);
       });
-      if (rowsToKeep.length > 0)
-        return out.get(rowsToKeep, null);
-      else
-        return new DataFrame2();
+      if (rowsToKeep.length > 0) return out.get(rowsToKeep, null);
+      else return new DataFrame2();
     } else if (axis === 1) {
       const colsToKeep = out.columns.filter((col) => {
         const values = out.get(null, col).values;
         return helper4(values);
       });
-      if (colsToKeep.length > 0)
-        return out.get(null, colsToKeep);
-      else
-        return new DataFrame2();
+      if (colsToKeep.length > 0) return out.get(null, colsToKeep);
+      else return new DataFrame2();
     }
     return out;
   }
@@ -1290,15 +1250,13 @@
       isFunction(fn),
       "The `filter` method takes a single parameter: a function that is used to filter the values."
     );
-    if (isUndefined(axis))
-      axis = 0;
+    if (isUndefined(axis)) axis = 0;
     assert(
       axis === 0 || axis === 1,
       "The `axis` parameter to the `filter` method must be 0 or 1."
     );
     let out = df.copy();
-    if (out.isEmpty)
-      return out;
+    if (out.isEmpty) return out;
     const index = arrayToObject(out.index);
     const columns = arrayToObject(out.columns);
     if (axis === 0) {
@@ -1359,10 +1317,8 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get.mjs
   function dfGet(df, rows, cols) {
-    if (isString(rows) || isNumber(rows))
-      rows = [rows];
-    if (isString(cols) || isNumber(cols))
-      cols = [cols];
+    if (isString(rows) || isNumber(rows)) rows = [rows];
+    if (isString(cols) || isNumber(cols)) cols = [cols];
     for (const i in rows) {
       if (typeof rows[i] === "bigint") {
         rows[i] = Number(rows[i]);
@@ -1428,24 +1384,19 @@
   // node_modules/@jrc03c/js-math-tools/src/sort.mjs
   function alphaSort(a, b) {
     try {
-      if (a < b)
-        return -1;
-      if (a > b)
-        return 1;
+      if (a < b) return -1;
+      if (a > b) return 1;
       return 0;
     } catch (e) {
       a = typeof a === "object" && a !== null ? JSON.stringify(a) : a.toString();
       b = typeof b === "object" && b !== null ? JSON.stringify(b) : b.toString();
-      if (a < b)
-        return -1;
-      if (a > b)
-        return 1;
+      if (a < b) return -1;
+      if (a > b) return 1;
       return 0;
     }
   }
   function sort(arr, fn) {
-    if (isUndefined(fn))
-      fn = alphaSort;
+    if (isUndefined(fn)) fn = alphaSort;
     if (isDataFrame(arr) || isSeries(arr)) {
       return arr.sort(...Object.values(arguments).slice(1));
     }
@@ -1518,14 +1469,10 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get-subset-by-indices.mjs
   function dfGetSubsetByIndices(df, rowIndices, colIndices) {
     const dataShape = df.shape;
-    if (isUndefined(rowIndices))
-      rowIndices = range(0, dataShape[0]);
-    if (isUndefined(colIndices))
-      colIndices = range(0, dataShape[1]);
-    if (isNumber(rowIndices))
-      rowIndices = [rowIndices];
-    if (isNumber(colIndices))
-      colIndices = [colIndices];
+    if (isUndefined(rowIndices)) rowIndices = range(0, dataShape[0]);
+    if (isUndefined(colIndices)) colIndices = range(0, dataShape[1]);
+    if (isNumber(rowIndices)) rowIndices = [rowIndices];
+    if (isNumber(colIndices)) colIndices = [colIndices];
     assert(
       isArray(rowIndices) && isArray(colIndices),
       "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
@@ -1569,14 +1516,10 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get-subset-by-names.mjs
   function dfGetSubsetByNames(DataFrame2, Series2, df, rows, cols) {
-    if (isUndefined(rows))
-      rows = df.index;
-    if (isUndefined(cols))
-      cols = df.columns;
-    if (isString(rows))
-      rows = [rows];
-    if (isString(cols))
-      cols = [cols];
+    if (isUndefined(rows)) rows = df.index;
+    if (isUndefined(cols)) cols = df.columns;
+    if (isString(rows)) rows = [rows];
+    if (isString(cols)) cols = [cols];
     assert(
       isArray(rows) && isArray(cols),
       "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
@@ -1659,7 +1602,7 @@
     }
     const maxRows = typeof window === "undefined" ? 20 : 10;
     const halfMaxRows = Math.floor(maxRows / 2);
-    const maxColumns = typeof process === "undefined" ? 10 : Math.floor(process.stdout.columns / 24) - 1;
+    const maxColumns = 4;
     const halfMaxColumns = Math.floor(maxColumns / 2);
     const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(
       range(df.index.length - halfMaxRows, df.index.length)
@@ -1715,8 +1658,7 @@
   function leftPad(x, maxLength) {
     assert(isNumber(x), "The `leftPad` function only works on numbers!");
     let out = x.toString();
-    while (out.length < maxLength)
-      out = "0" + out;
+    while (out.length < maxLength) out = "0" + out;
     return out;
   }
 
@@ -1739,8 +1681,7 @@
       "The `product` function only works on arrays, Series, and DataFrames!"
     );
     try {
-      if (arr.length === 0)
-        return NaN;
+      if (arr.length === 0) return NaN;
       const temp = flatten(arr);
       let resultShouldBeABigInt = false;
       let out = 1;
@@ -1784,8 +1725,7 @@
       isArray(x),
       "The first argument passed into the `reshape` function must be an array!"
     );
-    if (isNumber(newShape))
-      newShape = [newShape];
+    if (isNumber(newShape)) newShape = [newShape];
     assert(
       isArray(newShape),
       "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
@@ -1838,8 +1778,7 @@
       return z ^ z >> BigInt(31);
     }
     const out = [];
-    for (let i = 0; i < n; i++)
-      out.push(helper4());
+    for (let i = 0; i < n; i++) out.push(helper4());
     return out;
   }
   function uint(x) {
@@ -1880,10 +1819,8 @@
     return Math.floor(Number(result)) / MAX;
   }
   function random(shape2) {
-    if (isUndefined(shape2))
-      return next();
-    if (!isArray(shape2))
-      shape2 = [shape2];
+    if (isUndefined(shape2)) return next();
+    if (!isArray(shape2)) shape2 = [shape2];
     return reshape(ndarray(product(shape2)).map(next), shape2);
   }
 
@@ -1907,8 +1844,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-shuffle.mjs
   function dfShuffle(df, axis) {
-    if (isUndefined(axis))
-      axis = 0;
+    if (isUndefined(axis)) axis = 0;
     assert(
       axis === 0 || axis === 1,
       "The `axis` parameter to the `shuffle` must be 0, 1, or undefined."
@@ -1964,8 +1900,7 @@
     }
     if (isNumber(cols) || isString(cols)) {
       cols = [cols];
-      if (isBoolean(directions) || isString(directions))
-        directions = [directions];
+      if (isBoolean(directions) || isString(directions)) directions = [directions];
     }
     assert(
       isArray(cols),
@@ -2028,12 +1963,9 @@
         counter++;
       }
       const isAscending = directions[counter];
-      if (a[cols[counter]] === b[cols[counter]])
-        return 0;
-      if (a[cols[counter]] < b[cols[counter]])
-        return isAscending ? -1 : 1;
-      if (a[cols[counter]] > b[cols[counter]])
-        return isAscending ? 1 : -1;
+      if (a[cols[counter]] === b[cols[counter]]) return 0;
+      if (a[cols[counter]] < b[cols[counter]]) return isAscending ? -1 : 1;
+      if (a[cols[counter]] > b[cols[counter]]) return isAscending ? 1 : -1;
     });
     const indexNumber = out.columns.indexOf(indexID);
     out.index = out.values.map((row) => row[indexNumber]);
@@ -2189,8 +2121,7 @@
     const indicesToRemove = [];
     const newValues = out.values.filter((value, i) => {
       const shouldKeep = fn(value, i, out.values);
-      if (!shouldKeep)
-        indicesToRemove.push(out.index[i]);
+      if (!shouldKeep) indicesToRemove.push(out.index[i]);
       return shouldKeep;
     });
     indicesToRemove.forEach((i) => {
@@ -2208,8 +2139,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/series/series-get.mjs
   function seriesGet(series, indices) {
-    if (isString(indices) || isNumber(indices))
-      indices = [indices];
+    if (isString(indices) || isNumber(indices)) indices = [indices];
     for (const i in indices) {
       if (typeof indices[i] === "bigint") {
         indices[i] = Number(indices[i]);
@@ -2256,8 +2186,7 @@
   // node_modules/@jrc03c/js-math-tools/src/series/series-get-subset-by-indices.mjs
   function seriesGetSubsetByIndices(series, indices) {
     const dataShape = series.shape;
-    if (isUndefined(indices))
-      indices = range(0, dataShape[0]);
+    if (isUndefined(indices)) indices = range(0, dataShape[0]);
     assert(
       isArray(indices),
       "The `indices` array must be 1-dimensional array of whole numbers."
@@ -2286,8 +2215,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/series/series-get-subset-by-names.mjs
   function seriesGetSubsetByNames(Series2, series, indices) {
-    if (isUndefined(indices))
-      indices = series.index;
+    if (isUndefined(indices)) indices = series.index;
     assert(
       isArray(indices),
       "The `indices` array must be a 1-dimensional array of strings."
@@ -2310,8 +2238,7 @@
     const values = indices.map((name) => {
       return series.values[series.index.indexOf(name)];
     });
-    if (values.length === 1)
-      return values[0];
+    if (values.length === 1) return values[0];
     const out = new Series2(values);
     out.index = indices;
     out.name = series.name;
@@ -2380,12 +2307,9 @@
     let temp = transpose([series.values, series.index]);
     temp = transpose(
       sort(temp, (a, b) => {
-        if (a[1] === b[1])
-          return 0;
-        if (a[1] < b[1])
-          return -1;
-        if (a[1] > b[1])
-          return 1;
+        if (a[1] === b[1]) return 0;
+        if (a[1] < b[1]) return -1;
+        if (a[1] > b[1]) return 1;
       })
     );
     const out = new Series2(temp[0]);
@@ -2625,8 +2549,7 @@
   function makeKey3(n) {
     const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
     let out = "";
-    for (let i = 0; i < n; i++)
-      out += alpha[Math.floor(random() * alpha.length)];
+    for (let i = 0; i < n; i++) out += alpha[Math.floor(random() * alpha.length)];
     return out;
   }
   var DataFrame = class _DataFrame {
@@ -3058,8 +2981,7 @@
   // node_modules/@jrc03c/js-math-tools/src/abs.mjs
   function abs(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         return x < 0 ? -x : x;
       } else {
@@ -3078,8 +3000,7 @@
       let resultShouldBeABigInt = false;
       const x = Object.values(arguments);
       for (let v of x) {
-        if (!isNumber(v))
-          return NaN;
+        if (!isNumber(v)) return NaN;
         if (typeof v === "bigint") {
           resultShouldBeABigInt = true;
           v = Number(v);
@@ -3112,8 +3033,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arccos.mjs
   function arccos(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3127,8 +3047,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arcsin.mjs
   function arcsin(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3142,8 +3061,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arctan.mjs
   function arctan(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3157,10 +3075,8 @@
   // node_modules/@jrc03c/js-math-tools/src/ceil.mjs
   function ceil(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       return Math.ceil(x);
     } catch (e) {
       return NaN;
@@ -3171,10 +3087,8 @@
   // node_modules/@jrc03c/js-math-tools/src/chop.mjs
   function chop(x, threshold) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       if (isUndefined(threshold)) {
         threshold = 1e-10;
       } else if (!isNumber(threshold)) {
@@ -3213,19 +3127,14 @@
   // node_modules/@jrc03c/js-math-tools/src/clamp.mjs
   function clamp(x, a, b) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
       if (typeof x === "bigint") {
         return BigInt(clamp(vint(x), a, b));
       }
-      if (x < a)
-        return a;
-      if (x > b)
-        return b;
+      if (x < a) return a;
+      if (x > b) return b;
       return x;
     } catch (e) {
       return NaN;
@@ -3236,8 +3145,7 @@
   // node_modules/@jrc03c/js-math-tools/src/cos.mjs
   function cos(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3261,10 +3169,8 @@
   // node_modules/@jrc03c/js-math-tools/src/pow.mjs
   function pow(x, p) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(p))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(p)) return NaN;
       if (typeof x === "bigint" || typeof p === "bigint") {
         const out = pow(Number(x), Number(p));
         try {
@@ -3283,8 +3189,7 @@
   // node_modules/@jrc03c/js-math-tools/src/sqrt.mjs
   function sqrt(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         const out = sqrt(Number(x));
         try {
@@ -3304,13 +3209,11 @@
   function multiply() {
     try {
       const x = Object.values(arguments);
-      if (x.length === 0)
-        return NaN;
+      if (x.length === 0) return NaN;
       let resultShouldBeABigInt = false;
       let out = 1;
       for (let v of x) {
-        if (!isNumber(v))
-          return NaN;
+        if (!isNumber(v)) return NaN;
         if (typeof v === "bigint") {
           resultShouldBeABigInt = true;
           v = Number(v);
@@ -3333,8 +3236,7 @@
   // node_modules/@jrc03c/js-math-tools/src/exp.mjs
   function exp(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         if (x === 0n) {
           return 1n;
@@ -3355,10 +3257,8 @@
       if (typeof n === "bigint") {
         return BigInt(factorial(vint(n)));
       }
-      if (n !== vint(n))
-        return NaN;
-      if (n <= 1)
-        return 1;
+      if (n !== vint(n)) return NaN;
+      if (n <= 1) return 1;
       return n * factorial(n - 1);
     } catch (e) {
       return NaN;
@@ -3376,8 +3276,7 @@
         return -Infinity;
       }
       const out = JSON.parse(x);
-      if (isNumber(out))
-        return out;
+      if (isNumber(out)) return out;
       return NaN;
     } catch (e) {
       return NaN;
@@ -3388,8 +3287,7 @@
   // node_modules/@jrc03c/js-math-tools/src/floor.mjs
   function floor(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         return x;
       }
@@ -3403,12 +3301,9 @@
   // node_modules/@jrc03c/js-math-tools/src/lerp.mjs
   function lerp(a, b, f) {
     try {
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
-      if (!isNumber(f))
-        return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
+      if (!isNumber(f)) return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
         const out = lerp(Number(a), Number(b), f);
         try {
@@ -3428,10 +3323,8 @@
   function log(x, base) {
     try {
       base = isUndefined(base) ? Math.E : base;
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(base))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(base)) return NaN;
       if (typeof x === "bigint" || typeof base === "bigint") {
         const out = log(Number(x), Number(base));
         try {
@@ -3450,10 +3343,8 @@
   // node_modules/@jrc03c/js-math-tools/src/mod.mjs
   function mod(a, b) {
     try {
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
         const out = mod(Number(a), Number(b));
         try {
@@ -3490,8 +3381,7 @@
       }
       const num = (d - c) * (x - a);
       const den = b - a;
-      if (den === 0)
-        return NaN;
+      if (den === 0) return NaN;
       const out = num / den + c;
       if (resultShouldBeABigInt) {
         try {
@@ -3508,10 +3398,8 @@
   // node_modules/@jrc03c/js-math-tools/src/round.mjs
   function round(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       return Math.round(x);
     } catch (e) {
       return NaN;
@@ -3522,14 +3410,10 @@
   // node_modules/@jrc03c/js-math-tools/src/sign.mjs
   function sign(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return BigInt(sign(Number(x)));
-      if (x < 0)
-        return -1;
-      if (x > 0)
-        return 1;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return BigInt(sign(Number(x)));
+      if (x < 0) return -1;
+      if (x > 0) return 1;
       return 0;
     } catch (e) {
       return NaN;
@@ -3540,8 +3424,7 @@
   // node_modules/@jrc03c/js-math-tools/src/sin.mjs
   function sin(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3555,8 +3438,7 @@
   // node_modules/@jrc03c/js-math-tools/src/tan.mjs
   function tan(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
