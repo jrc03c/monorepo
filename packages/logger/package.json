@@ -19,5 +19,5 @@
   "module": "./src/index.mjs",
   "name": "@jrc03c/logger",
   "type": "module",
-  "version": "0.0.19"
+  "version": "0.0.20"
 }
