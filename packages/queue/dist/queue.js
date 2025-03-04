@@ -1602,7 +1602,7 @@
     }
     const maxRows = typeof window === "undefined" ? 20 : 10;
     const halfMaxRows = Math.floor(maxRows / 2);
-    const maxColumns = typeof process === "undefined" ? 10 : Math.floor(process.stdout.columns / 24) - 1;
+    const maxColumns = 4;
     const halfMaxColumns = Math.floor(maxColumns / 2);
     const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(
       range(df.index.length - halfMaxRows, df.index.length)
@@ -3523,7 +3523,7 @@
       if (this.isRunning) return;
       this.isRunning = true;
       let isProcessing = false;
-      const process2 = async () => {
+      const process = async () => {
         if (isProcessing) return;
         isProcessing = true;
         if (!this.jobs || this.jobs.length === 0) {
@@ -3536,8 +3536,8 @@
         }
         isProcessing = false;
       };
-      process2();
-      this.interval = setInterval(process2, this.timeBetweenJobs);
+      process();
+      this.interval = setInterval(process, this.timeBetweenJobs);
       return this;
     }
     stop() {
