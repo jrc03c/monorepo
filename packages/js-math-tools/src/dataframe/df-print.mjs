@@ -22,12 +22,7 @@ function dfPrint(DataFrame, Series, df) {
 
   const maxRows = typeof window === "undefined" ? 20 : 10
   const halfMaxRows = Math.floor(maxRows / 2)
-
-  const maxColumns =
-    typeof process === "undefined"
-      ? 10
-      : Math.floor(process.stdout.columns / 24) - 1
-
+  const maxColumns = 4
   const halfMaxColumns = Math.floor(maxColumns / 2)
 
   const tempRows =
