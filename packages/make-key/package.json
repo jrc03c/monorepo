@@ -4,12 +4,12 @@
     "key": "./bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.91"
+    "@jrc03c/js-math-tools": "^0.0.92"
   },
   "description": "",
   "devDependencies": {
     "@jrc03c/fake-jest": "^0.0.16",
-    "esbuild": "^0.17.11",
+    "esbuild": "^0.25.0",
     "eslint": "^8.36.0"
   },
   "keywords": [],
