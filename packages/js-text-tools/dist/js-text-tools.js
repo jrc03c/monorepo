@@ -6,8 +6,8 @@
   };
 
   // src/index.mjs
-  var src_exports = {};
-  __export(src_exports, {
+  var index_exports = {};
+  __export(index_exports, {
     camelify: () => camelify,
     convertObjectToTypedArray: () => convertObjectToTypedArray,
     convertTypedArrayToObject: () => convertTypedArrayToObject,
@@ -57,7 +57,8 @@
   }
 
   // node_modules/@jrc03c/js-math-tools/src/is-browser.mjs
-  var isBrowser = new Function(`
+  var isBrowser = new Function(
+    `
     try {
       return this === window
     } catch(e) {}
@@ -67,7 +68,8 @@
     } catch(e){}
 
     return false
-  `);
+  `
+  );
 
   // node_modules/@jrc03c/js-math-tools/src/math-error.mjs
   var MathError = class extends Error {
@@ -82,8 +84,7 @@
 
   // node_modules/@jrc03c/js-math-tools/src/assert.mjs
   function assert(isTrue, message) {
-    if (!isTrue)
-      throw new MathError(message);
+    if (!isTrue) throw new MathError(message);
   }
 
   // node_modules/@jrc03c/js-math-tools/src/helpers/array-types.mjs
@@ -171,7 +172,10 @@
       }
       return index;
     }
-    assert(isObject(x) || isArray(x), "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!");
+    assert(
+      isObject(x) || isArray(x),
+      "You must pass (1) an object, array, Series, or DataFrame and (2) a function or value into the `indexOf` function!"
+    );
     if (!isFunction(fn)) {
       const value = fn;
       fn = (v) => v === value;
@@ -287,8 +291,7 @@
         }
       }
       if (typeof x2 === "object") {
-        if (x2 === null)
-          return null;
+        if (x2 === null) return null;
         checked.push(x2);
         if (isArray(x2)) {
           if (typeof x2.constructor !== "undefined" && x2.constructor.name !== "Array") {
@@ -337,12 +340,9 @@
       const bType = typeof b2;
       if (aType !== bType && !numberTypes.includes(aType) && !numberTypes.includes(bType))
         return false;
-      if (aType === "undefined" && bType === "undefined")
-        return true;
-      if (aType === "boolean")
-        return a2 === b2;
-      if (aType === "symbol")
-        return a2 === b2;
+      if (aType === "undefined" && bType === "undefined") return true;
+      if (aType === "boolean") return a2 === b2;
+      if (aType === "symbol") return a2 === b2;
       if (aType === "number" || aType === "bigint") {
         try {
           const aString = a2.toString();
@@ -352,10 +352,8 @@
           return false;
         }
       }
-      if (aType === "string")
-        return a2 === b2;
-      if (aType === "function")
-        return a2 === b2;
+      if (aType === "string") return a2 === b2;
+      if (aType === "function") return a2 === b2;
       if (aType === "object") {
         if (a2 === null || b2 === null) {
           return a2 === null && b2 === null;
@@ -377,12 +375,10 @@
           }
           const aKeys = Object.keys(a2).concat(Object.getOwnPropertySymbols(a2));
           const bKeys = Object.keys(b2).concat(Object.getOwnPropertySymbols(b2));
-          if (aKeys.length !== bKeys.length)
-            return false;
+          if (aKeys.length !== bKeys.length) return false;
           for (let i = 0; i < aKeys.length; i++) {
             const key = aKeys[i];
-            if (!helper4(a2[key], b2[key]))
-              return false;
+            if (!helper4(a2[key], b2[key])) return false;
           }
           return true;
         }
@@ -399,8 +395,7 @@
   function makeKey(n) {
     const alpha = "abcdefg1234567890";
     let out = "";
-    while (out.length < n)
-      out += alpha[Math.floor(Math.random() * alpha.length)];
+    while (out.length < n) out += alpha[Math.floor(Math.random() * alpha.length)];
     return out;
   }
   var NULL_KEY = makeKey(16);
@@ -474,7 +469,10 @@
     if (isDataFrame(arr) || isSeries(arr)) {
       return flatten(arr.values);
     }
-    assert(isArray(arr), "The `flatten` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `flatten` function only works on arrays, Series, and DataFrames!"
+    );
     function helper4(arr2) {
       let out = [];
       arr2.forEach((child) => {
@@ -537,7 +535,9 @@
       out.nWithoutNaNs = xnums.length;
     }
     if (options.mode) {
-      const sortedCountPairs = Array.from(counts.values.map((v) => [v, counts.get(v)])).toSorted((a, b) => b[1] - a[1]);
+      const sortedCountPairs = Array.from(
+        counts.values.map((v) => [v, counts.get(v)])
+      ).toSorted((a, b) => b[1] - a[1]);
       const highestCount = sortedCountPairs[0][1];
       const mode2 = [];
       for (const pair of sortedCountPairs) {
@@ -662,7 +662,10 @@
     if (isDataFrame(x) || isSeries(x)) {
       return isNested(x.values);
     }
-    assert(isArray(x), "The `isNested` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(x),
+      "The `isNested` function only works on arrays, Series, and DataFrames!"
+    );
     for (let i = 0; i < x.length; i++) {
       if (isArray(x[i])) {
         return true;
@@ -675,21 +678,21 @@
   var error = "You must pass a natural number or a one-dimensional array of natural numbers into the `ndarray` function!";
   function ndarray(shape2) {
     assert(!isUndefined(shape2), error);
-    if (!isArray(shape2))
-      shape2 = [shape2];
+    if (!isArray(shape2)) shape2 = [shape2];
     assert(!isNested(shape2), error);
     assert(shape2.length > 0, error);
     let s2 = shape2[0];
-    if (typeof s2 === "bigint")
-      s2 = Number(s2);
+    if (typeof s2 === "bigint") s2 = Number(s2);
     assert(isNumber(s2), error);
     assert(s2 >= 0, error);
     assert(Math.floor(s2) === s2, error);
-    assert(s2 !== Infinity, "We can't create an array containing an infinite number of values!");
+    assert(
+      s2 !== Infinity,
+      "We can't create an array containing an infinite number of values!"
+    );
     if (shape2.length === 1) {
       const out = [];
-      for (let i = 0; i < s2; i++)
-        out.push(void 0);
+      for (let i = 0; i < s2; i++) out.push(void 0);
       return out;
     } else {
       const out = [];
@@ -708,18 +711,29 @@
       out2.index = reverse(out2.index);
       return out2;
     }
-    assert(isArray(arr), "The `reverse` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `reverse` function only works on arrays, Series, and DataFrames!"
+    );
     const out = [];
-    for (let i = arr.length - 1; i >= 0; i--)
-      out.push(arr[i]);
+    for (let i = arr.length - 1; i >= 0; i--) out.push(arr[i]);
     return out;
   }
 
   // node_modules/@jrc03c/js-math-tools/src/range.mjs
   function range(a, b, step = 1) {
-    assert(!isUndefined(a) && !isUndefined(b) && !isUndefined(step), "You must pass two numbers and optionally a step value to the `range` function!");
-    assert(isNumber(a) && isNumber(b) && isNumber(step), "You must pass two numbers and optionally a step value to the `range` function!");
-    assert(step > 0, "The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)");
+    assert(
+      !isUndefined(a) && !isUndefined(b) && !isUndefined(step),
+      "You must pass two numbers and optionally a step value to the `range` function!"
+    );
+    assert(
+      isNumber(a) && isNumber(b) && isNumber(step),
+      "You must pass two numbers and optionally a step value to the `range` function!"
+    );
+    assert(
+      step > 0,
+      "The step value must be greater than 0! (NOTE: The step value is a magnitude; it does not indicate direction.)"
+    );
     let shouldReverse = false;
     const shouldIncludeBigInts = typeof a === "bigint" || typeof b === "bigint" || typeof step === "bigint";
     a = Number(a);
@@ -743,8 +757,7 @@
         out.push(i);
       }
     }
-    if (shouldReverse)
-      out = reverse(out);
+    if (shouldReverse) out = reverse(out);
     return out;
   }
 
@@ -752,8 +765,7 @@
   function makeKey2(n) {
     const alpha = "abcdefg1234567890";
     let out = "";
-    while (out.length < n)
-      out += alpha[Math.floor(Math.random() * alpha.length)];
+    while (out.length < n) out += alpha[Math.floor(Math.random() * alpha.length)];
     return out;
   }
   var NULL_KEY2 = makeKey2(256);
@@ -765,13 +777,15 @@
     if (isDataFrame(arr) || isSeries(arr)) {
       return set(arr.values);
     }
-    assert(isArray(arr), "The `set` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `set` function only works on arrays, Series, and DataFrames!"
+    );
     const out = [];
     const temp = {};
     flatten(arr).forEach((item) => {
       const key = typeof item === "object" && item === null ? NULL_KEY2 : isUndefined(item) ? UNDEFINED_KEY2 : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY2 : item === Infinity ? INFINITY_KEY2 : item === -Infinity ? MINUS_INFINITY_KEY2 : typeof item === "bigint" ? item.toString() : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
-      if (!temp[key])
-        out.push(item);
+      if (!temp[key]) out.push(item);
       temp[key] = true;
     });
     return out;
@@ -790,7 +804,10 @@
     if (isDataFrame(x) || isSeries(x)) {
       return shape(x.values);
     }
-    assert(isArray(x), "The `shape` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(x),
+      "The `shape` function only works on arrays, Series, and DataFrames!"
+    );
     return helper2(x);
   }
 
@@ -799,9 +816,15 @@
     if (isUndefined(axis)) {
       axis = 0;
     }
-    assert(axis === 0 || axis === 1 || axis === "vertical" || axis === "horizontal", 'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".');
+    assert(
+      axis === 0 || axis === 1 || axis === "vertical" || axis === "horizontal",
+      'The only valid axis values for use when appending data to a DataFrame are 0, 1, "vertical", and "horizontal". Note that 0 == "horizontal" and 1 == "vertical".'
+    );
     if (isArray(x)) {
-      assert(!isJagged(x), "The array of data you're trying to append to this DataFrame is jagged!");
+      assert(
+        !isJagged(x),
+        "The array of data you're trying to append to this DataFrame is jagged!"
+      );
       const xShape = shape(x);
       if (xShape.length === 1) {
         if (axis === 0) {
@@ -839,7 +862,9 @@
         }
       } else if (xShape.length === 2) {
         if (axis === 0) {
-          const maxRowLength = Math.max(...x.map((row) => row.length).concat([df.shape[1]]));
+          const maxRowLength = Math.max(
+            ...x.map((row) => row.length).concat([df.shape[1]])
+          );
           const out = df.copy();
           out._values = out._values.concat(x).map((row) => {
             while (row.length < maxRowLength) {
@@ -876,7 +901,9 @@
           return out;
         }
       } else {
-        throw new MathError("Only 1- and 2-dimensional arrays can be appended to a DataFrame!");
+        throw new MathError(
+          "Only 1- and 2-dimensional arrays can be appended to a DataFrame!"
+        );
       }
     } else if (isSeries(x)) {
       const out = dfAppend(df, x.values, axis);
@@ -910,10 +937,14 @@
           });
           out._values.push(temp.concat(rowCopy._values));
         }, 1);
-        out._columns = out._columns.concat(x._columns.filter((c) => out._columns.indexOf(c) < 0));
+        out._columns = out._columns.concat(
+          x._columns.filter((c) => out._columns.indexOf(c) < 0)
+        );
         while (out._index.length < out._values.length) {
           const newRowName = "row" + out._index.length;
-          out._index.push(newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : ""));
+          out._index.push(
+            newRowName + (df._index.indexOf(newRowName) > -1 ? " (2)" : "")
+          );
         }
         return out;
       } else {
@@ -933,19 +964,29 @@
             out._values.push(ndarray(out._columns.length).concat(x._values[i]));
           }
         });
-        out._columns = out._columns.concat(x._columns.map((c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")));
+        out._columns = out._columns.concat(
+          x._columns.map((c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : ""))
+        );
         return out;
       }
     } else {
-      throw new MathError("Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!");
+      throw new MathError(
+        "Only 1- or 2-dimensional arrays, Series, and DataFrames can be appended to a DataFrame!"
+      );
     }
   }
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-apply.mjs
   function dfApply(DataFrame2, Series2, df, fn, axis) {
     axis = axis || 0;
-    assert(isFunction(fn), "The first parameter to the `apply` method must be a function.");
-    assert(axis === 0 || axis === 1, "The second parameter to the `apply` method (the `axis`) must be 0 or 1.");
+    assert(
+      isFunction(fn),
+      "The first parameter to the `apply` method must be a function."
+    );
+    assert(
+      axis === 0 || axis === 1,
+      "The second parameter to the `apply` method (the `axis`) must be 0 or 1."
+    );
     if (axis === 0) {
       const temp = {};
       let shouldReturnADataFrame;
@@ -1011,8 +1052,14 @@
     const isDataFrame2 = (x) => x instanceof DataFrame2;
     const isSeries2 = (x) => x instanceof Series2;
     if (!isUndefined(p2)) {
-      assert(isString(p1), "If passing two arguments into the `assign` method, then the first argument must be a string name!");
-      assert(isArray(p2) && !isJagged(p2) && shape(p2).length === 1, "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!");
+      assert(
+        isString(p1),
+        "If passing two arguments into the `assign` method, then the first argument must be a string name!"
+      );
+      assert(
+        isArray(p2) && !isJagged(p2) && shape(p2).length === 1,
+        "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!"
+      );
       const out = df.append(p2, 1);
       out.columns[out.columns.length - 1] = p1;
       return out;
@@ -1022,7 +1069,9 @@
       } else if (isSeries2(p1)) {
         return df.append(p1, 1);
       } else if (isObject(p1)) {
-        const maxColumnLength = Math.max(...Object.keys(p1).concat(Object.getOwnPropertySymbols(p1)).map((key) => p1[key].length));
+        const maxColumnLength = Math.max(
+          ...Object.keys(p1).concat(Object.getOwnPropertySymbols(p1)).map((key) => p1[key].length)
+        );
         Object.keys(p1).concat(Object.getOwnPropertySymbols(p1)).forEach((key) => {
           while (p1[key].length < maxColumnLength) {
             p1[key].push(void 0);
@@ -1030,15 +1079,16 @@
         });
         return df.append(new DataFrame2(p1), 1);
       } else {
-        throw new MathError("You must pass a DataFrame, Series, or object into the `assign` method!");
+        throw new MathError(
+          "You must pass a DataFrame, Series, or object into the `assign` method!"
+        );
       }
     }
   }
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-copy.mjs
   function dfCopy(DataFrame2, df) {
-    if (df.isEmpty)
-      return new DataFrame2();
+    if (df.isEmpty) return new DataFrame2();
     const out = new DataFrame2(copy(df.values));
     out.columns = df.columns.slice();
     out.index = df.index.slice();
@@ -1047,30 +1097,36 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-drop.mjs
   function dfDrop(DataFrame2, Series2, df, rows, cols) {
-    if (isUndefined(rows))
-      rows = [];
-    if (isUndefined(cols))
-      cols = [];
-    if (isString(rows) || isNumber(rows))
-      rows = [rows];
-    if (isString(cols) || isNumber(cols))
-      cols = [cols];
-    assert(isArray(rows), "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
-    assert(isArray(cols), "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
-    assert(shape(rows).length === 1, "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
-    assert(shape(cols).length === 1, "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings.");
+    if (isUndefined(rows)) rows = [];
+    if (isUndefined(cols)) cols = [];
+    if (isString(rows) || isNumber(rows)) rows = [rows];
+    if (isString(cols) || isNumber(cols)) cols = [cols];
+    assert(
+      isArray(rows),
+      "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    );
+    assert(
+      isArray(cols),
+      "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    );
+    assert(
+      shape(rows).length === 1,
+      "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    );
+    assert(
+      shape(cols).length === 1,
+      "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
+    );
     let outIndex, outColumns;
     df.index.forEach((row, i) => {
       if (rows.indexOf(row) < 0 && rows.indexOf(i) < 0) {
-        if (!outIndex)
-          outIndex = [];
+        if (!outIndex) outIndex = [];
         outIndex.push(row);
       }
     });
     df.columns.forEach((col, i) => {
       if (cols.indexOf(col) < 0 && cols.indexOf(i) < 0) {
-        if (!outColumns)
-          outColumns = [];
+        if (!outColumns) outColumns = [];
         outColumns.push(col);
       }
     });
@@ -1078,8 +1134,7 @@
     if (out instanceof Series2) {
       let temp = new DataFrame2();
       temp = temp.assign(out);
-      if (df.index.indexOf(out.name) > -1)
-        temp = temp.transpose();
+      if (df.index.indexOf(out.name) > -1) temp = temp.transpose();
       out = temp;
     }
     return out;
@@ -1098,32 +1153,37 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-drop-missing.mjs
   function dfDropMissing(DataFrame2, Series2, df, axis, condition, threshold) {
     axis = axis || 0;
-    assert(axis === 0 || axis === 1, "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1.");
+    assert(
+      axis === 0 || axis === 1,
+      "The first parameter of the `dropMissing` method (the `axis`) must be 0 or 1."
+    );
     threshold = threshold || 0;
-    assert(isWholeNumber(threshold), "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values).");
+    assert(
+      isWholeNumber(threshold),
+      "The third parameter of the `dropMissing` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` null values)."
+    );
     condition = threshold > 0 ? "none" : condition || "any";
-    assert(condition === "any" || condition === "all" || condition === "none", "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped).");
+    assert(
+      condition === "any" || condition === "all" || condition === "none",
+      "The second parameter of the `dropMissing` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains null values, then it should be dropped; or that if 'all' of the data contains null values, then it should be dropped)."
+    );
     function helper4(values) {
       if (threshold > 0) {
         let count2 = 0;
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (isUndefined(value))
-            count2++;
-          if (count2 >= threshold)
-            return [];
+          if (isUndefined(value)) count2++;
+          if (count2 >= threshold) return [];
         }
       } else if (condition === "any") {
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (isUndefined(value))
-            return [];
+          if (isUndefined(value)) return [];
         }
       } else if (condition === "all") {
         for (let i = 0; i < values.length; i++) {
           const value = values[i];
-          if (!isUndefined(value))
-            return values;
+          if (!isUndefined(value)) return values;
         }
         return [];
       }
@@ -1134,16 +1194,12 @@
     if (axis === 0) {
       out = out.assign(tempID, out.index);
       const newValues = out.values.map(helper4).filter((row) => row.length > 0);
-      if (shape(newValues).length < 2)
-        return new DataFrame2();
+      if (shape(newValues).length < 2) return new DataFrame2();
       out.values = newValues;
       let newIndex = out.get(null, tempID);
-      if (isUndefined(newIndex))
-        return new DataFrame2();
-      if (isString(newIndex))
-        newIndex = [newIndex];
-      if (newIndex instanceof Series2)
-        newIndex = newIndex.values;
+      if (isUndefined(newIndex)) return new DataFrame2();
+      if (isString(newIndex)) newIndex = [newIndex];
+      if (newIndex instanceof Series2) newIndex = newIndex.values;
       out.index = newIndex;
       out = out.drop(null, tempID);
     } else if (axis === 1) {
@@ -1170,7 +1226,10 @@
     if (isDataFrame(x) || isSeries(x)) {
       return x.dropNaN(...Object.values(arguments).slice(1));
     }
-    assert(isArray(x), "The `dropNaN` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(x),
+      "The `dropNaN` function only works on arrays, Series, and DataFrames!"
+    );
     const out = [];
     x.forEach((v) => {
       try {
@@ -1187,19 +1246,25 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-drop-nan.mjs
   function dfDropNaN(DataFrame2, df, axis, condition, threshold) {
     axis = axis || 0;
-    assert(axis === 0 || axis === 1, "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1.");
+    assert(
+      axis === 0 || axis === 1,
+      "The first parameter of the `dropNaN` method (the `axis`) must be 0 or 1."
+    );
     threshold = threshold || 0;
-    assert(isWholeNumber(threshold), "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values).");
+    assert(
+      isWholeNumber(threshold),
+      "The third parameter of the `dropNaN` method (the `threshold`) should be a whole number (meaning that data should be dropped if it contains more than `threshold` NaN values)."
+    );
     condition = threshold > 0 ? "none" : condition || "any";
-    assert(condition === "any" || condition === "all" || condition === "none", "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped).");
+    assert(
+      condition === "any" || condition === "all" || condition === "none",
+      "The second parameter of the `dropNaN` method (the `condition` parameter, which indicates the condition under which data should be dropped) should be 'any' or 'all' (meaning that if 'any' of the data contains NaN values, then it should be dropped; or that if 'all' of the data contains NaN values, then it should be dropped)."
+    );
     function helper4(values) {
       const numericalValues = dropNaN(values);
-      if (threshold > 0)
-        return values.length - numericalValues.length < threshold;
-      if (condition === "any")
-        return numericalValues.length === values.length;
-      if (condition === "all")
-        return numericalValues.length > 0;
+      if (threshold > 0) return values.length - numericalValues.length < threshold;
+      if (condition === "any") return numericalValues.length === values.length;
+      if (condition === "all") return numericalValues.length > 0;
       return true;
     }
     const out = df.copy();
@@ -1208,19 +1273,15 @@
         const values = out.get(row, null).values;
         return helper4(values);
       });
-      if (rowsToKeep.length > 0)
-        return out.get(rowsToKeep, null);
-      else
-        return new DataFrame2();
+      if (rowsToKeep.length > 0) return out.get(rowsToKeep, null);
+      else return new DataFrame2();
     } else if (axis === 1) {
       const colsToKeep = out.columns.filter((col) => {
         const values = out.get(null, col).values;
         return helper4(values);
       });
-      if (colsToKeep.length > 0)
-        return out.get(null, colsToKeep);
-      else
-        return new DataFrame2();
+      if (colsToKeep.length > 0) return out.get(null, colsToKeep);
+      else return new DataFrame2();
     }
     return out;
   }
@@ -1237,13 +1298,17 @@
     return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)).sort((a, b) => obj[a] - obj[b]);
   }
   function dfFilter(DataFrame2, Series2, df, fn, axis) {
-    assert(isFunction(fn), "The `filter` method takes a single parameter: a function that is used to filter the values.");
-    if (isUndefined(axis))
-      axis = 0;
-    assert(axis === 0 || axis === 1, "The `axis` parameter to the `filter` method must be 0 or 1.");
+    assert(
+      isFunction(fn),
+      "The `filter` method takes a single parameter: a function that is used to filter the values."
+    );
+    if (isUndefined(axis)) axis = 0;
+    assert(
+      axis === 0 || axis === 1,
+      "The `axis` parameter to the `filter` method must be 0 or 1."
+    );
     let out = df.copy();
-    if (out.isEmpty)
-      return out;
+    if (out.isEmpty) return out;
     const index = arrayToObject(out.index);
     const columns = arrayToObject(out.columns);
     if (axis === 0) {
@@ -1304,10 +1369,8 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get.mjs
   function dfGet(df, rows, cols) {
-    if (isString(rows) || isNumber(rows))
-      rows = [rows];
-    if (isString(cols) || isNumber(cols))
-      cols = [cols];
+    if (isString(rows) || isNumber(rows)) rows = [rows];
+    if (isString(cols) || isNumber(cols)) cols = [cols];
     for (const i in rows) {
       if (typeof rows[i] === "bigint") {
         rows[i] = Number(rows[i]);
@@ -1319,13 +1382,25 @@
       }
     }
     const types = set((rows || []).concat(cols || []).map((v) => typeof v));
-    assert(types.length <= 2, "Only whole numbers and/or strings are allowed in `get` arrays!");
+    assert(
+      types.length <= 2,
+      "Only whole numbers and/or strings are allowed in `get` arrays!"
+    );
     if (types.length === 1) {
-      assert(types[0] === "string" || types[0] === "number", "Only whole numbers and/or strings are allowed in `get` arrays!");
+      assert(
+        types[0] === "string" || types[0] === "number",
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
     }
     if (types.length === 2) {
-      assert(types.indexOf("string") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
-      assert(types.indexOf("number") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+      assert(
+        types.indexOf("string") > -1,
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
+      assert(
+        types.indexOf("number") > -1,
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
     }
     if (!isUndefined(rows)) {
       rows = rows.map((r) => {
@@ -1361,29 +1436,30 @@
   // node_modules/@jrc03c/js-math-tools/src/sort.mjs
   function alphaSort(a, b) {
     try {
-      if (a < b)
-        return -1;
-      if (a > b)
-        return 1;
+      if (a < b) return -1;
+      if (a > b) return 1;
       return 0;
     } catch (e) {
       a = typeof a === "object" && a !== null ? JSON.stringify(a) : a.toString();
       b = typeof b === "object" && b !== null ? JSON.stringify(b) : b.toString();
-      if (a < b)
-        return -1;
-      if (a > b)
-        return 1;
+      if (a < b) return -1;
+      if (a > b) return 1;
       return 0;
     }
   }
   function sort(arr, fn) {
-    if (isUndefined(fn))
-      fn = alphaSort;
+    if (isUndefined(fn)) fn = alphaSort;
     if (isDataFrame(arr) || isSeries(arr)) {
       return arr.sort(...Object.values(arguments).slice(1));
     }
-    assert(isArray(arr), "The `sort` function only works on arrays, Series, and DataFrames!");
-    assert(isFunction(fn), "The second parameter of the `sort` function must be a comparison function!");
+    assert(
+      isArray(arr),
+      "The `sort` function only works on arrays, Series, and DataFrames!"
+    );
+    assert(
+      isFunction(fn),
+      "The second parameter of the `sort` function must be a comparison function!"
+    );
     const out = arr.slice();
     out.sort(fn);
     return out;
@@ -1412,9 +1488,15 @@
     }
     const temp = {};
     columns.forEach((col) => {
-      assert(isString(col), "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!");
+      assert(
+        isString(col),
+        "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!"
+      );
       const colIndex = df.columns.indexOf(col);
-      assert(colIndex > -1, `The given DataFrame does not have a column called "${col}"!`);
+      assert(
+        colIndex > -1,
+        `The given DataFrame does not have a column called "${col}"!`
+      );
       const values = df.values.map((row) => row[colIndex]);
       const valuesSet = sort(set(values));
       values.forEach((value) => {
@@ -1439,25 +1521,45 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get-subset-by-indices.mjs
   function dfGetSubsetByIndices(df, rowIndices, colIndices) {
     const dataShape = df.shape;
-    if (isUndefined(rowIndices))
-      rowIndices = range(0, dataShape[0]);
-    if (isUndefined(colIndices))
-      colIndices = range(0, dataShape[1]);
-    if (isNumber(rowIndices))
-      rowIndices = [rowIndices];
-    if (isNumber(colIndices))
-      colIndices = [colIndices];
-    assert(isArray(rowIndices) && isArray(colIndices), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
-    assert(shape(rowIndices).length === 1 && shape(colIndices).length === 1, "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
-    assert(rowIndices.length > 0, "The `rowIndices` array must contain at least one index.");
-    assert(colIndices.length > 0, "The `colIndices` array must contain at least one index.");
+    if (isUndefined(rowIndices)) rowIndices = range(0, dataShape[0]);
+    if (isUndefined(colIndices)) colIndices = range(0, dataShape[1]);
+    if (isNumber(rowIndices)) rowIndices = [rowIndices];
+    if (isNumber(colIndices)) colIndices = [colIndices];
+    assert(
+      isArray(rowIndices) && isArray(colIndices),
+      "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
+    );
+    assert(
+      shape(rowIndices).length === 1 && shape(colIndices).length === 1,
+      "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
+    );
+    assert(
+      rowIndices.length > 0,
+      "The `rowIndices` array must contain at least one index."
+    );
+    assert(
+      colIndices.length > 0,
+      "The `colIndices` array must contain at least one index."
+    );
     rowIndices.forEach((rowIndex) => {
-      assert(isWholeNumber(rowIndex), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
-      assert(rowIndex < df.index.length, `The row index ${rowIndex} is out of bounds.`);
+      assert(
+        isWholeNumber(rowIndex),
+        "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
+      );
+      assert(
+        rowIndex < df.index.length,
+        `The row index ${rowIndex} is out of bounds.`
+      );
     });
     colIndices.forEach((colIndex) => {
-      assert(isWholeNumber(colIndex), "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.");
-      assert(colIndex < df.columns.length, `The column index ${colIndex} is out of bounds.`);
+      assert(
+        isWholeNumber(colIndex),
+        "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
+      );
+      assert(
+        colIndex < df.columns.length,
+        `The column index ${colIndex} is out of bounds.`
+      );
     });
     const rows = rowIndices.map((i) => df.index[i]);
     const cols = colIndices.map((i) => df.columns[i]);
@@ -1466,25 +1568,45 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-get-subset-by-names.mjs
   function dfGetSubsetByNames(DataFrame2, Series2, df, rows, cols) {
-    if (isUndefined(rows))
-      rows = df.index;
-    if (isUndefined(cols))
-      cols = df.columns;
-    if (isString(rows))
-      rows = [rows];
-    if (isString(cols))
-      cols = [cols];
-    assert(isArray(rows) && isArray(cols), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
-    assert(shape(rows).length === 1 && shape(cols).length === 1, "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
-    assert(rows.length > 0, "The `rows` array must contain at least one row name.");
-    assert(cols.length > 0, "The `cols` array must contain at least one column name.");
+    if (isUndefined(rows)) rows = df.index;
+    if (isUndefined(cols)) cols = df.columns;
+    if (isString(rows)) rows = [rows];
+    if (isString(cols)) cols = [cols];
+    assert(
+      isArray(rows) && isArray(cols),
+      "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
+    );
+    assert(
+      shape(rows).length === 1 && shape(cols).length === 1,
+      "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
+    );
+    assert(
+      rows.length > 0,
+      "The `rows` array must contain at least one row name."
+    );
+    assert(
+      cols.length > 0,
+      "The `cols` array must contain at least one column name."
+    );
     rows.forEach((row) => {
-      assert(isString(row), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
-      assert(df.index.indexOf(row) > -1, `The row name "${row}" does not exist in the list of rows.`);
+      assert(
+        isString(row),
+        "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
+      );
+      assert(
+        df.index.indexOf(row) > -1,
+        `The row name "${row}" does not exist in the list of rows.`
+      );
     });
     cols.forEach((col) => {
-      assert(isString(col), "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.");
-      assert(df.columns.indexOf(col) > -1, `The column name "${col}" does not exist in the list of columns.`);
+      assert(
+        isString(col),
+        "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
+      );
+      assert(
+        df.columns.indexOf(col) > -1,
+        `The column name "${col}" does not exist in the list of columns.`
+      );
     });
     const values = rows.map((row) => {
       return cols.map((col) => {
@@ -1532,10 +1654,14 @@
     }
     const maxRows = typeof window === "undefined" ? 20 : 10;
     const halfMaxRows = Math.floor(maxRows / 2);
-    const maxColumns = typeof process === "undefined" ? 10 : Math.floor(process.stdout.columns / 24) - 1;
+    const maxColumns = 4;
     const halfMaxColumns = Math.floor(maxColumns / 2);
-    const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(range(df.index.length - halfMaxRows, df.index.length));
-    const tempColumns = maxColumns > df.columns.length ? null : range(0, halfMaxColumns).concat(range(df.columns.length - halfMaxColumns, df.columns.length));
+    const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(
+      range(df.index.length - halfMaxRows, df.index.length)
+    );
+    const tempColumns = maxColumns > df.columns.length ? null : range(0, halfMaxColumns).concat(
+      range(df.columns.length - halfMaxColumns, df.columns.length)
+    );
     let temp = df.get(tempRows, tempColumns);
     if (temp instanceof Series2) {
       if (df.shape[0] === 1) {
@@ -1550,7 +1676,11 @@
     }
     if (maxRows <= df.index.length) {
       temp._index.splice(halfMaxRows, 0, "...");
-      temp._values.splice(halfMaxRows, 0, range(0, temp.columns.length).map(() => "..."));
+      temp._values.splice(
+        halfMaxRows,
+        0,
+        range(0, temp.columns.length).map(() => "...")
+      );
     }
     if (maxColumns <= df.columns.length) {
       temp._columns.splice(halfMaxColumns, 0, "...");
@@ -1580,8 +1710,7 @@
   function leftPad(x, maxLength) {
     assert(isNumber(x), "The `leftPad` function only works on numbers!");
     let out = x.toString();
-    while (out.length < maxLength)
-      out = "0" + out;
+    while (out.length < maxLength) out = "0" + out;
     return out;
   }
 
@@ -1599,10 +1728,12 @@
     if (isDataFrame(arr) || isSeries(arr)) {
       return product(arr.values, shouldDropNaNs);
     }
-    assert(isArray(arr), "The `product` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `product` function only works on arrays, Series, and DataFrames!"
+    );
     try {
-      if (arr.length === 0)
-        return NaN;
+      if (arr.length === 0) return NaN;
       const temp = flatten(arr);
       let resultShouldBeABigInt = false;
       let out = 1;
@@ -1642,16 +1773,27 @@
     if (isDataFrame(x) || isSeries(x)) {
       return reshape(x.values, newShape);
     }
-    assert(isArray(x), "The first argument passed into the `reshape` function must be an array!");
-    if (isNumber(newShape))
-      newShape = [newShape];
-    assert(isArray(newShape), "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
-    assert(shape(newShape).length === 1, "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
+    assert(
+      isArray(x),
+      "The first argument passed into the `reshape` function must be an array!"
+    );
+    if (isNumber(newShape)) newShape = [newShape];
+    assert(
+      isArray(newShape),
+      "The second argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+    );
+    assert(
+      shape(newShape).length === 1,
+      "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+    );
     newShape = newShape.map((v) => {
       if (typeof v === "bigint") {
         v = Number(v);
       }
-      assert(isNaturalNumber(v), "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!");
+      assert(
+        isNaturalNumber(v),
+        "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
+      );
       return Number(v);
     });
     if (newShape.length === 0) {
@@ -1661,7 +1803,10 @@
     if (newShape.length === 1 && newShape[0] === temp.length) {
       return temp;
     }
-    assert(product(newShape) === temp.length, "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!");
+    assert(
+      product(newShape) === temp.length,
+      "The new shape doesn't match the number of values available in `x` (the first argument passed into the `reshape` function)!"
+    );
     const out = [];
     const step = Math.floor(temp.length / newShape[0]);
     for (let i = 0; i < newShape[0]; i++) {
@@ -1685,8 +1830,7 @@
       return z ^ z >> BigInt(31);
     }
     const out = [];
-    for (let i = 0; i < n; i++)
-      out.push(helper4());
+    for (let i = 0; i < n; i++) out.push(helper4());
     return out;
   }
   function uint(x) {
@@ -1702,7 +1846,10 @@
       val = Number(val);
     }
     if (!isUndefined(val)) {
-      assert(isNumber(val), "If passing a value into the `seed` function, then that value must be an integer!");
+      assert(
+        isNumber(val),
+        "If passing a value into the `seed` function, then that value must be an integer!"
+      );
       const temp = splitmix64(Math.floor(val), 4);
       s[0] = temp[0];
       s[1] = temp[1];
@@ -1724,10 +1871,8 @@
     return Math.floor(Number(result)) / MAX;
   }
   function random(shape2) {
-    if (isUndefined(shape2))
-      return next();
-    if (!isArray(shape2))
-      shape2 = [shape2];
+    if (isUndefined(shape2)) return next();
+    if (!isArray(shape2)) shape2 = [shape2];
     return reshape(ndarray(product(shape2)).map(next), shape2);
   }
 
@@ -1736,7 +1881,10 @@
     if (isDataFrame(arr) || isSeries(arr)) {
       return arr.shuffle(...Object.values(arguments).slice(1));
     }
-    assert(isArray(arr), "The `shuffle` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `shuffle` function only works on arrays, Series, and DataFrames!"
+    );
     const out = [];
     const temp = arr.slice();
     for (let i = 0; i < arr.length; i++) {
@@ -1748,10 +1896,15 @@
 
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-shuffle.mjs
   function dfShuffle(df, axis) {
-    if (isUndefined(axis))
-      axis = 0;
-    assert(axis === 0 || axis === 1, "The `axis` parameter to the `shuffle` must be 0, 1, or undefined.");
-    return df.get(axis === 0 ? shuffle(df.index) : null, axis === 1 ? shuffle(df.columns) : null);
+    if (isUndefined(axis)) axis = 0;
+    assert(
+      axis === 0 || axis === 1,
+      "The `axis` parameter to the `shuffle` must be 0, 1, or undefined."
+    );
+    return df.get(
+      axis === 0 ? shuffle(df.index) : null,
+      axis === 1 ? shuffle(df.columns) : null
+    );
   }
 
   // node_modules/@jrc03c/js-math-tools/src/is-boolean.mjs
@@ -1769,8 +1922,14 @@
   }
   function dfSortByFunction(df, fn, axis) {
     axis = isUndefined(axis) ? 0 : axis;
-    assert(isFunction(fn), "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!");
-    assert(isNumber(axis), "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other.");
+    assert(
+      isFunction(fn),
+      "When sorting a DataFrame using a function, the first argument to the `sort` method must be a function!"
+    );
+    assert(
+      isNumber(axis),
+      "When sorting a DataFrame using a function, the second argument to the `sort` method must be null, undefined, 0, or 1 to indicate the axis along which the data should be sorted! An axis of 0 means that the rows will be sorted relative to each other, whereas an axis of 1 means that the columns will be sorted relative to each other."
+    );
     if (axis === 0) {
       const index = sort(df.index, (a, b) => {
         return fn(df.get(a, null), df.get(b, null));
@@ -1793,18 +1952,35 @@
     }
     if (isNumber(cols) || isString(cols)) {
       cols = [cols];
-      if (isBoolean(directions) || isString(directions))
-        directions = [directions];
+      if (isBoolean(directions) || isString(directions)) directions = [directions];
     }
-    assert(isArray(cols), "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.");
-    assert(shape(cols).length === 1, "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.");
+    assert(
+      isArray(cols),
+      "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."
+    );
+    assert(
+      shape(cols).length === 1,
+      "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."
+    );
     if (isUndefined(directions))
       directions = range(0, cols.length).map(() => true);
-    assert(isArray(directions), "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.");
-    assert(shape(directions).length === 1, "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null.");
-    assert(cols.length === directions.length, "The arrays passed into the `sort` method must be equal in length.");
+    assert(
+      isArray(directions),
+      "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."
+    );
+    assert(
+      shape(directions).length === 1,
+      "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."
+    );
+    assert(
+      cols.length === directions.length,
+      "The arrays passed into the `sort` method must be equal in length."
+    );
     cols = cols.map((col) => {
-      assert(isString(col) || isNumber(col), "Column references can either be column names (as strings) or column indices (as whole numbers).");
+      assert(
+        isString(col) || isNumber(col),
+        "Column references can either be column names (as strings) or column indices (as whole numbers)."
+      );
       if (isString(col)) {
         const index = out.columns.indexOf(col);
         assert(index > -1, `The column "${col}" does not exist!`);
@@ -1817,10 +1993,16 @@
       }
     });
     directions = directions.map((dir) => {
-      assert(isString(dir) || isBoolean(dir), "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).");
+      assert(
+        isString(dir) || isBoolean(dir),
+        "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."
+      );
       if (isString(dir)) {
         const value = dir.trim().toLowerCase();
-        assert(value === "ascending" || value === "descending", "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).");
+        assert(
+          value === "ascending" || value === "descending",
+          "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."
+        );
         return value === "ascending";
       }
       if (isBoolean(dir)) {
@@ -1833,12 +2015,9 @@
         counter++;
       }
       const isAscending = directions[counter];
-      if (a[cols[counter]] === b[cols[counter]])
-        return 0;
-      if (a[cols[counter]] < b[cols[counter]])
-        return isAscending ? -1 : 1;
-      if (a[cols[counter]] > b[cols[counter]])
-        return isAscending ? 1 : -1;
+      if (a[cols[counter]] === b[cols[counter]]) return 0;
+      if (a[cols[counter]] < b[cols[counter]]) return isAscending ? -1 : 1;
+      if (a[cols[counter]] > b[cols[counter]]) return isAscending ? 1 : -1;
     });
     const indexNumber = out.columns.indexOf(indexID);
     out.index = out.values.map((row) => row[indexNumber]);
@@ -1851,7 +2030,10 @@
     if (isUndefined(axis)) {
       axis = 0;
     } else {
-      assert(axis === 0 || axis === 1, "The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows.");
+      assert(
+        axis === 0 || axis === 1,
+        "The axis parameter of the `toDetailedObject` method must be undefined, 0, or 1. An axis of 0 indicates that the returned object should be organized first by rows and then by columns. An axis of 1 indicates that the returned object should be organized first by columns and then by rows."
+      );
     }
     const out = {};
     if (axis === 0) {
@@ -1898,9 +2080,15 @@
     if (isDataFrame(arr) || isSeries(arr)) {
       return arr.transpose();
     }
-    assert(isArray(arr), "The `transpose` function only works on arrays, Series, and DataFrames!");
+    assert(
+      isArray(arr),
+      "The `transpose` function only works on arrays, Series, and DataFrames!"
+    );
     const theShape = shape(arr);
-    assert(theShape.length <= 2, "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!");
+    assert(
+      theShape.length <= 2,
+      "I'm not smart enough to know how to transpose arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `transpose` function!"
+    );
     if (theShape.length === 1) {
       return reverse(arr);
     } else if (theShape.length === 2) {
@@ -1921,7 +2109,10 @@
     }
     if (isArray(x)) {
       const xShape = shape(x);
-      assert(xShape.length === 1 && !isNested(xShape), "Only vectors can be appended to Series!");
+      assert(
+        xShape.length === 1 && !isNested(xShape),
+        "Only vectors can be appended to Series!"
+      );
       const out = series.copy();
       x.forEach((v, i) => {
         out._values.push(v);
@@ -1934,7 +2125,10 @@
 
   // node_modules/@jrc03c/js-math-tools/src/series/series-apply.mjs
   function seriesApply(series, fn) {
-    assert(isFunction(fn), "The parameter to the `apply` method must be a function.");
+    assert(
+      isFunction(fn),
+      "The parameter to the `apply` method must be a function."
+    );
     const out = series.copy();
     out._values = out._values.map((v, i) => fn(v, i));
     return out;
@@ -1979,8 +2173,7 @@
     const indicesToRemove = [];
     const newValues = out.values.filter((value, i) => {
       const shouldKeep = fn(value, i, out.values);
-      if (!shouldKeep)
-        indicesToRemove.push(out.index[i]);
+      if (!shouldKeep) indicesToRemove.push(out.index[i]);
       return shouldKeep;
     });
     indicesToRemove.forEach((i) => {
@@ -1998,21 +2191,32 @@
 
   // node_modules/@jrc03c/js-math-tools/src/series/series-get.mjs
   function seriesGet(series, indices) {
-    if (isString(indices) || isNumber(indices))
-      indices = [indices];
+    if (isString(indices) || isNumber(indices)) indices = [indices];
     for (const i in indices) {
       if (typeof indices[i] === "bigint") {
         indices[i] = Number(indices[i]);
       }
     }
     const types = set((indices || []).map((v) => typeof v));
-    assert(types.length <= 2, "Only whole numbers and/or strings are allowed in `get` arrays!");
+    assert(
+      types.length <= 2,
+      "Only whole numbers and/or strings are allowed in `get` arrays!"
+    );
     if (types.length === 1) {
-      assert(types[0] === "string" || types[0] === "number", "Only whole numbers and/or strings are allowed in `get` arrays!");
+      assert(
+        types[0] === "string" || types[0] === "number",
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
     }
     if (types.length === 2) {
-      assert(types.indexOf("string") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
-      assert(types.indexOf("number") > -1, "Only whole numbers and/or strings are allowed in `get` arrays!");
+      assert(
+        types.indexOf("string") > -1,
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
+      assert(
+        types.indexOf("number") > -1,
+        "Only whole numbers and/or strings are allowed in `get` arrays!"
+      );
     }
     if (!isUndefined(indices)) {
       indices = indices.map((i) => {
@@ -2034,14 +2238,28 @@
   // node_modules/@jrc03c/js-math-tools/src/series/series-get-subset-by-indices.mjs
   function seriesGetSubsetByIndices(series, indices) {
     const dataShape = series.shape;
-    if (isUndefined(indices))
-      indices = range(0, dataShape[0]);
-    assert(isArray(indices), "The `indices` array must be 1-dimensional array of whole numbers.");
-    assert(shape(indices).length === 1, "The `indices` array must be a 1-dimensional array of whole numbers.");
-    assert(indices.length > 0, "The `indices` array must contain at least one index.");
+    if (isUndefined(indices)) indices = range(0, dataShape[0]);
+    assert(
+      isArray(indices),
+      "The `indices` array must be 1-dimensional array of whole numbers."
+    );
+    assert(
+      shape(indices).length === 1,
+      "The `indices` array must be a 1-dimensional array of whole numbers."
+    );
+    assert(
+      indices.length > 0,
+      "The `indices` array must contain at least one index."
+    );
     indices.forEach((index) => {
-      assert(isWholeNumber(index), "The `indices` array must be a 1-dimensional array of whole numbers.");
-      assert(index < series.index.length, `The row index ${index} is out of bounds.`);
+      assert(
+        isWholeNumber(index),
+        "The `indices` array must be a 1-dimensional array of whole numbers."
+      );
+      assert(
+        index < series.index.length,
+        `The row index ${index} is out of bounds.`
+      );
     });
     const rows = indices.map((i) => series.index[i]);
     return series.getSubsetByNames(rows);
@@ -2049,20 +2267,30 @@
 
   // node_modules/@jrc03c/js-math-tools/src/series/series-get-subset-by-names.mjs
   function seriesGetSubsetByNames(Series2, series, indices) {
-    if (isUndefined(indices))
-      indices = series.index;
-    assert(isArray(indices), "The `indices` array must be a 1-dimensional array of strings.");
-    assert(shape(indices).length === 1, "The `indices` array must be a 1-dimensional array of strings.");
-    assert(indices.length > 0, "The `indices` array must contain at least one index name.");
+    if (isUndefined(indices)) indices = series.index;
+    assert(
+      isArray(indices),
+      "The `indices` array must be a 1-dimensional array of strings."
+    );
+    assert(
+      shape(indices).length === 1,
+      "The `indices` array must be a 1-dimensional array of strings."
+    );
+    assert(
+      indices.length > 0,
+      "The `indices` array must contain at least one index name."
+    );
     indices.forEach((name) => {
       assert(isString(name), "The `indices` array must contain only strings.");
-      assert(series.index.indexOf(name) > -1, `The name "${name}" does not exist in the index.`);
+      assert(
+        series.index.indexOf(name) > -1,
+        `The name "${name}" does not exist in the index.`
+      );
     });
     const values = indices.map((name) => {
       return series.values[series.index.indexOf(name)];
     });
-    if (values.length === 1)
-      return values[0];
+    if (values.length === 1) return values[0];
     const out = new Series2(values);
     out.index = indices;
     out.name = series.name;
@@ -2074,7 +2302,11 @@
     let temp = series.copy();
     const maxRows = typeof window === "undefined" ? 20 : 10;
     if (temp.index.length > maxRows) {
-      temp = temp.get(range(0, maxRows / 2).concat(range(temp.index.length - maxRows / 2, temp.index.length)));
+      temp = temp.get(
+        range(0, maxRows / 2).concat(
+          range(temp.index.length - maxRows / 2, temp.index.length)
+        )
+      );
       const tempIndex = copy(temp.index);
       tempIndex.splice(Math.floor(tempIndex.length / 2), 0, "...");
       temp.values.push("...");
@@ -2101,7 +2333,10 @@
   // node_modules/@jrc03c/js-math-tools/src/series/series-sort.mjs
   function seriesSort(Series2, series, fn) {
     fn = fn || ((a, b) => a < b ? -1 : 1);
-    assert(isUndefined(fn) || isFunction(fn), "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!");
+    assert(
+      isUndefined(fn) || isFunction(fn),
+      "You must pass undefined, null, or a comparison function as the second argument to the `sort` method!"
+    );
     const pairs = transpose([series.values, series.index]);
     const temp = sort(pairs, (aPair, bPair) => {
       return fn(aPair[0], bPair[0]);
@@ -2122,14 +2357,13 @@
   // node_modules/@jrc03c/js-math-tools/src/series/series-sort-by-index.mjs
   function seriesSortByIndex(Series2, series) {
     let temp = transpose([series.values, series.index]);
-    temp = transpose(sort(temp, (a, b) => {
-      if (a[1] === b[1])
-        return 0;
-      if (a[1] < b[1])
-        return -1;
-      if (a[1] > b[1])
-        return 1;
-    }));
+    temp = transpose(
+      sort(temp, (a, b) => {
+        if (a[1] === b[1]) return 0;
+        if (a[1] < b[1]) return -1;
+        if (a[1] > b[1]) return 1;
+      })
+    );
     const out = new Series2(temp[0]);
     out.index = temp[1];
     out.name = series.name;
@@ -2180,13 +2414,18 @@
           set(x) {
             assert(isArray(x), "The new values must be a 1-dimensional array!");
             const dataShape = shape(x);
-            assert(dataShape.length === 1, "The new array of values must be 1-dimensional!");
+            assert(
+              dataShape.length === 1,
+              "The new array of values must be 1-dimensional!"
+            );
             if (dataShape[0] < this._index.length) {
               this._index = this._index.slice(0, dataShape[0]);
             } else if (dataShape[0] > this._index.length) {
-              this._index = this._index.concat(range(this._index.length, dataShape[0]).map((i) => {
-                return "item" + leftPad(i, (x.length - 1).toString().length);
-              }));
+              this._index = this._index.concat(
+                range(this._index.length, dataShape[0]).map((i) => {
+                  return "item" + leftPad(i, (x.length - 1).toString().length);
+                })
+              );
             }
             this._values = x;
           }
@@ -2204,9 +2443,18 @@
             return this._index;
           },
           set(x) {
-            assert(isArray(x), "The new index must be a 1-dimensional array of strings!");
-            assert(x.length === this.shape[0], "The new index must be the same length as the old index!");
-            assert(shape(x).length === 1, "The new index must be a 1-dimensional array of strings!");
+            assert(
+              isArray(x),
+              "The new index must be a 1-dimensional array of strings!"
+            );
+            assert(
+              x.length === this.shape[0],
+              "The new index must be the same length as the old index!"
+            );
+            assert(
+              shape(x).length === 1,
+              "The new index must be a 1-dimensional array of strings!"
+            );
             x.forEach((value) => {
               assert(isString(value), "All of the row names must be strings!");
             });
@@ -2220,14 +2468,23 @@
             this.index = copy(data.index);
           } else if (isArray(data)) {
             const dataShape = shape(data);
-            assert(dataShape.length === 1, "When passing an array into the constructor of a Series, the array must be 1-dimensional!");
+            assert(
+              dataShape.length === 1,
+              "When passing an array into the constructor of a Series, the array must be 1-dimensional!"
+            );
             this.values = data;
           } else if (data instanceof Object) {
             const keys = Object.keys(data).concat(Object.getOwnPropertySymbols(data)).map((v) => v.toString());
-            assert(keys.length === 1, "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");
+            assert(
+              keys.length === 1,
+              "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"
+            );
             const name = keys[0];
             const values = data[name];
-            assert(shape(values).length === 1, "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!");
+            assert(
+              shape(values).length === 1,
+              "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"
+            );
             this.name = name;
             this.values = values.slice();
           }
@@ -2344,11 +2601,10 @@
   function makeKey3(n) {
     const alpha = "abcdefghijklmnopqrstuvwxyz1234567890";
     let out = "";
-    for (let i = 0; i < n; i++)
-      out += alpha[Math.floor(random() * alpha.length)];
+    for (let i = 0; i < n; i++) out += alpha[Math.floor(random() * alpha.length)];
     return out;
   }
-  var DataFrame = class {
+  var DataFrame = class _DataFrame {
     static [Symbol.hasInstance](x) {
       try {
         return !!x._symbol && x._symbol === DATAFRAME_SYMBOL;
@@ -2381,20 +2637,27 @@
         set(x) {
           assert(isArray(x), "The new values must be a 2-dimensional array!");
           const dataShape = shape(x);
-          assert(dataShape.length === 2, "The new array of values must be 2-dimensional!");
+          assert(
+            dataShape.length === 2,
+            "The new array of values must be 2-dimensional!"
+          );
           if (dataShape[0] < this._index.length) {
             this._index = this._index.slice(0, dataShape[0]);
           } else if (dataShape[0] > this._index.length) {
-            this._index = this._index.concat(range(this._index.length, dataShape[0]).map((i) => {
-              return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
-            }));
+            this._index = this._index.concat(
+              range(this._index.length, dataShape[0]).map((i) => {
+                return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
+              })
+            );
           }
           if (dataShape[1] < this._columns.length) {
             this._columns = this._columns.slice(0, dataShape[1]);
           } else if (dataShape[1] > this._columns.length) {
-            this._columns = this._columns.concat(range(this._columns.length, dataShape[1]).map((i) => {
-              return "col" + leftPad(i, (dataShape[1] - 1).toString().length);
-            }));
+            this._columns = this._columns.concat(
+              range(this._columns.length, dataShape[1]).map((i) => {
+                return "col" + leftPad(i, (dataShape[1] - 1).toString().length);
+              })
+            );
           }
           this._values = x;
         }
@@ -2412,9 +2675,18 @@
           return this._columns;
         },
         set(x) {
-          assert(isArray(x), "The new columns list must be a 1-dimensional array of strings!");
-          assert(this.isEmpty || x.length === this.shape[1], "The new columns list must be the same length as the old columns list!");
-          assert(shape(x).length === 1, "The new columns list must be a 1-dimensional array of strings!");
+          assert(
+            isArray(x),
+            "The new columns list must be a 1-dimensional array of strings!"
+          );
+          assert(
+            this.isEmpty || x.length === this.shape[1],
+            "The new columns list must be the same length as the old columns list!"
+          );
+          assert(
+            shape(x).length === 1,
+            "The new columns list must be a 1-dimensional array of strings!"
+          );
           x = x.map((v) => {
             if (typeof v !== "string") {
               v = JSON.stringify(v) || v.toString();
@@ -2454,9 +2726,18 @@
           return this._index;
         },
         set(x) {
-          assert(isArray(x), "The new index must be a 1-dimensional array of strings!");
-          assert(this.isEmpty || x.length === this.shape[0], "The new index must be the same length as the old index!");
-          assert(shape(x).length === 1, "The new index must be a 1-dimensional array of strings!");
+          assert(
+            isArray(x),
+            "The new index must be a 1-dimensional array of strings!"
+          );
+          assert(
+            this.isEmpty || x.length === this.shape[0],
+            "The new index must be the same length as the old index!"
+          );
+          assert(
+            shape(x).length === 1,
+            "The new index must be a 1-dimensional array of strings!"
+          );
           x = x.map((v) => {
             if (typeof v !== "string") {
               v = JSON.stringify(v) || v.toString();
@@ -2483,16 +2764,25 @@
           this._index = x;
         }
       });
-      assert(isUndefined(data) || isObject(data) || isArray(data), "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values.");
+      assert(
+        isUndefined(data) || isObject(data) || isArray(data),
+        "The `data` passed into the constructor of a DataFrame must be either (1) an object where the key-value pairs are (respectively) column names and 1-dimensional arrays of values, or (2) a 2-dimensional array of values."
+      );
       if (data) {
-        if (data instanceof DataFrame) {
+        if (data instanceof _DataFrame) {
           this.values = copy(data.values);
           this.columns = copy(data.columns);
           this.index = copy(data.index);
         } else if (isArray(data)) {
           const dataShape = shape(data);
-          assert(dataShape.length === 2, "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!");
-          assert(!isJagged(data), "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!");
+          assert(
+            dataShape.length === 2,
+            "The `data` array passed into the constructor of a DataFrame must be 2-dimensional!"
+          );
+          assert(
+            !isJagged(data),
+            "The 2-dimensional array passed into the constructor of a DataFrame must not contain sub-arrays (i.e., rows) of different lengths!"
+          );
           this.values = data;
         } else {
           this._columns = Object.keys(data).concat(Object.getOwnPropertySymbols(data)).map((v) => v.toString());
@@ -2504,7 +2794,10 @@
               lastColName = col;
               lastColLength = data[col].length;
             }
-            assert(data[col].length === lastColLength, `The object passed into the DataFrame constructor contains arrays of different lengths! The key "${lastColName}" points to an array containing ${lastColLength} items, and the key "${col}" points to an array containing ${data[col].length} items.`);
+            assert(
+              data[col].length === lastColLength,
+              `The object passed into the DataFrame constructor contains arrays of different lengths! The key "${lastColName}" points to an array containing ${lastColLength} items, and the key "${col}" points to an array containing ${data[col].length} items.`
+            );
             lastColLength = data[col].length;
             const values = data[col];
             temp.push(values);
@@ -2536,7 +2829,7 @@
       return this.values.length === 0 || this.values.every((row) => row.length === 0);
     }
     clear() {
-      const out = new DataFrame(ndarray(this.shape));
+      const out = new _DataFrame(ndarray(this.shape));
       out.columns = this.columns.slice();
       out.index = this.index.slice();
       return out;
@@ -2555,19 +2848,19 @@
       return dfGet(this, rows, cols);
     }
     getSubsetByNames(rows, cols) {
-      return dfGetSubsetByNames(DataFrame, Series, this, rows, cols);
+      return dfGetSubsetByNames(_DataFrame, Series, this, rows, cols);
     }
     getSubsetByIndices(rowIndices, colIndices) {
       return dfGetSubsetByIndices(this, rowIndices, colIndices);
     }
     getDummies(columns) {
-      return dfGetDummies(DataFrame, this, columns);
+      return dfGetDummies(_DataFrame, this, columns);
     }
     oneHotEncode(columns) {
-      return dfGetDummies(DataFrame, this, columns);
+      return dfGetDummies(_DataFrame, this, columns);
     }
     transpose() {
-      const out = new DataFrame(transpose(this.values));
+      const out = new _DataFrame(transpose(this.values));
       out.columns = this.index.slice();
       out.index = this.columns.slice();
       return out;
@@ -2579,22 +2872,22 @@
       return dfResetIndex(this, shouldSkipCopying);
     }
     copy() {
-      return dfCopy(DataFrame, this);
+      return dfCopy(_DataFrame, this);
     }
     assign(p1, p2) {
-      return dfAssign(DataFrame, Series, this, p1, p2);
+      return dfAssign(_DataFrame, Series, this, p1, p2);
     }
     apply(fn, axis) {
-      return dfApply(DataFrame, Series, this, fn, axis);
+      return dfApply(_DataFrame, Series, this, fn, axis);
     }
     dropMissing(axis, condition, threshold) {
-      return dfDropMissing(DataFrame, Series, this, axis, condition, threshold);
+      return dfDropMissing(_DataFrame, Series, this, axis, condition, threshold);
     }
     dropNaN(axis, condition, threshold) {
-      return dfDropNaN(DataFrame, this, axis, condition, threshold);
+      return dfDropNaN(_DataFrame, this, axis, condition, threshold);
     }
     drop(rows, cols) {
-      return dfDrop(DataFrame, Series, this, rows, cols);
+      return dfDrop(_DataFrame, Series, this, rows, cols);
     }
     dropColumns(columns) {
       return this.drop(null, columns);
@@ -2615,7 +2908,7 @@
       return dfToJSON(this, filename, axis);
     }
     print() {
-      return dfPrint(DataFrame, Series, this);
+      return dfPrint(_DataFrame, Series, this);
     }
     sort(cols, directions) {
       return dfSort(this, cols, directions);
@@ -2624,7 +2917,7 @@
       return this.sort();
     }
     filter(fn, axis) {
-      return dfFilter(DataFrame, Series, this, fn, axis);
+      return dfFilter(_DataFrame, Series, this, fn, axis);
     }
     shuffle(axis) {
       return dfShuffle(this, axis);
@@ -2651,7 +2944,10 @@
 
   // node_modules/@jrc03c/js-math-tools/src/vectorize.mjs
   function vectorize(fn) {
-    assert(isFunction(fn), "You must pass a function into the `vectorize` function!");
+    assert(
+      isFunction(fn),
+      "You must pass a function into the `vectorize` function!"
+    );
     return function helper4() {
       let hasSeries, hasDataFrames;
       const series = [];
@@ -2673,10 +2969,18 @@
         }
       }).map((key) => arguments[key]);
       childArrays.slice(0, -1).forEach((s2, i) => {
-        assert(isEqual(isArray(s2) ? shape(s2) : s2.shape, isArray(childArrays[i + 1]) ? shape(childArrays[i + 1]) : childArrays[i + 1].shape), `When passing multiple arrays into the \`${fn.name}\` function, all of the arrays must have the same shape!`);
+        assert(
+          isEqual(
+            isArray(s2) ? shape(s2) : s2.shape,
+            isArray(childArrays[i + 1]) ? shape(childArrays[i + 1]) : childArrays[i + 1].shape
+          ),
+          `When passing multiple arrays into the \`${fn.name}\` function, all of the arrays must have the same shape!`
+        );
       });
       if (childArrays.length > 0) {
-        const maxLength = max(childArrays.map((a) => a.length ? a.length : a.values.length));
+        const maxLength = max(
+          childArrays.map((a) => a.length ? a.length : a.values.length)
+        );
         const out = range(0, maxLength).map((i) => {
           const args = Object.keys(arguments).map((key) => {
             if (isArray(arguments[key])) {
@@ -2729,8 +3033,7 @@
   // node_modules/@jrc03c/js-math-tools/src/abs.mjs
   function abs(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         return x < 0 ? -x : x;
       } else {
@@ -2749,8 +3052,7 @@
       let resultShouldBeABigInt = false;
       const x = Object.values(arguments);
       for (let v of x) {
-        if (!isNumber(v))
-          return NaN;
+        if (!isNumber(v)) return NaN;
         if (typeof v === "bigint") {
           resultShouldBeABigInt = true;
           v = Number(v);
@@ -2783,8 +3085,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arccos.mjs
   function arccos(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -2798,8 +3099,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arcsin.mjs
   function arcsin(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -2813,8 +3113,7 @@
   // node_modules/@jrc03c/js-math-tools/src/arctan.mjs
   function arctan(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -2828,10 +3127,8 @@
   // node_modules/@jrc03c/js-math-tools/src/ceil.mjs
   function ceil(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       return Math.ceil(x);
     } catch (e) {
       return NaN;
@@ -2842,10 +3139,8 @@
   // node_modules/@jrc03c/js-math-tools/src/chop.mjs
   function chop(x, threshold) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       if (isUndefined(threshold)) {
         threshold = 1e-10;
       } else if (!isNumber(threshold)) {
@@ -2884,19 +3179,14 @@
   // node_modules/@jrc03c/js-math-tools/src/clamp.mjs
   function clamp(x, a, b) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
       if (typeof x === "bigint") {
         return BigInt(clamp(vint(x), a, b));
       }
-      if (x < a)
-        return a;
-      if (x > b)
-        return b;
+      if (x < a) return a;
+      if (x > b) return b;
       return x;
     } catch (e) {
       return NaN;
@@ -2907,8 +3197,7 @@
   // node_modules/@jrc03c/js-math-tools/src/cos.mjs
   function cos(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -2932,10 +3221,8 @@
   // node_modules/@jrc03c/js-math-tools/src/pow.mjs
   function pow(x, p) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(p))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(p)) return NaN;
       if (typeof x === "bigint" || typeof p === "bigint") {
         const out = pow(Number(x), Number(p));
         try {
@@ -2954,8 +3241,7 @@
   // node_modules/@jrc03c/js-math-tools/src/sqrt.mjs
   function sqrt(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         const out = sqrt(Number(x));
         try {
@@ -2975,13 +3261,11 @@
   function multiply() {
     try {
       const x = Object.values(arguments);
-      if (x.length === 0)
-        return NaN;
+      if (x.length === 0) return NaN;
       let resultShouldBeABigInt = false;
       let out = 1;
       for (let v of x) {
-        if (!isNumber(v))
-          return NaN;
+        if (!isNumber(v)) return NaN;
         if (typeof v === "bigint") {
           resultShouldBeABigInt = true;
           v = Number(v);
@@ -3004,8 +3288,7 @@
   // node_modules/@jrc03c/js-math-tools/src/exp.mjs
   function exp(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         if (x === 0n) {
           return 1n;
@@ -3026,10 +3309,8 @@
       if (typeof n === "bigint") {
         return BigInt(factorial(vint(n)));
       }
-      if (n !== vint(n))
-        return NaN;
-      if (n <= 1)
-        return 1;
+      if (n !== vint(n)) return NaN;
+      if (n <= 1) return 1;
       return n * factorial(n - 1);
     } catch (e) {
       return NaN;
@@ -3047,8 +3328,7 @@
         return -Infinity;
       }
       const out = JSON.parse(x);
-      if (isNumber(out))
-        return out;
+      if (isNumber(out)) return out;
       return NaN;
     } catch (e) {
       return NaN;
@@ -3059,8 +3339,7 @@
   // node_modules/@jrc03c/js-math-tools/src/floor.mjs
   function floor(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         return x;
       }
@@ -3074,12 +3353,9 @@
   // node_modules/@jrc03c/js-math-tools/src/lerp.mjs
   function lerp(a, b, f) {
     try {
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
-      if (!isNumber(f))
-        return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
+      if (!isNumber(f)) return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
         const out = lerp(Number(a), Number(b), f);
         try {
@@ -3099,10 +3375,8 @@
   function log(x, base) {
     try {
       base = isUndefined(base) ? Math.E : base;
-      if (!isNumber(x))
-        return NaN;
-      if (!isNumber(base))
-        return NaN;
+      if (!isNumber(x)) return NaN;
+      if (!isNumber(base)) return NaN;
       if (typeof x === "bigint" || typeof base === "bigint") {
         const out = log(Number(x), Number(base));
         try {
@@ -3121,10 +3395,8 @@
   // node_modules/@jrc03c/js-math-tools/src/mod.mjs
   function mod(a, b) {
     try {
-      if (!isNumber(a))
-        return NaN;
-      if (!isNumber(b))
-        return NaN;
+      if (!isNumber(a)) return NaN;
+      if (!isNumber(b)) return NaN;
       if (typeof a === "bigint" || typeof b === "bigint") {
         const out = mod(Number(a), Number(b));
         try {
@@ -3161,8 +3433,7 @@
       }
       const num = (d - c) * (x - a);
       const den = b - a;
-      if (den === 0)
-        return NaN;
+      if (den === 0) return NaN;
       const out = num / den + c;
       if (resultShouldBeABigInt) {
         try {
@@ -3179,10 +3450,8 @@
   // node_modules/@jrc03c/js-math-tools/src/round.mjs
   function round(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return x;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return x;
       return Math.round(x);
     } catch (e) {
       return NaN;
@@ -3193,14 +3462,10 @@
   // node_modules/@jrc03c/js-math-tools/src/sign.mjs
   function sign(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
-      if (typeof x === "bigint")
-        return BigInt(sign(Number(x)));
-      if (x < 0)
-        return -1;
-      if (x > 0)
-        return 1;
+      if (!isNumber(x)) return NaN;
+      if (typeof x === "bigint") return BigInt(sign(Number(x)));
+      if (x < 0) return -1;
+      if (x > 0) return 1;
       return 0;
     } catch (e) {
       return NaN;
@@ -3211,8 +3476,7 @@
   // node_modules/@jrc03c/js-math-tools/src/sin.mjs
   function sin(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3226,8 +3490,7 @@
   // node_modules/@jrc03c/js-math-tools/src/tan.mjs
   function tan(x) {
     try {
-      if (!isNumber(x))
-        return NaN;
+      if (!isNumber(x)) return NaN;
       if (typeof x === "bigint") {
         x = Number(x);
       }
@@ -3246,7 +3509,9 @@
     const typedArrayConstructorKey = typedArrayConstructorSymbol in x ? typedArrayConstructorSymbol : typedArrayConstructorString in x ? typedArrayConstructorString : void 0;
     if (typedArrayConstructorKey) {
       if (!("values" in x)) {
-        throw new Error("The value passed into the `convertObjectToTypedArray` must have a 'values' property!");
+        throw new Error(
+          "The value passed into the `convertObjectToTypedArray` must have a 'values' property!"
+        );
       }
       if (x[typedArrayConstructorKey] === "ArrayBuffer") {
         return new Uint8Array(x.values).buffer;
@@ -3256,7 +3521,9 @@
     if (isArray(x) && x.constructor.name === "Array") {
       return x;
     }
-    throw new Error("The value passed into the `convertObjectToTypedArray` must be an object that can be converted into a typed array!");
+    throw new Error(
+      "The value passed into the `convertObjectToTypedArray` must be an object that can be converted into a typed array!"
+    );
   }
 
   // src/helpers/convert-typed-array-to-object.mjs
@@ -3290,7 +3557,9 @@
       });
       return out;
     }
-    throw new Error("The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray.");
+    throw new Error(
+      "The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray."
+    );
   }
 
   // src/helpers/is-a-number-string.mjs
@@ -3356,10 +3625,8 @@
       throw new Error("`text` must be a string!");
     }
     const words = strip(text).split(" ");
-    if (words.length === 0)
-      return "";
-    if (words.length === 1)
-      return words[0];
+    if (words.length === 0) return "";
+    if (words.length === 1) return words[0];
     return words.join("-");
   }
 
@@ -3586,8 +3853,7 @@
         let out;
         try {
           out = convertObjectToTypedArray(x2);
-          if (isArray(out))
-            return out;
+          if (isArray(out)) return out;
         } catch (e) {
         }
         out = parseObjectKeysAndValues(x2);
@@ -3617,21 +3883,21 @@
       throw new Error("`text` must be a string!");
     }
     const words = strip(text).split(" ");
-    if (words.length === 0)
-      return "";
-    if (words.length === 1)
-      return words[0];
+    if (words.length === 0) return "";
+    if (words.length === 1) return words[0];
     return words.join("_");
   }
 
   // src/stringify.mjs
   function prefix(s2, n) {
-    if (!s2 || n <= 0)
-      return "";
+    if (!s2 || n <= 0) return "";
     return range(0, n).map(() => s2).join("");
   }
   function stringify(x, indent2) {
-    assert(isString(indent2) || isUndefined(indent2), "The second parameter to the `stringify` function must be undefined or a string!");
+    assert(
+      isString(indent2) || isUndefined(indent2),
+      "The second parameter to the `stringify` function must be undefined or a string!"
+    );
     const newline = indent2 ? "\n" : "";
     function helper4(x2, indent3, depth) {
       depth = depth || 0;
@@ -3690,8 +3956,7 @@
                 return helper4(v, indent3, depth + 1);
               }
             })();
-            if (isString(child))
-              child = child.trim();
+            if (isString(child)) child = child.trim();
             return prefix(indent3, depth + 1) + child;
           }).join("," + newline) + newline + prefix(indent3, depth) + "]";
         }
@@ -3701,13 +3966,16 @@
         return prefix(indent3, depth - 1) + "{" + newline + Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).map((key) => {
           let child = (() => {
             try {
-              return helper4(convertTypedArrayToObject(x2[key]), indent3, depth + 1);
+              return helper4(
+                convertTypedArrayToObject(x2[key]),
+                indent3,
+                depth + 1
+              );
             } catch (e) {
               return helper4(x2[key], indent3, depth + 1);
             }
           })();
-          if (isString(child))
-            child = child.trim();
+          if (isString(child)) child = child.trim();
           const stringifiedKey = typeof key === "symbol" ? helper4(key) : JSON.stringify(key);
           return prefix(indent3, depth + 1) + stringifiedKey + ":" + (indent3 ? " " : "") + child;
         }).join("," + newline) + newline + prefix(indent3, depth) + "}";
@@ -3728,11 +3996,15 @@
   // src/wrap.mjs
   function wrap(raw, maxLineLength, wrappedLinePrefix) {
     if (typeof raw !== "string") {
-      throw new Error("The first argument to the `wrap` function must be a string!");
+      throw new Error(
+        "The first argument to the `wrap` function must be a string!"
+      );
     }
     maxLineLength = isUndefined(maxLineLength) ? 80 : maxLineLength;
     if (isNaN(maxLineLength) || typeof maxLineLength !== "number") {
-      throw new Error("The second argument to the `wrap` function must be undefined, null, or an integer!");
+      throw new Error(
+        "The second argument to the `wrap` function must be undefined, null, or an integer!"
+      );
     }
     wrappedLinePrefix = wrappedLinePrefix || "";
     const out = [];
@@ -3761,6 +4033,6 @@
 
   // src/iife.mjs
   if (typeof globalThis !== "undefined") {
-    globalThis.JSTextTools = src_exports;
+    globalThis.JSTextTools = index_exports;
   }
 })();
