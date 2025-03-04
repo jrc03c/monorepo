@@ -16,5 +16,5 @@
   "module": "./src/index.mjs",
   "name": "@jrc03c/filedb",
   "type": "module",
-  "version": "0.0.25"
+  "version": "0.0.26"
 }
