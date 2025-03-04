@@ -6,8 +6,8 @@
   };
 
   // src/index.mjs
-  var src_exports = {};
-  __export(src_exports, {
+  var index_exports = {};
+  __export(index_exports, {
     ABOVE: () => ABOVE,
     BELOW: () => BELOW,
     EXACTLY_ON: () => EXACTLY_ON,
@@ -1664,7 +1664,7 @@
     }
     const maxRows = typeof window === "undefined" ? 20 : 10;
     const halfMaxRows = Math.floor(maxRows / 2);
-    const maxColumns = typeof process === "undefined" ? 10 : Math.floor(process.stdout.columns / 24) - 1;
+    const maxColumns = 4;
     const halfMaxColumns = Math.floor(maxColumns / 2);
     const tempRows = maxRows > df.index.length ? null : range(0, halfMaxRows).concat(
       range(df.index.length - halfMaxRows, df.index.length)
@@ -3632,6 +3632,6 @@
 
   // src/iife.mjs
   if (typeof globalThis !== "undefined") {
-    globalThis.JSConvexHull = src_exports;
+    globalThis.JSConvexHull = index_exports;
   }
 })();
