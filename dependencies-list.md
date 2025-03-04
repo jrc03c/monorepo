@@ -101,7 +101,7 @@
   - watch
 # vue-component-with-css (0.0.20)
   - watch
-# abortable-promise (0.0.6)
+# abortable-promise (0.0.7)
   - fake-jest
   - pause
   - watch
