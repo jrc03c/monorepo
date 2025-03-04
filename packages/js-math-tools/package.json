@@ -27,5 +27,5 @@
     "url": "git+ssh://git@github.com/jrc03c/js-math-tools.git"
   },
   "type": "module",
-  "version": "0.0.91"
+  "version": "0.0.92"
 }
