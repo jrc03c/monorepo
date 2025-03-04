@@ -26,5 +26,5 @@
     "url": "git+https://github.com/jrc03c/fs-extras.js.git"
   },
   "type": "module",
-  "version": "0.0.22"
+  "version": "0.0.23"
 }
