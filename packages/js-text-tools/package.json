@@ -29,5 +29,5 @@
   "main": "./src/index.mjs",
   "module": "./src/index.mjs",
   "name": "@jrc03c/js-text-tools",
-  "version": "0.0.61"
+  "version": "0.0.62"
 }
