@@ -1,13 +1,13 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.91",
-    "@jrc03c/make-key": "^0.0.35"
+    "@jrc03c/js-math-tools": "^0.0.92",
+    "@jrc03c/make-key": "^0.0.36"
   },
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
     "globals": "^15.11.0",
     "prettier": "^3.3.3"
