@@ -43,7 +43,7 @@
   - fake-jest
   - js-math-tools
   - js-text-tools
-# js-data-science-helpers (0.0.85)
+# js-data-science-helpers (0.0.86)
   - fake-jest
   - js-math-tools
   - js-text-tools
