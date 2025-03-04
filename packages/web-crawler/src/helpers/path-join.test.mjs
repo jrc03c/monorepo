@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { pathJoin } from "./path-join.mjs"
 
 test("tests that the `pathJoin` function works as expected", () => {

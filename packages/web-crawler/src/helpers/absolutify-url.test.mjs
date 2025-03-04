@@ -1,4 +1,5 @@
 import { absolutifyUrl } from "./absolutify-url.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
 
 test("tests that the `absolutifyUrl` function works as expected", () => {
   const checks = [

@@ -1,3 +1,4 @@
+import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "@jrc03c/js-math-tools"
 import { RobotsConfig } from "./index.mjs"
 
