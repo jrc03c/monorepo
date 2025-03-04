@@ -1,0 +1,67 @@
+{
+  "events": [
+    {
+      "duration": -1,
+      "name": "Event0",
+      "start": 1741110428012,
+      "stop": 1741110428011
+    },
+    {
+      "duration": -1,
+      "name": "Event1",
+      "start": 1741110428012,
+      "stop": 1741110428011
+    },
+    {
+      "duration": -1,
+      "name": "Event2",
+      "start": 1741110428028,
+      "stop": 1741110428027
+    },
+    {
+      "duration": -1,
+      "name": "Event3",
+      "start": 1741110428045,
+      "stop": 1741110428044
+    },
+    {
+      "duration": -1,
+      "name": "Event4",
+      "start": 1741110428078,
+      "stop": 1741110428077
+    },
+    {
+      "duration": -1,
+      "name": "Event5",
+      "start": 1741110428095,
+      "stop": 1741110428094
+    },
+    {
+      "duration": -1,
+      "name": "Event6",
+      "start": 1741110428095,
+      "stop": 1741110428094
+    },
+    {
+      "duration": -1,
+      "name": "Event7",
+      "start": 1741110428112,
+      "stop": 1741110428111
+    },
+    {
+      "duration": -1,
+      "name": "Event8",
+      "start": 1741110428112,
+      "stop": 1741110428111
+    },
+    {
+      "duration": -1,
+      "name": "Event9",
+      "start": 1741110428112,
+      "stop": 1741110428111
+    }
+  ],
+  "shouldLogToConsole": false,
+  "localStorageKey": "timer",
+  "shouldSaveToLocalStorage": true
+}

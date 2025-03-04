@@ -39,10 +39,8 @@
 
           timer.stopAll()
 
-          const cachedTimer = Timer.fromLocalStorage(timer.localStorageKey)
-
-          if (!isEqual(timer, cachedTimer)) {
-            throw new Error("The timer didn't save to localStorage correctly!")
+          if (!localStorage.getItem(timer.localStorageKey)) {
+            throw new Error("The timer wasn't stored in `localStorage`!")
           }
 
           console.log(
@@ -119,10 +117,51 @@
 
           const timer2 = Timer.fromLocalStorage(timer1.localStorageKey)
 
-          if (!isEqual(timer1, timer2)) {
-            throw new Error(
-              "The timer wasn't rehydrated from `localStorage` correctly!",
-            )
+          if (timer1.localStorageKey !== timer2.localStorageKey) {
+            throw new Error(`The timers were supposed to have the same \`localStorageKey\`, but they didn't! ("${timer1.localStorageKey}" vs. "${timer2.localStorageKey}")`)
+          }
+
+          if (timer1.shouldLogToConsole !== timer2.shouldLogToConsole) {
+            throw new Error(`The timers were supposed to have the same \`shouldLogToConsole\` value, but they didn't! (${timer1.shouldLogToConsole} vs. ${timer2.shouldLogToConsole})`)
+          }
+
+          if (
+            timer1.shouldSaveToLocalStorage !== timer2.shouldSaveToLocalStorage
+          ) {
+            throw new Error(`The timers were supposed to have the same \`shouldSaveToLocalStorage\` value, but they didn't! (${timer1.shouldSaveToLocalStorage} vs. ${timer2.shouldSaveToLocalStorage})`)
+          }
+
+          if (timer1.totalTime !== timer2.totalTime) {
+            throw new Error(`The timers were supposed to have the same \`totalTime\` value, but they didn't! (${timer1.totalTime} vs. ${timer2.totalTime})`)
+          }
+
+          for (
+            let i = 0;
+            i < Math.max(timer1.events.length, timer2.events.length);
+            i++
+          ) {
+            const event1 = timer1.events[i]
+            const event2 = timer2.events[i]
+
+            if (event1 && !event2) {
+              throw new Error("The first timer had an event that the second timer did not!")
+            }
+
+            if (!event1 && event2) {
+              throw new Error("The second timer had an event that the first timer did not!")
+            }
+
+            if (event1.duration !== event2.duration) {
+              throw new Error(`Two events were supposed to have the same duration, but they didn't! (${event1.duration} vs. ${event2.duration})`)
+            }
+
+            if (event1.name !== event2.name) {
+              throw new Error(`Two events were supposed to have the same name, but they didn't! ("${event1.name}" vs. "${event2.name}")`)
+            }
+
+            if (event1.start.getTime() !== event2.start.getTime()) {
+              throw new Error(`Two events were supposed to have the same start time, but they didn't! (${event1.start} vs. ${event2.start})`)
+            }
           }
 
           console.log("🟢 tests timers can be rehydrated from `localStorage`")

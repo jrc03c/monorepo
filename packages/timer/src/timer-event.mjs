@@ -6,7 +6,12 @@ class TimerEvent {
 
   constructor(options) {
     options = options || {}
-    this.duration = options.duration || this.duration
+
+    this.duration =
+      typeof options.duration === "undefined"
+      ? this.duration
+      : options.duration
+
     this.name = options.name || this.name
     this.start = options.start || this.start
     this.timer = options.timer || this.timer
