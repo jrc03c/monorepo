@@ -5,6 +5,7 @@ import { unindent } from "./unindent.mjs"
 import { wrap } from "./wrap.mjs"
 import fs from "node:fs"
 import path from "node:path"
+import process from "node:process"
 
 const { bright, dim } = fx
 const { cyan, magenta, yellow } = fg
@@ -98,7 +99,7 @@ try {
       return parseInt(process.argv[index2].split("=")[1])
     }
 
-    return 80
+    return Math.min(process.stdout.columns, 80)
   })()
 
   const raw = fs.readFileSync(file, "utf8")
