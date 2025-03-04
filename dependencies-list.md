@@ -23,7 +23,7 @@
 # make-key (0.0.36)
   - fake-jest
   - js-math-tools
-# js-plot-tools (0.0.17)
+# js-plot-tools (0.0.18)
   - js-math-tools
   - make-key
 # filedb (0.0.25)
