@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "@jrc03c/pause": "^0.0.10",
-    "@jrc03c/vue-component-with-css": "^0.0.17"
+    "@jrc03c/vue-component-with-css": "^0.0.20"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
     "eslint-plugin-vue": "^9.29.0",

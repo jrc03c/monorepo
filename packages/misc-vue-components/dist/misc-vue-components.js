@@ -6,8 +6,8 @@
   };
 
   // src/index.mjs
-  var src_exports = {};
-  __export(src_exports, {
+  var index_exports = {};
+  __export(index_exports, {
     ContextMenuComponent: () => ContextMenuComponent,
     DraggableComponent: () => DraggableComponent,
     FrameComponent: () => FrameComponent,
@@ -1525,6 +1525,6 @@
 
   // src/iife.mjs
   if (typeof globalThis !== "undefined") {
-    globalThis.MiscVueComponents = src_exports;
+    globalThis.MiscVueComponents = index_exports;
   }
 })();
