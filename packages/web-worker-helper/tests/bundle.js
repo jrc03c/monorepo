@@ -3612,7 +3612,7 @@
   };
 
   // tests/main.mjs
-  function createrel(status, message) {
+  function createResultsElement(status, message) {
     const out = document.createElement("div");
     out.classList.add("result");
     if (status) {
@@ -3630,7 +3630,7 @@
     const container = document.querySelector("#results");
     await (async () => {
       const description = "Tests that results can be returned correctly.";
-      const rel = createrel(null, description);
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
@@ -3651,7 +3651,7 @@
     })();
     await (async () => {
       const description = "Tests that results can be returned correctly after some time has elapsed.";
-      const rel = createrel(null, description);
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
@@ -3672,7 +3672,7 @@
     })();
     await (async () => {
       const description = "Tests that progress callbacks work correctly.";
-      const rel = createrel(null, description);
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
@@ -3696,7 +3696,7 @@
     })();
     await (async () => {
       const description = "Tests that errors are thrown when unknown signals are used.";
-      const rel = createrel(null, description);
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
@@ -3709,7 +3709,7 @@
     })();
     await (async () => {
       const description = "Tests that workers can do multiple things simultaneously.";
-      const rel = createrel(null, description);
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
@@ -3730,8 +3730,23 @@
       rel.classList.remove("animated");
     })();
     await (async () => {
-      const description = "Tests that workers can be terminated mid-execution.";
-      const rel = createrel(null, description);
+      const description = "Tests that workers can be terminated by the main thread in mid-execution.";
+      const rel = createResultsElement(null, description);
+      container.appendChild(rel);
+      try {
+        const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });
+        setTimeout(() => helper4.destroy(), 1e3);
+        await helper4.exec("return-after-30-seconds");
+        rel.classList.add("danger");
+        rel.querySelector("#message").innerHTML = `${description} (The worker should've been terminated mid-execution, but it wasn't!)`;
+      } catch (e) {
+        rel.classList.add("success");
+      }
+      rel.classList.remove("animated");
+    })();
+    await (async () => {
+      const description = "Tests that workers can self-terminate in mid-execution.";
+      const rel = createResultsElement(null, description);
       container.appendChild(rel);
       try {
         const helper4 = new WebWorkerHelper("worker-bundle.js", { type: "module" });

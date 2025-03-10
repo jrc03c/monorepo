@@ -1,6 +1,6 @@
 import { WebWorkerHelper } from "../src/index.mjs"
 
-function createrel(status, message) {
+function createResultsElement(status, message) {
   const out = document.createElement("div")
   out.classList.add("result")
 
@@ -23,7 +23,7 @@ function createrel(status, message) {
 
   await (async () => {
     const description = "Tests that results can be returned correctly."
-    const rel = createrel(null, description)
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
@@ -51,7 +51,7 @@ function createrel(status, message) {
     const description =
       "Tests that results can be returned correctly after some time has elapsed."
 
-    const rel = createrel(null, description)
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
@@ -77,7 +77,7 @@ function createrel(status, message) {
 
   await (async () => {
     const description = "Tests that progress callbacks work correctly."
-    const rel = createrel(null, description)
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
@@ -112,7 +112,7 @@ function createrel(status, message) {
     const description =
       "Tests that errors are thrown when unknown signals are used."
 
-    const rel = createrel(null, description)
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
@@ -130,12 +130,11 @@ function createrel(status, message) {
     const description =
       "Tests that workers can do multiple things simultaneously."
 
-    const rel = createrel(null, description)
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
       const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
-
       const promises = []
       promises.push(helper.exec("do-thing-1"))
       promises.push(helper.exec("do-thing-2"))
@@ -161,8 +160,31 @@ function createrel(status, message) {
   })()
 
   await (async () => {
-    const description = "Tests that workers can be terminated mid-execution."
-    const rel = createrel(null, description)
+    const description =
+      "Tests that workers can be terminated by the main thread in mid-execution."
+
+    const rel = createResultsElement(null, description)
+    container.appendChild(rel)
+
+    try {
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
+      setTimeout(() => helper.destroy(), 1000)
+      await helper.exec("return-after-30-seconds")
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML =
+        `${description} (The worker should've been terminated mid-execution, but it wasn't!)`
+    } catch (e) {
+      rel.classList.add("success")
+    }
+
+    rel.classList.remove("animated")
+  })()
+
+  await (async () => {
+    const description =
+      "Tests that workers can self-terminate in mid-execution."
+
+    const rel = createResultsElement(null, description)
     container.appendChild(rel)
 
     try {
