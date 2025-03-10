@@ -1,6 +1,6 @@
 import { WebWorkerHelper } from "../src/index.mjs"
 
-function createResultElement(status, message) {
+function createrel(status, message) {
   const out = document.createElement("div")
   out.classList.add("result")
 
@@ -23,146 +23,118 @@ function createResultElement(status, message) {
 
   await (async () => {
     const description = "Tests that results can be returned correctly."
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-      const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
-
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
       const x = Math.random()
       const ytrue = x * 2
       const ypred = await helper.exec("double", x)
 
       if (ypred === ytrue) {
-        resultElement.classList.add("success")
+        rel.classList.add("success")
       } else {
-        resultElement.classList.add("danger")
-
-        resultElement.querySelector("#message").innerHTML +=
+        rel.classList.add("danger")
+        rel.querySelector("#message").innerHTML +=
           ` (We expected to receive ${ytrue} but instead received ${ypred}!)`
       }
     } catch (e) {
-      resultElement.classList.add("danger")
-
-      resultElement.querySelector("#message").innerHTML =
-        `${description} (ERROR: ${e})`
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML = `${description} (ERROR: ${e})`
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 
   await (async () => {
     const description =
       "Tests that results can be returned correctly after some time has elapsed."
 
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-      const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
-
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
       const x = Math.random()
       const ytrue = x * 3
       const ypred = await helper.exec("triple-after-a-while", x)
 
       if (ypred === ytrue) {
-        resultElement.classList.add("success")
+        rel.classList.add("success")
       } else {
-        resultElement.classList.add("danger")
-
-        resultElement.querySelector("#message").innerHTML +=
+        rel.classList.add("danger")
+        rel.querySelector("#message").innerHTML +=
           ` (We expected to receive ${ytrue} but instead received ${ypred}!)`
       }
     } catch (e) {
-      resultElement.classList.add("danger")
-
-      resultElement.querySelector("#message").innerHTML =
-        `${description} (ERROR: ${e})`
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML = `${description} (ERROR: ${e})`
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 
   await (async () => {
     const description = "Tests that progress callbacks work correctly."
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-     const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
-
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
       let progress = 0
 
       await helper.exec("run-progress-callbacks", null, p => {
         progress = p
 
-        resultElement.querySelector("#message").innerHTML = `${description} (${(
+        rel.querySelector("#message").innerHTML = `${description} (${(
           p * 100
         ).toFixed(2)}%)`
       })
 
       if (progress === 1) {
-        resultElement.classList.add("success")
-        resultElement.querySelector("#message").innerHTML = description
+        rel.classList.add("success")
+        rel.querySelector("#message").innerHTML = description
       } else {
-        resultElement.classList.add("danger")
-
-        resultElement.querySelector("#message").innerHTML +=
+        rel.classList.add("danger")
+        rel.querySelector("#message").innerHTML +=
           ` (We expected to receive a final progress value of 1 but instead received ${progress}!)`
       }
     } catch (e) {
-      resultElement.classList.add("danger")
-
-      resultElement.querySelector("#message").innerHTML =
-        `${description} (ERROR: ${e})`
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML = `${description} (ERROR: ${e})`
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 
   await (async () => {
     const description =
       "Tests that errors are thrown when unknown signals are used."
 
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-      const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
-
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
       await helper.exec("does-not-exist")
-      resultElement.classList.add("danger")
+      rel.classList.add("danger")
     } catch (e) {
-      resultElement.classList.add("success")
+      rel.classList.add("success")
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 
   await (async () => {
     const description =
       "Tests that workers can do multiple things simultaneously."
 
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-      const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
 
       const promises = []
       promises.push(helper.exec("do-thing-1"))
@@ -176,42 +148,34 @@ function createResultElement(status, message) {
         results.includes("Thing 2 is finished!") &&
         results.includes("Thing 3 is finished!")
       ) {
-        resultElement.classList.add("success")
+        rel.classList.add("success")
       } else {
-        resultElement.classList.add("danger")
+        rel.classList.add("danger")
       }
     } catch (e) {
-      resultElement.classList.add("danger")
-
-      resultElement.querySelector("#message").innerHTML =
-        `${description} (ERROR: ${e})`
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML = `${description} (ERROR: ${e})`
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 
   await (async () => {
     const description = "Tests that workers can be terminated mid-execution."
-    const resultElement = createResultElement(null, description)
-    container.appendChild(resultElement)
+    const rel = createrel(null, description)
+    container.appendChild(rel)
 
     try {
-      const helper = new WebWorkerHelper(
-        "worker-bundle.js",
-        { type: "module" },
-      )
-
+      const helper = new WebWorkerHelper("worker-bundle.js", { type: "module" })
       setTimeout(() => helper.destroy(), 1000)
       await helper.exec("return-after-30-seconds")
-
-      resultElement.classList.add("danger")
-
-      resultElement.querySelector("#message").innerHTML =
+      rel.classList.add("danger")
+      rel.querySelector("#message").innerHTML =
         `${description} (The worker should've been terminated mid-execution, but it wasn't!)`
     } catch (e) {
-      resultElement.classList.add("success")
+      rel.classList.add("success")
     }
 
-    resultElement.classList.remove("animated")
+    rel.classList.remove("animated")
   })()
 })()
