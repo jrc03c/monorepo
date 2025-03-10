@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@jrc03c/base-web-component": "^0.0.9",
+    "@jrc03c/base-web-component": "^0.0.14",
     "@jrc03c/vue-component-with-css": "^0.0.10",
     "bulma": "^1.0.2",
     "vue": "^3.5.13"
