@@ -87,7 +87,7 @@
             ).toFixed(2)} seconds!`
 
             if (elapsed >= this.ttl) {
-              this.unmount()
+              this.destroy()
               return
             }
 
