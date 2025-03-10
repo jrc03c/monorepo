@@ -3528,13 +3528,7 @@
       if (this.isMounted) {
         this.unmount();
       }
-      this.eventListeners.forEach((listener) => {
-        try {
-          listener.remove();
-        } catch (e) {
-        }
-      });
-      this.eventListeners = [];
+      this.removeAllEventListeners();
     }
     disconnectedCallback() {
       if (this.isMounted) {
@@ -3589,6 +3583,15 @@
     onMounted() {
     }
     onUnmounted() {
+    }
+    removeAllEventListeners() {
+      this.eventListeners.forEach((listener) => {
+        try {
+          listener.remove();
+        } catch (e) {
+        }
+      });
+      this.eventListeners = [];
     }
     setAttribute(attr, value) {
       if (typeof value !== "string") {

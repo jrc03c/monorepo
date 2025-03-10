@@ -4,7 +4,7 @@
     "url": "https://github.com/jrc03c/create-high-dpi-canvas/issues"
   },
   "dependencies": {
-    "@jrc03c/base-web-component": "^0.0.12"
+    "@jrc03c/base-web-component": "^0.0.14"
   },
   "description": "",
   "devDependencies": {
