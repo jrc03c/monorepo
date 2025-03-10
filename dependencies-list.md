@@ -105,7 +105,7 @@
   - fake-jest
   - pause
   - watch
-# base-web-component (0.0.12)
+# base-web-component (0.0.14)
   - js-math-tools
   - js-text-tools
   - pause
@@ -132,7 +132,7 @@
 # misc-vue-components (0.0.18)
   - pause
   - vue-component-with-css
-# bulma-vue-components (???)
+# bulma-vue-components (0.0.2)
   - base-web-component
   - fs-extras
   - vue-component-with-css
