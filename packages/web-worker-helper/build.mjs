@@ -1,7 +1,15 @@
 import { execSync } from "node:child_process"
 import { watch } from "@jrc03c/watch"
 
+let isRebuilding = false
+
 function rebuild() {
+  if (isRebuilding) {
+    return
+  }
+
+  isRebuilding = true
+
   console.log("-----")
   console.log(`\nRebuilding... (${new Date().toLocaleString()})`)
 
@@ -16,20 +24,18 @@ function rebuild() {
       { encoding: "utf8" },
     )
 
-    execSync(
-      `npx esbuild demo/main.mjs --bundle --outfile=demo/bundle.js`,
-      { encoding: "utf8" },
-    )
+    execSync(`npx esbuild demo/main.mjs --bundle --outfile=demo/bundle.js`, {
+      encoding: "utf8",
+    })
 
     execSync(
       `npx esbuild demo/worker.mjs --bundle --outfile=demo/worker-bundle.js`,
       { encoding: "utf8" },
     )
 
-    execSync(
-      `npx esbuild tests/main.mjs --bundle --outfile=tests/bundle.js`,
-      { encoding: "utf8" },
-    )
+    execSync(`npx esbuild tests/main.mjs --bundle --outfile=tests/bundle.js`, {
+      encoding: "utf8",
+    })
 
     execSync(
       `npx esbuild tests/worker.mjs --bundle --outfile=tests/worker-bundle.js`,
@@ -40,12 +46,22 @@ function rebuild() {
   } catch (e) {
     console.error(e)
   }
+
+  isRebuilding = false
 }
 
 if (process.argv.includes("--watch") || process.argv.includes("-w")) {
   watch({
     target: "src",
     exclude: ["dist", "node_modules"],
+    created: rebuild,
+    modified: rebuild,
+    deleted: rebuild,
+  })
+
+  watch({
+    target: "tests",
+    exclude: ["bundle.js", "worker-bundle.js"],
     created: rebuild,
     modified: rebuild,
     deleted: rebuild,
