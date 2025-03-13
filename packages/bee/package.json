@@ -1,14 +1,14 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.92",
-    "@jrc03c/js-text-tools": "^0.0.62",
-    "@jrc03c/make-key": "^0.0.36"
+    "@jrc03c/js-math-tools": "^0.0.93",
+    "@jrc03c/js-text-tools": "^0.0.63",
+    "@jrc03c/make-key": "^0.0.37"
   },
   "description": "makes web workers easier to use",
   "devDependencies": {
     "@jrc03c/pause": "^0.0.10",
-    "@jrc03c/watch": "^0.0.20",
+    "@jrc03c/watch": "^0.0.21",
     "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^8.1.2",
