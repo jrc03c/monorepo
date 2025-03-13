@@ -5,7 +5,7 @@
       __defProp(target, name, { get: all[name], enumerable: true });
   };
 
-  // node_modules/@jrc03c/vue-component-with-css/dist/vue-component-with-css.import.mjs
+  // node_modules/@jrc03c/vue-component-with-css/src/index.mjs
   function createVueComponentWithCSS(component) {
     let count = 0;
     let styleElement;
@@ -55,9 +55,6 @@
       }
     };
     return component;
-  }
-  if (typeof window !== "undefined") {
-    window.createVueComponentWithCSS = createVueComponentWithCSS;
   }
 
   // res/js/src/views/app.mjs

@@ -1,8 +1,8 @@
-var m=Object.defineProperty;var C=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var S=Object.prototype.hasOwnProperty;var q=(e,s)=>{for(var a in s)m(e,a,{get:s[a],enumerable:!0})},j=(e,s,a,i)=>{if(s&&typeof s=="object"||typeof s=="function")for(let n of x(s))!S.call(e,n)&&n!==a&&m(e,n,{get:()=>s[n],enumerable:!(i=C(s,n))||i.enumerable});return e};var $=e=>j(m({},"__esModule",{value:!0}),e);var Z={};q(Z,{BulmaBlock:()=>d,BulmaBox:()=>f,BulmaBreadcrumbs:()=>g,BulmaButton:()=>p,BulmaCard:()=>b,BulmaDelete:()=>u,BulmaIcon:()=>r,BulmaImage:()=>c,BulmaNotification:()=>k,BulmaProgress:()=>h,BulmaTable:()=>v,BulmaTags:()=>y});module.exports=$(Z);function t(e){let s=0,a;e=e||{};let i=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},B=e.unmounted?e.unmounted:function(){};return i.css||(i.css=""),e.data=function(){return i.bind(this)()},e.mounted=function(){n.bind(this)(),s++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){B.bind(this)(),s--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),s<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}typeof window<"u"&&(window.createVueComponentWithCSS=t);var w="",I=`
+var m=Object.defineProperty;var x=Object.getOwnPropertyDescriptor;var C=Object.getOwnPropertyNames;var S=Object.prototype.hasOwnProperty;var q=(e,s)=>{for(var a in s)m(e,a,{get:s[a],enumerable:!0})},j=(e,s,a,i)=>{if(s&&typeof s=="object"||typeof s=="function")for(let n of C(s))!S.call(e,n)&&n!==a&&m(e,n,{get:()=>s[n],enumerable:!(i=x(s,n))||i.enumerable});return e};var $=e=>j(m({},"__esModule",{value:!0}),e);var Z={};q(Z,{BulmaBlock:()=>d,BulmaBox:()=>f,BulmaBreadcrumbs:()=>g,BulmaButton:()=>p,BulmaCard:()=>b,BulmaDelete:()=>u,BulmaIcon:()=>r,BulmaImage:()=>c,BulmaNotification:()=>k,BulmaProgress:()=>v,BulmaTable:()=>h,BulmaTags:()=>y});module.exports=$(Z);function t(e){let s=0,a;e=e||{};let i=e.data?e.data:function(){},n=e.mounted?e.mounted:function(){},B=e.unmounted?e.unmounted:function(){};return i.css||(i.css=""),e.data=function(){return i.bind(this)()},e.mounted=function(){n.bind(this)(),s++;let l=this.$root.$el.getRootNode();l===document&&(l=l.body),a||(a=document.createElement("style"),l.appendChild(a),a.innerHTML=this.css)},e.unmounted=function(){B.bind(this)(),s--;let l=this.$root.$el.getRootNode();if(l===document&&(l=l.body),s<1){if(a)try{l.removeChild(a)}catch{try{a.parentElement.removeChild(a)}catch{}}a=null}},e}var I="",w=`
   <div class="block bulma-block">
     <slot></slot>
   </div>
-`,d=t({name:"bulma-block",template:I,data(){return{css:w}}});var V="",W=`
+`,d=t({name:"bulma-block",template:w,data(){return{css:I}}});var V="",W=`
   <div class="box bulma-box">
     <slot></slot>
   </div>
@@ -152,7 +152,7 @@ var m=Object.defineProperty;var C=Object.getOwnPropertyDescriptor;var x=Object.g
   <progress :value="value" class="bulma-progress progress" max="1">
     {{ value * 100 }}%
   </progress>
-`,h=t({name:"bulma-progress",template:K,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:J}}});var Q="",U=`
+`,v=t({name:"bulma-progress",template:K,props:{value:{type:Number,required:!1,default:()=>0}},data(){return{css:J}}});var Q="",U=`
   <table class="bulma-table table" v-if="values && values.length > 0">
     <thead v-if="columns && columns.length > 0">
       <tr>
@@ -180,7 +180,7 @@ var m=Object.defineProperty;var C=Object.getOwnPropertyDescriptor;var x=Object.g
   <table class="table" v-else>
     <slot></slot>
   </table>
-`,v=t({name:"bulma-table",template:U,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:Q}},methods:{range:o}});var X=`
+`,h=t({name:"bulma-table",template:U,props:{columns:{type:Array,required:!1,default:()=>[]},index:{type:Array,required:!1,default:()=>[]},values:{type:Array,required:!1,default:()=>[]}},data(){return{css:Q}},methods:{range:o}});var X=`
   .bulma-tag .bulma-icon {
     padding-right: 8px;
   }
