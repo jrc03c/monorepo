@@ -1049,24 +1049,37 @@
         isArray(p2) && !isJagged(p2) && shape(p2).length === 1,
         "If passing two arguments into the `assign` method, then the second argument must be a 1-dimensional array!"
       );
-      const out = df.append(p2, 1);
-      out.columns[out.columns.length - 1] = p1;
-      return out;
+      const out = df.copy();
+      if (out.columns.includes(p1)) {
+        const index = out.columns.indexOf(p1);
+        out.columns[index] = p1;
+        out.values.forEach((v, i) => v[index] = p2[i]);
+        return out;
+      } else {
+        out._columns.push(p1);
+        out._values.forEach((v, i) => v.push(p2[i]));
+        return out;
+      }
     } else {
       if (isDataFrame2(p1)) {
-        return df.append(p1, 1);
-      } else if (isSeries2(p1)) {
-        return df.append(p1, 1);
-      } else if (isObject(p1)) {
-        const maxColumnLength = Math.max(
-          ...Object.keys(p1).concat(Object.getOwnPropertySymbols(p1)).map((key) => p1[key].length)
-        );
-        Object.keys(p1).concat(Object.getOwnPropertySymbols(p1)).forEach((key) => {
-          while (p1[key].length < maxColumnLength) {
-            p1[key].push(void 0);
+        const out = df.copy();
+        const outShape = out.shape;
+        const p1Shape = p1.shape;
+        for (let j = 0; j < p1Shape[1]; j++) {
+          const col = p1.columns[j];
+          const colNewIndex = out.columns.includes(col) ? out.columns.indexOf(col) : out.columns.length;
+          if (!out.columns.includes(col)) {
+            out._columns.push(col);
           }
-        });
-        return df.append(new DataFrame2(p1), 1);
+          for (let i = 0; i < outShape[0]; i++) {
+            out._values[i][colNewIndex] = p1._values[i][j];
+          }
+        }
+        return out;
+      } else if (isSeries2(p1)) {
+        return df.assign(p1.name, p1.values);
+      } else if (isObject(p1)) {
+        return df.assign(new DataFrame2(p1));
       } else {
         throw new MathError(
           "You must pass a DataFrame, Series, or object into the `assign` method!"
