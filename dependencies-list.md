@@ -72,7 +72,7 @@
   - fs-extras
   - js-math-tools
   - make-key
-# watch (0.0.20)
+# watch (0.0.21)
   - fake-jest
   - fs-extras
   - make-key
