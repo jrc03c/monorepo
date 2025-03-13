@@ -87,7 +87,7 @@
   - js-text-tools
   - js-type-experiments
   - make-key
-# web-crawler (0.0.14)
+# web-crawler (0.0.15)
   - fake-jest
   - filedb
   - js-crypto-helpers
