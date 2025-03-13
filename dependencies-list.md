@@ -120,7 +120,7 @@
   - make-key
   - pause
   - watch
-# bee (0.0.52)
+# bee (0.0.53)
   - js-math-tools
   - js-text-tools
   - make-key
