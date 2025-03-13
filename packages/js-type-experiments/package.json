@@ -1,8 +1,8 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.92",
-    "@jrc03c/js-text-tools": "^0.0.62"
+    "@jrc03c/js-math-tools": "^0.0.93",
+    "@jrc03c/js-text-tools": "^0.0.63"
   },
   "description": "",
   "devDependencies": {
