@@ -1,8 +1,8 @@
 {
   "author": "jrc03c",
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.92",
-    "@jrc03c/make-key": "^0.0.36"
+    "@jrc03c/js-math-tools": "^0.0.93",
+    "@jrc03c/make-key": "^0.0.37"
   },
   "description": "a database solution that reads and writes plain text files from disk",
   "devDependencies": {
