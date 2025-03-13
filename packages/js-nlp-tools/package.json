@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "@jrc03c/base-class": "^0.0.10",
-    "@jrc03c/filedb": "^0.0.26",
-    "@jrc03c/fs-extras": "^0.0.23",
-    "@jrc03c/js-crypto-helpers": "^0.0.21",
-    "@jrc03c/js-math-tools": "^0.0.92",
-    "@jrc03c/js-text-tools": "^0.0.62",
-    "@jrc03c/js-type-experiments": "^0.0.22",
-    "@jrc03c/make-key": "^0.0.36"
+    "@jrc03c/filedb": "^0.0.27",
+    "@jrc03c/fs-extras": "^0.0.24",
+    "@jrc03c/js-crypto-helpers": "^0.0.22",
+    "@jrc03c/js-math-tools": "^0.0.93",
+    "@jrc03c/js-text-tools": "^0.0.63",
+    "@jrc03c/js-type-experiments": "^0.0.23",
+    "@jrc03c/make-key": "^0.0.37"
   },
   "devDependencies": {
     "@jrc03c/fake-jest": "^0.0.16",
