@@ -18,5 +18,5 @@
   "main": "./src/index.mjs",
   "module": "./src/index.mjs",
   "name": "@jrc03c/js-type-experiments",
-  "version": "0.0.22"
+  "version": "0.0.23"
 }
