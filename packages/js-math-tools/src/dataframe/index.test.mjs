@@ -53,6 +53,49 @@ test("tests DataFrame assignment", () => {
   df = df.assign(e)
 
   expect(isEqual(df.get(null, "e").values, e.values)).toBe(true)
+
+  // note: assignment should always replace (not rename) existing columns!
+  const a2 = normal(100)
+  df = df.assign("a", a2)
+  expect(isEqual(sort(df.columns), ["a", "b", "c", "e"])).toBe(true)
+
+  // test other formulations
+  const d = new Series({ d: normal(100) })
+  df = df.assign(d)
+
+  const f = normal(100)
+  df = df.assign("f", f)
+
+  const g = new DataFrame({ foo: normal(100), bar: normal(100) })
+  df = df.assign(g)
+
+  const h = { hello: normal(100), world: normal(100) }
+  df = df.assign(h)
+
+  expect(
+    isEqual(
+      sort(df.columns),
+      sort(["a", "b", "c", "d", "e", "f", "foo", "bar", "hello", "world"]),
+    )
+  ).toBe(true)
+
+  expect(isEqual(df.get(null, "a").values, a2)).toBe(true)
+  expect(isEqual(df.get(null, "b").values, b)).toBe(true)
+  expect(isEqual(df.get(null, "c").values, c)).toBe(true)
+  expect(isEqual(df.get(null, "d").values, d.values)).toBe(true)
+  expect(isEqual(df.get(null, "e").values, e.values)).toBe(true)
+  expect(isEqual(df.get(null, "f").values, f)).toBe(true)
+
+  expect(
+    isEqual(df.get(null, "foo").values, g.get(null, "foo").values)
+  ).toBe(true)
+
+  expect(
+    isEqual(df.get(null, "bar").values, g.get(null, "bar").values)
+  ).toBe(true)
+
+  expect(isEqual(df.get(null, "hello").values, h.hello)).toBe(true)
+  expect(isEqual(df.get(null, "world").values, h.world)).toBe(true)
 })
 
 test("tests DataFrame selectors (for missing columns)", () => {
