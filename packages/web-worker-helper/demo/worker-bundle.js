@@ -3495,6 +3495,8 @@
 
   // src/index.mjs
   var WebWorkerHelper = class _WebWorkerHelper {
+    // Define some status values that will be included in every message sent by
+    // the worker.
     static Status = {
       CANCELLED: "CANCELLED",
       FAILED: "FAILED",
@@ -3502,21 +3504,29 @@
       IN_PROGRESS: "IN_PROGRESS"
     };
     static isInWorkerContext() {
-      return typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+      return typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
     }
-    // main thread only
+    // In the main thread, the helper keeps track of `reject` functions (i.e., of
+    // the kind that are arguments of the function passed into the `Promise`
+    // constructor). If the worker is terminated suddenly, then it will call all
+    // of these functions to indicate the failure of all `Promise` instances.
     rejects = [];
+    // In the main thread, the helper also keeps a reference to its Worker
+    // instance.
     worker = null;
-    // worker only
+    // In the worker context (i.e., *not* in the main thread), the helper keeps
+    // track of the signal names to which it has been subscribed. This allows it
+    // to throw an error if the main thread tries to send a signal to which no
+    // helpers are subscribed.
     signals = [];
     constructor(path, options) {
       if (path) {
         this.worker = new Worker(path, options);
       }
       if (_WebWorkerHelper.isInWorkerContext()) {
-        self.addEventListener("message", (event) => {
+        globalThis.addEventListener("message", (event) => {
           if (!this.signals.includes(event.data.signal)) {
-            return self.postMessage({
+            return globalThis.postMessage({
               signal: event.data.signal,
               status: _WebWorkerHelper.Status.FAILED,
               payload: `You tried to send a message with the signal "${event.data.signal}" to a worker, but no workers are listening for that signal!`
@@ -3525,6 +3535,8 @@
         });
       }
     }
+    // The `destroy` method is called on "employer" helpers to terminate all their
+    // "employee" helpers' work immediately.
     destroy() {
       this.rejects.forEach(
         (reject) => reject(
@@ -3536,6 +3548,12 @@
       this.worker = null;
       return this;
     }
+    // The `exec` method is used by an "employer" helper to delegate work to its
+    // "employee" helper. The `signal` argument is a string that represents the
+    // name of an event for which the "employee" helper is listening. For
+    // example, calling `helper.exec("whatever")` implies that the "employee"
+    // helper is listening for an event called "whatever". (It will have started
+    // listening for this event using its `on` method, which is defined below.)
     exec(signal, payload, progress) {
       return new Promise((resolve, reject) => {
         try {
@@ -3581,7 +3599,8 @@
         }
       });
     }
-    // NOTE: This method should only be called in a web worker context (i.e., not in the main thread).
+    // NOTE: This method should only be called in a web worker context (i.e., not
+    // in the main thread).
     on(signal, callback) {
       if (!_WebWorkerHelper.isInWorkerContext()) {
         throw new Error(
@@ -3592,19 +3611,19 @@
         if (event.data.signal === signal) {
           try {
             const result = await callback(event.data.payload, (p) => {
-              self.postMessage({
+              globalThis.postMessage({
                 signal,
                 status: _WebWorkerHelper.Status.IN_PROGRESS,
                 payload: p
               });
             });
-            self.postMessage({
+            globalThis.postMessage({
               signal,
               status: _WebWorkerHelper.Status.FINISHED,
               payload: result
             });
           } catch (e) {
-            self.postMessage({
+            globalThis.postMessage({
               signal,
               status: _WebWorkerHelper.Status.FAILED,
               payload: e
@@ -3612,13 +3631,13 @@
           }
         }
       };
-      self.addEventListener("message", listener);
+      globalThis.addEventListener("message", listener);
       this.signals.push(signal);
       return () => {
         if (this.signals.includes(signal)) {
           this.signals.splice(this.signals.indexOf(signal), 1);
         }
-        self.removeEventListener("message", listener);
+        globalThis.removeEventListener("message", listener);
       };
     }
   };

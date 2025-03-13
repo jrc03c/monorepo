@@ -1,6 +1,8 @@
 import { makeKey } from "@jrc03c/make-key"
 
 class WebWorkerHelper {
+  // Define some status values that will be included in every message sent by
+  // the worker.
   static Status = {
     CANCELLED: "CANCELLED",
     FAILED: "FAILED",
@@ -11,26 +13,61 @@ class WebWorkerHelper {
   static isInWorkerContext() {
     return (
       typeof WorkerGlobalScope !== "undefined" &&
-      self instanceof WorkerGlobalScope
+      globalThis instanceof WorkerGlobalScope
     )
   }
 
-  // main thread only
+  // In the main thread, the helper keeps track of `reject` functions (i.e., of
+  // the kind that are arguments of the function passed into the `Promise`
+  // constructor). If the worker is terminated suddenly, then it will call all
+  // of these functions to indicate the failure of all `Promise` instances.
   rejects = []
+
+  // In the main thread, the helper also keeps a reference to its Worker
+  // instance.
   worker = null
 
-  // worker only
+  // In the worker context (i.e., *not* in the main thread), the helper keeps
+  // track of the signal names to which it has been subscribed. This allows it
+  // to throw an error if the main thread tries to send a signal to which no
+  // helpers are subscribed.
   signals = []
 
   constructor(path, options) {
+    // The WebWorkerHelper class is designed to be used in *both* main thread
+    // contexts *and* web worker contexts! This makes the API simpler and easier
+    // to understand from the outside.
+    //
+    // Generally speaking, there are two roles a WebWorkerHelper can play:
+    // "employer" and "employee". The "employer" role is played by helpers that
+    // delegate work to be done; they do not actually do any work themselves.
+    // The "employee" role is played by helpers that do whatever work has been
+    // delegated to them. Helpers created in the main thread can only ever be
+    // "employers"; but helpers created in worker contexts can play either role!
+    // When a helper is created in a worker context to play an "employer" role,
+    // the work it delegates will actually be done in a new, secondary worker
+    // context (i.e., not the same context in which this helper itself lives)!
+    //
+    // Creating an "employer" helper requires passing a path into the
+    // WebWorkerHelper constructor. The path is a string representing a worker
+    // script URL.
+    //
+    // "Employee" helpers, on the other hand, need no path. They can simply be
+    // constructed with `new WebWorkerHelper()`.
+    //
+    // Note that these roles are nowhere mentioned in the class's actual code.
+    // That's because the role a helper plays is really defined by how you
+    // use the helper in practice, not by any property defined on or enforced
+    // by the instance. And, in fact, a single helper created in a worker
+    // context can play both roles simultaneously!
     if (path) {
       this.worker = new Worker(path, options)
     }
 
     if (WebWorkerHelper.isInWorkerContext()) {
-      self.addEventListener("message", event => {
+      globalThis.addEventListener("message", event => {
         if (!this.signals.includes(event.data.signal)) {
-          return self.postMessage({
+          return globalThis.postMessage({
             signal: event.data.signal,
             status: WebWorkerHelper.Status.FAILED,
             payload: `You tried to send a message with the signal "${event.data.signal}" to a worker, but no workers are listening for that signal!`,
@@ -40,6 +77,8 @@ class WebWorkerHelper {
     }
   }
 
+  // The `destroy` method is called on "employer" helpers to terminate all their
+  // "employee" helpers' work immediately.
   destroy() {
     this.rejects.forEach(reject =>
       reject(
@@ -53,6 +92,12 @@ class WebWorkerHelper {
     return this
   }
 
+  // The `exec` method is used by an "employer" helper to delegate work to its
+  // "employee" helper. The `signal` argument is a string that represents the
+  // name of an event for which the "employee" helper is listening. For
+  // example, calling `helper.exec("whatever")` implies that the "employee"
+  // helper is listening for an event called "whatever". (It will have started
+  // listening for this event using its `on` method, which is defined below.)
   exec(signal, payload, progress) {
     return new Promise((resolve, reject) => {
       try {
@@ -120,7 +165,8 @@ class WebWorkerHelper {
     })
   }
 
-  // NOTE: This method should only be called in a web worker context (i.e., not in the main thread).
+  // NOTE: This method should only be called in a web worker context (i.e., not
+  // in the main thread).
   on(signal, callback) {
     if (!WebWorkerHelper.isInWorkerContext()) {
       throw new Error(
@@ -132,20 +178,20 @@ class WebWorkerHelper {
       if (event.data.signal === signal) {
         try {
           const result = await callback(event.data.payload, p => {
-            self.postMessage({
+            globalThis.postMessage({
               signal,
               status: WebWorkerHelper.Status.IN_PROGRESS,
               payload: p,
             })
           })
 
-          self.postMessage({
+          globalThis.postMessage({
             signal,
             status: WebWorkerHelper.Status.FINISHED,
             payload: result,
           })
         } catch (e) {
-          self.postMessage({
+          globalThis.postMessage({
             signal,
             status: WebWorkerHelper.Status.FAILED,
             payload: e,
@@ -154,7 +200,7 @@ class WebWorkerHelper {
       }
     }
 
-    self.addEventListener("message", listener)
+    globalThis.addEventListener("message", listener)
     this.signals.push(signal)
 
     return () => {
@@ -162,7 +208,7 @@ class WebWorkerHelper {
         this.signals.splice(this.signals.indexOf(signal), 1)
       }
 
-      self.removeEventListener("message", listener)
+      globalThis.removeEventListener("message", listener)
     }
   }
 }
