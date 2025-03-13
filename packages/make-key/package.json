@@ -4,7 +4,7 @@
     "key": "./bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.92"
+    "@jrc03c/js-math-tools": "^0.0.93"
   },
   "description": "",
   "devDependencies": {
