@@ -21,6 +21,7 @@
   "name": "@jrc03c/bulma-vue-components",
   "scripts": {
     "build": "node build.mjs",
+    "pub": "npm version patch --force && npm publish --access=public",
     "serve": "python3 -m http.server",
     "watch": "node build.mjs --watch"
   },
