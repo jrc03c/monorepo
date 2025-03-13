@@ -28,5 +28,5 @@
     "url": "git+https://github.com/jrc03c/js-convex-hull.git"
   },
   "type": "module",
-  "version": "0.0.25"
+  "version": "0.0.26"
 }
