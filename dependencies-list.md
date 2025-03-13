@@ -54,7 +54,7 @@
   - js-math-tools
   - make-key
   - progress
-# js-crypto-helpers (0.0.21)
+# js-crypto-helpers (0.0.22)
   - bash-colors
   - fake-jest
   - js-math-tools
