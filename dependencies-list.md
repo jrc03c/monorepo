@@ -99,7 +99,7 @@
   - pause
 # custom-scroller (0.0.14)
   - watch
-# vue-component-with-css (0.0.20)
+# vue-component-with-css (0.0.21)
   - watch
 # abortable-promise (0.0.7)
   - fake-jest
