@@ -126,7 +126,7 @@
   - make-key
   - pause
   - watch
-# create-high-dpi-canvas (1.0.29)
+# create-high-dpi-canvas (1.0.30)
   - base-web-component
   - watch
 # misc-vue-components (0.0.18)
