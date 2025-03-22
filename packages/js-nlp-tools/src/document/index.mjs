@@ -23,6 +23,10 @@ class Document {
     return Object.keys(this.wordCounts)
   }
 
+  getTFScore(word) {
+    return this.wordCounts[word] / this.totalWordCount
+  }
+
   async process() {
     const shouldPreserveCase = this.isCaseSensitive
     const rawClean = clean(this.raw, shouldPreserveCase)
