@@ -2,10 +2,11 @@
   "dependencies": {
     "@jrc03c/base-class": "^0.0.10",
     "@jrc03c/filedb": "^0.0.27",
+    "@jrc03c/freeze": "^0.0.7",
     "@jrc03c/fs-extras": "^0.0.24",
     "@jrc03c/js-crypto-helpers": "^0.0.22",
     "@jrc03c/js-math-tools": "^0.0.93",
-    "@jrc03c/js-text-tools": "^0.0.63",
+    "@jrc03c/js-text-tools": "^0.0.64",
     "@jrc03c/js-type-experiments": "^0.0.23",
     "@jrc03c/make-key": "^0.0.37"
   },
