@@ -3601,13 +3601,13 @@
   // src/helpers/strip.mjs
   var doubleSpace = "  ";
   var singleSpace = " ";
-  function strip(text) {
+  function strip(text, shouldPreserveCase) {
     if (typeof text !== "string") {
       throw new Error("`text` must be a string!");
     }
     let out = "";
     for (let i = 0; i < text.length; i++) {
-      const char = text[i].toLowerCase();
+      const char = shouldPreserveCase ? text[i] : text[i].toLowerCase();
       if (punctuation.includes(char)) {
         out += singleSpace;
       } else {
