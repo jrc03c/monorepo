@@ -11,8 +11,8 @@ function defineReadOnlyProperty(obj, name, value) {
       return value
     },
 
-    set(value) {
-      throw new Error(`The "${name}" property is read-only!`)
+    set(newValue) {
+      // ...
     },
   })
 
