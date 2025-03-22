@@ -1,6 +1,5 @@
 import { clean } from "../utils/clean.mjs"
 import { defineReadOnlyProperty } from "../utils/define-read-only-property.mjs"
-import { freeze } from "@jrc03c/freeze"
 
 class Document {
   isCaseSensitive = false
@@ -45,7 +44,7 @@ class Document {
       totalWordCount++
     }
 
-    defineReadOnlyProperty(this, "wordCounts", freeze(counts))
+    defineReadOnlyProperty(this, "wordCounts", counts)
     defineReadOnlyProperty(this, "totalWordCount", totalWordCount)
     return this
   }
