@@ -29,7 +29,7 @@ const doc3 = new Document({
   raw: fs.readFileSync("path/to/moby-dick.txt", "utf8"),
 })
 
-const corpus = new Corpus({ docs })
+const corpus = new Corpus({ docs: [doc1, doc2, doc3] })
 
 corpus
   .process(progress => console.log(progress))
