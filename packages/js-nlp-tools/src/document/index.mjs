@@ -3,6 +3,7 @@ import { defineReadOnlyProperty } from "../utils/define-read-only-property.mjs"
 import { makeKey } from "@jrc03c/make-key"
 
 class Document {
+  hasBeenProcessed = false
   isCaseSensitive = false
   mostFrequentWord = null
   name = ""
@@ -11,6 +12,10 @@ class Document {
   wordCounts = {}
 
   constructor(data) {
+    if (data.hasBeenProcessed) {
+      defineReadOnlyProperty(this, "hasBeenProcessed", true)
+    }
+
     defineReadOnlyProperty(
       this,
       "isCaseSensitive",
@@ -24,7 +29,10 @@ class Document {
     }
 
     defineReadOnlyProperty(this, "name", data.name || makeKey(8))
-    defineReadOnlyProperty(this, "raw", data.raw)
+
+    if (data.raw) {
+      defineReadOnlyProperty(this, "raw", data.raw)
+    }
 
     if (data.totalWordCount) {
       defineReadOnlyProperty(this, "totalWordCount", data.totalWordCount)
@@ -36,10 +44,22 @@ class Document {
   }
 
   get words() {
+    if (!this.hasBeenProcessed) {
+      throw new Error(
+        "The `Document` instance has not yet been processed! Please invoke the instance's `process` method before calling the `getWordCount` method.",
+      )
+    }
+
     return Object.keys(this.wordCounts)
   }
 
   getWordCount(word) {
+    if (!this.hasBeenProcessed) {
+      throw new Error(
+        "The `Document` instance has not yet been processed! Please invoke the instance's `process` method before calling the `getWordCount` method.",
+      )
+    }
+
     return this.wordCounts[word] || 0
   }
 
@@ -71,6 +91,7 @@ class Document {
       }
     }
 
+    defineReadOnlyProperty(this, "hasBeenProcessed", true)
     defineReadOnlyProperty(this, "mostFrequentWord", mostFrequentWord)
     defineReadOnlyProperty(this, "totalWordCount", totalWordCount)
     defineReadOnlyProperty(this, "wordCounts", counts)
