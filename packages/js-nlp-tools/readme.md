@@ -55,7 +55,7 @@ Returns a new `Corpus` instance. Can optionally take a `data` argument, which is
 Returns the inverse document frequency score for a given word. Is computed as:
 
 ```math
-\text{IDF}(\text{word}) = \text{log}(N / n_t)
+\text{IDF} = \text{log}(N / n_t)
 ```
 
 Where $N$ is the total number of documents in the corpus, and $n_t$ is the number of documents in which the word appears.
@@ -65,7 +65,7 @@ Where $N$ is the total number of documents in the corpus, and $n_t$ is the numbe
 Returns the term frequency score for a given word and document. Is computed as:
 
 ```math
-\text{TF}(\text{word}) = 0.5 + 0.5 \frac{f_{t, d}}{\text{max}_{\{t'∈d\}} f_{t',d}}
+\text{TF} = 0.5 + 0.5 \frac{f_{t, d}}{\text{max}_{\{t'∈d\}} f_{t',d}}
 ```
 
 Where $f_{t, d}$ is the number of times the word appears in the document, and $\text{max}_{\{t'∈d\}} f_{t',d}$ is the number of times the most frequently-occurring word appears in the document.
