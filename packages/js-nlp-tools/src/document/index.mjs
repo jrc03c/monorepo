@@ -60,6 +60,10 @@ class Document {
       )
     }
 
+    if (!this.isCaseSensitive) {
+      word = word.toLowerCase()
+    }
+
     return this.wordCounts[word] || 0
   }
 

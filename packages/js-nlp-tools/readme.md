@@ -31,13 +31,9 @@ const doc3 = new Document({
 
 const corpus = new Corpus({ docs: [doc1, doc2, doc3] })
 
-corpus
-  .process(progress => console.log(progress))
-  .then(() => {
-    corpus.docs.forEach(doc => {
-      console.log(doc.name, corpus.computeTFIDFScore("frankenstein", doc))
-    })
-  })
+corpus.process().then(() => {
+  console.log(corpus.computeTFIDFScore("Frankenstein", doc1))
+})
 ```
 
 # API
