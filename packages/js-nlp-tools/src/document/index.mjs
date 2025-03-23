@@ -11,16 +11,28 @@ class Document {
   wordCounts = {}
 
   constructor(data) {
-    defineReadOnlyProperty(this, "name", data.name || makeKey(8))
-    defineReadOnlyProperty(this, "raw", data.raw)
-
     defineReadOnlyProperty(
       this,
       "isCaseSensitive",
       typeof data.isCaseSensitive === "undefined"
-        ? false
+        ? this.isCaseSensitive
         : data.isCaseSensitive,
     )
+
+    if (data.mostFrequentWord) {
+      defineReadOnlyProperty(this, "mostFrequentWord", data.mostFrequentWord)
+    }
+
+    defineReadOnlyProperty(this, "name", data.name || makeKey(8))
+    defineReadOnlyProperty(this, "raw", data.raw)
+
+    if (data.totalWordCount) {
+      defineReadOnlyProperty(this, "totalWordCount", data.totalWordCount)
+    }
+
+    if (data.wordCounts) {
+      defineReadOnlyProperty(this, "wordCounts", data.wordCounts)
+    }
   }
 
   get words() {

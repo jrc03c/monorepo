@@ -8,21 +8,21 @@ class Corpus {
     this.docs = data.docs || this.docs
   }
 
-  getIDFScore(word) {
+  computeIDFScore(word) {
     return Math.log(
       this.docs.length / this.docs.filter(d => d.getWordCount(word) > 0).length,
     )
   }
 
-  getTFScore(word, doc) {
+  computeTFScore(word, doc) {
     return (
       0.5 +
       (0.5 * doc.getWordCount(word)) / doc.getWordCount(doc.mostFrequentWord)
     )
   }
 
-  getTFIDFScore(word, doc) {
-    return this.getTFScore(word, doc) * this.getIDFScore(word)
+  computeTFIDFScore(word, doc) {
+    return this.computeTFScore(word, doc) * this.computeIDFScore(word)
   }
 
   async process(progress) {

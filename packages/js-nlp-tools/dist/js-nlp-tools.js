@@ -5,13 +5,112 @@
       __defProp(target, name, { get: all[name], enumerable: true });
   };
 
-  // src/index-browser.mjs
-  var index_browser_exports2 = {};
-  __export(index_browser_exports2, {
+  // src/index.mjs
+  var index_exports = {};
+  __export(index_exports, {
     Corpus: () => Corpus,
     Document: () => Document,
-    Utils: () => index_browser_exports
+    utils: () => utils_exports
   });
+
+  // node_modules/@jrc03c/freeze/src/index.mjs
+  function proxify(x, shouldThrowErrors) {
+    return new Proxy(x, {
+      defineProperty() {
+        if (shouldThrowErrors) {
+          throw new Error(
+            `The target object is read-only, so no new properties can be defined on it!`
+          );
+        }
+        return true;
+      },
+      deleteProperty(prop) {
+        if (shouldThrowErrors) {
+          throw new Error(
+            `The target object is read-only, so its "${prop}" property cannot be deleted!`
+          );
+        }
+        return true;
+      },
+      set(target, prop) {
+        if (shouldThrowErrors) {
+          throw new Error(
+            `The target object is read-only, so its "${prop}" property cannot be set!`
+          );
+        }
+        return true;
+      },
+      setPrototypeOf() {
+        if (shouldThrowErrors) {
+          throw new Error(
+            `The target object is read-only, so its prototype cannot be set!`
+          );
+        }
+        return true;
+      }
+    });
+  }
+  function freeze(x, shouldThrowErrors) {
+    if (typeof x === "object") {
+      if (x === null) {
+        return x;
+      }
+      Object.keys(x).forEach((key) => {
+        x[key] = freeze(x[key]);
+      });
+      return proxify(x, shouldThrowErrors);
+    } else {
+      return x;
+    }
+  }
+
+  // src/utils/define-read-only-property.mjs
+  function defineReadOnlyProperty(obj, name, value) {
+    value = freeze(value);
+    Object.defineProperty(obj, name, {
+      configurable: false,
+      enumerable: true,
+      get() {
+        return value;
+      },
+      set(newValue) {
+      }
+    });
+    return obj;
+  }
+
+  // src/corpus/index.mjs
+  var Corpus = class {
+    docs = [];
+    constructor(data) {
+      data = data || {};
+      this.docs = data.docs || this.docs;
+    }
+    computeIDFScore(word) {
+      return Math.log(
+        this.docs.length / this.docs.filter((d) => d.getWordCount(word) > 0).length
+      );
+    }
+    computeTFScore(word, doc) {
+      return 0.5 + 0.5 * doc.getWordCount(word) / doc.getWordCount(doc.mostFrequentWord);
+    }
+    computeTFIDFScore(word, doc) {
+      return this.computeTFScore(word, doc) * this.computeIDFScore(word);
+    }
+    async process(progress) {
+      for (let i = 0; i < this.docs.length; i++) {
+        await this.docs[i].process();
+        if (progress) {
+          progress(i / this.docs.length);
+        }
+      }
+      if (progress) {
+        progress(1);
+      }
+      defineReadOnlyProperty(this, "docs", this.docs);
+      return this;
+    }
+  };
 
   // node_modules/@jrc03c/js-math-tools/src/is-number.mjs
   function isNumber(x) {
@@ -3260,87 +3359,6 @@
   }
   var vmultiply = vectorize(multiply);
 
-  // node_modules/@jrc03c/js-math-tools/src/scale.mjs
-  function scale() {
-    return vmultiply(...arguments);
-  }
-
-  // node_modules/@jrc03c/js-math-tools/src/sum.mjs
-  function sum(arr, shouldDropNaNs) {
-    return stats(arr, { shouldDropNaNs }).sum;
-  }
-
-  // node_modules/@jrc03c/js-math-tools/src/dot.mjs
-  function dot(a, b) {
-    if (isDataFrame(a)) {
-      const temp = dot(a.values, b);
-      if (shape(temp).length === 1) {
-        const out = new Series(temp);
-        out.name = isSeries(b) ? b.name : out.name;
-        out.index = a.index.slice();
-        return out;
-      } else {
-        const out = new DataFrame(temp);
-        out.index = a.index.slice();
-        if (isDataFrame(b)) {
-          out.columns = b.columns.slice();
-        }
-        return out;
-      }
-    }
-    if (isDataFrame(b)) {
-      const temp = dot(a, b.values);
-      if (shape(temp).length === 1) {
-        const out = new Series(temp);
-        out.name = isSeries(a) ? a.name : out.name;
-        out.index = b.columns.slice();
-        return out;
-      } else {
-        const out = new DataFrame(temp);
-        out.columns = b.columns.slice();
-        return out;
-      }
-    }
-    if (isSeries(a)) {
-      return dot(a.values, b);
-    }
-    if (isSeries(b)) {
-      return dot(a, b.values);
-    }
-    assert(
-      isArray(a) && isArray(b),
-      "The `dot` function only works on arrays, Series, and DataFrames!"
-    );
-    const aShape = shape(a);
-    const bShape = shape(b);
-    assert(
-      aShape.length <= 2 && bShape.length <= 2,
-      "I'm not smart enough to know how to get the dot-product of arrays that have more than 2 dimensions. Sorry for the inconvenience! Please only pass 1- or 2-dimensional arrays into the `dot` function!"
-    );
-    assert(
-      aShape[aShape.length - 1] === bShape[0],
-      `There's a dimension misalignment in the two arrays you passed into the \`dot\` function. (${aShape[aShape.length - 1]} !== ${bShape[0]})`
-    );
-    if (aShape.length === 1 && bShape.length === 1) {
-      return sum(scale(a, b));
-    } else if (aShape.length === 1 && bShape.length === 2) {
-      return transpose(b).map((col) => dot(a, col));
-    } else if (aShape.length === 2 && bShape.length === 1) {
-      return a.map((row) => dot(row, b));
-    } else if (aShape.length === 2 && bShape.length === 2) {
-      const bTranspose = transpose(b);
-      const out = [];
-      for (let i = 0; i < a.length; i++) {
-        const row = [];
-        for (let j = 0; j < bTranspose.length; j++) {
-          row.push(dot(a[i], bTranspose[j]));
-        }
-        out.push(row);
-      }
-      return out;
-    }
-  }
-
   // node_modules/@jrc03c/js-math-tools/src/exp.mjs
   function exp(x) {
     try {
@@ -3557,78 +3575,6 @@
   }
   var vtan = vectorize(tan);
 
-  // src/utils/two-norm.mjs
-  function twoNorm(x) {
-    return Math.sqrt(dot(x, x));
-  }
-
-  // src/utils/cosine-similarity.mjs
-  function cosineSimilarity(a, b) {
-    return vclamp(dot(a, b) / (twoNorm(a) * twoNorm(b)), 0, 1);
-  }
-
-  // node_modules/@jrc03c/js-text-tools/src/camelify.mjs
-  function camelify2(text) {
-    if (typeof text !== "string") {
-      throw new Error("`text` must be a string!");
-    }
-    text = text.trim();
-    let out = "";
-    let shouldCapitalizeNextCharacter = false;
-    for (let i = 0; i < text.length; i++) {
-      const char = text[i];
-      if (char.match(/[A-Za-z0-9]/g)) {
-        if (out.length === 0) {
-          out += char.toLowerCase();
-        } else if (shouldCapitalizeNextCharacter) {
-          out += char.toUpperCase();
-        } else {
-          out += char;
-        }
-        shouldCapitalizeNextCharacter = false;
-      } else if (!char.includes("'") && !char.includes("\u2019") && !char.includes("\u275C")) {
-        shouldCapitalizeNextCharacter = true;
-      }
-    }
-    return out;
-  }
-
-  // node_modules/@jrc03c/js-text-tools/src/helpers/convert-typed-array-to-object.mjs
-  function convertTypedArrayToObject(x) {
-    if (x instanceof ArrayBuffer || x instanceof BigInt64Array || x instanceof BigUint64Array || x instanceof Float32Array || x instanceof Float64Array || x instanceof Int16Array || x instanceof Int32Array || x instanceof Int8Array || x instanceof Uint16Array || x instanceof Uint32Array || x instanceof Uint8Array || x instanceof Uint8ClampedArray) {
-      return {
-        [Symbol.for("@TypedArrayConstructor")]: x.constructor.name,
-        values: x instanceof ArrayBuffer ? Array.from(new Uint8Array(x)) : Array.from(x)
-      };
-    }
-    if (isArray(x)) {
-      return x.map((v) => {
-        try {
-          return convertTypedArrayToObject(v);
-        } catch (e) {
-          return v;
-        }
-      });
-    }
-    if (typeof x === "object" & x !== null) {
-      if (isDate(x)) {
-        return new Date(x.getTime());
-      }
-      const out = {};
-      Object.keys(x).forEach((key) => {
-        try {
-          out[key] = convertTypedArrayToObject(x[key]);
-        } catch (e) {
-          out[key] = x[key];
-        }
-      });
-      return out;
-    }
-    throw new Error(
-      "The value passed into the `convertTypedArrayToObject` function must be a typed array! Valid types include: ArrayBuffer, Float32Array, Float64Array, Int16Array, Int32Array, Int8Array, Uint16Array, Uint32Array, Uint8Array, and Uint8ClampedArray."
-    );
-  }
-
   // node_modules/@jrc03c/js-text-tools/src/helpers/punctuation.mjs
   var punctuation = "!\"#%&'()*+,-./:;<=>?@[]^_`{|}~\xA0\xA1\xA4\xA7\xA9\xAA\xAB\xAE\xB0\xB1\xB6\xB7\xBA\xBB\xBF\xD7\xF7\u0254\u0300\u0301\u0302\u0303\u037E\u0387\u055A\u055B\u055C\u055D\u055E\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A\u066B\u066C\u066D\u06D4\u0700\u0701\u0702\u0703\u0704\u0705\u0706\u0707\u0708\u0709\u070A\u070B\u070C\u070D\u07F7\u07F8\u07F9\u0830\u0831\u0832\u0833\u0834\u0835\u0836\u0837\u0838\u0839\u083A\u083B\u083C\u083D\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04\u0F05\u0F06\u0F07\u0F08\u0F09\u0F0A\u0F0B\u0F0C\u0F0D\u0F0E\u0F0F\u0F10\u0F11\u0F12\u0F14\u0F3A\u0F3B\u0F3C\u0F3D\u0F85\u0FD0\u0FD1\u0FD2\u0FD3\u0FD4\u0FD9\u0FDA\u104A\u104B\u104C\u104D\u104E\u104F\u10FB\u1360\u1361\u1362\u1363\u1364\u1365\u1366\u1367\u1368\u1400\u166E\u169B\u169C\u16EB\u16EC\u16ED\u1735\u1736\u17D4\u17D5\u17D6\u17D8\u17D9\u17DA\u1800\u1801\u1802\u1803\u1804\u1805\u1806\u1807\u1808\u1809\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0\u1AA1\u1AA2\u1AA3\u1AA4\u1AA5\u1AA6\u1AA8\u1AA9\u1AAA\u1AAB\u1AAC\u1AAD\u1B5A\u1B5B\u1B5C\u1B5D\u1B5E\u1B5F\u1B60\u1BFC\u1BFD\u1BFE\u1BFF\u1C3B\u1C3C\u1C3D\u1C3E\u1C3F\u1C7E\u1C7F\u1CC0\u1CC1\u1CC2\u1CC3\u1CC4\u1CC5\u1CC6\u1CC7\u1CD3\u2010\u2011\u2012\u2013\u2014\u2015\u2016\u2017\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2020\u2021\u2022\u2023\u2024\u2025\u2026\u2027\u2030\u2031\u2032\u2033\u2034\u2035\u2036\u2037\u2038\u2039\u203A\u203B\u203C\u203D\u203E\u203F\u2040\u2041\u2042\u2043\u2045\u2046\u2047\u2048\u2049\u204A\u204B\u204C\u204D\u204E\u204F\u2050\u2051\u2052\u2053\u2054\u2055\u2056\u2057\u2058\u2059\u205A\u205B\u205C\u205D\u205E\u207D\u207E\u208D\u208E\u2116\u2117\u2120\u2122\u212E\u2212\u2234\u2235\u2248\u2300\u2308\u2309\u230A\u230B\u2311\u2329\u232A\u2380\u25CA\u25CC\u261E\u2640\u2642\u26A5\u2766\u2767\u2768\u2769\u276A\u276B\u276C\u276D\u276E\u276F\u2770\u2771\u2772\u2773\u2774\u2775\u27C5\u27C6\u27E6\u27E7\u27E8\u27E9\u27EA\u27EB\u27EC\u27ED\u27EE\u27EF\u2983\u2984\u2985\u2986\u2987\u2988\u2989\u298A\u298B\u298C\u298D\u298E\u298F\u2990\u2991\u2992\u2993\u2994\u2995\u2996\u2997\u2998\u29D8\u29D9\u29DA\u29DB\u29FC\u29FD\u2CF9\u2CFA\u2CFB\u2CFC\u2CFE\u2CFF\u2D70\u2E00\u2E01\u2E02\u2E03\u2E04\u2E05\u2E06\u2E07\u2E08\u2E09\u2E0A\u2E0B\u2E0C\u2E0D\u2E0E\u2E0F\u2E10\u2E11\u2E12\u2E13\u2E14\u2E15\u2E16\u2E17\u2E18\u2E19\u2E1A\u2E1B\u2E1C\u2E1D\u2E1E\u2E1F\u2E20\u2E21\u2E22\u2E23\u2E24\u2E25\u2E26\u2E27\u2E28\u2E29\u2E2A\u2E2B\u2E2C\u2E2D\u2E2E\u2E30\u2E31\u2E32\u2E33\u2E34\u2E35\u2E36\u2E37\u2E38\u2E39\u2E3A\u2E3B\u2E3C\u2E3D\u2E3E\u2E3F\u2E40\u2E41\u2E42\u2E43\u2E44\u2E45\u2E46\u2E47\u2E48\u2E49\u2E4A\u2E4B\u2E4C\u2E4D\u2E4E\u2E4F\u2E52\u3001\u3002\u3003\u3008\u3009\u300A\u300B\u300C\u300D\u300E\u300F\u3010\u3011\u3014\u3015\u3016\u3017\u3018\u3019\u301A\u301B\u301C\u301D\u301E\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D\uA60E\uA60F\uA673\uA67E\uA6F2\uA6F3\uA6F4\uA6F5\uA6F6\uA6F7\uA874\uA875\uA876\uA877\uA8CE\uA8CF\uA8F8\uA8F9\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1\uA9C2\uA9C3\uA9C4\uA9C5\uA9C6\uA9C7\uA9C8\uA9C9\uA9CA\uA9CB\uA9CC\uA9CD\uA9DE\uA9DF\uAA5C\uAA5D\uAA5E\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uD800\uD801\uD802\uD803\uD804\uD805\uD806\uD807\uD809\uD81A\uD81B\uD82F\uD836\uD83A\u{1F03B}\uDC41\uDC42\uDC43\uDC44\uDC45\uDC47\uDC48\uDC49\uDC4A\uDC4B\uDC4C\uDC4D\uDC4E\uDC4F\uDC57\uDC5A\uDC5B\uDC5D\uDC70\uDC71\uDC72\uDC73\uDC74\uDC9F\uDCBB\uDCBC\uDCBE\uDCBF\uDCC0\uDCC1\uDCC6\uDD00\uDD01\uDD02\uDD1F\uDD2F\uDD3F\uDD40\uDD41\uDD42\uDD43\uDD44\uDD45\uDD46\uDD5E\uDD5F\uDD6F\uDD74\uDD75\uDDC1\uDDC2\uDDC3\uDDC4\uDDC5\uDDC6\uDDC7\uDDC8\uDDC9\uDDCA\uDDCB\uDDCC\uDDCD\uDDCE\uDDCF\uDDD0\uDDD1\uDDD2\uDDD3\uDDD4\uDDD5\uDDD6\uDDD7\uDDDB\uDDDD\uDDDE\uDDDF\uDDE2\uDE38\uDE39\uDE3A\uDE3B\uDE3C\uDE3D\uDE3F\uDE40\uDE41\uDE42\uDE43\uDE44\uDE45\uDE46\uDE50\uDE51\uDE52\uDE53\uDE54\uDE55\uDE56\uDE57\uDE58\uDE60\uDE61\uDE62\uDE63\uDE64\uDE65\uDE66\uDE67\uDE68\uDE69\uDE6A\uDE6B\uDE6C\uDE6E\uDE6F\uDE7F\uDE87\uDE88\uDE89\uDE8A\uDE8B\uDE97\uDE98\uDE99\uDE9A\uDE9B\uDE9C\uDE9E\uDE9F\uDEA0\uDEA1\uDEA2\uDEA9\uDEAD\uDEF0\uDEF1\uDEF2\uDEF3\uDEF4\uDEF5\uDEF6\uDEF7\uDEF8\uDF37\uDF38\uDF39\uDF3A\uDF3B\uDF3C\uDF3D\uDF3E\uDF3F\uDF44\uDF55\uDF56\uDF57\uDF58\uDF59\uDF99\uDF9A\uDF9B\uDF9C\uDF9F\uDFD0\uDFE2\uDFFF\uFD3F\uFE10\uFE11\uFE12\uFE13\uFE14\uFE15\uFE16\uFE17\uFE18\uFE19\uFE30\uFE31\uFE32\uFE33\uFE34\uFE35\uFE36\uFE37\uFE38\uFE39\uFE3A\uFE3B\uFE3C\uFE3D\uFE3E\uFE3F\uFE40\uFE41\uFE42\uFE43\uFE44\uFE45\uFE46\uFE47\uFE48\uFE49\uFE4A\uFE4B\uFE4C\uFE4D\uFE4E\uFE4F\uFE50\uFE51\uFE52\uFE54\uFE55\uFE56\uFE57\uFE58\uFE59\uFE5A\uFE5B\uFE5C\uFE5D\uFE5E\uFE5F\uFE60\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01\uFF02\uFF03\uFF05\uFF06\uFF07\uFF08\uFF09\uFF0A\uFF0C\uFF0D\uFF0E\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B\uFF3C\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F\uFF60\uFF61\uFF62\uFF63\uFF64\uFF65";
 
@@ -3649,13 +3595,13 @@
   // node_modules/@jrc03c/js-text-tools/src/helpers/strip.mjs
   var doubleSpace = "  ";
   var singleSpace = " ";
-  function strip(text) {
+  function strip(text, shouldPreserveCase) {
     if (typeof text !== "string") {
       throw new Error("`text` must be a string!");
     }
     let out = "";
     for (let i = 0; i < text.length; i++) {
-      const char = text[i].toLowerCase();
+      const char = shouldPreserveCase ? text[i] : text[i].toLowerCase();
       if (punctuation.includes(char)) {
         out += singleSpace;
       } else {
@@ -3668,533 +3614,10 @@
     return out.trim();
   }
 
-  // node_modules/@jrc03c/js-text-tools/src/pascalify.mjs
-  function pascalify(text) {
-    const out = camelify2(text);
-    return out[0].toUpperCase() + out.slice(1);
-  }
-
-  // node_modules/@jrc03c/js-text-tools/src/stringify.mjs
-  function prefix(s2, n) {
-    if (!s2 || n <= 0) return "";
-    return range(0, n).map(() => s2).join("");
-  }
-  function stringify(x, indent2) {
-    assert(
-      isString(indent2) || isUndefined(indent2),
-      "The second parameter to the `stringify` function must be undefined or a string!"
-    );
-    const newline = indent2 ? "\n" : "";
-    function helper4(x2, indent3, depth) {
-      depth = depth || 0;
-      if (typeof x2 === "bigint") {
-        return JSON.stringify(x2.toString() + "n");
-      }
-      if (typeof x2 === "number") {
-        if (x2 === Infinity) {
-          return '"Symbol(@Infinity)"';
-        }
-        if (x2 === -Infinity) {
-          return '"Symbol(@NegativeInfinity)"';
-        }
-        if (isNaN(x2)) {
-          return '"Symbol(@NaN)"';
-        }
-        return x2.toString();
-      }
-      if (typeof x2 === "string") {
-        return JSON.stringify("Symbol(@String):" + x2);
-      }
-      if (typeof x2 === "boolean") {
-        return x2.toString();
-      }
-      if (typeof x2 === "undefined") {
-        return '"Symbol(@undefined)"';
-      }
-      if (typeof x2 === "symbol") {
-        return JSON.stringify(x2.toString());
-      }
-      if (typeof x2 === "function") {
-        return JSON.stringify(x2.toString());
-      }
-      if (x2 instanceof RegExp) {
-        return x2.toString();
-      }
-      if (typeof x2 === "object") {
-        if (x2 === null) {
-          return "null";
-        }
-        if (isDate(x2)) {
-          return JSON.stringify(x2.toJSON());
-        }
-        if (isArray(x2)) {
-          if (x2.length === 0) {
-            return prefix(indent3, depth - 1) + "[]";
-          }
-          if (!(x2 instanceof Array)) {
-            return helper4(convertTypedArrayToObject(x2), null, indent3);
-          }
-          return prefix(indent3, depth - 1) + "[" + newline + x2.map((v) => {
-            let child = (() => {
-              try {
-                return helper4(convertTypedArrayToObject(v), indent3, depth + 1);
-              } catch (e) {
-                return helper4(v, indent3, depth + 1);
-              }
-            })();
-            if (isString(child)) child = child.trim();
-            return prefix(indent3, depth + 1) + child;
-          }).join("," + newline) + newline + prefix(indent3, depth) + "]";
-        }
-        if (Object.keys(x2).length + Object.getOwnPropertySymbols(x2).length === 0) {
-          return prefix(indent3, depth - 1) + "{}";
-        }
-        return prefix(indent3, depth - 1) + "{" + newline + Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).map((key) => {
-          let child = (() => {
-            try {
-              return helper4(
-                convertTypedArrayToObject(x2[key]),
-                indent3,
-                depth + 1
-              );
-            } catch (e) {
-              return helper4(x2[key], indent3, depth + 1);
-            }
-          })();
-          if (isString(child)) child = child.trim();
-          const stringifiedKey = typeof key === "symbol" ? helper4(key) : JSON.stringify(key);
-          return prefix(indent3, depth + 1) + stringifiedKey + ":" + (indent3 ? " " : "") + child;
-        }).join("," + newline) + newline + prefix(indent3, depth) + "}";
-      }
-      return "undefined";
-    }
-    return helper4(decycle(x), indent2);
-  }
-
-  // node_modules/@jrc03c/js-type-experiments/src/create-type.mjs
-  function createType(name, fn) {
-    if (typeof name !== "string") {
-      throw new Error(
-        "The first argument passed into the `createType` function must be a string representing the type's name!"
-      );
-    }
-    if (typeof fn !== "function") {
-      throw new Error(
-        "The second argument passed into the `createType` function must be a function that tests a single value and returns true or false depending on whether or not the value 'matches' the type!"
-      );
-    }
-    const out = class {
-      constructor() {
-        throw new Error(
-          "This class is not meant to be instantiated or subclassed! Its only purpose is type checking."
-        );
-      }
-      static [Symbol.hasInstance](value) {
-        try {
-          return !!fn(value);
-        } catch (e) {
-          try {
-            return value instanceof fn;
-          } catch (e2) {
-            return false;
-          }
-        }
-      }
-    };
-    Object.defineProperty(out, "name", {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: pascalify(name)
-    });
-    return out;
-  }
-
-  // node_modules/@jrc03c/js-type-experiments/src/is-of-type.mjs
-  function isOfType(value, type, allowsSubclassInstances) {
-    if (typeof allowsSubclassInstances === "undefined") {
-      allowsSubclassInstances = true;
-    }
-    if (value === null || typeof value === "undefined") {
-      return true;
-    }
-    if (type === "number" && typeof value === "number" && isNaN(value)) {
-      return true;
-    }
-    if (type === Date && isDate(value)) {
-      return true;
-    }
-    try {
-      return value instanceof type && (allowsSubclassInstances || value.constructor.name === type.name);
-    } catch (e) {
-      return typeof value === type;
-    }
-  }
-
-  // node_modules/@jrc03c/js-type-experiments/src/create-typed-array.mjs
-  var canUseNewKeyword = {
-    allowsSubclassInstances: {},
-    doesNotAllowSubclassInstances: {}
-  };
-  var TypedArray = class _TypedArray extends Array {
-    static allowsSubclassInstances = true;
-    static registry = {
-      allowsSubclassInstances: {},
-      doesNotAllowSubclassInstances: {}
-    };
-    static type = null;
-    static from(arr) {
-      if (arguments.length > 1) {
-        console.warn(
-          "WARNING: The `TypedArray.from` static method's implementation differs from the standard `Array.from` static method's implementation. The `TypedArray.from` method only accepts one argument: an array of values. That array can be nested arbitrarily deeply."
-        );
-      }
-      const key = this.allowsSubclassInstances ? "allowsSubclassInstances" : "doesNotAllowSubclassInstances";
-      const out = createTypedArray(_TypedArray.registry[key][this.name]);
-      if (arguments.length === 0) {
-        return out;
-      }
-      arr.forEach((value) => {
-        if (this.isArray(value)) {
-          const key2 = this.allowsSubclassInstances ? "allowsSubclassInstances" : "doesNotAllowSubclassInstances";
-          canUseNewKeyword[key2][this.type] = true;
-          const temp = new this();
-          canUseNewKeyword[key2][this.type] = false;
-          value.forEach((v) => temp.push(v));
-          out.push(this.proxify(temp));
-        } else {
-          out.push(value);
-        }
-      });
-      return out;
-    }
-    static proxify(x) {
-      return new Proxy(x, {
-        get() {
-          return Reflect.get(...arguments);
-        },
-        set(target, prop, value, receiver) {
-          const intProp = parseInt(prop);
-          if (!isNaN(intProp) && parseFloat(prop) === intProp && intProp >= 0) {
-            receiver.challenge(value);
-          }
-          return Reflect.set(...arguments);
-        }
-      });
-    }
-    constructor(type, allowsSubclassInstances) {
-      super();
-      if (type === null || typeof type === "undefined") {
-        throw new Error(
-          `A type must be passed as the first argument to the \`TypedArray\` constructor!`
-        );
-      }
-      if (type === Array) {
-        throw new Error("It's not possible to create a TypedArray<Array>!");
-      }
-      Object.defineProperty(this, "type", {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: type
-      });
-      if (typeof allowsSubclassInstances === "undefined" || allowsSubclassInstances === null) {
-        allowsSubclassInstances = true;
-      }
-      Object.defineProperty(this, "allowsSubclassInstances", {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: allowsSubclassInstances
-      });
-    }
-    static get typeString() {
-      if (typeof this.constructor.type === "function") {
-        return this.constructor.type.name;
-      } else {
-        return this.constructor.type;
-      }
-    }
-    get allowsSubclassInstances() {
-      return this.constructor.allowsSubclassInstances;
-    }
-    get type() {
-      return this.constructor.type;
-    }
-    canAccept(value) {
-      return isOfType(
-        value,
-        this.constructor.type,
-        this.constructor.allowsSubclassInstances
-      ) || isArray(value) && (value instanceof this.constructor || flatten(value).every((v) => this.canAccept(v)));
-    }
-    challenge(value) {
-      if (this.canAccept(value)) {
-        return true;
-      } else {
-        throw new Error(
-          `A ${this.constructor.name} cannot contain the value: ${typeof value === "string" || typeof value === "object" ? JSON.stringify(value) : value}`
-        );
-      }
-    }
-    concat() {
-      const out = this.constructor.from(this);
-      Array.from(arguments).forEach((arr) => {
-        arr.forEach((value) => {
-          this.challenge(value);
-          out.push(value);
-        });
-      });
-      return out;
-    }
-    fill(value, start, end) {
-      this.challenge(value);
-      return super.fill(value, start, end);
-    }
-    filter(fn, thisArg) {
-      if (typeof thisArg !== "undefined") {
-        fn = fn.bind(thisArg);
-      } else {
-        fn = fn.bind(this);
-      }
-      const out = Array.from(this).filter(fn);
-      try {
-        return this.constructor.from(out);
-      } catch (e) {
-        return Array.from(out);
-      }
-    }
-    from() {
-      return this.constructor.from(...arguments);
-    }
-    map(fn, thisArg) {
-      if (typeof thisArg !== "undefined") {
-        fn = fn.bind(thisArg);
-      } else {
-        fn = fn.bind(this);
-      }
-      const out = Array.from(this).map(fn);
-      try {
-        return this.constructor.from(out);
-      } catch (e) {
-        return Array.from(out);
-      }
-    }
-    push() {
-      Array.from(arguments).forEach((value) => {
-        this.challenge(value);
-      });
-      return super.push(...arguments);
-    }
-    slice(start, end) {
-      if (!start) {
-        start = 0;
-      }
-      if (!end) {
-        end = this.length;
-      }
-      const out = this.constructor.from([]);
-      for (let i = start; i < end; i++) {
-        out.push(this[i]);
-      }
-      return out;
-    }
-    splice() {
-      const newValues = Array.from(arguments).slice(2).filter((v) => {
-        this.challenge(v);
-        return true;
-      });
-      const difference = newValues.length - arguments[1];
-      const newLength = this.length + difference;
-      for (let i = newLength - 1; i > arguments[0] + arguments[1]; i--) {
-        this[i] = this[i - difference];
-      }
-      const removed = this.slice(arguments[0], arguments[0] + arguments[1]);
-      newValues.forEach((v, i) => {
-        this[arguments[0] + i] = v;
-      });
-      return removed;
-    }
-    toReversed() {
-      const out = this.constructor.from([]);
-      for (let i = this.length - 1; i >= 0; i--) {
-        out.push(this[i]);
-      }
-      return out;
-    }
-    toSorted() {
-      const temp = Array.from(this);
-      temp.sort(...arguments);
-      return this.constructor.from(temp);
-    }
-    toSpliced() {
-      const temp = Array.from(this);
-      temp.splice(...arguments);
-      return this.constructor.from(temp);
-    }
-    unshift() {
-      Array.from(arguments).forEach((value) => {
-        this.challenge(value);
-      });
-      return super.unshift(...arguments);
-    }
-    with(index, value) {
-      const out = this.slice();
-      out[index] = value;
-      return out;
-    }
-  };
-  function createTypedArray(type, allowsSubclassInstances) {
-    const key = allowsSubclassInstances ? "allowsSubclassInstances" : "doesNotAllowSubclassInstances";
-    const typeString = typeof type === "function" ? type.name : type;
-    const TempClass = (() => {
-      if (TypedArray.registry[key][type]) {
-        return TypedArray.registry[key][type];
-      } else {
-        class Temp extends TypedArray {
-          constructor() {
-            super(type, allowsSubclassInstances);
-            if (!canUseNewKeyword[key][type]) {
-              throw new Error(
-                `New \`${this.constructor.name}\` instances cannot be created using the \`new\` keyword! They must be created using \`${this.constructor.name}.from([...])\`.`
-              );
-            }
-          }
-        }
-        TypedArray.registry[key][type] = Temp;
-        return Temp;
-      }
-    })();
-    canUseNewKeyword[key][type] = true;
-    const out = new TempClass(true);
-    canUseNewKeyword[key][type] = false;
-    Object.defineProperty(out.constructor, "name", {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: `${pascalify(typeString)}Array`
-    });
-    Object.defineProperty(TempClass, "allowsSubclassInstances", {
-      configurable: true,
-      enumerable: true,
-      writable: false,
-      value: allowsSubclassInstances
-    });
-    Object.defineProperty(TempClass, "type", {
-      configurable: true,
-      enumerable: true,
-      writable: false,
-      value: type
-    });
-    TypedArray.registry[key][out.constructor.name] = type;
-    return TypedArray.proxify(out);
-  }
-
-  // node_modules/@jrc03c/js-type-experiments/src/define-typed-property.mjs
-  function defineTypedProperty(obj, prop, type, options) {
-    options = options || {
-      configurable: true,
-      enumerable: true
-    };
-    let _value;
-    const allowsSubclassInstances = typeof options.allowsSubclassInstances === "undefined" ? true : !!options.allowsSubclassInstances;
-    if (typeof type !== "function" && typeof type !== "string") {
-      throw new Error(
-        `A 'type' value (i.e., a class name or a string like "number" representing a primitive type) must be passed as the third argument to the \`defineTypedProperty\` function!`
-      );
-    }
-    if (type === null || typeof type === "undefined") {
-      throw new Error(
-        `A 'type' value (i.e., a class name or a string like "number" representing a primitive type) must be passed as the third argument to the \`defineTypedProperty\` function!`
-      );
-    }
-    if (type === Array) {
-      throw new Error(
-        "It's not possible to create a property of type Array (though you *can* create a TypedArray property)!"
-      );
-    }
-    function getTypeString() {
-      if (typeof type === "function") {
-        return type.name;
-      } else {
-        return type;
-      }
-    }
-    function canAccept(value) {
-      return isOfType(value, type, allowsSubclassInstances);
-    }
-    function challenge(value) {
-      if (canAccept(value)) {
-        return true;
-      } else {
-        throw new Error(
-          `The '${prop}' property can only have ${getTypeString()} values assigned to it!`
-        );
-      }
-    }
-    Object.defineProperty(obj, prop, {
-      ...options,
-      get() {
-        return _value;
-      },
-      set(value) {
-        challenge(value);
-        _value = value;
-      }
-    });
-  }
-
   // src/utils/clean.mjs
-  function clean(s2) {
-    let matches = s2.match(/[A-Za-z]'([A-Za-z]|\s)/g);
-    while (matches) {
-      matches.forEach((match) => {
-        s2 = s2.replaceAll(match, match.replaceAll("'", ""));
-      });
-      matches = s2.match(/[A-Za-z]'([A-Za-z]|\s)/g);
-    }
-    let out = strip(s2.toLowerCase()).replaceAll(/\s/g, " ");
-    while (out.includes("  ")) {
-      out = out.replaceAll("  ", " ");
-    }
-    return out.trim();
-  }
-
-  // node_modules/@jrc03c/js-crypto-helpers/src/errors.mjs
-  var HashingError = class extends Error {
-  };
-
-  // node_modules/@jrc03c/js-crypto-helpers/src/hash.mjs
-  async function hash(x, salt) {
-    if (isUndefined(salt)) {
-      salt = "";
-    } else {
-      if (!isString(salt)) {
-        throw new Error(
-          "The second value passed into the `hash` function must be undefined or a string representing a salt to be added to the first value before hashing!"
-        );
-      }
-    }
-    if (!isString(x)) {
-      x = stringify(x);
-    }
-    try {
-      return Array.from(
-        new Uint8Array(
-          await crypto.subtle.digest(
-            "SHA-512",
-            new TextEncoder().encode(x + salt)
-          )
-        )
-      ).map((b) => b.toString(16).padStart(2, "0")).join("");
-    } catch (e) {
-      throw new HashingError(e.toString());
-    }
-  }
-
-  // src/utils/is-whole-number.mjs
-  function isWholeNumber2(x) {
-    return typeof x === "number" && !isNaN(x) && x >= 0 && Math.floor(x) === x && x < Infinity;
+  function clean(x, shouldPreserveCase) {
+    shouldPreserveCase = typeof shouldPreserveCase === "undefined" ? false : shouldPreserveCase;
+    return strip(x.replaceAll(/\s/g, " "), shouldPreserveCase);
   }
 
   // node_modules/@jrc03c/make-key/src/index.mjs
@@ -4229,414 +3652,76 @@
     return out;
   }
 
-  // src/utils/string-set.mjs
-  var StringSet = class extends Set {
-    add(x) {
-      if (typeof x !== "string") {
-        throw new Error(`\`StringSet\` instances can only contain strings!`);
-      }
-      return super.add(x);
-    }
-    addAll(x) {
-      x.forEach((v) => this.add(v));
-      return this;
-    }
-    delete(x) {
-      if (typeof x !== "string") {
-        throw new Error(`\`StringSet\` instances can only contain strings!`);
-      }
-      return super.delete(x);
-    }
-    deleteAll(x) {
-      x.forEach((v) => this.delete(v));
-      return this;
-    }
-    has(x) {
-      if (typeof x !== "string") {
-        throw new Error(`\`StringSet\` instances can only contain strings!`);
-      }
-      return super.has(x);
-    }
-    hasAll(x) {
-      return x.every((v) => this.has(v));
-    }
-    toArray() {
-      return Array.from(this);
-    }
-    toSortedArray() {
-      return sort(this.toArray());
-    }
-  };
-
-  // src/document/word-count-map.mjs
-  var WordCountMap = class extends Map {
-    constructor(data) {
-      super();
-      data = data || {};
-      Object.keys(data).forEach((key) => {
-        this.set(key, data[key]);
-      });
-    }
-    delete(key) {
-      if (typeof key !== "string") {
-        throw new Error(
-          `The \`delete\` method of a \`WordCountMap\` instance can only accept keys that are strings!`
-        );
-      }
-      return super.delete(key);
-    }
-    get(key) {
-      if (typeof key !== "string") {
-        throw new Error(
-          `The \`get\` method of a \`WordCountMap\` instance can only accept keys that are strings!`
-        );
-      }
-      return super.get(key);
-    }
-    has(key) {
-      if (typeof key !== "string") {
-        throw new Error(
-          `The \`has\` method of a \`WordCountMap\` instance can only accept keys that are strings!`
-        );
-      }
-      return super.has(key);
-    }
-    set(key, value) {
-      if (typeof key !== "string") {
-        throw new Error(
-          `The \`set\` method of a \`WordCountMap\` instance can only accept keys that are strings!`
-        );
-      }
-      if (!isWholeNumber2(value)) {
-        throw new Error(
-          `The \`set\` method of a \`WordCountMap\` instance can only accept values that are whole numbers (i.e., non-negative integers)!`
-        );
-      }
-      return super.set(key, value);
-    }
-    stringify() {
-      return JSON.stringify(this.toObject(), ...arguments);
-    }
-    toObject() {
-      const out = {};
-      Array.from(this.keys()).forEach((key) => {
-        out[key] = this.get(key);
-      });
-      return out;
-    }
-  };
-
   // src/document/index.mjs
-  var WholeNumberType = createType("WholeNumber", isWholeNumber2);
   var Document = class {
+    isCaseSensitive = false;
+    mostFrequentWord = null;
+    name = "";
+    raw = "";
+    totalWordCount = 0;
+    wordCounts = {};
     constructor(data) {
-      data = data || {};
-      defineTypedProperty(this, "cleaned", "string");
-      this.cleaned = data.cleaned || "";
-      defineTypedProperty(this, "hasBeenIndexed", "boolean");
-      this.hasBeenIndexed = data.hasBeenIndexed || false;
-      defineTypedProperty(this, "id", "string");
-      this.id = data.id || "";
-      defineTypedProperty(this, "maxNgramLength", WholeNumberType);
-      this.maxNgramLength = typeof data.maxNgramLength === "undefined" ? Infinity : data.maxNgramLength;
-      defineTypedProperty(this, "name", "string");
-      this.name = data.name || makeKey4(32);
-      defineTypedProperty(this, "ngrams", StringSet);
-      this.ngrams = new StringSet(data.ngrams || []);
-      defineTypedProperty(this, "raw", "string");
-      this.raw = data.raw || "";
-      defineTypedProperty(this, "totalWordCount", WholeNumberType);
-      this.totalWordCount = data.totalWordCount || 0;
-      defineTypedProperty(this, "wordCounts", WordCountMap);
-      this.wordCounts = new WordCountMap(data.wordCounts || {});
-      defineTypedProperty(this, "words", StringSet);
-      this.words = new StringSet(data.words || []);
+      defineReadOnlyProperty(
+        this,
+        "isCaseSensitive",
+        typeof data.isCaseSensitive === "undefined" ? this.isCaseSensitive : data.isCaseSensitive
+      );
+      if (data.mostFrequentWord) {
+        defineReadOnlyProperty(this, "mostFrequentWord", data.mostFrequentWord);
+      }
+      defineReadOnlyProperty(this, "name", data.name || makeKey4(8));
+      defineReadOnlyProperty(this, "raw", data.raw);
+      if (data.totalWordCount) {
+        defineReadOnlyProperty(this, "totalWordCount", data.totalWordCount);
+      }
+      if (data.wordCounts) {
+        defineReadOnlyProperty(this, "wordCounts", data.wordCounts);
+      }
+    }
+    get words() {
+      return Object.keys(this.wordCounts);
     }
     getWordCount(word) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The document "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      return this.wordCounts.get(word) || 0;
+      return this.wordCounts[word] || 0;
     }
-    async index(progress) {
-      this.id = await hash(this.raw);
-      this.cleaned = clean(this.raw);
-      const allWords = this.cleaned.split(" ");
-      this.totalWordCount = allWords.length;
-      const unsortedWordSet = set(allWords);
-      this.words = new StringSet(unsortedWordSet);
-      allWords.forEach((word, i) => {
-        const count2 = this.wordCounts.get(word);
-        if (typeof count2 === "undefined") {
-          this.wordCounts.set(word, 1);
-        } else {
-          this.wordCounts.set(word, count2 + 1);
+    async process() {
+      const shouldPreserveCase = this.isCaseSensitive;
+      const rawClean = clean(this.raw, shouldPreserveCase);
+      const words = rawClean.split(" ");
+      const counts = {};
+      let totalWordCount = 0;
+      let mostFrequentWord = null;
+      let mostFrequentWordCount = 0;
+      for (let word of words) {
+        if (!this.isCaseSensitive) {
+          word = word.toLowerCase();
         }
-        if (progress) progress(0.5 * i / allWords.length);
-      });
-      const nMax = Math.min(unsortedWordSet.length, this.maxNgramLength);
-      for (let n = 2; n <= nMax; n++) {
-        for (let i = 0; i < unsortedWordSet.length - n; i++) {
-          const phrase = unsortedWordSet.slice(i, i + n).join(" ");
-          this.ngrams.add(phrase);
-          if (progress) {
-            progress(0.5 + 0.5 * ((n + i / (unsortedWordSet.length - n)) / nMax));
-          }
+        if (!counts[word]) {
+          counts[word] = 0;
+        }
+        counts[word]++;
+        totalWordCount++;
+        if (counts[word] > mostFrequentWordCount) {
+          mostFrequentWordCount = counts[word];
+          mostFrequentWord = word;
         }
       }
-      if (progress) progress(1);
-      this.hasBeenIndexed = true;
+      defineReadOnlyProperty(this, "mostFrequentWord", mostFrequentWord);
+      defineReadOnlyProperty(this, "totalWordCount", totalWordCount);
+      defineReadOnlyProperty(this, "wordCounts", counts);
       return this;
-    }
-    stringify() {
-      return JSON.stringify(this.toObject(), ...arguments);
-    }
-    toObject() {
-      return {
-        cleaned: this.cleaned,
-        hasBeenIndexed: this.hasBeenIndexed,
-        id: this.id,
-        maxNgramLength: this.maxNgramLength,
-        name: this.name,
-        ngrams: this.ngrams.toSortedArray(),
-        raw: this.raw,
-        totalWordCount: this.totalWordCount,
-        wordCounts: this.wordCounts.toObject(),
-        words: this.words.toSortedArray()
-      };
     }
   };
 
-  // src/corpus/index.mjs
-  var WholeNumberType2 = createType("WholeNumber", isWholeNumber2);
-  var Scoring = {
-    TF_BINARY: "TF_BINARY",
-    TF_RAW_COUNT: "TF_RAW_COUNT",
-    TF_TERM_FREQUENCY: "TF_TERM_FREQUENCY",
-    TF_LOG_NORMALIZATION: "TF_LOG_NORMALIZATION",
-    TF_DOUBLE_NORMALIZATION_K: "TF_DOUBLE_NORMALIZATION_K",
-    IDF_UNARY: "IDF_UNARY",
-    IDF_INVERSE_DOCUMENT_FREQUENCY: "IDF_INVERSE_DOCUMENT_FREQUENCY",
-    IDF_INVERSE_DOCUMENT_FREQUENCY_SMOOTH: "IDF_INVERSE_DOCUMENT_FREQUENCY_SMOOTH",
-    IDF_INVERSE_DOCUMENT_FREQUENCY_MAX: "IDF_INVERSE_DOCUMENT_FREQUENCY_MAX",
-    IDF_PROBABILISTIC_INVERSE_DOCUMENT_FREQUENCY: "IDF_PROBABILISTIC_INVERSE_DOCUMENT_FREQUENCY"
-  };
-  var ScoringType = createType("Scoring", (v) => !!Scoring[v]);
-  var ZeroToOneNumberType = createType(
-    "ZeroToOneNumber",
-    (v) => typeof v === "number" && !isNaN(v) && v >= 0 && v <= 1
-  );
-  var Corpus = class {
-    static Scoring = Scoring;
-    constructor(data) {
-      data = data || {};
-      const docs = createTypedArray(Document).from(
-        data.docs ? data.docs.map((doc) => new Document(doc)) : []
-      );
-      defineTypedProperty(this, "docs", docs.constructor);
-      this.docs = docs;
-      defineTypedProperty(this, "hasBeenIndexed", "boolean");
-      this.hasBeenIndexed = data.hasBeenIndexed || false;
-      defineTypedProperty(this, "maxNgramLength", WholeNumberType2);
-      this.maxNgramLength = typeof data.maxNgramLength === "undefined" ? 0 : data.maxNgramLength;
-      defineTypedProperty(this, "name", "string");
-      this.name = data.name || "Untitled corpus";
-      defineTypedProperty(this, "ngrams", StringSet);
-      this.ngrams = new StringSet(data.ngrams || []);
-      defineTypedProperty(this, "words", StringSet);
-      this.words = new StringSet(data.words || []);
-      defineTypedProperty(this, "tfScoringMethod", ScoringType);
-      this.tfScoringMethod = data.tfScoringMethod || Scoring.TF_LOG_NORMALIZATION;
-      defineTypedProperty(
-        this,
-        "tfScoringDoubleNormalizationK",
-        ZeroToOneNumberType
-      );
-      this.tfScoringDoubleNormalizationK = typeof data.tfScoringDoubleNormalizationK === "undefined" ? 0.5 : data.tfScoringDoubleNormalizationK;
-      defineTypedProperty(this, "idfScoringMethod", ScoringType);
-      this.idfScoringMethod = data.idfScoringMethod || Scoring.IDF_INVERSE_DOCUMENT_FREQUENCY_SMOOTH;
-    }
-    computeDocumentSimilarity(doc1, doc2) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      const vec1 = [];
-      const vec2 = [];
-      this.words.forEach((word) => {
-        vec1.push(this.computeTFIDFScore(word, doc1));
-        vec2.push(this.computeTFIDFScore(word, doc2));
-      });
-      return cosineSimilarity(vec1, vec2);
-    }
-    computeIDFScore(word) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      if (this.idfScoringMethod === Scoring.IDF_UNARY) {
-        return 1;
-      }
-      const df = this.docs.filter((doc) => doc.getWordCount(word) > 0).length;
-      if (this.idfScoringMethod === Scoring.IDF_INVERSE_DOCUMENT_FREQUENCY) {
-        return Math.log(this.docs.length / (df + 1));
-      }
-      if (this.idfScoringMethod === Scoring.IDF_INVERSE_DOCUMENT_FREQUENCY_SMOOTH) {
-        return Math.log(this.docs.length / (df + 1)) + 1;
-      }
-      if (this.idfScoringMethod === Scoring.IDF_INVERSE_DOCUMENT_FREQUENCY_MAX) {
-        let maxDf = 0;
-        this.words.toArray().forEach((word2) => {
-          const tempDf = this.docs.filter(
-            (doc) => doc.getWordCount(word2) > 0
-          ).length;
-          if (tempDf > maxDf) {
-            maxDf = tempDf;
-          }
-        });
-        return Math.log(maxDf / (df + 1));
-      }
-      if (this.idfScoringMethod === Scoring.IDF_PROBABILISTIC_INVERSE_DOCUMENT_FREQUENCY) {
-        return Math.log((this.docs.length - df + 1) / (df + 1));
-      }
-    }
-    computeTFIDFScore(word, doc) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      return this.computeTFScore(word, doc) * this.computeIDFScore(word);
-    }
-    computeTFScore(word, doc) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      if (this.tfScoringMethod === Scoring.TF_BINARY) {
-        return doc.getWordCount(word) > 0 ? 1 : 0;
-      }
-      if (this.tfScoringMethod === Scoring.TF_RAW_COUNT) {
-        return doc.getWordCount(word);
-      }
-      if (this.tfScoringMethod === Scoring.TF_TERM_FREQUENCY) {
-        return doc.getWordCount(word) / doc.totalWordCount;
-      }
-      if (this.tfScoringMethod === Scoring.TF_LOG_NORMALIZATION) {
-        return Math.log(1 + doc.getWordCount(word));
-      }
-      if (this.tfScoringMethod === Scoring.TF_DOUBLE_NORMALIZATION_K) {
-        let mostFrequentWordCount = 0;
-        doc.words.forEach((otherWord) => {
-          const count2 = doc.getWordCount(otherWord);
-          if (count2 > mostFrequentWordCount) {
-            mostFrequentWordCount = count2;
-          }
-        });
-        return this.tfScoringDoubleNormalizationK + (1 - this.tfScoringDoubleNormalizationK) * doc.getWordCount(word) / mostFrequentWordCount;
-      }
-    }
-    getWordCounts(word) {
-      if (!this.hasBeenIndexed) {
-        throw new Error(
-          `The corpus "${this.name}" has not yet been indexed! Please invoke its \`index\` method before doing anything else with it.`
-        );
-      }
-      return this.docs.map((doc) => {
-        return {
-          doc: { name: doc.name, id: doc.id },
-          count: doc.getWordCount(word)
-        };
-      });
-    }
-    async index(progress) {
-      for (let i = 0; i < this.docs.length; i++) {
-        const doc = this.docs[i];
-        await doc.index(
-          progress ? (p) => progress((i + p) / this.docs.length) : null
-        );
-      }
-      this.hasBeenIndexed = true;
-      return this;
-    }
-    stringify() {
-      return JSON.stringify(this.toObject(), ...arguments);
-    }
-    toObject() {
-      return {
-        docs: this.docs.map((doc) => doc.toObject(...arguments)),
-        hasBeenIndexed: this.hasBeenIndexed,
-        idfScoringMethod: this.idfScoringMethod,
-        maxNgramLength: this.maxNgramLength,
-        name: this.name,
-        ngrams: this.ngrams.toSortedArray(),
-        tfScoringDoubleNormalizationK: this.tfScoringDoubleNormalizationK,
-        tfScoringMethod: this.tfScoringMethod,
-        words: this.words.toSortedArray()
-      };
-    }
-  };
-
-  // src/utils/index-browser.mjs
-  var index_browser_exports = {};
-  __export(index_browser_exports, {
-    StringSet: () => StringSet,
+  // src/utils/index.mjs
+  var utils_exports = {};
+  __export(utils_exports, {
     clean: () => clean,
-    cosineSimilarity: () => cosineSimilarity,
-    getSize: () => getSize,
-    isWholeNumber: () => isWholeNumber2,
-    safeDelete: () => safeDeleteInBrowser,
-    safePathJoin: () => safePathJoinInBrowser,
-    safeRead: () => safeReadInBrowser,
-    safeWrite: () => safeWriteInBrowser,
-    twoNorm: () => twoNorm
+    defineReadOnlyProperty: () => defineReadOnlyProperty
   });
-
-  // src/utils/get-size.mjs
-  function getSize(x) {
-    return new TextEncoder().encode(stringify(x)).length;
-  }
-
-  // src/utils/safe-delete-in-browser.mjs
-  async function safeDeleteInBrowser(x) {
-    localStorage.removeItem(x);
-  }
-
-  // src/utils/safe-path-join-in-browser.mjs
-  async function safePathJoinInBrowser() {
-    const args = Array.from(arguments);
-    return args.map((arg, i) => {
-      arg = arg.replace(/\/+/g, "/");
-      if (i > 0) {
-        arg = arg.replace(/^\//g, "");
-      }
-      arg = arg.replace(/\/$/g, "");
-      return arg.trim();
-    }).filter((arg) => arg.length > 0).join("/");
-  }
-
-  // src/utils/safe-read-in-browser.mjs
-  async function safeReadInBrowser(file) {
-    const out = localStorage.getItem(file);
-    try {
-      return JSON.parse(out);
-    } catch (e) {
-      return out;
-    }
-  }
-
-  // src/utils/safe-write-in-browser.mjs
-  async function safeWriteInBrowser(file, contents) {
-    localStorage.setItem(file, JSON.stringify(contents));
-  }
 
   // src/iife.mjs
   if (typeof globalThis !== "undefined") {
-    globalThis.JSNLPTools = index_browser_exports2;
+    globalThis.JSNLPTools = index_exports;
   }
 })();
