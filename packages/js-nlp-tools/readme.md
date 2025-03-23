@@ -58,7 +58,10 @@ Returns the inverse document frequency score for a given word. Is computed as:
 \text{IDF} = \text{log}(N / n_t)
 ```
 
-Where $N$ is the total number of documents in the corpus, and $n_t$ is the number of documents in which the word appears.
+Where:
+
+- $N$ = the total number of documents in the corpus
+- $n_t$ = the number of documents in which the word appears
 
 #### `computeTFScore(word, doc)`
 
@@ -68,7 +71,10 @@ Returns the term frequency score for a given word and document. Is computed as:
 \text{TF} = 0.5 + 0.5 \frac{f_{t, d}}{\text{max}_{\{t'∈d\}} f_{t',d}}
 ```
 
-Where $f_{t, d}$ is the number of times the word appears in the document, and $\text{max}\_{\{t'∈d\}} f\_{t',d}$ is the number of times the most frequently-occurring word appears in the document.
+Where:
+
+- $f_{t, d}$ = the number of times the word appears in the document
+- $\text{max}\_{\{t'∈d\}} f\_{t',d}$ = the number of times the most frequently-occurring word appears in the document
 
 #### `computeTFIDFScore(word, doc)`
 
