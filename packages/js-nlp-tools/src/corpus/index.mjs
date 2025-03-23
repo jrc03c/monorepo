@@ -1,25 +1,24 @@
 import { defineReadOnlyProperty } from "../utils/define-read-only-property.mjs"
-import { inverseDocumentFrequency } from "../utils/scoring/idf.mjs"
-import { termFrequency } from "../utils/scoring/tf.mjs"
 
 class Corpus {
   docs = []
-  idf = null
-  tf = null
 
   constructor(data) {
     data = data || {}
     this.docs = data.docs || this.docs
-    this.idf = data.idf || inverseDocumentFrequency
-    this.tf = data.tf || termFrequency
   }
 
   getIDFScore(word) {
-    return this.idf(word, this.docs)
+    return Math.log(
+      this.docs.length / this.docs.filter(d => d.getWordCount(word) > 0).length,
+    )
   }
 
   getTFScore(word, doc) {
-    return this.tf(word, doc)
+    return (
+      0.5 +
+      (0.5 * doc.getWordCount(word)) / doc.getWordCount(doc.mostFrequentWord)
+    )
   }
 
   getTFIDFScore(word, doc) {
