@@ -82,16 +82,31 @@
   // src/corpus/index.mjs
   var Corpus = class {
     docs = [];
+    hasBeenProcessed = false;
     constructor(data) {
       data = data || {};
       this.docs = data.docs || this.docs;
+      if (data.hasBeenProcessed) {
+        defineReadOnlyProperty(this, "docs", this.docs);
+        defineReadOnlyProperty(this, "hasBeenProcessed", true);
+      }
     }
     computeIDFScore(word) {
+      if (!this.hasBeenProcessed) {
+        throw new Error(
+          "The `Corpus` instance has not yet been processed! Please invoke the instance's `process` method before calling any of the scoring methods."
+        );
+      }
       return Math.log(
         this.docs.length / this.docs.filter((d) => d.getWordCount(word) > 0).length
       );
     }
     computeTFScore(word, doc) {
+      if (!this.hasBeenProcessed) {
+        throw new Error(
+          "The `Corpus` instance has not yet been processed! Please invoke the instance's `process` method before calling any of the scoring methods."
+        );
+      }
       return 0.5 + 0.5 * doc.getWordCount(word) / doc.getWordCount(doc.mostFrequentWord);
     }
     computeTFIDFScore(word, doc) {
@@ -108,6 +123,7 @@
         progress(1);
       }
       defineReadOnlyProperty(this, "docs", this.docs);
+      defineReadOnlyProperty(this, "hasBeenProcessed", true);
       return this;
     }
   };
@@ -3654,6 +3670,7 @@
 
   // src/document/index.mjs
   var Document = class {
+    hasBeenProcessed = false;
     isCaseSensitive = false;
     mostFrequentWord = null;
     name = "";
@@ -3661,6 +3678,9 @@
     totalWordCount = 0;
     wordCounts = {};
     constructor(data) {
+      if (data.hasBeenProcessed) {
+        defineReadOnlyProperty(this, "hasBeenProcessed", true);
+      }
       defineReadOnlyProperty(
         this,
         "isCaseSensitive",
@@ -3670,7 +3690,9 @@
         defineReadOnlyProperty(this, "mostFrequentWord", data.mostFrequentWord);
       }
       defineReadOnlyProperty(this, "name", data.name || makeKey4(8));
-      defineReadOnlyProperty(this, "raw", data.raw);
+      if (data.raw) {
+        defineReadOnlyProperty(this, "raw", data.raw);
+      }
       if (data.totalWordCount) {
         defineReadOnlyProperty(this, "totalWordCount", data.totalWordCount);
       }
@@ -3679,9 +3701,22 @@
       }
     }
     get words() {
+      if (!this.hasBeenProcessed) {
+        throw new Error(
+          "The `Document` instance has not yet been processed! Please invoke the instance's `process` method before calling the `getWordCount` method."
+        );
+      }
       return Object.keys(this.wordCounts);
     }
     getWordCount(word) {
+      if (!this.hasBeenProcessed) {
+        throw new Error(
+          "The `Document` instance has not yet been processed! Please invoke the instance's `process` method before calling the `getWordCount` method."
+        );
+      }
+      if (!this.isCaseSensitive) {
+        word = word.toLowerCase();
+      }
       return this.wordCounts[word] || 0;
     }
     async process() {
@@ -3706,6 +3741,7 @@
           mostFrequentWord = word;
         }
       }
+      defineReadOnlyProperty(this, "hasBeenProcessed", true);
       defineReadOnlyProperty(this, "mostFrequentWord", mostFrequentWord);
       defineReadOnlyProperty(this, "totalWordCount", totalWordCount);
       defineReadOnlyProperty(this, "wordCounts", counts);
