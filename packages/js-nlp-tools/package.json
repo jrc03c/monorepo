@@ -18,17 +18,9 @@
     "jsdom": "^25.0.1",
     "prettier": "^3.3.3"
   },
-  "exports": {
-    "./browser": {
-      "import": "./src/index-browser.mjs",
-      "require": "./src/index-browser.mjs"
-    },
-    "./node": {
-      "import": "./src/index-node.mjs",
-      "require": "./src/index-node.mjs"
-    }
-  },
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
   "name": "@jrc03c/js-nlp-tools",
   "type": "module",
-  "version": "0.0.9"
+  "version": "0.0.10"
 }
