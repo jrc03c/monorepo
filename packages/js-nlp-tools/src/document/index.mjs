@@ -1,8 +1,10 @@
 import { clean } from "../utils/clean.mjs"
 import { defineReadOnlyProperty } from "../utils/define-read-only-property.mjs"
 import { makeKey } from "@jrc03c/make-key"
+import { removeDiacriticalMarks } from "../utils/remove-diacritical-marks.mjs"
 
 class Document {
+  _words = []
   hasBeenProcessed = false
   isCaseSensitive = false
   maxNGramLength = 5
@@ -10,8 +12,8 @@ class Document {
   name = ""
   nGramCounts = {}
   raw = ""
+  rawWithoutDiacriticalMarks = ""
   totalWordCount = 0
-  wordCounts = {}
 
   constructor(data) {
     if (data.hasBeenProcessed) {
@@ -42,12 +44,20 @@ class Document {
       defineReadOnlyProperty(this, "raw", data.raw)
     }
 
+    if (data.rawWithoutDiacriticalMarks) {
+      defineReadOnlyProperty(
+        this,
+        "rawWithoutDiacriticalMarks",
+        data.rawWithoutDiacriticalMarks,
+      )
+    }
+
     if (data.totalWordCount) {
       defineReadOnlyProperty(this, "totalWordCount", data.totalWordCount)
     }
 
-    if (data.wordCounts) {
-      defineReadOnlyProperty(this, "wordCounts", data.wordCounts)
+    if (data.words) {
+      defineReadOnlyProperty(this, "_words", data.words)
     }
   }
 
@@ -68,7 +78,7 @@ class Document {
       )
     }
 
-    return Object.keys(this.wordCounts)
+    return this._words
   }
 
   getNGramCount(phrase) {
@@ -96,59 +106,65 @@ class Document {
       word = word.toLowerCase()
     }
 
-    return this.wordCounts[word] || 0
+    return this.nGramCounts[word] || 0
   }
 
   async process() {
     const shouldPreserveCase = this.isCaseSensitive
     const rawClean = clean(this.raw, shouldPreserveCase)
     const words = rawClean.split(" ")
+    const uniqueWords = new Set()
     const counts = {}
-    const nGramCounts = {}
-    let totalWordCount = 0
     let mostFrequentWord = null
     let mostFrequentWordCount = 0
 
-    // count words
+    // count n-grams
     for (let i = 0; i < words.length; i++) {
-      let word = words[i]
-
-      if (!this.isCaseSensitive) {
-        word = word.toLowerCase()
-      }
-
-      if (!counts[word]) {
-        counts[word] = 0
-      }
-
-      counts[word]++
-      totalWordCount++
-
-      if (counts[word] > mostFrequentWordCount) {
-        mostFrequentWordCount = counts[word]
-        mostFrequentWord = word
-      }
-
-      for (let j = 2; j < this.maxNGramLength + 1; j++) {
+      for (let j = 1; j < this.maxNGramLength + 1; j++) {
         let phrase = words.slice(i, i + j).filter(v => !!v).join(" ")
 
         if (!this.isCaseSensitive) {
           phrase = phrase.toLowerCase()
         }
 
-        if (!nGramCounts[phrase]) {
-          nGramCounts[phrase] = 0
+        if (!counts[phrase]) {
+          counts[phrase] = 0
         }
 
-        nGramCounts[phrase]++
+        counts[phrase]++
+
+        if (j === 1) {
+          uniqueWords.add(phrase)
+
+          if (counts[phrase] > mostFrequentWordCount){
+            mostFrequentWordCount = counts[phrase]
+            mostFrequentWord = phrase
+          }
+        }
       }
     }
 
+    // note: the `Intl.Collator` instance is used for sorting the words without
+    // regard to diacritical marks
+    const ic = new Intl.Collator()
+
+    defineReadOnlyProperty(
+      this,
+      "_words",
+      Array.from(uniqueWords).toSorted(ic.compare),
+    )
+
     defineReadOnlyProperty(this, "hasBeenProcessed", true)
     defineReadOnlyProperty(this, "mostFrequentWord", mostFrequentWord)
-    defineReadOnlyProperty(this, "nGramCounts", nGramCounts)
-    defineReadOnlyProperty(this, "totalWordCount", totalWordCount)
-    defineReadOnlyProperty(this, "wordCounts", counts)
+    defineReadOnlyProperty(this, "nGramCounts", counts)
+
+    defineReadOnlyProperty(
+      this,
+      "rawWithoutDiacriticalMarks",
+      removeDiacriticalMarks(this.raw),
+    )
+
+    defineReadOnlyProperty(this, "totalWordCount", words.length)
     return this
   }
 }
