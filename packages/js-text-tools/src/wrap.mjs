@@ -1,4 +1,4 @@
-import { isUndefined } from "@jrc03c/js-math-tools"
+import { flatten, isUndefined } from "@jrc03c/js-math-tools"
 
 function wrap(raw, maxLineLength, wrappedLinePrefix) {
   if (typeof raw !== "string") {
@@ -17,35 +17,60 @@ function wrap(raw, maxLineLength, wrappedLinePrefix) {
 
   wrappedLinePrefix = wrappedLinePrefix || ""
 
-  const out = []
+  return flatten(
+    raw.split("\n").map(line => {
+      const out = []
+      const indentation = line.match(/^\s*/)
+      let temp = ""
 
-  raw.split("\n").forEach(line => {
-    if (line.trim().length === 0) {
-      return out.push("")
-    }
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i]
 
-    const indentation = line.split(/[^\s]/g)[0]
-
-    const words = line.replace(indentation, "").split(" ")
-    let temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation
-
-    words.forEach(word => {
-      const newTemp = temp + (temp.trim().length > 0 ? " " : "") + word
-
-      if (newTemp.length > maxLineLength) {
-        out.push(temp)
-        temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation + word
-      } else {
-        temp = newTemp
+        if (temp.length >= maxLineLength) {
+          out.push(temp)
+          temp = indentation + wrappedLinePrefix + char
+        } else {
+          temp += char
+        }
       }
-    })
 
-    if (temp.length > 0) {
-      out.push(temp)
-    }
-  })
+      if (temp.length > 0) {
+        out.push(temp)
+      }
 
-  return out.join("\n")
+      return out
+    }),
+  ).join("\n")
+
+  // const out = []
+
+  // raw.split("\n").forEach(line => {
+  //   if (line.trim().length === 0) {
+  //     return out.push("")
+  //   }
+
+  //   const indentation = line.split(/[^\s]/g)[0]
+
+  //   const words = line.replace(indentation, "").split(" ")
+  //   let temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation
+
+  //   words.forEach(word => {
+  //     const newTemp = temp + (temp.trim().length > 0 ? " " : "") + word
+
+  //     if (newTemp.length > maxLineLength) {
+  //       out.push(temp)
+  //       temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation + word
+  //     } else {
+  //       temp = newTemp
+  //     }
+  //   })
+
+  //   if (temp.length > 0) {
+  //     out.push(temp)
+  //   }
+  // })
+
+  // return out.join("\n")
 }
 
 export { wrap }
