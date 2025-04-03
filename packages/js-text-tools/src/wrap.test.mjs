@@ -61,6 +61,13 @@ test("tests that only wrapped lines are prefixed correctly", () => {
   expect(yPred).toBe(yTrue)
 })
 
+test("tests that wrapping preserves empty lines", () => {
+  const x = ["hello", "  ", "world", "\t", "  !!!", "", "\t\t???"].join("\n")
+  const yTrue = x.slice()
+  const yPred = wrap(x)
+  expect(yPred).toBe(yTrue)
+})
+
 test("tests that errors are thrown at appropriate times", () => {
   const rights = [
     ["Hello, world!", null],

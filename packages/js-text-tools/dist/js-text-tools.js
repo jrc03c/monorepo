@@ -4037,6 +4037,9 @@
         if (temp.length > 0) {
           out.push(temp);
         }
+        if (out.length === 0) {
+          out.push("");
+        }
         return out;
       })
     ).join("\n");
