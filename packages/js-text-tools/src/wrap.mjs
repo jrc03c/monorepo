@@ -45,36 +45,6 @@ function wrap(raw, maxLineLength, wrappedLinePrefix) {
       return out
     }),
   ).join("\n")
-
-  // const out = []
-
-  // raw.split("\n").forEach(line => {
-  //   if (line.trim().length === 0) {
-  //     return out.push("")
-  //   }
-
-  //   const indentation = line.split(/[^\s]/g)[0]
-
-  //   const words = line.replace(indentation, "").split(" ")
-  //   let temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation
-
-  //   words.forEach(word => {
-  //     const newTemp = temp + (temp.trim().length > 0 ? " " : "") + word
-
-  //     if (newTemp.length > maxLineLength) {
-  //       out.push(temp)
-  //       temp = (out.length > 0 ? wrappedLinePrefix : "") + indentation + word
-  //     } else {
-  //       temp = newTemp
-  //     }
-  //   })
-
-  //   if (temp.length > 0) {
-  //     out.push(temp)
-  //   }
-  // })
-
-  // return out.join("\n")
 }
 
 export { wrap }
