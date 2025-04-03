@@ -20,19 +20,20 @@ function wrap(raw, maxLineLength, wrappedLinePrefix) {
   return flatten(
     raw.split("\n").map(line => {
       const out = []
-      const indentation = line.match(/^\s*/)
-      let temp = ""
+      const indentation = line.match(/^\s*/g)[0]
+      const unindentedLine = line.replace(indentation, "")
+      let temp = indentation
 
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i]
+      unindentedLine.split(" ").forEach(word => {
+        const maybeSpace = temp.trim().length > 0 ? " " : ""
 
-        if (temp.length >= maxLineLength) {
+        if ((temp + maybeSpace + word).length >= maxLineLength) {
           out.push(temp)
-          temp = indentation + wrappedLinePrefix + char
+          temp = indentation + wrappedLinePrefix + word
         } else {
-          temp += char
+          temp += maybeSpace + word
         }
-      }
+      })
 
       if (temp.length > 0) {
         out.push(temp)

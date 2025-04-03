@@ -46,15 +46,15 @@ test("tests that only wrapped lines are prefixed correctly", () => {
   const yTrue = [
     "The purpose of this paper is to characterize simple",
     "sabotage, to outline its possible effects, and to present suggestions",
-    "for inciting and executing it. Sabotage varies from highly technical _coup de ma",
-    ">> in_ acts that require detailed planning and the use of",
-    "specially-trained operatives, to innumerable simple acts which the ordinary indi",
-    ">> vidual citizen-saboteur can perform. This paper is primarily concerned with t",
-    ">> he latter type. Simple sabotage does not require specially prepared tools or ",
-    ">> equipment; it is executed by an ordinary citizen who may or may not act indiv",
-    ">> idually and without the necessity for active connection with an organized gro",
-    ">> up; and it is carried out in such a way as to involve a minimum danger of inj",
-    ">> ury, detection, and reprisal.",
+    "for inciting and executing it. Sabotage varies from highly technical _coup de",
+    ">> main_ acts that require detailed planning and the use of",
+    "specially-trained operatives, to innumerable simple acts which the ordinary",
+    ">> individual citizen-saboteur can perform. This paper is primarily concerned",
+    ">> with the latter type. Simple sabotage does not require specially prepared",
+    ">> tools or equipment; it is executed by an ordinary citizen who may or may not",
+    ">> act individually and without the necessity for active connection with an",
+    ">> organized group; and it is carried out in such a way as to involve a minimum",
+    ">> danger of injury, detection, and reprisal.",
   ].join("\n")
 
   const yPred = wrap(x, maxLength, prefix)
