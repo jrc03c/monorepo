@@ -165,8 +165,13 @@ class SubscriptionService {
     }
 
     const unsub = () => {
-      this.context.removeEventListener("message", inner)
-      this.unsubs.remove(unsub)
+      if (this.context) {
+        this.context.removeEventListener("message", inner)
+      }
+
+      if (this.unsubs) {
+        this.unsubs.remove(unsub)
+      }
     }
 
     this.unsubs.push(unsub)
