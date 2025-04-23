@@ -7,6 +7,7 @@ import path from "node:path"
 
 const TEST_DIRECTORY = path.join(import.meta.dirname, makeKey(8))
 const db = new FileDB(TEST_DIRECTORY)
+const otherDirs = []
 
 test("tests that values can be randomly written and read", () => {
   const keyValuePairs = []
@@ -263,6 +264,24 @@ test("tests that very long keys can't be written", () => {
   }).toThrow()
 })
 
+test("tests that instances can be forked", () => {
+  const dir1 = makeKey(8)
+  otherDirs.push(dir1)
+  const db1 = new FileDB(dir1)
+  const db2 = db1.fork()
+  expect(db1.path).toBe(db2.path)
+
+  const key1 = makeKey(8)
+  const key2 = makeKey(8)
+  const db3 = db2.fork(key1 + "/" + key2)
+  expect(db3.path.includes(db2.path)).toBe(true)
+
+  db3.writeSync("hello", "world")
+  expect(db3.readSync("hello")).toBe("world")
+  expect(db2.readSync(key1 + "/" + key2 + "/hello")).toBe("world")
+})
+
 afterAll(() => {
   fs.rmSync(TEST_DIRECTORY, { recursive: true, force: true })
+  otherDirs.forEach(dir => fs.rmSync(dir, { recursive: true, force: true }))
 })

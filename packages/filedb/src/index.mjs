@@ -43,7 +43,17 @@ function standardizeKey(key) {
 }
 
 class FileDB {
+  path = null
+
   constructor(relativePath) {
+    if (
+      typeof relativePath === "object" &&
+      relativePath !== null &&
+      relativePath.path
+    ) {
+      relativePath = relativePath.path
+    }
+
     relativePath = typeof relativePath === "undefined" ? "." : relativePath
 
     if (relativePath[0] === "~") {
@@ -53,12 +63,20 @@ class FileDB {
       )
     }
 
-    this.dbPath = path.resolve(relativePath)
-    fs.mkdirSync(this.dbPath, { recursive: true })
+    this.path = path.resolve(relativePath)
+    fs.mkdirSync(this.path, { recursive: true })
+  }
+
+  get dbPath() {
+    return this.path
+  }
+
+  set dbPath(value) {
+    this.path = value
   }
 
   existsSync(key) {
-    return fs.existsSync(path.join(this.dbPath, "/", standardizeKey(key)))
+    return fs.existsSync(path.join(this.path, standardizeKey(key)))
   }
 
   exists(key, callback) {
@@ -73,12 +91,16 @@ class FileDB {
     })
   }
 
+  fork(key) {
+    return new FileDB(path.join(this.path, standardizeKey(key || "")))
+  }
+
   writeSync(key, value, ignored) {
     key = standardizeKey(key)
     ignored = ignored || []
 
     const type = typeof value
-    const filePath = path.join(this.dbPath, "/", key)
+    const filePath = path.join(this.path, key)
     const parts = filePath.split("/")
     const dirPath = parts.slice(0, parts.length - 1).join("/")
 
@@ -145,7 +167,7 @@ class FileDB {
     if (!maxDepth && maxDepth !== 0) maxDepth = Infinity
 
     const innerRead = (innerKey, currentDepth) => {
-      const filePath = path.join(this.dbPath, "/", innerKey)
+      const filePath = path.join(this.path, innerKey)
 
       if (!fs.existsSync(filePath)) return null
 

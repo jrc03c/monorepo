@@ -145,7 +145,7 @@ She can also retrieve specific bits of data by reading further along each path. 
 
 ```js
 const aliceDarkModePreference = db.readSync(
-  "/users/c160f8cc69a4f0bf2b0362752353d060/preferences/darkMode"
+  "/users/c160f8cc69a4f0bf2b0362752353d060/preferences/darkMode",
 )
 
 console.log(aliceDarkModePreference)
@@ -317,9 +317,15 @@ console.log(db.readSync("/users", 3))
 
 # API
 
+## Constructor
+
 ## `FileDB([path])`
 
 Constructs a new `FileDB` instance. The given path (which is optional) is the directory in which the instance will do all of its reading and writing. Paths can be relative or absolute. If no path is provided, then the path resolves to the current working directory.
+
+## Properties
+
+## Methods
 
 ## `exists(key, [callback])`
 
@@ -328,6 +334,20 @@ Asynchronously checks to see whether or not a key exists. Returns a `Promise` th
 ## `existsSync(key)`
 
 Synchronously checks to see whether or not a key exists. Returns a boolean.
+
+## `fork(key)`
+
+Creates a `FileDB` instance relative to the current instance at the subdirectory `key` (i.e., at `path.join(this.path, key)`). So, for example:
+
+```js
+const db1 = new FileDB("foo/bar")
+console.log(db1.path)
+// /absolute/path/to/foo/bar
+
+const db2 = db1.fork("something/else")
+console.log(db2.path)
+// /absolute/path/to/foo/bar/something/else
+```
 
 ## `write(key, value, [ignored], [callback])`
 
