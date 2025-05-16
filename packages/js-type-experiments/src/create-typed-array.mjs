@@ -235,28 +235,40 @@ class TypedArray extends Array {
     return out
   }
 
-  splice() {
-    const newValues = Array.from(arguments)
-      .slice(2)
-      .filter(v => {
-        this.challenge(v)
-        return true
-      })
+  splice(index, count, newValues) {
+    newValues = newValues || []
 
-    const difference = newValues.length - arguments[1]
-    const newLength = this.length + difference
-
-    for (let i = newLength - 1; i > arguments[0] + arguments[1]; i--) {
-      this[i] = this[i - difference]
+    if (index < 0) {
+      const k = Math.floor(index / this.length)
+      index -= k * this.length
     }
 
-    const removed = this.slice(arguments[0], arguments[0] + arguments[1])
+    if (index + count >= this.length) {
+      count = this.length - index
+    }
 
-    newValues.forEach((v, i) => {
-      this[arguments[0] + i] = v
-    })
+    const lengthDelta = newValues.length - count
+    const removedValues = this.slice(index, index + count)
 
-    return removed
+    if (lengthDelta > 0) {
+      for (let i = this.length - 1; i >= index + count; i--) {
+        this[i + lengthDelta] = this[i]
+      }
+    }
+
+    if (lengthDelta < 0) {
+      for (let i = index + count; i < this.length; i++) {
+        this[i + lengthDelta] = this[i]
+      }
+
+      this.length += lengthDelta
+    }
+
+    for (let i = index; i < index + newValues.length; i++) {
+      this[i] = newValues[i - index]
+    }
+
+    return removedValues
   }
 
   toReversed() {
@@ -276,9 +288,9 @@ class TypedArray extends Array {
   }
 
   toSpliced() {
-    const temp = Array.from(this)
+    const temp = this.slice()
     temp.splice(...arguments)
-    return this.constructor.from(temp)
+    return temp
   }
 
   unshift() {

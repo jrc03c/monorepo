@@ -242,4 +242,11 @@ test("test that the `createTypedArray` function works as expected", () => {
   // are necessary for the correct functioning of typed arrays
   const t = createTypedArray("number").from([2, 3, 4])
   expect(() => new t.constructor()).toThrow()
+
+  // make sure that the `splice` method works correctly
+  const u = createTypedArray("number").from([2, 3, 4])
+  expect(u.length).toBe(3)
+  u.splice(0, 1)
+  expect(u.length).toBe(2)
+  expect(isEqual(u, [3, 4])).toBe(true)
 })

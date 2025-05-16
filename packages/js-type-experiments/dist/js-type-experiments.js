@@ -3737,21 +3737,32 @@
       }
       return out;
     }
-    splice() {
-      const newValues = Array.from(arguments).slice(2).filter((v) => {
-        this.challenge(v);
-        return true;
-      });
-      const difference = newValues.length - arguments[1];
-      const newLength = this.length + difference;
-      for (let i = newLength - 1; i > arguments[0] + arguments[1]; i--) {
-        this[i] = this[i - difference];
+    splice(index, count2, newValues) {
+      newValues = newValues || [];
+      if (index < 0) {
+        const k = Math.floor(index / this.length);
+        index -= k * this.length;
       }
-      const removed = this.slice(arguments[0], arguments[0] + arguments[1]);
-      newValues.forEach((v, i) => {
-        this[arguments[0] + i] = v;
-      });
-      return removed;
+      if (index + count2 >= this.length) {
+        count2 = this.length - index;
+      }
+      const lengthDelta = newValues.length - count2;
+      const removedValues = this.slice(index, index + count2);
+      if (lengthDelta > 0) {
+        for (let i = this.length - 1; i >= index + count2; i--) {
+          this[i + lengthDelta] = this[i];
+        }
+      }
+      if (lengthDelta < 0) {
+        for (let i = index + count2; i < this.length; i++) {
+          this[i + lengthDelta] = this[i];
+        }
+        this.length += lengthDelta;
+      }
+      for (let i = index; i < index + newValues.length; i++) {
+        this[i] = newValues[i - index];
+      }
+      return removedValues;
     }
     toReversed() {
       const out = this.constructor.from([]);
@@ -3766,9 +3777,9 @@
       return this.constructor.from(temp);
     }
     toSpliced() {
-      const temp = Array.from(this);
+      const temp = this.slice();
       temp.splice(...arguments);
-      return this.constructor.from(temp);
+      return temp;
     }
     unshift() {
       Array.from(arguments).forEach((value) => {
