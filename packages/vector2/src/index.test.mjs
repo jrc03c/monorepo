@@ -26,8 +26,6 @@ test("PROPERTY: Vector2.angle", () => {
     const v = new Vector2(x, y)
     expect(v.angle).toBeCloseTo(angle)
   }
-
-
 })
 
 test("PROPERTY: Vector2.length", () => {})
