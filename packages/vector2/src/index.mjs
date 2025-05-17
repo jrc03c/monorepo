@@ -1,121 +1,215 @@
 class Vector2 {
+  static fromAngle(a) {
+    const v = new Vector2(1, 0)
+    v.angle = a
+    return v
+  }
+
+  static random(randomFn) {
+    randomFn = randomFn || Math.random
+    return this.fromAngle(randomFn() * 2 * Math.PI)
+  }
+
   x = 0
   y = 0
 
-  constructor(x, y) {
-    const self = this
-    self.x = x
-    self.y = y
+  // valid forms:
+  // - new Vector2(options)
+  // - new Vector2([x, y])
+  // - new Vector2(x, y)
+  constructor() {
+    if (arguments.length > 0) {
+      if (arguments.length === 1) {
+        const v = arguments[0]
+
+        if (v instanceof Array) {
+          this.x = v[0] || 0
+          this.y = v[1] || 0
+        }
+
+        else {
+          this.x = v.x || 0
+          this.y = v.y || 0
+        }
+      }
+
+      else {
+        this.x = arguments[0] || 0
+        this.y = arguments[1] || 0
+      }
+    }
   }
 
-  add(v) {
-    const self = this
-    self.x += v.x
-    self.y += v.y
-    return self
+  get angle() {}
+
+  set angle(v) {}
+
+  get length() {
+    return Math.sqrt(this.x * this.x + this.y * this.y)
   }
 
-  subtract(v) {
-    const self = this
-    self.x -= v.x
-    self.y -= v.y
-    return self
-  }
-
-  dot(v) {
-    const self = this
-    return self.x * v.x + self.y * v.y
+  set length(v) {
+    this.norm().mul(v)
   }
 
   get magnitude() {
-    const self = this
-    return Math.sqrt(Math.pow(self.x, 2) + Math.pow(self.y, 2))
+    return this.length
   }
 
-  set magnitude(m) {
-    const self = this
-    self.normalize().scale(m)
+  set magnitude(v) {
+    this.length = v
   }
 
-  get angle() {
-    const self = this
+  // valid forms:
+  // - add(Vector2)
+  // - add(number)
+  // - add(number, number)
+  add() {
+    if (arguments.length > 0) {
+      if (arguments.length === 1) {
+        const v = arguments[0]
 
-    if (self.x === 0) {
-      if (self.y === 0) return NaN
-      if (self.y > 0) return Math.PI / 2
-      if (self.y < 0) return (3 * Math.PI) / 2
+        if (v instanceof Vector2) {
+          this.x += v.x
+          this.y += v.y
+        }
+
+        else {
+          this.x += v
+          this.y += v
+        }
+      }
+
+      else {
+        this.x += arguments[0]
+        this.y += arguments[1]
+      }
     }
 
-    const angle = Math.atan(self.y / self.x) + (self.x < 0 ? Math.PI : 0)
-    const k = Math.floor(angle / (2 * Math.PI))
-    return angle - k * 2 * Math.PI
-  }
-
-  set angle(theta) {
-    const self = this
-    const radius = self.magnitude
-    self.x = radius * Math.cos(theta)
-    self.y = radius * Math.sin(theta)
-  }
-
-  scale(s) {
-    const self = this
-    self.x *= s
-    self.y *= s
-    return self
-  }
-
-  normalize() {
-    const self = this
-    return self.scale(1 / self.magnitude)
-  }
-
-  rotate(theta) {
-    const self = this
-    self.angle += theta
-    return self
+    return this
   }
 
   copy() {
-    const self = this
-    return new Vector2(self.x, self.y)
+    return new Vector2(this)
   }
 
-  clone() {
-    const self = this
-    return self.copy()
+  // valid forms:
+  // - div(Vector2)
+  // - div(number)
+  // - div(number, number)
+  div() {
+    if (arguments.length > 0) {
+      if (arguments.length === 1) {
+        const v = arguments[0]
+
+        if (arguments[0] instanceof Vector2) {
+          this.x /= v.x
+          this.y /= v.y
+        }
+
+        else {
+          this.x /= v
+          this.y /= v
+        }
+      }
+
+      else {
+        this.x /= arguments[0]
+        this.y /= arguments[1]
+      }
+    }
+
+    return this
   }
 
-  static add(a, b) {
-    return a.copy().add(b)
+  divide() {
+    return this.div(...arguments)
   }
 
-  static subtract(a, b) {
-    return a.copy().subtract(b)
+  dot(v) {
+    return this.x * v.x + this.y * v.y
   }
 
-  static dot(a, b) {
-    return a.copy().dot(b)
+  // valid forms:
+  // - mul(Vector2)
+  // - mul(number)
+  // - mul(number, number)
+  mul() {
+    if (arguments.length > 0) {
+      if (arguments.length === 1) {
+        const v = arguments[0]
+
+        if (arguments[0] instanceof Vector2) {
+          this.x *= v.x
+          this.y *= v.y
+        }
+
+        else {
+          this.x *= v
+          this.y *= v
+        }
+      }
+
+      else {
+        this.x *= arguments[0]
+        this.y *= arguments[1]
+      }
+    }
+
+    return this
   }
 
-  static scale(v, s) {
-    return v.copy().scale(s)
+  multiply() {
+    return this.mul(...arguments)
   }
 
-  static normalize(v) {
-    return v.copy().normalize()
+  norm() {
+    return this.div(this.length)
   }
 
-  static rotate(v, theta) {
-    return v.copy().rotate(theta)
+  normalize() {
+    return this.norm(...arguments)
   }
 
-  static copy(v) {
-    return v.copy()
+  rotate(a) {
+    this.angle += a
   }
 
-  static clone(v) {
-    return v.copy()
+  scale() {
+    return this.mul(...arguments)
+  }
+
+  // valid forms:
+  // - sub(Vector2)
+  // - sub(number)
+  // - sub(number, number)
+  sub() {
+    if (arguments.length > 0) {
+      if (arguments.length === 1) {
+        const v = arguments[0]
+
+        if (v instanceof Vector2) {
+          this.x -= v.x
+          this.y -= v.y
+        }
+
+        else {
+          this.x -= v
+          this.y -= v
+        }
+      }
+
+      else {
+        this.x -= arguments[0]
+        this.y -= arguments[1]
+      }
+    }
+
+    return this
+  }
+
+  subtract() {
+    return this.sub(...arguments)
   }
 }
 
