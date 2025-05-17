@@ -2,13 +2,16 @@
 
 This monorepo contains the following packages:
 
+- [abortable-promise](./packages/abortable-promise)
 - [base-class](./packages/base-class)
+- [base-web-component](./packages/base-web-component)
 - [bash-colors](./packages/bash-colors)
 - [bee](./packages/bee)
-- [cli-utils](./packages/cli-utils)
+- [bulma-vue-components](./packages/bulma-vue-components)
 - [color](./packages/color)
 - [create-high-dpi-canvas](./packages/create-high-dpi-canvas)
 - [custom-scroller](./packages/custom-scroller)
+- [fake-jest](./packages/fake-jest)
 - [filedb](./packages/filedb)
 - [freeze](./packages/freeze)
 - [fs-extras](./packages/fs-extras)
@@ -25,12 +28,17 @@ This monorepo contains the following packages:
 - [make-key](./packages/make-key)
 - [misc-vue-components](./packages/misc-vue-components)
 - [pause](./packages/pause)
+- [playing-cards](./packages/playing-cards)
 - [progress](./packages/progress)
 - [prompt](./packages/prompt)
 - [queue](./packages/queue)
 - [radio](./packages/radio)
+- [sprite](./packages/sprite)
+- [timer](./packages/timer)
 - [vector2](./packages/vector2)
+- [vue-component-with-css](./packages/vue-component-with-css)
 - [watch](./packages/watch)
 - [web-crawler](./packages/web-crawler)
+- [web-worker-helper](./packages/web-worker-helper)
 
 All of these packages are in the process of being migrated from their standalone repos into this repo. Henceforth, this repo will contain the most up-to-date version of the packages. I'll soon be archiving the original solo repos.
