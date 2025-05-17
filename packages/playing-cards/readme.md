@@ -180,6 +180,10 @@ console.log(isEqual(card3, card3)) // true
 
 #### Instance
 
+##### `copy`
+
+Returns a new `Card` instance with the same suit and value as the original instance.
+
 ##### `toObject`
 
 Returns a "plain" JS object containing the same properties as the instance.
