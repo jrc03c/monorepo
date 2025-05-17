@@ -20,12 +20,14 @@ test("CONSTRUCTOR: Vector2", () => {
 })
 
 test("PROPERTY: Vector2.angle", () => {
-  for (let angle = 0; angle < 360; angle += 45) {
-    const x = Math.cos(angle * Math.PI / 180)
-    const y = Math.sin(angle * Math.PI / 180)
+  for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
+    const x = Math.cos(angle)
+    const y = Math.sin(angle)
     const v = new Vector2(x, y)
-    expect(v.angle).toBeCloseTo(angle * Math.PI / 180)
+    expect(v.angle).toBeCloseTo(angle)
   }
+
+
 })
 
 test("PROPERTY: Vector2.length", () => {})
