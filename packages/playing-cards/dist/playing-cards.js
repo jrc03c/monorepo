@@ -87,6 +87,9 @@
     set symbol(v) {
       throw new Error("The `symbol` property of a `Card` instance is read-only!");
     }
+    copy() {
+      return new _Card({ suit: this.suit, value: this.value });
+    }
     toObject() {
       return {
         id: this.id,
@@ -121,6 +124,9 @@
         out.push(new CardClass({ value: CardClass.Value.Joker }));
       }
       return out;
+    }
+    copy() {
+      return this.slice().map((c) => c.copy());
     }
     random(randomFn) {
       randomFn = randomFn || Math.random;
