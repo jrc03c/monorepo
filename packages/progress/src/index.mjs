@@ -1,15 +1,5 @@
 import readline from "node:readline"
 
-function repeat(text, n) {
-  let out = ""
-
-  for (let i = 0; i < n; i++) {
-    out += text
-  }
-
-  return out
-}
-
 class Progress extends Array {
   static drawBar(i, n) {
     const isAPercent = typeof n === "undefined"
@@ -35,7 +25,7 @@ class Progress extends Array {
     }
 
     readline.cursorTo(process.stdout, 0, null)
-    process.stdout.write(repeat("█", done) + repeat("░", notDone) + right)
+    process.stdout.write(("█").repeat(done) + ("░").repeat(notDone) + right)
   }
 
   forEach(fn, otherThis) {
