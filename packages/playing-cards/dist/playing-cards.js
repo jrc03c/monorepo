@@ -136,6 +136,9 @@
         this[k] = buffer;
       }
     }
+    toObject() {
+      return Array.from(this.map((c) => c.toObject()));
+    }
   };
 
   // src/iife.mjs
