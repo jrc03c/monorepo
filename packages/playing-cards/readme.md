@@ -13,7 +13,11 @@ npm install --save @jrc03c/playing-cards
 ```js
 import { Card, Deck } from "@jrc03c/playing-cards"
 
-const card1 = new Card({ suit: Card.Suit.Spade, value: Card.Value.Ace })
+const card1 = new Card({
+  suit: Card.Suit.Spade,
+  value: Card.Value.Ace,
+})
+
 const card2 = Card.random()
 
 const deck = Deck.generate()
@@ -51,7 +55,7 @@ console.log(Card.Name[2]) // "Two"
 
 ##### `Suit`
 
-A dictionary for referencing suit names (strings). Includes the four typical suits (Club, Diamond, Heart, and Spade) as well as a "None" suit for Jokers. 
+A dictionary for referencing suit names (strings). Includes the four typical suits (Club, Diamond, Heart, and Spade) as well as a "None" suit for Jokers.
 
 **Example:**
 
