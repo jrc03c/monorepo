@@ -3,7 +3,7 @@
   "description": "a color class to help with converting from one notation to another (e.g., hex to rgb)",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/fake-jest": "^0.0.17",
     "eslint": "^9.12.0",
     "globals": "^15.10.0"
   },
