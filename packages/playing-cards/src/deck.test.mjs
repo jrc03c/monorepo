@@ -40,4 +40,12 @@ test("tests that the `Deck` class works as expected", () => {
 
   const g = Deck.generate({ shouldIncludeJokers: true })
   expect(g.filter(v => v.name === "Joker").length).toBe(2)
+
+  const h = Deck.generate()
+  h.shuffle()
+  expect(h instanceof Deck).toBe(true)
+  expect(h.every(v => v instanceof Card)).toBe(true)
+  expect(h.toObject() instanceof Array).toBe(true)
+  expect(h.toObject() instanceof Deck).toBe(false)
+  expect(h.toObject().some(v => v instanceof Card)).toBe(false)
 })
