@@ -2,7 +2,6 @@
 # pause (0.0.11)
 # progress (0.0.7)
 # prompt (0.0.12)
-# sprite (???)
 # fake-jest (0.0.16)
   - bash-colors
 # base-class (0.0.11)
