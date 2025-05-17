@@ -9,10 +9,9 @@
     "globals": "^15.11.0",
     "prettier": "^3.1.0"
   },
-  "scripts": {
-    "build": "node build.mjs",
-    "serve": "python3 -m http.server",
-    "watch": "node build.mjs --watch"
-  },
-  "type": "module"
+  "main": "./src/index.mjs",
+  "module": "./src/index.mjs",
+  "name": "@jrc03c/playing-cards",
+  "type": "module",
+  "version": "0.0.1"
 }
