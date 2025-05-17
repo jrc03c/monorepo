@@ -1,5 +1,5 @@
 # bash-colors (0.0.8)
-# pause (0.0.10)
+# pause (0.0.11)
 # progress (0.0.7)
 # prompt (0.0.12)
 # sprite (???)
