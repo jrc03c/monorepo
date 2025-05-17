@@ -40,7 +40,11 @@ class Vector2 {
     }
   }
 
-  get angle() {}
+  get angle() {
+    const angle = Math.atan(this.y / this.x) + (this.x < 0 ? Math.PI : 0)
+    const k = Math.floor(angle / (Math.PI * 2))
+    return angle - k * Math.PI * 2
+  }
 
   set angle(v) {}
 
