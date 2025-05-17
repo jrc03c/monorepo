@@ -35,6 +35,11 @@ tasks:
     - http.server
     local: true
     platform: node
+  test:
+    command:
+      - npx
+      - fake-jest
+    platform: system
   watch:
     command:
     - node
