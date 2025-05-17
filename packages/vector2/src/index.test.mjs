@@ -89,7 +89,13 @@ test("METHOD: Vector2.add", () => {
   expect(g.y).toBe(f.y - 9.5)
 })
 
-test("METHOD: Vector2.copy", () => {})
+test("METHOD: Vector2.copy", () => {
+  const a = Vector2.random()
+  const b = a.copy()
+  expect(b.x).toBe(a.x)
+  expect(b.y).toBe(a.y)
+  expect(a === b).toBe(false)
+})
 
 test("METHOD: Vector2.div", () => {})
 
