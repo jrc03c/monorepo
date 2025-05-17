@@ -2,7 +2,7 @@
 # pause (0.0.11)
 # progress (0.0.7)
 # prompt (0.0.12)
-# fake-jest (0.0.16)
+# fake-jest (0.0.17)
   - bash-colors
 # base-class (0.0.11)
   - fake-jest
