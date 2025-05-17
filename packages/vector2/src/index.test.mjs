@@ -41,6 +41,7 @@ test("PROPERTY: Vector2.angle", () => {
 })
 
 test("PROPERTY: Vector2.length", () => {
+  // get the length
   const a = new Vector2()
   expect(a.length).toBe(0)
 
@@ -55,6 +56,16 @@ test("PROPERTY: Vector2.length", () => {
 
   const e = new Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1)
   expect(e.length).toBeCloseTo(Math.sqrt(e.x * e.x + e.y * e.y))
+
+  // set the length
+  const f = Vector2.random()
+  expect(f.length).toBe(1)
+  const g = f.copy()
+  g.length = 2
+  expect(f.length).toBe(1)
+  expect(g.length).toBe(2)
+  expect(g.x).toBe(f.x * 2)
+  expect(g.y).toBe(f.y * 2)
 })
 
 test("METHOD: Vector2.add", () => {})
