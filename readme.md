@@ -32,7 +32,6 @@ This monorepo contains the following packages:
 - [progress](./packages/progress)
 - [prompt](./packages/prompt)
 - [queue](./packages/queue)
-- [radio](./packages/radio)
 - [sprite](./packages/sprite)
 - [timer](./packages/timer)
 - [vector2](./packages/vector2)
