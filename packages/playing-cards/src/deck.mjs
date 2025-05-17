@@ -43,7 +43,7 @@ class Deck extends Array {
     )
   }
 
-  getRandomCard(randomFn) {
+  random(randomFn) {
     randomFn = randomFn || Math.random
     return this[Math.floor(randomFn() * this.length)]
   }
