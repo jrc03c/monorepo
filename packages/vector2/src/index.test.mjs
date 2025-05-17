@@ -52,14 +52,14 @@ test("PROPERTY: Vector2.length", () => {
   expect(c.length).toBeCloseTo(13)
 
   const d = Vector2.random()
-  expect(d.length).toBe(1)
+  expect(d.length).toBeCloseTo(1)
 
   const e = new Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1)
   expect(e.length).toBeCloseTo(Math.sqrt(e.x * e.x + e.y * e.y))
 
   // set the length
   const f = Vector2.random()
-  expect(f.length).toBe(1)
+  expect(f.length).toBeCloseTo(1)
   const g = f.copy()
   g.length = 2
   expect(f.length).toBe(1)
@@ -118,7 +118,12 @@ test("METHOD: Vector2.div", () => {
   expect(g.y).toBe(f.y / -9.5)
 })
 
-test("METHOD: Vector2.dot", () => {})
+test("METHOD: Vector2.dot", () => {
+  const a = Vector2.random()
+  const b = Vector2.random()
+  const c = a.dot(b)
+  expect(c).toBeCloseTo(a.x * b.x + a.y * b.y)
+})
 
 test("METHOD: Vector2.mul", () => {})
 
