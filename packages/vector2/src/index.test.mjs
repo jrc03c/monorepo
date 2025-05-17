@@ -62,8 +62,8 @@ test("PROPERTY: Vector2.length", () => {
   expect(f.length).toBeCloseTo(1)
   const g = f.copy()
   g.length = 2
-  expect(f.length).toBe(1)
-  expect(g.length).toBe(2)
+  expect(f.length).toBeCloseTo(1)
+  expect(g.length).toBeCloseTo(2)
   expect(g.x).toBe(f.x * 2)
   expect(g.y).toBe(f.y * 2)
 })
@@ -146,7 +146,14 @@ test("METHOD: Vector2.mul", () => {
   expect(g.y).toBe(f.y * -9.5)
 })
 
-test("METHOD: Vector2.norm", () => {})
+test("METHOD: Vector2.norm", () => {
+  const a = Vector2.random()
+  expect(a.length).toBeCloseTo(1)
+  a.mul(Math.random() * 100 - 50)
+  expect(a.length).not.toBeCloseTo(1)
+  a.norm()
+  expect(a.length).toBeCloseTo(1)
+})
 
 test("METHOD: Vector2.rotate", () => {})
 
