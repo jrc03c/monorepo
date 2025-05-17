@@ -49,16 +49,16 @@ A dictionary for converting between values (numbers) and names (strings). It is 
 
 ```js
 {
-  "0": "Joker",
-  "1": "Ace",
-  "2": "Two",
-  "3": "Three",
-  "4": "Four",
-  "5": "Five",
-  "6": "Six",
-  "7": "Seven",
-  "8": "Eight",
-  "9": "Nine",
+  "0":  "Joker",
+  "1":  "Ace",
+  "2":  "Two",
+  "3":  "Three",
+  "4":  "Four",
+  "5":  "Five",
+  "6":  "Six",
+  "7":  "Seven",
+  "8":  "Eight",
+  "9":  "Nine",
   "10": "Ten",
   "11": "Jack",
   "12": "Queen",
@@ -78,11 +78,11 @@ A dictionary for referencing suit names (strings). Includes the four typical sui
 
 ```js
 {
-  Club: "Club",
+  Club:    "Club",
   Diamond: "Diamond",
-  Heart: "Heart",
-  None: "None",
-  Spade: "Spade",
+  Heart:   "Heart",
+  None:    "None",
+  Spade:   "Spade",
 }
 ```
 
@@ -98,11 +98,11 @@ A dictionary for converting between suit names (strings) and suit symbols (strin
 
 ```js
 {
-  Club: "♣",
+  Club:    "♣",
   Diamond: "♦",
-  Heart: "♥",
-  None: "∅",
-  Spade: "♠",
+  Heart:   "♥",
+  None:    "∅",
+  Spade:   "♠",
 }
 ```
 
