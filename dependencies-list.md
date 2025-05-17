@@ -4,9 +4,9 @@
 # prompt (0.0.12)
 # fake-jest (0.0.17)
   - bash-colors
-# base-class (0.0.12)
+# base-class (0.0.13)
   - fake-jest
-# color (0.0.14)
+# color (0.0.15)
   - fake-jest
 # freeze (0.0.7)
   - fake-jest
