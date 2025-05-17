@@ -1,8 +1,10 @@
 import { Card } from "./card.mjs"
 
 class Deck extends Array {
-  static generateCards(shouldIncludeJokers, CardClass) {
-    CardClass = CardClass || Card
+  static generate(options) {
+    options = options || {}
+    const shouldIncludeJokers = options.shouldIncludeJokers || false
+    const CardClass = options.CardClass || Card
 
     const suits = Object.values(CardClass.Suit).filter(
       s => s !== CardClass.Suit.None,
@@ -12,7 +14,7 @@ class Deck extends Array {
       v => v !== CardClass.Value.Joker,
     )
 
-    const out = []
+    const out = new Deck()
 
     suits.forEach(suit => {
       values.forEach(value => {
@@ -26,21 +28,6 @@ class Deck extends Array {
     }
 
     return out
-  }
-
-  constructor(data) {
-    super()
-    data = data || {}
-
-    this.push(
-      ...(
-        data.cards
-        || this.constructor.generateCards(
-          data.shouldIncludeJokers,
-          data.CardClass,
-        )
-      ),
-    )
   }
 
   random(randomFn) {
