@@ -5,6 +5,7 @@ import { isEqual, random, seed } from "@jrc03c/js-math-tools"
 
 test("tests that the `Deck` class works as expected", () => {
   const a = new Deck()
+  expect(a instanceof Array).toBe(true)
   expect(a.length).toBe(0)
 
   const b = Deck.generate()
@@ -28,6 +29,7 @@ test("tests that the `Deck` class works as expected", () => {
 
   const f = Deck.generate()
   const fcard1 = f.random()
+  f.splice(f.indexOf(fcard1), 1)
   const fcard2 = f.random()
   expect(isEqual(fcard1, fcard2)).toBe(false)
   seed(54321)
