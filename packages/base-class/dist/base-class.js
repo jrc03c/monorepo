@@ -4,19 +4,24 @@
     subscriptions = {};
     copy() {
       const out = new this.constructor(this.toObject());
-      Object.keys(this.subscriptions).forEach((channel) => {
-        out.subscriptions[channel] = this.subscriptions[channel].slice();
-      });
+      const channels = Object.keys(this.subscriptions);
+      for (const channel of channels) {
+        out.subscriptions[channel] = [];
+        for (let i = 0; i < this.subscriptions[channel].length; i++) {
+          out.subscriptions[channel].push(this.subscriptions[channel][i]);
+        }
+      }
       return out;
     }
     emit() {
       const args = Array.from(arguments);
       const channel = args[0];
       const payload = args.slice(1);
-      if (this.subscriptions[channel]) {
-        this.subscriptions[channel].forEach((callback) => {
-          callback(...payload);
-        });
+      const callbacks = this.subscriptions[channel];
+      if (callbacks) {
+        for (let i = 0; i < callbacks.length; i++) {
+          callbacks[i](...payload);
+        }
       }
       return this;
     }

@@ -3,10 +3,15 @@ class BaseClass {
 
   copy() {
     const out = new this.constructor(this.toObject())
+    const channels = Object.keys(this.subscriptions)
 
-    Object.keys(this.subscriptions).forEach(channel => {
-      out.subscriptions[channel] = this.subscriptions[channel].slice()
-    })
+    for (const channel of channels) {
+      out.subscriptions[channel] = []
+
+      for (let i = 0; i < this.subscriptions[channel].length; i++) {
+        out.subscriptions[channel].push(this.subscriptions[channel][i])
+      }
+    }
 
     return out
   }
@@ -15,11 +20,12 @@ class BaseClass {
     const args = Array.from(arguments)
     const channel = args[0]
     const payload = args.slice(1)
+    const callbacks = this.subscriptions[channel]
 
-    if (this.subscriptions[channel]) {
-      this.subscriptions[channel].forEach(callback => {
-        callback(...payload)
-      })
+    if (callbacks) {
+      for (let i = 0; i < callbacks.length; i++) {
+        callbacks[i](...payload)
+      }
     }
 
     return this
