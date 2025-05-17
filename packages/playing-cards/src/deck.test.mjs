@@ -48,4 +48,8 @@ test("tests that the `Deck` class works as expected", () => {
   expect(h.toObject() instanceof Array).toBe(true)
   expect(h.toObject() instanceof Deck).toBe(false)
   expect(h.toObject().some(v => v instanceof Card)).toBe(false)
+
+  const i = h.copy()
+  expect(isEqual(h, i)).toBe(true)
+  expect(h === i).toBe(false)
 })

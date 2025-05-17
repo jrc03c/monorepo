@@ -30,6 +30,10 @@ class Deck extends Array {
     return out
   }
 
+  copy() {
+    return this.slice().map(c => c.copy())
+  }
+
   random(randomFn) {
     randomFn = randomFn || Math.random
     return this[Math.floor(randomFn() * this.length)]

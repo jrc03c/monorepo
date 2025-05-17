@@ -48,4 +48,9 @@ test("tests that the `Card` class works as expected", () => {
   expect(gobj.suit).toBe(g.suit)
   expect(gobj.symbol).toBe(g.symbol)
   expect(gobj.value).toBe(g.value)
+
+  const h = Card.random()
+  const i = h.copy()
+  expect(isEqual(h, i)).toBe(true)
+  expect(h === i).toBe(false)
 })

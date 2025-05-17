@@ -105,6 +105,10 @@ class Card {
     throw new Error("The `symbol` property of a `Card` instance is read-only!")
   }
 
+  copy() {
+    return new Card({ suit: this.suit, value: this.value })
+  }
+
   toObject() {
     return {
       id: this.id,
