@@ -46,6 +46,10 @@ class Deck extends Array {
       this[k] = buffer
     }
   }
+
+  toObject() {
+    return Array.from(this.map(c => c.toObject()))
+  }
 }
 
 export { Deck }
