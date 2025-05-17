@@ -9,10 +9,13 @@
       });
       return out;
     }
-    emit(channel, payload) {
+    emit() {
+      const args = Array.from(arguments);
+      const channel = args[0];
+      const payload = args.slice(1);
       if (this.subscriptions[channel]) {
         this.subscriptions[channel].forEach((callback) => {
-          callback(payload);
+          callback(...payload);
         });
       }
       return this;
@@ -34,7 +37,7 @@
           this.subscriptions[channel].splice(index, 1);
         }
       }
-      return void 0;
+      return this;
     }
     on(channel, callback) {
       if (typeof channel !== "string") {

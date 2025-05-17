@@ -11,10 +11,14 @@ class BaseClass {
     return out
   }
 
-  emit(channel, payload) {
+  emit() {
+    const args = Array.from(arguments)
+    const channel = args[0]
+    const payload = args.slice(1)
+
     if (this.subscriptions[channel]) {
       this.subscriptions[channel].forEach(callback => {
-        callback(payload)
+        callback(...payload)
       })
     }
 
@@ -42,7 +46,7 @@ class BaseClass {
       }
     }
 
-    return undefined
+    return this
   }
 
   on(channel, callback) {
