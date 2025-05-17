@@ -28,6 +28,13 @@ console.log(card2.value > card3.value)
 
 ## `Card`
 
+### `Card(options)` (constructor)
+
+Creates a new `Card` instance. Options that can be passed in the `options` object include:
+
+- `suit` = a string corresponding to the `suit` instance property
+- `value` = a number corresponding to the `value` instance property
+
 ### Properties
 
 #### Static
@@ -184,6 +191,15 @@ console.log(isEqual(card3, card3)) // true
 
 Returns a new `Card` instance with the same suit and value as the original instance.
 
+**Example:**
+
+```js
+const card1 = new Card({ suit: Card.Suit.Club, value: Card.Value.Jack })
+const card2 = card1.copy()
+console.log(card1.id) // "Jack of Clubs"
+console.log(card2.id) // "Jack of Clubs"
+```
+
 ##### `toObject`
 
 Returns a "plain" JS object containing the same properties as the instance.
@@ -204,6 +220,66 @@ console.log(card.toObject())
 
 ## `Deck`
 
-### Properties
+`Deck` is a subclass of `Array` and thus inherits all of the `Array` class's properties and methods. The only properties and methods documented below are those that differentiate `Deck` from `Array`.
+
+### `Deck()` (constructor)
+
+Technically, it's possible to create a new `Deck` instance using `new Deck()`. However, a deck created this way will be empty; i.e., it will contain no cards. To create a deck containing the usual set of cards, use the static `Deck.generate` method.
+
+**Example:**
+
+```js
+const deck = new Deck()
+console.log(deck.length) // 0
+```
 
 ### Methods
+
+#### Static
+
+##### `generate(options)`
+
+Generates and returns a new `Deck` instance filled with the usual set of cards. Options that can be passed in the `options` object include:
+
+- `shouldIncludeJokers` = a boolean; the default is `false`
+- `CardClass` = the class of card used to generate the deck; the default is this library's `Card` class
+
+**Example:**
+
+```js
+const deck = Deck.generate()
+console.log(deck.length) // 52
+
+const deckWithJokers = Deck.generate({ shouldIncludeJokers: true })
+console.log(deckWithJokers.length) // 54
+```
+
+#### Instance
+
+##### `copy`
+
+Returns a new `Deck` instance with the same cards in the same order as the original instance. Note that the cards in the new deck will also themselves be copies of the original instance's cards. (In other words, the new deck will _not_ merely be a new array holding references to the original cards.)
+
+**Example:**
+
+```js
+import { isEqual } from "@jrc03c/js-math-tools"
+
+const deck1 = Deck.generate()
+deck1.shuffle()
+
+const deck2 = deck1.copy()
+console.log(isEqual(deck1, deck2)) // true
+console.log(isEqual(deck1, Deck.generate())) // false
+```
+
+##### `shuffle(randomFn)`
+
+Shuffles the deck (in-place). Returns the instance. Can optionally use a random number generator function (though uses `Math.random` by default).
+
+**Example:**
+
+```js
+const deck = Deck.generate()
+deck.shuffle()
+```

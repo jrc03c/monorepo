@@ -106,7 +106,7 @@ class Card {
   }
 
   copy() {
-    return new Card({ suit: this.suit, value: this.value })
+    return new Card(this)
   }
 
   toObject() {

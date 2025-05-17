@@ -49,6 +49,8 @@ class Deck extends Array {
       this[j] = this[k]
       this[k] = buffer
     }
+
+    return this
   }
 
   toObject() {
