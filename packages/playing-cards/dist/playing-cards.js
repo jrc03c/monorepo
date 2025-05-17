@@ -88,7 +88,7 @@
       throw new Error("The `symbol` property of a `Card` instance is read-only!");
     }
     copy() {
-      return new _Card({ suit: this.suit, value: this.value });
+      return new _Card(this);
     }
     toObject() {
       return {
@@ -141,6 +141,7 @@
         this[j] = this[k];
         this[k] = buffer;
       }
+      return this;
     }
     toObject() {
       return Array.from(this.map((c) => c.toObject()));
