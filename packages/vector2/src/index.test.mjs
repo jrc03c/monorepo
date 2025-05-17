@@ -40,7 +40,22 @@ test("PROPERTY: Vector2.angle", () => {
   expect(v.y).toBeCloseTo(-1 / 2)
 })
 
-test("PROPERTY: Vector2.length", () => {})
+test("PROPERTY: Vector2.length", () => {
+  const a = new Vector2()
+  expect(a.length).toBe(0)
+
+  const b = new Vector2(3, 4)
+  expect(b.length).toBeCloseTo(5)
+
+  const c = new Vector2(-5, -12)
+  expect(c.length).toBeCloseTo(13)
+
+  const d = Vector2.random()
+  expect(d.length).toBe(1)
+
+  const e = new Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1)
+  expect(e.length).toBeCloseTo(Math.sqrt(e.x * e.x + e.y * e.y))
+})
 
 test("METHOD: Vector2.add", () => {})
 
@@ -53,6 +68,8 @@ test("METHOD: Vector2.dot", () => {})
 test("METHOD: Vector2.mul", () => {})
 
 test("METHOD: Vector2.norm", () => {})
+
+test("METHOD: Vector2.rotate", () => {})
 
 test("METHOD: Vector2.sub", () => {})
 
