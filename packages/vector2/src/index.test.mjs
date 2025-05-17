@@ -97,7 +97,26 @@ test("METHOD: Vector2.copy", () => {
   expect(a === b).toBe(false)
 })
 
-test("METHOD: Vector2.div", () => {})
+test("METHOD: Vector2.div", () => {
+  const a = Vector2.random()
+  const b = Vector2.random()
+  const c = a.copy()
+  c.div(b)
+  expect(c.x).toBe(a.x / b.x)
+  expect(c.y).toBe(a.y / b.y)
+
+  const d = Vector2.random()
+  const e = d.copy()
+  e.div(5)
+  expect(e.x).toBe(d.x / 5)
+  expect(e.y).toBe(d.y / 5)
+
+  const f = Vector2.random()
+  const g = f.copy()
+  g.div(-7.5, -9.5)
+  expect(g.x).toBe(f.x / -7.5)
+  expect(g.y).toBe(f.y / -9.5)
+})
 
 test("METHOD: Vector2.dot", () => {})
 
