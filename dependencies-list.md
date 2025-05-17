@@ -2,9 +2,10 @@
 # pause (0.0.10)
 # progress (0.0.7)
 # prompt (0.0.12)
+# sprite (???)
 # fake-jest (0.0.16)
   - bash-colors
-# base-class (0.0.10)
+# base-class (0.0.11)
   - fake-jest
 # color (0.0.14)
   - fake-jest
@@ -26,7 +27,7 @@
 # js-plot-tools (0.0.19)
   - js-math-tools
   - make-key
-# filedb (0.0.27)
+# filedb (0.0.28)
   - fake-jest
   - js-math-tools
   - make-key
@@ -34,12 +35,12 @@
   - fake-jest
   - make-key
   - pause
-# js-text-tools (0.0.63)
+# js-text-tools (0.0.67)
   - bash-colors
   - fake-jest
   - js-math-tools
   - make-key
-# js-type-experiments (0.0.23)
+# js-type-experiments (0.0.24)
   - fake-jest
   - js-math-tools
   - js-text-tools
@@ -77,16 +78,6 @@
   - fs-extras
   - make-key
   - pause
-# js-nlp-tools (0.0.9)
-  - base-class
-  - fake-jest
-  - filedb
-  - fs-extras
-  - js-crypto-helpers
-  - js-math-tools
-  - js-text-tools
-  - js-type-experiments
-  - make-key
 # web-crawler (0.0.15)
   - fake-jest
   - filedb
@@ -105,6 +96,10 @@
   - fake-jest
   - pause
   - watch
+# playing-cards (0.0.3)
+  - fake-jest
+  - js-math-tools
+  - watch
 # base-web-component (0.0.15)
   - js-math-tools
   - js-text-tools
@@ -120,12 +115,24 @@
   - make-key
   - pause
   - watch
-# bee (0.0.53)
+# bee (0.0.55)
   - js-math-tools
   - js-text-tools
   - make-key
   - pause
   - watch
+# js-nlp-tools (0.0.12)
+  - base-class
+  - fake-jest
+  - filedb
+  - freeze
+  - fs-extras
+  - js-crypto-helpers
+  - js-csv-helpers
+  - js-math-tools
+  - js-text-tools
+  - js-type-experiments
+  - make-key
 # create-high-dpi-canvas (1.0.30)
   - base-web-component
   - watch
