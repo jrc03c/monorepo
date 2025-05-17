@@ -125,7 +125,26 @@ test("METHOD: Vector2.dot", () => {
   expect(c).toBeCloseTo(a.x * b.x + a.y * b.y)
 })
 
-test("METHOD: Vector2.mul", () => {})
+test("METHOD: Vector2.mul", () => {
+  const a = Vector2.random()
+  const b = Vector2.random()
+  const c = a.copy()
+  c.mul(b)
+  expect(c.x).toBe(a.x * b.x)
+  expect(c.y).toBe(a.y * b.y)
+
+  const d = Vector2.random()
+  const e = d.copy()
+  e.mul(5)
+  expect(e.x).toBe(d.x * 5)
+  expect(e.y).toBe(d.y * 5)
+
+  const f = Vector2.random()
+  const g = f.copy()
+  g.mul(-7.5, -9.5)
+  expect(g.x).toBe(f.x * -7.5)
+  expect(g.y).toBe(f.y * -9.5)
+})
 
 test("METHOD: Vector2.norm", () => {})
 
