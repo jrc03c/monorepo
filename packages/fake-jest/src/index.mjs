@@ -237,7 +237,7 @@ export async function run() {
     try {
       await item.fn()
     } catch (e) {
-      console.error(fx.dim(fg.red(e.stack)))
+      console.error(fg.red(e.stack))
       passed = false
     }
 

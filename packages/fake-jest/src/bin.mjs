@@ -5,15 +5,31 @@ import fs from "node:fs"
 import getFilesDeepSync from "./get-files-deep-sync.mjs"
 import process from "node:process"
 
+const TEST_FILE_PATTERN = /\.test\.[cm]?js$/
+
+const isATestFile =
+  f => !f.includes("node_modules") && f.match(TEST_FILE_PATTERN)
+
 !(async () => {
   const files = (() => {
     if (process.argv.length > 2) {
-      return Array.from(process.argv)
-        .slice(2)
-        .filter(f => !f.includes("node_modules") && f.match(/\.test\.[cm]?js$/))
+      const args = Array.from(process.argv).slice(2)
+      const out = []
+
+      for (const arg of args) {
+        const stat = fs.statSync(arg)
+
+        if (stat.isDirectory()) {
+          out.push(...getFilesDeepSync(arg).filter(isATestFile))
+        } else if (isATestFile(arg)) {
+          out.push(arg)
+        }
+      }
+
+      return out
     } else {
       return getFilesDeepSync(".").filter(
-        f => !f.includes("node_modules") && f.match(/\.test\.[cm]?js$/),
+        f => !f.includes("node_modules") && f.match(TEST_FILE_PATTERN),
       )
     }
   })()
