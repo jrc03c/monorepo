@@ -143,9 +143,9 @@ console.log(Card.Value.Ace) // 1
 
 #### Instance
 
-##### `id` (read-only / getter)
+##### `id`
 
-A string containing the card's name and suit in the form:
+A read-only string containing the card's name and suit in the form:
 
 ```
 `${name} of ${suit}s`
@@ -160,9 +160,9 @@ const card = new Card()
 console.log(card.id) // "Ace of Spades"
 ```
 
-##### `name` (read-only / getter)
+##### `name`
 
-A string representing the card's value as an English word.
+A read-only string representing the card's value as an English word.
 
 **Example:**
 
@@ -182,9 +182,9 @@ const card = new Card()
 console.log(card.suit) // "Spade"
 ```
 
-##### `symbol` (read-only / getter)
+##### `symbol`
 
-A string representing the card's suit's symbol.
+A read-only string representing the card's suit's symbol.
 
 **Example:**
 
