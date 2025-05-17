@@ -86,7 +86,7 @@ class Card {
   }
 
   get id() {
-    return `${this.value} of ${this.suit}s`
+    return `${this.name} of ${this.suit}s`
   }
 }
 
