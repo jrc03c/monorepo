@@ -52,7 +52,7 @@ class Card {
   static random(shouldIncludeJokers, randomFn) {
     randomFn = randomFn || Math.random
 
-    const suits = Object.values(this.Value).filter(
+    const suits = Object.values(this.Suit).filter(
       v => shouldIncludeJokers || v !== "None",
     )
 
@@ -61,32 +61,58 @@ class Card {
     )
 
     const suit = suits[Math.floor(randomFn() * suits.length)]
-    const value = values[Math.floor(randomFn() * suits.length)]
+    const value = values[Math.floor(randomFn() * values.length)]
 
     return new Card({
       suit:
         value === this.Value.Joker
-        ? this.Suit.Joker
+        ? this.Suit.None
         : suit,
       value,
     })
   }
 
-  name = null
   suit = null
-  symbol = null
   value = null
 
   constructor(data) {
     data = data || {}
     this.suit = data.suit || this.constructor.Suit.Spade
-    this.value = data.value || this.constructor.Value.Ace
-    this.name = data.name || this.constructor.Name[this.value]
-    this.symbol = data.symbol || this.constructor.Symbol[this.suit]
+    this.value = data.value ?? this.constructor.Value.Ace
+
+    if (!data.suit && this.value === this.constructor.Value.Joker) {
+      this.suit = this.constructor.Suit.None
+    }
   }
 
   get id() {
     return `${this.name} of ${this.suit}s`
+  }
+
+  get name() {
+    return this.constructor.Name[this.value]
+  }
+
+  set name(v) {
+    throw new Error("The `name` property of a `Card` instance is read-only!")
+  }
+
+  get symbol() {
+    return this.constructor.Symbol[this.suit]
+  }
+
+  set symbol(v) {
+    throw new Error("The `symbol` property of a `Card` instance is read-only!")
+  }
+
+  toObject() {
+    return {
+      id: this.id,
+      name: this.name,
+      suit: this.suit,
+      symbol: this.symbol,
+      value: this.value,
+    }
   }
 }
 
