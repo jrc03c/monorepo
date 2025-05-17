@@ -46,7 +46,11 @@ class Vector2 {
     return angle - k * Math.PI * 2
   }
 
-  set angle(v) {}
+  set angle(v) {
+    const { length } = this
+    this.x = length * Math.cos(v)
+    this.y = length * Math.sin(v)
+  }
 
   get length() {
     return Math.sqrt(this.x * this.x + this.y * this.y)
