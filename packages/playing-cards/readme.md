@@ -45,7 +45,26 @@ Creates a new `Card` instance. Options that can be passed in the `options` objec
 
 ##### `Name`
 
-A dictionary for converting between values (numbers) and names (strings).
+A dictionary for converting between values (numbers) and names (strings). It is defined to be:
+
+```js
+{
+  "0": "Joker",
+  "1": "Ace",
+  "2": "Two",
+  "3": "Three",
+  "4": "Four",
+  "5": "Five",
+  "6": "Six",
+  "7": "Seven",
+  "8": "Eight",
+  "9": "Nine",
+  "10": "Ten",
+  "11": "Jack",
+  "12": "Queen",
+  "13": "King",
+}
+```
 
 **Example:**
 
@@ -55,7 +74,17 @@ console.log(Card.Name[2]) // "Two"
 
 ##### `Suit`
 
-A dictionary for referencing suit names (strings). Includes the four typical suits (Club, Diamond, Heart, and Spade) as well as a "None" suit for Jokers.
+A dictionary for referencing suit names (strings). Includes the four typical suits (Club, Diamond, Heart, and Spade) as well as a "None" suit for Jokers. It is defined to be:
+
+```js
+{
+  Club: "Club",
+  Diamond: "Diamond",
+  Heart: "Heart",
+  None: "None",
+  Spade: "Spade",
+}
+```
 
 **Example:**
 
@@ -65,7 +94,17 @@ console.log(Card.Suit.Spade) // "Spade"
 
 ##### `Symbol`
 
-A dictionary for converting between suit names (strings) and suit symbols (strings). Includes the four typical suit symbols as well as a "∅" symbol corresponding to the "None" suit for Jokers.
+A dictionary for converting between suit names (strings) and suit symbols (strings). Includes the four typical suit symbols as well as a "∅" symbol corresponding to the "None" suit for Jokers. It is defined to be:
+
+```js
+{
+  Club: "♣",
+  Diamond: "♦",
+  Heart: "♥",
+  None: "∅",
+  Spade: "♠",
+}
+```
 
 **Example:**
 
