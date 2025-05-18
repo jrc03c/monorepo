@@ -68,11 +68,11 @@
   }
 
   // node_modules/@jrc03c/pause/src/index.mjs
-  function pauseAsync(ms) {
+  function pause(ms) {
     return new Promise((resolve, reject) => {
       try {
-        const start = /* @__PURE__ */ new Date();
-        return setTimeout(() => resolve(/* @__PURE__ */ new Date() - start), ms);
+        const start = performance.now();
+        return setTimeout(() => resolve(performance.now() - start), ms);
       } catch (e) {
         return reject(e);
       }
@@ -321,7 +321,7 @@
           shouldCallAgain = true;
         }
         while (!this.$refs.itemsContainer) {
-          await pauseAsync(10);
+          await pause(10);
         }
         let x = this.x;
         let y = this.y;
