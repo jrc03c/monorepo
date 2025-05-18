@@ -644,6 +644,10 @@ Returns _e_ to the power(s) of `x`.
 
 Returns the factorial(s) of `x`.
 
+## `filter(x, fn)`
+
+Returns the equivalent of `x.filter(fn)` (but faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+
 ## `find(x, fn)`
 
 Returns the first value that causes the `fn` function to evaluate to true when evaluated on every item in `x`. Note that `x` can be an arbitrarily nested array (or `Series` or `DataFrame`) _or_ an object. All of those types are searched to any depth.
@@ -663,6 +667,10 @@ Returns `x` converted to floating point numbers.
 ## `floor(x)`
 
 Returns the floor(s) of `x`.
+
+## `forEach(x, fn)`
+
+Performs the equivalent of `x.forEach(fn)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
 
 ## `identity(n)`
 
@@ -801,6 +809,10 @@ Returns the linear interpolation from `a` to `b` at fraction `f`.
 
 Returns the natural log(s) of `x`.
 
+## `map(x, fn)`
+
+Returns the equivalent of `x.map(fn)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+
 ## `MathError(message)`
 
 This class only exists because (1) I wanted to make it clear when errors where coming specifically from this library, and (2) I wanted to color-code the errors in the command line. Those are the only two ways in which `MathError` differs from `Error`.
@@ -885,6 +897,10 @@ Returns an _n_-dimensional array of random numbers in the range [0, 1] where `sh
 ## `range(a, b, step=1)`
 
 Returns an array of numbers in the range [`a`, `b`) incremented by `step`.
+
+## `reduce(x, fn, accumulator)`
+
+Returns the equivalent of `x.reduce(fn, accumulator)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
 
 ## `remap(x, a, b, c, d)`
 

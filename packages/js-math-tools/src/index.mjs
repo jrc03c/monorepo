@@ -31,11 +31,13 @@ import { dropUndefined } from "./drop-undefined.mjs"
 import { every } from "./every.mjs"
 import { exp } from "./exp.mjs"
 import { factorial } from "./factorial.mjs"
+import { filter } from "./filter.mjs"
 import { find } from "./find.mjs"
 import { findAll } from "./find-all.mjs"
 import { flatten } from "./flatten.mjs"
 import { float } from "./float.mjs"
 import { floor } from "./floor.mjs"
+import { forEach } from "./for-each.mjs"
 import { identity } from "./identity.mjs"
 import { IndexMatcher } from "./index-matcher.mjs"
 import { indexOf } from "./index-of.mjs"
@@ -59,6 +61,7 @@ import { isString } from "./is-string.mjs"
 import { isUndefined } from "./is-undefined.mjs"
 import { lerp } from "./lerp.mjs"
 import { log } from "./log.mjs"
+import { map } from "./map.mjs"
 import { MathError } from "./math-error.mjs"
 import { max } from "./max.mjs"
 import { mean } from "./mean.mjs"
@@ -76,6 +79,7 @@ import { print } from "./print.mjs"
 import { product } from "./product.mjs"
 import { random, seed } from "./random.mjs"
 import { range } from "./range.mjs"
+import { reduce } from "./reduce.mjs"
 import { remap } from "./remap.mjs"
 import { reshape } from "./reshape.mjs"
 import { reverse } from "./reverse.mjs"
@@ -139,11 +143,13 @@ export {
   every,
   exp,
   factorial,
+  filter,
   find,
   findAll,
   flatten,
   float,
   floor,
+  forEach,
   identity,
   IndexMatcher,
   indexOf,
@@ -167,6 +173,7 @@ export {
   isUndefined,
   lerp,
   log,
+  map,
   MathError,
   max,
   mean,
@@ -185,6 +192,7 @@ export {
   product,
   random,
   range,
+  reduce,
   remap,
   reshape,
   reverse,
