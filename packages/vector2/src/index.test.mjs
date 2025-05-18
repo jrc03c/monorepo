@@ -188,6 +188,11 @@ test("METHOD: Vector2.sub", () => {
   expect(g.y).toBe(f.y + 9.5)
 })
 
-test("METHOD: Vector2.fromAngle (static)", () => {})
+test("METHOD: Vector2.fromAngle (static)", () => {
+  const angle = Math.random() * 2 * Math.PI
+  const v = Vector2.fromAngle(angle)
+  expect(v.angle).toBeCloseTo(angle)
+  expect(v.length).toBeCloseTo(1)
+})
 
 test("METHOD: Vector2.random (static)", () => {})
