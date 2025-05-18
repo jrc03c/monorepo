@@ -96,7 +96,7 @@
   - fake-jest
   - js-math-tools
   - watch
-# base-web-component (0.0.15)
+# base-web-component (0.0.16)
   - js-math-tools
   - js-text-tools
   - pause
