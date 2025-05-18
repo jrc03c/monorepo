@@ -17,5 +17,5 @@
   "module": "./src/index.mjs",
   "name": "@jrc03c/watch",
   "type": "module",
-  "version": "0.0.21"
+  "version": "0.0.22"
 }
