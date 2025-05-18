@@ -1,5 +1,4 @@
 import { expect, test } from "@jrc03c/fake-jest"
-import { filter } from "./filter.mjs"
 import { flatten } from "./flatten.mjs"
 import { forEach } from "./for-each.mjs"
 import { IndexMatcher } from "./index-matcher.mjs"
@@ -34,8 +33,8 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   })
 
   const eTrue = [
-    filter(c, (v, i) => !isUndefined(v) && !isUndefined(d.values[i])),
-    filter(d, (v, i) => !isUndefined(v) && !isUndefined(c.values[i])),
+    c.filter((v, i) => !isUndefined(v) && !isUndefined(d.values[i])),
+    d.filter((v, i) => !isUndefined(v) && !isUndefined(c.values[i])),
   ]
 
   const ePred = new IndexMatcher(
@@ -55,14 +54,12 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   })
 
   const hTrue1 = [
-    filter(
-      f,
+    f.filter(
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
         g.values[i].every(v => !isUndefined(v)),
     ),
-    filter(
-      g,
+    g.filter(
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
         f.values[i].every(v => !isUndefined(v)),
@@ -76,13 +73,11 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(isEqual(hPred1, hTrue1)).toBe(true)
 
   const hTrue2 = [
-    filter(
-      f,
+    f.filter(
       (row, i) =>
         row.values.every(v => !isNaN(v)) && g.values[i].every(v => !isNaN(v)),
     ),
-    filter(
-      g,
+    g.filter(
       (row, i) =>
         row.values.every(v => !isNaN(v)) && f.values[i].every(v => !isNaN(v)),
     ),
