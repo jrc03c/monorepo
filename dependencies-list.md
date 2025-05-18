@@ -74,7 +74,7 @@
   - fs-extras
   - make-key
   - pause
-# web-crawler (0.0.15)
+# web-crawler (0.0.16)
   - fake-jest
   - filedb
   - js-crypto-helpers
