@@ -132,7 +132,7 @@
 # create-high-dpi-canvas (1.0.31)
   - base-web-component
   - watch
-# misc-vue-components (0.0.19)
+# misc-vue-components (0.0.20)
   - pause
   - vue-component-with-css
 # bulma-vue-components (0.0.3)
