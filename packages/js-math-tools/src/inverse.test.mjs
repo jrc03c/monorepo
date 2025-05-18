@@ -1,8 +1,10 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { distance } from "./distance.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { inverse } from "./inverse.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that matrix inverses can be computed correctly", () => {
@@ -136,8 +138,8 @@ test("tests that matrix inverses can be computed correctly", () => {
   expect(distance(bPred, bTrue)).toBeLessThan(1e-5)
 
   const c = new DataFrame(a)
-  c.columns = c.columns.map((v, i) => "cCol" + i)
-  c.index = c.index.map((v, i) => "cRow" + i)
+  c.columns = map(c.columns, (v, i) => "cCol" + i)
+  c.index = map(c.index, (v, i) => "cRow" + i)
   const dTrue = c.copy()
   dTrue.values = bTrue
   const dPred = inverse(c)
@@ -189,7 +191,7 @@ test("tests that matrix inverses can be computed correctly", () => {
     new Series(normal(100)),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => inverse(item)).toThrow()
   })
 })

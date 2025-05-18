@@ -2,6 +2,7 @@ import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { floor } from "./floor.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
@@ -44,7 +45,7 @@ test("tests that values can be correctly floored", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(floor(item)).toBeNaN()
   })
 })

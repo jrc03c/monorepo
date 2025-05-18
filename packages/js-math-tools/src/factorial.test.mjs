@@ -1,7 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { factorial } from "./factorial.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { round } from "./round.mjs"
 
@@ -20,14 +22,14 @@ test("tests that factorial values can be computed correctly", () => {
   const dPred = factorial(c)
   expect(isEqual(dPred, dTrue)).toBe(true)
 
-  const e = new Series({ hello: round(normal(100).map(v => v * 10)) })
+  const e = new Series({ hello: round(map(normal(100), v => v * 10)) })
   const fTrue = e.copy().apply(v => factorial(v))
   const fPred = factorial(e)
   expect(isEqual(fPred, fTrue))
 
   const g = new DataFrame({
-    foo: round(normal(100).map(v => v * 100)),
-    bar: round(normal(100).map(v => v * 100)),
+    foo: round(map(normal(100), v => v * 100)),
+    bar: round(map(normal(100), v => v * 100)),
   })
 
   const hTrue = g.copy().apply(col => col.apply(v => factorial(v)))
@@ -57,7 +59,7 @@ test("tests that factorial values can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(factorial(item)).toBeNaN()
   })
 })

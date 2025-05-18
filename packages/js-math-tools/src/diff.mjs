@@ -1,4 +1,5 @@
 import { assert } from "./assert.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isEqual } from "./is-equal.mjs"
@@ -23,7 +24,7 @@ function diff(a, b) {
   const bTemp = set(b)
   const out = []
 
-  aTemp.forEach(item => {
+  forEach(aTemp, item => {
     if (bTemp.findIndex(other => isEqual(other, item)) < 0) {
       out.push(item)
     }

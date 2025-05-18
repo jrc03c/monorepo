@@ -1,5 +1,6 @@
 import { assert } from "./assert.mjs"
 import { flatten } from "./flatten.mjs"
+import { forEach  } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isFunction } from "./is-function.mjs"
@@ -32,7 +33,7 @@ function set(arr) {
   const out = []
   const temp = {}
 
-  flatten(arr).forEach(item => {
+  forEach(flatten(arr), item => {
     // prettier-ignore
     const key =
       typeof item === "object" && item === null

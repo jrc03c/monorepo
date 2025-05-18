@@ -1,7 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { inferType } from "./infer-type.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 import { range } from "./range.mjs"
@@ -22,7 +24,7 @@ test("correctly infers a variety of data types from strings", () => {
 
   const bTrue = {
     type: "number",
-    values: a.map(v => parseFloat(v)),
+    values: map(a, v => parseFloat(v)),
     isInteger: false,
   }
 
@@ -31,11 +33,11 @@ test("correctly infers a variety of data types from strings", () => {
 
   const bTrue2 = {
     type: "number",
-    values: a.map(v => parseInt(v)),
+    values: map(a, v => parseInt(v)),
     isInteger: true,
   }
 
-  const bPred2 = inferType(a.map(v => v.split(".")[0]))
+  const bPred2 = inferType(map(a, v => v.split(".")[0]))
   expect(isEqual(bPred2, bTrue2)).toBe(true)
 
   const c = ["true", "True", "TRUE", "false", "False", "FALSE", "yes", "no"]
@@ -48,7 +50,7 @@ test("correctly infers a variety of data types from strings", () => {
   const dPred = inferType(c)
   expect(isEqual(dPred, dTrue)).toBe(true)
 
-  const e = range(0, 10).map(() => {
+  const e = map(range(0, 10), () => {
     const d = new Date()
     const r = random()
 
@@ -61,21 +63,21 @@ test("correctly infers a variety of data types from strings", () => {
     }
   })
 
-  const fTrue = { type: "date", values: e.map(v => new Date(v)) }
+  const fTrue = { type: "date", values: map(e, v => new Date(v)) }
   const fPred = inferType(e)
   expect(isEqual(fPred, fTrue)).toBe(true)
 
-  const g = range(0, 10).map(() => JSON.stringify({ hello: Math.random() }))
-  const hTrue = { type: "object", values: g.map(v => JSON.parse(v)) }
+  const g = map(range(0, 10), () => JSON.stringify({ hello: Math.random() }))
+  const hTrue = { type: "object", values: map(g, v => JSON.parse(v)) }
   const hPred = inferType(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
   const i = ["null", "NaN", "None", "undefined", ""]
-  const jTrue = { type: "null", values: i.map(() => null) }
+  const jTrue = { type: "null", values: map(i, () => null) }
   const jPred = inferType(i)
   expect(isEqual(jPred, jTrue)).toBe(true)
 
-  const k = range(0, 10).map(() => makeKey(8))
+  const k = map(range(0, 10), () => makeKey(8))
   const lTrue = { type: "string", values: k }
   const lPred = inferType(k)
   expect(isEqual(lPred, lTrue)).toBe(true)
@@ -150,7 +152,7 @@ test("correctly infers a variety of data types from strings", () => {
     },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => inferType(item)).toThrow()
   })
 })

@@ -1,9 +1,12 @@
 import { assert } from "../assert.mjs"
+import { filter } from "../filter.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isDataFrame } from "../is-dataframe.mjs"
 import { isJagged } from "../is-jagged.mjs"
 import { isSeries } from "../is-series.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { MathError } from "../math-error.mjs"
 import { ndarray } from "../ndarray.mjs"
 import { range } from "../range.mjs"
@@ -44,7 +47,8 @@ function dfAppend(df, x, axis) {
         out._values.push(x)
 
         const maxRowLength = Math.max(df.shape[1], xShape[0])
-        out._values.forEach(row => {
+
+        forEach(out._values, row => {
           while (row.length < maxRowLength) {
             row.push(undefined)
           }
@@ -71,7 +75,7 @@ function dfAppend(df, x, axis) {
         const maxColLength = Math.max(df.shape[0], xShape[0])
         const out = df.copy()
 
-        range(0, maxColLength).forEach(i => {
+        forEach(range(0, maxColLength), i => {
           if (i >= out._values.length) {
             out._values.push(ndarray(df.shape[1]))
           }
@@ -101,12 +105,12 @@ function dfAppend(df, x, axis) {
       // rows of `x` until they're the right length
       if (axis === 0) {
         const maxRowLength = Math.max(
-          ...x.map(row => row.length).concat([df.shape[1]]),
+          ...map(x, row => row.length).concat([df.shape[1]]),
         )
 
         const out = df.copy()
 
-        out._values = out._values.concat(x).map(row => {
+        out._values = map(out._values.concat(x), row => {
           while (row.length < maxRowLength) {
             row.push(undefined)
           }
@@ -133,11 +137,13 @@ function dfAppend(df, x, axis) {
       // taller than `x`, then we'll extend the columns of `x` until they're
       // the right length
       else {
-        const maxRowLength = Math.max(...x.map(row => row.length)) + df.shape[1]
+        const maxRowLength =
+          Math.max(...map(x, row => row.length)) + df.shape[1]
+
         const maxColLength = Math.max(df.shape[0], xShape[0])
         const out = df.copy()
 
-        range(0, maxColLength).forEach(i => {
+        forEach(range(0, maxColLength), i => {
           if (i >= out._values.length) {
             out._values.push(ndarray(df.shape[1]))
           }
@@ -197,7 +203,7 @@ function dfAppend(df, x, axis) {
       const out = df.copy()
       const maxRowLength = set(out._columns.concat(x._columns)).length
 
-      out._values.forEach(row => {
+      forEach(out._values, row => {
         while (row.length < maxRowLength) {
           row.push(undefined)
         }
@@ -207,7 +213,7 @@ function dfAppend(df, x, axis) {
         const rowCopy = row.copy()
         const temp = []
 
-        out._columns.forEach(col => {
+        forEach(out._columns, col => {
           const index = rowCopy._index.indexOf(col)
 
           if (index > -1) {
@@ -223,7 +229,7 @@ function dfAppend(df, x, axis) {
       }, 1)
 
       out._columns = out._columns.concat(
-        x._columns.filter(c => out._columns.indexOf(c) < 0),
+        filter(x._columns, c => out._columns.indexOf(c) < 0),
       )
 
       while (out._index.length < out._values.length) {
@@ -238,7 +244,7 @@ function dfAppend(df, x, axis) {
     } else {
       const out = df.copy()
 
-      out._index.forEach((rowName, i) => {
+      forEach(out._index, (rowName, i) => {
         const xIndex = x._index.indexOf(rowName)
 
         if (xIndex > -1) {
@@ -248,7 +254,7 @@ function dfAppend(df, x, axis) {
         }
       })
 
-      x._index.forEach((rowName, i) => {
+      forEach(x._index, (rowName, i) => {
         const outIndex = out._index.indexOf(rowName)
 
         if (outIndex < 0) {
@@ -258,7 +264,7 @@ function dfAppend(df, x, axis) {
       })
 
       out._columns = out._columns.concat(
-        x._columns.map(c => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")),
+        map(x._columns, c => c + (out._columns.indexOf(c) > -1 ? " (2)" : "")),
       )
 
       return out

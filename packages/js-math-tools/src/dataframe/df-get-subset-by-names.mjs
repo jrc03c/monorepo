@@ -1,7 +1,9 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { shape } from "../shape.mjs"
 
 function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
@@ -30,7 +32,7 @@ function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
     "The `cols` array must contain at least one column name.",
   )
 
-  rows.forEach(row => {
+  forEach(rows, row => {
     assert(
       isString(row),
       "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
@@ -42,7 +44,7 @@ function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
     )
   })
 
-  cols.forEach(col => {
+  forEach(cols, col => {
     assert(
       isString(col),
       "The `rows` and `cols` parameters must be 1-dimensional arrays of strings.",
@@ -54,8 +56,8 @@ function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
     )
   })
 
-  const values = rows.map(row => {
-    return cols.map(col => {
+  const values = map(rows, row => {
+    return map(cols, col => {
       return df.values[df.index.indexOf(row)][df.columns.indexOf(col)]
     })
   })
@@ -72,7 +74,7 @@ function dfGetSubsetByNames(DataFrame, Series, df, rows, cols) {
   }
 
   if (cols.length === 1) {
-    const out = new Series(values.map(v => v[0]))
+    const out = new Series(map(values, v => v[0]))
     out.name = cols[0]
     out.index = rows
     return out

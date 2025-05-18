@@ -1,7 +1,9 @@
+import { forEach } from "./for-each.mjs"
 import { indexOf } from "./index-of.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
+import { map } from "./map.mjs"
 
 export function copy(x) {
   function helper(x) {
@@ -15,7 +17,7 @@ export function copy(x) {
           return x.slice()
         }
 
-        return x.map(v => copy(v))
+        return map(x, v => copy(v))
       }
 
       if (isSeries(x)) {
@@ -37,11 +39,13 @@ export function copy(x) {
       x = decycle(x)
       const out = {}
 
-      Object.keys(x)
-        .concat(Object.getOwnPropertySymbols(x))
-        .forEach(key => {
+      
+      forEach(
+        Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+        key => {
           out[key] = copy(x[key])
-        })
+        },
+      )
 
       return out
     } else {
@@ -66,7 +70,7 @@ export function decycle(x) {
         const subParts = parts.slice(0, parts.length - i - 1)
         let temp = orig
 
-        subParts.forEach(part => {
+        forEach(subParts, part => {
           temp = temp[part]
         })
 
@@ -91,13 +95,15 @@ export function decycle(x) {
           return x.slice()
         }
 
-        return x.map((v, i) => helper(v, checked, currentPath + "/" + i))
+        return map(x, (v, i) => helper(v, checked, currentPath + "/" + i))
       } else {
-        Object.keys(x)
-          .concat(Object.getOwnPropertySymbols(x))
-          .forEach(key => {
+        
+        forEach(
+          Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+          key => {
             x[key] = helper(x[key], checked, currentPath + "/" + key.toString())
-          })
+          },
+        )
 
         return x
       }

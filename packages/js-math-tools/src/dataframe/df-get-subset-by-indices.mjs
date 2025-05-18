@@ -1,8 +1,10 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isNumber } from "../is-number.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { isWholeNumber } from "../helpers/is-whole-number.mjs"
+import { map } from "../map.mjs"
 import { range } from "../range.mjs"
 import { shape } from "../shape.mjs"
 
@@ -34,7 +36,7 @@ function dfGetSubsetByIndices(df, rowIndices, colIndices) {
     "The `colIndices` array must contain at least one index.",
   )
 
-  rowIndices.forEach(rowIndex => {
+  forEach(rowIndices, rowIndex => {
     assert(
       isWholeNumber(rowIndex),
       "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
@@ -46,7 +48,7 @@ function dfGetSubsetByIndices(df, rowIndices, colIndices) {
     )
   })
 
-  colIndices.forEach(colIndex => {
+  forEach(colIndices, colIndex => {
     assert(
       isWholeNumber(colIndex),
       "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers.",
@@ -58,8 +60,8 @@ function dfGetSubsetByIndices(df, rowIndices, colIndices) {
     )
   })
 
-  const rows = rowIndices.map(i => df.index[i])
-  const cols = colIndices.map(i => df.columns[i])
+  const rows = map(rowIndices, i => df.index[i])
+  const cols = map(colIndices, i => df.columns[i])
   return df.getSubsetByNames(rows, cols)
 }
 

@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { ndarray } from "./ndarray.mjs"
 import { shape } from "./shape.mjs"
@@ -45,7 +46,7 @@ test("tests that arrays of any (non-jagged) shape can be created successfully", 
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => ndarray(item)).toThrow()
   })
 })

@@ -2,6 +2,7 @@ import { assert } from "../assert.mjs"
 import { isNumber } from "../is-number.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { set } from "../set.mjs"
 
 function dfGet(df, rows, cols) {
@@ -20,7 +21,7 @@ function dfGet(df, rows, cols) {
     }
   }
 
-  const types = set((rows || []).concat(cols || []).map(v => typeof v))
+  const types = set(map((rows || []).concat(cols || []), v => typeof v))
 
   assert(
     types.length <= 2,
@@ -47,7 +48,7 @@ function dfGet(df, rows, cols) {
   }
 
   if (!isUndefined(rows)) {
-    rows = rows.map(r => {
+    rows = map(rows, r => {
       if (isString(r)) {
         assert(df.index.indexOf(r) > -1, `Row "${r}" does not exist!`)
         return r
@@ -63,7 +64,7 @@ function dfGet(df, rows, cols) {
   }
 
   if (!isUndefined(cols)) {
-    cols = cols.map(c => {
+    cols = map(cols, c => {
       if (isString(c)) {
         assert(df.columns.indexOf(c) > -1, `Column "${c}" does not exist!`)
         return c

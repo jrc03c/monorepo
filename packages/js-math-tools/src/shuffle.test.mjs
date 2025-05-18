@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { seed } from "./random.mjs"
@@ -55,7 +56,7 @@ test("tests that arrays, Series, and DataFrames can be correctly shuffled", () =
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => shuffle(item)).toThrow()
   })
 })

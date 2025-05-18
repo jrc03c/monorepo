@@ -3,6 +3,7 @@ import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "../flatten.mjs"
 import { isEqual } from "../is-equal.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { normal } from "../normal.mjs"
 import { range } from "../range.mjs"
 import { set } from "../set.mjs"
@@ -118,7 +119,7 @@ test("tests DataFrame copying and index resetting", () => {
   expect(isEqual(df1, df2)).toBe(true)
   expect(df1 === df2).toBe(false)
 
-  df1.index = range(0, df1.shape[0]).map(() => Math.random().toString())
+  df1.index = map(range(0, df1.shape[0]), () => Math.random().toString())
   expect(isEqual(df1.index, df2.index)).toBe(false)
   df1 = df1.resetIndex()
   expect(isEqual(df1.index, df2.index)).toBe(true)
@@ -128,7 +129,7 @@ test("tests DataFrame mapping", () => {
   let df = new DataFrame(zeros([3, 3]))
 
   df = df.apply(col => {
-    return col.values.map((v, j) => {
+    return map(col.values, (v, j) => {
       return col.name + "/" + j
     })
   })
@@ -146,7 +147,7 @@ test("tests DataFrame mapping", () => {
   let df = new DataFrame(zeros([3, 3]))
 
   df = df.apply(row => {
-    return row.values.map((v, i) => {
+    return map(row.values, (v, i) => {
       return row.name + "/" + i
     })
   }, 1)

@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isObject } from "./is-object.mjs"
 
 test("tests that objects can be correctly identified", () => {
@@ -16,7 +17,7 @@ test("tests that objects can be correctly identified", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  rights.forEach(item => {
+  forEach(rights, item => {
     expect(isObject(item)).toBe(true)
   })
 
@@ -45,7 +46,7 @@ test("tests that objects can be correctly identified", () => {
     },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isObject(item)).toBe(false)
   })
 })

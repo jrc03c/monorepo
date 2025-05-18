@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { normal } from "./normal.mjs"
 
@@ -40,7 +41,7 @@ test("tests that dataframes can be identified correctly", () => {
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isDataFrame(item)).toBe(false)
   })
 })

@@ -1,6 +1,7 @@
 import { abs } from "./abs.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
@@ -47,7 +48,7 @@ test("tests that standard deviations can be correctly computed", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => std(item)).toThrow()
   })
 })

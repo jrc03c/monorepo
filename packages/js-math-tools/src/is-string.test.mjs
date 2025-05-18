@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isString } from "./is-string.mjs"
 
 test("checks to see if various things are strings", () => {
@@ -38,7 +39,7 @@ test("checks to see if various things are strings", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isString(item)).toBe(false)
   })
 })

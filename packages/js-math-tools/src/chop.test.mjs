@@ -2,7 +2,9 @@ import { chop } from "./chop.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { range } from "./range.mjs"
 import { reshape } from "./reshape.mjs"
 import { shuffle } from "./shuffle.mjs"
@@ -10,7 +12,10 @@ import { shuffle } from "./shuffle.mjs"
 test("tests that values can be chopped correctly", () => {
   const r = reshape(
     shuffle(
-      range(-40, 40).map(i => Math.pow(10, i) * (Math.random() < 0.5 ? -1 : 1)),
+      map(
+        range(-40, 40),
+        i => Math.pow(10, i) * (Math.random() < 0.5 ? -1 : 1),
+      ),
     ),
     [2, 4, 10],
   )
@@ -52,7 +57,7 @@ test("tests that values can be chopped correctly", () => {
     [
       r,
       reshape(
-        flatten(r).map(v => (Math.abs(v) < 1e-10 ? 0 : v)),
+        map(flatten(r), v => (Math.abs(v) < 1e-10 ? 0 : v)),
         [2, 4, 10],
       ),
     ],
@@ -60,7 +65,7 @@ test("tests that values can be chopped correctly", () => {
     [d, d.copy().apply(col => col.apply(v => (Math.abs(v) < 1e-10 ? 0 : v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(chop(pair[0]), pair[1])).toBe(true)
   })
 
@@ -79,7 +84,7 @@ test("tests that values can be chopped correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(chop(v)).toBeNaN()
   })
 

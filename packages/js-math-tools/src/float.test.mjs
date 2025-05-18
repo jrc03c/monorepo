@@ -2,12 +2,14 @@ import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { float } from "./float.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that values can be correctly cast to floats", () => {
-  const a = normal(100).map(v => v.toString())
-  const bTrue = a.map(v => parseFloat(v))
+  const a = map(normal(100), v => v.toString())
+  const bTrue = map(a, v => parseFloat(v))
   const bPred = float(a)
   expect(isEqual(bPred, bTrue)).toBe(true)
 
@@ -16,14 +18,14 @@ test("tests that values can be correctly cast to floats", () => {
   const dPred = float(c)
   expect(isEqual(dPred, dTrue)).toBe(true)
 
-  const e = new Series({ hello: normal(100).map(v => v.toString()) })
+  const e = new Series({ hello: map(normal(100), v => v.toString()) })
   const fTrue = e.copy().apply(v => parseFloat(v))
   const fPred = float(e)
   expect(isEqual(fPred, fTrue)).toBe(true)
 
   const g = new DataFrame({
-    foo: normal(100).map(v => v.toString()),
-    bar: normal(100).map(v => v.toString()),
+    foo: map(normal(100), v => v.toString()),
+    bar: map(normal(100), v => v.toString()),
   })
 
   const hTrue = g.copy().apply(col => col.apply(v => parseFloat(v)))
@@ -36,7 +38,7 @@ test("tests that values can be correctly cast to floats", () => {
 
   const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity]
 
-  rights.forEach(item => {
+  forEach(rights, item => {
     expect(float(item.toString())).toBe(item)
   })
 
@@ -55,7 +57,7 @@ test("tests that values can be correctly cast to floats", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(float(item)).toBeNaN()
   })
 })

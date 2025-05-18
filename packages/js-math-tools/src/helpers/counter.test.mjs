@@ -1,6 +1,7 @@
 import { Counter } from "./counter.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "../is-equal.mjs"
+import { map } from "../map.mjs"
 import { set } from "../set.mjs"
 
 test("tests that the `Counter` class works as expected", () => {
@@ -39,9 +40,7 @@ test("tests that the `Counter` class works as expected", () => {
   expect(
     isEqual(
       counter.counts.toSorted(),
-      set(x)
-        .map(v => counter.get(v))
-        .toSorted(),
+      map(set(x), v => counter.get(v)).toSorted(),
     ),
   ).toBe(true)
 

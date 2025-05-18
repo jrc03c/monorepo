@@ -1,4 +1,5 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isJagged } from "./is-jagged.mjs"
@@ -6,7 +7,7 @@ import { isSeries } from "./is-series.mjs"
 import { shape } from "./shape.mjs"
 
 function print() {
-  Object.keys(arguments).forEach(key => {
+  forEach(Object.keys(arguments), key => {
     const x = arguments[key]
 
     if (isArray(x)) {

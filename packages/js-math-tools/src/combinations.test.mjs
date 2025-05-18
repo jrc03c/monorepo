@@ -1,13 +1,15 @@
 import { combinations, combinationsIterator } from "./combinations.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { factorial } from "./factorial.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
+import { map } from "./map.mjs"
 import { range } from "./range.mjs"
 import { set } from "./set.mjs"
 import { sort } from "./sort.mjs"
 
 function turnIntoStrings(arr) {
-  return arr.map(item => JSON.stringify(item))
+  return map(arr, item => JSON.stringify(item))
 }
 
 function getNumberOfCombinations(arr, r) {
@@ -69,7 +71,7 @@ test("tests that the combinations function works as expected", () => {
     [() => {}, 3],
   ]
 
-  failures.forEach(f => {
+  forEach(failures, f => {
     expect(() => {
       combinations(f[0], f[1])
     }).toThrow()

@@ -1,8 +1,11 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropMissing } from "./drop-missing.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { filter } from "./filter.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 
@@ -42,18 +45,18 @@ test("tests that missing values can be dropped correctly", () => {
   const ePred = dropMissing(d)
   expect(isEqual(ePred, eTrue)).toBe(true)
 
-  const f = new Series(normal(100).map(v => (random() < 0.5 ? null : v)))
-  const gTrue = new Series(f.values.filter(v => !isUndefined(v)))
+  const f = new Series(map(normal(100), v => (random() < 0.5 ? null : v)))
+  const gTrue = new Series(filter(f.values, v => !isUndefined(v)))
   const gPred = dropMissing(f)
   gTrue._index = gPred._index
   expect(isEqual(gPred, gTrue)).toBe(true)
 
   const g = new DataFrame(
-    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? null : v))),
+    map(normal([10, 10]), row => map(row, v => (random() < 0.05 ? null : v))),
   )
 
   const hTrue = new DataFrame(
-    g.values.filter(row => row.every(v => !isUndefined(v))),
+    filter(g.values, row => row.every(v => !isUndefined(v))),
   )
 
   const hPred = dropMissing(g)
@@ -81,7 +84,7 @@ test("tests that missing values can be dropped correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => dropMissing(item)).toThrow()
   })
 })

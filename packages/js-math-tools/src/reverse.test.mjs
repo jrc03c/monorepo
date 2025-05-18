@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
@@ -49,7 +50,7 @@ test("tests that arrays can be correctly reversed", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => reverse(item)).toThrow()
   })
 })

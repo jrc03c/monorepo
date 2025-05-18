@@ -1,4 +1,5 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isJagged } from "../is-jagged.mjs"
 import { isObject } from "../is-object.mjs"
@@ -34,11 +35,11 @@ function dfAssign(DataFrame, Series, df, p1, p2) {
     if (out.columns.includes(p1)) {
       const index = out.columns.indexOf(p1)
       out.columns[index] = p1
-      out.values.forEach((v, i) => (v[index] = p2[i]))
+      forEach(out.values, (v, i) => (v[index] = p2[i]))
       return out
     } else {
       out._columns.push(p1)
-      out._values.forEach((v, i) => v.push(p2[i]))
+      forEach(out._values, (v, i) => v.push(p2[i]))
       return out
     }
   } else {

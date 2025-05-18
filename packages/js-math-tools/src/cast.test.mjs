@@ -3,6 +3,7 @@ import { cast } from "./cast.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { int } from "./int.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { max } from "./max.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
@@ -32,7 +33,7 @@ test("tests that the `cast` function correctly casts values into their specified
   // booleans
   const bTrue = []
 
-  const a = range(0, 100).map(() => {
+  const a = map(range(0, 100), () => {
     // true values
     if (random() < 0.5) {
       const possibleValues = [
@@ -76,7 +77,7 @@ test("tests that the `cast` function correctly casts values into their specified
   // dates
   const dTrue = []
 
-  const c = range(0, 100).map(() => {
+  const c = map(range(0, 100), () => {
     const date = new Date(int(random() * new Date().getTime()))
     dTrue.push(date)
     const r = random()
@@ -92,11 +93,11 @@ test("tests that the `cast` function correctly casts values into their specified
 
   const dPred = cast(c, "date")
   const twentyFourHours = 24 * 60 * 60 * 1000
-  const dDiff = dTrue.map((v1, i) => v1 - dPred[i])
+  const dDiff = map(dTrue, (v1, i) => v1 - dPred[i])
   expect(max(abs(dDiff))).toBeLessThan(twentyFourHours)
 
   // nulls
-  const e = range(0, 100).map(() => {
+  const e = map(range(0, 100), () => {
     const possibleValues = [
       "null",
       "none",
@@ -112,14 +113,14 @@ test("tests that the `cast` function correctly casts values into their specified
     return possibleValues[int(random() * possibleValues.length)]
   })
 
-  const fTrue = range(0, 100).map(() => null)
+  const fTrue = map(range(0, 100), () => null)
   const fPred = cast(e, "null")
   expect(isEqual(fPred, fTrue)).toBe(true)
 
   // numbers
   const hTrue = []
 
-  const g = range(0, 100).map(() => {
+  const g = map(range(0, 100), () => {
     const r = normal() * 1000
     hTrue.push(r)
     return random() < 0.5 ? r : r.toString()
@@ -143,7 +144,7 @@ test("tests that the `cast` function correctly casts values into their specified
   // object
   const jTrue = []
 
-  const i = range(0, 100).map(() => {
+  const i = map(range(0, 100), () => {
     const obj = {
       x: random(),
       y: random(),
@@ -157,8 +158,8 @@ test("tests that the `cast` function correctly casts values into their specified
   expect(isEqual(jPred, jTrue)).toBe(true)
 
   // strings
-  const k = range(0, 100).map(() => random().toString())
-  const lTrue = k.map(v => v.toString())
+  const k = map(range(0, 100), () => random().toString())
+  const lTrue = map(k, v => v.toString())
   const lPred = cast(k, "string")
   expect(isEqual(lPred, lTrue)).toBe(true)
 })

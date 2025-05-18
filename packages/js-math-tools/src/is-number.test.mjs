@@ -1,11 +1,12 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isNumber } from "./is-number.mjs"
 
 test("checks to see if various things are numbers", () => {
   const rights = [0, 1, 2.3, -2.3, Infinity, -Infinity, Math.PI, 234n, -234n]
 
-  rights.forEach(item => {
+  forEach(rights, item => {
     expect(isNumber(item)).toBe(true)
   })
 
@@ -35,7 +36,7 @@ test("checks to see if various things are numbers", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isNumber(item)).toBe(false)
   })
 })

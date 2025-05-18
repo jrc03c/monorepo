@@ -2,6 +2,7 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { max } from "./max.mjs"
 import { min } from "./min.mjs"
 import { normal } from "./normal.mjs"
@@ -23,7 +24,7 @@ test("tests that values can be remapped correctly from one range to another", ()
   expect(
     isEqual(
       remap(a, b, c, d, e),
-      a.map(v => remap(v, b, c, d, e)),
+      map(a, v => remap(v, b, c, d, e)),
     ),
   ).toBe(true)
 
@@ -38,22 +39,22 @@ test("tests that values can be remapped correctly from one range to another", ()
   expect(
     isEqual(
       remap(f, g, h, i, j),
-      reshape(remap(...[f, g, h, i, j].map(flatten)), [2, 3, 4, 5]),
+      reshape(remap(...map([f, g, h, i, j], flatten)), [2, 3, 4, 5]),
     ),
   )
 
-  const series = range(0, 5).map(() => new Series(normal(100)))
+  const series = map(range(0, 5), () => new Series(normal(100)))
 
   expect(
-    isEqual(remap(...series), new Series(remap(...series.map(s => s.values)))),
+    isEqual(remap(...series), new Series(remap(...map(series, s => s.values)))),
   ).toBe(true)
 
-  const dataframes = range(0, 5).map(() => new DataFrame(normal([10, 10])))
+  const dataframes = map(range(0, 5), () => new DataFrame(normal([10, 10])))
 
   expect(
     isEqual(
       remap(...dataframes),
-      new DataFrame(remap(...dataframes.map(v => v.values))),
+      new DataFrame(remap(...map(dataframes, v => v.values))),
     ),
   )
 
@@ -62,7 +63,7 @@ test("tests that values can be remapped correctly from one range to another", ()
   const kMax = max(k)
 
   const lTrue = reshape(
-    flatten(k).map(v => remap(v, kMin, kMax, 50, 100)),
+    map(flatten(k), v => remap(v, kMin, kMax, 50, 100)),
     [2, 3, 4, 5],
   )
 
@@ -93,7 +94,8 @@ test("tests that values can be remapped correctly from one range to another", ()
   ]
 
   for (let i = 0; i < 100; i++) {
-    const vals = range(0, 5).map(
+    const vals = map(
+      range(0, 5),
       () => wrongs[parseInt(Math.random() * wrongs.length)],
     )
 

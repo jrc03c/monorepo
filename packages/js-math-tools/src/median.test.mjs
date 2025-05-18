@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { median } from "./median.mjs"
 import { normal } from "./normal.mjs"
 import { shuffle } from "./shuffle.mjs"
@@ -54,7 +55,7 @@ test("tests that the median of arrays, series, and dataframes can be computed co
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => median(item)).toThrow()
   })
 })

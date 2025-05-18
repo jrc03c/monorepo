@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isDate } from "./is-date.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
@@ -8,7 +9,7 @@ import { round } from "./round.mjs"
 test("tests that dates can be identified correctly", () => {
   expect(isDate(new Date())).toBe(true)
 
-  range(0, 100).forEach(() => {
+  forEach(range(0, 100), () => {
     const d = new Date(round(normal() * 10e13))
     expect(isDate(d)).toBe(true)
   })
@@ -47,7 +48,7 @@ test("tests that dates can be identified correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(value => {
+  forEach(wrongs, value => {
     expect(isDate(value)).toBe(false)
   })
 })

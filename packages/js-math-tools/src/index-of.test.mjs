@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { indexOf } from "./index-of.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
@@ -61,7 +62,7 @@ test("tests that the indices of items can be found correctly", () => {
     },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => indexOf(item, () => true)).toThrow()
   })
 })

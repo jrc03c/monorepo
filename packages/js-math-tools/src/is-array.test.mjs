@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { normal } from "./normal.mjs"
 
@@ -22,7 +23,7 @@ test("tests that arrays can be identified correctly", () => {
     sub,
   ]
 
-  rights.forEach(item => {
+  forEach(rights, item => {
     expect(isArray(item)).toBe(true)
   })
 
@@ -49,7 +50,7 @@ test("tests that arrays can be identified correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isArray(item)).toBe(false)
   })
 })
@@ -72,7 +73,7 @@ test("tests that typed arrays are also recognized as arrays", () => {
   const buffer = new ArrayBuffer(256)
   expect(isArray(buffer)).toBe(true)
 
-  types.forEach(T => {
+  forEach(types, T => {
     const x = new T(buffer)
     expect(isArray(x)).toBe(true)
   })

@@ -1,4 +1,5 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isNumber } from "../is-number.mjs"
 import { isString } from "../is-string.mjs"
@@ -33,14 +34,14 @@ function dfDrop(DataFrame, Series, df, rows, cols) {
 
   let outIndex, outColumns
 
-  df.index.forEach((row, i) => {
+  forEach(df.index, (row, i) => {
     if (rows.indexOf(row) < 0 && rows.indexOf(i) < 0) {
       if (!outIndex) outIndex = []
       outIndex.push(row)
     }
   })
 
-  df.columns.forEach((col, i) => {
+  forEach(df.columns, (col, i) => {
     if (cols.indexOf(col) < 0 && cols.indexOf(i) < 0) {
       if (!outColumns) outColumns = []
       outColumns.push(col)

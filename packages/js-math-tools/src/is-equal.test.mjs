@@ -1,6 +1,7 @@
 import { copy } from "./copy.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 
 test("tests equality of primitives", () => {
@@ -40,7 +41,7 @@ test("tests equality of primitives", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  variables.forEach(item => {
+  forEach(variables, item => {
     const clone = copy(item)
     expect(isEqual(item, clone)).toBe(true)
 

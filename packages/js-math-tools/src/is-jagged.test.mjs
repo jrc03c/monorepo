@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isJagged } from "./is-jagged.mjs"
 import { normal } from "./normal.mjs"
 
@@ -49,7 +50,7 @@ test("tests that jagged arrays can be identified correctly", () => {
     // selfReferencer,
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isJagged(item)).toBe(false)
   })
 })

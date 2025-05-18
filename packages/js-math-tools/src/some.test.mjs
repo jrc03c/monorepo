@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isFunction } from "./is-function.mjs"
@@ -81,8 +82,8 @@ test("tests that the `some` function works as expected", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(v1 => {
-    wrongs.forEach(v2 => {
+  forEach(wrongs, v1 => {
+    forEach(wrongs, v2 => {
       if (
         (!isArray(v1) && !isDataFrame(v1) && !isSeries(v1)) ||
         !isFunction(v2)

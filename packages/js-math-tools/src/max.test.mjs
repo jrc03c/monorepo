@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { max } from "./max.mjs"
 import { normal } from "./normal.mjs"
 
@@ -48,7 +49,7 @@ test("tests that the maximum value in arrays, series, and dataframes can be foun
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => max(item)).toThrow()
   })
 })

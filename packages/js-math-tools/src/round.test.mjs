@@ -1,6 +1,7 @@
 import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { round } from "./round.mjs"
@@ -46,7 +47,7 @@ test("tests that values can be rounded correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(round(item)).toBeNaN()
   })
 })

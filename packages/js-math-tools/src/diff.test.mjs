@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { diff } from "./diff.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { range } from "./range.mjs"
 import { reshape } from "./reshape.mjs"
@@ -47,7 +48,7 @@ test("tests that the differences of sets can be computed correctly", () => {
     ],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => diff(pair[0], pair[1])).toThrow()
   })
 
@@ -76,8 +77,8 @@ test("tests that the differences of sets can be computed correctly", () => {
 
   let temp = []
 
-  variables.forEach(v => {
-    range(0, Math.random() * 10 + 5).forEach(() => {
+  forEach(variables, v => {
+    forEach(range(0, Math.random() * 10 + 5), () => {
       temp.push(v)
     })
   })

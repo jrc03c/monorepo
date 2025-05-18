@@ -2,6 +2,7 @@ import { DataFrame, Series } from "../dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { isEqual } from "../is-equal.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { normal } from "../normal.mjs"
 import { range } from "../range.mjs"
 import { scale } from "../scale.mjs"
@@ -45,7 +46,7 @@ test("tests Series stuff", () => {
 
   const series5 = new Series(["a", "b", "c", "b", "a"])
   series5.name = "foo"
-  series5.index = series5.index.map((row, i) => "foo" + i)
+  series5.index = map(series5.index, (row, i) => "foo" + i)
 
   const yPred = series5.getDummies()
 
@@ -55,7 +56,7 @@ test("tests Series stuff", () => {
     foo_c: [0, 0, 1, 0, 0],
   })
 
-  yTrue.index = yTrue.index.map((row, i) => "foo" + i)
+  yTrue.index = map(yTrue.index, (row, i) => "foo" + i)
 
   expect(
     isEqual(
@@ -68,7 +69,7 @@ test("tests Series stuff", () => {
 
   const series6 = new Series(["foo", true, false, null, 1, 0, -1, {}, () => {}])
   series6.name = "Blah"
-  series6.index = series6.values.map((v, i) => "b" + i)
+  series6.index = map(series6.values, (v, i) => "b" + i)
 
   const series7 = series6.dropNaN()
   expect(isEqual(series7.values, [1, 0, -1]))

@@ -1,4 +1,5 @@
 import { assert } from "./assert.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
@@ -16,7 +17,7 @@ function dropMissing(x) {
 
   const out = []
 
-  x.forEach(v => {
+  forEach(x, v => {
     try {
       return out.push(dropMissing(v))
     } catch (e) {

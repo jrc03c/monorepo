@@ -1,4 +1,5 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isFunction } from "../is-function.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { sort } from "../sort.mjs"
@@ -21,7 +22,7 @@ function seriesSort(Series, series, fn) {
   const newValues = []
   const newIndex = []
 
-  temp.forEach(pair => {
+  forEach(temp, pair => {
     newValues.push(pair[0])
     newIndex.push(pair[1])
   })

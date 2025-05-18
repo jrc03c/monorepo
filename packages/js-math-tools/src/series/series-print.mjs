@@ -1,4 +1,5 @@
 import { copy } from "../copy.mjs"
+import { forEach } from "../for-each.mjs"
 import { range } from "../range.mjs"
 
 function seriesPrint(series) {
@@ -21,7 +22,7 @@ function seriesPrint(series) {
 
   const out = {}
 
-  temp.values.forEach((value, i) => {
+  forEach(temp.values, (value, i) => {
     const obj = {}
     obj[temp.name] = value
     out[temp.index[i]] = obj

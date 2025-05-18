@@ -1,9 +1,12 @@
 import { expect, test } from "@jrc03c/fake-jest"
+import { filter } from "./filter.mjs"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { IndexMatcher } from "./index-matcher.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { Series, DataFrame } from "./dataframe/index.mjs"
@@ -23,16 +26,16 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(isEqual(bPred, bTrue)).toBe(true)
 
   const c = new Series({
-    hello: normal(100).map(v => (Math.random() < 0.05 ? null : v)),
+    hello: map(normal(100), v => (Math.random() < 0.05 ? null : v)),
   })
 
   const d = new Series({
-    goodbye: normal(100).map(v => (Math.random() < 0.05 ? null : v)),
+    goodbye: map(normal(100), v => (Math.random() < 0.05 ? null : v)),
   })
 
   const eTrue = [
-    c.filter((v, i) => !isUndefined(v) && !isUndefined(d.values[i])),
-    d.filter((v, i) => !isUndefined(v) && !isUndefined(c.values[i])),
+    filter(c, (v, i) => !isUndefined(v) && !isUndefined(d.values[i])),
+    filter(d, (v, i) => !isUndefined(v) && !isUndefined(c.values[i])),
   ]
 
   const ePred = new IndexMatcher(
@@ -42,22 +45,24 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(isEqual(ePred, eTrue)).toBe(true)
 
   const f = new DataFrame({
-    foo: normal(100).map(v => (Math.random() < 0.1 ? "yes" : v)),
-    bar: normal(100).map(v => (Math.random() < 0.1 ? "no" : v)),
+    foo: map(normal(100), v => (Math.random() < 0.1 ? "yes" : v)),
+    bar: map(normal(100), v => (Math.random() < 0.1 ? "no" : v)),
   })
 
   const g = new DataFrame({
-    baz: normal(100).map(v => (Math.random() < 0.1 ? "hi" : v)),
-    goodbye: normal(100).map(v => (Math.random() < 0.1 ? "bye" : v)),
+    baz: map(normal(100), v => (Math.random() < 0.1 ? "hi" : v)),
+    goodbye: map(normal(100), v => (Math.random() < 0.1 ? "bye" : v)),
   })
 
   const hTrue1 = [
-    f.filter(
+    filter(
+      f,
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
         g.values[i].every(v => !isUndefined(v)),
     ),
-    g.filter(
+    filter(
+      g,
       (row, i) =>
         row.values.every(v => !isUndefined(v)) &&
         f.values[i].every(v => !isUndefined(v)),
@@ -71,11 +76,13 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(isEqual(hPred1, hTrue1)).toBe(true)
 
   const hTrue2 = [
-    f.filter(
+    filter(
+      f,
       (row, i) =>
         row.values.every(v => !isNaN(v)) && g.values[i].every(v => !isNaN(v)),
     ),
-    g.filter(
+    filter(
+      g,
       (row, i) =>
         row.values.every(v => !isNaN(v)) && f.values[i].every(v => !isNaN(v)),
     ),
@@ -85,16 +92,22 @@ test("tests that indices in Series and DataFrames can be correctly matched after
 
   expect(isEqual(hPred2, hTrue2)).toBe(true)
 
-  const iBigInts = new Series(normal(100).map(v => BigInt(Math.round(v * 100))))
+  const iBigInts = new Series(
+    map(normal(100), v => BigInt(Math.round(v * 100))),
+  )
+
   iBigInts.values[0] = null
 
-  const jBigInts = new Series(normal(100).map(v => BigInt(Math.round(v * 100))))
+  const jBigInts = new Series(
+    map(normal(100), v => BigInt(Math.round(v * 100))),
+  )
+
   jBigInts.values[1] = null
 
-  const iFloats = new Series(iBigInts.values.map(v => Number(v)))
+  const iFloats = new Series(map(iBigInts.values, v => Number(v)))
   iFloats.values[0] = null
 
-  const jFloats = new Series(jBigInts.values.map(v => Number(v)))
+  const jFloats = new Series(map(jBigInts.values, v => Number(v)))
   jFloats.values[1] = null
 
   const [iBigIntsTransformed, jBigIntsTransformed] = new IndexMatcher(
@@ -119,14 +132,14 @@ test("tests that indices in Series and DataFrames can be correctly matched after
 
   expect(
     isEqual(
-      iBigIntsTransformed.values.map(v => Number(v)),
+      map(iBigIntsTransformed.values, v => Number(v)),
       iFloatsTransformed.values,
     ),
   ).toBe(true)
 
   expect(
     isEqual(
-      jBigIntsTransformed.values.map(v => Number(v)),
+      map(jBigIntsTransformed.values, v => Number(v)),
       jFloatsTransformed.values,
     ),
   ).toBe(true)
@@ -139,9 +152,10 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(
     isEqual(
       new IndexMatcher().fitAndTransform(k, m),
-      new IndexMatcher()
-        .fitAndTransform(new Series(k), new Series(m))
-        .map(v => v.values),
+      map(
+        new IndexMatcher().fitAndTransform(new Series(k), new Series(m)),
+        v => v.values,
+      ),
     ),
   ).toBe(true)
 
@@ -155,9 +169,10 @@ test("tests that indices in Series and DataFrames can be correctly matched after
   expect(
     isEqual(
       [q, r],
-      new IndexMatcher()
-        .fitAndTransform(new DataFrame(n), new DataFrame(p))
-        .map(v => v.values),
+      map(
+        new IndexMatcher().fitAndTransform(new DataFrame(n), new DataFrame(p)),
+        v => v.values,
+      ),
     ),
   ).toBe(true)
 
@@ -194,8 +209,9 @@ test("tests that indices in Series and DataFrames can be correctly matched after
     { hello: "world" },
   ]
 
-  range(0, 100).forEach(() => {
-    const vars = range(0, Math.random() * 10 + 5).map(
+  forEach(range(0, 100), () => {
+    const vars = map(
+      range(0, Math.random() * 10 + 5),
       () => wrongs[parseInt(Math.random() * wrongs.length)],
     )
 

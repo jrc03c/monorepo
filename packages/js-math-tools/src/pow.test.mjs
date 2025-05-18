@@ -1,7 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { pow } from "./pow.mjs"
 import { reshape } from "./reshape.mjs"
@@ -16,7 +18,7 @@ test("tests that values raised to powers can be computed correctly", () => {
   const b = normal([2, 3, 4, 5])
   const aFlat = flatten(a)
   const bFlat = flatten(b)
-  const cFlat = aFlat.map((v, i) => Math.pow(v, bFlat[i]))
+  const cFlat = map(aFlat, (v, i) => Math.pow(v, bFlat[i]))
   const cTrue = reshape(cFlat, [2, 3, 4, 5])
   const cPred = pow(a, b)
   expect(isEqual(cPred, cTrue)).toBe(true)
@@ -54,8 +56,8 @@ test("tests that values raised to powers can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(pow(a, b)).toBeNaN()
     })
   })

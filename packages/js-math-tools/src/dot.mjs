@@ -3,6 +3,7 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
+import { map } from "./map.mjs"
 import { scale } from "./scale.mjs"
 import { shape } from "./shape.mjs"
 import { sum } from "./sum.mjs"
@@ -75,9 +76,9 @@ function dot(a, b) {
   if (aShape.length === 1 && bShape.length === 1) {
     return sum(scale(a, b))
   } else if (aShape.length === 1 && bShape.length === 2) {
-    return transpose(b).map(col => dot(a, col))
+    return map(transpose(b), col => dot(a, col))
   } else if (aShape.length === 2 && bShape.length === 1) {
-    return a.map(row => dot(row, b))
+    return map(a, row => dot(row, b))
   } else if (aShape.length === 2 && bShape.length === 2) {
     const bTranspose = transpose(b)
     const out = []

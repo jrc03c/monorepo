@@ -5,6 +5,7 @@ import { isDataFrame } from "./is-dataframe.mjs"
 import { isNaturalNumber } from "./helpers/is-natural-number.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isSeries } from "./is-series.mjs"
+import { map } from "./map.mjs"
 import { product } from "./product.mjs"
 import { shape } from "./shape.mjs"
 
@@ -30,7 +31,7 @@ function reshape(x, newShape) {
     "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!",
   )
 
-  newShape = newShape.map(v => {
+  newShape = map(newShape, v => {
     if (typeof v === "bigint") {
       v = Number(v)
     }

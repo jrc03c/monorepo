@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { normal } from "./normal.mjs"
 import { reshape } from "./reshape.mjs"
 import { shape } from "./shape.mjs"
@@ -47,11 +48,11 @@ test("tests that arrays can be reshaped correctly", () => {
 
   const x = normal(100)
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => reshape(x, item)).toThrow()
   })
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => reshape(item, [2, 3, 4])).toThrow()
   })
 })

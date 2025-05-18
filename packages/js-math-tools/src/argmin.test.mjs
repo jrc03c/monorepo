@@ -1,6 +1,7 @@
 import { argmin } from "./argmin.mjs"
-import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { shuffle } from "./shuffle.mjs"
@@ -14,8 +15,8 @@ test("gets the argmin of various kinds of containers", () => {
   let minCol = 0
   let min = Infinity
 
-  b.forEach((row, i) => {
-    row.forEach((v, j) => {
+  forEach(b, (row, i) => {
+    forEach(row, (v, j) => {
       if (v < min) {
         min = v
         minRow = i
@@ -34,8 +35,8 @@ test("gets the argmin of various kinds of containers", () => {
   minCol = 0
   min = Infinity
 
-  d.values.forEach((row, i) => {
-    row.forEach((v, j) => {
+  forEach(d.values, (row, i) => {
+    forEach(row, (v, j) => {
       if (v < min) {
         min = v
         minRow = i
@@ -75,7 +76,7 @@ test("gets the argmin of various kinds of containers", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(() => argmin(v)).toThrow()
   })
 })

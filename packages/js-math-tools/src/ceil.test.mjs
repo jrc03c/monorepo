@@ -1,7 +1,9 @@
 import { ceil } from "./ceil.mjs"
-import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that the ceiling of various values can be computed correctly", () => {
@@ -22,12 +24,12 @@ test("tests that the ceiling of various values can be computed correctly", () =>
     ],
     [Infinity, Infinity],
     [-Infinity, -Infinity],
-    [r, r.map(row => row.map(v => Math.ceil(v)))],
+    [r, map(r, row => map(row, v => Math.ceil(v)))],
     [s, s.copy().apply(v => Math.ceil(v))],
     [d, d.copy().apply(col => col.apply(v => Math.ceil(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(ceil(pair[0]), pair[1])).toBe(true)
   })
 
@@ -46,7 +48,7 @@ test("tests that the ceiling of various values can be computed correctly", () =>
     { hello: "world" },
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(ceil(v)).toBeNaN()
   })
 })

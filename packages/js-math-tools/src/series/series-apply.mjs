@@ -1,5 +1,6 @@
 import { assert } from "../assert.mjs"
 import { isFunction } from "../is-function.mjs"
+import { map } from "../map.mjs"
 
 function seriesApply(series, fn) {
   assert(
@@ -8,7 +9,7 @@ function seriesApply(series, fn) {
   )
 
   const out = series.copy()
-  out._values = out._values.map((v, i) => fn(v, i))
+  out._values = map(out._values, (v, i) => fn(v, i))
   return out
 }
 

@@ -1,9 +1,12 @@
 import { assert } from "../assert.mjs"
 import { copy } from "../copy.mjs"
+import { filter } from "../filter.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { leftPad } from "../helpers/left-pad.mjs"
+import { map } from "../map.mjs"
 import { range } from "../range.mjs"
 import { reverse } from "../reverse.mjs"
 import { seriesAppend } from "./series-append.mjs"
@@ -73,7 +76,7 @@ function createSeriesClass(DataFrame) {
             this._index = this._index.slice(0, dataShape[0])
           } else if (dataShape[0] > this._index.length) {
             this._index = this._index.concat(
-              range(this._index.length, dataShape[0]).map(i => {
+              map(range(this._index.length, dataShape[0]), i => {
                 return "item" + leftPad(i, (x.length - 1).toString().length)
               }),
             )
@@ -114,7 +117,7 @@ function createSeriesClass(DataFrame) {
             "The new index must be a 1-dimensional array of strings!",
           )
 
-          x.forEach(value => {
+          forEach(x, value => {
             assert(isString(value), "All of the row names must be strings!")
           })
 
@@ -137,9 +140,10 @@ function createSeriesClass(DataFrame) {
 
           this.values = data
         } else if (data instanceof Object) {
-          const keys = Object.keys(data)
-            .concat(Object.getOwnPropertySymbols(data))
-            .map(v => v.toString())
+          const keys = map(
+            Object.keys(data).concat(Object.getOwnPropertySymbols(data)),
+            v => v.toString(),
+          )
 
           assert(
             keys.length === 1,
@@ -169,13 +173,13 @@ function createSeriesClass(DataFrame) {
     }
 
     get isEmpty() {
-      return this.values.filter(v => !isUndefined(v)).length === 0
+      return filter(this.values, v => !isUndefined(v)).length === 0
     }
 
     clear() {
       const out = this.copy()
 
-      out.values.forEach((v, i) => {
+      forEach(out.values, (v, i) => {
         out.values[i] = undefined
       })
 
@@ -212,7 +216,7 @@ function createSeriesClass(DataFrame) {
     resetIndex() {
       const out = this.copy()
 
-      out.index = range(0, this.shape[0]).map(i => {
+      out.index = map(range(0, this.shape[0]), i => {
         return "item" + leftPad(i, (out.index.length - 1).toString().length)
       })
 

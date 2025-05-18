@@ -1350,7 +1350,7 @@ Note that for all of the above, "arbitrarily nested array" typically means a _no
 
 ## Random numbers
 
-The PRNG (pseudo-random number generator) implemented in this library uses the [xoroshiro256++](https://prng.di.unimi.it/) algorithm, in case that matters to you. To seed the PRNG, pass a number into the `seed` function. Large integers tend to do better than small ones. The `random`, `normal`, and `shuffle` functions can all be seeded. For example:
+The PRNG (pseudo-random number generator) implemented in this library uses the [xoshiro256++](https://prng.di.unimi.it/) algorithm, in case that matters to you. To seed the PRNG, pass a number into the `seed` function. Large integers tend to do better than small ones. The `random`, `normal`, and `shuffle` functions can all be seeded. For example:
 
 ```js
 const { random, seed } = require("js-math-tools")

@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { intersect } from "./intersect.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { range } from "./range.mjs"
@@ -40,7 +41,7 @@ test("tests that the intersections of sets can be computed correctly", () => {
     ],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => intersect(pair[0], pair[1])).toThrow()
   })
 })

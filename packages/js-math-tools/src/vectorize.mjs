@@ -1,10 +1,13 @@
 import { assert } from "./assert.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { filter } from "./filter.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isFunction } from "./is-function.mjs"
 import { isSeries } from "./is-series.mjs"
+import { map } from "./map.mjs"
 import { max } from "./max.mjs"
 import { range } from "./range.mjs"
 import { shape } from "./shape.mjs"
@@ -20,27 +23,31 @@ function vectorize(fn) {
     const series = []
     const dataframes = []
 
-    const childArrays = Object.keys(arguments)
-      .filter(key => {
-        const arg = arguments[key]
+    const childArrays = map(
+      filter(
+        Object.keys(arguments),
+        key => {
+          const arg = arguments[key]
 
-        if (isArray(arg)) {
-          return true
-        } else if (isSeries(arg)) {
-          hasSeries = true
-          series.push(arg)
-          return true
-        } else if (isDataFrame(arg)) {
-          hasDataFrames = true
-          dataframes.push(arg)
-          return true
-        } else {
-          return false
-        }
-      })
-      .map(key => arguments[key])
+          if (isArray(arg)) {
+            return true
+          } else if (isSeries(arg)) {
+            hasSeries = true
+            series.push(arg)
+            return true
+          } else if (isDataFrame(arg)) {
+            hasDataFrames = true
+            dataframes.push(arg)
+            return true
+          } else {
+            return false
+          }
+        },
+      ),
+      key => arguments[key],
+    )
 
-    childArrays.slice(0, -1).forEach((s, i) => {
+    forEach(childArrays.slice(0, -1), (s, i) => {
       assert(
         isEqual(
           isArray(s) ? shape(s) : s.shape,
@@ -54,11 +61,11 @@ function vectorize(fn) {
 
     if (childArrays.length > 0) {
       const maxLength = max(
-        childArrays.map(a => (a.length ? a.length : a.values.length)),
+        map(childArrays, a => (a.length ? a.length : a.values.length)),
       )
 
-      const out = range(0, maxLength).map(i => {
-        const args = Object.keys(arguments).map(key => {
+      const out = map(range(0, maxLength), i => {
+        const args = map(Object.keys(arguments), key => {
           if (isArray(arguments[key])) {
             return arguments[key][i]
           } else if (isSeries(arguments[key])) {

@@ -1,7 +1,9 @@
 import { arcsin } from "./arcsin.mjs"
-import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 
@@ -18,12 +20,12 @@ test("tests that the inverse sine can be computed correctly", () => {
     [1, Math.asin(1)],
     [0n, Math.asin(0)],
     [1n, Math.asin(1)],
-    [r, r.map(row => row.map(v => Math.asin(v)))],
+    [r, map(r, row => map(row, v => Math.asin(v)))],
     [s, s.copy().apply(v => Math.asin(v))],
     [d, d.copy().apply(col => col.apply(v => Math.asin(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(arcsin(pair[0]), pair[1])).toBe(true)
   })
 
@@ -53,7 +55,7 @@ test("tests that the inverse sine can be computed correctly", () => {
         [NaN, NaN, NaN],
       ],
     ],
-    [random(100).map(v => v * 100 + 100), random(100).map(() => NaN)],
+    [map(random(100), v => v * 100 + 100), map(random(100), () => NaN)],
     [x => x, NaN],
     [
       function (x) {
@@ -75,7 +77,7 @@ test("tests that the inverse sine can be computed correctly", () => {
     ],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(isEqual(arcsin(pair[0]), pair[1])).toBe(true)
   })
 })

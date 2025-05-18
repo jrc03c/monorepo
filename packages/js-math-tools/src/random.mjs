@@ -3,11 +3,12 @@ import { copy } from "./copy.mjs"
 import { isArray } from "./is-array.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 import { ndarray } from "./ndarray.mjs"
 import { product } from "./product.mjs"
 import { reshape } from "./reshape.mjs"
 
-// This is an implementation of the xoroshiro256++ algorithm:
+// This is an implementation of the xoshiro256++ algorithm:
 // https://prng.di.unimi.it/xoshiro256plusplus.c
 // It also includes the splitmix64 function for seeding from:
 // https://rosettacode.org/wiki/Pseudo-random_numbers/Splitmix64
@@ -78,7 +79,7 @@ function next() {
 export function random(shape) {
   if (isUndefined(shape)) return next()
   if (!isArray(shape)) shape = [shape]
-  return reshape(ndarray(product(shape)).map(next), shape)
+  return reshape(map(ndarray(product(shape)), next), shape)
 }
 
 // export { { random, seed } }

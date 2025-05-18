@@ -1,37 +1,39 @@
 import { add } from "./add.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { print } from "./print.mjs"
 
 test("tests that values can be added together correctly", () => {
   const a = normal(100)
   const b = normal(100)
-  const cTrue = a.map((v, i) => v + b[i])
+  const cTrue = map(a, (v, i) => v + b[i])
 
   const d = new Series({ d: normal(100) })
   const e = normal(100)
-  const fTrue = new Series({ d: d.values.map((v, i) => v + e[i]) })
+  const fTrue = new Series({ d: map(d.values, (v, i) => v + e[i]) })
 
   const g = new Series({ g: normal(100) })
   const h = new Series({ h: normal(100) })
-  const iTrue = new Series({ data: g.values.map((v, i) => v + h.values[i]) })
+  const iTrue = new Series({ data: map(g.values, (v, i) => v + h.values[i]) })
 
   const j = new DataFrame({ j1: normal(100), j2: normal(100) })
   const k = normal([100, 2])
 
   const lTrue = new DataFrame({
-    j1: j.get("j1").values.map((v, i) => v + k[i][0]),
-    j2: j.get("j2").values.map((v, i) => v + k[i][1]),
+    j1: map(j.get("j1").values, (v, i) => v + k[i][0]),
+    j2: map(j.get("j2").values, (v, i) => v + k[i][1]),
   })
 
   const m = new DataFrame({ m1: normal(100), m2: normal(100) })
   const n = new DataFrame({ n1: normal(100), n2: normal(100) })
 
   const oTrue = new DataFrame({
-    col0: m.get("m1").values.map((v, i) => v + n.values[i][0]),
-    col1: m.get("m2").values.map((v, i) => v + n.values[i][1]),
+    col0: map(m.get("m1").values, (v, i) => v + n.values[i][0]),
+    col1: map(m.get("m2").values, (v, i) => v + n.values[i][1]),
   })
 
   const rights = [
@@ -75,7 +77,7 @@ test("tests that values can be added together correctly", () => {
     [n, m, oTrue],
   ]
 
-  rights.forEach(trio => {
+  forEach(rights, trio => {
     const [a, b, cTrue] = trio
     const cPred = add(a, b)
 
@@ -105,7 +107,7 @@ test("tests that values can be added together correctly", () => {
     [{ hello: "world" }, { goodbye: "world" }],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(add(pair[0], pair[1])).toBeNaN()
   })
 })

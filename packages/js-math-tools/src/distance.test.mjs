@@ -2,8 +2,11 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { distance } from "./distance.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { pow } from "./pow.mjs"
+import { reduce } from "./reduce.mjs"
 import { sqrt } from "./sqrt.mjs"
 
 test("gets the distance between two vectors", () => {
@@ -19,9 +22,11 @@ test("gets the distance between two vectors", () => {
 
   expect(distance(d, e)).toBe(
     sqrt(
-      d.values
-        .map((v, i) => pow(v - e.values[i], 2))
-        .reduce((a, b) => a + b, 0),
+      reduce(
+        map(d.values, (v, i) => pow(v - e.values[i], 2)),
+        (a, b) => a + b,
+        0,
+      ),
     ),
   )
 
@@ -31,7 +36,13 @@ test("gets the distance between two vectors", () => {
   const gFlat = flatten(g)
 
   expect(distance(f, g)).toBe(
-    sqrt(fFlat.map((v, i) => pow(v - gFlat[i], 2)).reduce((a, b) => a + b, 0)),
+    sqrt(
+      reduce(
+        map(fFlat, (v, i) => pow(v - gFlat[i], 2)),
+        (a, b) => a + b,
+        0,
+      ),
+    ),
   )
 
   const i = normal([2, 3, 4, 5])
@@ -40,7 +51,13 @@ test("gets the distance between two vectors", () => {
   const jFlat = flatten(j)
 
   expect(distance(i, j)).toBe(
-    sqrt(iFlat.map((v, i) => pow(v - jFlat[i], 2)).reduce((a, b) => a + b, 0)),
+    sqrt(
+      reduce(
+        map(iFlat, (v, i) => pow(v - jFlat[i], 2)),
+        (a, b) => a + b,
+        0,
+      ),
+    ),
   )
 
   expect(distance(-3, 3)).toBe(6)
@@ -66,8 +83,8 @@ test("gets the distance between two vectors", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(distance(a, b)).toBeNaN()
     })
   })

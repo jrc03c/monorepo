@@ -1,13 +1,15 @@
 import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { sqrt } from "./sqrt.mjs"
 
 test("tests that square roots can be correctly computed", () => {
   const a = normal(100)
-  const bTrue = a.map(v => Math.sqrt(v))
+  const bTrue = map(a, v => Math.sqrt(v))
   const bPred = sqrt(a)
   expect(isEqual(bPred, bTrue)).toBe(true)
 
@@ -46,7 +48,7 @@ test("tests that square roots can be correctly computed", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(sqrt(item)).toBeNaN()
   })
 })

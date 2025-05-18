@@ -1,7 +1,9 @@
 import { count } from "./count.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { filter } from "./filter.mjs"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { round } from "./round.mjs"
@@ -10,22 +12,22 @@ import { set } from "./set.mjs"
 test("tests that values in an array can be counted correctly", () => {
   const a = round(normal(1000))
 
-  set(a).forEach(v => {
-    expect(count(a, v).get(v)).toBe(a.filter(x => x === v).length)
+  forEach(set(a), v => {
+    expect(count(a, v).get(v)).toBe(filter(a, x => x === v).length)
   })
 
   const b = new Series(round(normal(1000)))
   const c = new DataFrame(round(normal([100, 10])))
 
-  set(b).forEach(v => {
+  forEach(set(b), v => {
     expect(count(b, v).get(v)).toBe(
-      flatten(b.values).filter(x => isEqual(x, v)).length,
+      filter(flatten(b.values), x => isEqual(x, v)).length,
     )
   })
 
-  set(c).forEach(v => {
+  forEach(set(c), v => {
     expect(count(c, v).get(v)).toBe(
-      flatten(c.values).filter(x => isEqual(x, v)).length,
+      filter(flatten(c.values), x => isEqual(x, v)).length,
     )
   })
 
@@ -38,7 +40,7 @@ test("tests that values in an array can be counted correctly", () => {
   const dCounts = count(d)
 
   for (const v of [2n, 3n, 4n]) {
-    expect(dCounts.get(v)).toBe(d.filter(other => other === v).length)
+    expect(dCounts.get(v)).toBe(filter(d, other => other === v).length)
   }
 
   const fn1 = x => x

@@ -1,6 +1,8 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { max } from "./max.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
@@ -13,7 +15,7 @@ test("tests that arrays and Series can be zipped correctly", () => {
   expect(
     isEqual(
       zip(a, b),
-      a.map((v, i) => [v, b[i]]),
+      map(a, (v, i) => [v, b[i]]),
     ),
   ).toBe(true)
 
@@ -21,12 +23,12 @@ test("tests that arrays and Series can be zipped correctly", () => {
   const d = normal([10, 20])
   const e = normal([20, 10])
   const cde = [c, d, e]
-  const maxLength = max(cde.map(arr => arr.length))
+  const maxLength = max(map(cde, arr => arr.length))
 
   expect(
     isEqual(
       zip(...cde),
-      range(0, maxLength).map(i => [c[i], d[i], e[i]]),
+      map(range(0, maxLength), i => [c[i], d[i], e[i]]),
     ),
   ).toBe(true)
 
@@ -60,8 +62,9 @@ test("tests that arrays and Series can be zipped correctly", () => {
     { hello: "world" },
   ]
 
-  range(0, 100).forEach(() => {
-    const vars = range(0, parseInt(Math.random() * wrongs.length - 1) + 1).map(
+  forEach(range(0, 100), () => {
+    const vars = map(
+      range(0, parseInt(Math.random() * wrongs.length - 1) + 1),
       () => wrongs[parseInt(Math.random() * wrongs.length)],
     )
 

@@ -1,7 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { round } from "./round.mjs"
@@ -67,8 +69,9 @@ test("tests that set unions can be determined correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  range(0, 100).forEach(() => {
-    const vars = range(0, 100).map(
+  forEach(range(0, 100), () => {
+    const vars = map(
+      range(0, 100),
       () => variables[parseInt(Math.random() * variables.length)],
     )
 

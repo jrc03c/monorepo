@@ -1,9 +1,12 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { filter } from "./filter.mjs"
 import { findAll } from "./find-all.mjs"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isObject } from "./is-object.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 function makeKey(n) {
@@ -20,29 +23,29 @@ test("tests that all items matching a certain function can be found", () => {
   expect(isEqual(bPred, bTrue)).toBe(true)
 
   const c = normal(100)
-  const dTrue = c.filter(v => v > 0)
+  const dTrue = filter(c, v => v > 0)
   const dPred = findAll(c, v => v > 0)
   expect(isEqual(dPred, dTrue)).toBe(true)
 
   const e = normal([5, 5, 5, 5])
-  const fTrue = flatten(e).filter(v => v < 0)
+  const fTrue = filter(flatten(e), v => v < 0)
   const fPred = findAll(e, v => v < 0)
   expect(isEqual(fPred, fTrue)).toBe(true)
 
   const g = new Series({
-    hello: normal(100).map(v => (Math.random() < 0.5 ? makeKey(8) : v)),
+    hello: map(normal(100), v => (Math.random() < 0.5 ? makeKey(8) : v)),
   })
 
-  const hTrue = g.values.filter(v => typeof v === "string")
+  const hTrue = filter(g.values, v => typeof v === "string")
   const hPred = findAll(g, v => typeof v === "string")
   expect(isEqual(hPred, hTrue)).toBe(true)
 
   const i = new DataFrame({
-    foo: normal(100).map(v => (Math.random() < 0.5 ? { hello: "world" } : v)),
+    foo: map(normal(100), v => (Math.random() < 0.5 ? { hello: "world" } : v)),
     bar: normal(100),
   })
 
-  const jTrue = flatten(i.values).filter(v => isObject(v))
+  const jTrue = filter(flatten(i.values), v => isObject(v))
   const jPred = findAll(i, v => isObject(v))
   expect(isEqual(jPred, jTrue)).toBe(true)
 
@@ -89,12 +92,12 @@ test("tests that all items matching a certain function can be found", () => {
     },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => findAll(item, () => true)).toThrow()
   })
 
-  wrongs.forEach(item1 => {
-    wrongs.forEach(item2 => {
+  forEach(wrongs, item1 => {
+    forEach(wrongs, item2 => {
       expect(() => findAll(item1, item2)).toThrow()
     })
   })

@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { round } from "./round.mjs"
@@ -12,8 +13,8 @@ test("tests that sets of values can be correctly selected", () => {
 
   const a = set(round(normal(100)))
 
-  a.slice(0, -1).forEach((u, i) => {
-    a.slice(i + 1).forEach(v => {
+  forEach(a.slice(0, -1), (u, i) => {
+    forEach(a.slice(i + 1), v => {
       expect(u).not.toBe(v)
     })
   })
@@ -50,7 +51,7 @@ test("tests that sets of values can be correctly selected", () => {
     { hello: "world" },
   ]
 
-  others.forEach(item => {
+  forEach(others, item => {
     expect(() => set(item)).toThrow()
   })
 })

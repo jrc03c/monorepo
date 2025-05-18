@@ -4,6 +4,7 @@ import { dot } from "./dot.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isNumber } from "./is-number.mjs"
+import { map } from "./map.mjs"
 import { scale } from "./scale.mjs"
 import { shape } from "./shape.mjs"
 
@@ -70,13 +71,14 @@ function inverse(x) {
 
     for (let divider = 1; divider < xShape[0] - 1; divider++) {
       try {
-        const A = x.slice(0, divider).map(row => row.slice(0, divider))
-        const B = x.slice(0, divider).map(row => row.slice(divider, xShape[0]))
-        const C = x.slice(divider, xShape[0]).map(row => row.slice(0, divider))
+        const A = map(x.slice(0, divider), row => row.slice(0, divider))
+        const B = map(x.slice(0, divider), row => row.slice(divider, xShape[0]))
+        const C = map(x.slice(divider, xShape[0]), row => row.slice(0, divider))
 
-        const D = x
-          .slice(divider, xShape[0])
-          .map(row => row.slice(divider, xShape[0]))
+        const D = map(
+          x.slice(divider, xShape[0]),
+          row => row.slice(divider, xShape[0]),
+        )
 
         const AInv = inverse(A)
         const CompInv = inverse(add(D, times(-1, times(times(C, AInv), B))))
@@ -90,9 +92,9 @@ function inverse(x) {
         const bottomLeft = times(-1, times(times(CompInv, C), AInv))
         const bottomRight = CompInv
 
-        const out = topLeft
-          .map((row, i) => row.concat(topRight[i]))
-          .concat(bottomLeft.map((row, i) => row.concat(bottomRight[i])))
+        const out = 
+          map(topLeft, (row, i) => row.concat(topRight[i]))
+          .concat(map(bottomLeft, (row, i) => row.concat(bottomRight[i])))
 
         return out
       } catch (e) {}

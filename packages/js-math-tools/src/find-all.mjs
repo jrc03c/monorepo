@@ -1,4 +1,5 @@
 import { assert } from "./assert.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isFunction } from "./is-function.mjs"
@@ -49,9 +50,10 @@ function findAll(x, fn) {
         const results = helper(value, fn, checked)
 
         if (results && results.length > 0) {
-          results
-            .slice(alreadyStoredThisValue ? 1 : 0)
-            .forEach(r => out.push(r))
+          forEach(
+            results.slice(alreadyStoredThisValue ? 1 : 0),
+            r => out.push(r),
+          )
         }
       }
 
@@ -72,9 +74,10 @@ function findAll(x, fn) {
         const results = helper(value, fn, checked)
 
         if (results && results.length > 0) {
-          results
-            .slice(alreadyStoredThisValue ? 1 : 0)
-            .forEach(r => out.push(r))
+          forEach(
+            results.slice(alreadyStoredThisValue ? 1 : 0),
+            r => out.push(r),
+          )
         }
       }
 

@@ -3,6 +3,7 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { time } from "./time.mjs"
@@ -32,7 +33,7 @@ test("tests that the `forEach` function works as expected", () => {
 test(
   "tests that the `forEach` function is faster than `Array.prototype.forEach`",
   () => {
-    const x = range(0, 1e7).map(() => Math.random())
+    const x = map(range(0, 1e7), () => Math.random())
     const t1 = time(() => x.forEach(v => Math.sqrt(v)))
     const t2 = time(() => forEach(x, v => Math.sqrt(v)))
     expect(t2).toBeLessThan(t1)

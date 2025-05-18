@@ -1,8 +1,10 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { factorial } from "./factorial.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { permutations, permutationsIterator } from "./permutations.mjs"
 import { range } from "./range.mjs"
 import { set } from "./set.mjs"
@@ -19,7 +21,7 @@ function depthSort(a, b) {
 }
 
 function turnIntoStrings(arr) {
-  return arr.map(item => JSON.stringify(item))
+  return map(arr, item => JSON.stringify(item))
 }
 
 function getNumberOfPermutations(arr, r) {
@@ -185,8 +187,8 @@ test("tests that errors are thrown when trying to get permutations from non-arra
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => permutations(a, b)).toThrow()
     })
   })

@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { range } from "./range.mjs"
 
 test("tests that ranges of values can be generated correctly", () => {
@@ -34,9 +35,9 @@ test("tests that ranges of values can be generated correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
-      wrongs.forEach(c => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
+      forEach(wrongs, c => {
         expect(() => range(a, b, c)).toThrow()
       })
     })

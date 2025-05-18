@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { mean } from "./mean.mjs"
 import { normal } from "./normal.mjs"
 
@@ -50,7 +51,7 @@ test("tests that the mean of arrays, series, and dataframes can be computed corr
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => mean(item)).toThrow()
   })
 })

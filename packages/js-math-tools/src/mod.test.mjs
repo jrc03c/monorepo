@@ -1,7 +1,9 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { mod } from "./mod.mjs"
 import { normal } from "./normal.mjs"
 import { reshape } from "./reshape.mjs"
@@ -16,14 +18,14 @@ test("tests that the modulo function works as expected", () => {
   expect(
     isEqual(
       mod(a, b),
-      a.map(v => v % b),
+      map(a, v => v % b),
     ),
   ).toBe(true)
 
   expect(
     isEqual(
       mod(b, a),
-      a.map(v => b % v),
+      map(a, v => b % v),
     ),
   ).toBe(true)
 
@@ -31,7 +33,7 @@ test("tests that the modulo function works as expected", () => {
   const d = normal([2, 3, 4, 5])
   const cFlat = flatten(c)
   const dFlat = flatten(d)
-  const eFlat = cFlat.map((v, i) => v % dFlat[i])
+  const eFlat = map(cFlat, (v, i) => v % dFlat[i])
   const eTrue = reshape(eFlat, [2, 3, 4, 5])
   const ePred = mod(c, d)
   expect(isEqual(ePred, eTrue)).toBe(true)
@@ -66,8 +68,8 @@ test("tests that the modulo function works as expected", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(mod(a, b)).toBeNaN()
     })
   })

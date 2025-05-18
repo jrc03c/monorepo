@@ -1,6 +1,8 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { reverse } from "./reverse.mjs"
 import { sort } from "./sort.mjs"
@@ -25,8 +27,8 @@ test("tests that arrays, Series, and DataFrames can be correctly sorted", () => 
   const g = new Series({ hello: normal(100) })
   const hTrue = g.copy()
   const hTemp = sort(zip(hTrue.values, hTrue.index), (a, b) => a[0] - b[0])
-  hTrue.values = hTemp.map(v => v[0])
-  hTrue.index = hTemp.map(v => v[1])
+  hTrue.values = map(hTemp, v => v[0])
+  hTrue.index = map(hTemp, v => v[1])
   const hPred = sort(g)
   expect(isEqual(hPred, hTrue)).toBe(true)
 
@@ -38,8 +40,8 @@ test("tests that arrays, Series, and DataFrames can be correctly sorted", () => 
     (a, b) => a[0][1] - b[0][1],
   )
 
-  jTrue.values = jTemp.map(v => v[0])
-  jTrue.index = jTemp.map(v => v[1])
+  jTrue.values = map(jTemp, v => v[0])
+  jTrue.index = map(jTemp, v => v[1])
   const jPred = sort(i, (a, b) => a.get("bar") - b.get("bar"))
   expect(isEqual(jPred, jTrue)).toBe(true)
 
@@ -60,8 +62,8 @@ test("tests that arrays, Series, and DataFrames can be correctly sorted", () => 
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => sort(a, b)).toThrow()
     })
   })

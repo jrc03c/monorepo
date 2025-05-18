@@ -1,13 +1,15 @@
 import { apply } from "./apply.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { log } from "./log.mjs"
+import { map } from "./map.mjs"
 import { random } from "./random.mjs"
 
 test("tests that the log of various values can be computed correctly", () => {
-  const a = random(100).map(v => v * 100 + 1)
-  const bTrue = a.map(v => Math.log(v))
+  const a = map(random(100), v => v * 100 + 1)
+  const bTrue = map(a, v => Math.log(v))
   const bPred = log(a)
   expect(isEqual(bPred, bTrue)).toBe(true)
 
@@ -47,7 +49,7 @@ test("tests that the log of various values can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(log(item)).toBeNaN()
   })
 })

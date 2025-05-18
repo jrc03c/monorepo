@@ -1,4 +1,5 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 
 function dfToDetailedObject(df, axis) {
@@ -15,10 +16,10 @@ function dfToDetailedObject(df, axis) {
   const out = {}
 
   if (axis === 0) {
-    df.index.forEach((rowName, i) => {
+    forEach(df.index, (rowName, i) => {
       const temp = {}
 
-      df.columns.forEach((colName, j) => {
+      forEach(df.columns, (colName, j) => {
         temp[colName] = df.values[i][j]
       })
 
@@ -28,10 +29,10 @@ function dfToDetailedObject(df, axis) {
 
   // columns then rows
   else {
-    df.columns.forEach((colName, j) => {
+    forEach(df.columns, (colName, j) => {
       const temp = {}
 
-      df.index.forEach((rowName, i) => {
+      forEach(df.index, (rowName, i) => {
         temp[rowName] = df.values[i][j]
       })
 

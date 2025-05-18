@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isFunction } from "./is-function.mjs"
 
 test("tests that functions can be identified correctly", () => {
@@ -13,7 +14,7 @@ test("tests that functions can be identified correctly", () => {
     new DataFrame().apply,
   ]
 
-  rights.forEach(item => {
+  forEach(rights, item => {
     expect(isFunction(item)).toBe(true)
   })
 
@@ -45,7 +46,7 @@ test("tests that functions can be identified correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isFunction(item)).toBe(false)
   })
 })

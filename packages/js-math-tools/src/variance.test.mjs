@@ -1,6 +1,7 @@
 import { abs } from "./abs.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 import { variance } from "./variance.mjs"
@@ -44,7 +45,7 @@ test("tests that variance can be correctly computed", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => variance(item)).toThrow()
   })
 })

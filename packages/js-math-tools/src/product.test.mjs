@@ -1,9 +1,11 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { product } from "./product.mjs"
+import { reduce } from "./reduce.mjs"
 
 test("tests that the products of values can be computed correctly", () => {
   expect(product([2, 3, 4])).toBe(24)
@@ -14,7 +16,7 @@ test("tests that the products of values can be computed correctly", () => {
   expect(
     isEqual(
       product(a),
-      a.reduce((a, b) => a * b, 1),
+      reduce(a, (a, b) => a * b, 1),
     ),
   ).toBe(true)
 
@@ -23,7 +25,7 @@ test("tests that the products of values can be computed correctly", () => {
   expect(
     isEqual(
       product(b),
-      flatten(b).reduce((a, b) => a * b, 1),
+      reduce(flatten(b), (a, b) => a * b, 1),
     ),
   ).toBe(true)
 
@@ -62,7 +64,7 @@ test("tests that the products of values can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => product(item)).toThrow()
   })
 })

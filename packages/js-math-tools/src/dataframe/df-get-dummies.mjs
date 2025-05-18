@@ -1,6 +1,9 @@
 import { assert } from "../assert.mjs"
+import { filter } from "../filter.mjs"
+import { forEach } from "../for-each.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { set } from "../set.mjs"
 import { sort } from "../sort.mjs"
 
@@ -18,14 +21,14 @@ function camelify(text) {
     }
   }
 
-  const words = out.split(" ").filter(word => word.length > 0)
+  const words = filter(out.split(" "), word => word.length > 0)
 
   return (
     words[0] +
-    words
-      .slice(1)
-      .map(word => word[0].toUpperCase() + word.substring(1))
-      .join("")
+    map(
+      words.slice(1),
+      word => word[0].toUpperCase() + word.substring(1),
+    ).join("")
   )
 }
 
@@ -38,7 +41,7 @@ function dfGetDummies(DataFrame, df, columns) {
 
   const temp = {}
 
-  columns.forEach(col => {
+  forEach(columns, col => {
     assert(
       isString(col),
       "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!",
@@ -51,11 +54,11 @@ function dfGetDummies(DataFrame, df, columns) {
       `The given DataFrame does not have a column called "${col}"!`,
     )
 
-    const values = df.values.map(row => row[colIndex])
+    const values = map(df.values, row => row[colIndex])
     const valuesSet = sort(set(values))
 
-    values.forEach(value => {
-      valuesSet.forEach(orig => {
+    forEach(values, value => {
+      forEach(valuesSet, orig => {
         const colName = col + "_" + camelify(orig.toString())
 
         if (!temp[colName]) {

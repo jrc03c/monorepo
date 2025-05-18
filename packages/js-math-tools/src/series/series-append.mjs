@@ -1,4 +1,5 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isNested } from "../is-nested.mjs"
 import { isSeries } from "../is-series.mjs"
@@ -19,7 +20,7 @@ function seriesAppend(Series, series, x) {
 
     const out = series.copy()
 
-    x.forEach((v, i) => {
+    forEach(x, (v, i) => {
       out._values.push(v)
       out._index.push("item" + (series.values.length + i))
     })

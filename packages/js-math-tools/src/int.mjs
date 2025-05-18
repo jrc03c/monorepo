@@ -2,6 +2,7 @@ import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isSeries } from "./is-series.mjs"
+import { map } from "./map.mjs"
 import { vectorize } from "./vectorize.mjs"
 
 function int(x) {
@@ -12,7 +13,7 @@ function int(x) {
   }
 
   if (isArray(x)) {
-    return x.map(v => int(v))
+    return map(x, v => int(v))
   } else {
     try {
       const out = JSON.parse(x)

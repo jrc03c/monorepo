@@ -1,6 +1,7 @@
 import { clamp } from "./clamp.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 
@@ -39,7 +40,7 @@ test("tests that values can be clamped correctly", () => {
     [d, d.copy().apply(col => col.apply(v => (v > 1 ? 1 : v < 0 ? 0 : v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(clamp(pair[0], 0, 1), pair[1])).toBe(true)
   })
 
@@ -58,7 +59,7 @@ test("tests that values can be clamped correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(clamp(v, 0, 1)).toBeNaN()
   })
 

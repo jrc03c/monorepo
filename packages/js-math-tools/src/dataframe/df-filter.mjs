@@ -1,12 +1,14 @@
 import { assert } from "../assert.mjs"
+import { filter } from "../filter.mjs"
 import { flatten } from "../flatten.mjs"
+import { forEach } from "../for-each.mjs"
 import { isFunction } from "../is-function.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 
 function arrayToObject(x) {
   const out = {}
 
-  flatten(x).forEach((value, i) => {
+  forEach(flatten(x), (value, i) => {
     out[value] = i
   })
 
@@ -42,7 +44,7 @@ function dfFilter(DataFrame, Series, df, fn, axis) {
   if (axis === 0) {
     let count = 0
 
-    const newValues = out.values.filter((row, i) => {
+    const newValues = filter(out.values, (row, i) => {
       const series = new Series(row)
       series.name = df.index[i]
       series.index = df.columns
@@ -77,7 +79,7 @@ function dfFilter(DataFrame, Series, df, fn, axis) {
     out = out.transpose()
     let count = 0
 
-    const newValues = out.values.filter((row, i) => {
+    const newValues = filter(out.values, (row, i) => {
       const series = new Series(row)
       series.name = df.columns[i]
       series.index = df.index

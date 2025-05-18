@@ -2,7 +2,9 @@ import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { exp } from "./exp.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that values to the power of E can be computed correctly", () => {
@@ -15,8 +17,8 @@ test("tests that values to the power of E can be computed correctly", () => {
   const rights = [
     [5, Math.exp(5)],
     [-234.567, Math.exp(-234.567)],
-    [a, a.map(v => Math.exp(v))],
-    [b, b.map(row => row.map(v => Math.exp(v)))],
+    [a, map(a, v => Math.exp(v))],
+    [b, map(b, row => map(row, v => Math.exp(v)))],
     [c, c.copy().apply(v => Math.exp(v))],
     [d, d.copy().apply(col => col.apply(v => Math.exp(v)))],
     [e, apply(e, Math.exp)],
@@ -27,7 +29,7 @@ test("tests that values to the power of E can be computed correctly", () => {
     [-2n, Math.exp(-2)],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(exp(pair[0]), pair[1])).toBe(true)
   })
 
@@ -46,7 +48,7 @@ test("tests that values to the power of E can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(exp(item)).toBeNaN()
   })
 })

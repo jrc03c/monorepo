@@ -12,6 +12,7 @@ import { isDate } from "./is-date.mjs"
 import { isNumber } from "./is-number.mjs"
 import { isSeries } from "./is-series.mjs"
 import { isString } from "./is-string.mjs"
+import { map } from "./map.mjs"
 import { nullValues } from "./helpers/null-values.mjs"
 
 function checkIfInteger(results) {
@@ -64,7 +65,7 @@ function inferType(arr) {
   // - object
   // - string
   // note: do NOT return arrays!
-  const types = flatten(arr).map(v => {
+  const types = map(flatten(arr), v => {
     if (v === undefined) return "null"
 
     try {

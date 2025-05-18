@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { min } from "./min.mjs"
 import { normal } from "./normal.mjs"
 
@@ -51,7 +52,7 @@ test("tests that the minimum value in arrays, series, and dataframes can be foun
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => min(item)).toThrow()
   })
 })

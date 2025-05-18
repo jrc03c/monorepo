@@ -1,4 +1,5 @@
 import { isString } from "../is-string.mjs"
+import { map } from "../map.mjs"
 import { range } from "../range.mjs"
 
 function dfPrint(DataFrame, Series, df) {
@@ -60,14 +61,14 @@ function dfPrint(DataFrame, Series, df) {
     temp._values.splice(
       halfMaxRows,
       0,
-      range(0, temp.columns.length).map(() => "..."),
+      map(range(0, temp.columns.length), () => "..."),
     )
   }
 
   if (maxColumns <= df.columns.length) {
     temp._columns.splice(halfMaxColumns, 0, "...")
 
-    temp._values = temp._values.map(row => {
+    temp._values = map(temp._values, row => {
       row.splice(halfMaxColumns, 0, "...")
       return row
     })
@@ -76,16 +77,16 @@ function dfPrint(DataFrame, Series, df) {
   const maxLength = 28
 
   if (temp instanceof Series) {
-    temp.values = temp.values.map(value => truncate(value, maxLength))
+    temp.values = map(temp.values, value => truncate(value, maxLength))
     temp.name = truncate(temp.name, maxLength)
-    temp.index = temp.index.map(row => truncate(row, maxLength))
+    temp.index = map(temp.index, row => truncate(row, maxLength))
   } else {
-    temp.values = temp.values.map(row => {
-      return row.map(value => truncate(value, maxLength))
+    temp.values = map(temp.values, row => {
+      return map(row, value => truncate(value, maxLength))
     })
 
-    temp.columns = temp.columns.map(col => truncate(col, maxLength))
-    temp.index = temp.index.map(row => truncate(row, maxLength))
+    temp.columns = map(temp.columns, col => truncate(col, maxLength))
+    temp.index = map(temp.index, row => truncate(row, maxLength))
   }
 
   console.table(temp.toDetailedObject())

@@ -2,6 +2,7 @@ import { add } from "./add.mjs"
 import { correl } from "./correl.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { normal } from "./normal.mjs"
 import { scale } from "./scale.mjs"
 
@@ -51,7 +52,7 @@ test("tests that correlations can be computed correctly", () => {
     [new DataFrame(normal([100, 2])), new DataFrame(normal([100, 2]))],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => correl(pair[0], pair[1])).toThrow()
   })
 })

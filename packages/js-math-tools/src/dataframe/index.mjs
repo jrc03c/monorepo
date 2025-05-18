@@ -21,11 +21,13 @@ import { dfToDetailedObject } from "./df-to-detailed-object.mjs"
 import { dfToJSON } from "./df-to-json.mjs"
 import { dfToJSONString } from "./df-to-json-string.mjs"
 import { dfToObject } from "./df-to-object.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isJagged } from "../is-jagged.mjs"
 import { isObject } from "../is-object.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { leftPad } from "../helpers/left-pad.mjs"
+import { map } from "../map.mjs"
 import { ndarray } from "../ndarray.mjs"
 import { random } from "../random.mjs"
 import { range } from "../range.mjs"
@@ -94,7 +96,7 @@ class DataFrame {
           this._index = this._index.slice(0, dataShape[0])
         } else if (dataShape[0] > this._index.length) {
           this._index = this._index.concat(
-            range(this._index.length, dataShape[0]).map(i => {
+            map(range(this._index.length, dataShape[0]), i => {
               return "row" + leftPad(i, (dataShape[0] - 1).toString().length)
             }),
           )
@@ -104,7 +106,7 @@ class DataFrame {
           this._columns = this._columns.slice(0, dataShape[1])
         } else if (dataShape[1] > this._columns.length) {
           this._columns = this._columns.concat(
-            range(this._columns.length, dataShape[1]).map(i => {
+            map(range(this._columns.length, dataShape[1]), i => {
               return "col" + leftPad(i, (dataShape[1] - 1).toString().length)
             }),
           )
@@ -145,7 +147,7 @@ class DataFrame {
           "The new columns list must be a 1-dimensional array of strings!",
         )
 
-        x = x.map(v => {
+        x = map(x, v => {
           if (typeof v !== "string") {
             v = JSON.stringify(v) || v.toString()
           }
@@ -161,14 +163,14 @@ class DataFrame {
           const temp = count(x)
           const out = {}
 
-          temp.values.forEach(v => {
+          forEach(temp.values, v => {
             out[v] = temp.get(v)
           })
 
           return out
         })()
 
-        x = x.map(v => {
+        x = map(x, v => {
           if (counts[v] > 1) {
             return v + "_" + makeKey(8)
           }
@@ -211,7 +213,7 @@ class DataFrame {
           "The new index must be a 1-dimensional array of strings!",
         )
 
-        x = x.map(v => {
+        x = map(x, v => {
           if (typeof v !== "string") {
             v = JSON.stringify(v) || v.toString()
           }
@@ -227,14 +229,14 @@ class DataFrame {
           const temp = count(x)
           const out = {}
 
-          temp.values.forEach(v => {
+          forEach(temp.values, v => {
             out[v] = temp.get(v)
           })
 
           return out
         })()
 
-        x = x.map(v => {
+        x = map(x, v => {
           if (counts[v] > 1) {
             return v + "_" + makeKey(8)
           }
@@ -271,15 +273,16 @@ class DataFrame {
 
         this.values = data
       } else {
-        this._columns = Object.keys(data)
-          .concat(Object.getOwnPropertySymbols(data))
-          .map(v => v.toString())
+        this._columns = map(
+          Object.keys(data).concat(Object.getOwnPropertySymbols(data)),
+          v => v.toString(),
+        )
 
         const temp = []
         let lastColName = null
         let lastColLength = null
 
-        this._columns.forEach(col => {
+        forEach(this._columns, col => {
           if (isUndefined(lastColLength)) {
             lastColName = col
             lastColLength = data[col].length
@@ -299,7 +302,7 @@ class DataFrame {
 
         const dataShape = shape(this.values)
 
-        this._index = range(0, dataShape[0]).map(i => {
+        this._index = map(range(0, dataShape[0]), i => {
           return "row" + leftPad(i, (dataShape[0] - 1).toString().length)
         })
       }

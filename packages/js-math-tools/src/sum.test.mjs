@@ -1,8 +1,10 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
+import { reduce } from "./reduce.mjs"
 import { sum } from "./sum.mjs"
 
 test("tests that the sums of values can be computed correctly", () => {
@@ -14,7 +16,7 @@ test("tests that the sums of values can be computed correctly", () => {
   expect(
     isEqual(
       sum(a),
-      a.reduce((a, b) => a + b, 0),
+      reduce(a, (a, b) => a + b, 0),
     ),
   ).toBe(true)
 
@@ -23,7 +25,7 @@ test("tests that the sums of values can be computed correctly", () => {
   expect(
     isEqual(
       sum(b),
-      flatten(b).reduce((a, b) => a + b, 0),
+      reduce(flatten(b), (a, b) => a + b, 0),
     ),
   ).toBe(true)
 
@@ -62,7 +64,7 @@ test("tests that the sums of values can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => sum(item)).toThrow()
   })
 })

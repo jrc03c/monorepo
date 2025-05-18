@@ -1,7 +1,9 @@
 import { cos } from "./cos.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that cosines can be computed correctly", () => {
@@ -17,12 +19,12 @@ test("tests that cosines can be computed correctly", () => {
     [1, Math.cos(1)],
     [234n, Math.cos(234)],
     [-234n, Math.cos(-234)],
-    [r, r.map(row => row.map(v => Math.cos(v)))],
+    [r, map(r, row => map(row, v => Math.cos(v)))],
     [s, s.copy().apply(v => Math.cos(v))],
     [d, d.copy().apply(col => col.apply(v => Math.cos(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(cos(pair[0]), pair[1])).toBe(true)
   })
 
@@ -50,7 +52,7 @@ test("tests that cosines can be computed correctly", () => {
     [{ hello: "world" }, NaN],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(isEqual(cos(pair[0]), pair[1])).toBe(true)
   })
 })

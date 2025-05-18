@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { reverse } from "./reverse.mjs"
@@ -56,7 +57,7 @@ test("tests that vectors and matrices can be transposed correctly", () => {
     // [2, [3, [4, [5]]]],
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => transpose(item)).toThrow()
   })
 })

@@ -2,6 +2,7 @@ import { assert } from "../assert.mjs"
 import { isNumber } from "../is-number.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { set } from "../set.mjs"
 
 function seriesGet(series, indices) {
@@ -13,7 +14,7 @@ function seriesGet(series, indices) {
     }
   }
 
-  const types = set((indices || []).map(v => typeof v))
+  const types = set(map(indices || [], v => typeof v))
 
   assert(
     types.length <= 2,
@@ -40,7 +41,7 @@ function seriesGet(series, indices) {
   }
 
   if (!isUndefined(indices)) {
-    indices = indices.map(i => {
+    indices = map(indices, i => {
       if (typeof i === "string") {
         assert(series.index.indexOf(i) > -1, `Index "${i}" does not exist!`)
         return i

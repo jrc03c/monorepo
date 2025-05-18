@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isNested } from "./is-nested.mjs"
 import { normal } from "./normal.mjs"
 
@@ -31,7 +32,7 @@ test("tests that nested arrays can be identified correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => isNested(item)).toThrow()
   })
 })

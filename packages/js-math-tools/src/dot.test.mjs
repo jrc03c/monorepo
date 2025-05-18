@@ -3,8 +3,10 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dot } from "./dot.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { float } from "./float.mjs"
+import { forEach } from "./for-each.mjs"
 import { int } from "./int.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that the dot products of vectors and matrices can be computed correctly", () => {
@@ -69,8 +71,8 @@ test("tests that the dot products of vectors and matrices can be computed correc
   expect(isEqual(oPred, oTrue)).toBe(true)
 
   const p = new DataFrame(normal([5, 100]))
-  p.columns = p.columns.map((v, i) => "p" + i)
-  p.index = p.index.map((v, i) => "p_row" + i)
+  p.columns = map(p.columns, (v, i) => "p" + i)
+  p.index = map(p.index, (v, i) => "p_row" + i)
   const q = new Series({ hello: normal(100) })
   const rTrue = new Series(dot(p.values, q.values))
   rTrue.name = q.name
@@ -117,7 +119,7 @@ test("tests that the dot products of vectors and matrices can be computed correc
     [normal([100, 25]), normal([100, 25])],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => dot(pair[0], pair[1])).toThrow()
   })
 })

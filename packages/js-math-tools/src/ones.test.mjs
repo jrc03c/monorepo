@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { ones } from "./ones.mjs"
 import { shape } from "./shape.mjs"
 
@@ -37,7 +38,7 @@ test("tests that arrays of 1s can be generated correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => ones(item)).toThrow()
   })
 })

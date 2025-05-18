@@ -2,6 +2,7 @@ import { arrayTypes } from "./helpers/array-types.mjs"
 import { copy, decycle } from "./copy.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 
@@ -34,7 +35,7 @@ test("tests that values can be copied correctly", () => {
     },
   ]
 
-  simples.forEach(v => {
+  forEach(simples, v => {
     expect(isEqual(v, copy(v))).toBe(true)
   })
 
@@ -49,7 +50,7 @@ test("tests that values can be copied correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  complexes.forEach(v => {
+  forEach(complexes, v => {
     const c = copy(v)
     expect(isACopy(v, c)).toBe(true)
   })
@@ -68,7 +69,7 @@ test("tests that typed arrays are copied correctly", () => {
 
   expect(isACopy(buffer, copy(buffer))).toBe(true)
 
-  arrayTypes.forEach(T => {
+  forEach(arrayTypes, T => {
     if (T !== ArrayBuffer) {
       const x = new T(buffer)
       expect(isACopy(x, copy(x))).toBe(true)

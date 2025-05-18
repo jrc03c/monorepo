@@ -1,4 +1,5 @@
 import { assert } from "./assert.mjs"
+import { forEach } from "./for-each.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
@@ -16,7 +17,7 @@ function flatten(arr) {
   function helper(arr) {
     let out = []
 
-    arr.forEach(child => {
+    forEach(arr, child => {
       if (isArray(child)) {
         out = out.concat(helper(child))
       } else {

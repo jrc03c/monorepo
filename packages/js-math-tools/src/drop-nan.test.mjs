@@ -1,8 +1,11 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropNaN } from "./drop-nan.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { filter } from "./filter.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isNumber } from "./is-number.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 
@@ -42,18 +45,18 @@ test("tests that missing values can be dropped correctly", () => {
   const ePred = dropNaN(d)
   expect(isEqual(ePred, eTrue)).toBe(true)
 
-  const f = new Series(normal(100).map(v => (random() < 0.5 ? "null" : v)))
-  const gTrue = new Series(f.values.filter(v => isNumber(v)))
+  const f = new Series(map(normal(100), v => (random() < 0.5 ? "null" : v)))
+  const gTrue = new Series(filter(f.values, v => isNumber(v)))
   const gPred = dropNaN(f)
   gTrue._index = gPred._index
   expect(isEqual(gPred, gTrue)).toBe(true)
 
   const g = new DataFrame(
-    normal([10, 10]).map(row => row.map(v => (random() < 0.05 ? false : v))),
+    map(normal([10, 10]), row => map(row, v => (random() < 0.05 ? false : v))),
   )
 
   const hTrue = new DataFrame(
-    g.values.filter(row => row.every(v => isNumber(v))),
+    filter(g.values, row => row.every(v => isNumber(v))),
   )
 
   const hPred = dropNaN(g)
@@ -81,7 +84,7 @@ test("tests that missing values can be dropped correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => dropNaN(item)).toThrow()
   })
 })

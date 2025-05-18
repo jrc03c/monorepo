@@ -7,6 +7,7 @@ import { isNumber } from "./is-number.mjs"
 import { isObject } from "./is-object.mjs"
 import { isSeries } from "./is-series.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 
 function cast(value, type) {
   if (isDataFrame(value) || isSeries(value)) {
@@ -14,7 +15,7 @@ function cast(value, type) {
   }
 
   if (isArray(value)) {
-    return value.map(v => cast(v, type))
+    return map(value, v => cast(v, type))
   }
 
   if (type === "null") {
@@ -163,7 +164,7 @@ function cast(value, type) {
       const out = JSON.parse(value)
 
       if (isArray(out)) {
-        return out.map(v => cast(v, type))
+        return map(out, v => cast(v, type))
       } else {
         return out
       }

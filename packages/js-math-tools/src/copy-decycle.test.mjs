@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { decycle } from "./copy.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 
@@ -68,7 +69,7 @@ test("tests that cyclic objects can be decycled correctly", () => {
     { hello: "world" },
   ]
 
-  others.forEach(value => {
+  forEach(others, value => {
     expect(isEqual(decycle(value), value)).toBe(true)
   })
 })

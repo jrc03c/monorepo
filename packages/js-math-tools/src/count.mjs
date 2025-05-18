@@ -1,3 +1,4 @@
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isFunction } from "./is-function.mjs"
 import { isUndefined } from "./is-undefined.mjs"
@@ -8,13 +9,13 @@ function count(arr, matcher) {
 
   if (!isUndefined(matcher)) {
     if (isFunction(matcher)) {
-      counts.values.forEach(v => {
+      forEach(counts.values, v => {
         if (!matcher(v)) {
           counts.delete(v)
         }
       })
     } else {
-      counts.values.forEach(v => {
+      forEach(counts.values, v => {
         if (!isEqual(v, matcher)) {
           counts.delete(v)
         }

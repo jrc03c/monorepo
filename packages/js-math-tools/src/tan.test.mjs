@@ -1,6 +1,8 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { tan } from "./tan.mjs"
 
@@ -17,12 +19,12 @@ test("tests that tangents can be computed correctly", () => {
     [1, Math.tan(1)],
     [234n, Math.tan(234)],
     [-234n, Math.tan(-234)],
-    [r, r.map(row => row.map(v => Math.tan(v)))],
+    [r, map(r, row => map(row, v => Math.tan(v)))],
     [s, s.copy().apply(v => Math.tan(v))],
     [d, d.copy().apply(col => col.apply(v => Math.tan(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(tan(pair[0]), pair[1])).toBe(true)
   })
 
@@ -50,7 +52,7 @@ test("tests that tangents can be computed correctly", () => {
     [{ hello: "world" }, NaN],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(isEqual(tan(pair[0]), pair[1])).toBe(true)
   })
 })

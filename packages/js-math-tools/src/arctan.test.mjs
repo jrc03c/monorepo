@@ -1,7 +1,9 @@
 import { arctan } from "./arctan.mjs"
-import { expect, test } from "@jrc03c/fake-jest"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that the inverse sine can be computed correctly", () => {
@@ -36,12 +38,12 @@ test("tests that the inverse sine can be computed correctly", () => {
       ],
     ],
 
-    [r, r.map(row => row.map(v => Math.atan(v)))],
+    [r, map(r, row => map(row, v => Math.atan(v)))],
     [s, s.copy().apply(v => Math.atan(v))],
     [d, d.copy().apply(col => col.apply(v => Math.atan(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(arctan(pair[0]), pair[1])).toBe(true)
   })
 
@@ -64,7 +66,7 @@ test("tests that the inverse sine can be computed correctly", () => {
     [{ hello: "world" }, NaN],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(isEqual(arctan(pair[0]), pair[1])).toBe(true)
   })
 })

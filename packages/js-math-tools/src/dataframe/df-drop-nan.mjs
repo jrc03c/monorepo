@@ -1,5 +1,6 @@
 import { assert } from "../assert.mjs"
 import { dropNaN } from "../drop-nan.mjs"
+import { filter } from "../filter.mjs"
 import { isWholeNumber } from "../helpers/is-whole-number.mjs"
 
 function dfDropNaN(DataFrame, df, axis, condition, threshold) {
@@ -35,7 +36,7 @@ function dfDropNaN(DataFrame, df, axis, condition, threshold) {
   const out = df.copy()
 
   if (axis === 0) {
-    const rowsToKeep = out.index.filter(row => {
+    const rowsToKeep = filter(out.index, row => {
       const values = out.get(row, null).values
       return helper(values)
     })
@@ -43,7 +44,7 @@ function dfDropNaN(DataFrame, df, axis, condition, threshold) {
     if (rowsToKeep.length > 0) return out.get(rowsToKeep, null)
     else return new DataFrame()
   } else if (axis === 1) {
-    const colsToKeep = out.columns.filter(col => {
+    const colsToKeep = filter(out.columns, col => {
       const values = out.get(null, col).values
       return helper(values)
     })

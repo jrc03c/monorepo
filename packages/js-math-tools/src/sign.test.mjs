@@ -1,7 +1,9 @@
 import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { sign } from "./sign.mjs"
 
@@ -13,7 +15,7 @@ test("tests that the sign of a number can be correctly identified", () => {
   expect(sign(-Infinity)).toBe(-1)
 
   const a = normal(100)
-  const bTrue = a.map(v => (v < 0 ? -1 : v > 0 ? 1 : 0))
+  const bTrue = map(a, v => (v < 0 ? -1 : v > 0 ? 1 : 0))
   const bPred = sign(a)
   expect(isEqual(bPred, bTrue)).toBe(true)
 
@@ -55,7 +57,7 @@ test("tests that the sign of a number can be correctly identified", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(sign(item)).toBeNaN()
   })
 })

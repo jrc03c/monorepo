@@ -1,7 +1,9 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isFunction } from "../is-function.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 
 function dfApply(DataFrame, Series, df, fn, axis) {
   axis = axis || 0
@@ -21,8 +23,8 @@ function dfApply(DataFrame, Series, df, fn, axis) {
     const temp = {}
     let shouldReturnADataFrame
 
-    df.columns.forEach((colName, i) => {
-      const series = new Series(df.values.map(row => row[i]))
+    forEach(df.columns, (colName, i) => {
+      const series = new Series(map(df.values, row => row[i]))
       series.name = colName
       series.index = df.index
       const value = fn(series, i, df)
@@ -43,7 +45,7 @@ function dfApply(DataFrame, Series, df, fn, axis) {
       out.index = df.index
       return out
     } else {
-      const out = new Series(df.columns.map(colName => temp[colName]))
+      const out = new Series(map(df.columns, colName => temp[colName]))
       out.index = df.columns
       return out
     }
@@ -53,7 +55,7 @@ function dfApply(DataFrame, Series, df, fn, axis) {
   else if (axis === 1) {
     let shouldReturnADataFrame
 
-    const temp = df.values.map((row, i) => {
+    const temp = map(df.values, (row, i) => {
       const series = new Series(row)
       series.name = df.index[i]
       series.index = df.columns

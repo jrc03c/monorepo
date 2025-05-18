@@ -1,7 +1,9 @@
 import { abs } from "./abs.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 test("tests that absolute values can be computed correctly", () => {
@@ -9,9 +11,9 @@ test("tests that absolute values can be computed correctly", () => {
   const y = normal(100)
   const z = normal(100)
 
-  const xPos = x.map(v => Math.abs(v))
-  const yPos = y.map(v => Math.abs(v))
-  const zPos = z.map(v => Math.abs(v))
+  const xPos = map(x, v => Math.abs(v))
+  const yPos = map(y, v => Math.abs(v))
+  const zPos = map(z, v => Math.abs(v))
 
   const rights = [
     [0, 0],
@@ -44,7 +46,7 @@ test("tests that absolute values can be computed correctly", () => {
     [new DataFrame({ x, y, z }), new DataFrame({ x: xPos, y: yPos, z: zPos })],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(abs(pair[0]), pair[1]))
   })
 
@@ -63,7 +65,7 @@ test("tests that absolute values can be computed correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(abs(v)).toBeNaN()
   })
 })

@@ -1,7 +1,10 @@
 import { assert } from "../assert.mjs"
+import { filter } from "../filter.mjs"
+import { forEach } from "../for-each.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { isWholeNumber } from "../helpers/is-whole-number.mjs"
+import { map } from "../map.mjs"
 import { shape } from "../shape.mjs"
 
 function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
@@ -59,7 +62,7 @@ function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
   if (axis === 0) {
     out = out.assign(tempID, out.index)
 
-    const newValues = out.values.map(helper).filter(row => row.length > 0)
+    const newValues = filter(map(out.values, helper), row => row.length > 0)
 
     if (shape(newValues).length < 2) return new DataFrame()
 
@@ -77,8 +80,8 @@ function dfDropMissing(DataFrame, Series, df, axis, condition, threshold) {
   else if (axis === 1) {
     const temp = {}
 
-    out.columns.forEach((colName, i) => {
-      const values = out.values.map(row => row[i])
+    forEach(out.columns, (colName, i) => {
+      const values = map(out.values, row => row[i])
       const newValues = helper(values)
 
       if (newValues.length > 0) {

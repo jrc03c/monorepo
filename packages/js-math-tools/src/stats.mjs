@@ -1,6 +1,7 @@
 import { Counter } from "./helpers/counter.mjs"
 import { flatten } from "./flatten.mjs"
 import { isNumber } from "./is-number.mjs"
+import { map } from "./map.mjs"
 
 function stats(x, options) {
   // `options` is an options object options allows users to specify options stats they
@@ -78,7 +79,7 @@ function stats(x, options) {
 
   if (options.mode) {
     const sortedCountPairs = Array.from(
-      counts.values.map(v => [v, counts.get(v)]),
+      map(counts.values, v => [v, counts.get(v)]),
     ).toSorted((a, b) => b[1] - a[1])
 
     const highestCount = sortedCountPairs[0][1]
@@ -152,7 +153,7 @@ function stats(x, options) {
     }
 
     if (options.mode) {
-      out.mode = out.mode.map(v => {
+      out.mode = map(out.mode, v => {
         try {
           return BigInt(v)
         } catch (e) {

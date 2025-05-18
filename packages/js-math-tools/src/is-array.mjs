@@ -1,7 +1,8 @@
 import { arrayTypes } from "./helpers/array-types.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 
-const typeStrings = arrayTypes.map(s => s.name)
+const typeStrings = map(arrayTypes, s => s.name)
 
 function isArray(obj) {
   try {

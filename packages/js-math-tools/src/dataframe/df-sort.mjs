@@ -6,6 +6,7 @@ import { isNumber } from "../is-number.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { isWholeNumber } from "../helpers/is-whole-number.mjs"
+import { map } from "../map.mjs"
 import { random } from "../random.mjs"
 import { range } from "../range.mjs"
 import { shape } from "../shape.mjs"
@@ -74,8 +75,9 @@ function dfSortByColumns(df, cols, directions) {
     "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null.",
   )
 
-  if (isUndefined(directions))
-    directions = range(0, cols.length).map(() => true)
+  if (isUndefined(directions)) {
+    directions = map(range(0, cols.length), () => true)
+  }
 
   assert(
     isArray(directions),
@@ -93,7 +95,7 @@ function dfSortByColumns(df, cols, directions) {
   )
 
   // convert all columns to indices
-  cols = cols.map(col => {
+  cols = map(cols, col => {
     assert(
       isString(col) || isNumber(col),
       "Column references can either be column names (as strings) or column indices (as whole numbers).",
@@ -113,7 +115,7 @@ function dfSortByColumns(df, cols, directions) {
   })
 
   // convert all directions to booleans
-  directions = directions.map(dir => {
+  directions = map(directions, dir => {
     assert(
       isString(dir) || isBoolean(dir),
       "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false).",
@@ -150,7 +152,7 @@ function dfSortByColumns(df, cols, directions) {
   })
 
   const indexNumber = out.columns.indexOf(indexID)
-  out.index = out.values.map(row => row[indexNumber])
+  out.index = map(out.values, row => row[indexNumber])
   out = out.dropColumns(indexID)
   return out
 }

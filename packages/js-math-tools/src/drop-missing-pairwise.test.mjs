@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { dropMissingPairwise } from "./drop-missing-pairwise.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isJagged } from "./is-jagged.mjs"
 import { normal } from "./normal.mjs"
@@ -81,7 +82,7 @@ test("tests that missing values can be correctly dropped pairwise", () => {
     [normal([2, 3, 4, 5]), normal([5, 4, 3, 2])],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => dropMissingPairwise(pair[0], pair[1])).toThrow()
   })
 })

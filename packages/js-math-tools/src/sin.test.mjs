@@ -1,6 +1,8 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { sin } from "./sin.mjs"
 
@@ -17,12 +19,12 @@ test("tests that sines can be computed correctly", () => {
     [1, Math.sin(1)],
     [234n, Math.sin(234)],
     [-234n, Math.sin(-234)],
-    [r, r.map(row => row.map(v => Math.sin(v)))],
+    [r, map(r, row => map(row, v => Math.sin(v)))],
     [s, s.copy().apply(v => Math.sin(v))],
     [d, d.copy().apply(col => col.apply(v => Math.sin(v)))],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(isEqual(sin(pair[0]), pair[1])).toBe(true)
   })
 
@@ -50,7 +52,7 @@ test("tests that sines can be computed correctly", () => {
     [{ hello: "world" }, NaN],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(isEqual(sin(pair[0]), pair[1])).toBe(true)
   })
 })

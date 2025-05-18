@@ -1,5 +1,6 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { isSymbol } from "./is-symbol.mjs"
 
 test("tests that symbols can be identified correctly", () => {
@@ -36,7 +37,7 @@ test("tests that symbols can be identified correctly", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(isSymbol(v)).toBe(false)
   })
 })

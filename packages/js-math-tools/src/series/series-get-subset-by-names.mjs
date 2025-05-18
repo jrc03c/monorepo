@@ -1,7 +1,9 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isString } from "../is-string.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 import { shape } from "../shape.mjs"
 
 function seriesGetSubsetByNames(Series, series, indices) {
@@ -22,7 +24,7 @@ function seriesGetSubsetByNames(Series, series, indices) {
     "The `indices` array must contain at least one index name.",
   )
 
-  indices.forEach(name => {
+  forEach(indices, name => {
     assert(isString(name), "The `indices` array must contain only strings.")
 
     assert(
@@ -31,7 +33,7 @@ function seriesGetSubsetByNames(Series, series, indices) {
     )
   })
 
-  const values = indices.map(name => {
+  const values = map(indices, name => {
     return series.values[series.index.indexOf(name)]
   })
 

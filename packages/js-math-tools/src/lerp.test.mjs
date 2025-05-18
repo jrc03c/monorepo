@@ -3,6 +3,7 @@ import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { lerp } from "./lerp.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 import { random } from "./random.mjs"
 import { reshape } from "./reshape.mjs"
@@ -20,21 +21,21 @@ test("tests that linear interpolations can be computed correctly", () => {
   expect(
     isEqual(
       lerp(a, b, c),
-      a.map(v => lerp(v, b, c)),
+      map(a, v => lerp(v, b, c)),
     ),
   ).toBe(true)
 
   expect(
     isEqual(
       lerp(b, a, c),
-      a.map(v => lerp(b, v, c)),
+      map(a, v => lerp(b, v, c)),
     ),
   ).toBe(true)
 
   expect(
     isEqual(
       lerp(a, d, e),
-      a.map((v, i) => lerp(v, d[i], e[i])),
+      map(a, (v, i) => lerp(v, d[i], e[i])),
     ),
   ).toBe(true)
 

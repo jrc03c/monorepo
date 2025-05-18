@@ -1,6 +1,7 @@
 import { apply } from "./apply.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "./for-each.mjs"
 import { flatten } from "./flatten.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
@@ -79,8 +80,8 @@ test("tests that values can be multiplied correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(scale(a, b)).toBeNaN()
     })
   })

@@ -1,6 +1,7 @@
 import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { mode } from "./mode.mjs"
 import { normal } from "./normal.mjs"
 import { round } from "./round.mjs"
@@ -54,7 +55,7 @@ test("tests that the mode of an array, series, or dataframe can be found correct
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => mode(item)).toThrow()
   })
 })

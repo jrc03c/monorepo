@@ -1,7 +1,9 @@
 import { assert } from "../assert.mjs"
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isUndefined } from "../is-undefined.mjs"
 import { isWholeNumber } from "../helpers/is-whole-number.mjs"
+import { map } from "../map.mjs"
 import { range } from "../range.mjs"
 import { shape } from "../shape.mjs"
 
@@ -25,7 +27,7 @@ function seriesGetSubsetByIndices(series, indices) {
     "The `indices` array must contain at least one index.",
   )
 
-  indices.forEach(index => {
+  forEach(indices, index => {
     assert(
       isWholeNumber(index),
       "The `indices` array must be a 1-dimensional array of whole numbers.",
@@ -37,7 +39,7 @@ function seriesGetSubsetByIndices(series, indices) {
     )
   })
 
-  const rows = indices.map(i => series.index[i])
+  const rows = map(indices, i => series.index[i])
   return series.getSubsetByNames(rows)
 }
 

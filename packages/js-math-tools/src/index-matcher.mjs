@@ -1,10 +1,12 @@
 import { assert } from "./assert.mjs"
 import { DataFrame, Series } from "./dataframe/index.mjs"
+import { forEach } from "./for-each.mjs"
 import { intersect } from "./intersect.mjs"
 import { isArray } from "./is-array.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
 import { isUndefined } from "./is-undefined.mjs"
+import { map } from "./map.mjs"
 import { shape } from "./shape.mjs"
 
 class IndexMatcher {
@@ -26,7 +28,7 @@ class IndexMatcher {
   fit() {
     const indices = []
 
-    Object.values(arguments).forEach(x => {
+    forEach(Object.values(arguments), x => {
       if (isArray(x)) {
         const xshape = shape(x)
 
@@ -63,7 +65,7 @@ class IndexMatcher {
       "The IndexMatcher hasn't been fitted yet! Please call the `fit` method before calling the `transform` method.",
     )
 
-    const out = Object.values(arguments).map(x => {
+    const out = map(Object.values(arguments), x => {
       if (isArray(x)) {
         const xshape = shape(x)
 

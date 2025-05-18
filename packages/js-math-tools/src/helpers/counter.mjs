@@ -1,8 +1,10 @@
+import { forEach } from "../for-each.mjs"
 import { isArray } from "../is-array.mjs"
 import { isDataFrame } from "../is-dataframe.mjs"
 import { isFunction } from "../is-function.mjs"
 import { isSeries } from "../is-series.mjs"
 import { isUndefined } from "../is-undefined.mjs"
+import { map } from "../map.mjs"
 
 // NOTE: a lot of this code was copied from the `set` function, so it might be
 // good to extract out some of the shared functionality
@@ -26,7 +28,7 @@ class Counter {
   }
 
   get counts() {
-    return this.values.map(v => this.get(v))
+    return map(this.values, v => this.get(v))
   }
 
   get values() {
@@ -101,13 +103,13 @@ class Counter {
   }
 
   toArray() {
-    return this.values.map(v => ({ value: v, count: this.get(v) }))
+    return map(this.values, v => ({ value: v, count: this.get(v) }))
   }
 
   toObject() {
     const out = {}
 
-    this.values.forEach(value => {
+    forEach(this.values, value => {
       out[value] = this.get(value)
     })
 

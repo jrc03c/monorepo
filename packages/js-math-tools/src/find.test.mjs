@@ -2,8 +2,10 @@ import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { find } from "./find.mjs"
 import { flatten } from "./flatten.mjs"
+import { forEach } from "./for-each.mjs"
 import { isEqual } from "./is-equal.mjs"
 import { isObject } from "./is-object.mjs"
+import { map } from "./map.mjs"
 import { normal } from "./normal.mjs"
 
 function makeKey(n) {
@@ -30,7 +32,7 @@ test("tests that items matching a certain function can be found", () => {
   expect(isEqual(fPred, fTrue)).toBe(true)
 
   const g = new Series({
-    hello: normal(100).map(v => (Math.random() < 0.5 ? makeKey(8) : v)),
+    hello: map(normal(100), v => (Math.random() < 0.5 ? makeKey(8) : v)),
   })
 
   const hTrue = g.values.find(v => typeof v === "string")
@@ -38,7 +40,7 @@ test("tests that items matching a certain function can be found", () => {
   expect(isEqual(hPred, hTrue)).toBe(true)
 
   const i = new DataFrame({
-    foo: normal(100).map(v => (Math.random() < 0.5 ? { hello: "world" } : v)),
+    foo: map(normal(100), v => (Math.random() < 0.5 ? { hello: "world" } : v)),
     bar: normal(100),
   })
 
@@ -89,12 +91,12 @@ test("tests that items matching a certain function can be found", () => {
     },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => find(item, () => true)).toThrow()
   })
 
-  wrongs.forEach(item1 => {
-    wrongs.forEach(item2 => {
+  forEach(wrongs, item1 => {
+    forEach(wrongs, item2 => {
       expect(() => find(item1, item2)).toThrow()
     })
   })
