@@ -155,7 +155,17 @@ test("METHOD: Vector2.norm", () => {
   expect(a.length).toBeCloseTo(1)
 })
 
-test("METHOD: Vector2.rotate", () => {})
+test("METHOD: Vector2.rotate", () => {
+  const a = Vector2.random()
+  const angle = Math.random() * 2 * Math.PI
+  const b = a.copy()
+  b.rotate(angle)
+
+  expect(b.angle).toBeCloseTo(
+    (a.angle + angle)
+    - Math.floor((a.angle + angle) / (Math.PI * 2)) * Math.PI * 2,
+  )
+})
 
 test("METHOD: Vector2.sub", () => {})
 
