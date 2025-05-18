@@ -646,7 +646,7 @@ Returns the factorial(s) of `x`.
 
 ## `filter(x, fn)`
 
-Returns the equivalent of `x.filter(fn)` (but faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+Returns the equivalent of `x.filter(fn)` (but faster).
 
 ## `find(x, fn)`
 
@@ -670,7 +670,7 @@ Returns the floor(s) of `x`.
 
 ## `forEach(x, fn)`
 
-Performs the equivalent of `x.forEach(fn)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+Performs the equivalent of `x.forEach(fn)` (except faster).
 
 ## `identity(n)`
 
@@ -811,7 +811,7 @@ Returns the natural log(s) of `x`.
 
 ## `map(x, fn)`
 
-Returns the equivalent of `x.map(fn)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+Returns the equivalent of `x.map(fn)` (except faster).
 
 ## `MathError(message)`
 
@@ -900,7 +900,7 @@ Returns an array of numbers in the range [`a`, `b`) incremented by `step`.
 
 ## `reduce(x, fn, accumulator)`
 
-Returns the equivalent of `x.reduce(fn, accumulator)` (except faster). When `x` is a `DataFrame`, each value passed into `fn` will be a `Series` representing a row.
+Returns the equivalent of `x.reduce(fn, accumulator)` (except faster).
 
 ## `remap(x, a, b, c, d)`
 
