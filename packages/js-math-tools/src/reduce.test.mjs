@@ -1,4 +1,7 @@
+import { DataFrame, Series } from "./dataframe/index.mjs"
+import { distance } from "./distance.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
+import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { reduce } from "./reduce.mjs"
 import { time } from "./time.mjs"
@@ -8,6 +11,16 @@ test("tests that the `reduce` function works as expected", () => {
   const sum1 = x.reduce((s, v) => s + v, 0)
   const sum2 = reduce(x, (s, v) => s + v, 0)
   expect(sum2).toBe(sum1)
+
+  const a = new DataFrame(normal([10, 10]))
+  const btrue = a.values.reduce((arr, row) => arr.concat([row[0]]), [])
+  const bpred = reduce(a, (arr, row) => arr.concat([row.values[0]]), [])
+  expect(distance(bpred, btrue)).toBeCloseTo(0)
+
+  const c = new Series(normal(100))
+  const dtrue = c.values.reduce((sum, v) => sum + v, 0)
+  const dpred = reduce(c, (sum, v) => sum + v, 0)
+  expect(dpred).toBe(dtrue)
 })
 
 test(
