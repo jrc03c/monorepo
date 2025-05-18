@@ -24,7 +24,7 @@
 # js-convex-hull (0.0.27)
   - fake-jest
   - js-math-tools
-# js-plot-tools (0.0.19)
+# js-plot-tools (0.0.20)
   - js-math-tools
   - make-key
 # filedb (0.0.28)
