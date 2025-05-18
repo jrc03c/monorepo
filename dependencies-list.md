@@ -12,7 +12,7 @@
   - fake-jest
 # vector2 (0.0.9)
   - fake-jest
-# js-math-tools (0.0.93)
+# js-math-tools (0.0.94)
   - fake-jest
   - freeze
 # js-convex-hull (0.0.26)
