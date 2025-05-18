@@ -15,7 +15,7 @@
 # js-math-tools (0.0.94)
   - fake-jest
   - freeze
-# js-convex-hull (0.0.26)
+# js-convex-hull (0.0.27)
   - fake-jest
   - js-math-tools
 # make-key (0.0.37)
