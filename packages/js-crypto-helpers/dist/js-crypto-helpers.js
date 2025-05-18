@@ -74,6 +74,13 @@
     if (!isTrue) throw new MathError(message);
   }
 
+  // node_modules/@jrc03c/js-math-tools/src/for-each.mjs
+  function forEach(x, fn) {
+    for (let i = 0; i < x.length; i++) {
+      fn(x[i], i, x);
+    }
+  }
+
   // node_modules/@jrc03c/js-math-tools/src/helpers/array-types.mjs
   var arrayTypes = [
     Array,
@@ -96,8 +103,17 @@
     return x === null || typeof x === "undefined";
   }
 
+  // node_modules/@jrc03c/js-math-tools/src/map.mjs
+  function map(x, fn) {
+    const out = new Array(x.length);
+    for (let i = 0; i < x.length; i++) {
+      out[i] = fn(x[i], i, x);
+    }
+    return out;
+  }
+
   // node_modules/@jrc03c/js-math-tools/src/is-array.mjs
-  var typeStrings = arrayTypes.map((s2) => s2.name);
+  var typeStrings = map(arrayTypes, (s2) => s2.name);
   function isArray(obj) {
     try {
       if (obj instanceof Array) {
@@ -231,7 +247,7 @@
           if (!(x2 instanceof Array)) {
             return x2.slice();
           }
-          return x2.map((v) => copy(v));
+          return map(x2, (v) => copy(v));
         }
         if (isSeries(x2)) {
           const out2 = x2.copy();
@@ -248,9 +264,12 @@
         }
         x2 = decycle(x2);
         const out = {};
-        Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).forEach((key) => {
-          out[key] = copy(x2[key]);
-        });
+        forEach(
+          Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)),
+          (key) => {
+            out[key] = copy(x2[key]);
+          }
+        );
         return out;
       } else {
         return x2;
@@ -267,7 +286,7 @@
         const isANestedCopy = parts.some((v, i) => {
           const subParts = parts.slice(0, parts.length - i - 1);
           let temp = orig;
-          subParts.forEach((part) => {
+          forEach(subParts, (part) => {
             temp = temp[part];
           });
           return temp === x2;
@@ -284,11 +303,14 @@
           if (typeof x2.constructor !== "undefined" && x2.constructor.name !== "Array") {
             return x2.slice();
           }
-          return x2.map((v, i) => helper4(v, checked, currentPath + "/" + i));
+          return map(x2, (v, i) => helper4(v, checked, currentPath + "/" + i));
         } else {
-          Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).forEach((key) => {
-            x2[key] = helper4(x2[key], checked, currentPath + "/" + key.toString());
-          });
+          forEach(
+            Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)),
+            (key) => {
+              x2[key] = helper4(x2[key], checked, currentPath + "/" + key.toString());
+            }
+          );
           return x2;
         }
       } else {
@@ -395,7 +417,7 @@
       this.clear();
     }
     get counts() {
-      return this.values.map((v) => this.get(v));
+      return map(this.values, (v) => this.get(v));
     }
     get values() {
       return Object.values(this.valuesDict);
@@ -440,11 +462,11 @@
       return this;
     }
     toArray() {
-      return this.values.map((v) => ({ value: v, count: this.get(v) }));
+      return map(this.values, (v) => ({ value: v, count: this.get(v) }));
     }
     toObject() {
       const out = {};
-      this.values.forEach((value) => {
+      forEach(this.values, (value) => {
         out[value] = this.get(value);
       });
       return out;
@@ -462,7 +484,7 @@
     );
     function helper4(arr2) {
       let out = [];
-      arr2.forEach((child) => {
+      forEach(arr2, (child) => {
         if (isArray(child)) {
           out = out.concat(helper4(child));
         } else {
@@ -523,7 +545,7 @@
     }
     if (options.mode) {
       const sortedCountPairs = Array.from(
-        counts.values.map((v) => [v, counts.get(v)])
+        map(counts.values, (v) => [v, counts.get(v)])
       ).toSorted((a, b) => b[1] - a[1]);
       const highestCount = sortedCountPairs[0][1];
       const mode2 = [];
@@ -577,7 +599,7 @@
       } catch (e) {
       }
       if (options.mode) {
-        out.mode = out.mode.map((v) => {
+        out.mode = map(out.mode, (v) => {
           try {
             return BigInt(v);
           } catch (e) {
@@ -594,13 +616,13 @@
     const { counts } = stats(arr);
     if (!isUndefined(matcher)) {
       if (isFunction(matcher)) {
-        counts.values.forEach((v) => {
+        forEach(counts.values, (v) => {
           if (!matcher(v)) {
             counts.delete(v);
           }
         });
       } else {
-        counts.values.forEach((v) => {
+        forEach(counts.values, (v) => {
           if (!isEqual(v, matcher)) {
             counts.delete(v);
           }
@@ -608,6 +630,17 @@
       }
     }
     return counts;
+  }
+
+  // node_modules/@jrc03c/js-math-tools/src/filter.mjs
+  function filter(x, fn) {
+    const out = [];
+    for (let i = 0; i < x.length; i++) {
+      if (fn(x[i], i, x)) {
+        out.push(x[i]);
+      }
+    }
+    return out;
   }
 
   // node_modules/@jrc03c/js-math-tools/src/is-jagged.mjs
@@ -770,7 +803,7 @@
     );
     const out = [];
     const temp = {};
-    flatten(arr).forEach((item) => {
+    forEach(flatten(arr), (item) => {
       const key = typeof item === "object" && item === null ? NULL_KEY2 : isUndefined(item) ? UNDEFINED_KEY2 : isFunction(item) ? item.toString() : typeof item === "symbol" ? item.toString() + " - " + SYMBOL_KEY2 : item === Infinity ? INFINITY_KEY2 : item === -Infinity ? MINUS_INFINITY_KEY2 : typeof item === "bigint" ? item.toString() : isDataFrame(item) ? item.toJSONString() : isSeries(item) ? JSON.stringify(item.toObject()) : JSON.stringify(item);
       if (!temp[key]) out.push(item);
       temp[key] = true;
@@ -818,7 +851,7 @@
           const out = df.copy();
           out._values.push(x);
           const maxRowLength = Math.max(df.shape[1], xShape[0]);
-          out._values.forEach((row) => {
+          forEach(out._values, (row) => {
             while (row.length < maxRowLength) {
               row.push(void 0);
             }
@@ -833,7 +866,7 @@
         } else {
           const maxColLength = Math.max(df.shape[0], xShape[0]);
           const out = df.copy();
-          range(0, maxColLength).forEach((i) => {
+          forEach(range(0, maxColLength), (i) => {
             if (i >= out._values.length) {
               out._values.push(ndarray(df.shape[1]));
             }
@@ -850,10 +883,10 @@
       } else if (xShape.length === 2) {
         if (axis === 0) {
           const maxRowLength = Math.max(
-            ...x.map((row) => row.length).concat([df.shape[1]])
+            ...map(x, (row) => row.length).concat([df.shape[1]])
           );
           const out = df.copy();
-          out._values = out._values.concat(x).map((row) => {
+          out._values = map(out._values.concat(x), (row) => {
             while (row.length < maxRowLength) {
               row.push(void 0);
             }
@@ -867,10 +900,10 @@
           }
           return out;
         } else {
-          const maxRowLength = Math.max(...x.map((row) => row.length)) + df.shape[1];
+          const maxRowLength = Math.max(...map(x, (row) => row.length)) + df.shape[1];
           const maxColLength = Math.max(df.shape[0], xShape[0]);
           const out = df.copy();
-          range(0, maxColLength).forEach((i) => {
+          forEach(range(0, maxColLength), (i) => {
             if (i >= out._values.length) {
               out._values.push(ndarray(df.shape[1]));
             }
@@ -904,7 +937,7 @@
       if (axis === 0) {
         const out = df.copy();
         const maxRowLength = set(out._columns.concat(x._columns)).length;
-        out._values.forEach((row) => {
+        forEach(out._values, (row) => {
           while (row.length < maxRowLength) {
             row.push(void 0);
           }
@@ -912,7 +945,7 @@
         x.apply((row) => {
           const rowCopy = row.copy();
           const temp = [];
-          out._columns.forEach((col) => {
+          forEach(out._columns, (col) => {
             const index = rowCopy._index.indexOf(col);
             if (index > -1) {
               temp.push(rowCopy._values[index]);
@@ -925,7 +958,7 @@
           out._values.push(temp.concat(rowCopy._values));
         }, 1);
         out._columns = out._columns.concat(
-          x._columns.filter((c) => out._columns.indexOf(c) < 0)
+          filter(x._columns, (c) => out._columns.indexOf(c) < 0)
         );
         while (out._index.length < out._values.length) {
           const newRowName = "row" + out._index.length;
@@ -936,7 +969,7 @@
         return out;
       } else {
         const out = df.copy();
-        out._index.forEach((rowName, i) => {
+        forEach(out._index, (rowName, i) => {
           const xIndex = x._index.indexOf(rowName);
           if (xIndex > -1) {
             out._values[i] = out._values[i].concat(x._values[xIndex]);
@@ -944,7 +977,7 @@
             out._values[i] = out._values[i].concat(ndarray(x.shape[1]));
           }
         });
-        x._index.forEach((rowName, i) => {
+        forEach(x._index, (rowName, i) => {
           const outIndex = out._index.indexOf(rowName);
           if (outIndex < 0) {
             out._index.push(rowName);
@@ -952,7 +985,7 @@
           }
         });
         out._columns = out._columns.concat(
-          x._columns.map((c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : ""))
+          map(x._columns, (c) => c + (out._columns.indexOf(c) > -1 ? " (2)" : ""))
         );
         return out;
       }
@@ -977,8 +1010,8 @@
     if (axis === 0) {
       const temp = {};
       let shouldReturnADataFrame;
-      df.columns.forEach((colName, i) => {
-        const series = new Series2(df.values.map((row) => row[i]));
+      forEach(df.columns, (colName, i) => {
+        const series = new Series2(map(df.values, (row) => row[i]));
         series.name = colName;
         series.index = df.index;
         const value = fn(series, i, df);
@@ -996,13 +1029,13 @@
         out.index = df.index;
         return out;
       } else {
-        const out = new Series2(df.columns.map((colName) => temp[colName]));
+        const out = new Series2(map(df.columns, (colName) => temp[colName]));
         out.index = df.columns;
         return out;
       }
     } else if (axis === 1) {
       let shouldReturnADataFrame;
-      const temp = df.values.map((row, i) => {
+      const temp = map(df.values, (row, i) => {
         const series = new Series2(row);
         series.name = df.index[i];
         series.index = df.columns;
@@ -1051,11 +1084,11 @@
       if (out.columns.includes(p1)) {
         const index = out.columns.indexOf(p1);
         out.columns[index] = p1;
-        out.values.forEach((v, i) => v[index] = p2[i]);
+        forEach(out.values, (v, i) => v[index] = p2[i]);
         return out;
       } else {
         out._columns.push(p1);
-        out._values.forEach((v, i) => v.push(p2[i]));
+        forEach(out._values, (v, i) => v.push(p2[i]));
         return out;
       }
     } else {
@@ -1118,13 +1151,13 @@
       "The `drop` method only works on 1-dimensional arrays of numerical indices and/or strings."
     );
     let outIndex, outColumns;
-    df.index.forEach((row, i) => {
+    forEach(df.index, (row, i) => {
       if (rows.indexOf(row) < 0 && rows.indexOf(i) < 0) {
         if (!outIndex) outIndex = [];
         outIndex.push(row);
       }
     });
-    df.columns.forEach((col, i) => {
+    forEach(df.columns, (col, i) => {
       if (cols.indexOf(col) < 0 && cols.indexOf(i) < 0) {
         if (!outColumns) outColumns = [];
         outColumns.push(col);
@@ -1193,7 +1226,7 @@
     const tempID = Math.random().toString();
     if (axis === 0) {
       out = out.assign(tempID, out.index);
-      const newValues = out.values.map(helper4).filter((row) => row.length > 0);
+      const newValues = filter(map(out.values, helper4), (row) => row.length > 0);
       if (shape(newValues).length < 2) return new DataFrame2();
       out.values = newValues;
       let newIndex = out.get(null, tempID);
@@ -1204,8 +1237,8 @@
       out = out.drop(null, tempID);
     } else if (axis === 1) {
       const temp = {};
-      out.columns.forEach((colName, i) => {
-        const values = out.values.map((row) => row[i]);
+      forEach(out.columns, (colName, i) => {
+        const values = map(out.values, (row) => row[i]);
         const newValues = helper4(values);
         if (newValues.length > 0) {
           temp[colName] = newValues;
@@ -1231,7 +1264,7 @@
       "The `dropNaN` function only works on arrays, Series, and DataFrames!"
     );
     const out = [];
-    x.forEach((v) => {
+    forEach(x, (v) => {
       try {
         return out.push(dropNaN(v));
       } catch (e) {
@@ -1269,14 +1302,14 @@
     }
     const out = df.copy();
     if (axis === 0) {
-      const rowsToKeep = out.index.filter((row) => {
+      const rowsToKeep = filter(out.index, (row) => {
         const values = out.get(row, null).values;
         return helper4(values);
       });
       if (rowsToKeep.length > 0) return out.get(rowsToKeep, null);
       else return new DataFrame2();
     } else if (axis === 1) {
-      const colsToKeep = out.columns.filter((col) => {
+      const colsToKeep = filter(out.columns, (col) => {
         const values = out.get(null, col).values;
         return helper4(values);
       });
@@ -1289,7 +1322,7 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-filter.mjs
   function arrayToObject(x) {
     const out = {};
-    flatten(x).forEach((value, i) => {
+    forEach(flatten(x), (value, i) => {
       out[value] = i;
     });
     return out;
@@ -1313,7 +1346,7 @@
     const columns = arrayToObject(out.columns);
     if (axis === 0) {
       let count2 = 0;
-      const newValues = out.values.filter((row, i) => {
+      const newValues = filter(out.values, (row, i) => {
         const series = new Series2(row);
         series.name = df.index[i];
         series.index = df.columns;
@@ -1339,7 +1372,7 @@
     } else if (axis === 1) {
       out = out.transpose();
       let count2 = 0;
-      const newValues = out.values.filter((row, i) => {
+      const newValues = filter(out.values, (row, i) => {
         const series = new Series2(row);
         series.name = df.columns[i];
         series.index = df.index;
@@ -1381,7 +1414,7 @@
         cols[i] = Number(cols[i]);
       }
     }
-    const types = set((rows || []).concat(cols || []).map((v) => typeof v));
+    const types = set(map((rows || []).concat(cols || []), (v) => typeof v));
     assert(
       types.length <= 2,
       "Only whole numbers and/or strings are allowed in `get` arrays!"
@@ -1403,7 +1436,7 @@
       );
     }
     if (!isUndefined(rows)) {
-      rows = rows.map((r) => {
+      rows = map(rows, (r) => {
         if (isString(r)) {
           assert(df.index.indexOf(r) > -1, `Row "${r}" does not exist!`);
           return r;
@@ -1417,7 +1450,7 @@
       });
     }
     if (!isUndefined(cols)) {
-      cols = cols.map((c) => {
+      cols = map(cols, (c) => {
         if (isString(c)) {
           assert(df.columns.indexOf(c) > -1, `Column "${c}" does not exist!`);
           return c;
@@ -1477,8 +1510,11 @@
         out += " ";
       }
     }
-    const words = out.split(" ").filter((word) => word.length > 0);
-    return words[0] + words.slice(1).map((word) => word[0].toUpperCase() + word.substring(1)).join("");
+    const words = filter(out.split(" "), (word) => word.length > 0);
+    return words[0] + map(
+      words.slice(1),
+      (word) => word[0].toUpperCase() + word.substring(1)
+    ).join("");
   }
   function dfGetDummies(DataFrame2, df, columns) {
     if (isUndefined(columns)) {
@@ -1487,7 +1523,7 @@
       columns = [columns];
     }
     const temp = {};
-    columns.forEach((col) => {
+    forEach(columns, (col) => {
       assert(
         isString(col),
         "You must pass either a string or a one-dimensional array of strings into the `getDummies` (AKA `oneHotEncode`) method!"
@@ -1497,10 +1533,10 @@
         colIndex > -1,
         `The given DataFrame does not have a column called "${col}"!`
       );
-      const values = df.values.map((row) => row[colIndex]);
+      const values = map(df.values, (row) => row[colIndex]);
       const valuesSet = sort(set(values));
-      values.forEach((value) => {
-        valuesSet.forEach((orig) => {
+      forEach(values, (value) => {
+        forEach(valuesSet, (orig) => {
           const colName = col + "_" + camelify(orig.toString());
           if (!temp[colName]) {
             temp[colName] = [];
@@ -1541,7 +1577,7 @@
       colIndices.length > 0,
       "The `colIndices` array must contain at least one index."
     );
-    rowIndices.forEach((rowIndex) => {
+    forEach(rowIndices, (rowIndex) => {
       assert(
         isWholeNumber(rowIndex),
         "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
@@ -1551,7 +1587,7 @@
         `The row index ${rowIndex} is out of bounds.`
       );
     });
-    colIndices.forEach((colIndex) => {
+    forEach(colIndices, (colIndex) => {
       assert(
         isWholeNumber(colIndex),
         "The `rowIndices` and `colIndices` parameters must be 1-dimensional arrays of whole numbers."
@@ -1561,8 +1597,8 @@
         `The column index ${colIndex} is out of bounds.`
       );
     });
-    const rows = rowIndices.map((i) => df.index[i]);
-    const cols = colIndices.map((i) => df.columns[i]);
+    const rows = map(rowIndices, (i) => df.index[i]);
+    const cols = map(colIndices, (i) => df.columns[i]);
     return df.getSubsetByNames(rows, cols);
   }
 
@@ -1588,7 +1624,7 @@
       cols.length > 0,
       "The `cols` array must contain at least one column name."
     );
-    rows.forEach((row) => {
+    forEach(rows, (row) => {
       assert(
         isString(row),
         "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
@@ -1598,7 +1634,7 @@
         `The row name "${row}" does not exist in the list of rows.`
       );
     });
-    cols.forEach((col) => {
+    forEach(cols, (col) => {
       assert(
         isString(col),
         "The `rows` and `cols` parameters must be 1-dimensional arrays of strings."
@@ -1608,8 +1644,8 @@
         `The column name "${col}" does not exist in the list of columns.`
       );
     });
-    const values = rows.map((row) => {
-      return cols.map((col) => {
+    const values = map(rows, (row) => {
+      return map(cols, (col) => {
         return df.values[df.index.indexOf(row)][df.columns.indexOf(col)];
       });
     });
@@ -1623,7 +1659,7 @@
       return out2;
     }
     if (cols.length === 1) {
-      const out2 = new Series2(values.map((v) => v[0]));
+      const out2 = new Series2(map(values, (v) => v[0]));
       out2.name = cols[0];
       out2.index = rows;
       return out2;
@@ -1679,27 +1715,27 @@
       temp._values.splice(
         halfMaxRows,
         0,
-        range(0, temp.columns.length).map(() => "...")
+        map(range(0, temp.columns.length), () => "...")
       );
     }
     if (maxColumns <= df.columns.length) {
       temp._columns.splice(halfMaxColumns, 0, "...");
-      temp._values = temp._values.map((row) => {
+      temp._values = map(temp._values, (row) => {
         row.splice(halfMaxColumns, 0, "...");
         return row;
       });
     }
     const maxLength = 28;
     if (temp instanceof Series2) {
-      temp.values = temp.values.map((value) => truncate(value, maxLength));
+      temp.values = map(temp.values, (value) => truncate(value, maxLength));
       temp.name = truncate(temp.name, maxLength);
-      temp.index = temp.index.map((row) => truncate(row, maxLength));
+      temp.index = map(temp.index, (row) => truncate(row, maxLength));
     } else {
-      temp.values = temp.values.map((row) => {
-        return row.map((value) => truncate(value, maxLength));
+      temp.values = map(temp.values, (row) => {
+        return map(row, (value) => truncate(value, maxLength));
       });
-      temp.columns = temp.columns.map((col) => truncate(col, maxLength));
-      temp.index = temp.index.map((row) => truncate(row, maxLength));
+      temp.columns = map(temp.columns, (col) => truncate(col, maxLength));
+      temp.index = map(temp.index, (row) => truncate(row, maxLength));
     }
     console.table(temp.toDetailedObject());
     console.log("Shape:", df.shape, "\n");
@@ -1717,7 +1753,7 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-reset-index.mjs
   function dfResetIndex(df, shouldSkipCopying) {
     const out = shouldSkipCopying ? df : df.copy();
-    out.index = range(0, df.shape[0]).map((i) => {
+    out.index = map(range(0, df.shape[0]), (i) => {
       return "row" + leftPad(i, (out.index.length - 1).toString().length);
     });
     return out;
@@ -1786,7 +1822,7 @@
       shape(newShape).length === 1,
       "The first argument passed into the `reshape` function must be a whole number or a one-dimensional array of whole numbers!"
     );
-    newShape = newShape.map((v) => {
+    newShape = map(newShape, (v) => {
       if (typeof v === "bigint") {
         v = Number(v);
       }
@@ -1873,7 +1909,7 @@
   function random(shape2) {
     if (isUndefined(shape2)) return next();
     if (!isArray(shape2)) shape2 = [shape2];
-    return reshape(ndarray(product(shape2)).map(next), shape2);
+    return reshape(map(ndarray(product(shape2)), next), shape2);
   }
 
   // node_modules/@jrc03c/js-math-tools/src/shuffle.mjs
@@ -1962,8 +1998,9 @@
       shape(cols).length === 1,
       "The first parameter of the `sort` method must be (1) a string or index representing a column name or index, respectively; (2) a 1-dimensional array of strings and/or indices; or (3) null."
     );
-    if (isUndefined(directions))
-      directions = range(0, cols.length).map(() => true);
+    if (isUndefined(directions)) {
+      directions = map(range(0, cols.length), () => true);
+    }
     assert(
       isArray(directions),
       "The second parameter of the `sort` method must be (1) a string or boolean representing the sort direction ('ascending' / 'descending', or true / false); (2) a 1-dimensional array of strings and/or booleans; or (3) null."
@@ -1976,7 +2013,7 @@
       cols.length === directions.length,
       "The arrays passed into the `sort` method must be equal in length."
     );
-    cols = cols.map((col) => {
+    cols = map(cols, (col) => {
       assert(
         isString(col) || isNumber(col),
         "Column references can either be column names (as strings) or column indices (as whole numbers)."
@@ -1992,7 +2029,7 @@
         return col;
       }
     });
-    directions = directions.map((dir) => {
+    directions = map(directions, (dir) => {
       assert(
         isString(dir) || isBoolean(dir),
         "Direction references can either be strings ('ascending' or 'descending') or booleans (true or false)."
@@ -2020,7 +2057,7 @@
       if (a[cols[counter]] > b[cols[counter]]) return isAscending ? 1 : -1;
     });
     const indexNumber = out.columns.indexOf(indexID);
-    out.index = out.values.map((row) => row[indexNumber]);
+    out.index = map(out.values, (row) => row[indexNumber]);
     out = out.dropColumns(indexID);
     return out;
   }
@@ -2037,17 +2074,17 @@
     }
     const out = {};
     if (axis === 0) {
-      df.index.forEach((rowName, i) => {
+      forEach(df.index, (rowName, i) => {
         const temp = {};
-        df.columns.forEach((colName, j) => {
+        forEach(df.columns, (colName, j) => {
           temp[colName] = df.values[i][j];
         });
         out[rowName] = temp;
       });
     } else {
-      df.columns.forEach((colName, j) => {
+      forEach(df.columns, (colName, j) => {
         const temp = {};
-        df.index.forEach((rowName, i) => {
+        forEach(df.index, (rowName, i) => {
           temp[rowName] = df.values[i][j];
         });
         out[colName] = temp;
@@ -2069,7 +2106,7 @@
   // node_modules/@jrc03c/js-math-tools/src/dataframe/df-to-object.mjs
   function dfToObject(df) {
     const out = {};
-    df.columns.forEach((col) => {
+    forEach(df.columns, (col) => {
       out[col] = df.get(col).values;
     });
     return out;
@@ -2114,7 +2151,7 @@
         "Only vectors can be appended to Series!"
       );
       const out = series.copy();
-      x.forEach((v, i) => {
+      forEach(x, (v, i) => {
         out._values.push(v);
         out._index.push("item" + (series.values.length + i));
       });
@@ -2130,7 +2167,7 @@
       "The parameter to the `apply` method must be a function."
     );
     const out = series.copy();
-    out._values = out._values.map((v, i) => fn(v, i));
+    out._values = map(out._values, (v, i) => fn(v, i));
     return out;
   }
 
@@ -2138,7 +2175,7 @@
   function seriesDropMissing(series) {
     const out = series.copy();
     const outIndex = [];
-    out._values = out.values.filter((v, i) => {
+    out._values = filter(out.values, (v, i) => {
       if (isUndefined(v)) {
         return false;
       } else {
@@ -2154,7 +2191,7 @@
   function seriesDropNaN(Series2, series) {
     const index = [];
     const values = [];
-    series.values.forEach((value, i) => {
+    forEach(series.values, (value, i) => {
       if (isNumber(value)) {
         values.push(value);
         index.push(series.index[i]);
@@ -2171,12 +2208,12 @@
     let out = series.copy();
     const index = copy(out.index);
     const indicesToRemove = [];
-    const newValues = out.values.filter((value, i) => {
+    const newValues = filter(out.values, (value, i) => {
       const shouldKeep = fn(value, i, out.values);
       if (!shouldKeep) indicesToRemove.push(out.index[i]);
       return shouldKeep;
     });
-    indicesToRemove.forEach((i) => {
+    forEach(indicesToRemove, (i) => {
       index.splice(index.indexOf(i), 1);
     });
     if (newValues.length === 0) {
@@ -2197,7 +2234,7 @@
         indices[i] = Number(indices[i]);
       }
     }
-    const types = set((indices || []).map((v) => typeof v));
+    const types = set(map(indices || [], (v) => typeof v));
     assert(
       types.length <= 2,
       "Only whole numbers and/or strings are allowed in `get` arrays!"
@@ -2219,7 +2256,7 @@
       );
     }
     if (!isUndefined(indices)) {
-      indices = indices.map((i) => {
+      indices = map(indices, (i) => {
         if (typeof i === "string") {
           assert(series.index.indexOf(i) > -1, `Index "${i}" does not exist!`);
           return i;
@@ -2251,7 +2288,7 @@
       indices.length > 0,
       "The `indices` array must contain at least one index."
     );
-    indices.forEach((index) => {
+    forEach(indices, (index) => {
       assert(
         isWholeNumber(index),
         "The `indices` array must be a 1-dimensional array of whole numbers."
@@ -2261,7 +2298,7 @@
         `The row index ${index} is out of bounds.`
       );
     });
-    const rows = indices.map((i) => series.index[i]);
+    const rows = map(indices, (i) => series.index[i]);
     return series.getSubsetByNames(rows);
   }
 
@@ -2280,14 +2317,14 @@
       indices.length > 0,
       "The `indices` array must contain at least one index name."
     );
-    indices.forEach((name) => {
+    forEach(indices, (name) => {
       assert(isString(name), "The `indices` array must contain only strings.");
       assert(
         series.index.indexOf(name) > -1,
         `The name "${name}" does not exist in the index.`
       );
     });
-    const values = indices.map((name) => {
+    const values = map(indices, (name) => {
       return series.values[series.index.indexOf(name)];
     });
     if (values.length === 1) return values[0];
@@ -2314,7 +2351,7 @@
       temp = temp.get(tempIndex);
     }
     const out = {};
-    temp.values.forEach((value, i) => {
+    forEach(temp.values, (value, i) => {
       const obj = {};
       obj[temp.name] = value;
       out[temp.index[i]] = obj;
@@ -2343,7 +2380,7 @@
     });
     const newValues = [];
     const newIndex = [];
-    temp.forEach((pair) => {
+    forEach(temp, (pair) => {
       newValues.push(pair[0]);
       newIndex.push(pair[1]);
     });
@@ -2374,7 +2411,7 @@
   function seriesToObject(series) {
     const out = {};
     out[series.name] = {};
-    series.index.forEach((index, i) => {
+    forEach(series.index, (index, i) => {
       out[series.name][index] = series.values[i];
     });
     return out;
@@ -2422,7 +2459,7 @@
               this._index = this._index.slice(0, dataShape[0]);
             } else if (dataShape[0] > this._index.length) {
               this._index = this._index.concat(
-                range(this._index.length, dataShape[0]).map((i) => {
+                map(range(this._index.length, dataShape[0]), (i) => {
                   return "item" + leftPad(i, (x.length - 1).toString().length);
                 })
               );
@@ -2455,7 +2492,7 @@
               shape(x).length === 1,
               "The new index must be a 1-dimensional array of strings!"
             );
-            x.forEach((value) => {
+            forEach(x, (value) => {
               assert(isString(value), "All of the row names must be strings!");
             });
             this._index = x;
@@ -2474,7 +2511,10 @@
             );
             this.values = data;
           } else if (data instanceof Object) {
-            const keys = Object.keys(data).concat(Object.getOwnPropertySymbols(data)).map((v) => v.toString());
+            const keys = map(
+              Object.keys(data).concat(Object.getOwnPropertySymbols(data)),
+              (v) => v.toString()
+            );
             assert(
               keys.length === 1,
               "When passing an object into the constructor of a Series, the object must have only 1 key-value pair, where the key is the name of the data and the value is the 1-dimensional array of values!"
@@ -2497,11 +2537,11 @@
         return this.shape[0];
       }
       get isEmpty() {
-        return this.values.filter((v) => !isUndefined(v)).length === 0;
+        return filter(this.values, (v) => !isUndefined(v)).length === 0;
       }
       clear() {
         const out = this.copy();
-        out.values.forEach((v, i) => {
+        forEach(out.values, (v, i) => {
           out.values[i] = void 0;
         });
         return out;
@@ -2529,7 +2569,7 @@
       }
       resetIndex() {
         const out = this.copy();
-        out.index = range(0, this.shape[0]).map((i) => {
+        out.index = map(range(0, this.shape[0]), (i) => {
           return "item" + leftPad(i, (out.index.length - 1).toString().length);
         });
         return out;
@@ -2645,7 +2685,7 @@
             this._index = this._index.slice(0, dataShape[0]);
           } else if (dataShape[0] > this._index.length) {
             this._index = this._index.concat(
-              range(this._index.length, dataShape[0]).map((i) => {
+              map(range(this._index.length, dataShape[0]), (i) => {
                 return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
               })
             );
@@ -2654,7 +2694,7 @@
             this._columns = this._columns.slice(0, dataShape[1]);
           } else if (dataShape[1] > this._columns.length) {
             this._columns = this._columns.concat(
-              range(this._columns.length, dataShape[1]).map((i) => {
+              map(range(this._columns.length, dataShape[1]), (i) => {
                 return "col" + leftPad(i, (dataShape[1] - 1).toString().length);
               })
             );
@@ -2687,7 +2727,7 @@
             shape(x).length === 1,
             "The new columns list must be a 1-dimensional array of strings!"
           );
-          x = x.map((v) => {
+          x = map(x, (v) => {
             if (typeof v !== "string") {
               v = JSON.stringify(v) || v.toString();
             }
@@ -2699,12 +2739,12 @@
           const counts = (() => {
             const temp = count(x);
             const out = {};
-            temp.values.forEach((v) => {
+            forEach(temp.values, (v) => {
               out[v] = temp.get(v);
             });
             return out;
           })();
-          x = x.map((v) => {
+          x = map(x, (v) => {
             if (counts[v] > 1) {
               return v + "_" + makeKey3(8);
             }
@@ -2738,7 +2778,7 @@
             shape(x).length === 1,
             "The new index must be a 1-dimensional array of strings!"
           );
-          x = x.map((v) => {
+          x = map(x, (v) => {
             if (typeof v !== "string") {
               v = JSON.stringify(v) || v.toString();
             }
@@ -2750,12 +2790,12 @@
           const counts = (() => {
             const temp = count(x);
             const out = {};
-            temp.values.forEach((v) => {
+            forEach(temp.values, (v) => {
               out[v] = temp.get(v);
             });
             return out;
           })();
-          x = x.map((v) => {
+          x = map(x, (v) => {
             if (counts[v] > 1) {
               return v + "_" + makeKey3(8);
             }
@@ -2785,11 +2825,14 @@
           );
           this.values = data;
         } else {
-          this._columns = Object.keys(data).concat(Object.getOwnPropertySymbols(data)).map((v) => v.toString());
+          this._columns = map(
+            Object.keys(data).concat(Object.getOwnPropertySymbols(data)),
+            (v) => v.toString()
+          );
           const temp = [];
           let lastColName = null;
           let lastColLength = null;
-          this._columns.forEach((col) => {
+          forEach(this._columns, (col) => {
             if (isUndefined(lastColLength)) {
               lastColName = col;
               lastColLength = data[col].length;
@@ -2804,7 +2847,7 @@
           });
           this._values = transpose(temp);
           const dataShape = shape(this.values);
-          this._index = range(0, dataShape[0]).map((i) => {
+          this._index = map(range(0, dataShape[0]), (i) => {
             return "row" + leftPad(i, (dataShape[0] - 1).toString().length);
           });
         }
@@ -2952,23 +2995,29 @@
       let hasSeries, hasDataFrames;
       const series = [];
       const dataframes = [];
-      const childArrays = Object.keys(arguments).filter((key) => {
-        const arg = arguments[key];
-        if (isArray(arg)) {
-          return true;
-        } else if (isSeries(arg)) {
-          hasSeries = true;
-          series.push(arg);
-          return true;
-        } else if (isDataFrame(arg)) {
-          hasDataFrames = true;
-          dataframes.push(arg);
-          return true;
-        } else {
-          return false;
-        }
-      }).map((key) => arguments[key]);
-      childArrays.slice(0, -1).forEach((s2, i) => {
+      const childArrays = map(
+        filter(
+          Object.keys(arguments),
+          (key) => {
+            const arg = arguments[key];
+            if (isArray(arg)) {
+              return true;
+            } else if (isSeries(arg)) {
+              hasSeries = true;
+              series.push(arg);
+              return true;
+            } else if (isDataFrame(arg)) {
+              hasDataFrames = true;
+              dataframes.push(arg);
+              return true;
+            } else {
+              return false;
+            }
+          }
+        ),
+        (key) => arguments[key]
+      );
+      forEach(childArrays.slice(0, -1), (s2, i) => {
         assert(
           isEqual(
             isArray(s2) ? shape(s2) : s2.shape,
@@ -2979,10 +3028,10 @@
       });
       if (childArrays.length > 0) {
         const maxLength = max(
-          childArrays.map((a) => a.length ? a.length : a.values.length)
+          map(childArrays, (a) => a.length ? a.length : a.values.length)
         );
-        const out = range(0, maxLength).map((i) => {
-          const args = Object.keys(arguments).map((key) => {
+        const out = map(range(0, maxLength), (i) => {
+          const args = map(Object.keys(arguments), (key) => {
             if (isArray(arguments[key])) {
               return arguments[key][i];
             } else if (isSeries(arguments[key])) {
@@ -3161,7 +3210,7 @@
       return out;
     }
     if (isArray(x)) {
-      return x.map((v) => int(v));
+      return map(x, (v) => int(v));
     } else {
       try {
         const out = JSON.parse(x);
@@ -3535,7 +3584,7 @@
       };
     }
     if (isArray(x)) {
-      return x.map((v) => {
+      return map(x, (v) => {
         try {
           return convertTypedArrayToObject(v);
         } catch (e) {
@@ -3548,7 +3597,7 @@
         return new Date(x.getTime());
       }
       const out = {};
-      Object.keys(x).forEach((key) => {
+      forEach(Object.keys(x), (key) => {
         try {
           out[key] = convertTypedArrayToObject(x[key]);
         } catch (e) {
@@ -3585,9 +3634,12 @@
           x[i] = fixUndefineds(x[i]);
         }
       } else {
-        Object.keys(x).concat(Object.getOwnPropertySymbols(x)).forEach((key) => {
-          x[key] = fixUndefineds(x[key]);
-        });
+        forEach(
+          Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+          (key) => {
+            x[key] = fixUndefineds(x[key]);
+          }
+        );
       }
       return x;
     } else {
@@ -3730,20 +3782,23 @@
       }
       return;
     }
-    Object.keys(x).concat(Object.getOwnPropertySymbols(x)).forEach((key) => {
-      try {
-        let origKey = key;
+    forEach(
+      Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+      (key) => {
         try {
-          key = parse(key);
+          let origKey = key;
+          try {
+            key = parse(key);
+          } catch (e) {
+          }
+          x[key] = parse(x[origKey]);
+          if (key !== origKey) {
+            delete x[origKey];
+          }
         } catch (e) {
         }
-        x[key] = parse(x[origKey]);
-        if (key !== origKey) {
-          delete x[origKey];
-        }
-      } catch (e) {
       }
-    });
+    );
     return fixUndefineds(x);
   }
   function parse(x) {
@@ -3812,7 +3867,7 @@
   // node_modules/@jrc03c/js-text-tools/src/stringify.mjs
   function prefix(s2, n) {
     if (!s2 || n <= 0) return "";
-    return range(0, n).map(() => s2).join("");
+    return map(range(0, n), () => s2).join("");
   }
   function stringify(x, indent2) {
     assert(
@@ -3869,37 +3924,43 @@
           if (!(x2 instanceof Array)) {
             return helper4(convertTypedArrayToObject(x2), null, indent3);
           }
-          return prefix(indent3, depth - 1) + "[" + newline + x2.map((v) => {
-            let child = (() => {
-              try {
-                return helper4(convertTypedArrayToObject(v), indent3, depth + 1);
-              } catch (e) {
-                return helper4(v, indent3, depth + 1);
-              }
-            })();
-            if (isString(child)) child = child.trim();
-            return prefix(indent3, depth + 1) + child;
-          }).join("," + newline) + newline + prefix(indent3, depth) + "]";
+          return prefix(indent3, depth - 1) + "[" + newline + map(
+            x2,
+            (v) => {
+              let child = (() => {
+                try {
+                  return helper4(convertTypedArrayToObject(v), indent3, depth + 1);
+                } catch (e) {
+                  return helper4(v, indent3, depth + 1);
+                }
+              })();
+              if (isString(child)) child = child.trim();
+              return prefix(indent3, depth + 1) + child;
+            }
+          ).join("," + newline) + newline + prefix(indent3, depth) + "]";
         }
         if (Object.keys(x2).length + Object.getOwnPropertySymbols(x2).length === 0) {
           return prefix(indent3, depth - 1) + "{}";
         }
-        return prefix(indent3, depth - 1) + "{" + newline + Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)).map((key) => {
-          let child = (() => {
-            try {
-              return helper4(
-                convertTypedArrayToObject(x2[key]),
-                indent3,
-                depth + 1
-              );
-            } catch (e) {
-              return helper4(x2[key], indent3, depth + 1);
-            }
-          })();
-          if (isString(child)) child = child.trim();
-          const stringifiedKey = typeof key === "symbol" ? helper4(key) : JSON.stringify(key);
-          return prefix(indent3, depth + 1) + stringifiedKey + ":" + (indent3 ? " " : "") + child;
-        }).join("," + newline) + newline + prefix(indent3, depth) + "}";
+        return prefix(indent3, depth - 1) + "{" + newline + map(
+          Object.keys(x2).concat(Object.getOwnPropertySymbols(x2)),
+          (key) => {
+            let child = (() => {
+              try {
+                return helper4(
+                  convertTypedArrayToObject(x2[key]),
+                  indent3,
+                  depth + 1
+                );
+              } catch (e) {
+                return helper4(x2[key], indent3, depth + 1);
+              }
+            })();
+            if (isString(child)) child = child.trim();
+            const stringifiedKey = typeof key === "symbol" ? helper4(key) : JSON.stringify(key);
+            return prefix(indent3, depth + 1) + stringifiedKey + ":" + (indent3 ? " " : "") + child;
+          }
+        ).join("," + newline) + newline + prefix(indent3, depth) + "}";
       }
       return "undefined";
     }

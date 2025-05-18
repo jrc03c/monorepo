@@ -7,13 +7,13 @@
     "random-string": "./src/random-string-bin.mjs"
   },
   "dependencies": {
-    "@jrc03c/js-math-tools": "^0.0.93",
-    "@jrc03c/js-text-tools": "^0.0.63"
+    "@jrc03c/js-math-tools": "^0.0.94",
+    "@jrc03c/js-text-tools": "^0.0.68"
   },
   "description": "just simple wrappers around core js crypto functions",
   "devDependencies": {
     "@jrc03c/bash-colors": "^0.0.8",
-    "@jrc03c/fake-jest": "^0.0.16",
+    "@jrc03c/fake-jest": "^0.0.17",
     "@jrc03c/prompt": "^0.0.12",
     "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
