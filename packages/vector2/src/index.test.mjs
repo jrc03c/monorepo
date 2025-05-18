@@ -195,4 +195,11 @@ test("METHOD: Vector2.fromAngle (static)", () => {
   expect(v.length).toBeCloseTo(1)
 })
 
-test("METHOD: Vector2.random (static)", () => {})
+test("METHOD: Vector2.random (static)", () => {
+  for (let i = 0; i < 1000; i++) {
+    const v = Vector2.random()
+    expect(v.angle).toBeGreaterThanOrEqualTo(0)
+    expect(v.angle).toBeLessThan(2 * Math.PI)
+    expect(v.length).toBeCloseTo(1)
+  }
+})
