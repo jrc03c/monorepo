@@ -10,15 +10,18 @@
   - fake-jest
 # freeze (0.0.7)
   - fake-jest
+# make-key (0.0.40)
+  - fake-jest
 # vector2 (0.0.9)
   - fake-jest
 # js-math-tools (0.0.94)
   - fake-jest
   - freeze
-# js-convex-hull (0.0.27)
+# queue (0.0.14)
   - fake-jest
-  - js-math-tools
-# make-key (0.0.39)
+  - make-key
+  - pause
+# js-convex-hull (0.0.27)
   - fake-jest
   - js-math-tools
 # js-plot-tools (0.0.19)
@@ -28,10 +31,6 @@
   - fake-jest
   - js-math-tools
   - make-key
-# queue (0.0.14)
-  - fake-jest
-  - make-key
-  - pause
 # js-text-tools (0.0.67)
   - bash-colors
   - fake-jest
