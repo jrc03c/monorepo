@@ -1,6 +1,8 @@
 import { copy } from "./copy.mjs"
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
 import { forEach } from "./for-each.mjs"
+import { isEqual } from "./is-equal.mjs"
 import { normal } from "./normal.mjs"
 import { range } from "./range.mjs"
 import { time } from "./time.mjs"
@@ -15,6 +17,16 @@ test("tests that the `forEach` function works as expected", () => {
   a.forEach((v, i) => {
     expect(b[i]).toBeCloseTo(a[i] * 2)
   })
+
+  const c = new DataFrame(normal([10, 10]))
+  const rowNames = []
+  forEach(c, v => rowNames.push(v.name))
+  expect(isEqual(rowNames, c.index)).toBe(true)
+
+  const d = new Series(normal(100))
+  const values = []
+  forEach(d, v => values.push(v))
+  expect(isEqual(values, d.values)).toBe(true)
 })
 
 test(
