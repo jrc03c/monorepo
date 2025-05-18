@@ -1,6 +1,8 @@
 import {
   DataFrame,
+  forEach,
   isEqual,
+  map,
   normal,
   random,
   round,
@@ -14,10 +16,6 @@ import { parse } from "./parse.mjs"
 import { stringify } from "./stringify.mjs"
 import { unindent } from "./unindent.mjs"
 import fs from "node:fs"
-
-function makeKeySeeded(n) {
-  return makeKey(n, Math.round(random() * 999999) + 999999)
-}
 
 const files = []
 
@@ -84,7 +82,7 @@ test("tests that indentation can be applied when stringifying", () => {
     if (endpoint instanceof Array) {
       endpoint.push(value)
     } else {
-      const key = makeKeySeeded(parseInt(random() * 5) + 1)
+      const key = makeKey(parseInt(random() * 5) + 1, null, random)
       endpoint[key] = value
     }
 
@@ -101,142 +99,139 @@ test("tests that indentation can be applied when stringifying", () => {
 
   const xTrue = unindent(`
 {
-  "2": [],
-  "14": "-234n",
-  "34": "Symbol(@NaN)",
-  "33d0": [
-    "function dubble(x) {\\n    return x * 2\\n  }",
+  "53": -2.3,
+  "d1f4": [
+    0,
+    true,
+    0,
     {
-      "7": {
-        "43": {
-          "c": "Symbol(@undefined)",
-          "08": {}
-        },
-        "g": {
-          "11f7e": "Symbol(@NaN)"
-        }
-      },
-      "967": "Symbol(@Infinity)",
-      "2f06": {
-        "eb1g1": 2.3,
-        "ae15c": [
-          {
-            "7594": null
-          },
-          "x => x"
-        ],
-        "7787a": 1,
-        "72b9c": {
-          "5": [
-            "-234n"
-          ],
-          "25": []
-        },
-        "ag31": [
-          true
-        ]
-      },
-      "ce": "x => x"
-    },
-    {
-      "983": [],
-      "b10": 1,
-      "3442g": {
-        "5": [
-          "Symbol(@undefined)",
-          [],
-          false,
-          -2.3
-        ],
-        "9": {
-          "8": "2365-02-16T23:47:32.955Z",
-          "2c9": [
-            "Symbol(@String):foo",
-            "Symbol(@String):foo",
-            0
-          ],
-          "c4": [
-            [],
-            [
-              "Symbol(Hello, world!)",
-              [
-                null,
-                {
-                  "fae": true
-                }
-              ],
-              "function dubble(x) {\\n    return x * 2\\n  }",
-              []
-            ]
-          ],
-          "c3d": "2365-02-16T23:47:32.955Z",
-          "g": "Symbol(Hello, world!)"
-        },
-        "1bf": {
-          "2ee9": [
-            -2.3,
-            true,
-            []
-          ],
-          "93bgb": {}
-        },
-        "d440": "Symbol(@String):foo",
-        "d5f": [
-          -2.3,
-          -2.3
-        ]
-      },
-      "6e": [
-        [
-          null,
-          false,
-          -2.3
-        ],
-        [
-          null,
-          "function dubble(x) {\\n    return x * 2\\n  }"
-        ],
-        true
+      "2": [
+        "Symbol(@undefined)"
       ],
-      "g": {
-        "63a0": {
-          "ac7f": []
-        }
-      }
-    },
-    "2365-02-16T23:47:32.955Z",
-    "2365-02-16T23:47:32.955Z",
-    [
-      0,
-      "Symbol(@undefined)",
-      2.3
-    ]
-  ],
-  "0fg6": "234n",
-  "33e": {
-    "4": "-234n",
-    "700a9": "x => x",
-    "15b": {},
-    "1f93": {
-      "e67": [
+      "6": "Symbol(Hello, world!)",
+      "49": [
+        [],
+        {},
         1,
         []
       ],
-      "45g49": "Symbol(@NegativeInfinity)",
-      "b0801": [
-        []
+      "2d": "Symbol(Hello, world!)",
+      "2e03": 1,
+      "e2b": [
+        -2.3,
+        "-234n",
+        [],
+        2.3,
+        "x => x"
+      ],
+      "d0d58": "Symbol(Hello, world!)",
+      "fd0cc": {
+        "4897": "Symbol(@undefined)",
+        "bf": {
+          "24": [
+            -2.3
+          ],
+          "ab1": [],
+          "8f1": "x => x"
+        },
+        "aa0d": null,
+        "c7": [
+          [
+            [
+              2.3,
+              [
+                [
+                  "Symbol(@String):foo"
+                ],
+                []
+              ],
+              {}
+            ]
+          ],
+          []
+        ],
+        "a91a": {
+          "2c9": [
+            "Symbol(@Infinity)"
+          ],
+          "0669": "Symbol(Hello, world!)"
+        }
+      },
+      "1dfce": 0,
+      "7c": {
+        "0c6fc": {},
+        "c7f3c": {}
+      },
+      "f7cd": [
+        1
       ]
-    }
-  },
-  "df736": [
+    },
+    [
+      {
+        "9": "Symbol(@Infinity)",
+        "289e": {
+          "9": [],
+          "d6": {
+            "9de12": "Symbol(@NaN)",
+            "d4f": [
+              {
+                "9": "Symbol(@NaN)",
+                "963": [],
+                "312bb": {},
+                "4b8ce": "Symbol(Hello, world!)",
+                "e777": 0
+              },
+              2.3
+            ]
+          },
+          "9a2": [
+            {}
+          ]
+        },
+        "f2": {
+          "7b4": {
+            "a": 0
+          }
+        }
+      },
+      {
+        "6": 1,
+        "63869": {},
+        "be1d": "2365-02-16T23:47:32.955Z"
+      },
+      [],
+      {},
+      true,
+      [
+        -2.3
+      ]
+    ],
+    "function dubble(x) {\\n    return x * 2\\n  }",
     {
-      "53960": "Symbol(@Infinity)"
-    }
+      "65da": [
+        [
+          "Symbol(@Infinity)",
+          false,
+          "Symbol(@String):foo",
+          []
+        ],
+        false,
+        "Symbol(@NegativeInfinity)"
+      ],
+      "87b8": [
+        {
+          "5f": "Symbol(@NaN)",
+          "ad": "Symbol(Hello, world!)"
+        }
+      ]
+    },
+    []
   ],
-  "e05": [
-    {},
-    "Symbol(@Infinity)"
-  ]
+  "74aa3": "Symbol(@Infinity)",
+  "eef": "Symbol(Hello, world!)",
+  "f95": "2365-02-16T23:47:32.955Z",
+  "d814": "x => x",
+  "6ea": 1
 }
   `).trim()
 
@@ -252,8 +247,8 @@ test("tests that indentation can be applied when stringifying", () => {
 test("tests that values can be stringified and parsed back to their original value", () => {
   const df1 = new DataFrame(normal([100, 10]))
   const df2 = new DataFrame(normal([100, 10]))
-  df2.values = df2.values.map(row => row.map(() => makeKey(8)))
-  df2.columns = df2.columns.map(() => makeKey(8))
+  df2.values = map(df2.values, row => map(row, () => makeKey(8)))
+  df2.columns = map(df2.columns, () => makeKey(8))
   const series = new Series(normal(100))
   series.name = "123abc"
 
@@ -309,7 +304,7 @@ test("tests that values can be stringified and parsed back to their original val
     { whatevs: ["foo", "bar", "baz"].join("\n") },
   ]
 
-  variables.forEach(value => {
+  forEach(variables, value => {
     const s = stringify(value)
     const p = parse(s)
     expect(isEqual(value, p)).toBe(true)
@@ -365,7 +360,7 @@ test("tests that values can be stringified and parsed back to their original val
     if (endpoint instanceof Array) {
       endpoint.push(value)
     } else {
-      const key = makeKeySeeded(parseInt(random() * 5) + 1)
+      const key = makeKey(parseInt(random() * 5) + 1)
       endpoint[key] = value
     }
 
@@ -419,7 +414,7 @@ test("tests that stringification and parsing work when writing to and reading fr
     if (endpoint instanceof Array) {
       endpoint.push(value)
     } else {
-      const key = makeKeySeeded(parseInt(random() * 5) + 1)
+      const key = makeKey(parseInt(random() * 5) + 1)
       endpoint[key] = value
     }
 
@@ -452,7 +447,7 @@ test("tests that core value types can be stringified correctly", () => {
   const buffer = new ArrayBuffer(256)
   const f64Array = new Float64Array(buffer)
 
-  f64Array.forEach((v, i) => {
+  forEach(f64Array, (v, i) => {
     f64Array[i] = Math.random()
   })
 
@@ -499,7 +494,7 @@ test("tests that core value types can be stringified correctly", () => {
     ],
   ]
 
-  pairs.forEach(pair => {
+  forEach(pairs, pair => {
     expect(stringify(pair[0])).toBe(pair[1])
   })
 })
@@ -509,7 +504,7 @@ test("tests that unparseable strings are returned as-is from the `parse` functio
 })
 
 afterAll(() => {
-  files.forEach(file => {
+  forEach(files, file => {
     fs.unlinkSync(file)
   })
 })

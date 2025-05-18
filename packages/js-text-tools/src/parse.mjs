@@ -4,7 +4,7 @@
 // Function("...")` is basically just as insecure as using `eval`.
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Function
 
-import { isArray } from "@jrc03c/js-math-tools"
+import { forEach, isArray } from "@jrc03c/js-math-tools"
 import { convertObjectToTypedArray, isANumberString } from "./helpers/index.mjs"
 
 const specials = {
@@ -25,11 +25,12 @@ function fixUndefineds(x) {
         x[i] = fixUndefineds(x[i])
       }
     } else {
-      Object.keys(x)
-        .concat(Object.getOwnPropertySymbols(x))
-        .forEach(key => {
+      forEach(
+        Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+        key => {
           x[key] = fixUndefineds(x[key])
-        })
+        },
+      )
     }
 
     return x
@@ -210,9 +211,9 @@ function parseObjectKeysAndValues(x) {
     return
   }
 
-  Object.keys(x)
-    .concat(Object.getOwnPropertySymbols(x))
-    .forEach(key => {
+  forEach(
+    Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+    key => {
       try {
         let origKey = key
 
@@ -230,7 +231,8 @@ function parseObjectKeysAndValues(x) {
       } catch (e) {
         // ...
       }
-    })
+    },
+  )
 
   return fixUndefineds(x)
 }

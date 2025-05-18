@@ -5,6 +5,7 @@ import {
   isDate,
   isString,
   isUndefined,
+  map,
   range,
 } from "@jrc03c/js-math-tools"
 
@@ -12,10 +13,7 @@ import { convertTypedArrayToObject } from "./helpers/convert-typed-array-to-obje
 
 function prefix(s, n) {
   if (!s || n <= 0) return ""
-
-  return range(0, n)
-    .map(() => s)
-    .join("")
+  return map(range(0, n), () => s).join("")
 }
 
 function stringify(x, indent) {
@@ -95,8 +93,9 @@ function stringify(x, indent) {
           prefix(indent, depth - 1) +
           "[" +
           newline +
-          x
-            .map(v => {
+          map(
+            x,
+            v => {
               let child = (() => {
                 try {
                   return helper(convertTypedArrayToObject(v), indent, depth + 1)
@@ -107,8 +106,8 @@ function stringify(x, indent) {
 
               if (isString(child)) child = child.trim()
               return prefix(indent, depth + 1) + child
-            })
-            .join("," + newline) +
+            },
+          ).join("," + newline) +
           newline +
           prefix(indent, depth) +
           "]"
@@ -126,9 +125,9 @@ function stringify(x, indent) {
         prefix(indent, depth - 1) +
         "{" +
         newline +
-        Object.keys(x)
-          .concat(Object.getOwnPropertySymbols(x))
-          .map(key => {
+        map(
+          Object.keys(x).concat(Object.getOwnPropertySymbols(x)),
+          key => {
             let child = (() => {
               try {
                 return helper(
@@ -153,8 +152,8 @@ function stringify(x, indent) {
               (indent ? " " : "") +
               child
             )
-          })
-          .join("," + newline) +
+          },
+        ).join("," + newline) +
         newline +
         prefix(indent, depth) +
         "}"

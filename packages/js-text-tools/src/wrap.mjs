@@ -1,4 +1,4 @@
-import { flatten, isUndefined } from "@jrc03c/js-math-tools"
+import { flatten, forEach, isUndefined, map } from "@jrc03c/js-math-tools"
 
 function wrap(raw, maxLineLength, wrappedLinePrefix) {
   if (typeof raw !== "string") {
@@ -18,33 +18,36 @@ function wrap(raw, maxLineLength, wrappedLinePrefix) {
   wrappedLinePrefix = wrappedLinePrefix || ""
 
   return flatten(
-    raw.split("\n").map(line => {
-      const out = []
-      const indentation = line.match(/^\s*/g)[0]
-      const unindentedLine = line.replace(indentation, "")
-      let temp = indentation
+    map(
+      raw.split("\n"),
+      line => {
+        const out = []
+        const indentation = line.match(/^\s*/g)[0]
+        const unindentedLine = line.replace(indentation, "")
+        let temp = indentation
 
-      unindentedLine.split(" ").forEach(word => {
-        const maybeSpace = temp.trim().length > 0 ? " " : ""
+        forEach(unindentedLine.split(" "), word => {
+          const maybeSpace = temp.trim().length > 0 ? " " : ""
 
-        if ((temp + maybeSpace + word).length >= maxLineLength) {
+          if ((temp + maybeSpace + word).length >= maxLineLength) {
+            out.push(temp)
+            temp = indentation + wrappedLinePrefix + word
+          } else {
+            temp += maybeSpace + word
+          }
+        })
+
+        if (temp.length > 0) {
           out.push(temp)
-          temp = indentation + wrappedLinePrefix + word
-        } else {
-          temp += maybeSpace + word
         }
-      })
 
-      if (temp.length > 0) {
-        out.push(temp)
-      }
+        if (out.length === 0) {
+          out.push("")
+        }
 
-      if (out.length === 0) {
-        out.push("")
-      }
-
-      return out
-    }),
+        return out
+      },
+    ),
   ).join("\n")
 }
 

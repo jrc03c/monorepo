@@ -1,4 +1,5 @@
 import { expect, test } from "@jrc03c/fake-jest"
+import { map } from "@jrc03c/js-math-tools"
 import { unindent } from "./unindent.mjs"
 
 test("tests that unindentation works as expected", () => {
@@ -13,11 +14,7 @@ test("tests that unindentation works as expected", () => {
     "  What's your name?",
   ].join("\n")
 
-  const dTrue = c
-    .split("\n")
-    .map(line => line.substring(2))
-    .join("\n")
-
+  const dTrue = map(c.split("\n"), line => line.substring(2)).join("\n")
   const dPred = unindent(c)
   expect(dPred).toBe(dTrue)
 
@@ -27,11 +24,7 @@ test("tests that unindentation works as expected", () => {
     "\t  \t\t    Yep, that's all!",
   ].join("\n")
 
-  const fTrue = e
-    .split("\n")
-    .map(line => line.substring(1))
-    .join("\n")
-
+  const fTrue = map(e.split("\n"), line => line.substring(1)).join("\n")
   const fPred = unindent(e)
   expect(fPred).toBe(fTrue)
 

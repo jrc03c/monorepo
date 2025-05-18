@@ -1,12 +1,15 @@
+import { filter, map } from "@jrc03c/js-math-tools"
+
 function unindent(text) {
   const lines = text.split("\n")
 
-  const indentations = lines
-    .filter(line => line.trim().length > 0)
-    .map(line => line.split("").findIndex(char => !char.match(/\s/g)))
+  const indentations = map(
+    filter(lines, line => line.trim().length > 0),
+    line => line.split("").findIndex(char => !char.match(/\s/g)),
+  )
 
   const minIndentation = Math.min(...indentations)
-  return lines.map(line => line.substring(minIndentation)).join("\n")
+  return map(lines, line => line.substring(minIndentation)).join("\n")
 }
 
 export { unindent }

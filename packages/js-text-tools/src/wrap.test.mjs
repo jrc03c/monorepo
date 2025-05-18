@@ -1,19 +1,16 @@
 import { expect, test } from "@jrc03c/fake-jest"
 import { makeKey } from "@jrc03c/make-key"
-import { flatten, range } from "@jrc03c/js-math-tools"
+import { forEach, map, range } from "@jrc03c/js-math-tools"
 import { wrap } from "./wrap.mjs"
 
 test("tests that line lengths are correctly constrained", () => {
-  const text = range(0, 1000)
-    .map(() => makeKey(8))
-    .join(" ")
-
+  const text = map(range(0, 1000), () => makeKey(8)).join(" ")
   const maxLineLengths = [40, 80, 120]
 
-  maxLineLengths.forEach(maxLineLength => {
+  forEach(maxLineLengths, maxLineLength => {
     const wrapped = wrap(text, maxLineLength)
 
-    wrapped.split("\n").forEach(line => {
+    forEach(wrapped.split("\n"), line => {
       expect(line.length).toBeLessThanOrEqualTo(maxLineLength)
     })
   })
@@ -26,7 +23,7 @@ test("tests that wrapping preserves indentation", () => {
   const wrapped1 = wrap(text, 40)
   const lines1 = wrapped1.split("\n")
 
-  lines1.forEach(line => {
+  forEach(lines1, line => {
     expect(line.startsWith("\t\t")).toBe(true)
     expect(line.length).toBeLessThanOrEqualTo(40)
   })
@@ -74,7 +71,7 @@ test("tests that errors are thrown at appropriate times", () => {
     ["Hello, world!", undefined],
   ]
 
-  rights.forEach(pair => {
+  forEach(rights, pair => {
     expect(() => {
       wrap(pair[0], pair[1])
     }).not.toThrow()
@@ -101,7 +98,7 @@ test("tests that errors are thrown at appropriate times", () => {
     ["Hello, world!", () => {}],
   ]
 
-  wrongs.forEach(pair => {
+  forEach(wrongs, pair => {
     expect(() => {
       wrap(pair[0], pair[1])
     }).toThrow()

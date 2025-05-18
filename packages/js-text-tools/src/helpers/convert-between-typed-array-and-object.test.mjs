@@ -1,4 +1,12 @@
-import { abs, isEqual, normal, round } from "@jrc03c/js-math-tools"
+import {
+  abs,
+  forEach,
+  isEqual,
+  map,
+  normal,
+  round,
+} from "@jrc03c/js-math-tools"
+
 import { convertObjectToTypedArray } from "./convert-object-to-typed-array.mjs"
 import { convertTypedArrayToObject } from "./convert-typed-array-to-object.mjs"
 import { expect, test } from "@jrc03c/fake-jest"
@@ -19,24 +27,27 @@ test("tests that the `convertTypedArrayToObject` works correctly", () => {
     Uint8ClampedArray,
   }
 
-  Object.keys(types).forEach(type => {
+  forEach(Object.keys(types), type => {
     const lowerType = type.toLowerCase()
 
-    const values = normal(100).map(v => {
-      if (lowerType.includes("int")) {
-        v = round(v)
-      }
+    const values = map(
+      normal(100),
+      v => {
+        if (lowerType.includes("int")) {
+          v = round(v)
+        }
 
-      if (lowerType.includes("uint")) {
-        v = abs(v)
-      }
+        if (lowerType.includes("uint")) {
+          v = abs(v)
+        }
 
-      if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
-        v = BigInt(v)
-      }
+        if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
+          v = BigInt(v)
+        }
 
-      return v
-    })
+        return v
+      },
+    )
 
     const x = type === "Array" ? values : new types[type](values)
 
@@ -76,26 +87,29 @@ test("tests that the `convertObjectToTypedArray` works correctly", () => {
     Uint8ClampedArray,
   }
 
-  Object.keys(types).forEach(type => {
+  forEach(Object.keys(types), type => {
     const lowerType = type.toLowerCase()
 
     const x = {
       [Symbol.for("@TypedArrayConstructor")]: type,
-      values: normal(100).map(v => {
-        if (lowerType.includes("int")) {
-          v = round(v)
-        }
+      values: map(
+        normal(100),
+        v => {
+          if (lowerType.includes("int")) {
+            v = round(v)
+          }
 
-        if (lowerType.includes("uint")) {
-          v = abs(v)
-        }
+          if (lowerType.includes("uint")) {
+            v = abs(v)
+          }
 
-        if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
-          v = BigInt(v)
-        }
+          if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
+            v = BigInt(v)
+          }
 
-        return v
-      }),
+          return v
+        },
+      ),
     }
 
     const yTrue = new types[type](x.values)
@@ -127,7 +141,7 @@ test("tests that the `convertObjectToTypedArray` works correctly", () => {
 
   const wrongs = [c, d]
 
-  wrongs.forEach(wrong => {
+  forEach(wrongs, wrong => {
     expect(() => convertObjectToTypedArray(wrong)).toThrow()
   })
 })
@@ -148,24 +162,27 @@ test("tests that typed arrays can be converted to objects and back", () => {
     Uint8ClampedArray,
   }
 
-  Object.keys(types).forEach(type => {
+  forEach(Object.keys(types), type => {
     const lowerType = type.toLowerCase()
 
-    const values = normal(100).map(v => {
-      if (lowerType.includes("int")) {
-        v = round(v)
-      }
+    const values = map(
+      normal(100),
+      v => {
+        if (lowerType.includes("int")) {
+          v = round(v)
+        }
 
-      if (lowerType.includes("uint")) {
-        v = abs(v)
-      }
+        if (lowerType.includes("uint")) {
+          v = abs(v)
+        }
 
-      if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
-        v = BigInt(v)
-      }
+        if (lowerType.includes("bigint") || lowerType.includes("biguint")) {
+          v = BigInt(v)
+        }
 
-      return v
-    })
+        return v
+      },
+    )
 
     const xTrue = new types[type](values)
     const xPred = convertObjectToTypedArray(convertTypedArrayToObject(xTrue))

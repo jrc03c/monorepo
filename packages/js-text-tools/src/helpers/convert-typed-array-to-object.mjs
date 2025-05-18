@@ -1,4 +1,4 @@
-import { isArray, isDate } from "@jrc03c/js-math-tools"
+import { isArray, forEach, isDate, map } from "@jrc03c/js-math-tools"
 
 function convertTypedArrayToObject(x) {
   if (
@@ -25,7 +25,7 @@ function convertTypedArrayToObject(x) {
   }
 
   if (isArray(x)) {
-    return x.map(v => {
+    return map(x, v => {
       try {
         return convertTypedArrayToObject(v)
       } catch (e) {
@@ -41,7 +41,7 @@ function convertTypedArrayToObject(x) {
 
     const out = {}
 
-    Object.keys(x).forEach(key => {
+    forEach(Object.keys(x), key => {
       try {
         out[key] = convertTypedArrayToObject(x[key])
       } catch (e) {
