@@ -1,45 +1,35 @@
-import {
-  assert,
-  int,
-  isNumber,
-  isString,
-  random,
-  seed,
-} from "@jrc03c/js-math-tools"
-
-function makeKey(keyLength, keySeed, charset) {
-  if (arguments.length === 2) {
-    if (isNumber(arguments[1])) {
-      charset = null
-    } else {
-      charset = keySeed
-      keySeed = null
-    }
-  }
-
-  assert(
-    isNumber(keyLength) && int(keyLength) === keyLength,
-    "`keyLength` must be an integer!",
-  )
-
-  if (keySeed) {
-    assert(
-      isNumber(keySeed) && int(keySeed) === keySeed,
-      "`keySeed` must be an integer!",
+function makeKey(keyLength, charset, randomFn) {
+  if (typeof keyLength !== "number" || isNaN(keyLength)) {
+    throw new Error(
+      "The first value passed into the `makeKey` function must be a number!",
     )
-
-    seed(keySeed)
   }
 
   if (charset) {
-    assert(isString(charset), "`charset` must be a string!")
+    if (charset instanceof Array) {
+      charset = charset.join("")
+    }
+
+    if (typeof charset !== "string") {
+      throw new Error(
+        "The second argument passed into the `makeKey` function must be a string or array of strings!",
+      )
+    }
+  }
+
+  randomFn = randomFn || Math.random
+
+  if (typeof randomFn !== "function") {
+    throw new Error(
+      "The third argument passed into the `makeKey` function must be a function!",
+    )
   }
 
   let out = ""
-  charset = charset || "abcdefg1234567890"
+  charset = charset || "abcdef1234567890"
 
   for (let i = 0; i < keyLength; i++) {
-    out += charset[int(random() * charset.length)]
+    out += charset[Math.floor(randomFn() * charset.length)]
   }
 
   return out

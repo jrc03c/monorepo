@@ -15,40 +15,30 @@ npm install --save https://github.com/jrc03c/make-key
 Node / bundlers:
 
 ```js
-const makeKey = require("@jrc03c/make-key")
-const keyLength = 32
-const keySeed = 1234
-
-console.log(makeKey(keyLength))
-// "8v1101x1whevcm1cgdhuq90e12549xri"
-
-console.log(makeKey(keyLength, keySeed))
-// "dcb09fuuv3smirvqaetiyggvhap90e88"
+import { makeKey } from "@jrc03c/make-key"
+console.log(makeKey(32))
+// "33189046179171bfb492577f0fdca4ca"
 ```
 
 Browser:
 
 ```html
-<script src="path/to/@jrc03c/make-key/dist/make-key.js"></script>
+<script src="path/to/@jrc03c/make-key/dist/make-key.min.js"></script>
 <script>
-  // (makeKey is now in the global scope)
-
-  const keyLength = 32
-  const keySeed = 1234
-
-  console.log(makeKey(keyLength))
+  // (`makeKey` is available in the global scope)
+  console.log(makeKey(32))
   // "8v1101x1whevcm1cgdhuq90e12549xri"
-
-  console.log(makeKey(keyLength, keySeed))
-  // "dcb09fuuv3smirvqaetiyggvhap90e88"
 </script>
 ```
 
 ## API
 
-### `makeKey(length, seed, charset)`
+### `makeKey(length, charset, randomFn)`
 
-Returns a random string of length `length`. Can optionally be given a random `seed` value as a number and/or a `charset` as a string of characters from which to generate the new string.
+Returns a random string of length `length`. Can optionally accept:
+
+- `charset` = a string (or an array of strings) defining the characters from which to generate the new string; uses `abcdef1234567890` by default
+- `randomFn` = a random number generation function; uses `Math.random` by default
 
 # CLI
 
@@ -60,7 +50,7 @@ cd make-key
 npm link
 ```
 
-Optionally, you can install `xsel` to automatically have the key copied to the clipboard:
+Optionally, you can install `xsel` to have the key be copied automatically to the clipboard:
 
 ```bash
 sudo apt-get install -y xsel
@@ -69,12 +59,15 @@ sudo apt-get install -y xsel
 ## Usage
 
 ```bash
-# key <length> <seed>
-key 32 12345
+key 32
+# e1123ab8eff4082147cef3adc030769d
+
+key 32 foobar
+# aaoobrrforfbbfoofffooffroaoofaba
 ```
 
 ## API
 
-### `key <length> <seed> <charset>`
+### `key <length> <charset>`
 
 These arguments mean the same thing as in the Node / browser API.
