@@ -1,3 +1,4 @@
+import { DataFrame, Series } from "./dataframe/index.mjs"
 import { isDataFrame } from "./is-dataframe.mjs"
 import { isSeries } from "./is-series.mjs"
 

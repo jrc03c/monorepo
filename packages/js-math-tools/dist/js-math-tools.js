@@ -51,11 +51,13 @@
     every: () => every,
     exp: () => vexp,
     factorial: () => vfactorial,
+    filter: () => filter,
     find: () => find,
     findAll: () => findAll,
     flatten: () => flatten,
     float: () => vfloat,
     floor: () => vfloor,
+    forEach: () => forEach,
     identity: () => identity,
     indexOf: () => indexOf,
     inferType: () => inferType,
@@ -78,6 +80,7 @@
     isUndefined: () => isUndefined,
     lerp: () => vlerp,
     log: () => vlog,
+    map: () => map,
     max: () => max,
     mean: () => mean,
     median: () => median,
@@ -95,6 +98,7 @@
     product: () => product,
     random: () => random,
     range: () => range,
+    reduce: () => reduce,
     remap: () => remap,
     reshape: () => reshape,
     reverse: () => reverse,
@@ -3737,6 +3741,35 @@
   }
   var vfactorial = vectorize(factorial);
 
+  // src/filter.mjs
+  function filter(x, fn) {
+    if (isDataFrame(x)) {
+      const indices = [];
+      for (let i = 0; i < x.shape[0]; i++) {
+        if (fn(x.get(i, null), i, x)) {
+          indices.push(i);
+        }
+      }
+      return x.get(indices, null);
+    }
+    if (isSeries(x)) {
+      const indices = [];
+      for (let i = 0; i < x.shape[0]; i++) {
+        if (fn(x.get(i), i, x)) {
+          indices.push(i);
+        }
+      }
+      return x.get(indices);
+    }
+    const out = [];
+    for (let i = 0; i < x.length; i++) {
+      if (fn(x[i], i, x)) {
+        out.push(x[i]);
+      }
+    }
+    return out;
+  }
+
   // src/find.mjs
   function find(x, fn) {
     if (isDataFrame(x)) {
@@ -3905,6 +3938,25 @@
     }
   }
   var vfloor = vectorize(floor);
+
+  // src/for-each.mjs
+  function forEach(x, fn) {
+    if (isDataFrame(x)) {
+      for (let i = 0; i < x.shape[0]; i++) {
+        fn(x.get(i, null), i, x);
+      }
+      return;
+    }
+    if (isSeries(x)) {
+      for (let i = 0; i < x.shape[0]; i++) {
+        fn(x.get(i), i, x);
+      }
+      return;
+    }
+    for (let i = 0; i < x.length; i++) {
+      fn(x[i], i, x);
+    }
+  }
 
   // src/zeros.mjs
   function zeros(shape2) {
@@ -4137,6 +4189,43 @@
   }
   var vlog = vectorize(log);
 
+  // src/map.mjs
+  function map(x, fn) {
+    if (isDataFrame(x)) {
+      let out2 = [];
+      for (let i = 0; i < x.shape[0]; i++) {
+        let y = fn(x.get(i, null), i, x);
+        if (isSeries(y)) {
+          y = y.toObject().data;
+        }
+        out2.push(y);
+      }
+      try {
+        out2 = new DataFrame(out2);
+        out2.index = x.index.slice();
+        out2.columns = x.columns.slice();
+      } catch (e) {
+      }
+      return out2;
+    }
+    if (isSeries(x)) {
+      let out2 = [];
+      for (let i = 0; i < x.shape[0]; i++) {
+        out2.push(fn(x.get(i), i, x));
+      }
+      try {
+        out2 = new Series(out2);
+      } catch (e) {
+      }
+      return out2;
+    }
+    const out = [];
+    for (let i = 0; i < x.length; i++) {
+      out.push(fn(x[i], i, x));
+    }
+    return out;
+  }
+
   // src/mean.mjs
   function mean(arr, shouldDropNaNs) {
     return stats(arr, { shouldDropNaNs }).mean;
@@ -4267,6 +4356,26 @@
         console.log(x);
       }
     });
+  }
+
+  // src/reduce.mjs
+  function reduce(x, fn, out) {
+    if (isDataFrame(x)) {
+      for (let i = 0; i < x.shape[0]; i++) {
+        out = fn(out, x.get(i, null), i, x);
+      }
+      return out;
+    }
+    if (isSeries(x)) {
+      for (let i = 0; i < x.shape[0]; i++) {
+        out = fn(out, x.get(i), i, x);
+      }
+      return out;
+    }
+    for (let i = 0; i < x.length; i++) {
+      out = fn(out, x[i], i, x);
+    }
+    return out;
   }
 
   // src/remap.mjs
