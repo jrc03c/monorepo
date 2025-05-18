@@ -2,6 +2,9 @@
   "bin": {
     "key": "./src/bin.mjs"
   },
+  "dependencies": {
+    "@jrc03c/js-math-tools": "file:../js-math-tools"
+  },
   "devDependencies": {
     "@jrc03c/fake-jest": "^0.0.17",
     "@jrc03c/js-math-tools": "^0.0.94",
@@ -14,8 +17,5 @@
   "module": "./src/index.mjs",
   "name": "@jrc03c/make-key",
   "type": "module",
-  "version": "0.0.38",
-  "dependencies": {
-    "@jrc03c/js-math-tools": "file:../js-math-tools"
-  }
+  "version": "0.0.38"
 }
