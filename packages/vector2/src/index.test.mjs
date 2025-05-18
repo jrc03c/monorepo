@@ -167,7 +167,26 @@ test("METHOD: Vector2.rotate", () => {
   )
 })
 
-test("METHOD: Vector2.sub", () => {})
+test("METHOD: Vector2.sub", () => {
+  const a = Vector2.random()
+  const b = Vector2.random()
+  const c = a.copy()
+  c.sub(b)
+  expect(c.x).toBe(a.x - b.x)
+  expect(c.y).toBe(a.y - b.y)
+
+  const d = Vector2.random()
+  const e = d.copy()
+  e.sub(5)
+  expect(e.x).toBe(d.x - 5)
+  expect(e.y).toBe(d.y - 5)
+
+  const f = Vector2.random()
+  const g = f.copy()
+  g.sub(-7.5, -9.5)
+  expect(g.x).toBe(f.x + 7.5)
+  expect(g.y).toBe(f.y + 9.5)
+})
 
 test("METHOD: Vector2.fromAngle (static)", () => {})
 
