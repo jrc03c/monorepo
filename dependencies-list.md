@@ -17,7 +17,7 @@
 # js-math-tools (0.0.94)
   - fake-jest
   - freeze
-# queue (0.0.14)
+# queue (0.0.15)
   - fake-jest
   - make-key
   - pause
