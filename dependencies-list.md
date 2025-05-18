@@ -117,7 +117,7 @@
   - make-key
   - pause
   - watch
-# js-nlp-tools (0.0.12)
+# js-nlp-tools (0.0.13)
   - base-class
   - fake-jest
   - filedb
