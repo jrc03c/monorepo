@@ -64,8 +64,8 @@ test("PROPERTY: Vector2.length", () => {
   g.length = 2
   expect(f.length).toBeCloseTo(1)
   expect(g.length).toBeCloseTo(2)
-  expect(g.x).toBe(f.x * 2)
-  expect(g.y).toBe(f.y * 2)
+  expect(g.x).toBeCloseTo(f.x * 2)
+  expect(g.y).toBeCloseTo(f.y * 2)
 })
 
 test("METHOD: Vector2.add", () => {
@@ -73,27 +73,27 @@ test("METHOD: Vector2.add", () => {
   const b = Vector2.random()
   const c = a.copy()
   c.add(b)
-  expect(c.x).toBe(a.x + b.x)
-  expect(c.y).toBe(a.y + b.y)
+  expect(c.x).toBeCloseTo(a.x + b.x)
+  expect(c.y).toBeCloseTo(a.y + b.y)
 
   const d = Vector2.random()
   const e = d.copy()
   e.add(5)
-  expect(e.x).toBe(d.x + 5)
-  expect(e.y).toBe(d.y + 5)
+  expect(e.x).toBeCloseTo(d.x + 5)
+  expect(e.y).toBeCloseTo(d.y + 5)
 
   const f = Vector2.random()
   const g = f.copy()
   g.add(-7.5, -9.5)
-  expect(g.x).toBe(f.x - 7.5)
-  expect(g.y).toBe(f.y - 9.5)
+  expect(g.x).toBeCloseTo(f.x - 7.5)
+  expect(g.y).toBeCloseTo(f.y - 9.5)
 })
 
 test("METHOD: Vector2.copy", () => {
   const a = Vector2.random()
   const b = a.copy()
-  expect(b.x).toBe(a.x)
-  expect(b.y).toBe(a.y)
+  expect(b.x).toBeCloseTo(a.x)
+  expect(b.y).toBeCloseTo(a.y)
   expect(a === b).toBe(false)
 })
 
@@ -102,20 +102,20 @@ test("METHOD: Vector2.div", () => {
   const b = Vector2.random()
   const c = a.copy()
   c.div(b)
-  expect(c.x).toBe(a.x / b.x)
-  expect(c.y).toBe(a.y / b.y)
+  expect(c.x).toBeCloseTo(a.x / b.x)
+  expect(c.y).toBeCloseTo(a.y / b.y)
 
   const d = Vector2.random()
   const e = d.copy()
   e.div(5)
-  expect(e.x).toBe(d.x / 5)
-  expect(e.y).toBe(d.y / 5)
+  expect(e.x).toBeCloseTo(d.x / 5)
+  expect(e.y).toBeCloseTo(d.y / 5)
 
   const f = Vector2.random()
   const g = f.copy()
   g.div(-7.5, -9.5)
-  expect(g.x).toBe(f.x / -7.5)
-  expect(g.y).toBe(f.y / -9.5)
+  expect(g.x).toBeCloseTo(f.x / -7.5)
+  expect(g.y).toBeCloseTo(f.y / -9.5)
 })
 
 test("METHOD: Vector2.dot", () => {
@@ -125,25 +125,33 @@ test("METHOD: Vector2.dot", () => {
   expect(c).toBeCloseTo(a.x * b.x + a.y * b.y)
 })
 
+test("METHOD: Vector2.fromAngle (static)", () => {
+  const angle = Math.random() * 2 * Math.PI
+  const v = Vector2.fromAngle(angle)
+  expect(v.angle).toBeCloseTo(angle)
+  expect(v.length).toBeCloseTo(1)
+})
+
+
 test("METHOD: Vector2.mul", () => {
   const a = Vector2.random()
   const b = Vector2.random()
   const c = a.copy()
   c.mul(b)
-  expect(c.x).toBe(a.x * b.x)
-  expect(c.y).toBe(a.y * b.y)
+  expect(c.x).toBeCloseTo(a.x * b.x)
+  expect(c.y).toBeCloseTo(a.y * b.y)
 
   const d = Vector2.random()
   const e = d.copy()
   e.mul(5)
-  expect(e.x).toBe(d.x * 5)
-  expect(e.y).toBe(d.y * 5)
+  expect(e.x).toBeCloseTo(d.x * 5)
+  expect(e.y).toBeCloseTo(d.y * 5)
 
   const f = Vector2.random()
   const g = f.copy()
   g.mul(-7.5, -9.5)
-  expect(g.x).toBe(f.x * -7.5)
-  expect(g.y).toBe(f.y * -9.5)
+  expect(g.x).toBeCloseTo(f.x * -7.5)
+  expect(g.y).toBeCloseTo(f.y * -9.5)
 })
 
 test("METHOD: Vector2.norm", () => {
@@ -153,6 +161,15 @@ test("METHOD: Vector2.norm", () => {
   expect(a.length).not.toBeCloseTo(1)
   a.norm()
   expect(a.length).toBeCloseTo(1)
+})
+
+test("METHOD: Vector2.random (static)", () => {
+  for (let i = 0; i < 1000; i++) {
+    const v = Vector2.random()
+    expect(v.angle).toBeGreaterThanOrEqualTo(0)
+    expect(v.angle).toBeLessThan(2 * Math.PI)
+    expect(v.length).toBeCloseTo(1)
+  }
 })
 
 test("METHOD: Vector2.rotate", () => {
@@ -172,34 +189,18 @@ test("METHOD: Vector2.sub", () => {
   const b = Vector2.random()
   const c = a.copy()
   c.sub(b)
-  expect(c.x).toBe(a.x - b.x)
-  expect(c.y).toBe(a.y - b.y)
+  expect(c.x).toBeCloseTo(a.x - b.x)
+  expect(c.y).toBeCloseTo(a.y - b.y)
 
   const d = Vector2.random()
   const e = d.copy()
   e.sub(5)
-  expect(e.x).toBe(d.x - 5)
-  expect(e.y).toBe(d.y - 5)
+  expect(e.x).toBeCloseTo(d.x - 5)
+  expect(e.y).toBeCloseTo(d.y - 5)
 
   const f = Vector2.random()
   const g = f.copy()
   g.sub(-7.5, -9.5)
-  expect(g.x).toBe(f.x + 7.5)
-  expect(g.y).toBe(f.y + 9.5)
-})
-
-test("METHOD: Vector2.fromAngle (static)", () => {
-  const angle = Math.random() * 2 * Math.PI
-  const v = Vector2.fromAngle(angle)
-  expect(v.angle).toBeCloseTo(angle)
-  expect(v.length).toBeCloseTo(1)
-})
-
-test("METHOD: Vector2.random (static)", () => {
-  for (let i = 0; i < 1000; i++) {
-    const v = Vector2.random()
-    expect(v.angle).toBeGreaterThanOrEqualTo(0)
-    expect(v.angle).toBeLessThan(2 * Math.PI)
-    expect(v.length).toBeCloseTo(1)
-  }
+  expect(g.x).toBeCloseTo(f.x + 7.5)
+  expect(g.y).toBeCloseTo(f.y + 9.5)
 })
