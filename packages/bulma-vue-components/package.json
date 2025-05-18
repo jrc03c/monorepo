@@ -1,14 +1,14 @@
 {
   "dependencies": {
-    "@jrc03c/base-web-component": "^0.0.15",
-    "@jrc03c/vue-component-with-css": "^0.0.21",
+    "@jrc03c/base-web-component": "^0.0.16",
+    "@jrc03c/vue-component-with-css": "^0.0.22",
     "bulma": "^1.0.2",
     "vue": "^3.5.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/fs-extras": "^0.0.24",
-    "@jrc03c/watch": "^0.0.21",
+    "@jrc03c/fs-extras": "^0.0.25",
+    "@jrc03c/watch": "^0.0.22",
     "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
     "eslint-plugin-html": "^7.1.0",
