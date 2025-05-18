@@ -1,6 +1,14 @@
 import { FileDB } from "./index.mjs"
 import { afterAll, expect, test } from "@jrc03c/fake-jest"
-import { isEqual, random, range } from "@jrc03c/js-math-tools"
+
+import {
+  forEach,
+  isEqual,
+  map,
+  random,
+  range,
+} from "@jrc03c/js-math-tools"
+
 import { makeKey } from "@jrc03c/make-key"
 import fs from "node:fs"
 import path from "node:path"
@@ -59,17 +67,17 @@ test("tests that invalid keys throw errors", () => {
     const invalidChars = "~`!@#$%^&*()+={[}]|\\:;\"'<,>? "
 
     if (random() < 0.5) {
-      return makeKey(8) + makeKey(8, undefined, invalidChars) + makeKey(8)
+      return makeKey(8) + makeKey(8, invalidChars) + makeKey(8)
     } else {
       return (
-        makeKey(8, undefined, invalidChars) +
+        makeKey(8, invalidChars) +
         makeKey(8) +
-        makeKey(8, undefined, invalidChars)
+        makeKey(8, invalidChars)
       )
     }
   }
 
-  range(0, 100).forEach(() => {
+  forEach(range(0, 100), () => {
     const uglyKey = makeUglyKey()
     const value = makeKey(64)
 
@@ -108,12 +116,7 @@ test("tests that invalid keys throw errors", () => {
 })
 
 test("tests that the asynchronous functionality works", async () => {
-  const key =
-    "/" +
-    range(0, 5)
-      .map(() => makeKey(8))
-      .join("/")
-
+  const key = "/" + map(range(0, 5), () => makeKey(8)).join("/")
   const value = makeKey(64)
   let finishedWriting = false
 
@@ -143,7 +146,7 @@ test("tests that arrays can be retrieved from disk", () => {
   db.writeSync("/my/second/test/array", c)
   const dTrue = []
 
-  c.forEach((v, i) => {
+  forEach(c, (v, i) => {
     if (v) dTrue[i] = v
   })
 
@@ -165,7 +168,7 @@ test("tests that arrays can be retrieved from disk", () => {
 
   expect(
     isEqual(
-      Object.keys(g).map(key => g[key]),
+      map(Object.keys(g), key => g[key]),
       h,
     ),
   ).toBe(true)
@@ -283,5 +286,5 @@ test("tests that instances can be forked", () => {
 
 afterAll(() => {
   fs.rmSync(TEST_DIRECTORY, { recursive: true, force: true })
-  otherDirs.forEach(dir => fs.rmSync(dir, { recursive: true, force: true }))
+  forEach(otherDirs, dir => fs.rmSync(dir, { recursive: true, force: true }))
 })

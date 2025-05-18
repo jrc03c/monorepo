@@ -1,4 +1,4 @@
-import { sort } from "@jrc03c/js-math-tools"
+import { filter, forEach, map, sort } from "@jrc03c/js-math-tools"
 import fs from "node:fs"
 import os from "node:os"
 import path from "node:path"
@@ -15,7 +15,7 @@ function isWholeNumber(x) {
 function standardizeKey(key) {
   const invalidParts = []
 
-  key.split("/").forEach(part => {
+  forEach(key.split("/"), part => {
     if (part.split(/\s/g).join("").length < part.length) {
       invalidParts.push(part)
       return
@@ -29,9 +29,9 @@ function standardizeKey(key) {
 
   if (invalidParts.length > 0) {
     throw new Error(
-      `The key "${key}" cannot be used as a valid filesystem path! Only forward slashes, alphanumeric characters, underscores, hyphens, and periods should be used in keys. The key also cannot include whitespace, and it cannot include "." or ".." as file or directory names, like "./foo" or "bar/../baz". The offending parts are:\n${invalidParts
-        .map(part => "→ " + part)
-        .join("\n")}`,
+      `The key "${key}" cannot be used as a valid filesystem path! Only forward slashes, alphanumeric characters, underscores, hyphens, and periods should be used in keys. The key also cannot include whitespace, and it cannot include "." or ".." as file or directory names, like "./foo" or "bar/../baz". The offending parts are:\n${
+          map(invalidParts, part => "→ " + part).join("\n")
+        }`,
     )
   }
 
@@ -125,7 +125,7 @@ class FileDB {
     if (typeof value === "undefined" || value === null) {
       return true
     } else if (type === "object") {
-      Object.keys(value).forEach(k => {
+      forEach(Object.keys(value), k => {
         this.writeSync(key + "/" + k, value[k], ignored)
       })
 
@@ -173,7 +173,7 @@ class FileDB {
 
       let shouldIgnore = false
 
-      ignored.forEach(ig => {
+      forEach(ignored, ig => {
         const reg = new RegExp(ig)
         if (reg.test(filePath)) shouldIgnore = true
       })
@@ -203,7 +203,7 @@ class FileDB {
           let out = {}
           let isDone = false
 
-          files.forEach(file => {
+          forEach(files, file => {
             if (isDone) return
             const results = innerRead(innerKey + "/" + file, currentDepth + 1)
 
@@ -226,15 +226,16 @@ class FileDB {
                 isArray: true,
 
                 parsedKeys: sort(
-                  rawKeys
-                    .filter(key => key !== ARRAY_QUALIFIER)
-                    .map(key => {
-                      if (isWholeNumber(key)) {
-                        return parseInt(key)
-                      } else {
-                        return key
-                      }
-                    }),
+                    map(
+                      filter(rawKeys, key => key !== ARRAY_QUALIFIER),
+                      key => {
+                        if (isWholeNumber(key)) {
+                          return parseInt(key)
+                        } else {
+                          return key
+                        }
+                      },
+                    ),
                   (a, b) => (a < b ? -1 : 1),
                 ),
               }
@@ -262,7 +263,7 @@ class FileDB {
 
           if (isArray) {
             const temp = []
-            parsedKeys.forEach(key => (temp[key] = out[key]))
+            forEach(parsedKeys, key => (temp[key] = out[key]))
             return temp
           } else {
             return out
