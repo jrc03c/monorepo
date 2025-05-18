@@ -57,7 +57,7 @@
   - js-math-tools
   - js-text-tools
   - prompt
-# logger (0.0.21)
+# logger (0.0.22)
   - bash-colors
   - fake-jest
   - js-math-tools
