@@ -135,7 +135,7 @@
 # misc-vue-components (0.0.20)
   - pause
   - vue-component-with-css
-# bulma-vue-components (0.0.3)
+# bulma-vue-components (0.0.4)
   - base-web-component
   - fs-extras
   - vue-component-with-css
