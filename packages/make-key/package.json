@@ -13,7 +13,7 @@
   "module": "./src/index.mjs",
   "name": "@jrc03c/make-key",
   "type": "module",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "dependencies": {
     "@jrc03c/js-math-tools": "file:../js-math-tools"
   }
