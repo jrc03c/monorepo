@@ -6,7 +6,7 @@ import {
   pointIsInTriangle,
 } from "./point-is-in-triangle.mjs"
 
-import { dot, set } from "@jrc03c/js-math-tools"
+import { dot, forEach, map, set } from "@jrc03c/js-math-tools"
 
 function getConvexHull(points) {
   if (points.length < 3) {
@@ -20,7 +20,7 @@ function getConvexHull(points) {
     let p1 = hull.at(-1)
     let p2 = frontier[0] === p1 ? frontier[1] : frontier[0]
 
-    frontier.forEach(p3 => {
+    forEach(frontier, p3 => {
       if (p1 !== p3 && p2 !== p3 && isRightTurn(p1, p2, p3)) {
         p2 = p3
       }
@@ -30,7 +30,7 @@ function getConvexHull(points) {
     frontier.splice(frontier.indexOf(p2), 1)
   }
 
-  return set(hull.map(p => JSON.stringify(p))).map(p => JSON.parse(p))
+  return map(set(map(hull, p => JSON.stringify(p))), p => JSON.parse(p))
 }
 
 function getMagnitude(v) {

@@ -7,6 +7,7 @@ import {
 } from "./point-is-in-triangle.mjs"
 
 import { expect, test } from "@jrc03c/fake-jest"
+import { forEach } from "@jrc03c/js-math-tools"
 
 test("tests that the `getPointRelationToLine` function works as expected", () => {
   // y = 0.5x - 3
@@ -48,11 +49,11 @@ test("tests that the `pointIsInTriangle` function works as expected", () => {
     [6, 12],
   ]
 
-  pointsInside.forEach(p => {
+  forEach(pointsInside, p => {
     expect(pointIsInTriangle(p, vertices)).toBe(true)
   })
 
-  pointsOutside.forEach(p => {
+  forEach(pointsOutside, p => {
     expect(pointIsInTriangle(p, vertices)).toBe(false)
   })
 })
