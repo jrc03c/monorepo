@@ -106,7 +106,7 @@
   - js-math-tools
   - pause
   - watch
-# web-worker-helper (0.0.8)
+# web-worker-helper (0.0.9)
   - freeze
   - make-key
   - pause
