@@ -1,5 +1,3 @@
-dependsOn:
-  - js-math-tools
 language: javascript
 tasks:
   build:
