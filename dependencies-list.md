@@ -84,7 +84,7 @@
   - logger
   - make-key
   - pause
-# custom-scroller (0.0.14)
+# custom-scroller (0.0.15)
   - watch
 # vue-component-with-css (0.0.21)
   - watch
