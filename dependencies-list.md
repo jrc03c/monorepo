@@ -18,9 +18,8 @@
 # js-convex-hull (0.0.27)
   - fake-jest
   - js-math-tools
-# make-key (0.0.38)
+# make-key (0.0.39)
   - fake-jest
-  - js-math-tools
   - js-math-tools
 # js-plot-tools (0.0.19)
   - js-math-tools
