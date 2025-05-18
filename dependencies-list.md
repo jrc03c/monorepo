@@ -101,7 +101,7 @@
   - js-text-tools
   - pause
   - watch
-# timer (0.0.7)
+# timer (0.0.8)
   - fake-jest
   - js-math-tools
   - pause
