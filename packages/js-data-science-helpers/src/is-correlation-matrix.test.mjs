@@ -1,4 +1,13 @@
-import { copy, DataFrame, normal, random, Series } from "@jrc03c/js-math-tools"
+import {
+  copy,
+  DataFrame,
+  forEach,
+  map,
+  normal,
+  random,
+  Series,
+} from "@jrc03c/js-math-tools"
+
 import { expect, test } from "@jrc03c/fake-jest"
 import { getCorrelationMatrix } from "./get-correlation-matrix.mjs"
 import { isCorrelationMatrix } from "./is-correlation-matrix.mjs"
@@ -33,7 +42,9 @@ test("tests that correlation matrices can be correctly identified", () => {
   expect(
     isCorrelationMatrix(
       getCorrelationMatrix(
-        normal([100, 5]).map(row => row.map(v => BigInt(Math.round(v * 100)))),
+        map(normal([100, 5]), row =>
+          map(row, v => BigInt(Math.round(v * 100))),
+        ),
       ),
     ),
   ).toBe(true)
@@ -70,7 +81,7 @@ test("tests that correlation matrices can be correctly identified", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isCorrelationMatrix(item)).toBe(false)
   })
 })

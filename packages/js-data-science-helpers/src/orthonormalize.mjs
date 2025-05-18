@@ -2,9 +2,11 @@ import {
   assert,
   DataFrame,
   divide,
+  forEach,
   isArray,
   isDataFrame,
   isJagged,
+  map,
   shape,
   subtract,
   transpose,
@@ -34,10 +36,10 @@ function orthonormalize(x) {
   const temp = transpose(x)
   const bases = []
 
-  temp.forEach(v => {
+  forEach(temp, v => {
     let temp = v
 
-    bases.forEach(basis => {
+    forEach(bases, basis => {
       temp = subtract(temp, project(temp, basis))
     })
 
@@ -46,7 +48,7 @@ function orthonormalize(x) {
 
   const shouldIgnoreNaNs = true
 
-  const out = bases.map(basis =>
+  const out = map(bases, basis =>
     divide(basis, getMagnitude(basis, shouldIgnoreNaNs)),
   )
 

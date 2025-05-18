@@ -2,6 +2,7 @@ import {
   assert,
   correl,
   DataFrame,
+  forEach,
   isArray,
   isDataFrame,
   isNumber,
@@ -57,7 +58,7 @@ function getHighlyCorrelatedColumns(x, threshold, shouldIgnoreNaNs) {
     }
   }
 
-  Object.keys(out).forEach(key => {
+  forEach(Object.keys(out), key => {
     out[key] = sort(out[key], (a, b) => (a.column < b.column ? -1 : 1))
   })
 

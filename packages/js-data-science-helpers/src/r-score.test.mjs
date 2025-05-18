@@ -1,4 +1,12 @@
-import { apply, DataFrame, normal, Series } from "@jrc03c/js-math-tools"
+import {
+  apply,
+  DataFrame,
+  forEach,
+  map,
+  normal,
+  Series,
+} from "@jrc03c/js-math-tools"
+
 import { expect, test } from "@jrc03c/fake-jest"
 import { rScore } from "./r-score.mjs"
 
@@ -18,11 +26,11 @@ test("gets the r-score of various arrays", () => {
   const g = new DataFrame(normal([100, 5]))
   expect(rScore(f, g)).toBe(rScore(f.values, g.values))
 
-  const hBigInts = normal(100).map(v => BigInt(Math.round(v)))
-  const iBigInts = normal(100).map(v => BigInt(Math.round(v)))
+  const hBigInts = map(normal(100), v => BigInt(Math.round(v)))
+  const iBigInts = map(normal(100), v => BigInt(Math.round(v)))
 
-  const hFloats = hBigInts.map(v => Number(v))
-  const iFloats = iBigInts.map(v => Number(v))
+  const hFloats = map(hBigInts, v => Number(v))
+  const iFloats = map(iBigInts, v => Number(v))
 
   expect(rScore(hBigInts, iBigInts)).toBe(rScore(hFloats, iFloats))
   expect(rScore(hBigInts, iFloats)).toBe(rScore(hFloats, iBigInts))
@@ -55,8 +63,8 @@ test("gets the r-score of various arrays", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => rScore(a, b)).toThrow()
     })
   })

@@ -2,6 +2,7 @@ import {
   apply,
   DataFrame,
   distance,
+  forEach,
   identity,
   isEqual,
   normal,
@@ -47,7 +48,7 @@ test("tests that correlation matrices can be correctly computed", () => {
   ).toBe(true)
 
   const e = normal([10, 10])
-  e.forEach((row, i) => (row[i] = "foo"))
+  forEach(e, (row, i) => (row[i] = "foo"))
 
   const fPred1 = set(getCorrelationMatrix(e))
   expect(fPred1.length).toBe(1)
@@ -56,7 +57,7 @@ test("tests that correlation matrices can be correctly computed", () => {
   const fPred2 = set(getCorrelationMatrix(e, e, true))
   expect(fPred2.length).toBeGreaterThan(1)
 
-  fPred2.forEach(v => {
+  forEach(fPred2, v => {
     expect(v).not.toBeNaN()
   })
 
@@ -99,8 +100,8 @@ test("tests that correlation matrices can be correctly computed", () => {
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => getCorrelationMatrix(a, b)).toThrow()
     })
   })

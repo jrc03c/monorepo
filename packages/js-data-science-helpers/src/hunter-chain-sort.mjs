@@ -2,9 +2,11 @@ import {
   argmax,
   assert,
   DataFrame,
+  filter,
   isArray,
   isDataFrame,
   isJagged,
+  map,
   pow,
   reverse,
   shape,
@@ -38,7 +40,7 @@ function hunterChainSort(c) {
       const firstRowName =
         freeRows[
           argmax(
-            freeRows.map(rowName =>
+            map(freeRows, rowName =>
               sum(pow(c.values[c.index.indexOf(rowName)], 2), shouldIgnoreNaNs),
             ),
             shouldIgnoreNaNs,
@@ -54,7 +56,7 @@ function hunterChainSort(c) {
     else {
       const lastRowName = fixedRows.at(-1)
 
-      const lastRow = c.values[c.index.indexOf(lastRowName)].filter((v, i) =>
+      const lastRow = filter(c.values[c.index.indexOf(lastRowName)], (v, i) =>
         freeRows.includes(c.index[i]),
       )
 

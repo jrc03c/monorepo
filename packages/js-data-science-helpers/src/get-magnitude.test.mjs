@@ -1,4 +1,12 @@
-import { DataFrame, flatten, normal, Series } from "@jrc03c/js-math-tools"
+import {
+  DataFrame,
+  flatten,
+  forEach,
+  normal,
+  reduce,
+  Series,
+} from "@jrc03c/js-math-tools"
+
 import { expect, test } from "@jrc03c/fake-jest"
 import { getMagnitude } from "./get-magnitude.mjs"
 
@@ -8,12 +16,12 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
   expect(getMagnitude([10, 24])).toBe(26)
 
   const a = normal(100)
-  expect(getMagnitude(a)).toBe(Math.sqrt(a.reduce((a, b) => a + b * b, 0)))
+  expect(getMagnitude(a)).toBe(Math.sqrt(reduce(a, (a, b) => a + b * b, 0)))
 
   const b = normal([2, 3, 4, 5])
 
   expect(getMagnitude(b)).toBe(
-    Math.sqrt(flatten(b).reduce((a, b) => a + b * b, 0)),
+    Math.sqrt(reduce(flatten(b), (a, b) => a + b * b, 0)),
   )
 
   const c = new Series({ hello: normal(100) })
@@ -50,7 +58,7 @@ test("tests that the magnitudes of various arrays, Series, and DataFrames can be
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(getMagnitude(item)).toBeNaN()
   })
 })

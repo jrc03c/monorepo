@@ -1,6 +1,8 @@
 import {
   DataFrame,
+  filter,
   isEqual,
+  map,
   normal,
   range,
   seed,
@@ -15,9 +17,9 @@ import { trainTestSplit } from "./train-test-split.mjs"
 test("tests that `trainTestSplit` splits data correctly", () => {
   const a = normal([250, 2, 3, 4])
   const b = new DataFrame({ a: normal(250), b: normal(250), c: normal(250) })
-  b.index = range(0, b.shape[0]).map(i => "b" + i)
+  b.index = map(range(0, b.shape[0]), i => "b" + i)
   const c = new Series({ hello: normal(250) })
-  c.index = range(0, c.shape[0]).map(i => "cee" + i)
+  c.index = map(range(0, c.shape[0]), i => "cee" + i)
 
   seed(12345)
   const index = shuffle(range(0, c.shape[0]))
@@ -26,8 +28,8 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   const trainIndex = index.slice(0, split)
   const testIndex = index.slice(split)
 
-  const aTrainTrue = a.filter((v, i) => trainIndex.indexOf(i) > -1)
-  const aTestTrue = a.filter((v, i) => testIndex.indexOf(i) > -1)
+  const aTrainTrue = filter(a, (v, i) => trainIndex.indexOf(i) > -1)
+  const aTestTrue = filter(a, (v, i) => testIndex.indexOf(i) > -1)
 
   const bTrainTrue = b.get(trainIndex, null)
   const bTestTrue = b.get(testIndex, null)
@@ -57,11 +59,11 @@ test("tests that `trainTestSplit` splits data correctly", () => {
   expect(isEqual(cTestTrue.index, cTestPred.index)).toBe(true)
   expect(cTestTrue.name).toBe(cTestPred.name)
 
-  const dBigInts = normal(100).map(v => BigInt(Math.floor(v * 100)))
-  const dFloats = dBigInts.map(v => Number(v))
+  const dBigInts = map(normal(100), v => BigInt(Math.floor(v * 100)))
+  const dFloats = map(dBigInts, v => Number(v))
   const results = trainTestSplit(dBigInts, dFloats)
-  const dBigIntsTrain = results[0].map(v => Number(v))
-  const dBigIntsTest = results[1].map(v => Number(v))
+  const dBigIntsTrain = map(results[0], v => Number(v))
+  const dBigIntsTest = map(results[1], v => Number(v))
   const dFloatsTrain = results[2]
   const dFloatsTest = results[3]
   expect(isEqual(dBigIntsTrain, dFloatsTrain)).toBe(true)

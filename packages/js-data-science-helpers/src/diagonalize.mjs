@@ -1,6 +1,7 @@
 import {
   assert,
   DataFrame,
+  forEach,
   isArray,
   isSeries,
   shape,
@@ -29,7 +30,7 @@ function diagonalize(x) {
 
   const isAllBigInts = x.every(v => typeof v === "bigint")
   const out = zeros([xShape[0], xShape[0]])
-  x.forEach((v, i) => (out[i][i] = v))
+  forEach(x, (v, i) => (out[i][i] = v))
 
   if (isAllBigInts) {
     for (let i = 0; i < out.length; i++) {

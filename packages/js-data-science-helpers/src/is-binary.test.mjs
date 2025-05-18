@@ -1,6 +1,8 @@
 import {
   DataFrame,
+  forEach,
   identity,
+  map,
   ones,
   random,
   round,
@@ -25,7 +27,7 @@ test("tests that arrays, Series, and DataFrames can be correctly identified as b
   expect(isBinary(new DataFrame(round(random([100, 5]))))).toBe(true)
   expect(isBinary(new Series(random(100)))).toBe(false)
   expect(isBinary(new DataFrame(random([100, 5])))).toBe(false)
-  expect(isBinary(random(100).map(v => round(v * 2 - 1)))).toBe(false)
+  expect(isBinary(map(random(100), v => round(v * 2 - 1)))).toBe(false)
   expect(isBinary(zeros([2, 3, 4, 5]))).toBe(true)
   expect(isBinary(ones([2, 3, 4, 5]))).toBe(true)
   expect(isBinary(identity(10))).toBe(true)
@@ -66,7 +68,7 @@ test("tests that arrays, Series, and DataFrames can be correctly identified as b
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(isBinary(item)).toBe(false)
   })
 })

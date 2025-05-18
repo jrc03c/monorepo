@@ -2,11 +2,13 @@ import {
   assert,
   DataFrame,
   flatten,
+  forEach,
   isArray,
   isDataFrame,
   isEqual,
   isNumber,
   isSeries,
+  map,
   normal,
   range,
   Series,
@@ -40,13 +42,13 @@ function containsOnlyNumbers(x) {
 
 test("tests that a p-value matrix can be computed correctly", () => {
   const a = normal(100)
-  const b = transpose(range(0, 5).map(() => a))
+  const b = transpose(map(range(0, 5), () => a))
   const c = getPValueMatrix(b)
   const cSet = set(c)
   expect(cSet.length).toBe(1)
   expect(cSet[0]).toBe(1)
 
-  const d = transpose([normal(100), normal(100).map(v => v + 100)])
+  const d = transpose([normal(100), map(normal(100), v => v + 100)])
 
   const eTrue = [
     [1, 0],
@@ -63,7 +65,7 @@ test("tests that a p-value matrix can be computed correctly", () => {
   ).toBe(true)
 
   const h = normal([10, 10])
-  h.forEach((row, i) => (row[i] = "uh-oh"))
+  forEach(h, (row, i) => (row[i] = "uh-oh"))
   const gPred1 = getPValueMatrix(h)
   expect(set(gPred1).length).toBe(1)
   expect(set(gPred1)[0]).toBeNaN()
@@ -71,17 +73,17 @@ test("tests that a p-value matrix can be computed correctly", () => {
   const gPred2 = getPValueMatrix(h, h, true)
   expect(set(gPred2).length).toBeGreaterThan(1)
 
-  gPred2.forEach(row => {
-    row.forEach(v => {
+  forEach(gPred2, row => {
+    forEach(row, v => {
       expect(isNumber(v)).toBe(true)
     })
   })
 
-  const hBigInts = normal([100, 5]).map(row =>
-    row.map(v => BigInt(Math.round(v * 100))),
+  const hBigInts = map(normal([100, 5]), row =>
+    map(row, v => BigInt(Math.round(v * 100))),
   )
 
-  const hFloats = hBigInts.map(row => row.map(v => Number(v)))
+  const hFloats = map(hBigInts, row => map(row, v => Number(v)))
 
   expect(isEqual(getPValueMatrix(hBigInts), getPValueMatrix(hFloats))).toBe(
     true,
@@ -117,8 +119,8 @@ test("tests that a p-value matrix can be computed correctly", () => {
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => getPValueMatrix(a, b)).toThrow()
     })
   })

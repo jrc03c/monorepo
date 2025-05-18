@@ -1,8 +1,10 @@
 import {
   DataFrame,
   flatten,
+  forEach,
   isEqual,
   log,
+  map,
   median,
   min,
   normal,
@@ -34,7 +36,7 @@ test("tests that outliers can be correctly clipped", () => {
 
   const a = [1, 2, 3, 4, 1000]
   const aMed = median(a)
-  const aMad = median(a.map(v => Math.abs(v - aMed)))
+  const aMad = median(map(a, v => Math.abs(v - aMed)))
   const bTrue = [1, 2, 3, 4, aMed + 5 * aMad]
   const bPred = new OutlierMitigator().fitAndTransform(a)
   expect(isEqual(bPred, bTrue)).toBe(true)
@@ -43,14 +45,14 @@ test("tests that outliers can be correctly clipped", () => {
   expect(isEqual(new OutlierMitigator().fitAndTransform(c), c)).toBe(true)
 
   const d = reshape(
-    normal(1000).map(v => (Math.random() < 0.05 ? 1e20 : v)),
+    map(normal(1000), v => (Math.random() < 0.05 ? 1e20 : v)),
     [10, 10, 10],
   )
 
   const dMed = median(d)
-  const dMad = median(flatten(d).map(v => Math.abs(v - dMed)))
+  const dMad = median(map(flatten(d), v => Math.abs(v - dMed)))
 
-  flatten(new OutlierMitigator().fitAndTransform(d)).forEach(v => {
+  forEach(flatten(new OutlierMitigator().fitAndTransform(d)), v => {
     expect(v <= dMed + 5 * dMad).toBe(true)
     expect(v >= dMed - 5 * dMad).toBe(true)
   })
@@ -68,9 +70,9 @@ test("tests that outliers can be correctly clipped", () => {
   const j = normal(100).concat([10000])
   const jmin = min(j)
 
-  const kTrue = new OutlierMitigator()
-    .fitAndTransform(j)
-    .map(v => log(v - jmin + 1))
+  const kTrue = map(new OutlierMitigator().fitAndTransform(j), v =>
+    log(v - jmin + 1),
+  )
 
   const kPred = new OutlierMitigator({
     isAllowedToTakeTheLog: true,
@@ -80,7 +82,7 @@ test("tests that outliers can be correctly clipped", () => {
 
   const m = normal(100).concat([10000])
   const mmin = min(m)
-  const nTrue = log(m.map(v => v - mmin + 1))
+  const nTrue = log(map(m, v => v - mmin + 1))
 
   const nPred = new OutlierMitigator({
     isAllowedToClip: false,
@@ -103,7 +105,7 @@ test("tests that outliers can be correctly clipped", () => {
   expect(
     isEqual(
       new OutlierMitigator().fitAndTransform(r),
-      new OutlierMitigator().fitAndTransform(r.map(v => Number(v))),
+      new OutlierMitigator().fitAndTransform(map(r, v => Number(v))),
     ),
   ).toBe(true)
 
@@ -138,7 +140,7 @@ test("tests that outliers can be correctly clipped", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => new OutlierMitigator().fitAndTransform(item)).toThrow()
   })
 })

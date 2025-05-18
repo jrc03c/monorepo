@@ -1,6 +1,8 @@
 import {
   DataFrame,
+  forEach,
   isEqual,
+  map,
   normal,
   round,
   Series,
@@ -30,7 +32,7 @@ test("tests that percentages of values in an array can be computed correctly", (
   const ctotal = sum(cstats.counts.counts)
 
   const dTrue = sort(
-    cvalues.map(v => {
+    map(cvalues, v => {
       const vcount = cstats.counts.get(v)
       const percentage = vcount / ctotal
       return { value: v, count: vcount, percentage }
@@ -99,7 +101,7 @@ test("tests that percentages of values in an array can be computed correctly", (
     { hello: "world" },
   ]
 
-  wrongs.forEach(value => {
+  forEach(wrongs, value => {
     expect(() => getPercentages(value)).toThrow()
   })
 })

@@ -1,7 +1,9 @@
 import {
   abs,
   DataFrame,
+  forEach,
   isEqual,
+  map,
   mean,
   normal,
   random,
@@ -14,12 +16,12 @@ import { expect, test } from "@jrc03c/fake-jest"
 import { normalize } from "./normalize.mjs"
 
 test("tests that data can be normalized correctly", () => {
-  const a = range(0, 1000).map(() => random())
+  const a = map(range(0, 1000), () => random())
   const b = normalize(a)
   expect(abs(std(b) - 1)).toBeLessThan(0.01)
   expect(abs(mean(b))).toBeLessThan(0.01)
 
-  const c = normal(1000).map(v => v * 100 + 100)
+  const c = map(normal(1000), v => v * 100 + 100)
   const d = normalize(c)
   expect(abs(std(d) - 1)).toBeLessThan(0.01)
   expect(abs(mean(d))).toBeLessThan(0.01)
@@ -46,8 +48,8 @@ test("tests that data can be normalized correctly", () => {
   const jPred = normalize(i)
   expect(isEqual(jPred, jTrue)).toBe(true)
 
-  const kBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
-  const kFloats = kBigInts.map(v => Number(v))
+  const kBigInts = map(normal(100), v => BigInt(Math.round(v * 100)))
+  const kFloats = map(kBigInts, v => Number(v))
   expect(isEqual(normalize(kBigInts), normalize(kFloats))).toBe(true)
 
   const m = normal(100)
@@ -76,7 +78,7 @@ test("tests that data can be normalized correctly", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => normalize(item)).toThrow()
   })
 })

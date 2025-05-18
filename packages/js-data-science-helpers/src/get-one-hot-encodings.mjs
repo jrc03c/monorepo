@@ -1,10 +1,13 @@
 import {
   assert,
   DataFrame,
+  filter,
+  forEach,
   isArray,
   isSeries,
   isString,
   isUndefined,
+  map,
   set,
   shape,
   sort,
@@ -41,14 +44,19 @@ function getOneHotEncodings() {
 
   const out = {}
 
-  const colNames = sort(set(values))
-    .filter(v => typeof v !== "number" || v.toString() !== "NaN")
-    .filter(v => !isUndefined(v))
-    .map(v => name + "_" + simpleStringify(v))
-    .slice(0, -1)
+  const colNames = map(
+    filter(
+      filter(
+        sort(set(values)),
+        v => typeof v !== "number" || v.toString() !== "NaN",
+      ),
+      v => !isUndefined(v),
+    ),
+    v => name + "_" + simpleStringify(v),
+  ).slice(0, -1)
 
-  colNames.forEach(colName => {
-    out[colName] = values.map(v => {
+  forEach(colNames, colName => {
+    out[colName] = map(values, v => {
       if (colName === name + "_" + simpleStringify(v)) {
         return 1
       }

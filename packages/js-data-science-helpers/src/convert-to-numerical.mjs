@@ -3,6 +3,7 @@ import {
   correl,
   count,
   DataFrame,
+  filter,
   inferType,
   isArray,
   isDataFrame,
@@ -10,6 +11,7 @@ import {
   isJagged,
   isNumber,
   isUndefined,
+  map,
   shape,
   sort,
   sum,
@@ -89,11 +91,11 @@ function convertToNumerical(df, config) {
     const inferred = inferType(col.values)
 
     if (inferred.type === "boolean") {
-      inferred.values = inferred.values.map(v => (v ? 1 : 0))
+      inferred.values = map(inferred.values, v => (v ? 1 : 0))
     }
 
     if (inferred.type === "date") {
-      inferred.values = inferred.values.map(v => {
+      inferred.values = map(inferred.values, v => {
         try {
           return v.getTime()
         } catch (e) {
@@ -111,14 +113,14 @@ function convertToNumerical(df, config) {
     }
 
     if (inferred.type === "object") {
-      inferred.values = inferred.values.map(v => stringify(v))
+      inferred.values = map(inferred.values, v => stringify(v))
     }
 
     if (inferred.type === "string") {
       // don't do anything
     }
 
-    const nonMissingValues = inferred.values.filter(v => !isUndefined(v))
+    const nonMissingValues = filter(inferred.values, v => !isUndefined(v))
 
     if (
       inferred.values.length - nonMissingValues.length >
@@ -130,15 +132,16 @@ function convertToNumerical(df, config) {
     // one-hot encode
     if (inferred.type !== "boolean") {
       const counts = sort(
-        count(nonMissingValues)
-          .toArray()
-          .filter(item => !isUndefined(item.value) && isNumber(item.count)),
+        filter(
+          count(nonMissingValues).toArray(),
+          item => !isUndefined(item.value) && isNumber(item.count),
+        ),
         (a, b) => b.count - a.count,
       )
 
       const topNPercent =
         sum(
-          counts.slice(0, maxUniqueValues).map(item => item.count),
+          map(counts.slice(0, maxUniqueValues), item => item.count),
           shouldIgnoreNaNs,
         ) / nonMissingValues.length
 

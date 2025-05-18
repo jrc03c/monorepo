@@ -1,4 +1,4 @@
-import { DataFrame, Series } from "@jrc03c/js-math-tools"
+import { DataFrame, forEach, Series } from "@jrc03c/js-math-tools"
 import { expect, test } from "@jrc03c/fake-jest"
 import { isWholeNumber } from "./is-whole-number.mjs"
 
@@ -37,7 +37,7 @@ test("tests that the `isWholeNumber` function works as expected", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(v => {
+  forEach(wrongs, v => {
     expect(isWholeNumber(v)).toBe(false)
   })
 })

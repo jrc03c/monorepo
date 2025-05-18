@@ -4,8 +4,10 @@ import {
   DataFrame,
   dropMissing,
   flatten,
+  forEach,
   int,
   isEqual,
+  map,
   normal,
   pow,
   random,
@@ -42,58 +44,60 @@ import { makeKey } from "@jrc03c/make-key"
 test("tests that DataFrames can be converted to all numerical values correctly", () => {
   const n = 100
 
-  const booleans = range(0, n).map(() => (random() < random() ? 1 : 0))
+  const booleans = map(range(0, n), () => (random() < random() ? 1 : 0))
 
   const datesFromSmallSet = (() => {
-    const datesSet = range(0, 5).map(
+    const datesSet = map(
+      range(0, 5),
       () => new Date(int(random() * new Date().getTime())),
     )
 
-    return shuffle(range(0, n).map(i => datesSet[i % datesSet.length]))
+    return shuffle(map(range(0, n), i => datesSet[i % datesSet.length]))
   })()
 
-  const datesAllUnique = range(0, n).map(
+  const datesAllUnique = map(
+    range(0, n),
     () => new Date(int(random() * new Date().getTime())),
   )
 
   const floatsFromSmallSet = (() => {
     const floatSet = normal(5)
-    return shuffle(range(0, n).map(i => floatSet[i % floatSet.length]))
+    return shuffle(map(range(0, n), i => floatSet[i % floatSet.length]))
   })()
 
   const floatsAllUnique = normal(n)
 
   const intsFromSmallSet = (() => {
     const intSet = range(-3, 4)
-    return shuffle(range(0, n).map(i => intSet[i % intSet.length]))
+    return shuffle(map(range(0, n), i => intSet[i % intSet.length]))
   })()
 
-  const intsAllUnique = shuffle(range(0, n)).map(v => int(v - n / 2))
+  const intsAllUnique = map(shuffle(range(0, n)), v => int(v - n / 2))
 
   const objectsFromSmallSet = (() => {
-    const objectsSet = range(0, 10).map(() => ({
+    const objectsSet = map(range(0, 10), () => ({
       x: random(),
       y: random(),
       z: random(),
     }))
 
-    return shuffle(range(0, n).map(i => objectsSet[i % objectsSet.length]))
+    return shuffle(map(range(0, n), i => objectsSet[i % objectsSet.length]))
   })()
 
-  const objectsAllUnique = range(0, n).map(() => ({
+  const objectsAllUnique = map(range(0, n), () => ({
     x: random(),
     y: random(),
     z: random(),
   }))
 
   const stringsFromSmallSet = (() => {
-    const stringSet = range(0, 5).map(() => makeKey(8))
-    return shuffle(range(0, n).map(i => stringSet[i % stringSet.length]))
+    const stringSet = map(range(0, 5), () => makeKey(8))
+    return shuffle(map(range(0, n), i => stringSet[i % stringSet.length]))
   })()
 
-  const stringsAllUnique = range(0, n).map(() => makeKey(8))
+  const stringsAllUnique = map(range(0, n), () => makeKey(8))
 
-  const nulls = range(0, n).map(() => shuffle([null, undefined, NaN])[0])
+  const nulls = map(range(0, n), () => shuffle([null, undefined, NaN])[0])
 
   let df = new DataFrame({
     booleans,
@@ -111,42 +115,42 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   })
 
   // randomly delete some values
-  range(0, 0.05 * df.shape[0] * df.shape[1]).forEach(() => {
+  forEach(range(0, 0.05 * df.shape[0] * df.shape[1]), () => {
     const i = int(random() * df.shape[0])
     const j = int(random() * df.shape[1])
     df.values[i][j] = shuffle([null, undefined, NaN])[0]
   })
 
   // duplicate some existing columns
-  range(0, 3).forEach(() => {
+  forEach(range(0, 3), () => {
     const colName = df.columns[int(random() * df.columns.length)]
     df = df.assign(colName + " (duplicate)", df.get(null, colName).values)
   })
 
   // add some columns that are mostly missing values
-  range(0, 3).forEach(i => {
+  forEach(range(0, 3), i => {
     const threshold = random() * 0.5
 
     df = df.assign(
       "floatsWithLotsMissing" + i,
-      normal(n).map(v => (random() < threshold ? v : NaN)),
+      map(normal(n), v => (random() < threshold ? v : NaN)),
     )
   })
 
   // add some columns with 1 unique value
-  range(0, 3).map(() => {
+  map(range(0, 3), () => {
     const colName = df.columns[int(random() * df.columns.length)]
     const value = df.get(colName).values[0]
 
     df = df.assign(
       makeKey(8) + " (1 unique)",
-      range(0, n).map(() => value),
+      map(range(0, n), () => value),
     )
   })
 
   // add some columns that are partially correlated with the existing float
   // columns
-  range(-5, 5).map(i => {
+  map(range(-5, 5), i => {
     const noiseScale = pow(2, i)
     const colName = `floatsAllUnique + ${noiseScale.toFixed(4)} * noise`
     df = df.assign(colName, add(floatsAllUnique, scale(noiseScale, normal(n))))
@@ -156,7 +160,7 @@ test("tests that DataFrames can be converted to all numerical values correctly",
   const dfCleaned = convertToNumerical(df)
 
   // check that the resulting DataFrame contains only numbers and NaNs
-  flatten(dfCleaned.values).forEach(v => {
+  forEach(flatten(dfCleaned.values), v => {
     expect(typeof v).toBe("number")
   })
 
@@ -196,13 +200,13 @@ test("tests that DataFrames can be converted to all numerical values correctly",
     "stringsFromSmallSet",
   ]
 
-  oneHotColumns.forEach(colName => {
+  forEach(oneHotColumns, colName => {
     expect(dfCleaned.columns.includes(colName)).toBe(false)
   })
 
   const bigIntsOnly = new DataFrame({
-    foo: random(100).map(v => BigInt(Math.round(v * 100))),
-    bar: random(100).map(v => BigInt(Math.round(v * 100))),
+    foo: map(random(100), v => BigInt(Math.round(v * 100))),
+    bar: map(random(100), v => BigInt(Math.round(v * 100))),
   })
 
   expect(isEqual(bigIntsOnly, convertToNumerical(bigIntsOnly))).toBe(true)
@@ -238,7 +242,7 @@ test("throws an error when attempting to convertToNumerical non-DataFrames", () 
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => convertToNumerical(item)).toThrow()
   })
 })

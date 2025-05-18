@@ -1,9 +1,11 @@
 import {
   DataFrame,
+  forEach,
   isArray,
   isDataFrame,
   isEqual,
   isSeries,
+  map,
   mean,
   random,
   Series,
@@ -60,8 +62,8 @@ test("tests that the `StandardScaler` transforms and untransforms data correctly
   expect(stdev(dPred)).toBeCloseTo(1)
   expect(rScore(d, scaler.untransform(dPred))).toBeCloseTo(1)
 
-  const eBigInts = random(100).map(v => BigInt(Math.round(v * 100)))
-  const eFloats = eBigInts.map(v => Number(v))
+  const eBigInts = map(random(100), v => BigInt(Math.round(v * 100)))
+  const eFloats = map(eBigInts, v => Number(v))
 
   expect(
     isEqual(
@@ -167,7 +169,7 @@ test("tests that the `StandardScaler` throws errors when given invalid data type
     { hello: "world" },
   ]
 
-  wrongs.forEach(wrong => {
+  forEach(wrongs, wrong => {
     const scaler = new StandardScaler()
     expect(() => scaler.fit(wrong)).toThrow()
     scaler.fit(random([10, 10]))

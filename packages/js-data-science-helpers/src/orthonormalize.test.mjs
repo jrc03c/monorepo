@@ -1,8 +1,10 @@
 import {
   DataFrame,
+  forEach,
   identity,
   isEqual,
   isNumber,
+  map,
   normal,
   range,
   Series,
@@ -23,7 +25,7 @@ test("tests that matrices can be correctly orthonormalized", () => {
   const c = normal(1000)
 
   const d = new DataFrame(
-    transpose(range(0, 5).map(() => c.map(v => v + 1e-5 * normal()))),
+    transpose(map(range(0, 5), () => map(c, v => v + 1e-5 * normal()))),
   )
 
   const eTrue = new DataFrame(identity(5))
@@ -31,11 +33,11 @@ test("tests that matrices can be correctly orthonormalized", () => {
   const ePred = getCorrelationMatrix(orthonormalize(d))
   expect(rSquared(eTrue, ePred)).toBeGreaterThan(0.99)
 
-  const fBigInts = normal([100, 5]).map(row =>
-    row.map(v => BigInt(Math.round(v * 100))),
+  const fBigInts = map(normal([100, 5]), row =>
+    map(row, v => BigInt(Math.round(v * 100))),
   )
 
-  const fFloats = fBigInts.map(row => row.map(v => Number(v)))
+  const fFloats = map(fBigInts, row => map(row, v => Number(v)))
   expect(isEqual(orthonormalize(fBigInts), orthonormalize(fFloats))).toBe(true)
 
   const g = normal([10, 10])
@@ -67,7 +69,7 @@ test("tests that matrices can be correctly orthonormalized", () => {
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => orthonormalize(item)).toThrow()
   })
 })

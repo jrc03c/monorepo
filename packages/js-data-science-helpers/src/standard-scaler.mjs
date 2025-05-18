@@ -2,9 +2,11 @@ import {
   assert,
   DataFrame,
   flatten,
+  forEach,
   isArray,
   isDataFrame,
   isSeries,
+  map,
   range,
   Series,
   shape,
@@ -65,8 +67,8 @@ class StandardScaler {
     this.means = []
     this.stdevs = []
 
-    range(0, xShape[1]).forEach(j => {
-      const values = x.map(row => row[j])
+    forEach(range(0, xShape[1]), j => {
+      const values = map(x, row => row[j])
 
       const results = stats(values, {
         shouldDropNaNs: this.shouldIgnoreNaNs,
@@ -89,7 +91,7 @@ class StandardScaler {
     const datas = Array.from(arguments)
 
     if (datas.length > 1) {
-      return datas.map(data => this.transform(data))
+      return map(datas, data => this.transform(data))
     }
 
     let x = datas[0]
@@ -123,8 +125,8 @@ class StandardScaler {
       "The data you passed into the `transform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
     )
 
-    const out = x.map(row => {
-      return row.map((v, j) => {
+    const out = map(x, row => {
+      return map(row, (v, j) => {
         return (Number(v) - Number(this.means[j])) / Number(this.stdevs[j])
       })
     })
@@ -166,8 +168,8 @@ class StandardScaler {
       "The data you passed into the `untransform` function doesn't have the same number of columns as the data set on which this StandardScaler was fitted!",
     )
 
-    const out = x.map(row => {
-      return row.map((v, j) => {
+    const out = map(x, row => {
+      return map(row, (v, j) => {
         return v * this.stdevs[j] + this.means[j]
       })
     })

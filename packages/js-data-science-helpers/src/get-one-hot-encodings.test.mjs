@@ -1,6 +1,8 @@
 import {
   DataFrame,
+  forEach,
   isEqual,
+  map,
   normal,
   round,
   Series,
@@ -28,11 +30,11 @@ test("tests that values can be correctly one-hot-encoded", () => {
 
   const fTrue = new DataFrame(
     transpose(
-      fTypes.slice(0, -1).map(v => e.values.map(x => (x === v ? 1 : 0))),
+      map(fTypes.slice(0, -1), v => map(e.values, x => (x === v ? 1 : 0))),
     ),
   )
 
-  fTrue.columns = fTypes.slice(0, -1).map(v => "hello_" + v.toString())
+  fTrue.columns = map(fTypes.slice(0, -1), v => "hello_" + v.toString())
   fTrue.index = e.index.slice()
   const fPred = getOneHotEncodings(e)
   expect(isEqual(fPred, fTrue)).toBe(true)
@@ -93,12 +95,12 @@ test("tests that values can be correctly one-hot-encoded", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => getOneHotEncodings(item)).toThrow()
   })
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => getOneHotEncodings(a, b)).toThrow()
     })
   })

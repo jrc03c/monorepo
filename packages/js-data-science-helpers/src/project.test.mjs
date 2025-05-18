@@ -1,7 +1,9 @@
 import {
   DataFrame,
   dot,
+  forEach,
   isEqual,
+  map,
   normal,
   scale,
   Series,
@@ -29,11 +31,11 @@ test("tests that vectors can be correctly projected onto other vectors", () => {
   const iPred = project(g, h)
   expect(isEqual(iPred, iTrue)).toBe(true)
 
-  const jBigInts = normal(100).map(v => BigInt(Math.round(v)))
-  const kBigInts = normal(100).map(v => BigInt(Math.round(v)))
+  const jBigInts = map(normal(100), v => BigInt(Math.round(v)))
+  const kBigInts = map(normal(100), v => BigInt(Math.round(v)))
 
-  const jFloats = jBigInts.map(v => Number(v))
-  const kFloats = kBigInts.map(v => Number(v))
+  const jFloats = map(jBigInts, v => Number(v))
+  const kFloats = map(kBigInts, v => Number(v))
 
   expect(isEqual(project(jBigInts, kBigInts), project(jFloats, kFloats))).toBe(
     true,
@@ -76,8 +78,8 @@ test("tests that vectors can be correctly projected onto other vectors", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => project(a, b)).toThrow()
     })
   })

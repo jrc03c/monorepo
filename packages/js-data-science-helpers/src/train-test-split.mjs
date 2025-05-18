@@ -1,5 +1,7 @@
 import {
   assert,
+  filter,
+  forEach,
   isArray,
   isBoolean,
   isDataFrame,
@@ -7,6 +9,7 @@ import {
   int,
   isNumber,
   isUndefined,
+  map,
   range,
   set,
   shape,
@@ -15,7 +18,11 @@ import {
 
 function trainTestSplit() {
   const args = Array.from(arguments)
-  const datasets = args.filter(a => isArray(a) || isDataFrame(a) || isSeries(a))
+
+  const datasets = filter(
+    args,
+    a => isArray(a) || isDataFrame(a) || isSeries(a),
+  )
 
   const options =
     args.find(a => !datasets.includes(a) && typeof a === "object") || {}
@@ -41,7 +48,7 @@ function trainTestSplit() {
     "You must pass at least one dataset into the `trainTestSplit` function!",
   )
 
-  const shapes = datasets.map(d => shape(d)[0])
+  const shapes = map(datasets, d => shape(d)[0])
 
   assert(
     set(shapes).length === 1,
@@ -60,7 +67,7 @@ function trainTestSplit() {
   const trainIndex = index.slice(0, split)
   const testIndex = index.slice(split)
 
-  datasets.forEach(d => {
+  forEach(datasets, d => {
     if (isDataFrame(d)) {
       out.push(d.get(trainIndex, null))
       out.push(d.get(testIndex, null))
@@ -71,7 +78,7 @@ function trainTestSplit() {
       const train = []
       const test = []
 
-      d.forEach((v, i) => {
+      forEach(d, (v, i) => {
         if (trainIndex.includes(i)) {
           train.push(v)
         } else {

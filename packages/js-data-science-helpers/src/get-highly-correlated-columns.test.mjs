@@ -1,10 +1,12 @@
 import {
   add,
   DataFrame,
+  forEach,
   isDataFrame,
   isEqual,
   isNumber,
   isUndefined,
+  map,
   normal,
   range,
   scale,
@@ -29,8 +31,9 @@ test("tests that highly correlated columns in matrices can be correctly identifi
 
   const cPred = getHighlyCorrelatedColumns(b)
 
-  Object.keys(cPred).forEach(
-    key => (cPred[key] = cPred[key].map(v => v.column)),
+  forEach(
+    Object.keys(cPred),
+    key => (cPred[key] = map(cPred[key], v => v.column)),
   )
 
   expect(isEqual(cPred, cTrue)).toBe(true)
@@ -47,8 +50,9 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   const fTrue = { d1: ["d2"], d2: ["d1"] }
   const fPred = getHighlyCorrelatedColumns(e)
 
-  Object.keys(fPred).forEach(
-    key => (fPred[key] = fPred[key].map(v => v.column)),
+  forEach(
+    Object.keys(fPred),
+    key => (fPred[key] = map(fPred[key], v => v.column)),
   )
 
   expect(isEqual(fPred, fTrue)).toBe(true)
@@ -70,13 +74,14 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   const j = normal(100)
 
   const k = new DataFrame(
-    transpose(range(0, 5).map(() => add(j, scale(1e-20, normal(100))))),
+    transpose(map(range(0, 5), () => add(j, scale(1e-20, normal(100))))),
   )
 
   const mTrue = getHighlyCorrelatedColumns(k)
 
-  Object.keys(mTrue).forEach(
-    key => (mTrue[key] = mTrue[key].map(v => v.column)),
+  forEach(
+    Object.keys(mTrue),
+    key => (mTrue[key] = map(mTrue[key], v => v.column)),
   )
 
   k.values[Math.floor(Math.random() * k.shape[0])][
@@ -85,16 +90,18 @@ test("tests that highly correlated columns in matrices can be correctly identifi
 
   const mPred1 = getHighlyCorrelatedColumns(k)
 
-  Object.keys(mPred1).forEach(
-    key => (mPred1[key] = mPred1[key].map(v => v.column)),
+  forEach(
+    Object.keys(mPred1),
+    key => (mPred1[key] = map(mPred1[key], v => v.column)),
   )
 
   expect(isEqual(mPred1, mTrue)).toBe(false)
 
   const mPred2 = getHighlyCorrelatedColumns(k, null, true)
 
-  Object.keys(mPred2).forEach(
-    key => (mPred2[key] = mPred2[key].map(v => v.column)),
+  forEach(
+    Object.keys(mPred2),
+    key => (mPred2[key] = map(mPred2[key], v => v.column)),
   )
 
   expect(isEqual(mPred2, mTrue)).toBe(true)
@@ -109,16 +116,20 @@ test("tests that highly correlated columns in matrices can be correctly identifi
 
   const qPred = getHighlyCorrelatedColumns(n)
 
-  Object.keys(qPred).forEach(
-    key => (qPred[key] = qPred[key].map(v => v.column)),
+  forEach(
+    Object.keys(qPred),
+    key => (qPred[key] = map(qPred[key], v => v.column)),
   )
 
   expect(isEqual(qPred, qTrue)).toBe(true)
 
   const q = normal(100)
-  const r = transpose(range(0, 5).map(() => add(q, scale(0.0001, normal(100)))))
 
-  range(0, shape(r)[1]).forEach(j => {
+  const r = transpose(
+    map(range(0, 5), () => add(q, scale(0.0001, normal(100)))),
+  )
+
+  forEach(range(0, shape(r)[1]), j => {
     r[j][j] = "uh-oh!"
   })
 
@@ -128,14 +139,14 @@ test("tests that highly correlated columns in matrices can be correctly identifi
   const s = normal(100)
 
   const t = transpose(
-    range(0, 5).map(() => add(s, scale(0.0001, normal(shape(s))))),
+    map(range(0, 5), () => add(s, scale(0.0001, normal(shape(s))))),
   )
 
   const uPred = getHighlyCorrelatedColumns(t)
 
   expect(Object.keys(uPred).length).toBeGreaterThan(0)
 
-  Object.keys(uPred).forEach(key => {
+  forEach(Object.keys(uPred), key => {
     const results = uPred[key]
     expect(results instanceof Array).toBe(true)
     expect(results.every(v => typeof v.column === "string")).toBe(true)
@@ -166,8 +177,8 @@ test("tests that highly correlated columns in matrices can be correctly identifi
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       if (!isDataFrame(a) && !isNumber(b) && !isUndefined(b)) {
         expect(() => getHighlyCorrelatedColumns(a, b)).toThrow()
       }

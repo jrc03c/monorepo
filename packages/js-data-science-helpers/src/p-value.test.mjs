@@ -1,4 +1,4 @@
-import { DataFrame, normal, Series } from "@jrc03c/js-math-tools"
+import { DataFrame, forEach, map, normal, Series } from "@jrc03c/js-math-tools"
 import { expect, test } from "@jrc03c/fake-jest"
 import { pValue } from "./p-value.mjs"
 
@@ -7,7 +7,7 @@ test("tests that p-values can be correctly computed", () => {
   expect(pValue(a, a)).toBe(1)
 
   const b = normal(100)
-  const c = normal(100).map(v => v + 100)
+  const c = map(normal(100), v => v + 100)
   expect(pValue(b, c)).toBeLessThan(0.01)
 
   const d = normal([2, 3, 4, 5])
@@ -22,10 +22,10 @@ test("tests that p-values can be correctly computed", () => {
   const i = new DataFrame({ baz: normal(100), aha: normal(100) })
   expect(() => pValue(h, i)).not.toThrow()
 
-  const jBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
-  const kBigInts = normal(100).map(v => BigInt(Math.round(v * 100)))
-  const jFloats = jBigInts.map(v => Number(v))
-  const kFloats = kBigInts.map(v => Number(v))
+  const jBigInts = map(normal(100), v => BigInt(Math.round(v * 100)))
+  const kBigInts = map(normal(100), v => BigInt(Math.round(v * 100)))
+  const jFloats = map(jBigInts, v => Number(v))
+  const kFloats = map(kBigInts, v => Number(v))
 
   expect(pValue(jBigInts, kBigInts)).toBeCloseTo(pValue(jFloats, kFloats))
 
@@ -57,8 +57,8 @@ test("tests that p-values can be correctly computed", () => {
     { hello: "world" },
   ]
 
-  wrongs.forEach(a => {
-    wrongs.forEach(b => {
+  forEach(wrongs, a => {
+    forEach(wrongs, b => {
       expect(() => pValue(a, b)).toThrow()
     })
   })

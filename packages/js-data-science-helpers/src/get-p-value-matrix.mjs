@@ -7,6 +7,7 @@ import {
   isDataFrame,
   isJagged,
   isUndefined,
+  map,
   ndarray,
 } from "@jrc03c/js-math-tools"
 
@@ -70,10 +71,10 @@ function getPValueMatrix(a, b, shouldIgnoreNaNs) {
   const out = ndarray([a[0].length, b[0].length])
 
   for (let i = 0; i < a[0].length; i++) {
-    const acol = a.map(row => row[i])
+    const acol = map(a, row => row[i])
 
     for (let j = 0; j < b[0].length; j++) {
-      const bcol = b.map(row => row[j])
+      const bcol = map(b, row => row[j])
 
       if (shouldIgnoreNaNs) {
         out[i][j] = pValue(...dropNaNPairwise(acol, bcol))

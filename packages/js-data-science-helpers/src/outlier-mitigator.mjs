@@ -5,6 +5,7 @@ import {
   clamp,
   copy,
   divide,
+  forEach,
   isArray,
   isBoolean,
   isDataFrame,
@@ -13,6 +14,7 @@ import {
   isSeries,
   isUndefined,
   log,
+  map,
   stats,
   subtract,
 } from "@jrc03c/js-math-tools"
@@ -30,7 +32,7 @@ function isBinary(stats) {
 function getNumericalValues(stats) {
   const out = []
 
-  stats.counts.values.forEach(value => {
+  forEach(stats.counts.values, value => {
     if (isNumber(value)) {
       const count = stats.counts.get(value)
 
@@ -115,7 +117,7 @@ class OutlierMitigator {
 
   transform() {
     if (arguments.length > 1) {
-      return Array.from(arguments).map(a => this.transform(a))
+      return map(Array.from(arguments), a => this.transform(a))
     }
 
     const x = arguments[0]
@@ -139,7 +141,7 @@ class OutlierMitigator {
       let highestLowValue = -Infinity
       let lowestHighValue = Infinity
 
-      xnums.forEach(value => {
+      forEach(xnums, value => {
         if (value < this.median) {
           low.push(value)
 

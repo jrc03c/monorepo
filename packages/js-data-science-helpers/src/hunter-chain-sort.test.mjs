@@ -2,9 +2,11 @@ import {
   add,
   DataFrame,
   divide,
+  forEach,
   int,
   isEqual,
   isNumber,
+  map,
   max,
   min,
   normal,
@@ -29,7 +31,7 @@ test("sorts a random correlation matrix", () => {
   const d = hunterChainSort(c)
   expect(isEqual(hunterChainSort(b), d.values)).toBe(true)
 
-  d.values.forEach((row, i) => {
+  forEach(d.values, (row, i) => {
     if (i < d.shape[0] - 2) {
       const r1 = d.values[(i + 1, i)]
       const r2 = d.values[(i + 2, i + 1)]
@@ -46,7 +48,7 @@ test("sorts a random correlation matrix", () => {
   e.values = divide(add(e.values, e.transpose().values), 2)
   e.values = remap(e.values, min(e.values), max(e.values), -1, 1)
 
-  e.values.forEach((row, i) => {
+  forEach(e.values, (row, i) => {
     e.values[i][i] = 1
   })
 
@@ -62,7 +64,7 @@ test("sorts a random correlation matrix", () => {
     x => x,
   ]
 
-  range(0, 0.1 * e.shape[0] * e.shape[1]).forEach(() => {
+  forEach(range(0, 0.1 * e.shape[0] * e.shape[1]), () => {
     const i = int(random() * e.shape[0])
     const j = int(random() * e.shape[1])
     const v = possibles[int(random() * possibles.length)]
@@ -89,8 +91,8 @@ test("sorts a random correlation matrix", () => {
 
   expect(f.some(row => row.some(v => isNumber(v)))).toBe(true)
 
-  const g = normal([10, 10]).map(row =>
-    row.map(v => BigInt(Math.round(v * 100))),
+  const g = map(normal([10, 10]), row =>
+    map(row, v => BigInt(Math.round(v * 100))),
   )
 
   const h = hunterChainSort(g)
@@ -119,7 +121,7 @@ test("sorts a random correlation matrix", () => {
     new Series({ hello: [10, 20, 30, 40, 50] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => hunterChainSort(item)).toThrow()
   })
 })

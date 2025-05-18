@@ -1,6 +1,7 @@
 import {
   DataFrame,
   flatten,
+  forEach,
   isDataFrame,
   isEqual,
   isNumber,
@@ -26,7 +27,7 @@ test("tests that an array can be correctly diagonalized", () => {
   const c = normal(100)
   const dPred = diagonalize(c)
 
-  dPred.forEach((row, i) => {
+  forEach(dPred, (row, i) => {
     expect(row[i]).toBe(c[i])
   })
 
@@ -86,7 +87,7 @@ test("tests that an array can be correctly diagonalized", () => {
     new DataFrame({ foo: [1, 2, 4, 8, 16], bar: [1, 3, 9, 27, 81] }),
   ]
 
-  wrongs.forEach(item => {
+  forEach(wrongs, item => {
     expect(() => diagonalize(item)).toThrow()
   })
 })
