@@ -4,12 +4,12 @@
     "url": "https://github.com/jrc03c/create-high-dpi-canvas/issues"
   },
   "dependencies": {
-    "@jrc03c/base-web-component": "^0.0.15"
+    "@jrc03c/base-web-component": "^0.0.16"
   },
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.12.0",
-    "@jrc03c/watch": "^0.0.21",
+    "@jrc03c/watch": "^0.0.22",
     "esbuild": "^0.25.0",
     "eslint": "^9.12.0",
     "globals": "^15.11.0",
