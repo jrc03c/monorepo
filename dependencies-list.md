@@ -92,7 +92,7 @@
   - fake-jest
   - pause
   - watch
-# playing-cards (0.0.3)
+# playing-cards (0.0.4)
   - fake-jest
   - js-math-tools
   - watch
