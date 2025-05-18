@@ -20,5 +20,5 @@
     "watch": "node build.mjs --watch"
   },
   "type": "module",
-  "version": "0.0.8"
+  "version": "0.0.9"
 }
