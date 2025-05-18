@@ -129,7 +129,7 @@
   - js-text-tools
   - js-type-experiments
   - make-key
-# create-high-dpi-canvas (1.0.30)
+# create-high-dpi-canvas (1.0.31)
   - base-web-component
   - watch
 # misc-vue-components (0.0.19)
