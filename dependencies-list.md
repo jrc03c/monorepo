@@ -10,7 +10,7 @@
   - fake-jest
 # freeze (0.0.7)
   - fake-jest
-# vector2 (0.0.8)
+# vector2 (0.0.9)
   - fake-jest
 # js-math-tools (0.0.93)
   - fake-jest
