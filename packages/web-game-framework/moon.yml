@@ -1,0 +1,52 @@
+dependsOn:
+  - create-high-dpi-canvas
+  - js-type-experiments
+  - make-key
+  - pause
+  - vector2
+  - id: fake-jest
+    scope: development
+  - id: js-math-tools
+    scope: development
+  - id: watch
+    scope: development
+tasks:
+  build:
+    command:
+      - node
+      - build.mjs
+    platform: node
+  pub:
+    command:
+      - npm
+      - publish
+      - --access=public
+    deps:
+      - ~:pub-dep1
+    platform: node
+  pub-dep1:
+    command:
+      - npm
+      - version
+      - patch
+      - --force
+    platform: node
+  serve:
+    command:
+      - python3
+      - -m
+      - http.server
+    local: true
+    platform: node
+  test:
+    command:
+      - npx
+      - fake-jest
+    platform: node
+  watch:
+    command:
+      - node
+      - build.mjs
+      - --watch
+    local: true
+    platform: node
