@@ -140,3 +140,12 @@
   - fs-extras
   - vue-component-with-css
   - watch
+# web-game-framework (0.0.3)
+  - create-high-dpi-canvas
+  - fake-jest
+  - js-math-tools
+  - js-type-experiments
+  - make-key
+  - pause
+  - vector2
+  - watch

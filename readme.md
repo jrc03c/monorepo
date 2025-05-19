@@ -38,6 +38,7 @@ This monorepo contains the following packages:
 - [vue-component-with-css](./packages/vue-component-with-css)
 - [watch](./packages/watch)
 - [web-crawler](./packages/web-crawler)
+- [web-game-framework](./packages/web-game-framework)
 - [web-worker-helper](./packages/web-worker-helper)
 
 All of these packages are in the process of being migrated from their standalone repos into this repo. Henceforth, this repo will contain the most up-to-date version of the packages. I'll soon be archiving the original solo repos.
