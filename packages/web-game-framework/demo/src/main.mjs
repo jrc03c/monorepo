@@ -205,93 +205,108 @@ class Card extends Thing {
   }
 }
 
-const width = window.innerWidth
-const height = window.innerHeight
+class SolitaireEndScene extends SceneWithUpdateLoop {
+  canvasComponent = null
+  cards = []
+  deltaTimes = []
+  gravity = null
+  velocities = []
 
-const targetFPS = 120
-const scene = new SceneWithUpdateLoop({ fps: targetFPS })
+  constructor() {
+    super(...arguments)
 
-const canvasComponent = new CanvasComponent({ width, height })
-const context = canvasComponent.canvas.getContext("2d")
-scene.addComponent(canvasComponent)
-document.body.append(canvasComponent.canvas)
+    const width = window.innerWidth
+    const height = window.innerHeight
 
-const deck = Card.createDeck()
-const cards = deck.filter(c => c.value === "A")
-const xstep = width / (cards.length + 1)
+    this.canvasComponent = new CanvasComponent({ width, height })
+    const context = this.canvasComponent.canvas.getContext("2d")
+    this.addComponent(this.canvasComponent)
+    document.body.append(this.canvasComponent.canvas)
 
-cards.forEach((c, i) => {
-  c.position.x = (i + 1) * xstep - c.dimensions.x / 2
-  c.position.y = c.dimensions.y / 2
-})
+    const deck = Card.createDeck()
+    this.cards = deck.filter(c => c.value === "A")
 
-const scalar = 500
-const velocities = cards.map(() => new Vector2())
-const gravity = new Vector2({ x: 0, y: 10 * scalar })
-const deltaTimes = []
+    const xstep = width / (this.cards.length + 1)
 
-const reset = () => {
-  cards.forEach((c, i) => {
-    c.position.x = (i + 1) * xstep - c.dimensions.x / 2
-    c.position.y = c.dimensions.y / 2
-  })
+    this.cards.forEach((c, i) => {
+      c.position.x = (i + 1) * xstep - c.dimensions.x / 2
+      c.position.y = c.dimensions.y / 2
+    })
 
-  velocities.forEach(v => {
-    v.x = (Math.random() * 2 - 1) * 1 * scalar
-    v.y = (Math.random() * 2 - 1) * 2 * scalar
-  })
+    const scalar = 500
+    this.deltaTimes = []
+    this.gravity = new Vector2({ x: 0, y: 10 * scalar })
+    this.velocities = this.cards.map(() => new Vector2())
 
-  context.fillStyle = "green"
-  context.fillRect(0, 0, width, height)
-}
+    const reset = () => {
+      this.cards.forEach((c, i) => {
+        c.position.x = (i + 1) * xstep - c.dimensions.x / 2
+        c.position.y = c.dimensions.y / 2
+      })
 
-scene.on("update", deltaTime => {
-  cards.forEach((card, i) => {
-    const velocity = velocities[i]
-    velocity.add(gravity.copy().scale(deltaTime))
-    card.position.add(velocity.copy().scale(deltaTime))
+      this.velocities.forEach(v => {
+        v.x = (Math.random() * 2 - 1) * 1 * scalar
+        v.y = (Math.random() * 2 - 1) * 2 * scalar
+      })
 
-    if (card.position.x < 0 || card.position.x + card.dimensions.x > width) {
-      velocity.x *= -1
-
-      if (card.position.x < 0) {
-        card.position.x = 0
-      }
-
-      if (card.position.x + card.dimensions.x > width) {
-        card.position.x = width - card.dimensions.x
-      }
+      context.fillStyle = "green"
+      context.fillRect(0, 0, width, height)
     }
 
-    if (card.position.y + card.dimensions.y > height) {
-      velocity.x *= 0.95
-      velocity.y *= -0.67
-      card.position.y = height - card.dimensions.y
-    }
-
-    card.draw(context)
-  })
-
-  deltaTimes.push(deltaTime)
-
-  if (deltaTimes.length > 360) {
-    deltaTimes.shift()
+    window.addEventListener("click", reset)
+    reset()
   }
 
-  const deltaTimeMean =
-    deltaTimes.reduce((sum, dt) => sum + dt, 0) / deltaTimes.length
+  update(deltaTime) {
+    const { width, height } = this.canvasComponent.canvas
+    const context = this.canvasComponent.canvas.getContext("2d")
 
-  const fps = 1 / deltaTimeMean
-  const text = `FPS: ${fps.toFixed(2)}`
-  context.font = `12px monospace`
-  context.fillStyle = "black"
-  context.fillRect(0, 0, 256, 44)
-  context.fillStyle = "white"
-  context.textAlign = "left"
-  context.textBaseline = "top"
-  context.fillText(text, 16, 16)
-})
+    this.cards.forEach((card, i) => {
+      const velocity = this.velocities[i]
+      velocity.add(this.gravity.copy().scale(deltaTime))
+      card.position.add(velocity.copy().scale(deltaTime))
 
-window.addEventListener("click", reset)
-reset()
+      if (card.position.x < 0 || card.position.x + card.dimensions.x > width) {
+        velocity.x *= -1
+
+        if (card.position.x < 0) {
+          card.position.x = 0
+        }
+
+        if (card.position.x + card.dimensions.x > width) {
+          card.position.x = width - card.dimensions.x
+        }
+      }
+
+      if (card.position.y + card.dimensions.y > height) {
+        velocity.x *= 0.95
+        velocity.y *= -0.67
+        card.position.y = height - card.dimensions.y
+      }
+
+      card.draw(context)
+    })
+
+    this.deltaTimes.push(deltaTime)
+
+    if (this.deltaTimes.length > 360) {
+      this.deltaTimes.shift()
+    }
+
+    const deltaTimeMean =
+      this.deltaTimes.reduce((sum, dt) => sum + dt, 0) / this.deltaTimes.length
+
+    const fps = 1 / deltaTimeMean
+    const text = `FPS: ${fps.toFixed(2)}`
+    context.font = `12px monospace`
+    context.fillStyle = "black"
+    context.fillRect(0, 0, 256, 44)
+    context.fillStyle = "white"
+    context.textAlign = "left"
+    context.textBaseline = "top"
+    context.fillText(text, 16, 16)
+  }
+}
+
+const scene = new SolitaireEndScene()
 scene.start()

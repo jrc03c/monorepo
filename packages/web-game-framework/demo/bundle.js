@@ -4629,10 +4629,10 @@
 
   // node_modules/@jrc03c/create-high-dpi-canvas/src/index.mjs
   var HighDPICanvasElementResizeEvent = class extends Event {
-    constructor(width2, height2, options) {
+    constructor(width, height, options) {
       super("resize", options);
-      this.width = width2;
-      this.height = height2;
+      this.width = width;
+      this.height = height;
     }
   };
   var HighDPICanvasElement = class extends BaseComponent {
@@ -4732,9 +4732,9 @@
           first = false;
           return;
         }
-        const { width: width2, height: height2 } = this.getBoundingClientRect();
-        this.width = width2;
-        this.height = height2;
+        const { width, height } = this.getBoundingClientRect();
+        this.width = width;
+        this.height = height;
         this.onOuterResize(true);
       });
       this.onOuterResize(false);
@@ -4763,9 +4763,9 @@
       element.height = Math.floor(this.height * dpi);
       element.style.width = `${this.width}px`;
       element.style.height = `${this.height}px`;
-      const context2 = element.getContext("2d");
-      context2.resetTransform();
-      context2.scale(dpi, dpi);
+      const context = element.getContext("2d");
+      context.resetTransform();
+      context.scale(dpi, dpi);
       if (shouldEmitEvent || typeof shouldEmitEvent === "undefined") {
         this.dispatchEvent(
           new HighDPICanvasElementResizeEvent(this.width, this.height)
@@ -4782,9 +4782,9 @@
       return this.element.transferControlToOffscreen(...arguments);
     }
   };
-  function createHighDPICanvas(width2, height2) {
+  function createHighDPICanvas(width, height) {
     const canvas = document.createElement(HighDPICanvasElement.tagName);
-    canvas.dimensions = [width2, height2];
+    canvas.dimensions = [width, height];
     return canvas;
   }
   try {
@@ -4907,34 +4907,34 @@
     set width(v) {
       this.dimensionsComponent.dimensions.x = v;
     }
-    draw(context2) {
+    draw(context) {
       const { dimensions, position } = this;
-      context2.save();
-      context2.translate(position.x, position.y);
-      context2.fillStyle = this.isActive ? "rgb(240, 240, 240)" : this.isHovered ? "rgb(250, 250, 250)" : "white";
-      context2.strokeStyle = "black";
-      context2.lineWidth = 1;
-      context2.fillRect(0, 0, dimensions.x, dimensions.y);
-      context2.strokeRect(0, 0, dimensions.x, dimensions.y);
-      context2.font = `${_Card.FontSize}px monospace`;
-      context2.textAlign = "center";
-      context2.textBaseline = "middle";
+      context.save();
+      context.translate(position.x, position.y);
+      context.fillStyle = this.isActive ? "rgb(240, 240, 240)" : this.isHovered ? "rgb(250, 250, 250)" : "white";
+      context.strokeStyle = "black";
+      context.lineWidth = 1;
+      context.fillRect(0, 0, dimensions.x, dimensions.y);
+      context.strokeRect(0, 0, dimensions.x, dimensions.y);
+      context.font = `${_Card.FontSize}px monospace`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
       if (this.suit === "Diamonds" || this.suit === "Hearts") {
-        context2.fillStyle = "red";
+        context.fillStyle = "red";
       } else {
-        context2.fillStyle = "black";
+        context.fillStyle = "black";
       }
-      context2.fillText(
+      context.fillText(
         this.symbol,
         dimensions.x / 2,
         dimensions.y / 2 - _Card.FontSize / 2
       );
-      context2.fillText(
+      context.fillText(
         this.value,
         dimensions.x / 2,
         dimensions.y / 2 + _Card.FontSize / 2
       );
-      context2.restore();
+      context.restore();
       return this;
     }
     containsPoint(p) {
@@ -4942,74 +4942,85 @@
       return p.x >= position.x && p.x <= position.x + dimensions.x && p.y >= position.y && p.y <= position.y + dimensions.y;
     }
   };
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  var targetFPS = 120;
-  var scene = new SceneWithUpdateLoop({ fps: targetFPS });
-  var canvasComponent = new CanvasComponent({ width, height });
-  var context = canvasComponent.canvas.getContext("2d");
-  scene.addComponent(canvasComponent);
-  document.body.append(canvasComponent.canvas);
-  var deck = Card.createDeck();
-  var cards = deck.filter((c) => c.value === "A");
-  var xstep = width / (cards.length + 1);
-  cards.forEach((c, i) => {
-    c.position.x = (i + 1) * xstep - c.dimensions.x / 2;
-    c.position.y = c.dimensions.y / 2;
-  });
-  var scalar = 500;
-  var velocities = cards.map(() => new Vector2());
-  var gravity = new Vector2({ x: 0, y: 10 * scalar });
-  var deltaTimes = [];
-  var reset = () => {
-    cards.forEach((c, i) => {
-      c.position.x = (i + 1) * xstep - c.dimensions.x / 2;
-      c.position.y = c.dimensions.y / 2;
-    });
-    velocities.forEach((v) => {
-      v.x = (Math.random() * 2 - 1) * 1 * scalar;
-      v.y = (Math.random() * 2 - 1) * 2 * scalar;
-    });
-    context.fillStyle = "green";
-    context.fillRect(0, 0, width, height);
-  };
-  scene.on("update", (deltaTime) => {
-    cards.forEach((card, i) => {
-      const velocity = velocities[i];
-      velocity.add(gravity.copy().scale(deltaTime));
-      card.position.add(velocity.copy().scale(deltaTime));
-      if (card.position.x < 0 || card.position.x + card.dimensions.x > width) {
-        velocity.x *= -1;
-        if (card.position.x < 0) {
-          card.position.x = 0;
-        }
-        if (card.position.x + card.dimensions.x > width) {
-          card.position.x = width - card.dimensions.x;
-        }
-      }
-      if (card.position.y + card.dimensions.y > height) {
-        velocity.x *= 0.95;
-        velocity.y *= -0.67;
-        card.position.y = height - card.dimensions.y;
-      }
-      card.draw(context);
-    });
-    deltaTimes.push(deltaTime);
-    if (deltaTimes.length > 360) {
-      deltaTimes.shift();
+  var SolitaireEndScene = class extends SceneWithUpdateLoop {
+    canvasComponent = null;
+    cards = [];
+    deltaTimes = [];
+    gravity = null;
+    velocities = [];
+    constructor() {
+      super(...arguments);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      this.canvasComponent = new CanvasComponent({ width, height });
+      const context = this.canvasComponent.canvas.getContext("2d");
+      this.addComponent(this.canvasComponent);
+      document.body.append(this.canvasComponent.canvas);
+      const deck = Card.createDeck();
+      this.cards = deck.filter((c) => c.value === "A");
+      const xstep = width / (this.cards.length + 1);
+      this.cards.forEach((c, i) => {
+        c.position.x = (i + 1) * xstep - c.dimensions.x / 2;
+        c.position.y = c.dimensions.y / 2;
+      });
+      const scalar = 500;
+      this.deltaTimes = [];
+      this.gravity = new Vector2({ x: 0, y: 10 * scalar });
+      this.velocities = this.cards.map(() => new Vector2());
+      const reset = () => {
+        this.cards.forEach((c, i) => {
+          c.position.x = (i + 1) * xstep - c.dimensions.x / 2;
+          c.position.y = c.dimensions.y / 2;
+        });
+        this.velocities.forEach((v) => {
+          v.x = (Math.random() * 2 - 1) * 1 * scalar;
+          v.y = (Math.random() * 2 - 1) * 2 * scalar;
+        });
+        context.fillStyle = "green";
+        context.fillRect(0, 0, width, height);
+      };
+      window.addEventListener("click", reset);
+      reset();
     }
-    const deltaTimeMean = deltaTimes.reduce((sum2, dt) => sum2 + dt, 0) / deltaTimes.length;
-    const fps = 1 / deltaTimeMean;
-    const text = `FPS: ${fps.toFixed(2)}`;
-    context.font = `12px monospace`;
-    context.fillStyle = "black";
-    context.fillRect(0, 0, 256, 44);
-    context.fillStyle = "white";
-    context.textAlign = "left";
-    context.textBaseline = "top";
-    context.fillText(text, 16, 16);
-  });
-  window.addEventListener("click", reset);
-  reset();
+    update(deltaTime) {
+      const { width, height } = this.canvasComponent.canvas;
+      const context = this.canvasComponent.canvas.getContext("2d");
+      this.cards.forEach((card, i) => {
+        const velocity = this.velocities[i];
+        velocity.add(this.gravity.copy().scale(deltaTime));
+        card.position.add(velocity.copy().scale(deltaTime));
+        if (card.position.x < 0 || card.position.x + card.dimensions.x > width) {
+          velocity.x *= -1;
+          if (card.position.x < 0) {
+            card.position.x = 0;
+          }
+          if (card.position.x + card.dimensions.x > width) {
+            card.position.x = width - card.dimensions.x;
+          }
+        }
+        if (card.position.y + card.dimensions.y > height) {
+          velocity.x *= 0.95;
+          velocity.y *= -0.67;
+          card.position.y = height - card.dimensions.y;
+        }
+        card.draw(context);
+      });
+      this.deltaTimes.push(deltaTime);
+      if (this.deltaTimes.length > 360) {
+        this.deltaTimes.shift();
+      }
+      const deltaTimeMean = this.deltaTimes.reduce((sum2, dt) => sum2 + dt, 0) / this.deltaTimes.length;
+      const fps = 1 / deltaTimeMean;
+      const text = `FPS: ${fps.toFixed(2)}`;
+      context.font = `12px monospace`;
+      context.fillStyle = "black";
+      context.fillRect(0, 0, 256, 44);
+      context.fillStyle = "white";
+      context.textAlign = "left";
+      context.textBaseline = "top";
+      context.fillText(text, 16, 16);
+    }
+  };
+  var scene = new SolitaireEndScene();
   scene.start();
 })();
