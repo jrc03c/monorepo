@@ -20,8 +20,6 @@ test("test that the `Thing` class works as expected", () => {
   expect(typeof a.id).toBe("string")
   expect(a.id.length).toBe(8)
   expect(isUndefined(a.parent)).toBe(true)
-  expect(a.subscriptions instanceof Object).toBe(true)
-  expect(Object.keys(a.subscriptions).length).toBe(0)
   expect(Thing.objectRegistry[a.id]).toBe(a)
 
   const b = new Thing()
@@ -42,36 +40,6 @@ test("test that the `Thing` class works as expected", () => {
   const f = new Thing()
   const g = new Thing()
   const h = new Component()
-  let addChildEventWasTriggered = false
-  let addComponentEventWasTriggered = false
-  let copyEventWasTriggered = false
-  let destroyEventWasTriggered = false
-  let removeChildEventWasTriggered = false
-  let removeComponentEventWasTriggered = false
-
-  f.on("add-child", () => {
-    addChildEventWasTriggered = true
-  })
-
-  f.on("add-component", () => {
-    addComponentEventWasTriggered = true
-  })
-
-  f.on("copy", () => {
-    copyEventWasTriggered = true
-  })
-
-  f.on("destroy", () => {
-    destroyEventWasTriggered = true
-  })
-
-  f.on("remove-child", () => {
-    removeChildEventWasTriggered = true
-  })
-
-  f.on("remove-component", () => {
-    removeComponentEventWasTriggered = true
-  })
 
   f.addChild(g)
   f.addComponent(h)
@@ -86,30 +54,22 @@ test("test that the `Thing` class works as expected", () => {
   f.removeChild(g)
   f.removeComponent(h)
 
-  expect(addChildEventWasTriggered).toBe(true)
-  expect(addComponentEventWasTriggered).toBe(true)
-  expect(removeChildEventWasTriggered).toBe(true)
-  expect(removeComponentEventWasTriggered).toBe(true)
-
   expect(f.children.length).toBe(0)
   expect(isUndefined(g.parent)).toBe(true)
   expect(f.components.length).toBe(0)
   expect(isUndefined(h.owner)).toBe(true)
 
   f.copy()
-  expect(copyEventWasTriggered).toBe(true)
 
   const fid = f.id
   const gid = g.id
   const hid = h.id
 
   f.destroy()
-  expect(destroyEventWasTriggered).toBe(true)
 
   expect(isUndefined(f._children)).toBe(true)
   expect(isUndefined(f._components)).toBe(true)
   expect(isUndefined(f.parent)).toBe(true)
-  expect(isUndefined(f.subscriptions)).toBe(true)
   expect(isUndefined(Thing.objectRegistry[fid])).toBe(true)
   expect(isUndefined(Thing.objectRegistry[gid])).toBe(false)
   expect(isUndefined(Thing.objectRegistry[hid])).toBe(false)
@@ -135,22 +95,4 @@ test("test that the `Thing` class works as expected", () => {
   const p = n.copy()
   expect(p.components[0] instanceof SecretComponent).toBe(true)
   expect(n.components[0]).not.toBe(p.components[0])
-
-  const q = new Thing()
-  let fooTriggerCount = 0
-
-  q.on("foo", () => {
-    fooTriggerCount++
-  })
-
-  const r = q.copy()
-  q.emit("foo")
-  r.emit("foo")
-  expect(fooTriggerCount).toBe(2)
-
-  q.destroy()
-  expect(() => q.emit("foo")).toThrow()
-
-  r.emit("foo")
-  expect(fooTriggerCount).toBe(3)
 })

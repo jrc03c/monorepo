@@ -6,6 +6,8 @@ import { Scene } from "./classes/scene/index.mjs"
 import { SceneWithUpdateLoop } from "./classes/scene/scene-with-update-loop.mjs"
 import { Vector2 } from "@jrc03c/vector2"
 
+Thing.classRegistry["Vector2"] = Vector2
+
 export {
   Component,
   Mouse,

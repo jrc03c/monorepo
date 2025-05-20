@@ -3927,7 +3927,6 @@
     _components = [];
     id = "";
     parent = null;
-    subscriptions = {};
     constructor(data) {
       if (!this.constructor.classRegistry[this.constructor.name]) {
         this.constructor.classRegistry[this.constructor.name] = this.constructor;
@@ -3986,8 +3985,6 @@
           this.parent = this.constructor.objectRegistry[data.parent];
         }
       }
-      defineTypedProperty(this, "subscriptions", "object");
-      this.subscriptions = {};
     }
     get children() {
       return Array.from(this._children);
@@ -4009,7 +4006,6 @@
       if (!this._children.includes(child)) {
         this._children.push(child);
         child.parent = this;
-        this.emit("add-child", child);
       }
       return this;
     }
@@ -4017,17 +4013,11 @@
       if (!this._components.includes(component)) {
         this._components.push(component);
         component.owner = this;
-        this.emit("add-component", component);
       }
       return this;
     }
     copy() {
-      const out = new this.constructor(this.toObject());
-      Object.keys(this.subscriptions).forEach((channel) => {
-        out.subscriptions[channel] = this.subscriptions[channel].slice();
-      });
-      this.emit("copy", out);
-      return out;
+      return new this.constructor(this.toObject());
     }
     destroy() {
       this._children.forEach((c) => c.destroy());
@@ -4036,33 +4026,6 @@
       this._components = null;
       this.parent = null;
       delete this.constructor.objectRegistry[this.id];
-      this.emit("destroy");
-      this.subscriptions = null;
-      return this;
-    }
-    emit() {
-      const args = Array.from(arguments);
-      const channel = args[0];
-      const payload = args.slice(1);
-      if (this.subscriptions[channel]) {
-        this.subscriptions[channel].forEach((callback) => callback(...payload));
-      }
-      return this;
-    }
-    on(channel, callback) {
-      if (!this.subscriptions[channel]) {
-        this.subscriptions[channel] = [];
-      }
-      this.subscriptions[channel].push(callback);
-      return () => this.off(channel, callback);
-    }
-    off(channel, callback) {
-      if (this.subscriptions[channel] && this.subscriptions[channel].includes(callback)) {
-        this.subscriptions[channel].splice(
-          this.subscriptions[channel].indexOf(callback),
-          1
-        );
-      }
       return this;
     }
     removeChild(child) {
@@ -4071,7 +4034,6 @@
           this._children.splice(this._children.indexOf(child), 1);
         }
         child.parent = null;
-        this.emit("remove-child", child);
       }
       return this;
     }
@@ -4081,7 +4043,6 @@
           this._components.splice(this._components.indexOf(component), 1);
         }
         component.owner = null;
-        this.emit("remove-component", component);
       }
       return this;
     }
@@ -4097,7 +4058,6 @@
     update() {
       this._children.forEach((c) => c.update(...arguments));
       this._components.forEach((c) => c.update(...arguments));
-      this.emit("update", ...arguments);
       return this;
     }
   };
@@ -4415,7 +4375,6 @@
         return this;
       }
       this.isPaused = true;
-      this.emit("pause");
       return this;
     }
     start() {
@@ -4423,7 +4382,6 @@
         return this;
       }
       this.isRunning = true;
-      this.emit("start");
       return this;
     }
     stop() {
@@ -4431,7 +4389,6 @@
         return this;
       }
       this.isRunning = false;
-      this.emit("stop");
       return this;
     }
     unpause() {
@@ -4439,7 +4396,6 @@
         return this;
       }
       this.isPaused = false;
-      this.emit("unpause");
       return this;
     }
   };
@@ -4451,43 +4407,47 @@
     constructor() {
       super(...arguments);
       defineTypedProperty(this, "lastUpdateTime", "number");
-      this.on("start", () => {
-        this.lastUpdateTime = performance.now();
-        if (typeof requestAnimationFrame === "undefined") {
-          const interval = setInterval(() => {
-            if (!this.isRunning) {
-              return clearInterval(interval);
-            }
-            if (!this.isPaused) {
-              const now = performance.now();
-              const deltaTime = (now - this.lastUpdateTime) / 1e3;
-              this.update(deltaTime);
-              this.lastUpdateTime = now;
-            }
-          }, 1e3 / 60);
-        } else {
-          const loop = () => {
-            if (!this.isRunning) {
-              return;
-            }
-            if (!this.isPaused) {
-              const now = performance.now();
-              const deltaTime = (now - this.lastUpdateTime) / 1e3;
-              this.update(deltaTime);
-              this.lastUpdateTime = now;
-            }
-            requestAnimationFrame(loop);
-          };
-          loop();
-        }
-      });
     }
     destroy() {
       this.lastUpdateTime = null;
       return super.destroy();
     }
+    start() {
+      this.lastUpdateTime = performance.now();
+      if (typeof requestAnimationFrame === "undefined") {
+        const interval = setInterval(() => {
+          if (!this.isRunning) {
+            return clearInterval(interval);
+          }
+          if (!this.isPaused) {
+            const now = performance.now();
+            const deltaTime = (now - this.lastUpdateTime) / 1e3;
+            this.update(deltaTime);
+            this.lastUpdateTime = now;
+          }
+        }, 1e3 / 60);
+      } else {
+        const loop = () => {
+          if (!this.isRunning) {
+            return;
+          }
+          if (!this.isPaused) {
+            const now = performance.now();
+            const deltaTime = (now - this.lastUpdateTime) / 1e3;
+            this.update(deltaTime);
+            this.lastUpdateTime = now;
+          }
+          requestAnimationFrame(loop);
+        };
+        loop();
+      }
+      return super.start(...arguments);
+    }
   };
   Thing.classRegistry["SceneWithUpdateLoop"] = SceneWithUpdateLoop;
+
+  // src/index.mjs
+  Thing.classRegistry["Vector2"] = Vector2;
 
   // node_modules/@jrc03c/base-web-component/src/index.mjs
   var BaseComponent = class extends HTMLElement {

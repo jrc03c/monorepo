@@ -28,7 +28,6 @@ class Scene extends Thing {
     }
 
     this.isPaused = true
-    this.emit("pause")
     return this
   }
 
@@ -38,7 +37,6 @@ class Scene extends Thing {
     }
 
     this.isRunning = true
-    this.emit("start")
     return this
   }
 
@@ -48,7 +46,6 @@ class Scene extends Thing {
     }
 
     this.isRunning = false
-    this.emit("stop")
     return this
   }
 
@@ -58,7 +55,6 @@ class Scene extends Thing {
     }
 
     this.isPaused = false
-    this.emit("unpause")
     return this
   }
 }

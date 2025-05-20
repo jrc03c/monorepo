@@ -13,7 +13,6 @@ class Thing {
   _components = []
   id = ""
   parent = null
-  subscriptions = {}
 
   constructor(data) {
     // we'll add the class to the class registry here just in case, but it's
@@ -88,9 +87,6 @@ class Thing {
         this.parent = this.constructor.objectRegistry[data.parent]
       }
     }
-
-    defineTypedProperty(this, "subscriptions", "object")
-    this.subscriptions = {}
   }
 
   get children() {
@@ -117,7 +113,6 @@ class Thing {
     if (!this._children.includes(child)) {
       this._children.push(child)
       child.parent = this
-      this.emit("add-child", child)
     }
 
     return this
@@ -127,21 +122,13 @@ class Thing {
     if (!this._components.includes(component)) {
       this._components.push(component)
       component.owner = this
-      this.emit("add-component", component)
     }
 
     return this
   }
 
   copy() {
-    const out = new this.constructor(this.toObject())
-
-    Object.keys(this.subscriptions).forEach(channel => {
-      out.subscriptions[channel] = this.subscriptions[channel].slice()
-    })
-
-    this.emit("copy", out)
-    return out
+    return new this.constructor(this.toObject())
   }
 
   destroy() {
@@ -151,43 +138,6 @@ class Thing {
     this._components = null
     this.parent = null
     delete this.constructor.objectRegistry[this.id]
-    this.emit("destroy")
-    this.subscriptions = null
-    return this
-  }
-
-  emit() {
-    const args = Array.from(arguments)
-    const channel = args[0]
-    const payload = args.slice(1)
-
-    if (this.subscriptions[channel]) {
-      this.subscriptions[channel].forEach(callback => callback(...payload))
-    }
-
-    return this
-  }
-
-  on(channel, callback) {
-    if (!this.subscriptions[channel]) {
-      this.subscriptions[channel] = []
-    }
-
-    this.subscriptions[channel].push(callback)
-    return () => this.off(channel, callback)
-  }
-
-  off(channel, callback) {
-    if (
-      this.subscriptions[channel] &&
-      this.subscriptions[channel].includes(callback)
-    ) {
-      this.subscriptions[channel].splice(
-        this.subscriptions[channel].indexOf(callback),
-        1,
-      )
-    }
-
     return this
   }
 
@@ -198,7 +148,6 @@ class Thing {
       }
 
       child.parent = null
-      this.emit("remove-child", child)
     }
 
     return this
@@ -211,7 +160,6 @@ class Thing {
       }
 
       component.owner = null
-      this.emit("remove-component", component)
     }
 
     return this
@@ -230,7 +178,6 @@ class Thing {
   update() {
     this._children.forEach(c => c.update(...arguments))
     this._components.forEach(c => c.update(...arguments))
-    this.emit("update", ...arguments)
     return this
   }
 }
