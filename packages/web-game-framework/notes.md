@@ -8,4 +8,6 @@ i think i've gotten a little confused about the point of the event system. to cl
 
 - some entity outside the object would call `object.emit("mouse-move")`
 - the object would handle the event
-- after handling the event, the object would call `this.emit("mouse-moved")`
+- after handling the event, the object would call `this.emit("after-mouse-move")`
+
+i'm torn between using "after-mouse-move" and "mouse-moved". the former doesn't have to worry about transforming a verb into past tense, which comes with complications (e.g., "read" (present) vs. "read" (past)). but using "after-" with everything feels awfully verbose.
