@@ -16,6 +16,7 @@ class SceneWithUpdateLoop extends Scene {
   }
 
   start() {
+    const out = super.start(...arguments)
     this.lastUpdateTime = performance.now()
 
     if (typeof requestAnimationFrame === "undefined") {
@@ -50,7 +51,7 @@ class SceneWithUpdateLoop extends Scene {
       loop()
     }
 
-    return super.start(...arguments)
+    return out
   }
 }
 

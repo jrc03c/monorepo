@@ -305,6 +305,8 @@ class SolitaireEndScene extends SceneWithUpdateLoop {
     context.textAlign = "left"
     context.textBaseline = "top"
     context.fillText(text, 16, 16)
+
+    return super.update(...arguments)
   }
 }
 

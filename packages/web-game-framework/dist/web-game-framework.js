@@ -4432,6 +4432,7 @@
       return super.destroy();
     }
     start() {
+      const out = super.start(...arguments);
       this.lastUpdateTime = performance.now();
       if (typeof requestAnimationFrame === "undefined") {
         const interval = setInterval(() => {
@@ -4460,7 +4461,7 @@
         };
         loop();
       }
-      return super.start(...arguments);
+      return out;
     }
   };
   Thing.classRegistry["SceneWithUpdateLoop"] = SceneWithUpdateLoop;

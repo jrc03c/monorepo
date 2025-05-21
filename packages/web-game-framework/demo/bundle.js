@@ -4413,6 +4413,7 @@
       return super.destroy();
     }
     start() {
+      const out = super.start(...arguments);
       this.lastUpdateTime = performance.now();
       if (typeof requestAnimationFrame === "undefined") {
         const interval = setInterval(() => {
@@ -4441,7 +4442,7 @@
         };
         loop();
       }
-      return super.start(...arguments);
+      return out;
     }
   };
   Thing.classRegistry["SceneWithUpdateLoop"] = SceneWithUpdateLoop;
@@ -4979,6 +4980,7 @@
       context.textAlign = "left";
       context.textBaseline = "top";
       context.fillText(text, 16, 16);
+      return super.update(...arguments);
     }
   };
   var scene = new SolitaireEndScene();
