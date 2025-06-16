@@ -69,41 +69,26 @@ class Card {
     })
   }
 
+  id = null
+  name = null
   suit = null
+  symbol = null
   value = null
 
   constructor(data) {
     data = data || {}
+
     this.suit = data.suit || this.constructor.Suit.Spade
     this.value = data.value ?? this.constructor.Value.Ace
 
     if (!data.suit && this.value === this.constructor.Value.Joker) {
       this.suit = this.constructor.Suit.None
     }
-  }
 
-  get id() {
-    return `${this.name} of ${this.suit}s`
-  }
+    this.name = data.name || this.constructor.Name[this.value]
+    this.symbol = data.symbol || this.constructor.Symbol[this.suit]
 
-  set id(v) {
-    throw new Error("The `id` property of a `Card` instance is read-only!")
-  }
-
-  get name() {
-    return this.constructor.Name[this.value]
-  }
-
-  set name(v) {
-    throw new Error("The `name` property of a `Card` instance is read-only!")
-  }
-
-  get symbol() {
-    return this.constructor.Symbol[this.suit]
-  }
-
-  set symbol(v) {
-    throw new Error("The `symbol` property of a `Card` instance is read-only!")
+    this.id = data.id || `${this.name} of ${this.suit}s`
   }
 
   copy() {

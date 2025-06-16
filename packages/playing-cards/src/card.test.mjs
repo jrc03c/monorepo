@@ -37,9 +37,21 @@ test("tests that the `Card` class works as expected", () => {
   expect(e.symbol).toBe("∅")
   expect(e.value).toBe(0)
 
-  const f = Card.random()
-  expect(() => (f.name = "foo")).toThrow()
-  expect(() => (f.symbol = "foo")).toThrow()
+  const id = Math.random().toString()
+  const name = Math.random().toString()
+  const symbol = Math.random().toString()
+
+  const f = new Card({
+    id,
+    name,
+    suit: Card.Suit.None,
+    symbol,
+    value: Math.floor(Math.random() * 14),
+  })
+
+  expect(f.id).toBe(id)
+  expect(f.name).toBe(name)
+  expect(f.symbol).toBe(symbol)
 
   const g = Card.random()
   const gobj = g.toObject()
