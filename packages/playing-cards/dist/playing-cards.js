@@ -2,20 +2,20 @@
   // src/card.mjs
   var Card = class _Card {
     static Name = {
-      "0": "Joker",
-      "1": "Ace",
-      "2": "Two",
-      "3": "Three",
-      "4": "Four",
-      "5": "Five",
-      "6": "Six",
-      "7": "Seven",
-      "8": "Eight",
-      "9": "Nine",
-      "10": "Ten",
-      "11": "Jack",
-      "12": "Queen",
-      "13": "King"
+      0: "Joker",
+      1: "Ace",
+      2: "Two",
+      3: "Three",
+      4: "Four",
+      5: "Five",
+      6: "Six",
+      7: "Seven",
+      8: "Eight",
+      9: "Nine",
+      10: "Ten",
+      11: "Jack",
+      12: "Queen",
+      13: "King"
     };
     static Suit = {
       Club: "Club",
@@ -74,6 +74,9 @@
     }
     get id() {
       return `${this.name} of ${this.suit}s`;
+    }
+    set id(v) {
+      throw new Error("The `id` property of a `Card` instance is read-only!");
     }
     get name() {
       return this.constructor.Name[this.value];

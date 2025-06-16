@@ -1,19 +1,19 @@
 class Card {
   static Name = {
-    "0": "Joker",
-    "1": "Ace",
-    "2": "Two",
-    "3": "Three",
-    "4": "Four",
-    "5": "Five",
-    "6": "Six",
-    "7": "Seven",
-    "8": "Eight",
-    "9": "Nine",
-    "10": "Ten",
-    "11": "Jack",
-    "12": "Queen",
-    "13": "King",
+    0: "Joker",
+    1: "Ace",
+    2: "Two",
+    3: "Three",
+    4: "Four",
+    5: "Five",
+    6: "Six",
+    7: "Seven",
+    8: "Eight",
+    9: "Nine",
+    10: "Ten",
+    11: "Jack",
+    12: "Queen",
+    13: "King",
   }
 
   static Suit = {
@@ -64,10 +64,7 @@ class Card {
     const value = values[Math.floor(randomFn() * values.length)]
 
     return new Card({
-      suit:
-        value === this.Value.Joker
-        ? this.Suit.None
-        : suit,
+      suit: value === this.Value.Joker ? this.Suit.None : suit,
       value,
     })
   }
@@ -87,6 +84,10 @@ class Card {
 
   get id() {
     return `${this.name} of ${this.suit}s`
+  }
+
+  set id(v) {
+    throw new Error("The `id` property of a `Card` instance is read-only!")
   }
 
   get name() {
