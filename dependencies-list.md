@@ -92,7 +92,7 @@
   - fake-jest
   - pause
   - watch
-# playing-cards (0.0.4)
+# playing-cards (0.0.5)
   - fake-jest
   - js-math-tools
   - watch
@@ -140,7 +140,7 @@
   - fs-extras
   - vue-component-with-css
   - watch
-# web-game-framework (0.0.3)
+# web-game-framework (0.0.4)
   - create-high-dpi-canvas
   - fake-jest
   - js-math-tools
