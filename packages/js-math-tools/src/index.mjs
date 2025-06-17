@@ -66,6 +66,7 @@ import { MathError } from "./math-error.mjs"
 import { max } from "./max.mjs"
 import { mean } from "./mean.mjs"
 import { median } from "./median.mjs"
+import { merge } from "./merge.mjs"
 import { min } from "./min.mjs"
 import { mod } from "./mod.mjs"
 import { mode } from "./mode.mjs"
@@ -178,6 +179,7 @@ export {
   max,
   mean,
   median,
+  merge,
   min,
   mod,
   mode,

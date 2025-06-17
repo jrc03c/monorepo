@@ -829,6 +829,27 @@ Returns the average value in `x`.
 
 Returns the median value in `x`.
 
+## `merge()`
+
+Returns a deep merge of all objects passed as arguments. Later objects overwrite properties from earlier objects.
+
+For example:
+
+```js
+const { merge } = require("@jrc03c/js-math-tools")
+
+const a = { foo: "bar", hello: "world" }
+const b = { foo: "baz", goodbye: "world" }
+const c = { hello: 123, something: "else" }
+console.log(merge(a, b, c))
+// { foo: 'baz', hello: 123, goodbye: 'world', something: 'else' }
+
+const p1 = { identity: { name: { first: "Alice" } } }
+const p2 = { identity: { name: { last: "Smith" } } }
+console.log(merge(p1, p2))
+// { identity: { name: { first: 'Alice', last: 'Smith' } } }
+```
+
 ## `min(x, shouldDropNaNs=false)`
 
 Returns the minimum value in `x`.
