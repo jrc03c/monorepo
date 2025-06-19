@@ -1,0 +1,1 @@
+Moved: [https://git.sr.ht/~jrc03c/monorepo/tree/main/item/packages/bulma-vue-components/readme.md](https://git.sr.ht/~jrc03c/monorepo/tree/main/item/packages/bulma-vue-components/readme.md)
